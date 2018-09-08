@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.base.facade.dao.DictSysMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.base.facade.model.DictSys" >
+    <id column="ID" property="id" />
+    <result column="DICT_TYPE" property="dictType" />
+    <result column="DICT_NAME" property="dictName" />
+    <result column="DICT_CODE" property="dictCode" />
+    <result column="DICT_VALUE" property="dictValue" />
+    <result column="DESCRIPTION" property="description" />
+    <result column="REMARK" property="remark" />
+    <result column="STATUS" property="status"  />
+    <result column="CREATED_BY" property="createdBy" />
+    <result column="CREATED_TIME" property="createdTime"  />
+    <result column="UPDATED_BY" property="updatedBy" />
+    <result column="UPDATED_TIME" property="updatedTime"  />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, DICT_TYPE, DICT_NAME, DICT_CODE, DICT_VALUE, DESCRIPTION, REMARK, STATUS, CREATED_BY, 
+    CREATED_TIME, UPDATED_BY, UPDATED_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from dict_sys
+    where ID = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dict_sys
+    where ID = #{id}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.DictSys" >
+    insert into dict_sys (ID, DICT_TYPE, DICT_NAME, 
+      DICT_CODE, DICT_VALUE, DESCRIPTION, 
+      REMARK, STATUS, CREATED_BY, 
+      CREATED_TIME, UPDATED_BY, UPDATED_TIME
+      )
+    values (#{id}, #{dictType}, #{dictName},
+      #{dictCode}, #{dictValue}, #{description},
+      #{remark}, #{status}, #{createdBy},
+      #{createdTime}, #{updatedBy}, #{updatedTime}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.base.facade.model.DictSys" >
+    insert into dict_sys
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="dictType != null" >
+        DICT_TYPE,
+      </if>
+      <if test="dictName != null" >
+        DICT_NAME,
+      </if>
+      <if test="dictCode != null" >
+        DICT_CODE,
+      </if>
+      <if test="dictValue != null" >
+        DICT_VALUE,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedTime != null" >
+        UPDATED_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="dictType != null" >
+        #{dictType},
+      </if>
+      <if test="dictName != null" >
+        #{dictName},
+      </if>
+      <if test="dictCode != null" >
+        #{dictCode},
+      </if>
+      <if test="dictValue != null" >
+        #{dictValue},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+      <if test="remark != null" >
+        #{remark},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.base.facade.model.DictSys" >
+    update dict_sys
+    <set >
+      <if test="dictType != null" >
+        DICT_TYPE = #{dictType},
+      </if>
+      <if test="dictName != null" >
+        DICT_NAME = #{dictName},
+      </if>
+      <if test="dictCode != null" >
+        DICT_CODE = #{dictCode},
+      </if>
+      <if test="dictValue != null" >
+        DICT_VALUE = #{dictValue},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME = #{createdTime},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy},
+      </if>
+      <if test="updatedTime != null" >
+        UPDATED_TIME = #{updatedTime},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.base.facade.model.DictSys" >
+    update dict_sys
+    set DICT_TYPE = #{dictType},
+      DICT_NAME = #{dictName},
+      DICT_CODE = #{dictCode},
+      DICT_VALUE = #{dictValue},
+      DESCRIPTION = #{description},
+      REMARK = #{remark},
+      STATUS = #{status},
+      CREATED_BY = #{createdBy},
+      CREATED_TIME = #{createdTime},
+      UPDATED_BY = #{updatedBy},
+      UPDATED_TIME = #{updatedTime}
+    where ID = #{id}
+  </update>
+
+  <select id="find" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.DictSys">
+
+    select
+    <include refid="Base_Column_List" />
+    from DICT_SYS
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+
+        <if test="codeAndValue != null and codeAndValue != ''" >
+            and DICT_CODE like CONCAT('%',#{codeAndValue},'%')
+            or DICT_VALUE like CONCAT('%',#{codeAndValue},'%')
+        </if>
+      <if test="dictType != null" >
+       and DICT_TYPE = #{dictType}
+      </if>
+      <if test="dictName != null" >
+       and DICT_NAME = #{dictName}
+      </if>
+
+
+      <if test="description != null" >
+        and DESCRIPTION = #{description}
+      </if>
+      <if test="remark != null" >
+        and REMARK = #{remark}
+      </if>
+      <if test="status != null" >
+        STATUS = #{status}
+      </if>
+      <if test="createdBy != null" >
+        and CREATED_BY = #{createdBy}
+      </if>
+      <if test="createdTime != null" >
+        and CREATED_TIME = #{createdTime}
+      </if>
+      <if test="updatedBy != null" >
+        and UPDATED_BY = #{updatedBy}
+      </if>
+      <if test="updatedTime != null" >
+        and UPDATED_TIME = #{updatedTime}
+      </if>
+   </trim>
+
+    ORDER BY id
+
+  </select>
+
+
+
+  <select id="findByType" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.DictSys">
+
+    select
+    <include refid="Base_Column_List" />
+    from DICT_SYS
+    where DICT_TYPE=#{dictType}
+    order by id
+  </select>
+
+  <select id="selectByTypeAndCode" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.DictSys">
+    select
+    <include refid="Base_Column_List" />
+    from DICT_SYS
+    where DICT_TYPE = #{dictType}
+    and DICT_CODE = #{dictCode}
+  </select>
+
+</mapper>

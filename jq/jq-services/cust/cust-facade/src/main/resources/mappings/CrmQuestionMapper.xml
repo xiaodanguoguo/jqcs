@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.CrmQuestionMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.CrmQuestion" >
+    <id column="QID" property="qid" jdbcType="NUMERIC" />
+    <result column="MESSAGE_NUMBER" property="messageNumber" jdbcType="VARCHAR" />
+    <result column="QUESTION_TITLE" property="questionTitle" jdbcType="VARCHAR" />
+    <result column="QUESTION_STATUS" property="questionStatus" jdbcType="VARCHAR" />
+    <result column="END_DT" property="endDt" jdbcType="TIMESTAMP" />
+    <result column="PUSH_REGION" property="pushRegion" jdbcType="VARCHAR" />
+    <result column="CREATE_DT" property="createDt" jdbcType="TIMESTAMP" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_DT" property="updateDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    QID, MESSAGE_NUMBER, QUESTION_TITLE, QUESTION_STATUS, END_DT, PUSH_REGION, CREATE_DT, 
+    CREATE_BY, UPDATE_DT, UPDATE_BY
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_QUESTION
+    where QID = #{qid,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_QUESTION
+    where QID = #{qid,jdbcType=NUMERIC}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestion" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="qid">
+      SELECT SEQ_CRM_QUESTION.nextval FROM dual
+    </selectKey>
+    insert into CRM_QUESTION (QID, MESSAGE_NUMBER, QUESTION_TITLE, 
+      QUESTION_STATUS, END_DT, PUSH_REGION, 
+      CREATE_DT, CREATE_BY, UPDATE_DT, 
+      UPDATE_BY)
+    values (#{qid,jdbcType=NUMERIC}, #{messageNumber,jdbcType=VARCHAR}, #{questionTitle,jdbcType=VARCHAR}, 
+      #{questionStatus,jdbcType=VARCHAR}, #{endDt,jdbcType=TIMESTAMP}, #{pushRegion,jdbcType=VARCHAR}, 
+      #{createDt,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{updateDt,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestion" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="qid">
+      SELECT SEQ_CRM_QUESTION.nextval FROM dual
+    </selectKey>
+    insert into CRM_QUESTION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="qid != null" >
+        QID,
+      </if>
+      <if test="messageNumber != null" >
+        MESSAGE_NUMBER,
+      </if>
+      <if test="questionTitle != null" >
+        QUESTION_TITLE,
+      </if>
+      <if test="questionStatus != null" >
+        QUESTION_STATUS,
+      </if>
+      <if test="endDt != null" >
+        END_DT,
+      </if>
+      <if test="pushRegion != null" >
+        PUSH_REGION,
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT,
+      </if>
+      <if test="createBy != null" >
+        CREATE_BY,
+      </if>
+      <if test="updateDt != null" >
+        UPDATE_DT,
+      </if>
+      <if test="updateBy != null" >
+        UPDATE_BY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="qid != null" >
+        #{qid,jdbcType=NUMERIC},
+      </if>
+      <if test="messageNumber != null" >
+        #{messageNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="questionTitle != null" >
+        #{questionTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="questionStatus != null" >
+        #{questionStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="endDt != null" >
+        #{endDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pushRegion != null" >
+        #{pushRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDt != null" >
+        #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestion" >
+    update CRM_QUESTION
+    <set >
+      <if test="messageNumber != null" >
+        MESSAGE_NUMBER = #{messageNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="questionTitle != null" >
+        QUESTION_TITLE = #{questionTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="questionStatus != null" >
+        QUESTION_STATUS = #{questionStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="endDt != null" >
+        END_DT = #{endDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pushRegion != null" >
+        PUSH_REGION = #{pushRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDt != null" >
+        UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where QID = #{qid,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestion" >
+    update CRM_QUESTION
+    set MESSAGE_NUMBER = #{messageNumber,jdbcType=VARCHAR},
+      QUESTION_TITLE = #{questionTitle,jdbcType=VARCHAR},
+      QUESTION_STATUS = #{questionStatus,jdbcType=VARCHAR},
+      END_DT = #{endDt,jdbcType=TIMESTAMP},
+      PUSH_REGION = #{pushRegion,jdbcType=VARCHAR},
+      CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR}
+    where QID = #{qid,jdbcType=NUMERIC}
+  </update>
+
+  <select id="getList"  resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestion" >
+    select
+    <include refid="Base_Column_List" />
+    from CRM_QUESTION
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="questionTitle != null and questionTitle != '' " >
+        AND QUESTION_TITLE  LIKE '%' || #{questionTitle} ||'%'
+      </if>
+      <if test="pushRegion != null and pushRegion != '' " >
+        AND PUSH_REGION  LIKE '%' || #{pushRegion} ||'%'
+      </if>
+      <if test="questionStatus != null and questionStatus != '' " >
+        AND QUESTION_STATUS = #{questionStatus}
+      </if>
+      <if test="createDt != null" >
+        AND TO_CHAR (CREATE_DT, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{createDtStr}
+      </if>
+      <if test="endDt != null " >
+        AND TO_CHAR (CREATE_DT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+      </if>
+    </trim>
+    order by qid desc
+  </select>
+  <select id="selectOne"  resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestion" >
+    select
+    <include refid="Base_Column_List" />
+    from CRM_QUESTION
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="questionTitle != null and questionTitle != '' " >
+        AND QUESTION_TITLE  = #{questionTitle}
+      </if>
+    </trim>
+  </select>
+  <select id="getQuestionList"  resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestion" >
+    select
+    <include refid="Base_Column_List" />
+    from CRM_QUESTION
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="questionTitle != null and questionTitle != '' " >
+        AND QUESTION_TITLE  LIKE '%' || #{questionTitle} ||'%'
+      </if>
+      <if test="pushRegion != null and pushRegion != '' " >
+        AND PUSH_REGION  LIKE '%' || #{pushRegion} ||'%'
+      </if>
+      <if test="questionStatus != null and questionStatus != '' " >
+        AND QUESTION_STATUS = #{questionStatus}
+      </if>
+      <if test="createDtStr != null" >
+        AND TO_CHAR (CREATE_DT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{createDtStr}
+      </if>
+      <if test="endDtStr != null " >
+        AND TO_CHAR (END_DT, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{endDtStr}
+      </if>
+    </trim>
+    order by qid desc
+  </select>
+</mapper>

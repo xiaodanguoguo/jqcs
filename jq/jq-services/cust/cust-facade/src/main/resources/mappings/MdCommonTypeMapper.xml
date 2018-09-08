@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.MdCommonTypeMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.MdCommonType" >
+    <id column="SID" property="sid" jdbcType="DECIMAL" />
+    <result column="PARENT_SID" property="parentSid" jdbcType="DECIMAL" />
+    <result column="TYPE_ID" property="typeId" jdbcType="VARCHAR" />
+    <result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR" />
+    <result column="TYPE_DESC" property="typeDesc" jdbcType="VARCHAR" />
+    <result column="TYPE_LEVEL" property="typeLevel" jdbcType="DECIMAL" />
+    <result column="EXT_COL_1" property="extCol1" jdbcType="VARCHAR" />
+    <result column="EXT_COL_1_DESC" property="extCol1Desc" jdbcType="VARCHAR" />
+    <result column="EXT_COL_2" property="extCol2" jdbcType="VARCHAR" />
+    <result column="EXT_COL_2_DESC" property="extCol2Desc" jdbcType="VARCHAR" />
+    <result column="EXT_COL_3" property="extCol3" jdbcType="VARCHAR" />
+    <result column="EXT_COL_3_DESC" property="extCol3Desc" jdbcType="VARCHAR" />
+    <result column="NODE_TYPE" property="nodeType" jdbcType="DECIMAL" />
+    <result column="SEQUENCE" property="sequence" jdbcType="DECIMAL" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SID, PARENT_SID,TYPE_ID, TYPE_NAME, TYPE_DESC, TYPE_LEVEL,
+    EXT_COL_1,EXT_COL_1_DESC,EXT_COL_2,EXT_COL_2_DESC,EXT_COL_3,EXT_COL_3_DESC,NODE_TYPE,SEQUENCE,
+    CREATED_BY, CREATED_DT, UPDATED_BY, UPDATED_DT, 
+    VERSION
+  </sql>
+  <select id="find" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from SGAI_MD_COMMON_TYPE
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+        <if test="parentSid != null">  
+            PARENT_SID = #{parentSid,jdbcType=DECIMAL}   
+        </if>
+        <if test="typeId != null" >
+            AND TYPE_ID = #{typeId,jdbcType=VARCHAR}  
+      	</if>
+      	<if test="typeName != null" >
+        	AND TYPE_NAME = #{typeName,jdbcType=VARCHAR}  
+      	</if>
+      	<if test="typeDesc != null" >
+        	AND TYPE_DESC = #{typeDesc,jdbcType=VARCHAR}  
+      	</if>
+      	<if test="typeLevel != null" >
+        	AND TYPE_LEVEL = #{typeLevel,jdbcType=DECIMAL}
+      	</if>
+      	<if test="nodeType != null" >
+        	AND NODE_TYPE = #{nodeType,jdbcType=DECIMAL}
+      	</if>
+      	<if test="sequence != null" >
+        	AND SEQUENCE = #{sequence,jdbcType=DECIMAL}
+      	</if>
+     </trim>
+  </select>
+  
+  <select id="findByConnect" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from SGAI_MD_COMMON_TYPE
+    start with parent_sid = #{parentSid,jdbcType=DECIMAL}
+	connect by sid =  parent_sid
+    <if test="order != null" >
+       ORDER BY ${order}
+    </if>
+    <if test="order == null" >
+       ORDER BY PARENT_SID DESC,SEQUENCE asc
+    </if>
+  </select>
+  
+  <select id="findItemsByTypeId" resultMap="BaseResultMap" parameterType="java.util.Map" >
+  	select 
+    <include refid="Base_Column_List" />
+    from SGAI_MD_COMMON_TYPE t
+    where exists (select 1 from SGAI_MD_COMMON_TYPE p 
+    where p.type_id= #{typeId,jdbcType=VARCHAR}
+    and p.sid = t.parent_sid )
+    <if test="order != null" >
+       ORDER BY ${order}
+    </if>
+    <if test="order == null" >
+       ORDER BY PARENT_SID DESC,SEQUENCE asc
+    </if>
+  </select>
+  
+  <select id="findTypeIdByTypeName" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+ 	from SGAI_MD_COMMON_TYPE
+ 	where parent_sid =
+       (select sid from SGAI_MD_COMMON_TYPE where type_id= #{typeId,jdbcType=VARCHAR})
+   	    and type_name =#{typeName,jdbcType=VARCHAR}
+  </select>
+  
+  
+  <delete id="delete" parameterType="java.lang.Long" >
+    delete from SGAI_MD_COMMON_TYPE
+    where SID = #{sid,jdbcType=DECIMAL}
+  </delete>
+  
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.MdCommonType" >
+    <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
+      SELECT SEQ_MD_COMMON_TYPE.NEXTVAL FROM DUAL
+    </selectKey>
+    insert into SGAI_MD_COMMON_TYPE (SID, PARENT_SID,TYPE_ID, TYPE_NAME, 
+      TYPE_DESC, TYPE_LEVEL,EXT_COL_1,EXT_COL_1_DESC,
+      EXT_COL_2,EXT_COL_2_DESC,EXT_COL_3,EXT_COL_3_DESC,NODE_TYPE,SEQUENCE,
+      CREATED_BY, CREATED_DT, VERSION
+      )
+    values (#{sid,jdbcType=DECIMAL}, #{parentSid,jdbcType=DECIMAL},#{typeId,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, 
+      #{typeDesc,jdbcType=VARCHAR},#{typeLevel,jdbcType=DECIMAL},
+      #{extCol1,jdbcType=VARCHAR},#{extCol1Desc,jdbcType=VARCHAR}, 
+      #{extCol2,jdbcType=VARCHAR},#{extCol2Desc,jdbcType=VARCHAR}, 
+      #{extCol3,jdbcType=VARCHAR},#{extCol3Desc,jdbcType=VARCHAR},
+      #{nodeType,jdbcType=DECIMAL},#{sequence,jdbcType=DECIMAL},
+      #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP},
+      #{version,jdbcType=DECIMAL}
+      )
+  </insert>
+  
+  <update id="update" parameterType="jq.steel.cs.services.cust.facade.model.MdCommonType" >
+    update SGAI_MD_COMMON_TYPE
+    <set >
+      <if test="typeId != null" >
+        TYPE_ID = #{typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentSid != null" >
+        PARENT_SID = #{parentSid,jdbcType=DECIMAL},
+      </if>
+      <if test="typeName != null" >
+        TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeDesc != null" >
+        TYPE_DESC = #{typeDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="typeLevel != null" >
+        TYPE_LEVEL = #{typeLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="extCol1 != null" >
+        EXT_COL_1 = #{extCol1,jdbcType=VARCHAR},
+      </if>
+      <if test="extCol1Desc != null" >
+        EXT_COL_1_DESC = #{extCol1Desc,jdbcType=VARCHAR},
+      </if>
+      <if test="extCol2 != null" >
+        EXT_COL_2 = #{extCol2,jdbcType=VARCHAR},
+      </if>
+      <if test="extCol2Desc != null" >
+        EXT_COL_2_DESC = #{extCol2Desc,jdbcType=VARCHAR},
+      </if>
+      <if test="extCol3 != null" >
+        EXT_COL_3 = #{extCol3,jdbcType=VARCHAR},
+      </if>
+      <if test="extCol3Desc != null" >
+        EXT_COL_3_DESC = #{extCol3Desc,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeType != null" >
+        NODE_TYPE = #{nodeType,jdbcType=DECIMAL},
+      </if>
+      <if test="sequence != null" >
+        SEQUENCE = #{sequence,jdbcType=DECIMAL},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL}+1,
+      </if>
+    </set>
+    where SID = #{sid,jdbcType=DECIMAL} AND VERSION = #{version,jdbcType=DECIMAL}
+  </update>
+</mapper>

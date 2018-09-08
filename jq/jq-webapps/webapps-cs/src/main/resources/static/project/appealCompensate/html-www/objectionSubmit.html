@@ -1,0 +1,213 @@
+@@include('../../commonNav/html/commonHeaderBlue.html')
+<link rel="stylesheet" href="../css/objection_submission.css">
+<script src="../js/objectionSubmit.js"></script>
+<style>
+    .chosen-single{
+        min-width: 170px;
+    }
+</style>
+    <div class="submission">
+        <!--<div class="submission-title">
+            <div class="btnLowNew submission-Home-page">首页</div>
+            <div class="btnLowNew submission-questionnaire">异议提报
+                <b class="submission-title-close">X</b>
+            </div>
+        </div>-->
+        <div class="submission-box">
+            <div class="submission-box-list">
+                <ul class="management-box-list__Content clearfix" id="searchBox">
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">客户名称:</span>
+                        <input id="condcustomerId" type="text" class="inputBase">
+                    </li>
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">产品牌号:</span>
+                        <input id="conddesignation" type="text" class="inputBase">
+                    </li>
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">产品大类:</span>
+                        <select id="condproductCategoryCode" name="" class="inputBase submission-box-list__Select" comType="" selCode="cid" selValue="categoryName" emptyValue="请选择">
+                        </select>
+                    </li>
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">异议编号:</span>
+                        <input id="condclaimNo" type="text" class="inputBase">
+                    </li>
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">批/板/卷号:</span>
+                        <input id="condbattenPlateNo" type="text" class="inputBase">
+                    </li>
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">异议状态:</span>
+                        <select id="condclaimState" name="" class="inputBase submission-box-list__Select">
+                            <option value="">请选择</option>
+                            <option value="NEW">新建</option>
+                            <option value="PRESENT">已提报</option>
+                            <option value="ACCEPTANCE">已受理</option>
+                            <option value="REJECT">已驳回</option>
+                            <option value="INVESTIGATION">调查中</option>
+                            <option value="HANDLE">处理中</option>
+                            <option value="END">已结案</option>
+                            <option value="EVALUATE">已评价</option>
+                        </select>
+                    </li>
+                    <li class="submission-box-list__Every" style="display: none">
+                        <span class="submission-box-list__Name">异议类别:</span>
+                        <select id="condclaimType" name="" class="inputBase submission-box-list__Select">
+                            <option value="">请选择</option>
+                            <option value="0">表面外观</option>
+                            <option value="1">理化性能</option>
+                            <option value="2">加工使用</option>
+                            <option value="3">尺寸公差</option>
+                            <option value="4">实物不符</option>
+                            <option value="5">计量</option>
+                            <option value="6">其他</option>
+                        </select>
+                    </li>
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">提报日期:</span>
+                        <input class="inputBase" type="text" name="condstartDt" id="condstartDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'condendDt\')}'})" />
+                    </li>
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">至:</span>
+                        <input class="inputBase" type="text" name="condendDt" id="condendDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'condstartDt\')}'})" />
+                    </li>
+                </ul>
+            </div>
+            <div class="submission-box-button">
+                <div class="btnLowNew submission-box-search" comType="searchBtnCtrl" cond="condclaimNo,condcustomerId,conddesignation,condstartDt,condendDt,condclaimType,condclaimState,condproductCategoryCode,condbattenPlateNo" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
+                <div class="btnLowNew submission-box-create" id="newOpe">新建</div>
+                <!--<div class="btnLowNew submission-box-amend">修改</div>
+                <div class="btnLowNew submission-box-submit">提交</div>-->
+                <div class="btnLowNew submission-box-del" id="deleteOpe">删除</div>
+                <div class="btnLowNew submission-box-del" id="submitOpe">提报</div>
+                <div class="btnLowNew submission-box-export" id="exportOpe">导出</div>
+                <!--<div class="btnLowNew submission-box-detail">详情</div>
+                <div class="btnLowNew submission-box-apply">销售审核</div>
+                <div class="btnLowNew submission-box-appraise">异议处理评价</div>-->
+            </div>
+            <table class="table-list" id="tableList" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData" chkId="chkCoding" isCacheCond="claimNo" clsChk="clsChk" clsallchk="clsAllChk">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" width="12%">操作</th>
+                    <th class="table-list-currentrow-theader" width="4%">
+                        <input type="checkbox" id="checkAll" comtype="checkAll" cond="" class="clsAllChk" uniontableid="tableList" chkid="chkCoding">
+                    </th>
+                    <th class="table-list-currentrow-theader" width="3%">序号</th>
+                    <th class="table-list-currentrow-theader" width="5%">异议编号</th>
+                    <th class="table-list-currentrow-theader" width="5%">异议状态</th>
+                    <th class="table-list-currentrow-theader" width="6%">生产厂家</th>
+                    <th class="table-list-currentrow-theader" width="6%">产品大类</th>
+                    <th class="table-list-currentrow-theader" width="4%">牌号</th>
+                    <th class="table-list-currentrow-theader" width="5%">规格</th><!--
+                    <th class="table-list-currentrow-theader" width="5%">异议类别</th>-->
+                    <th class="table-list-currentrow-theader" width="6%">异议量(吨)</th>
+                    <th class="table-list-currentrow-theader" width="5%">提报日期</th>
+                    <th class="table-list-currentrow-theader" width="5%">报告附件</th>
+                    <th class="table-list-currentrow-theader" width="7%">协议书查看</th>
+                    <th class="table-list-currentrow-theader" width="6%">驳回原因</th>
+                    <th class="table-list-currentrow-theader" width="8%">强制结案原因</th>
+                </tr>
+                <tr class="table-list-currentrow" id="templateRow" style="display: none;">
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="btnLowImgCom" id="editOpe">修改</span>
+                        <span class="btnLowImgCom" id="detailOpe">详情</span>
+                        <span class="btnLowImgCom" id="auditOpe" style="display: none;">销售审核</span>
+                        <span class="btnLowImgCom" id="evaluateOpe" style="display: none;">异议处理评价</span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <input type="checkbox" id="chkCoding" class="clsChk">
+                    </td>
+                    <td class="table-list-currentrow-tdetail" id="indexNum"></td>
+                    <td class="table-list-currentrow-tdetail" id="claimNo"></td>
+                    <td class="table-list-currentrow-tdetail" id="claimStateA"></td>
+                    <td class="table-list-currentrow-tdetail" id="manufactor"></td>
+                    <td class="table-list-currentrow-tdetail" id="productCategory"></td>
+                    <td class="table-list-currentrow-tdetail" id="zph"></td>
+                    <td class="table-list-currentrow-tdetail" id="specs"></td>
+                    <!--<td class="table-list-currentrow-tdetail" id="claimTypeA"></td>-->
+                    <td class="table-list-currentrow-tdetail" id="objectionNum"></td>
+                    <td class="table-list-currentrow-tdetail" id="presentationDate"></td>
+                    <td class="table-list-currentrow-tdetail">
+                        <a href="javascript:;" class="submission-box-watch" id="viewOpe">查看</a>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <img src="../images/pic.png" class="submission-box-img" alt="" id="downloadOpe">
+                    </td>
+                    <td class="table-list-currentrow-tdetail" id="rejectReason"></td>
+                    <td class="table-list-currentrow-tdetail">2</td>
+                </tr>
+            </table>
+            <div id="nonData" class="noDataCon" style="display: none">
+                <i></i>
+                <p>暂无数据......</p>
+            </div>
+            <div class="tcdPageCode"></div>
+        </div>
+    </div>
+    <div id="inputAnswer" class="popup gc_box" style="display:none">
+        <div class="title" style="">
+            <h2>异议处理评价</h2>
+            <div>
+                <a class="min" href=" " title="最小化" style="display:none;"></a>
+                <a class="max" href="javascript:;" title="最大化" style="display:none;"></a>
+                <a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+                <a class="close" href="javascript:;" title="关闭" style="display:block;"></a>
+            </div>
+        </div>
+        <div class="content">
+            <ul class="content-list">
+                <li class="content-list-main">
+                    <span class="content-name">1、您对异议处理人员态度是否满意？</span>
+                    <span class="content-images starClick">
+                        <div class="content-images-img"></div>
+                        <div class="content-images-img"></div>
+                        <div class="content-images-img"></div>
+                        <div class="content-images-img"></div>
+                        <div class="content-images-img"></div>
+                    </span>
+                </li>
+                <li class="content-list-main">
+                    <span class="content-name">2、您对异议处理时长是否满意？</span>
+                    <span class="content-images starClick">
+                        <div class="content-images-img"></div>
+                        <div class="content-images-img"></div>
+                        <div class="content-images-img"></div>
+                        <div class="content-images-img"></div>
+                        <div class="content-images-img"></div>
+                    </span>
+                </li>
+                <li class="content-list-main">
+                    <span class="content-name">3、您对异议处理方式是否满意？</span>
+                    <span class="content-images starClick">
+                        <div class="content-images-img"></div>
+                        <div class="content-images-img"></div>
+                        <div class="content-images-img"></div>
+                        <div class="content-images-img"></div>
+                        <div class="content-images-img"></div>
+                    </span>
+                </li>
+            </ul>
+            <div class="btnBaseCommon content-list-confirm" id="starSure">确定</div>
+        </div>
+    </div>
+    <div id="previewOpeBox" class="popup gc_box" style="display:none">
+        <div class="title" style="">
+            <h2>查看附件</h2>
+            <div>
+                <a class="min" href=" " title="最小化" style="display:none;"></a>
+                <a class="max" href="javascript:;" title="最大化" style="display:none;">1</a>
+                <a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+                <a class="close" href="javascript:;" title="关闭" style="display:block;"></a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="previewOpeBox">
+                <div class="previewOpeBox-pdf" id="previewOpeBoxPdf"></div>
+                <div class="previewOpeBox-operate" style="margin-top: 20px;">
+                    <button id="previewNext" class="btnLowNew previewOpeBox-operate-next fr">下一页</button>
+                    <button id="previewPrev" class="btnLowNew previewOpeBox-operate-prev fl">上一页</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@@include('../../commonNav/html/commonFoot.html')

@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.base.facade.dao.RoleGroupMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.base.facade.model.RoleGroup" >
+    <id column="ROLE_GROUP_ID" property="roleGroupId" />
+    <result column="ROLE_GROUP_CODE" property="roleGroupCode" />
+    <result column="ROLE_GROUP_TITLE" property="roleGroupTitle" />
+    <result column="ROLE_GROUP_DESC" property="roleGroupDesc" />
+    <result column="IS_DELETE" property="isDelete"  />
+    <result column="STATUS" property="status"  />
+    <result column="CREATED_BY" property="createdBy" />
+    <result column="CREATED_TIME" property="createdTime"  />
+    <result column="UPDATED_BY" property="updatedBy" />
+    <result column="UPDATED_TIME" property="updatedTime"  />
+
+    <result column="ORG_ID" property="orgId" />
+
+    <result column="TITLE_FULL_PATH" property="titleFullPath" />
+    <result column="ID_FULL_PATH" property="idFullPath" jdbcType="VARCHAR" />
+    <result column="PARENT_APPLICATION_ID" property="parentApplicationId" />
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLE_GROUP_ID, ROLE_GROUP_TITLE, ROLE_GROUP_DESC, IS_DELETE, STATUS,
+    CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME ,ROLE_GROUP_CODE,ORG_ID,
+    PARENT_APPLICATION_ID,TITLE_FULL_PATH,ID_FULL_PATH
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from role_group
+    where ROLE_GROUP_ID = #{roleGroupId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from role_group
+    where ROLE_GROUP_ID = #{roleGroupId}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.RoleGroup" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="roleGroupId">
+      SELECT SEQ_ROLE_GROUP.nextval AS roleGroupId FROM dual
+    </selectKey>
+    insert into role_group (ROLE_GROUP_ID, ROLE_GROUP_TITLE,
+      ROLE_GROUP_DESC, IS_DELETE, STATUS, 
+      CREATED_BY, CREATED_TIME, UPDATED_BY, 
+      UPDATED_TIME)
+    values (#{roleGroupId}, #{roleGroupTitle},
+      #{roleGroupDesc}, #{isDelete}, #{status},
+      #{createdBy}, #{createdTime}, #{updatedBy},
+      #{updatedTime})
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.base.facade.model.RoleGroup" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="roleGroupId">
+      SELECT SEQ_ROLE_GROUP.nextval AS roleGroupId FROM dual
+    </selectKey>
+    insert into role_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleGroupId != null and roleGroupId != '' " >
+        ROLE_GROUP_ID,
+      </if>
+      <if test="roleGroupCode != null and roleGroupCode != '' " >
+        ROLE_GROUP_CODE,
+      </if>
+      <if test="roleGroupTitle != null and roleGroupTitle != '' " >
+        ROLE_GROUP_TITLE,
+      </if>
+      <if test="roleGroupDesc != null and roleGroupDesc != '' " >
+        ROLE_GROUP_DESC,
+      </if>
+      <if test="isDelete != null and isDelete != '' " >
+        IS_DELETE,
+      </if>
+      <if test="status != null and status != '' " >
+        STATUS,
+      </if>
+      <if test="createdBy != null and createdBy != '' " >
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null  " >
+        CREATED_TIME,
+      </if>
+      <if test="updatedBy != null and updatedBy != '' " >
+        UPDATED_BY,
+      </if>
+      <if test="updatedTime != null   " >
+        UPDATED_TIME,
+      </if>
+      <if test="orgId != null and orgId!='' " >
+        ORG_ID ,
+      </if>
+
+      <if test="idFullPath != null and idFullPath != '' " >
+        ID_FULL_PATH,
+      </if>
+      <if test="titleFullPath != null and titleFullPath !='' " >
+        TITLE_FULL_PATH,
+      </if>
+      <if test="parentApplicationId != null and parentApplicationId != '' " >
+        PARENT_APPLICATION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleGroupId != null and roleGroupId != '' " >
+        #{roleGroupId},
+      </if>
+      <if test="roleGroupCode != null and roleGroupCode != '' " >
+        #{roleGroupCode},
+      </if>
+      <if test="roleGroupTitle != null and roleGroupTitle != '' " >
+        #{roleGroupTitle},
+      </if>
+      <if test="roleGroupDesc != null and roleGroupDesc != '' " >
+        #{roleGroupDesc},
+      </if>
+      <if test="isDelete != null and isDelete != '' " >
+        #{isDelete},
+      </if>
+      <if test="status != null and status != '' " >
+        #{status},
+      </if>
+      <if test="createdBy != null and createdBy != '' " >
+        #{createdBy},
+      </if>
+      <if test="createdTime != null  " >
+        #{createdTime},
+      </if>
+      <if test="updatedBy != null and updatedBy != '' " >
+        #{updatedBy},
+      </if>
+      <if test="updatedTime != null   " >
+        #{updatedTime},
+      </if>
+      <if test="orgId != null and orgId != '' " >
+        #{orgId},
+      </if>
+
+      <if test="idFullPath != null and idFullPath != '' " >
+        #{idFullPath},
+      </if>
+      <if test="titleFullPath != null and titleFullPath !='' " >
+        #{titleFullPath},
+      </if>
+      <if test="parentApplicationId != null and parentApplicationId != '' " >
+        #{parentApplicationId},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.base.facade.model.RoleGroup" >
+    update role_group
+    <set >
+      <if test="roleGroupCode != null and roleGroupCode != '' " >
+        ROLE_GROUP_CODE = #{roleGroupCode},
+      </if>
+      <if test="roleGroupTitle != null and roleGroupTitle != '' " >
+        ROLE_GROUP_TITLE = #{roleGroupTitle},
+      </if>
+      <if test="roleGroupDesc != null and roleGroupDesc != '' " >
+        ROLE_GROUP_DESC = #{roleGroupDesc},
+      </if>
+      <if test="isDelete != null and isDelete != '' " >
+        IS_DELETE = #{isDelete},
+      </if>
+      <if test="status != null and status != '' " >
+        STATUS = #{status},
+      </if>
+      <if test="createdBy != null and createdBy != '' " >
+        CREATED_BY = #{createdBy},
+      </if>
+      <if test="createdTime != null   " >
+        CREATED_TIME = #{createdTime},
+      </if>
+      <if test="updatedBy != null and updatedBy != '' " >
+        UPDATED_BY = #{updatedBy},
+      </if>
+      <if test="updatedTime != null  " >
+        UPDATED_TIME = #{updatedTime},
+      </if>
+
+      <if test="orgId != null and orgId != '' " >
+        ORG_ID = #{orgId},
+      </if>
+
+      <if test="idFullPath != null and idFullPath != '' " >
+        ID_FULL_PATH = #{idFullPath},
+      </if>
+      <if test="titleFullPath != null and titleFullPath !='' " >
+        TITLE_FULL_PATH = #{titleFullPath},
+      </if>
+      <if test="parentApplicationId != null and parentApplicationId != '' " >
+        PARENT_APPLICATION_ID = #{parentApplicationId},
+      </if>
+    </set>
+    where ROLE_GROUP_ID = #{roleGroupId}
+  </update>
+
+
+
+  <update id="updateIsStatus" parameterType="jq.steel.cs.services.base.facade.model.RoleGroup" >
+    update role_group
+    <set >
+      <if test="isDelete != null and isDelete != '' " >
+        IS_DELETE = #{isDelete},
+      </if>
+      <if test="status != null and status != '' " >
+        STATUS = #{status},
+      </if>
+    </set>
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="orgIdAlls != null">
+    AND role_group_id in
+    <foreach collection="orgIdAlls" close=")" open="(" item="all" separator=",">
+      #{all}
+    </foreach>
+    </if>
+    </trim>
+  </update>
+
+
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.base.facade.model.RoleGroup" >
+    update role_group
+    set ROLE_GROUP_TITLE = #{roleGroupTitle},
+      ROLE_GROUP_STATE = #{roleGroupState},
+      ROLE_GROUP_DESC = #{roleGroupDesc},
+      IS_DELETE = #{isDelete},
+      STATUS = #{status},
+      CREATED_BY = #{createdBy},
+      CREATED_TIME = #{createdTime},
+      UPDATED_BY = #{updatedBy},
+      UPDATED_TIME = #{updatedTime}
+    where ROLE_GROUP_ID = #{roleGroupId}
+  </update>
+
+  <select id="find" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.RoleGroup">
+    select rg.*,o.ORG_NAME as orgTitle from (
+    select r.* from role_group r
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+    <if test="isDelete != null and isDelete != '' " >
+      AND r.IS_DELETE = #{isDelete}
+    </if>
+    <if test="orgIdAlls != null">
+      AND r.ORG_ID in
+      <foreach collection="orgIdAlls" close=")" open="(" item="all" separator=",">
+        #{all}
+      </foreach>
+    </if>
+    </trim>
+    ) as rg
+    left join org_info o on o.id=rg.org_id
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="roleGroupCode != null and roleGroupCode != '' " >
+        OR rg.ROLE_GROUP_CODE  LIKE '%' || #{roleGroupCode} ||'%'
+      </if>
+      <if test="roleGroupTitle != null and roleGroupTitle != '' " >
+        OR rg.ROLE_GROUP_TITLE  LIKE '%' || #{roleGroupTitle} ||'%'
+      </if>
+    </trim>
+
+  </select>
+
+
+  <select id="findARoleGroupTree" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.RoleGroup">
+    select *
+    from role_group
+    where 1=1
+    <if test="parentApplicationId != null and parentApplicationId != '' ">
+      AND  PARENT_APPLICATION_ID = #{parentApplicationId}
+    </if>
+
+  </select>
+
+  <select id="verificationDeleteRoleGroup" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.RoleGroup">
+
+    select r.role_id from role_info r
+    LEFT JOIN acct_role_group_role argr on argr.role_id=r.role_id
+    LEFT JOIN role_group rg on rg.role_group_id=argr.role_group_id
+    where 1=1 and r.IS_DELETE=0 and r.IS_DELETE=0 and argr.role_group_id is not null
+    <if test="roleGroupId != null and roleGroupId != '' " >
+      and rg.ROLE_GROUP_ID= #{roleGroupId}
+    </if>
+  </select>
+
+
+  <!--根据分类ID查看是否分类下的角色是否被用户使用-->
+  <select id="findAcctId" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.RoleGroup">
+
+    select ai.ACCT_ID from acct_info ai
+    LEFT JOIN acct_role_real arr on ai.acct_id= arr.acct_id
+    LEFT JOIN role_info ri on ri.role_id=arr.role_id
+    where ri.role_id in (select r.role_id from role_info r
+    LEFT JOIN acct_role_group_role argr on argr.role_id=r.role_id
+    LEFT JOIN role_group rg on rg.role_group_id=argr.role_group_id
+    where 1=1 and r.IS_DELETE=0 and r.status=1
+    <if test="orgIdAlls != null">
+    AND rg.role_group_id in
+    <foreach collection="orgIdAlls" close=")" open="(" item="all" separator=",">
+      #{all}
+    </foreach>
+    </if>
+    )
+   and ai.IS_DELETE=0 and ai.status=1
+  </select>
+
+
+  <select id="findRoleInfoId" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.RoleGroup">
+
+    select r.role_id from role_info r
+    LEFT JOIN acct_role_group_role argr on argr.role_id=r.role_id
+    LEFT JOIN role_group rg on rg.role_group_id=argr.role_group_id
+    where 1=1 and r.STATUS=1  and r.IS_DELETE=0
+    <if test="orgIdAlls != null">
+    AND rg.role_group_id in
+    <foreach collection="orgIdAlls" close=")" open="(" item="all" separator=",">
+      #{all}
+    </foreach>
+  </if>
+
+  </select>
+
+
+  <select id="findAll" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.RoleGroup">
+    select
+    <include refid="Base_Column_List" />
+    from role_group
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+
+      <if test="isDelete != null and isDelete != '' " >
+        AND IS_DELETE = #{isDelete}
+      </if>
+      <if test="status != null and status != '' " >
+        AND STATUS = #{status}
+      </if>
+
+      <if test="orgIdAlls != null">
+        AND ORG_ID in
+        <foreach collection="orgIdAlls" close=")" open="(" item="all" separator=",">
+          #{all}
+        </foreach>
+      </if>
+    </trim>
+
+  </select>
+
+
+  <select id="findRoleGroupTitle" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.RoleGroup">
+    select
+    <include refid="Base_Column_List" />
+    from role_group
+    where 1=1 and IS_DELETE = 0
+      <if test="roleGroupTitle != null and roleGroupTitle != '' " >
+        AND ROLE_GROUP_TITLE = #{roleGroupTitle}
+      </if>
+
+      <if test="orgIdAlls != null">
+        AND ORG_ID in
+        <foreach collection="orgIdAlls" close=")" open="(" item="all" separator=",">
+          #{all}
+        </foreach>
+      </if>
+
+  </select>
+
+
+
+</mapper>

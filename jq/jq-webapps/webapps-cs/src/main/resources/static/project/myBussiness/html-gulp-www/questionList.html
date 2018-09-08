@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="../../../base/css/baseBlue.css">
+	<link rel="stylesheet" href="../../../base/iconfont/iconfont.css">
+	<link rel="stylesheet" href="../../commonNav/css/commonHeaderBlue.css">
+	<script src="../../../base/js/jquery.js"></script>
+	<script src="../../../base/js/public.js"></script>
+	<script src="../../../base/js/docassistant.js" ></script>
+	<script src="../../../base/js/validate.js"></script>
+	<script src="../../../base/js/jquery.media.js"></script>
+	<script src="../../../base/js/jquery.cookie.js"></script>
+	<script src='../../../titleName.js'></script>
+	<script src="../../../reqConfig.js"></script>
+	<!--！！！！！！
+		组件js
+	！！！！！！！-->
+	<script type="text/javascript" src="../../../base/js/ajaxupload.js"></script>
+	<!--时间插件-->
+	<link rel="stylesheet" href="../../../plugin/WdatePickerBlue/My97DatePicker/skin/messageWdatePicker.css">
+	<script src="../../../plugin/WdatePickerBlue/My97DatePicker/WdatePicker.js"></script>
+	<!--弹框插件-->
+	<link rel="stylesheet" href="../../../plugin/popup/css/manhuaDialog.1.0_blue.css">
+	<script src="../../../plugin/popup/script/manhuaDialog.1.0.js"></script>
+	<!--提示校验-->
+	<link rel="stylesheet" href="../../../plugin/tip/css/tip-twitter/tip-twitter.css">
+	<script src="../../../plugin/tip/script/jquery.poshytip.js"></script>
+	<!--滑动校验-->
+	<link rel="stylesheet" href="../../../plugin/dragValidate/css/drag.css">
+	<script src="../../../plugin/dragValidate/js/drag.js"></script>
+	<!--分页-->
+	<link rel="stylesheet" href="../../../plugin/page/css/table.css">
+	<script type="text/javascript" src="../../../plugin/page/script/jquery.page.js"></script>
+	<!--下拉选择-->
+	<link rel="stylesheet" href="../../../plugin/select/chosen_blue.css">
+	<script src="../../../plugin/select/chosen.jquery.js"></script>
+	<script>
+        var date_start;
+        var i=0;
+		$(function(){
+            $("#userName").html(getCookie("userName"));
+		    //导航的点击
+		    $(".og-head-navlist li a").on("click",function(){
+                $(".og-head-navlist li a").removeClass("og-head-navlist____linkActive");
+		        $(this).addClass("og-head-navlist____linkActive")
+				console.log($(this).parents(".og-head-navlist__item").index());
+                $(".og-head-mainlt__sidebar").css("display","none");
+		        $(".og-head-mainlt__sidebar").eq($(this).parents(".og-head-navlist__item").index()).css("display","")
+			})
+			//左侧的点击事件
+			$(".og-head-mainlt__sidebar .og-head-mainlt__sasety").on("click",function(){
+                $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
+			    $(this).addClass("og-head-mainlt__sidebar--shrinkActive");
+			    window.location.href=$(this).find("a").attr("acSrc")
+				//$(this).parents(".og-head-mainlt__sidebar--menu").find("ul").css("display","");
+			})
+            //点击退出
+            $("#quitBtn").on("click",function(){
+                getAjaxResult("/acct/remSession","post",{},"quitFun(data)");
+            })
+			$("#editPassword").on("click",function(){
+			    jumpUrl("../../login/html-gulp-www/passwordNew.html","0000000",0);
+			});
+            $("#logo").on("click",function () {
+                jumpUrl("../../homePage/html-gulp-www/homePage.html","0000000",0)
+            });
+            start();
+		})
+        //退出接口
+        function quitFun(data){
+            var jsData=JSON.parse(data);
+            if(jsData.retCode=="0000000"){
+                clearCookie("userName");
+                jumpUrl("../../login/html-gulp-www/login.html","0000000",0);
+            }else{
+                alert(jsData.retDesc)
+            }
+        }
+        function start(){
+            date_start=new Date();  //开始时间
+            start_time();
+        }
+        function start_time(){
+
+            set= window.setTimeout("start_time()", 1000);
+            var date_end= new Date(); //结束时间
+            var date_sum = date_end.getTime() - new Date(date_start).getTime(); //结束时间-开始时间
+            //天数
+            var days=Math.floor(date_sum/(24*60*60*1000))
+            //小时数
+            var day_ms=date_sum%(24*60*60*1000)    //计算天数后剩余的毫秒数
+            var hours=Math.floor(day_ms/(60*60*1000))
+            //分钟数
+            var day_hour=day_ms%(60*60*1000)        //计算小时数后剩余的毫秒数
+            var minutes=Math.floor(day_hour/(60*1000))
+            //秒数
+            var day_min=day_hour%(60*1000)      //计算分钟数后剩余的毫秒数
+            var seconds=Math.round(day_min/1000)
+            //getMonth 方法返回一个0到11之间的整数，是Date对象中的月份值，并不是现实中的月份值，要加+1才是。
+            //开始运行时间
+            document.getElementById("now_time").innerHTML=
+                "现在时间："+date_end.getFullYear()+"年"
+                +(date_end.getMonth()+1)+"月"+date_end.getDate()+"日"
+                +date_end.getHours()+"时"+date_end.getMinutes()+"分"
+                +date_end.getSeconds()+"秒"
+		}
+	</script>
+</head>
+<body style="position: relative;">
+	<div class="og-head">
+		<div class="og-head-nav">
+	        <div class="og-head-navwrap">
+	            <div class="og-head-navlogo" id="logo">
+	                <a href="javascript:;" class="og-head-navlogo__logoimg"></a>
+	            </div>
+				<div class="og-head-navwrap-opeBox clearfix fr">
+					<!--
+					<span class="og-head-navwrap-opeBoxList">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/4.png')"></div>
+						<span class="fl">公告</span>
+					</span>
+					<span class="og-head-navwrap-opeBoxList">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/3.png')"></div>
+						<span class="fl">代办</span>
+					</span>-->
+					<span class="og-head-navwrap-opeBoxList">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/2.png')"></div>
+						<span class="fl" id="quitBtn" style="cursor: pointer">退出</span>
+					</span>
+					<span class="og-head-navwrap-opeBoxList">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/1.png')"></div>
+						<span class="fl" id="editPassword" style="cursor: pointer">修改密码</span>
+					</span>
+				</div>
+	            <div class="og-head-navwrap-box clearfix fr">
+					<span class="og-head-navwrap-boxList">您好，<span id="userName"></span></span>
+					<p id="now_time" class="og-head-navwrap-boxList" style="width: 230px;"></p>
+				</div>
+	        </div>
+	    </div>
+	   	<div class="og-head-main">
+	    	<div class="og-head-mainlt og-head-mainlt__homepaActive" id="js-leftNavBar">
+	    		<!--<div class="og-head-mainlt__homepa">
+	    			权限管理
+	    		</div>-->
+	    		<ul class="og-head-mainlt__sidebar">
+	    			<li class="og-head-mainlt__sidebar--menu">
+						<!--og-head-mainlt__sidebar--shrinkActive-->
+	    				<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">权限管理</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/accountAudit.html">账号审核</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/orgFrame.html">组织管理</a></li>
+							<li class="og-head-mainlt__sasety"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/roleManage.html">角色管理</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/resourceManage.html">资源管理</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/userManage.html">人员管理</a></li>
+						</ul>
+	    			</li>
+					<li class="og-head-mainlt__sidebar--menu">
+						<!--og-head-mainlt__sidebar--shrinkActive-->
+						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">系统管理</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/questionList.html">创建调查问卷</a></li>
+							<!--<li class="og-head-mainlt__sasety"><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/.html">问卷调查界面展示</a></li>-->
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/questionWrite.html">请填写调查问卷</a></li>
+							<!--<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/resourceManage.html">用户及权限管理</a></li>-->
+						</ul>
+					</li>
+					<li class="og-head-mainlt__sidebar--menu">
+						<!--og-head-mainlt__sidebar--shrinkActive-->
+						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">质量证明书</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/checkTrue.html">防伪验证</a></li>
+							<li class="og-head-mainlt__sasety"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList.html">质证书管理</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>
+						</ul>
+					</li>
+					<li class="og-head-mainlt__sidebar--menu">
+						<!--og-head-mainlt__sidebar--shrinkActive-->
+						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">产品诉赔</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/personManage.html">管理联系信息</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionSubmit.html">异议提报</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionReasearch.html">异议调查</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionDeal.html">异议处理</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionFinish.html">异议结案</a></li>
+						</ul>
+					</li>
+					<li class="og-head-mainlt__sidebar--menu">
+						<!--og-head-mainlt__sidebar--shrinkActive-->
+						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">产品推荐</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/productNewsList.html">产品推荐信息维护</a></li>
+							<li class="og-head-mainlt__sasety"><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/proTypeList.html">按品种分类</a></li>
+							<!--<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/productNewsList.html">按用途分类</a></li>-->
+						</ul>
+					</li>
+					<!--<li class="og-head-mainlt__sidebar&#45;&#45;menu">
+						&lt;!&ndash;og-head-mainlt__sidebar&#45;&#45;shrinkActive&ndash;&gt;
+						<a class="og-head-mainlt__sidebar&#45;&#45;shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">物料管理</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;">物料架构建立</a></li>
+							<li class="og-head-mainlt__sasety"><a href="javascript:;" href="javascript:;" >物料代码申请维护</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;">物料料明细查询</a></li>
+						</ul>
+					</li>-->
+	    		</ul>
+	    	</div>
+	    	<div id="js-loader" class="og-head-maincontent">
+
+<link rel="stylesheet" href="../css/create_research.css">
+<script>
+    var tarRow = null;
+    function clsStandardEditTableCtrl$progress(jsonItem,cloneRow)
+    {
+        if(this.ctrl.id == "questionList")
+        {
+            //刷新子表
+            $(cloneRow).find("#questionRadio").click(function()
+            {
+                $("#checkAll").removeAttr("checked");
+                tarRow = $(this).parents("tr:first")[0];
+                var jsonData = $(this).parents("tr:first")[0].jsonData.crmQuestionItemVOList;
+                $("#questionCList").attr("comType","standardEditTableCtrl");
+                $("#questionCList")[0].data = {"rspBody":{"resultData":jsonData}};
+                document.body.jsCtrl.ctrl = $("#questionCList")[0];
+                document.body.jsCtrl.init();
+                if($(this).parents("tr:first")[0].jsonData.questionStatus == "1")
+                {
+                    $("#btnCDelete").prop("disabled",false);
+                    $("#btnCInsert").prop("disabled",false);
+                    $("#btnCSave").prop("disabled",false);
+                    $("#btnSend").prop("disabled",false);
+                    $("#btnCDelete").removeClass("changeGary");
+                    $("#btnCInsert").removeClass("changeGary");
+                    $("#btnCSave").removeClass("changeGary");
+                    $("#btnSend").removeClass("changeGary");
+                }
+                else
+                {
+                    $("#btnCDelete").prop("disabled",true);
+                    $("#btnCInsert").prop("disabled",true);
+                    $("#btnCSave").prop("disabled",true);
+                    $("#btnSend").prop("disabled",true);
+                    $("#btnCDelete").removeClass("changeGary").addClass("changeGary");
+                    $("#btnCInsert").removeClass("changeGary").addClass("changeGary");
+                    $("#btnCSave").removeClass("changeGary").addClass("changeGary");
+                    $("#btnSend").removeClass("changeGary").addClass("changeGary");
+                }
+            });
+            if(jsonItem == null)
+            {
+                var now = new Date();
+                $(cloneRow).find("#createDt").text(now.format("yyyy-MM-dd"));
+                return {"opt":"insert","createBy":null,"createDt":now.format("yyyy-MM-dd"),"crmQuestionItemVOList":[{"crmQuestionTeamAnswerVOList":[{"answerTitle":"","answerValue":"","qid":null,"questionItemAnswerId":null,"questionItemId":null}],"itemTitle":"","qid":null,"questionItemId":null}],"endDt":"","messageNumber":"","pushRegion":null,"pushRegions":null,"qid":null,"questionStatus":null,"questionTitle":null,"updateBy":null,"updateDt":null};
+            }
+            else
+            {
+                switch(jsonItem.questionStatus)
+                {
+                    case "1":
+                        $(cloneRow).find("#questionStatusText").text("新建");
+                        break;
+                    case "2":
+                        $(cloneRow).find("#questionStatusText").text("已发布");
+                        $(cloneRow).find("#endDt").prop("disabled",true);
+                        $(cloneRow).find("#questionTitle").attr("disabled",true);
+                        break;
+                    case "3":
+                        $(cloneRow).find("#questionStatusText").text("已结束");
+                        break;
+                }
+            }
+        }
+        else
+        {
+            if(jsonItem == null)
+            {
+                return {"opt":"insert","crmQuestionTeamAnswerVOList":[{"answerTitle":"5分","answerValue":10,"qid":null,"questionItemAnswerId":null,"questionItemId":null}],"itemTitle":"","qid":null,"questionItemId":null};
+            }
+            for(var nI=0; nI<jsonItem.crmQuestionTeamAnswerVOList.length; nI++)
+            {
+                var jsonCItem = jsonItem.crmQuestionTeamAnswerVOList[nI];
+                $(cloneRow).find("li").each(function(){
+                    if($(this).find("input").attr("val") == jsonCItem.answerValue)
+                        $(this).find("input").prop("checked",true);
+                    else
+                        $(this).find("input").prop("checked",false);
+                })
+            }
+        }
+        //alert("自己业务定义！");
+
+    }
+
+    function clsSearchBtnCtrl$before()
+    {
+        if(isChange("cloneRow"))
+        {
+            if(window.confirm("调查问卷列表有改动，是否保存"))
+            {
+                $("#btnSave").click();
+                return true;
+            }
+            else
+                return false;
+        }
+        if(isChange("cloneRowC"))
+        {
+            if(window.confirm("问题答案列表有改动，是否保存"))
+            {
+                $("#btnCSave").click();
+                return true;
+            }
+            else
+                return false;
+        }
+    }
+
+    function isChange(rowId)
+    {
+        var bln = false;
+        $("tr[id='"+rowId+"']").each(function(){
+            if($(this).attr("tab") == "insert")
+            {
+                bln = true;
+                return false;
+            }
+            if($(this).attr("tab") == "delete")
+            {
+                bln = true;
+                return false;
+            }
+            //主表是否有字段变化
+            if(rowId == "cloneRow")
+            {
+                if($(this).find("#questionTitle").attr("regionValue") != $(this).find("#questionTitle").val())
+                {
+                    bln = true;
+                    return false;
+                }
+                if($(this).find("#endDt").attr("regionValue") != $(this).find("#endDt").val())
+                {
+                    bln = true;
+                    return false;
+                }
+            }
+            else //子表是否有字段变化
+            {
+                if($(this).find("#itemTitle").attr("regionValue") != $(this).find("#itemTitle").val())
+                {
+                    bln = true;
+                    return false;
+                }
+            }
+
+
+        });
+        return bln;
+    }
+
+    function pageBefore(tab,pageNum)
+    {
+        $("#btnCDelete").prop("disabled",true);
+        $("#btnCInsert").prop("disabled",true);
+        $("#btnCSave").prop("disabled",true);
+        $("#btnCDelete").addClass("changeGary");
+        $("#btnCInsert").addClass("changeGary");
+        $("#btnCSave").addClass("changeGary");
+    }
+
+    $(document).ready(function(){
+        //主表保存
+        $("#btnSave").click(function(){
+            //initValidateNoBind();
+            //var obj = new clsValidateCtrl();
+            //if(obj.validateAll())
+            //{
+            var jsonData = [];
+            $("tr[id='cloneRow']").each(function(){
+                jsonData.push(this.jsonData);
+            });
+
+            getAjaxResult("/question/save","POST",jsonData,"saveCallBack(data)")
+            //}
+
+        });
+        //子表保存
+        $("#btnCSave").click(function(){
+            initValidateNoBind();
+            var obj = new clsValidateCtrl();
+            if(obj.validateAll())
+            {
+                var jsonData = [];
+                $("tr[id='cloneRowC']").each(function(){
+                    var crmQuestionTeamAnswerVOList = [];
+                    $(this).find("ul").find("input[type='checkbox']:checked").each(function(){
+                        var jsonKeyData = {"answerTitle":"5分","answerValue":10,"qid":null,"questionItemAnswerId":null,"questionItemId":null}
+                        jsonKeyData.answerTitle = $(this).attr("val")+"分";
+                        jsonKeyData.answerValue = $(this).attr("val");
+                        crmQuestionTeamAnswerVOList.push(jsonKeyData);
+                    });
+                    this.jsonData.crmQuestionTeamAnswerVOList = crmQuestionTeamAnswerVOList;
+                    if(this.jsonData.opt != "delete")
+                        jsonData.push(this.jsonData);
+                });
+                tarRow.jsonData.crmQuestionItemVOList = jsonData;
+                getAjaxResult("/question/saveDetail","POST",tarRow.jsonData,"saveChildCallBack(data)");
+            }
+
+        });
+        //预览
+        $("#btnPreview").click(function(){
+            if(tarRow != null)
+                window.open("questionDesc.html?qid="+tarRow.jsonData.qid +"&readTab=1");
+            else
+                alert("请选择一个调查问卷");
+        });
+        //下发
+        $("#btnSend").click(function()
+        {
+            if(tarRow != null)
+                openWin('360', '306', 'inputAnswer', true);
+            else
+            {
+                var alertBox=new clsAlertBoxCtrl();
+                alertBox.Alert("请选择要下发内容","下发");
+            }
+        });
+
+        //下发保存
+        $("#sure").click(function(){
+            var arr = []
+            $("input[name='role']").each(function(){
+                if(this.checked)
+                    arr.push($(this).attr("val"));
+            });
+            var jsonData = {"pushRegions":arr,"qid":tarRow.jsonData.qid};
+            getAjaxResult("/question/sentDown","POST",jsonData,"sureCallBack(data)");
+        });
+    });
+
+    function sureCallBack(data)
+    {
+        var jsonData = JSON.parse(data);
+        if(jsonData.retCode == "0000000")
+        {
+            var alertBox=new clsAlertBoxCtrl();
+            closePopupWin();
+            alertBox.Alert(jsonData.retDesc,"下发成功");
+            refreshQuestionList();
+
+        }/*else
+        {
+            var alertBox=new clsAlertBoxCtrl();
+            closePopupWin();
+            alertBox.Alert(jsonData.retDesc,"下发失败");
+
+        }*/
+    }
+
+    function saveCallBack(data)
+    {
+        var jsonData = JSON.parse(data);
+        if(jsonData.retCode == "0000000")
+        {
+            var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert(jsonData.retDesc,"提示");
+            refreshQuestionList();
+        }
+        /*else
+        {
+            var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert(jsonData.retDesc,"提示");
+        }*/
+    }
+
+    function saveChildCallBack(data)
+    {
+        var jsonData = JSON.parse(data);
+        if(jsonData.retCode == "0000000")
+        {
+            var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert(jsonData.retDesc,"提示");
+            refreshQuestionList();
+        }
+        /*else
+        {
+            var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert(jsonData.retDesc,"提示");
+        }*/
+    }
+
+    function clsStandardEditTableCtrl$optBefore(tab,cloneRow)
+    {
+        if(tab == "delete")
+        {
+            if(cloneRow.jsonData.questionStatus == "2" || cloneRow.jsonData.questionStatus == "3")
+            {
+                var alertBox=new clsAlertBoxCtrl();
+                alertBox.Alert($(cloneRow).find("#questionStatusText").text()+"不能删除","提示");
+                return false;
+            }
+            else
+                return true;
+        }
+        else
+            return true;
+    }
+
+    function refreshQuestionList()
+    {
+        document.body.jsCtrl.ctrl = $("#questionList")[0];
+        document.body.jsCtrl.init();
+        $("tr[id='cloneRow']").each(function(){
+            if(tarRow!= null && this.jsonData.qid == tarRow.jsonData.qid)
+            {
+                $(this).find("input[type='radio']").click();
+            }
+        });
+    }
+
+    function clsUploadCtrl$successAfter(ctrl, response)
+    {
+        $("#zw").attr("href",response.rspBody.viewUrl);
+        $("#zw").text(response.rspBody.originalName);
+    }
+
+</script>
+	<div class="establish">
+       <!-- <div class="establish-title">
+            <div class="btnLowNew" id="establish-Home-page">首页</div>
+            <div class="btnLowNew" id="establish-questionnaire">创建调查问卷 <b class="establish-title-close">X</b></div>
+			&lt;!&ndash;a href="javascript:;" comType="uploadCtrl" uploadType="button" uploadTypeVal="上传" reqPath="/file/upload" uploadSize='{"w":"100","h":"30"}' filetype="custom" fileExt="jpg|jpeg|gif|png"></a><a id="zw"></a&ndash;&gt;
+        </div>-->
+        <div class="establish-content">
+           <ul class="establish-contenter">
+               <li class="establish-contenter-Every"><span class="establish-contenter-tit">信息标题</span><input type="text" id="condquestionTitle" class="inputBase"></li>
+               <li class="establish-contenter-Every"><span class="establish-contenter-tit">创建时间</span><input type="text" class="Wdate" id="condcreateDt" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'condendDt\')}'})"></li>
+               <li class="establish-contenter-Every"><span class="establish-contenter-tit">至</span><input type="text" class="Wdate" id="condendDt"  onfocus="WdatePicker({minDate:'#F{$dp.$D(\'condcreateDt\')}'})"></li>
+           </ul>
+           <div class="establish-content-table">
+               <div class="establish-content-tableLeft">
+                    <div class="establish-content-tableLeftbutton">
+                        <div class="btnLowNew" id="establish-Home-page" comType="searchBtnCtrl" rule="cond" cond="condquestionTitle,condcreateDt,condendDt" unionTableId="questionList">查询</div>
+                        <div class="btnLowNew" id="btnInsert" unionTableId="questionList">新建</div>
+                        <div class="btnLowDel" id="btnDelete" unionTableId="questionList">清除</div>
+                        <div class="btnBaseSave" id="btnSave">保存</div>
+                        <div class="btnLowNew" id="btnPreview">预览</div>
+                        <button type="button" class="btnLowNew" id="btnSend">下发</button>
+                    </div>
+                    <table class="table-list" chkId="questionRadio" insertid="btnInsert" deleteid="btnDelete" id="questionList" comtype="standardEditTableCtrl" page="tcdPageCode" templateid="templateRow" reqpath="/question/list" reqparam="{}" method="POST" nodata="noDataCon">
+                        <tr class="table-list-currentrow">
+                            <th class="table-list-currentrow-theader"></th>
+                            <th class="table-list-currentrow-theader">信息编号</th>
+                            <th class="table-list-currentrow-theader">创建时间</th>
+                            <th class="table-list-currentrow-theader">状态</th>
+                            <th class="table-list-currentrow-theader">标题</th>
+                            <th class="table-list-currentrow-theader">结束时间</th>
+                        </tr>
+                        <tr id="templateRow" style="display:none;" class="table-list-currentrow">
+                            <td class="table-list-currentrow-tdetail"><input type="radio" name="questionRadio" id="questionRadio"></td>
+                            <td class="table-list-currentrow-tdetail" id="messageNumber"></td>
+                            <td class="table-list-currentrow-tdetail" id="createDt"></td>
+                            <td class="table-list-currentrow-tdetail" id="questionStatusText"></td>
+                            <td class="table-list-currentrow-tdetail"><input type="text" id="questionTitle" class="required"></td>
+                            <td class="table-list-currentrow-tdetail"><input type="text" name="endDt" id="endDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></td>
+                        </tr>
+                        
+                    </table>
+					<div class="noDataCon" id="noDataCon" style="display:none">
+						<i></i>
+						<p>暂无数据......</p>
+					</div>
+                   <div class="tcdPageCode"></div>
+               </div>
+               <div class="establish-content-tableRight">
+                <div class="establish-content-tableRightbutton" style="padding: 26px 0;">
+                        <button type="button" disabled="disabled" class="btnLowNew changeGary" id="btnCInsert"  unionTableId="questionCList">新增</button>
+                        <button type="button" class="btnLowDel changeGary" id="btnCDelete" disabled="disabled"  unionTableId="questionCList">清除</button>
+                        <button type="button" class="btnBaseSave changeGary" disabled="disabled" id="btnCSave">保存</button>
+                </div>
+                <table class="table-list" chkId="questionCheck" insertid="btnCInsert" deleteid="btnCDelete" id="questionCList" comtype="" idx="rowNum" templateid="templateRowC" reqpath="" reqparam="{}" method="POST" style="table-layout: fixed" chkId="questionCheck" >
+                    <tr  class="table-list-currentrow">
+                        <th  class="table-list-currentrow-theader" style="width: 5%"><input type="checkbox"  id="checkAll" comtype="checkAll" class="clsAllChk" uniontableid="questionCList" chkid="questionCheck"></th>
+                        <th  class="table-list-currentrow-theader" style="width: 12%">问题编码</t>
+                        <th  class="table-list-currentrow-theader" style="width: 38%">问题项目</th>
+                        <th  class="table-list-currentrow-theader" style="width: 45%">答题选项</th>
+                    </tr>
+                    <tr class="table-list-currentrow" id="templateRowC" style="display:none">
+                        <td class="table-list-currentrow-tdetail"><input type="checkbox" id="questionCheck" class="clsChk"></td>
+                        <td class="table-list-currentrow-tdetail" id="rowNum">1</td>
+                        <td class="table-list-currentrow-tdetail"><input type="text" id="itemTitle" style="width: 178px;"></td>
+                        <td class="table-list-currentrow-tdetail" width="14%">
+                            <ul>
+                                <li style="margin-right: 4px;float: left;">
+                                    <input val="1" type="checkbox" style="cursor:pointer">
+                                    <span>1分</span>
+                                </li>
+                                <li style="margin-right: 4px;float: left;">
+                                    <input val="2" type="checkbox" style="cursor:pointer">
+                                    <span>2分</span>
+                                </li>
+                                <li style="margin-right: 4px;float: left;">
+                                    <input val="3" type="checkbox" style="cursor:pointer">
+                                    <span>3分</span>
+                                </li>
+                                <li style="margin-right: 4px;float: left;">
+                                    <input val="4" type="checkbox" style="cursor:pointer">
+                                    <span>4分</span>
+                                </li>
+                                <li style="margin-right: 4px;float: left;">
+                                    <input val="5" type="checkbox" style="cursor:pointer">
+                                    <span>5分</span>
+                                </li>
+                                <li style="margin-right: 4px;float: left;">
+                                    <input val="6" type="checkbox" style="cursor:pointer">
+                                    <span>6分</span>
+                                </li>
+                                <li style="margin-right: 4px;float: left;">
+                                    <input val="7" type="checkbox" style="cursor:pointer">
+                                    <span>7分</span>
+                                </li>
+                                <li style="margin-right: 4px;float: left;">
+                                    <input val="8" type="checkbox" style="cursor:pointer">
+                                    <span>8分</span>
+                                </li>
+                                <li style="margin-right: 4px;float: left;">
+                                    <input val="9" type="checkbox" style="cursor:pointer">
+                                    <span>9分</span>
+                                </li>
+                                <li style="margin-right: 4px;float: left;">
+                                    <input val="10" type="checkbox" style="cursor:pointer">
+                                    <span>10分</span>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+           </div>
+           </div>
+        </div>
+		<div id="inputAnswer" class="popup gc_box" style="display:none">
+			<div class="title" style="">
+				<h2>下发用户选择</h2>
+				<div>
+					<a class="min" href=" " title="最小化" style="display:none;"></a>
+					<a class="max" href="javascript:;" title="最大化" style="display:none;"></a>
+					<a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+					<a class="close" href="javascript:;" title="关闭" style="display:block;"></a>
+				</div>
+			</div>
+			<div class="content">
+				<table class="table-list">
+					<!-- <tr class="table-list-currentrow">
+						<th class="table-list-currentrow-theader" width="4%"><input type="radio"></th>
+						<th class="table-list-currentrow-theader" width="10%">用户角色</th>
+					</tr> -->
+					<tr class="table-list-currentrow">
+						<td class="table-list-currentrow-tdetail"  width="3%">
+							<!--<input type="checkbox" name="role" val="1">-->
+						</td>
+						<td class="table-list-currentrow-tdetail" width="10%">用户角色</td>
+					</tr>
+					<tr class="table-list-currentrow table-list-currentrowActive">
+						<td class="table-list-currentrow-tdetail" width="3%">
+							<input type="checkbox" val="1" name="role">
+						</td>
+						<td class="table-list-currentrow-tdetail" width="10%">销售公司</td>
+					</tr>
+					<tr class="table-list-currentrow">
+						<td class="table-list-currentrow-tdetail" width="3%">
+							<input type="checkbox" val="2" name="role">
+						</td>
+						<td class="table-list-currentrow-tdetail" width="10%">一级代理</td>
+					</tr>
+					<tr class="table-list-currentrow table-list-currentrowActive">
+						<td class="table-list-currentrow-tdetail" width="3%">
+							<input type="checkbox" val="3" name="role">
+						</td>
+						<td class="table-list-currentrow-tdetail" width="10%">贸易商</td>
+					</tr>
+					<tr class="table-list-currentrow">
+						<td class="table-list-currentrow-tdetail" width="3%">
+							<input type="checkbox" val="4" name="role">
+						</td>
+						<td class="table-list-currentrow-tdetail" width="10%">终端用户</td>
+					</tr>
+				</table>
+				<div class="product-button">
+					<div class="btnBaseCommon product-save" id="sure">确定</div>
+					<div class="btnBaseCancel product-submit" id="closePopupWin();">取消</div>
+				</div>
+			</div>
+		</div>
+    </div>
+
+</div>
+</div>
+</div>
+</body>
+</html>

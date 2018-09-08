@@ -1,0 +1,9 @@
+.home-Banner { position: relative; margin: 0 auto; width: 1200px; height: 255px; line-height: 255px; }
+
+.home-Banner-list { width: 1020px; margin-left: 90px; margin-top: 36px; }
+
+.home-Banner-list .home-Banner-list-block { float: left; width: 182px; height: 170px; background: #98b6fe; margin: 0 10px; border-radius: 5px; }
+
+.home-Banner-list-left { position: absolute; left: 56px; top: -40px; font-size: 70px; margin-left: -8px; color: #98b6fe; }
+
+.home-Banner-list-right { position: absolute; right: 56px; top: 20px; top: -40px; font-size: 70px; color: #98b6fe; }

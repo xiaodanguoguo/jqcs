@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.CrmQuestionItemMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.CrmQuestionItem" >
+    <id column="QUESTION_ITEM_ID" property="questionItemId" jdbcType="NUMERIC" />
+    <result column="QID" property="qid" jdbcType="NUMERIC" />
+    <result column="ITEM_TITLE" property="itemTitle" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="ResultMap" type="jq.steel.cs.services.cust.api.vo.CrmQuestionItemVO" >
+    <id column="QUESTION_ITEM_ID" property="questionItemId" jdbcType="NUMERIC" />
+    <result column="QID" property="qid" jdbcType="NUMERIC" />
+    <result column="ITEM_TITLE" property="itemTitle" jdbcType="VARCHAR" />
+    <collection property="crmQuestionTeamAnswerVOList" ofType="jq.steel.cs.services.cust.api.vo.CrmQuestionTeamAnswerVO">
+      <id column="QUESTION_ITEM_ANSWER_ID" property="questionItemAnswerId" jdbcType="NUMERIC" />
+      <result column="QID" property="qid" jdbcType="NUMERIC" />
+      <result column="QUESTION_ITEM_ID" property="questionItemId" jdbcType="NUMERIC" />
+      <result column="ANSWER_VALUE" property="answerValue" jdbcType="NUMERIC" />
+      <result column="ANSWER_TITLE" property="answerTitle" jdbcType="VARCHAR" />
+    </collection>
+
+
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    QUESTION_ITEM_ID, QID, ITEM_TITLE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_QUESTION_ITEM
+    where QUESTION_ITEM_ID = #{questionItemId,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_QUESTION_ITEM
+    where QUESTION_ITEM_ID = #{questionItemId,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByQid" parameterType="java.lang.Long" >
+    delete from CRM_QUESTION_ITEM
+    where QID = #{qid,jdbcType=NUMERIC}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestionItem" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="questionItemId">
+      SELECT SEQ_CRM_QUESTION_ITEM.nextval FROM dual
+    </selectKey>
+    insert into CRM_QUESTION_ITEM (QUESTION_ITEM_ID, QID, ITEM_TITLE
+      )
+    values (#{questionItemId,jdbcType=NUMERIC}, #{qid,jdbcType=NUMERIC}, #{itemTitle,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestionItem" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="questionItemId">
+      SELECT SEQ_CRM_QUESTION_ITEM.nextval FROM dual
+    </selectKey>
+    insert into CRM_QUESTION_ITEM
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="questionItemId != null" >
+        QUESTION_ITEM_ID,
+      </if>
+      <if test="qid != null" >
+        QID,
+      </if>
+      <if test="itemTitle != null" >
+        ITEM_TITLE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="questionItemId != null" >
+        #{questionItemId,jdbcType=NUMERIC},
+      </if>
+      <if test="qid != null" >
+        #{qid,jdbcType=NUMERIC},
+      </if>
+      <if test="itemTitle != null" >
+        #{itemTitle,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestionItem" >
+    update CRM_QUESTION_ITEM
+    <set >
+      <if test="qid != null" >
+        QID = #{qid,jdbcType=NUMERIC},
+      </if>
+      <if test="itemTitle != null" >
+        ITEM_TITLE = #{itemTitle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where QUESTION_ITEM_ID = #{questionItemId,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestionItem" >
+    update CRM_QUESTION_ITEM
+    set QID = #{qid,jdbcType=NUMERIC},
+      ITEM_TITLE = #{itemTitle,jdbcType=VARCHAR}
+    where QUESTION_ITEM_ID = #{questionItemId,jdbcType=NUMERIC}
+  </update>
+
+  <select id="getList" resultMap="ResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestionItem" >
+    SELECT
+    A.QID,
+    A.QUESTION_ITEM_ID,
+    A.ITEM_TITLE,
+    B.QUESTION_ITEM_ANSWER_ID,
+    B.ANSWER_TITLE,
+    B.ANSWER_VALUE
+    FROM
+    CRM_QUESTION_ITEM A
+    LEFT JOIN CRM_QUESTION_TEAM_ANSWER B
+    ON A .QUESTION_ITEM_ID = B.QUESTION_ITEM_ID
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="qid != null and qid != '' " >
+        AND A.QID = #{qid}
+      </if>
+    </trim>
+  </select>
+</mapper>

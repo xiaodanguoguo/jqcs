@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.base.facade.dao.DictUnitTypeMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.base.facade.model.DictUnitType" >
+    <id column="UNIT_TYPE_CODE" property="unitTypeCode" />
+    <result column="UNIT_TYPE_NAME" property="unitTypeName" />
+    <result column="BASE_UNIT_CODE" property="baseUnitCode" />
+    <result column="BASE_UNIT_NAME" property="baseUnitName" />
+    <result column="STATUS" property="status"  />
+    <result column="CREATED_BY" property="createdBy" />
+    <result column="CREATED_TIME" property="createdTime"  />
+    <result column="UPDATED_BY" property="updatedBy" />
+    <result column="UPDATED_TIME" property="updatedTime"  />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    UNIT_TYPE_CODE, UNIT_TYPE_NAME, BASE_UNIT_CODE, BASE_UNIT_NAME, STATUS, CREATED_BY, 
+    CREATED_TIME, UPDATED_BY, UPDATED_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dict_unit_type
+    where UNIT_TYPE_CODE = #{unitTypeCode}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dict_unit_type
+    where UNIT_TYPE_CODE = #{unitTypeCode}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.DictUnitType" >
+    insert into dict_unit_type (UNIT_TYPE_CODE, UNIT_TYPE_NAME, BASE_UNIT_CODE, 
+      BASE_UNIT_NAME, STATUS, CREATED_BY, 
+      CREATED_TIME, UPDATED_BY, UPDATED_TIME
+      )
+    values (#{unitTypeCode}, #{unitTypeName}, #{baseUnitCode},
+      #{baseUnitName}, #{status}, #{createdBy},
+      #{createdTime}, #{updatedBy}, #{updatedTime}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.base.facade.model.DictUnitType" >
+    insert into dict_unit_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="unitTypeCode != null" >
+        UNIT_TYPE_CODE,
+      </if>
+      <if test="unitTypeName != null" >
+        UNIT_TYPE_NAME,
+      </if>
+      <if test="baseUnitCode != null" >
+        BASE_UNIT_CODE,
+      </if>
+      <if test="baseUnitName != null" >
+        BASE_UNIT_NAME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedTime != null" >
+        UPDATED_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="unitTypeCode != null" >
+        #{unitTypeCode},
+      </if>
+      <if test="unitTypeName != null" >
+        #{unitTypeName},
+      </if>
+      <if test="baseUnitCode != null" >
+        #{baseUnitCode},
+      </if>
+      <if test="baseUnitName != null" >
+        #{baseUnitName},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.base.facade.model.DictUnitType" >
+    update dict_unit_type
+    <set >
+      <if test="unitTypeName != null" >
+        UNIT_TYPE_NAME = #{unitTypeName},
+      </if>
+      <if test="baseUnitCode != null" >
+        BASE_UNIT_CODE = #{baseUnitCode},
+      </if>
+      <if test="baseUnitName != null" >
+        BASE_UNIT_NAME = #{baseUnitName},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME = #{createdTime},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy},
+      </if>
+      <if test="updatedTime != null" >
+        UPDATED_TIME = #{updatedTime},
+      </if>
+    </set>
+    where UNIT_TYPE_CODE = #{unitTypeCode}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.base.facade.model.DictUnitType" >
+    update dict_unit_type
+    set UNIT_TYPE_NAME = #{unitTypeName},
+      BASE_UNIT_CODE = #{baseUnitCode},
+      BASE_UNIT_NAME = #{baseUnitName},
+      STATUS = #{status},
+      CREATED_BY = #{createdBy},
+      CREATED_TIME = #{createdTime},
+      UPDATED_BY = #{updatedBy},
+      UPDATED_TIME = #{updatedTime}
+    where UNIT_TYPE_CODE = #{unitTypeCode}
+  </update>
+  <select id="find" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.DictUnitType">
+    select
+    <include refid="Base_Column_List" />
+    from DICT_UNIT_TYPE
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="unitTypeNameAndCode != null" >
+       and UNIT_TYPE_NAME like '%' || #{unitTypeNameAndCode} ||'%'
+          or UNIT_TYPE_CODE like '%' || #{unitTypeNameAndCode} ||'%'
+      </if>
+      <if test="baseUnitCode != null" >
+       and BASE_UNIT_CODE = #{baseUnitCode}
+      </if>
+      <if test="baseUnitName != null" >
+       and BASE_UNIT_NAME = #{baseUnitName}
+      </if>
+      <if test="status != null" >
+       and STATUS = #{status}
+      </if>
+      <if test="createdBy != null" >
+       and  CREATED_BY = #{createdBy}
+      </if>
+      <if test="createdTime != null" >
+       and CREATED_TIME = #{createdTime}
+      </if>
+      <if test="updatedBy != null" >
+       and UPDATED_BY = #{updatedBy}
+      </if>
+      <if test="updatedTime != null" >
+       and UPDATED_TIME = #{updatedTime}
+      </if>
+    </trim>
+    ORDER BY created_time
+
+  </select>
+</mapper>

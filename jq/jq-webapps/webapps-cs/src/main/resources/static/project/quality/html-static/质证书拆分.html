@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/credential_Split.css">
+    <link rel="stylesheet" href="../../../base/css/baseOrange.css">
+    <link rel="stylesheet" href="../../../base/css/baseBlue.css">
+    <link rel="stylesheet" href="../../../base/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../../commonNav/css/commonHeaderOrange.css">
+    <script src="../../../base/js/jquery.js"></script>
+    <script src="../../../base/js/public.js"></script>
+    <script src="../../../base/js/docassistant.js"></script>
+    <script src="../../../base/js/jquery.cookie.js"></script>
+    <script src="../../../reqConfig.js"></script>
+</head>
+<body>
+    <div class="split">
+        <div class="split-title">质证书拆分</div>
+        <div class="split-Tab">
+            <table class="table-list">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" width="12%">质保书编号</th>
+                    <th class="table-list-currentrow-theader" width="10%">质证书类别</th>
+                    <th class="table-list-currentrow-theader"  width="10%">售达方</th>
+                    <th class="table-list-currentrow-theader"  width="10%">发车时间</th>
+                    <th class="table-list-currentrow-theader"  width="10%">炉&nbsp;(批)&nbsp;号</th>
+                    <th class="table-list-currentrow-theader" width="7%">伴次</th>
+                    <th class="table-list-currentrow-theader"  width="8%">重量(kg)</th>
+                    <th class="table-list-currentrow-theader"  width="9%">车号</th>
+                    <th class="table-list-currentrow-theader"  width="8%">产品名称</th>
+                    <th class="table-list-currentrow-theader" width="7%">规格</th>
+                    <th class="table-list-currentrow-theader" width="8%">送达方</th>
+                </tr>
+                <tr class="table-list-currentrow">
+                    <td class="table-list-currentrow-tdetail">A18072300101</td>
+                    <td class="table-list-currentrow-tdetail">M</td>
+                    <td class="table-list-currentrow-tdetail">驻外销售公司</td>
+                    <td class="table-list-currentrow-tdetail">2018/07/25</td>
+                    <td class="table-list-currentrow-tdetail">8Y28300</td>
+                    <td class="table-list-currentrow-tdetail">6</td>
+                    <td class="table-list-currentrow-tdetail">35000</td>
+                    <td class="table-list-currentrow-tdetail">RE18071930</td>
+                    <td class="table-list-currentrow-tdetail">棒材</td>
+                    <td class="table-list-currentrow-tdetail">10mn</td>
+                    <td class="table-list-currentrow-tdetail">A</td>
+                </tr>
+            </table>
+            <div class="split-Tab-button">
+                <div class="btnBaseCommon split-Tab-Split">拆分</div>
+                <div class="btnBaseCommon split-Tab-Return">返回质证书管理</div>
+            </div>
+        </div>
+        <div class="split-Table">
+            <div class="split-Table-nav">
+                <span>送达方:&nbsp;</span>
+                <input type="text" class="split-Table-nav__Input">
+                <div class="btnBaseCommon split-Table-nav__Submit">提交</div>
+                <div class="btnLowDel split-Table-nav__Empty">清空</div>
+            </div>
+            <table class="table-list">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" width="12%">质保书编号</th>
+                    <th class="table-list-currentrow-theader" width="10%">质证书类别</th>
+                    <th class="table-list-currentrow-theader"  width="10%">售达方</th>
+                    <th class="table-list-currentrow-theader"  width="10%">发车时间</th>
+                    <th class="table-list-currentrow-theader"  width="10%">炉&nbsp;(批)&nbsp;号</th>
+                    <th class="table-list-currentrow-theader" width="7%">伴次</th>
+                    <th class="table-list-currentrow-theader"  width="8%">重量(kg)</th>
+                    <th class="table-list-currentrow-theader"  width="9%">车号</th>
+                    <th class="table-list-currentrow-theader"  width="8%">产品名称</th>
+                    <th class="table-list-currentrow-theader" width="7%">规格</th>
+                </tr>
+                <tr class="table-list-currentrow">
+                    <td class="table-list-currentrow-tdetail">A18072300101</td>
+                    <td class="table-list-currentrow-tdetail">M</td>
+                    <td class="table-list-currentrow-tdetail">驻外销售公司</td>
+                    <td class="table-list-currentrow-tdetail">2018/07/25</td>
+                    <td class="table-list-currentrow-tdetail">8Y28300</td>
+                    <td class="table-list-currentrow-tdetail">6</td>
+                    <td class="table-list-currentrow-tdetail">35000</td>
+                    <td class="table-list-currentrow-tdetail">RE18071930</td>
+                    <td class="table-list-currentrow-tdetail">棒材</td>
+                    <td class="table-list-currentrow-tdetail">10mn</td>
+                </tr>
+            </table>
+        </div>
+        <div class="split-Table">
+            <div class="split-Table-nav">
+                <span>送达方:&nbsp;</span>
+                <input type="text" class="split-Table-nav__Input">
+                <div class="btnBaseCommon split-Table-nav__Submit">提交</div>
+                <div class="btnLowDel split-Table-nav__Empty">清空</div>
+            </div>
+            <table class="table-list">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" width="12%">质保书编号</th>
+                    <th class="table-list-currentrow-theader" width="10%">质证书类别</th>
+                    <th class="table-list-currentrow-theader"  width="10%">售达方</th>
+                    <th class="table-list-currentrow-theader"  width="10%">发车时间</th>
+                    <th class="table-list-currentrow-theader"  width="10%">炉&nbsp;(批)&nbsp;号</th>
+                    <th class="table-list-currentrow-theader" width="7%">伴次</th>
+                    <th class="table-list-currentrow-theader"  width="8%">重量(kg)</th>
+                    <th class="table-list-currentrow-theader"  width="9%">车号</th>
+                    <th class="table-list-currentrow-theader"  width="8%">产品名称</th>
+                    <th class="table-list-currentrow-theader" width="7%">规格</th>
+                </tr>
+                <tr class="table-list-currentrow">
+                    <td class="table-list-currentrow-tdetail">A18072300101</td>
+                    <td class="table-list-currentrow-tdetail">M</td>
+                    <td class="table-list-currentrow-tdetail">驻外销售公司</td>
+                    <td class="table-list-currentrow-tdetail">2018/07/25</td>
+                    <td class="table-list-currentrow-tdetail">8Y28300</td>
+                    <td class="table-list-currentrow-tdetail">6</td>
+                    <td class="table-list-currentrow-tdetail">35000</td>
+                    <td class="table-list-currentrow-tdetail">RE18071930</td>
+                    <td class="table-list-currentrow-tdetail">棒材</td>
+                    <td class="table-list-currentrow-tdetail">10mn</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

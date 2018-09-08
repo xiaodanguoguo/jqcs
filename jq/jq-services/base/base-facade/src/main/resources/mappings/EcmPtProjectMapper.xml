@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.base.facade.dao.EcmPtProjectMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.base.facade.model.EcmPtProject" >
+    <id column="SID" property="sid" jdbcType="NUMERIC" />
+    <result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+    <result column="PROJECT_DURATION" property="projectDuration" jdbcType="TIMESTAMP" />
+    <result column="STAFF_SID" property="staffSid" jdbcType="NUMERIC" />
+    <result column="PROJECT_ID" property="projectId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SID, PROJECT_NAME, CREATED_DT, CREATED_BY, UPDATED_BY, UPDATED_DT, VERSION, PROJECT_DURATION, 
+    STAFF_SID, PROJECT_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ECM_PT_PROJECT
+    where SID = #{sid,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ECM_PT_PROJECT
+    where SID = #{sid,jdbcType=NUMERIC}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.EcmPtProject" >
+    insert into ECM_PT_PROJECT (SID, PROJECT_NAME, CREATED_DT, 
+      CREATED_BY, UPDATED_BY, UPDATED_DT, 
+      VERSION, PROJECT_DURATION, STAFF_SID, 
+      PROJECT_ID)
+    values (#{sid,jdbcType=NUMERIC}, #{projectName}, #{createdDt},
+      #{createdBy}, #{updatedBy}, #{updatedDt},
+      #{version,jdbcType=NUMERIC}, #{projectDuration}, #{staffSid,jdbcType=NUMERIC},
+      #{projectId})
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.base.facade.model.EcmPtProject" >
+    insert into ECM_PT_PROJECT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        SID,
+      </if>
+      <if test="projectName != null" >
+        PROJECT_NAME,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="projectDuration != null" >
+        PROJECT_DURATION,
+      </if>
+      <if test="staffSid != null" >
+        STAFF_SID,
+      </if>
+      <if test="projectId != null" >
+        PROJECT_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=NUMERIC},
+      </if>
+      <if test="projectName != null" >
+        #{projectName},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=NUMERIC},
+      </if>
+      <if test="projectDuration != null" >
+        #{projectDuration},
+      </if>
+      <if test="staffSid != null" >
+        #{staffSid,jdbcType=NUMERIC},
+      </if>
+      <if test="projectId != null" >
+        #{projectId},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.base.facade.model.EcmPtProject" >
+    update ECM_PT_PROJECT
+    <set >
+      <if test="projectName != null" >
+        PROJECT_NAME = #{projectName},
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT = #{createdDt},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy},
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT = #{updatedDt},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=NUMERIC},
+      </if>
+      <if test="projectDuration != null" >
+        PROJECT_DURATION = #{projectDuration},
+      </if>
+      <if test="staffSid != null" >
+        STAFF_SID = #{staffSid,jdbcType=NUMERIC},
+      </if>
+      <if test="projectId != null" >
+        PROJECT_ID = #{projectId},
+      </if>
+    </set>
+    where SID = #{sid,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.base.facade.model.EcmPtProject" >
+    update ECM_PT_PROJECT
+    set PROJECT_NAME = #{projectName},
+      CREATED_DT = #{createdDt},
+      CREATED_BY = #{createdBy},
+      UPDATED_BY = #{updatedBy},
+      UPDATED_DT = #{updatedDt},
+      VERSION = #{version,jdbcType=NUMERIC},
+      PROJECT_DURATION = #{projectDuration},
+      STAFF_SID = #{staffSid,jdbcType=NUMERIC},
+      PROJECT_ID = #{projectId}
+    where SID = #{sid,jdbcType=NUMERIC}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.EcmPtProject" >
+    SELECT <include refid="Base_Column_List" /> FROM
+    (
+    SELECT A.*, ROWNUM RN
+    FROM (
+    select
+    <include refid="Base_Column_List" />
+    from ECM_PT_PROJECT) A
+    WHERE ROWNUM &lt;= #{endRow}
+    )
+    WHERE RN &gt;= #{startRow}
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer" parameterType="jq.steel.cs.services.base.facade.model.EcmPtProject">
+    select count(*) from ECM_PT_PROJECT
+  </select>
+</mapper>

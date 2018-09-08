@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.base.facade.dao.AcctRoleGroupRoleMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.base.facade.model.AcctRoleGroupRole" >
+    <id column="RELA_ID" property="relaId" />
+    <result column="ROLE_ID" property="roleId" />
+    <result column="ROLE_GROUP_ID" property="roleGroupId" />
+    <result column="STATUS" property="status"  />
+    <result column="CREATED_BY" property="createdBy" />
+    <result column="CREATED_TIME" property="createdTime"  />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RELA_ID, ROLE_ID, ROLE_GROUP_ID, STATUS, CREATED_BY, CREATED_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from acct_role_group_role
+    where RELA_ID = #{relaId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from acct_role_group_role
+    where RELA_ID = #{relaId}
+  </delete>
+  <delete id="deleteRoleGroupId" parameterType="java.lang.Long" >
+    delete from acct_role_group_role
+    where ROLE_GROUP_ID = #{roleGroupId}
+  </delete>
+
+  <delete id="deleteRoleId" parameterType="java.lang.Long" >
+    delete from acct_role_group_role
+    where ROLE_ID = #{roleId}
+  </delete>
+
+  <insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.AcctRoleGroupRole" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="relaId">
+      SELECT SEQ_ACCT_ROLE_GROUP_ROLE.nextval AS relaId FROM dual
+    </selectKey>
+    insert into acct_role_group_role (RELA_ID, ROLE_ID, ROLE_GROUP_ID, 
+      STATUS, CREATED_BY, CREATED_TIME
+      )
+    values (#{relaId}, #{roleId}, #{roleGroupId},
+      #{status}, #{createdBy}, #{createdTime}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.base.facade.model.AcctRoleGroupRole" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="relaId">
+      SELECT SEQ_ACCT_ROLE_GROUP_ROLE.nextval AS relaId FROM dual
+    </selectKey>
+    insert into acct_role_group_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="relaId != null" >
+        RELA_ID,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="roleGroupId != null" >
+        ROLE_GROUP_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="relaId != null" >
+        #{relaId},
+      </if>
+      <if test="roleId != null" >
+        #{roleId},
+      </if>
+      <if test="roleGroupId != null" >
+        #{roleGroupId},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.base.facade.model.AcctRoleGroupRole" >
+    update acct_role_group_role
+    <set >
+      <if test="roleId != null" >
+        ROLE_ID = #{roleId},
+      </if>
+      <if test="roleGroupId != null" >
+        ROLE_GROUP_ID = #{roleGroupId},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME = #{createdTime},
+      </if>
+    </set>
+    where RELA_ID = #{relaId}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.base.facade.model.AcctRoleGroupRole" >
+    update acct_role_group_role
+    set ROLE_ID = #{roleId},
+      ROLE_GROUP_ID = #{roleGroupId},
+      STATUS = #{status},
+      CREATED_BY = #{createdBy},
+      CREATED_TIME = #{createdTime}
+    where RELA_ID = #{relaId}
+  </update>
+</mapper>

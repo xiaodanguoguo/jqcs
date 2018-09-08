@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/objection_submission.css">
+    <link rel="stylesheet" href="../../../base/css/baseBlue.css">
+    <link rel="stylesheet" href="../../../base/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../../../plugin/popup/css/manhuaDialog.1.0_blue.css">
+    <script src="../../../base/js/jquery.js"></script>
+    <script src="../../../base/js/public.js"></script>
+    <script src="../../../base/js/docassistant.js"></script>
+    <script src="../../../base/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../../base/js/ajaxupload.js"></script>
+    <script src="../../../reqConfig.js"></script>
+    <script src="../../../plugin/popup/script/manhuaDialog.1.0.js"></script>
+    <script src="../../../plugin/WdatePickerBlue/My97DatePicker/WdatePicker.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.submission-box-appraise').on('click', function () {
+                openWin('410', '200', 'inputAnswer', true);
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <div class="submission">
+        <div class="submission-title">
+            <div class="btnLowNew submission-Home-page">首页</div>
+            <div class="btnLowNew submission-questionnaire">异议提报
+                <b class="submission-title-close">X</b>
+            </div>
+        </div>
+        <div class="submission-box">
+            <div class="submission-box-list">
+                <ul class="management-box-list__Content clearfix">
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">客户名称:</span>
+                        <input type="text" class="inputBase">
+                    </li>
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">产品牌号:</span>
+                        <input type="text" class="inputBase">
+                    </li>
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">产品大类:</span>
+                        <input type="text" class="inputBase">
+                    </li>
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">异议编号:</span>
+                        <input type="text" class="inputBase">
+                    </li>
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">批/板/卷号:</span>
+                        <input type="text" class="inputBase">
+                    </li>
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">异议状态:</span>
+                        <select name="" class="inputBase submission-box-list__Select"></select>
+                    </li>
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">异议类别:</span>
+                        <input type="text" class="inputBase">
+                    </li>
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">提报日期:</span>
+                        <input type="text" class="inputBase Wdate" onClick="WdatePicker({minDate:'%y-%M-#{%d+1}'})">
+                    </li>
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">至:</span>
+                        <input type="text" class="inputBase Wdate" onfocus="WdatePicker({
+                        minDate:'%y-%M-%d',firstDayOfWeek:1})">
+                    </li>
+                </ul>
+            </div>
+            <div class="submission-box-button">
+                <div class="btnLowNew submission-box-search">查询</div>
+                <div class="btnLowNew submission-box-create">新建</div>
+                <div class="btnLowNew submission-box-amend">修改</div>
+                <div class="btnLowNew submission-box-del">删除</div>
+                <div class="btnLowNew submission-box-submit">提交</div>
+                <div class="btnLowNew submission-box-export">导出</div>
+                <div class="btnLowNew submission-box-detail">详情</div>
+                <div class="btnLowNew submission-box-apply">销售审核</div>
+                <div class="btnLowNew submission-box-appraise">异议处理评价</div>
+            </div>
+            <table class="table-list">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" width="4%">
+                        <input type="checkbox">
+                    </th>
+                    <th class="table-list-currentrow-theader" width="4%">序号</th>
+                    <th class="table-list-currentrow-theader" width="6%">异议编号</th>
+                    <th class="table-list-currentrow-theader" width="6%">异议状态</th>
+                    <th class="table-list-currentrow-theader" width="7%">生产厂家</th>
+                    <th class="table-list-currentrow-theader" width="7%">产品大类</th>
+                    <th class="table-list-currentrow-theader" width="5%">牌号</th>
+                    <th class="table-list-currentrow-theader" width="6%">规格</th>
+                    <th class="table-list-currentrow-theader" width="7%">异议类别</th>
+                    <th class="table-list-currentrow-theader" width="6%">异议量(吨)</th>
+                    <th class="table-list-currentrow-theader" width="6%">提报日期</th>
+                    <th class="table-list-currentrow-theader" width="6%">报告附件</th>
+                    <th class="table-list-currentrow-theader" width="7%">协议书查看</th>
+                    <th class="table-list-currentrow-theader" width="6%">驳回原因</th>
+                    <th class="table-list-currentrow-theader" width="9%">强制结案原因</th>
+                </tr>
+                <tr class="table-list-currentrow">
+                    <td class="table-list-currentrow-tdetail">
+                        <input type="checkbox">
+                    </td>
+                    <td class="table-list-currentrow-tdetail">1</td>
+                    <td class="table-list-currentrow-tdetail">M1</td>
+                    <td class="table-list-currentrow-tdetail">驻外销售公司</td>
+                    <td class="table-list-currentrow-tdetail">2018/07/25</td>
+                    <td class="table-list-currentrow-tdetail">8Y28300</td>
+                    <td class="table-list-currentrow-tdetail">6</td> 
+                    <td class="table-list-currentrow-tdetail">35000</td>
+                    <td class="table-list-currentrow-tdetail">RE180730</td>
+                    <td class="table-list-currentrow-tdetail">0</td>
+                    <td class="table-list-currentrow-tdetail">1</td>
+                    <td class="table-list-currentrow-tdetail">
+                        <a href="javascript:;" class="submission-box-watch">查看</a>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <img src="../images/pic.png" class="submission-box-img" alt="">
+                    </td>
+                    <td class="table-list-currentrow-tdetail">1</td>
+                    <td class="table-list-currentrow-tdetail">2</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="inputAnswer" class="popup gc_box" style="display:none">
+        <div class="title" style="">
+            <h2>异议处理评价</h2>
+            <div>
+                <a class="min" href=" " title="最小化" style="display:none;"></a>
+                <a class="max" href="javascript:;" title="最大化" style="display:none;"></a>
+                <a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+                <a class="close" href="javascript:;" title="关闭" style="display:block;"></a>
+            </div>
+        </div>
+        <div class="content">
+            <ul class="content-list">
+                <li class="content-list-main">
+                    <span class="content-name">1、您对异议处理人员态度是否满意？</span>
+                    <span class="content-images">
+                        <img src="../images/pic1.png" class="content-images-img" alt="">
+                        <img src="../images/pic1.png" class="content-images-img" alt="">
+                        <img src="../images/pic1.png" class="content-images-img" alt="">
+                        <img src="../images/pic1.png" class="content-images-img" alt="">
+                        <img src="../images/pic2.png" class="content-images-img" alt="">
+                    </span>
+                </li>
+                <li class="content-list-main">
+                    <span class="content-name">2、您对异议处理时长是否满意？</span>
+                    <span class="content-images">
+                        <img src="../images/pic1.png" class="content-images-img" alt="">
+                        <img src="../images/pic1.png" class="content-images-img" alt="">
+                        <img src="../images/pic1.png" class="content-images-img" alt="">
+                        <img src="../images/pic1.png" class="content-images-img" alt="">
+                        <img src="../images/pic2.png" class="content-images-img" alt="">
+                    </span>
+                </li>
+                <li class="content-list-main">
+                    <span class="content-name">3、您对异议处理方式是否满意？</span>
+                    <span class="content-images">
+                        <img src="../images/pic1.png" class="content-images-img" alt="">
+                        <img src="../images/pic1.png" class="content-images-img" alt="">
+                        <img src="../images/pic1.png" class="content-images-img" alt="">
+                        <img src="../images/pic1.png" class="content-images-img" alt="">
+                        <img src="../images/pic2.png" class="content-images-img" alt="">
+                    </span>
+                </li>
+            </ul>
+            <div class="btnBaseCommon content-list-confirm">确定</div>
+        </div>
+    </div>
+</body>
+
+</html>

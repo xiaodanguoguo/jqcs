@@ -1,0 +1,92 @@
+.Home{
+    margin:20px auto;
+    width:990px;
+    height:600px;
+    .Home-title{
+        width:990px;
+        height:40px;
+        line-height:40px;
+        border-bottom:1px solid #6390f3;
+        #Home-page{
+            margin:13px 0 0 26px;
+        }
+    }
+    .Home-personInfo{
+        display: flex;
+        align-items: center;
+        width:990px;
+        height:120px;
+        .head-portrait{
+            width:63px;
+            height:63px;
+            background:#eee;
+            border-radius:50%;
+            margin:0 0 0 66px;
+        }
+        #redact{
+            width:100px;
+            margin-left:45px;
+            margin-right:65px;
+        }
+    }
+    .Home-myInfo{
+        width:990px;
+        height:300px;
+          .Home-myInfo-title{
+            width:990px;
+            height:45px;
+            line-height:45px;
+            background:#eee;
+            h6{
+                margin-left:65px;
+                font-weight:bold;
+            }
+        }
+        .Home-myInfo-content{
+            margin-top:22px;
+        }
+        .Home-myInfo-contentEvery{
+            margin:-6px 0 0 65px;
+            h1{
+                font-weight:bold;
+                height:38px;
+                line-height:38px;
+                span{
+                    color:orange;
+                }
+            }
+            .Home-myInfo-contentEverydt{
+                height:30px;
+                line-height:30px;
+            }
+            .Home-myInfo-contentEverydd{
+                height:30px;
+                line-height:30px;
+            }
+        }
+    }
+    .Home-announcement{
+        width:990px;
+        height:140px;
+        .Home-announcement-title{
+            width:990px;
+            height:45px;
+            line-height:45px;
+            background:#eee;
+            h5{
+                margin-left:65px;
+                font-weight:bold;
+            }
+        }
+        .Home-announcement-content{
+            .Home-announcement-contentier{
+                margin-left:65px;
+                margin-top:30px;
+                height:18px;
+                line-height:18px;
+                float: left;
+                text-align:center;
+            }
+        }
+    }
+} 

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.base.facade.dao.SysNoticeMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.base.facade.model.SysNotice" >
+    <id column="ID" property="id" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="NOTICE_TYPE" property="noticeType" jdbcType="VARCHAR" />
+    <result column="PUBLISH_OBJ" property="publishObj" jdbcType="VARCHAR" />
+    <result column="START_TIME" property="startTime"  />
+    <result column="END_TIME" property="endTime"  />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status"  />
+    <result column="IS_DELETE" property="isDelete"  />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_TIME" property="createdTime"  />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_TIME" property="updatedTime"  />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TITLE, NOTICE_TYPE, PUBLISH_OBJ, START_TIME, END_TIME, CONTENT, STATUS, IS_DELETE, CREATED_BY,
+    CREATED_TIME, UPDATED_BY, UPDATED_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_notice
+    where ID = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_notice
+    where ID = #{id}
+  </delete>
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.Long" >
+    delete from sys_notice
+    where ID in 
+	<foreach collection="keys" open="(" close=")" item="key" separator=",">
+		#{key}
+	</foreach>
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.SysNotice" >
+    insert into sys_notice (ID, TITLE, NOTICE_TYPE, 
+      PUBLISH_OBJ, START_TIME, END_TIME, 
+      CONTENT, STATUS, IS_DELETE, CREATED_BY,
+      CREATED_TIME, UPDATED_BY, UPDATED_TIME
+      )
+    values (#{id}, #{title}, #{noticeType},
+      #{publishObj}, #{startTime}, #{endTime},
+      #{content}, #{status}, #{isDelete}, #{createdBy},
+      #{createdTime}, #{updatedBy}, #{updatedTime}
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" keyColumn="ID" useGeneratedKeys="true" parameterType="jq.steel.cs.services.base.facade.model.SysNotice" >
+    insert into sys_notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="noticeType != null" >
+        NOTICE_TYPE,
+      </if>
+      <if test="publishObj != null" >
+        PUBLISH_OBJ,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="isDelete != null" >
+        IS_DELETE,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedTime != null" >
+        UPDATED_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="title != null" >
+        #{title},
+      </if>
+      <if test="noticeType != null" >
+        #{noticeType},
+      </if>
+      <if test="publishObj != null" >
+        #{publishObj},
+      </if>
+      <if test="startTime != null" >
+        #{startTime},
+      </if>
+      <if test="endTime != null" >
+        #{endTime},
+      </if>
+      <if test="content != null" >
+        #{content},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.base.facade.model.SysNotice" >
+    update sys_notice
+    <set >
+      <if test="title != null" >
+        TITLE = #{title},
+      </if>
+      <if test="noticeType != null" >
+        NOTICE_TYPE = #{noticeType},
+      </if>
+      <if test="publishObj != null" >
+        PUBLISH_OBJ = #{publishObj},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="isDelete != null" >
+        IS_DELETE = #{isDelete},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME = #{createdTime},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy},
+      </if>
+      <if test="updatedTime != null" >
+        UPDATED_TIME = #{updatedTime},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.base.facade.model.SysNotice" >
+    update sys_notice
+    set TITLE = #{title},
+      NOTICE_TYPE = #{noticeType},
+      PUBLISH_OBJ = #{publishObj},
+      START_TIME = #{startTime},
+      END_TIME = #{endTime},
+      CONTENT = #{content},
+      STATUS = #{status},
+      IS_DELETE = #{isDelete},
+      CREATED_BY = #{createdBy},
+      CREATED_TIME = #{createdTime},
+      UPDATED_BY = #{updatedBy},
+      UPDATED_TIME = #{updatedTime}
+    where ID = #{id}
+  </update>
+
+  <!--全部查询、分页查询-->
+  <select id="selectSysNoticeAll" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    from sys_notice
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="title != null and title != ''" >
+        AND TITLE LIKE '%' || #{title} ||'%'
+      </if>
+      <if test="publishObj != null and publishObj != ''" >
+        AND PUBLISH_OBJ = #{publishObj}
+      </if>
+      <if test="status != null and status != ''" >
+        AND STATUS = #{status}
+      </if>
+      <if test="isDelete != null and isDelete != ''" >
+        AND IS_DELETE = #{isDelete}
+      </if>
+    </trim>
+  </select>
+
+</mapper>

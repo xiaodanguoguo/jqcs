@@ -1,0 +1,62 @@
+.apply{
+    margin:0 auto;
+    width:990px;
+    height: 650px;
+}
+.apply-title{
+    width:990px; 
+    height:40px;
+    line-height:40px;
+    border-bottom:1px solid #6390f3;
+}
+.apply-Home-page{
+    margin:13px 0 0 15px;
+}
+.apply-questionnaire{ 
+    position: relative;
+    width: 65px;
+    margin-left:-4px;
+    .apply-title-close{
+        position: absolute;
+        top:-7px;
+        right:2px;
+    }
+}
+.apply-Table-nav{
+    margin-left:20px;
+    margin-top:20px;
+    .apply-Table-nav__Input{
+        width:350px;
+        height:28px;
+        line-height:28px;
+        border:1px solid #dee3e6;
+    }
+    div{
+        margin-left:8px;
+        width:40px;
+    }
+}
+.apply-box{
+    position: relative;
+    margin-top:12px;
+    margin-left:93px;
+    width:600px;
+    height: 422px;
+    border:1px solid #dee3e6;
+}
+.apply-list-title{
+    margin-left:93px;
+    margin-top:20px;
+    font-size:14px;
+}
+.apply-list-text{
+    margin-top:8px;
+    margin-left:93px;
+    width:600px;
+    height:70px;
+    border:1px solid #dee3e6;  
+}
+.apply-list-back{
+    margin-left: 627px;
+    margin-top: 10px;
+}

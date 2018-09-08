@@ -1,0 +1,22 @@
+@@include('../../commonNav/html/commonHeaderBlue.html')
+<link rel="stylesheet" href="../css/product.css">
+    <div class="product">
+        <ul class="product-list" comtype="standardTableCtrl" templateid="templateRow" reqpath="/product/category/introduct/list" reqparam="{}" method="POST">
+            <li class="product-list-box" id="templateRow" style="display: none;">
+                <div class="product-list-box__line">
+                    <span class="product-list-box__name" id="categoryName"></span>
+                    <b class="product-list-box__paragraph" id="categoryDesc"></b>
+                </div>
+            </li>
+        </ul>
+    </div>
+<script>
+    function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
+        $(cloneRow).find("#categoryName").attr("title",jsonItem.categoryName);
+        $(cloneRow).find("#categoryDesc").attr("title",jsonItem.categoryDesc);
+        $(cloneRow).find("#categoryName").on("click",function(){
+            jumpUrl("productShow.html?categoryId="+ jsonItem.cid,"0000000",0);
+        })
+    }
+</script>
+@@include('../../commonNav/html/commonFoot.html')

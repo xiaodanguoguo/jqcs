@@ -1,0 +1,86 @@
+.add{
+    margin:0 auto;
+    width:990px;
+    height:600px;
+}
+.add:before{
+    content: "";
+}
+.add-title{
+    width:990px; 
+    height:40px;
+    line-height:40px;
+    border-bottom:1px solid #6390f3;
+}
+.add-Home-page{
+    margin:13px 0 0 15px;
+}
+.add-Info{ 
+    position: relative;
+    width:105px;
+    margin-left:-5px;
+    .add-title-close{
+        position: absolute;
+        top:-7px;
+        right:2px;
+    }
+}
+
+.add-box{
+    width:725px;  
+    height:390px;
+    margin-left:36px;
+    margin-top:28px;
+    .add-box-list{
+        width:725px;
+    }
+}
+.add-box-list__Every{
+    width:725px;
+    margin-bottom:8px;
+    .inputBase{
+        width:278px;
+        margin-right:11px;
+    }
+}
+.add-box-list__Every .add-box-list__Name{
+    float: left;
+    display: inline-block;
+    width:55px;
+    text-align: right;
+    margin-right:10px;
+}
+.add-box-list__Every .add-box-list__Input{
+    width:644px;
+    height:28px; 
+    line-height: 28px;
+    border:1px solid #dee3e6; 
+}
+.add-box-list__Every .add-box-list__Upload{
+    float: left;
+    width:643px;
+    height:112px;
+    margin-left:70px;
+    text-align:center;
+    margin-top:-20px;
+}
+.add-box-list__Upload div{
+    margin-right: 10px!important;
+}
+.add-box-list__Every .add-box-list__introduce{
+    float: left;
+    width:644px;
+    height:90px;
+    border:1px solid #dee3e6;
+    resize: none;
+}
+.add-box-list__Every .add-box-list__save{
+    margin:6px 6px 0 614px;
+}
+.uploadBtn {
+    margin-top:10px;
+    margin-left:10px;
+}
+.chosen-container{
+    margin-left: 0;
+}

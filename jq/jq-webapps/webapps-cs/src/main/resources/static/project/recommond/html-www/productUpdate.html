@@ -1,0 +1,53 @@
+@@include('../../commonNav/html/commonHeaderBlue.html')
+<link rel="stylesheet" href="../css/product_add.css">
+<script src="../js/productUpdate.js"></script>
+    <div class="add">
+        <div class="add-box">
+            <ul class="add-box-list clearfix" id="boxContent">
+                <li class="add-box-list__Every">
+                    <span class="add-box-list__Name">产品名称:</span>
+                    <input id="productName" type="text" class="inputBase required">
+                    <span class="add-box-list__Namenumber">牌号:</span>
+                    <input id="designation" type="text" class="inputBase required">
+                </li>
+                <li class="add-box-list__Every">
+                    <span class="add-box-list__Name">产品类别:</span>
+                    <select id="categoryIdA" name="" class="inputBase" comType="" selCode="cid" selValue="categoryName" emptyValue="请选择" style="width: 300px;"></select>
+                    <span class="add-box-list__Namenumber" style="margin-left: 11px;">标准:</span>
+                    <input id="standard" type="text" class="inputBase required">
+                </li>
+                <li class="add-box-list__Every">
+                    <span class="add-box-list__Name">用途:</span>
+                    <input id="used" type="text" class="add-box-list__Input required">
+                </li>
+                <li class="add-box-list__Every">
+                    <span class="add-box-list__Name">产地:</span>
+                    <input id="productArea" type="text" class="add-box-list__Input required">
+                </li>
+                <li class="add-box-list__Every">
+                    <span class="add-box-list__Name">上传图片:</span>
+                    <div class="add-box-list__Upload">
+                        <div comType="uploadCtrl" id="uploadBox" uploadType="" uploadBgSrc="../images/comUploadBg1.png" reqPath="/file/upload" uploadSize='{"w":"100","h":"100"}' filetype="custom" fileExt="" >
+                        </div>
+                        <div comType="uploadCtrl" id="uploadBox" uploadType="" uploadBgSrc="../images/comUploadBg1.png" reqPath="/file/upload" uploadSize='{"w":"100","h":"100"}' filetype="custom" fileExt="" >
+                        </div>
+                        <div comType="uploadCtrl" id="uploadBox" uploadType="" uploadBgSrc="../images/comUploadBg1.png" reqPath="/file/upload" uploadSize='{"w":"100","h":"100"}' filetype="custom" fileExt="" >
+                        </div>
+                        <div comType="uploadCtrl" id="uploadBox" uploadType="" uploadBgSrc="../images/comUploadBg1.png" reqPath="/file/upload" uploadSize='{"w":"100","h":"100"}' filetype="custom" fileExt="" >
+                        </div>
+                        <div comType="uploadCtrl" id="uploadBox" uploadType="" uploadBgSrc="../images/comUploadBg1.png" reqPath="/file/upload" uploadSize='{"w":"100","h":"100"}' filetype="custom" fileExt="" >
+                        </div>
+                    </div>
+                </li>
+                <li class="add-box-list__Every">
+                    <span class="add-box-list__Name">产品介绍:</span>
+                    <textarea id="productDesc" class="add-box-list__Input  add-box-list__introduce required"></textarea>
+                </li>
+                <li class="add-box-list__Every">
+                    <div class="btnLowNew add-box-list__save" id="saveOpe">保存</div>
+                    <div class="btnLowNew add-box-list__return" id="returnOpe">返回</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    @@include('../../commonNav/html/commonFoot.html')

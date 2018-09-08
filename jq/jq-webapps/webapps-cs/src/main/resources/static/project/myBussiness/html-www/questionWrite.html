@@ -1,0 +1,28 @@
+@@include('../../commonNav/html/commonHeaderBlue.html')
+<script>
+    var qid = "";
+    $(function(){
+        //调查问卷提示
+        getAjaxResult("/question/have/question","POST",{},"initCallBack(data)");
+    })
+    function initCallBack(data) {
+        data = JSON.parse(data);
+        if(data.retCode == "0000000"){
+            if(data.rspBody.count > 0){
+                var alertBox=new clsAlertBoxCtrl();
+                qid = data.rspBody.qid;
+                alertBox.Alert("您好，"+ getCookie("userName") +"！有"+ data.rspBody.count +"份问卷调查，期待您的参与！","温馨提示",1,"","questionSure");
+            }else{
+                var alertBox=new clsAlertBoxCtrl();
+                alertBox.Alert("您好，"+ getCookie("userName") +"！您暂无需要填写的问卷调查！","温馨提示");
+            }
+        }
+    }
+    function clsAlertBoxCtrl$sure() {//修改密码成功弹框确定
+        if (this.id == "questionSure") {//修改密码成功
+            closePopupWin();
+            jumpUrl("../../myBussiness/html-gulp-www/questionDesc.html?qid="+ qid,"0000000",0);
+        }
+    }
+</script>
+@@include('../../commonNav/html/commonFoot.html')

@@ -1,0 +1,134 @@
+@@include('../../commonNav/html/commonHeaderBlue.html')
+<link rel="stylesheet" href="../css/questionnaire_research.css">
+<link rel="stylesheet" href="../css/create_research.css">
+<script>
+    var qid = GetQueryString("qid");
+    var readTab =  GetQueryString("readTab");
+    var qidJump = "";
+    $(document).ready(function(){
+
+        var jsonData = {"qid":qid};
+        getAjaxResult("/question/preview","POST",jsonData,"descCallBack(data)");
+
+        $("#btnSave").click(function(){
+            initValidateNoBind();
+            var obj = new clsValidateCtrl();
+            if(obj.validateAll())
+            {
+                var jsonData = {"answerRecordId":null,"qid":null,"memo":"","crmQuestionRecordDetailVOList":[]};
+                jsonData.memo	= $("#memo").val();
+                jsonData.qid	= qid;
+
+                for(var nI=0; nI<jsonPData.rspBody.crmQuestionItemVOList.length; nI++)
+                {
+                    var jsonItem = jsonPData.rspBody.crmQuestionItemVOList[nI];
+                    jsonData.crmQuestionRecordDetailVOList.push(jsonItem.crmQuestionTeamAnswerVOList[0]);
+                }
+                getAjaxResult("/question/submit","POST",jsonData,"saveCallBack(data)");
+            }
+        });
+    });
+
+    var jsonPData;
+    function descCallBack(data)
+    {
+        jsonPData = JSON.parse(data);
+        if(jsonPData.retCode == "0000000")
+        {
+
+            if(readTab == 1)
+            {
+                var templateParentId = document.getElementById("templateParentId");
+                //$(templateParentId).find("input").addClass("changeGary");
+                $(templateParentId).find("input").prop("disabled",true);
+                $("#memo").hide();
+                $("#btnSave").hide();
+                $(".questionnaire-list-title").hide()
+            }
+            setValue4Desc(jsonPData.rspBody, $(".questionnaire")[0]);
+
+        }
+        //jsonPData = {"rspBody":{"pushRegions":1,"updateBy":1,"createDt":"2018\\/08\\/20","updateDt":1,"messageNumber":"1807001","questionTitle":"关于棒材产品的满意度调查","qids":1,"endDt":"2018\\/08\\/20","crmQuestionItemVOList":[{"qid":1,"itemTitle":"棒材拉伸度是否满足使用要求？","crmQuestionTeamAnswerVOList":[{"questionItemAnswerId":1,"answerValue":7,"questionItemId":1,"qid":1,"answerTitle":"7分"},{"questionItemAnswerId":1,"answerValue":6,"questionItemId":1,"qid":1,"answerTitle":"6分"},{"questionItemAnswerId":1,"answerValue":5,"questionItemId":1,"qid":1,"answerTitle":"5分"}],"questionItemId":1},{"qid":1,"itemTitle":"棒材拉要求？","crmQuestionTeamAnswerVOList":[{"questionItemAnswerId":1,"answerValue":7,"questionItemId":1,"qid":1,"answerTitle":"7分"},{"questionItemAnswerId":1,"answerValue":6,"questionItemId":1,"qid":1,"answerTitle":"6分"},{"questionItemAnswerId":1,"answerValue":5,"questionItemId":1,"qid":1,"answerTitle":"5分"}],"questionItemId":1}],"pushRegion":1,"qid":1,"questionStatus":"1","createBy":1},"retDesc":"操作成功!","timestamp":"2018-08-20 18:47:18.173","retCode":"0000000"};
+
+    }
+
+    function saveCallBack(data)
+    {
+        var jsonData = JSON.parse(data);
+        if(jsonData.retCode == "0000000")
+
+            getAjaxResult("/question/have/question","POST",{},"initCallBack(data)");
+    }
+
+    function setValue4DescProcess(jsonData, key,jsonItem)
+    {
+        if(key == "crmQuestionItemVOList")
+        {
+            var jsonData = {"rspBody":{"resultData":jsonData}};
+            document.getElementById("questionContent").data = jsonData;
+            $("#questionContent").attr("comType","parentChildTableCtrl");
+            document.body.jsCtrl.ctrl = document.getElementById("questionContent");
+            document.body.jsCtrl.init();
+        }
+    }
+
+    function clsParentChildTableCtrl$childProgress(jsonCItem, childCloneRow, jsonItem)
+    {
+        $(childCloneRow).find("input").click(function(){
+            $(this).parents("li:first")[0].jsonPData.crmQuestionTeamAnswerVOList = [$(this).parents("li:first")[0].jsonData];
+
+        });
+        $(childCloneRow).find("input").attr("name","radio"+$("*[id='cloneParentId']").length);
+        $(childCloneRow).find("input").attr("val",jsonCItem.answerValue);
+    }
+    function initCallBack(data) {
+        data = JSON.parse(data);
+        if(data.retCode == "0000000"){
+            if(data.rspBody.count > 0){
+                var alertBox=new clsAlertBoxCtrl();
+                qidJump = data.rspBody.qid;
+                alertBox.Alert("您好，"+ getCookie("userName") +"！有"+ data.rspBody.count +"份问卷调查，期待您的参与！","温馨提示",1,"","questionSure");
+            }else{
+                alertBox.Alert("您好，"+ getCookie("userName") +"！您已经完成所有问卷调查，谢谢合作！");
+			}
+        }
+    }
+    function clsAlertBoxCtrl$sure() {//修改密码成功弹框确定
+        if (this.id == "questionSure") {//修改密码成功
+            closePopupWin();
+            jumpUrl("../../myBussiness/html-gulp-www/questionDesc.html?qid="+ qidJump,"0000000",0);
+        }
+    }
+</script>
+    <div class="questionnaire">
+        <!--<div class="questionnaire-title">
+            <div class="btnLowNew questionnaire-Homepage">首页</div>
+            <div class="btnLowNew questionnaire-statistics">满意度调查统计
+                <b class="questionnaire-close">X</b>
+            </div>
+        </div>-->
+        <div class="questionnaire-name">
+            <h1 class="questionnaire-name__tit" id="questionTitle">关于棒材产品的满意度调查(2018/0717————2018/07/20)</h1>
+        </div>
+        <div class="questionnaire-list">
+			<div class="questionnaire-Every-list" id="questionContent" comType="" templateParentId="templateParentId" templateChildId="templateChildId" jsonChildName="crmQuestionTeamAnswerVOList" reqpath="" reqparam="{}" method="POST" parentIdx="idx">
+				<div class="questionnaire-list-Everyquest clearfix" id="templateParentId" style="display:none">
+					<p class="fl" id="idx"></p><p class="fl">.</p><p class="fl" id="itemTitle" style="width: 900px;"></p>
+					<div class="questionnaire-list-EveryList">
+						<ul class="requireRadio clearfix fl" radiosList="list">
+							<li class="questionnaire-list-EveryListeve" id="templateChildId" style="display:none">
+								<input type="radio" val="" class="questionnaire-list-Radio">
+								<span id="answerTitle"></span>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+				
+			</div>
+			<p class="questionnaire-list-title">其他反馈意见:</p>
+			<textarea type="text" class="questionnaire-list-text" id="memo" style="resize: none"></textarea>
+			<div class="btnBaseCommon questionnaire-list-submit" id="btnSave">提交</div>
+		</div>
+	</div>
+@@include('../../commonNav/html/commonFoot.html')

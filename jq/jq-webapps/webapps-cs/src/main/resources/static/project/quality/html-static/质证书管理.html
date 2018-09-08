@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/credential_Management.css">
+    <link rel="stylesheet" href="../../../base/css/baseOrange.css">
+    <link rel="stylesheet" href="../../../base/css/baseBlue.css">
+    <link rel="stylesheet" href="../../../base/iconfont/iconfont.css">
+    <script src="../../../base/js/jquery.js"></script>
+    <script src="../../../base/js/public.js"></script>
+    <script src="../../../base/js/docassistant.js"></script>
+    <script src="../../../base/js/jquery.cookie.js"></script>
+    <script src="../../../reqConfig.js"></script>
+    <script src="../../../plugin/WdatePickerBlue/My97DatePicker/WdatePicker.js"></script>
+</head>
+<body>
+    <div class="management">
+        <div class="management-title">
+            <div class="btnLowNew management-Home-page">首页</div>
+            <div class="btnLowNew management-questionnaire">质证书查询
+                <b class="management-title-close">X</b>
+            </div>
+        </div>
+        <div class="management-box">
+            <div class="management-box-list">
+                <ul class="management-box-list__Content clearfix">
+                    <li class="management-box-list__Every"><span class="management-box-list__Name">客户名称:</span><input type="text" class="inputBase"></li>
+                    <li class="management-box-list__Every"><span class="management-box-list__Name">合同号:</span><input type="text" class="inputBase"></li>
+                    <li class="management-box-list__Every"><span class="management-box-list__Name">车号:</span><input type="text" class="inputBase"></li>
+                    <li class="management-box-list__Every"><span class="management-box-list__Name">质证书编号:</span><input type="text" class="inputBase"></li>
+                    <li class="management-box-list__Every"><span class="management-box-list__Name">批/板/卷号:</span><input type="text" class="inputBase"></li>
+                    <li class="management-box-list__Every"><span class="management-box-list__Name">产制时间:</span><input type="text"  class="inputBase Wdate" id="management-box-Time" onClick="WdatePicker({minDate:'%y-%M-#{%d+1}'})"></li>
+                    <li class="management-box-list__Every"><span class="management-box-list__Name">至:</span><input type="text" class="inputBase Wdate" id="management-box-Time" onfocus="WdatePicker({
+                        minDate:'%y-%M-%d',firstDayOfWeek:1})"></li>
+                    <li class="management-box-list__Every"><span class="management-box-list__Name">牌号:</span><input type="text" class="inputBase"></li>
+                </ul>
+            </div>
+            <div class="management-box-button">
+                <div class="btnLowNew management-box-search">查询</div>
+                <div class="btnBaseCancel management-box-reset">重置</div>
+                <div class="btnLowNew management-box-preview">预览</div>
+                <div class="btnLowNew management-box-print">打印</div>
+                <div class="btnLowNew management-box-apply">拆分申请</div>
+                <div class="btnLowNew management-box-split">强制拆分</div>
+            </div>
+            <table class="table-list">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" width="4%"><input type="checkbox"></th>
+                    <th class="table-list-currentrow-theader" width="11%">质保书编号</th>
+                    <th class="table-list-currentrow-theader" width="9%">质证书类别</th>
+                    <th class="table-list-currentrow-theader" width="9%">质证书状态</th>
+                    <th class="table-list-currentrow-theader" width="9%">售达方</th>
+                    <th class="table-list-currentrow-theader" width="9%">发车时间</th>
+                    <th class="table-list-currentrow-theader" width="7%">车号</th>
+                    <th class="table-list-currentrow-theader" width="8%">产品名称</th>
+                    <th class="table-list-currentrow-theader" width="8%">牌号</th>
+                    <th class="table-list-currentrow-theader"  width="9%">已打印次数</th>
+                    <th class="table-list-currentrow-theader"  width="9%">可打印次数</th>
+                    <th class="table-list-currentrow-theader"  width="9%">可下载次数</th>
+                </tr>
+                <tr class="table-list-currentrow">
+                    <td class="table-list-currentrow-tdetail"><input type="checkbox"></td>
+                    <td class="table-list-currentrow-tdetail">A18072300101</td>
+                    <td class="table-list-currentrow-tdetail">M</td>
+                    <td class="table-list-currentrow-tdetail">驻外销售公司</td>
+                    <td class="table-list-currentrow-tdetail">2018/07/25</td>
+                    <td class="table-list-currentrow-tdetail">8Y28300</td>
+                    <td class="table-list-currentrow-tdetail">6</td>
+                    <td class="table-list-currentrow-tdetail">35000</td>
+                    <td class="table-list-currentrow-tdetail">RE18071930</td>
+                    <td class="table-list-currentrow-tdetail">0</td>
+                    <td class="table-list-currentrow-tdetail">1</td>
+                    <td class="table-list-currentrow-tdetail">2</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+@@include('../../commonNav/html/commonHeaderBlue.html')
+<link rel="stylesheet" href="../css/homePage.css">
+    <!--<div class="Home">
+        <div class="Home-title">
+            <div class="btnLowNew" id="Home-page">首页</div>
+        </div>
+        <div class="Home-personInfo">
+            <div class="head-portrait"></div>
+            <div class="btnBaseCommon" id="redact">编辑资料</div>
+            <p>张先生,欢迎到酒钢客户服务平台！</p>   
+        </div>
+        <div class="Home-myInfo">
+           <div class="Home-myInfo-title">
+               <h6>我的业务信息</h6> 
+               <div class="Home-myInfo-content">
+                   <div class="Home-myInfo-contentEvery">
+                       <h1>异议跟踪&nbsp;&nbsp;(&nbsp;<span>2</span>&nbsp;)&nbsp;&nbsp;</h1>    
+                        <dl class="Home-myInfo-contentEverydl">
+                            <dt class="Home-myInfo-contentEverydt">您的异议：DD32432432已完成, 请查看下载协议书。</dt>
+                            <dd class="Home-myInfo-contentEverydd">您的异议：DD32432432已完成, 请查看下载协议书。</dd>
+                        </dl>
+                    </div>
+                    <div class="Home-myInfo-contentEvery">
+                            <h1>质证书信息&nbsp;&nbsp;(&nbsp;<span>2</span>&nbsp;)&nbsp;&nbsp;</h1>    
+                             <dl class="Home-myInfo-contentEverydl">
+                                 <dt class="Home-myInfo-contentEverydt">您的质证书:  DD32432432酒钢已审核通过, 请查看。</dt>
+                                 <dd class="Home-myInfo-contentEverydd">您的质证书:  DD32432432酒钢已审核通过, 请查看。</dd>
+                             </dl>
+                         </div>
+               </div>
+           </div>
+        </div>
+        <div class="Home-announcement">
+            <div class="Home-announcement-title">
+                <h5>系统公告</h5>
+            </div>
+            <div class="Home-announcement-content">
+                <div class="Home-announcement-contentier">
+                    <b>通知：</b>系统将于2018.10.9日上午10:30进行停机更新操作。
+                </div>
+            </div>
+        </div>
+    </div>-->
+<style>
+    .og-head-maincontent{
+        min-height: 540px;
+    }
+    .homePage-bg{
+        line-height: 400px;
+        font-size: 60px;
+        font-weight: 900;
+        color: #fff;
+        text-align: center;
+        width: 990px;
+        height: 540px;
+        background: url('../images/bglogin.png') no-repeat;
+        background-size: 990px 600px;
+    }
+</style>
+<div class="homePage-bg">
+    欢迎来到酒钢客服中心
+</div>
+<script>
+    var qid = "";
+    $(function(){
+        //调查问卷提示
+        getAjaxResult("/question/have/question","POST",{},"initCallBack(data)");
+    })
+    function initCallBack(data) {
+        data = JSON.parse(data);
+        if(data.retCode == "0000000"){
+            if(data.rspBody.count > 0){
+                var alertBox=new clsAlertBoxCtrl();
+                qid = data.rspBody.qid;
+                alertBox.Alert("您好，"+ getCookie("userName") +"！有"+ data.rspBody.count +"份问卷调查，期待您的参与！","温馨提示",1,"","questionSure");
+            }
+        }
+    }
+    function clsAlertBoxCtrl$sure() {//修改密码成功弹框确定
+        if (this.id == "questionSure") {//修改密码成功
+            closePopupWin();
+            jumpUrl("../../myBussiness/html-gulp-www/questionDesc.html?qid="+ qid,"0000000",0);
+        }
+    }
+</script>
+@@include('../../commonNav/html/commonFoot.html')

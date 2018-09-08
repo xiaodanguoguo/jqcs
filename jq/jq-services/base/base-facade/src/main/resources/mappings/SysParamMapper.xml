@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.base.facade.dao.SysParamMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.base.facade.model.SysParam" >
+    <id column="ID" property="id" />
+    <result column="PARAM_CODE" property="paramCode" jdbcType="VARCHAR" />
+    <result column="PARAM_NAME" property="paramName" jdbcType="VARCHAR" />
+    <result column="PARAM_VALUE" property="paramValue" jdbcType="VARCHAR" />
+    <result column="EX_1" property="ex1" jdbcType="VARCHAR" />
+    <result column="EX_2" property="ex2" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status"  />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_TIME" property="createdTime"  />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_TIME" property="updatedTime"  />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PARAM_CODE, PARAM_NAME, PARAM_VALUE, EX_1, EX_2, STATUS, CREATED_BY, CREATED_TIME, 
+    UPDATED_BY, UPDATED_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_param
+    where ID = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_param
+    where ID = #{id}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.SysParam" >
+    insert into sys_param (ID, PARAM_CODE, PARAM_NAME, 
+      PARAM_VALUE, EX_1, EX_2, 
+      STATUS, CREATED_BY, CREATED_TIME, 
+      UPDATED_BY, UPDATED_TIME)
+    values (#{id}, #{paramCode}, #{paramName},
+      #{paramValue}, #{ex1}, #{ex2},
+      #{status}, #{createdBy}, #{createdTime},
+      #{updatedBy}, #{updatedTime})
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.base.facade.model.SysParam" >
+    insert into sys_param
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="paramCode != null" >
+        PARAM_CODE,
+      </if>
+      <if test="paramName != null" >
+        PARAM_NAME,
+      </if>
+      <if test="paramValue != null" >
+        PARAM_VALUE,
+      </if>
+      <if test="ex1 != null" >
+        EX_1,
+      </if>
+      <if test="ex2 != null" >
+        EX_2,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedTime != null" >
+        UPDATED_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="paramCode != null" >
+        #{paramCode},
+      </if>
+      <if test="paramName != null" >
+        #{paramName},
+      </if>
+      <if test="paramValue != null" >
+        #{paramValue},
+      </if>
+      <if test="ex1 != null" >
+        #{ex1},
+      </if>
+      <if test="ex2 != null" >
+        #{ex2},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.base.facade.model.SysParam" >
+    update sys_param
+    <set >
+      <if test="paramCode != null" >
+        PARAM_CODE = #{paramCode},
+      </if>
+      <if test="paramName != null" >
+        PARAM_NAME = #{paramName},
+      </if>
+      <if test="paramValue != null" >
+        PARAM_VALUE = #{paramValue},
+      </if>
+      <if test="ex1 != null" >
+        EX_1 = #{ex1},
+      </if>
+      <if test="ex2 != null" >
+        EX_2 = #{ex2},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME = #{createdTime},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy},
+      </if>
+      <if test="updatedTime != null" >
+        UPDATED_TIME = #{updatedTime},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.base.facade.model.SysParam" >
+    update sys_param
+    set PARAM_CODE = #{paramCode},
+      PARAM_NAME = #{paramName},
+      PARAM_VALUE = #{paramValue},
+      EX_1 = #{ex1},
+      EX_2 = #{ex2},
+      STATUS = #{status},
+      CREATED_BY = #{createdBy},
+      CREATED_TIME = #{createdTime},
+      UPDATED_BY = #{updatedBy},
+      UPDATED_TIME = #{updatedTime}
+    where ID = #{id}
+  </update>
+
+  <select id="find" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.SysParam">
+    select
+    <include refid="Base_Column_List" />
+    from SYS_PARAM
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="paramCode != null and paramCode != ''" >
+        AND PARAM_CODE LIKE  '%' || #{paramCode} ||'%'
+      </if>
+      <if test="paramName != null and paramName != ''" >
+        AND PARAM_NAME LIKE  '%' || #{paramName} ||'%'
+      </if>
+      <if test="paramValue != null and paramValue != ''" >
+        AND PARAM_VALUE LIKE  '%' || #{paramValue} ||'%'
+      </if>
+      <if test="ex1 != null" >
+        and  EX_1 = #{ex1}
+      </if>
+      <if test="ex2 != null" >
+        and  EX_2 = #{ex2}
+      </if>
+      <if test="status != null" >
+        and  STATUS = #{status}
+      </if>
+      <if test="createdBy != null" >
+        and  CREATED_BY = #{createdBy}
+      </if>
+      <if test="createdTime != null" >
+        and  CREATED_TIME = #{createdTime}
+      </if>
+      <if test="updatedBy != null" >
+        and  UPDATED_BY = #{updatedBy}
+      </if>
+      <if test="updatedTime != null" >
+        and  UPDATED_TIME = #{updatedTime}
+      </if>
+    </trim>
+  </select>
+</mapper>

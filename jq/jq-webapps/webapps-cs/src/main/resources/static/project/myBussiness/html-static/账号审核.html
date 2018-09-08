@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/number_check.css">
+    <link rel="stylesheet" href="../../../base/css/baseBlue.css">
+    <link rel="stylesheet" href="../../../base/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../../../plugin/popup/css/manhuaDialog.1.0_blue.css">
+    <script src="../../../base/js/jquery.js"></script>
+    <script src="../../../base/js/public.js"></script>
+    <script src="../../../base/js/docassistant.js"></script>
+    <script src="../../../base/js/jquery.cookie.js"></script>
+    <script src="../../../reqConfig.js"></script>
+    <script src="../../../plugin/popup/script/manhuaDialog.1.0.js"></script>
+</head>
+<script>
+    $(document).ready(function () {
+        $('.check-button-check').on('click', function () {
+            openWin('360', '286', 'inputAnswer', true);
+        })
+    })
+</script>
+
+<body>
+    <div class="check">
+        <div class="check-title">
+            <div class="btnLowNew check-Homepage">首页</div>
+            <div class="btnLowNew check-num">账号审核
+                <b class="check-close">X</b>
+            </div>
+        </div>
+        <div class="check-box">
+            <ul class="check-contenter clearfix">
+                <li class="check-contenter-Every">
+                    <span class="check-contenter-tit">审核状态:</span>
+                    <select name="" class="inputBase check-contenter-select"></select>
+                </li>
+                <li class="check-contenter-Every">
+                    <span class="check-contenter-tit">客户名称:</span>
+                    <input type="text" class="inputBase">
+                </li>
+            </ul>
+            <div class="check-button">
+                <div class="btnLowNew check-button-search">查询</div>
+                <div class="btnLowNew check-button-check">审核</div>
+            </div>
+            <table class="table-list check-list">
+                <tr class="table-list-currentrow check-list-row">
+                    <th class="table-list-currentrow-theader check-list-head" width="7%">
+                        <input type="checkbox">
+                    </th>
+                    <th class="table-list-currentrow-theader check-list-head" width="10%">客户编码</th>
+                    <th class="table-list-currentrow-theader check-list-head" width="10%">客户类型</th>
+                    <th class="table-list-currentrow-theader check-list-head" width="10%">所属机构</th>
+                    <th class="table-list-currentrow-theader check-list-head" width="10%">客户名称</th>
+                    <th class="table-list-currentrow-theader check-list-head" width="10%">电话号码</th>
+                    <th class="table-list-currentrow-theader check-list-head" width="10%">审核状态</th>
+                </tr>
+                <tr class="table-list-currentrow check-list-row">
+                    <td class="table-list-currentrow-tdetail check-list-body">
+                        <input type="checkbox">
+                    </td>
+                    <td class="table-list-currentrow-tdetail check-list-body"></td>
+                    <td class="table-list-currentrow-tdetail check-list-body"></td>
+                    <td class="table-list-currentrow-tdetail check-list-body"></td>
+                    <td class="table-list-currentrow-tdetail check-list-body"></td>
+                    <td class="table-list-currentrow-tdetail check-list-body"></td>
+                    <td class="table-list-currentrow-tdetail check-list-body"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="inputAnswer" class="popup gc_box" style="display:none">
+        <div class="title" style="">
+            <h2>审核</h2>
+            <div>
+                <a class="min" href=" " title="最小化" style="display:none;"></a>
+                <a class="max" href="javascript:;" title="最大化" style="display:none;"></a>
+                <a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+                <a class="close" href="javascript:;" title="关闭" style="display:block;"></a>
+            </div>
+        </div>
+        <div class="content">
+            <ul class="content-list">
+                <li  class="content-list-main">
+                    <span class="content-list-tit">客户编码:</span>
+                    <input type="text" class="inputBase">
+                </li>
+                <li class="content-list-main">
+                    <span class="content-list-tit">客户类别:</span>
+                    <select name="" class="content-list-select"></select>
+                </li>
+                <li class="content-list-main">
+                    <span class="content-list-tit">所属组织:</span>
+                    <select name="" class="content-list-select"></select>
+                </li>
+            </ul>
+            <div class="button">
+                <div class="btnBaseCommon content-list-pass">通过</div>
+                <div class="btnBaseCancel content-list-cancel">取消</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

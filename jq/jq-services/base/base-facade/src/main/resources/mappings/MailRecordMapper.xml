@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.base.facade.dao.MailRecordDao" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.base.facade.model.MailRecord" >
+    <id column="RECORD_ID" property="recordId" />
+    <result column="TEMPLATE_ID" property="templateId" />
+    <result column="EMAIL" property="email" />
+    <result column="MAIL_TITLE" property="mailTitle" />
+    <result column="STATUS" property="status" />
+    <result column="CREATE_TIME" property="createTime" />
+    <result column="SEND_TIME" property="sendTime" />
+    <result column="RECV_TIME" property="recvTime" />
+    <result column="ERROR_CODE" property="errorCode" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="jq.steel.cs.services.base.facade.model.MailRecord" extends="BaseResultMap" >
+    <result column="MAIL_CONTENT" property="mailContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RECORD_ID, TEMPLATE_ID, EMAIL, MAIL_TITLE, STATUS, CREATE_TIME, SEND_TIME, RECV_TIME, 
+    ERROR_CODE
+  </sql>
+  <sql id="Blob_Column_List" >
+    MAIL_CONTENT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mail_record
+    where RECORD_ID = #{recordId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from mail_record
+    where RECORD_ID = #{recordId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.MailRecord" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="recordId">
+      SELECT SEQ_MAIL_RECORD.nextval FROM dual
+    </selectKey>
+    insert into mail_record (RECORD_ID, TEMPLATE_ID, EMAIL, 
+      MAIL_TITLE, STATUS, CREATE_TIME,
+      SEND_TIME, RECV_TIME, ERROR_CODE, 
+      MAIL_CONTENT)
+    values (#{recordId}, #{templateId}, #{email},
+      #{mailTitle}, #{status}, #{createTime},
+      #{sendTime}, #{recvTime}, #{errorCode},
+      #{mailContent})
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.base.facade.model.MailRecord" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="recordId">
+      SELECT SEQ_MAIL_RECORD.nextval FROM dual
+    </selectKey>
+    insert into mail_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recordId != null" >
+        RECORD_ID,
+      </if>
+      <if test="templateId != null" >
+        TEMPLATE_ID,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="mailTitle != null" >
+        MAIL_TITLE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="sendTime != null" >
+        SEND_TIME,
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME,
+      </if>
+      <if test="errorCode != null" >
+        ERROR_CODE,
+      </if>
+      <if test="mailContent != null" >
+        MAIL_CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recordId != null" >
+        #{recordId},
+      </if>
+      <if test="templateId != null" >
+        #{templateId},
+      </if>
+      <if test="email != null" >
+        #{email},
+      </if>
+      <if test="mailTitle != null" >
+        #{mailTitle},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="createTime != null" >
+        #{createTime},
+      </if>
+      <if test="sendTime != null" >
+        #{sendTime},
+      </if>
+      <if test="recvTime != null" >
+        #{recvTime},
+      </if>
+      <if test="errorCode != null" >
+        #{errorCode},
+      </if>
+      <if test="mailContent != null" >
+        #{mailContent},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.base.facade.model.MailRecord" >
+    update mail_record
+    <set >
+      <if test="templateId != null" >
+        TEMPLATE_ID = #{templateId},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email},
+      </if>
+      <if test="mailTitle != null" >
+        MAIL_TITLE = #{mailTitle},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime},
+      </if>
+      <if test="sendTime != null" >
+        SEND_TIME = #{sendTime},
+      </if>
+      <if test="recvTime != null" >
+        RECV_TIME = #{recvTime},
+      </if>
+      <if test="errorCode != null" >
+        ERROR_CODE = #{errorCode},
+      </if>
+      <if test="mailContent != null" >
+        MAIL_CONTENT = #{mailContent},
+      </if>
+    </set>
+    where RECORD_ID = #{recordId}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="jq.steel.cs.services.base.facade.model.MailRecord" >
+    update mail_record
+    set TEMPLATE_ID = #{templateId},
+      EMAIL = #{email},
+      MAIL_TITLE = #{mailTitle},
+      STATUS = #{status},
+      CREATE_TIME = #{createTime},
+      SEND_TIME = #{sendTime},
+      RECV_TIME = #{recvTime},
+      ERROR_CODE = #{errorCode},
+      MAIL_CONTENT = #{mailContent}
+    where RECORD_ID = #{recordId}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.base.facade.model.MailRecord" >
+    update mail_record
+    set TEMPLATE_ID = #{templateId},
+      EMAIL = #{email},
+      MAIL_TITLE = #{mailTitle},
+      STATUS = #{status},
+      CREATE_TIME = #{createTime},
+      SEND_TIME = #{sendTime},
+      RECV_TIME = #{recvTime},
+      ERROR_CODE = #{errorCode}
+    where RECORD_ID = #{recordId}
+  </update>
+
+  <insert id="insertAll">
+    insert into mail_record (RECORD_ID, TEMPLATE_ID, EMAIL,
+    MAIL_TITLE, STATUS, CREATE_TIME,
+    SEND_TIME, RECV_TIME, ERROR_CODE,
+    MAIL_CONTENT)
+    VALUES
+    <foreach collection ="records" item="record" separator =",">
+      (#{record.recordId}, #{record.templateId}, #{record.email},
+      #{record.mailTitle}, #{record.status}, #{record.createTime},
+      #{record.sendTime}, #{record.recvTime}, #{record.errorCode},
+      #{record.mailContent})
+    </foreach >
+  </insert>
+</mapper>

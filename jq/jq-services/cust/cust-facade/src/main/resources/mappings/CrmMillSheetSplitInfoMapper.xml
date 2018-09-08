@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.CrmMillSheetSplitInfoMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitInfo" >
+    <result column="SPLIT_APPLY_ID" property="splitApplyId" jdbcType="NUMERIC" />
+    <result column="MILLSHEET_DETAIL_ID" property="millsheetDetailId" jdbcType="NUMERIC" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+    <result column="MILLSHEET_NO" property="millsheetNo" jdbcType="VARCHAR" />
+    <result column="FATHER_MILLSHEET_NO" property="fatherMillsheetNo" jdbcType="VARCHAR" />
+    <result column="QUALITY_CERTIFICATE_TYPE" property="millSheetType" jdbcType="VARCHAR" />
+    <result column="SALE_PARTY" property="zkunnr" jdbcType="VARCHAR" />
+    <result column="CREATION_TIME" property="creationTime" jdbcType="TIMESTAMP" />
+    <result column="FURNACE_NUMBER" property="zlph" jdbcType="VARCHAR" />
+    <result column="ZJISHU" property="zjishu" jdbcType="NUMERIC" />
+    <result column="WEIGHT" property="zlosmenge" jdbcType="NUMERIC" />
+    <result column="LICENSE_NUMBER" property="zchehao" jdbcType="VARCHAR" />
+    <result column="PRODUCT_CATEGORY" property="zcpmc" jdbcType="VARCHAR" />
+    <result column="SPECIFICATIONS" property="specs" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitInfo">
+   SELECT
+CREATED_BY,
+CREATED_DT,
+MILLSHEET_NO,
+FATHER_MILLSHEET_NO,
+QUALITY_CERTIFICATE_TYPE,
+SALE_PARTY,
+CREATION_TIME,
+FURNACE_NUMBER,
+ZJISHU,
+WEIGHT,
+LICENSE_NUMBER,
+PRODUCT_CATEGORY,
+SPECIFICATIONS
+FROM
+CRM_MILL_SHEET_SPLIT_INFO
+WHERE
+SPLIT_APPLY_ID = #{splitApplyId,jdbcType=NUMERIC}
+  </select>
+
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitInfo" >
+    <selectKey resultType="java.lang.Long" keyProperty="millsheetDetailId" order="BEFORE" >
+      SELECT SEQ_CRM_MILL_SHEET_SPLIT_INFO.nextval AS millsheetDetailId FROM DUAL
+    </selectKey>
+    insert into CRM_MILL_SHEET_SPLIT_INFO (SPLIT_APPLY_ID, MILLSHEET_DETAIL_ID,
+      CREATED_BY, CREATED_DT, UPDATED_BY, 
+      UPDATED_DT, VERSION, MILLSHEET_NO, 
+      FATHER_MILLSHEET_NO, QUALITY_CERTIFICATE_TYPE, 
+      SALE_PARTY, CREATION_TIME, FURNACE_NUMBER,
+      ZJISHU, WEIGHT, LICENSE_NUMBER,
+      PRODUCT_CATEGORY, SPECIFICATIONS)
+    values (#{splitApplyId,jdbcType=NUMERIC}, #{millsheetDetailId,jdbcType=NUMERIC},
+      #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, 
+      #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC}, #{millsheetNo,jdbcType=VARCHAR}, 
+      #{fatherMillsheetNo,jdbcType=VARCHAR}, #{millSheetType,jdbcType=VARCHAR},
+      #{zkunnr,jdbcType=VARCHAR}, #{creationTime,jdbcType=TIMESTAMP}, #{zlph,jdbcType=VARCHAR},
+      #{zjishu,jdbcType=NUMERIC}, #{zlosmenge,jdbcType=NUMERIC}, #{zchehao,jdbcType=VARCHAR},
+      #{zcpmc,jdbcType=VARCHAR}, #{specs,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitInfo" >
+    <selectKey resultType="java.lang.Long" keyProperty="millsheetDetailId" order="BEFORE" >
+      SELECT SEQ_CRM_MILL_SHEET_SPLIT_INFO.nextval AS millsheetDetailId FROM DUAL
+    </selectKey>
+    insert into CRM_MILL_SHEET_SPLIT_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="splitApplyId != null" >
+        SPLIT_APPLY_ID,
+      </if>
+      <if test="millsheetDetailId != null" >
+        MILLSHEET_DETAIL_ID,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="millsheetNo != null" >
+        MILLSHEET_NO,
+      </if>
+      <if test="fatherMillsheetNo != null" >
+        FATHER_MILLSHEET_NO,
+      </if>
+      <if test="millSheetType != null" >
+        QUALITY_CERTIFICATE_TYPE,
+      </if>
+      <if test="zkunnr != null" >
+        SALE_PARTY,
+      </if>
+      <if test="creationTime != null" >
+        CREATION_TIME,
+      </if>
+      <if test="zlph != null" >
+        FURNACE_NUMBER,
+      </if>
+      <if test="zjishu != null" >
+        ZJISHU,
+      </if>
+      <if test="zlosmenge != null" >
+        WEIGHT,
+      </if>
+      <if test="zchehao != null" >
+        LICENSE_NUMBER,
+      </if>
+      <if test="zcpmc != null" >
+        PRODUCT_CATEGORY,
+      </if>
+      <if test="specs != null" >
+        SPECIFICATIONS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="splitApplyId != null" >
+        #{splitApplyId,jdbcType=NUMERIC},
+      </if>
+      <if test="millsheetDetailId != null" >
+        #{millsheetDetailId,jdbcType=NUMERIC},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=NUMERIC},
+      </if>
+      <if test="millsheetNo != null" >
+        #{millsheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherMillsheetNo != null" >
+        #{fatherMillsheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="millSheetType != null" >
+        #{millSheetType,jdbcType=VARCHAR},
+      </if>
+      <if test="zkunnr != null" >
+        #{zkunnr,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTime != null" >
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zlph != null" >
+        #{zlph,jdbcType=VARCHAR},
+      </if>
+      <if test="zjishu != null" >
+        #{zjishu,jdbcType=NUMERIC},
+      </if>
+      <if test="zlosmenge != null" >
+        #{zlosmenge,jdbcType=NUMERIC},
+      </if>
+      <if test="zchehao != null" >
+        #{zchehao,jdbcType=VARCHAR},
+      </if>
+      <if test="zcpmc != null" >
+        #{zcpmc,jdbcType=VARCHAR},
+      </if>
+      <if test="specs != null" >
+        #{specs,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <!--存储过程-->
+  <parameterMap  id="returnMap" type="java.util.Map">
+    <parameter property="inmillSheetNoOld" jdbcType="VARCHAR" mode="IN"/>
+    <parameter property="inmillSheetNo" jdbcType="VARCHAR" mode="IN"/>
+    <parameter property="inmillSheetType" jdbcType="VARCHAR" mode="IN"/>
+    <parameter property="inzcharg" jdbcType="VARCHAR" mode="IN"/>
+    <parameter property="inzjishu" jdbcType="INTEGER"  mode="IN"/>
+    <parameter property="inzlosmenge" jdbcType="INTEGER" mode="IN"/>
+    <parameter property="inspiltCustomer" jdbcType="VARCHAR"  mode="IN" />
+  </parameterMap>
+<!-- call PRO_MILL_SPILT(
+    #{inmillSheetNoOld,mode=IN,jdbcType=VARCHAR},
+    #{inmillSheetNo,mode=IN,jdbcType=VARCHAR},
+    #{inmillSheetType,mode=IN,jdbcType=VARCHAR},
+    #{inzcharg,mode=IN,jdbcType=VARCHAR},
+    #{inzjishu,mode=IN,jdbcType=INTEGER},
+    #{inzlosmenge,mode=IN,jdbcType=INTEGER},
+    #{inspiltCustomer,mode=IN,jdbcType=VARCHAR}
+    )}       -->
+  <select  id="getDynamicSeq" parameterMap="returnMap" statementType="CALLABLE">
+   call PRO_MILL_SPILT(
+    #{inmillSheetNoOld,mode=IN,jdbcType=VARCHAR},
+    #{inmillSheetNo,mode=IN,jdbcType=VARCHAR},
+    #{inmillSheetType,mode=IN,jdbcType=VARCHAR},
+    #{inzcharg,mode=IN,jdbcType=VARCHAR},
+    #{inzjishu,mode=IN,jdbcType=INTEGER},
+    #{inzlosmenge,mode=IN,jdbcType=INTEGER},
+    #{inspiltCustomer,mode=IN,jdbcType=VARCHAR}
+    )     																							 			  #{seqDate,mode=OUT,jdbcType=VARCHAR})}
+  </select >
+</mapper>

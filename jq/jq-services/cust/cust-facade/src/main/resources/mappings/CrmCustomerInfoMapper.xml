@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.CrmCustomerInfoMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.CrmCustomerInfo" >
+    <id column="SID" property="sid" jdbcType="NUMERIC" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+    <result column="CUSTOMER_ID" property="customerId" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_NAME" property="customerName" jdbcType="VARCHAR" />
+    <result column="CUST_ADDR" property="custAddr" jdbcType="VARCHAR" />
+    <result column="CUST_EMP_NO" property="custEmpNo" jdbcType="VARCHAR" />
+    <result column="CUST_TEL" property="custTel" jdbcType="VARCHAR" />
+    <result column="DEFAULT_FLAG" property="defaultFlag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SID, CREATED_BY, CREATED_DT, UPDATED_BY, UPDATED_DT, VERSION, CUSTOMER_ID, CUSTOMER_NAME, 
+    CUST_ADDR, CUST_EMP_NO, CUST_TEL, DEFAULT_FLAG
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_CUSTOMER_INFO
+    where SID = #{sid,jdbcType=NUMERIC}
+  </select>
+
+
+  <!--分页查询-->
+  <select id="findByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustomerInfo" >
+    select
+    <include refid="Base_Column_List" />
+    from CRM_CUSTOMER_INFO
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="custAddr != null and custAddr != ''" >
+        AND CUST_ADDR = #{custAddr,jdbcType=VARCHAR}
+      </if>
+      <if test="custEmpNo != null and custEmpNo != ''" >
+        AND CUST_EMP_NO = #{custEmpNo,jdbcType=VARCHAR}
+      </if>
+      <if test="custTel != null and custTel != ''" >
+        AND CUST_TEL = #{custTel,jdbcType=VARCHAR}
+      </if>
+      <if test="customerName != null and customerName != ''" >
+        AND CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR}
+      </if>
+      <if test="customerId != null and customerId != ''" >
+        AND CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </select>
+
+  <select id="findDefault" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustomerInfo" >
+    select
+    CUSTOMER_ID, CUSTOMER_NAME, CUST_ADDR, CUST_EMP_NO, CUST_TEL, DEFAULT_FLAG
+    from CRM_CUSTOMER_INFO
+    WHERE DEFAULT_FLAG ='Y'AND   CUSTOMER_ID=#{customerId,jdbcType = VARCHAR}
+  </select>
+
+  <!--查询客户是否有联系单位-->
+  <select id="isOne" resultType="java.lang.Long" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from CRM_CUSTOMER_INFO
+    WHERE CUSTOMER_ID=#{customerId,jdbcType = VARCHAR}
+  </select>
+
+
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_CUSTOMER_INFO
+    where SID = #{sid,jdbcType=NUMERIC}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustomerInfo" >
+    <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
+      SELECT SEQ_CRM_CUSTOMER_INFO.nextval  FROM DUAL
+    </selectKey>
+    insert into CRM_CUSTOMER_INFO (SID, CREATED_BY, CREATED_DT, 
+      UPDATED_BY, UPDATED_DT, VERSION, 
+      CUSTOMER_ID, CUSTOMER_NAME, CUST_ADDR, 
+      CUST_EMP_NO, CUST_TEL, DEFAULT_FLAG
+      )
+    values (#{sid,jdbcType=NUMERIC}, #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC}, 
+      #{customerId,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{custAddr,jdbcType=VARCHAR}, 
+      #{custEmpNo,jdbcType=VARCHAR}, #{custTel,jdbcType=VARCHAR}, #{defaultFlag,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustomerInfo" >
+    <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
+      SELECT SEQ_CRM_CUSTOMER_INFO.nextval  FROM DUAL
+    </selectKey>
+    insert into CRM_CUSTOMER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null and sid != ''" >
+        SID,
+      </if>
+      <if test="createdBy != null and createdBy != ''" >
+        CREATED_BY,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="updatedBy != null and updatedBy != ''" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null and version != ''" >
+        VERSION,
+      </if>
+      <if test="customerId != null and customerId != ''" >
+        CUSTOMER_ID,
+      </if>
+      <if test="customerName != null and customerName != ''" >
+        CUSTOMER_NAME,
+      </if>
+      <if test="custAddr != null and custEmpNo != ''" >
+        CUST_ADDR,
+      </if>
+      <if test="custEmpNo != null and custEmpNo != ''" >
+        CUST_EMP_NO,
+      </if>
+      <if test="custTel != null and custTel != ''" >
+        CUST_TEL,
+      </if>
+      <if test="defaultFlag != null and defaultFlag != ''" >
+        DEFAULT_FLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=NUMERIC},
+      </if>
+      <if test="createdBy != null and createdBy != ''" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null and updatedBy != ''" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null and version != ''" >
+        #{version,jdbcType=NUMERIC},
+      </if>
+      <if test="customerId != null and customerId != ''" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null and customerName != ''" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="custAddr != null and custAddr != ''" >
+        #{custAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="custEmpNo != null and custEmpNo != ''" >
+        #{custEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custTel != null and custTel != ''" >
+        #{custTel,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultFlag != null and defaultFlag != ''" >
+        #{defaultFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustomerInfo" >
+    update CRM_CUSTOMER_INFO
+    <set >
+      <if test="createdBy != null and createdBy != ''" >
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null and updatedBy != ''" >
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null and version != ''" >
+        VERSION = #{version,jdbcType=NUMERIC},
+      </if>
+      <if test="customerId != null and customerId != ''" >
+        CUSTOMER_ID = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null and customerName != ''" >
+        CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="custAddr != null and custAddr != ''" >
+        CUST_ADDR = #{custAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="custEmpNo != null and custEmpNo != ''" >
+        CUST_EMP_NO = #{custEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custTel != null and custTel != ''" >
+        CUST_TEL = #{custTel,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultFlag != null and defaultFlag != ''" >
+        DEFAULT_FLAG = #{defaultFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SID = #{sid,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustomerInfo" >
+    update CRM_CUSTOMER_INFO
+    set CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=NUMERIC},
+      CUSTOMER_ID = #{customerId,jdbcType=VARCHAR},
+      CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      CUST_ADDR = #{custAddr,jdbcType=VARCHAR},
+      CUST_EMP_NO = #{custEmpNo,jdbcType=VARCHAR},
+      CUST_TEL = #{custTel,jdbcType=VARCHAR},
+      DEFAULT_FLAG = #{defaultFlag,jdbcType=VARCHAR}
+    where SID = #{sid,jdbcType=NUMERIC}
+  </update>
+
+
+  <update id="updateAll" parameterType="jq.steel.cs.services.cust.facade.model.CrmLastuserInfo" >
+    update CRM_CUSTOMER_INFO
+    set  version = version + 1,  DEFAULT_FLAG = 'N' ,UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+    UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP}
+    WHERE CUSTOMER_ID=#{customerId,jdbcType = VARCHAR}
+  </update>
+</mapper>

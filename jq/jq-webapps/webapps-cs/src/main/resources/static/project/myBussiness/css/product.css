@@ -1,0 +1,11 @@
+.product { margin: 0 auto; width: 990px; }
+
+.product-list { width: 990px; }
+
+.product-list-box { float: left; width: 490px; height: 150px; background-image: url(../images/images.jpg); }
+
+.product-list-box__line { margin-top: 40px; margin-left: 60px; width: 406px; }
+
+.product-list-box__name { display: inline-block; float: left; margin-right: 45px; height: 40px; line-height: 40px; font-size: 24px; font-weight: bold; }
+
+.product-list-box__paragraph { text-indent: 30px; display: inline-block; display: right; width: 235px; height: 55px; font-size: 14px; }

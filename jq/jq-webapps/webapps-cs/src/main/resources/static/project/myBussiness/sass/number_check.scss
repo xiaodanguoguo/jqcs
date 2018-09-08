@@ -1,0 +1,156 @@
+.check{
+    margin:0 auto;
+    width:990px;
+    height:600px;
+}
+.check-title{
+    width:990px; 
+    height:40px;
+    line-height:40px;
+    border-bottom:1px solid #6390f3; 
+}
+ .check-Homepage{
+    margin:13px 0 0 15px;
+    border-right:none;
+}
+.check-num{ 
+    position: relative;
+    width:60px;
+    margin-left:-5px;
+    .check-close{
+        position: absolute;
+        top:-7px;
+        right:2px;
+    }
+}
+.check-box{
+    width:990px;
+}
+.check-contenter{
+    margin-top:15px;
+    margin-left:20px;
+    .check-contenter-Every{
+        margin:14px 30px 14px 0;
+        float: left;
+        width:268px;
+        height:28px;
+        .check-contenter-tit{
+            width:60px;
+            margin-right:6px;
+        }
+        .check-contenter-select{
+            width:200px;
+        }
+        .inputBase{
+            width: 178px;
+        }
+    }
+}
+.check-button{
+    margin:10px 0 17px 20px;
+    .check-button-search{
+        margin-right:6px;
+    }
+}
+.check-list{
+    width:590px !important;
+    margin-left:20px;
+    .check-list-body{
+        text-align:center;
+    }
+}
+
+
+.resourchSe {
+    .resourchSe-ul {
+        display: flex;
+        flex-wrap: wrap;
+        textarea {
+            width: 151px;
+            height: 50px;
+            resize: none;
+            border: 1px solid #eeeeee;
+        }
+        width:100%;
+    }
+    .resourchSe-ul li {
+        display: flex;
+        margin-top: 20px;
+        margin: 14px 42px;
+        width: 240px;
+    }
+    .resourchSe-ul .chosen-single {
+        margin-left: -12px;
+    }
+    .required {
+        width: 160px;
+        border: 1px solid #eeeeee;
+        height: 28px;
+        padding-left: 5px;
+    }
+    .resourchSe-ul label {
+        width: 70px;
+        text-align: left;
+        display: inline-block;
+        line-height: 30px;
+        vertical-align: top;
+        text-align: center;
+    }
+    .resourchSe-ul input[type=text] {
+        width: 150px;
+        border: 1px solid #eeeeee;
+        height: 28px;
+        padding-left: 5px;
+    }
+}
+
+#inputAnswer .title {
+    width: 340px;
+    height: 44px;
+    background: #eee;
+}
+
+#inputAnswer .title h2 {
+    width: 360px;
+    height: 44px;
+    margin-left: 6px;
+    font-size: 12px;
+    line-height: 44px;
+    font-weight: normal;
+}
+
+#inputAnswer .content {
+width:360px;
+    .content-list{
+        margin-left:30px;
+        margin-top:18px;
+       .content-list-main{
+           margin:20px;
+           width:264px;
+           height:28px;
+           .content-list-tit{
+               width:57px;
+               margin-right:6px;
+           }
+           .content-list-select{
+               width:200px;
+               height:28px;
+               border: 1px solid #dee3e6;
+           }
+           .inputBase{
+               width: 178px;
+           }
+       } 
+    }
+    .button {
+        margin-left:92px;
+        margin-top:30px;
+        .content-list-pass{
+            margin-right: 55px;
+            width:42px;
+        }
+        .content-list-cancel{
+            width: 42px;
+        }
+    }
+}

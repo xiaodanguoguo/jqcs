@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="../../../base/css/baseBlue.css">
+	<link rel="stylesheet" href="../../../base/iconfont/iconfont.css">
+	<link rel="stylesheet" href="../../commonNav/css/commonHeaderBlue.css">
+	<script src="../../../base/js/jquery.js"></script>
+	<script src="../../../base/js/public.js"></script>
+	<script src="../../../base/js/docassistant.js" ></script>
+	<script src="../../../base/js/validate.js"></script>
+	<script src="../../../base/js/jquery.media.js"></script>
+	<script src="../../../base/js/jquery.cookie.js"></script>
+	<script src='../../../titleName.js'></script>
+	<script src="../../../reqConfig.js"></script>
+	<!--！！！！！！
+		组件js
+	！！！！！！！-->
+	<script type="text/javascript" src="../../../base/js/ajaxupload.js"></script>
+	<!--时间插件-->
+	<link rel="stylesheet" href="../../../plugin/WdatePickerBlue/My97DatePicker/skin/messageWdatePicker.css">
+	<script src="../../../plugin/WdatePickerBlue/My97DatePicker/WdatePicker.js"></script>
+	<!--弹框插件-->
+	<link rel="stylesheet" href="../../../plugin/popup/css/manhuaDialog.1.0_blue.css">
+	<script src="../../../plugin/popup/script/manhuaDialog.1.0.js"></script>
+	<!--提示校验-->
+	<link rel="stylesheet" href="../../../plugin/tip/css/tip-twitter/tip-twitter.css">
+	<script src="../../../plugin/tip/script/jquery.poshytip.js"></script>
+	<!--滑动校验-->
+	<link rel="stylesheet" href="../../../plugin/dragValidate/css/drag.css">
+	<script src="../../../plugin/dragValidate/js/drag.js"></script>
+	<!--分页-->
+	<link rel="stylesheet" href="../../../plugin/page/css/table.css">
+	<script type="text/javascript" src="../../../plugin/page/script/jquery.page.js"></script>
+	<!--下拉选择-->
+	<link rel="stylesheet" href="../../../plugin/select/chosen_blue.css">
+	<script src="../../../plugin/select/chosen.jquery.js"></script>
+	<script>
+        var date_start;
+        var i=0;
+		$(function(){
+            $("#userName").html(getCookie("userName"));
+		    //导航的点击
+		    $(".og-head-navlist li a").on("click",function(){
+                $(".og-head-navlist li a").removeClass("og-head-navlist____linkActive");
+		        $(this).addClass("og-head-navlist____linkActive")
+				console.log($(this).parents(".og-head-navlist__item").index());
+                $(".og-head-mainlt__sidebar").css("display","none");
+		        $(".og-head-mainlt__sidebar").eq($(this).parents(".og-head-navlist__item").index()).css("display","")
+			})
+			//左侧的点击事件
+			$(".og-head-mainlt__sidebar .og-head-mainlt__sasety").on("click",function(){
+                $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
+			    $(this).addClass("og-head-mainlt__sidebar--shrinkActive");
+			    window.location.href=$(this).find("a").attr("acSrc")
+				//$(this).parents(".og-head-mainlt__sidebar--menu").find("ul").css("display","");
+			})
+            //点击退出
+            $("#quitBtn").on("click",function(){
+                getAjaxResult("/acct/remSession","post",{},"quitFun(data)");
+            })
+			$("#editPassword").on("click",function(){
+			    jumpUrl("../../login/html-gulp-www/passwordNew.html","0000000",0);
+			});
+            $("#logo").on("click",function () {
+                jumpUrl("../../homePage/html-gulp-www/homePage.html","0000000",0)
+            });
+            start();
+		})
+        //退出接口
+        function quitFun(data){
+            var jsData=JSON.parse(data);
+            if(jsData.retCode=="0000000"){
+                clearCookie("userName");
+                jumpUrl("../../login/html-gulp-www/login.html","0000000",0);
+            }else{
+                alert(jsData.retDesc)
+            }
+        }
+        function start(){
+            date_start=new Date();  //开始时间
+            start_time();
+        }
+        function start_time(){
+
+            set= window.setTimeout("start_time()", 1000);
+            var date_end= new Date(); //结束时间
+            var date_sum = date_end.getTime() - new Date(date_start).getTime(); //结束时间-开始时间
+            //天数
+            var days=Math.floor(date_sum/(24*60*60*1000))
+            //小时数
+            var day_ms=date_sum%(24*60*60*1000)    //计算天数后剩余的毫秒数
+            var hours=Math.floor(day_ms/(60*60*1000))
+            //分钟数
+            var day_hour=day_ms%(60*60*1000)        //计算小时数后剩余的毫秒数
+            var minutes=Math.floor(day_hour/(60*1000))
+            //秒数
+            var day_min=day_hour%(60*1000)      //计算分钟数后剩余的毫秒数
+            var seconds=Math.round(day_min/1000)
+            //getMonth 方法返回一个0到11之间的整数，是Date对象中的月份值，并不是现实中的月份值，要加+1才是。
+            //开始运行时间
+            document.getElementById("now_time").innerHTML=
+                "现在时间："+date_end.getFullYear()+"年"
+                +(date_end.getMonth()+1)+"月"+date_end.getDate()+"日"
+                +date_end.getHours()+"时"+date_end.getMinutes()+"分"
+                +date_end.getSeconds()+"秒"
+		}
+	</script>
+</head>
+<body style="position: relative;">
+	<div class="og-head">
+		<div class="og-head-nav">
+	        <div class="og-head-navwrap">
+	            <div class="og-head-navlogo" id="logo">
+	                <a href="javascript:;" class="og-head-navlogo__logoimg"></a>
+	            </div>
+				<div class="og-head-navwrap-opeBox clearfix fr">
+					<!--
+					<span class="og-head-navwrap-opeBoxList">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/4.png')"></div>
+						<span class="fl">公告</span>
+					</span>
+					<span class="og-head-navwrap-opeBoxList">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/3.png')"></div>
+						<span class="fl">代办</span>
+					</span>-->
+					<span class="og-head-navwrap-opeBoxList">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/2.png')"></div>
+						<span class="fl" id="quitBtn" style="cursor: pointer">退出</span>
+					</span>
+					<span class="og-head-navwrap-opeBoxList">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/1.png')"></div>
+						<span class="fl" id="editPassword" style="cursor: pointer">修改密码</span>
+					</span>
+				</div>
+	            <div class="og-head-navwrap-box clearfix fr">
+					<span class="og-head-navwrap-boxList">您好，<span id="userName"></span></span>
+					<p id="now_time" class="og-head-navwrap-boxList" style="width: 230px;"></p>
+				</div>
+	        </div>
+	    </div>
+	   	<div class="og-head-main">
+	    	<div class="og-head-mainlt og-head-mainlt__homepaActive" id="js-leftNavBar">
+	    		<!--<div class="og-head-mainlt__homepa">
+	    			权限管理
+	    		</div>-->
+	    		<ul class="og-head-mainlt__sidebar">
+	    			<li class="og-head-mainlt__sidebar--menu">
+						<!--og-head-mainlt__sidebar--shrinkActive-->
+	    				<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">权限管理</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/accountAudit.html">账号审核</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/orgFrame.html">组织管理</a></li>
+							<li class="og-head-mainlt__sasety"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/roleManage.html">角色管理</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/resourceManage.html">资源管理</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/userManage.html">人员管理</a></li>
+						</ul>
+	    			</li>
+					<li class="og-head-mainlt__sidebar--menu">
+						<!--og-head-mainlt__sidebar--shrinkActive-->
+						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">系统管理</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/questionList.html">创建调查问卷</a></li>
+							<!--<li class="og-head-mainlt__sasety"><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/.html">问卷调查界面展示</a></li>-->
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/questionWrite.html">请填写调查问卷</a></li>
+							<!--<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/resourceManage.html">用户及权限管理</a></li>-->
+						</ul>
+					</li>
+					<li class="og-head-mainlt__sidebar--menu">
+						<!--og-head-mainlt__sidebar--shrinkActive-->
+						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">质量证明书</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/checkTrue.html">防伪验证</a></li>
+							<li class="og-head-mainlt__sasety"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList.html">质证书管理</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>
+						</ul>
+					</li>
+					<li class="og-head-mainlt__sidebar--menu">
+						<!--og-head-mainlt__sidebar--shrinkActive-->
+						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">产品诉赔</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/personManage.html">管理联系信息</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionSubmit.html">异议提报</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionReasearch.html">异议调查</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionDeal.html">异议处理</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionFinish.html">异议结案</a></li>
+						</ul>
+					</li>
+					<li class="og-head-mainlt__sidebar--menu">
+						<!--og-head-mainlt__sidebar--shrinkActive-->
+						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">产品推荐</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/productNewsList.html">产品推荐信息维护</a></li>
+							<li class="og-head-mainlt__sasety"><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/proTypeList.html">按品种分类</a></li>
+							<!--<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/productNewsList.html">按用途分类</a></li>-->
+						</ul>
+					</li>
+					<!--<li class="og-head-mainlt__sidebar&#45;&#45;menu">
+						&lt;!&ndash;og-head-mainlt__sidebar&#45;&#45;shrinkActive&ndash;&gt;
+						<a class="og-head-mainlt__sidebar&#45;&#45;shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">物料管理</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;">物料架构建立</a></li>
+							<li class="og-head-mainlt__sasety"><a href="javascript:;" href="javascript:;" >物料代码申请维护</a></li>
+							<li class="og-head-mainlt__sasety" ><a href="javascript:;" href="javascript:;">物料料明细查询</a></li>
+						</ul>
+					</li>-->
+	    		</ul>
+	    	</div>
+	    	<div id="js-loader" class="og-head-maincontent">
+
+<link rel="stylesheet" href="../css/questionnaire_research.css">
+<link rel="stylesheet" href="../css/create_research.css">
+<script>
+    var qid = GetQueryString("qid");
+    var readTab =  GetQueryString("readTab");
+    var qidJump = "";
+    $(document).ready(function(){
+
+        var jsonData = {"qid":qid};
+        getAjaxResult("/question/preview","POST",jsonData,"descCallBack(data)");
+
+        $("#btnSave").click(function(){
+            initValidateNoBind();
+            var obj = new clsValidateCtrl();
+            if(obj.validateAll())
+            {
+                var jsonData = {"answerRecordId":null,"qid":null,"memo":"","crmQuestionRecordDetailVOList":[]};
+                jsonData.memo	= $("#memo").val();
+                jsonData.qid	= qid;
+
+                for(var nI=0; nI<jsonPData.rspBody.crmQuestionItemVOList.length; nI++)
+                {
+                    var jsonItem = jsonPData.rspBody.crmQuestionItemVOList[nI];
+                    jsonData.crmQuestionRecordDetailVOList.push(jsonItem.crmQuestionTeamAnswerVOList[0]);
+                }
+                getAjaxResult("/question/submit","POST",jsonData,"saveCallBack(data)");
+            }
+        });
+    });
+
+    var jsonPData;
+    function descCallBack(data)
+    {
+        jsonPData = JSON.parse(data);
+        if(jsonPData.retCode == "0000000")
+        {
+
+            if(readTab == 1)
+            {
+                var templateParentId = document.getElementById("templateParentId");
+                //$(templateParentId).find("input").addClass("changeGary");
+                $(templateParentId).find("input").prop("disabled",true);
+                $("#memo").hide();
+                $("#btnSave").hide();
+                $(".questionnaire-list-title").hide()
+            }
+            setValue4Desc(jsonPData.rspBody, $(".questionnaire")[0]);
+
+        }
+        //jsonPData = {"rspBody":{"pushRegions":1,"updateBy":1,"createDt":"2018\\/08\\/20","updateDt":1,"messageNumber":"1807001","questionTitle":"关于棒材产品的满意度调查","qids":1,"endDt":"2018\\/08\\/20","crmQuestionItemVOList":[{"qid":1,"itemTitle":"棒材拉伸度是否满足使用要求？","crmQuestionTeamAnswerVOList":[{"questionItemAnswerId":1,"answerValue":7,"questionItemId":1,"qid":1,"answerTitle":"7分"},{"questionItemAnswerId":1,"answerValue":6,"questionItemId":1,"qid":1,"answerTitle":"6分"},{"questionItemAnswerId":1,"answerValue":5,"questionItemId":1,"qid":1,"answerTitle":"5分"}],"questionItemId":1},{"qid":1,"itemTitle":"棒材拉要求？","crmQuestionTeamAnswerVOList":[{"questionItemAnswerId":1,"answerValue":7,"questionItemId":1,"qid":1,"answerTitle":"7分"},{"questionItemAnswerId":1,"answerValue":6,"questionItemId":1,"qid":1,"answerTitle":"6分"},{"questionItemAnswerId":1,"answerValue":5,"questionItemId":1,"qid":1,"answerTitle":"5分"}],"questionItemId":1}],"pushRegion":1,"qid":1,"questionStatus":"1","createBy":1},"retDesc":"操作成功!","timestamp":"2018-08-20 18:47:18.173","retCode":"0000000"};
+
+    }
+
+    function saveCallBack(data)
+    {
+        var jsonData = JSON.parse(data);
+        if(jsonData.retCode == "0000000")
+
+            getAjaxResult("/question/have/question","POST",{},"initCallBack(data)");
+    }
+
+    function setValue4DescProcess(jsonData, key,jsonItem)
+    {
+        if(key == "crmQuestionItemVOList")
+        {
+            var jsonData = {"rspBody":{"resultData":jsonData}};
+            document.getElementById("questionContent").data = jsonData;
+            $("#questionContent").attr("comType","parentChildTableCtrl");
+            document.body.jsCtrl.ctrl = document.getElementById("questionContent");
+            document.body.jsCtrl.init();
+        }
+    }
+
+    function clsParentChildTableCtrl$childProgress(jsonCItem, childCloneRow, jsonItem)
+    {
+        $(childCloneRow).find("input").click(function(){
+            $(this).parents("li:first")[0].jsonPData.crmQuestionTeamAnswerVOList = [$(this).parents("li:first")[0].jsonData];
+
+        });
+        $(childCloneRow).find("input").attr("name","radio"+$("*[id='cloneParentId']").length);
+        $(childCloneRow).find("input").attr("val",jsonCItem.answerValue);
+    }
+    function initCallBack(data) {
+        data = JSON.parse(data);
+        if(data.retCode == "0000000"){
+            if(data.rspBody.count > 0){
+                var alertBox=new clsAlertBoxCtrl();
+                qidJump = data.rspBody.qid;
+                alertBox.Alert("您好，"+ getCookie("userName") +"！有"+ data.rspBody.count +"份问卷调查，期待您的参与！","温馨提示",1,"","questionSure");
+            }else{
+                alertBox.Alert("您好，"+ getCookie("userName") +"！您已经完成所有问卷调查，谢谢合作！");
+			}
+        }
+    }
+    function clsAlertBoxCtrl$sure() {//修改密码成功弹框确定
+        if (this.id == "questionSure") {//修改密码成功
+            closePopupWin();
+            jumpUrl("../../myBussiness/html-gulp-www/questionDesc.html?qid="+ qidJump,"0000000",0);
+        }
+    }
+</script>
+    <div class="questionnaire">
+        <!--<div class="questionnaire-title">
+            <div class="btnLowNew questionnaire-Homepage">首页</div>
+            <div class="btnLowNew questionnaire-statistics">满意度调查统计
+                <b class="questionnaire-close">X</b>
+            </div>
+        </div>-->
+        <div class="questionnaire-name">
+            <h1 class="questionnaire-name__tit" id="questionTitle">关于棒材产品的满意度调查(2018/0717————2018/07/20)</h1>
+        </div>
+        <div class="questionnaire-list">
+			<div class="questionnaire-Every-list" id="questionContent" comType="" templateParentId="templateParentId" templateChildId="templateChildId" jsonChildName="crmQuestionTeamAnswerVOList" reqpath="" reqparam="{}" method="POST" parentIdx="idx">
+				<div class="questionnaire-list-Everyquest clearfix" id="templateParentId" style="display:none">
+					<p class="fl" id="idx"></p><p class="fl">.</p><p class="fl" id="itemTitle" style="width: 900px;"></p>
+					<div class="questionnaire-list-EveryList">
+						<ul class="requireRadio clearfix fl" radiosList="list">
+							<li class="questionnaire-list-EveryListeve" id="templateChildId" style="display:none">
+								<input type="radio" val="" class="questionnaire-list-Radio">
+								<span id="answerTitle"></span>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+				
+			</div>
+			<p class="questionnaire-list-title">其他反馈意见:</p>
+			<textarea type="text" class="questionnaire-list-text" id="memo" style="resize: none"></textarea>
+			<div class="btnBaseCommon questionnaire-list-submit" id="btnSave">提交</div>
+		</div>
+	</div>
+
+</div>
+</div>
+</div>
+</body>
+</html>

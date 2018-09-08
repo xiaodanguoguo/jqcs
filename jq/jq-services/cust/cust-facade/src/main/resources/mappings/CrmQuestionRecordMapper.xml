@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.CrmQuestionRecordMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.CrmQuestionRecord" >
+    <id column="ANSWER_RECORD_ID" property="answerRecordId" jdbcType="NUMERIC" />
+    <result column="QID" property="qid" jdbcType="NUMERIC" />
+    <result column="RECORD_VALUE" property="recordValue" jdbcType="NUMERIC" />
+    <result column="RECORD_DT" property="recordDt" jdbcType="TIMESTAMP" />
+    <result column="RECORD_BY" property="recordBy" jdbcType="NUMERIC" />
+    <result column="RECORD_BY_NAME" property="recordByName" jdbcType="VARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ANSWER_RECORD_ID, QID, RECORD_VALUE, RECORD_DT, RECORD_BY, RECORD_BY_NAME, MEMO
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_QUESTION_RECORD
+    where ANSWER_RECORD_ID = #{answerRecordId,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_QUESTION_RECORD
+    where ANSWER_RECORD_ID = #{answerRecordId,jdbcType=NUMERIC}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestionRecord" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="answerRecordId">
+      SELECT SEQ_CRM_QUESTION_RECORD.nextval FROM dual
+    </selectKey>
+    insert into CRM_QUESTION_RECORD (ANSWER_RECORD_ID, QID, RECORD_VALUE, 
+      RECORD_DT, RECORD_BY, RECORD_BY_NAME, 
+      MEMO)
+    values (#{answerRecordId,jdbcType=NUMERIC}, #{qid,jdbcType=NUMERIC}, #{recordValue,jdbcType=NUMERIC}, 
+      #{recordDt,jdbcType=TIMESTAMP}, #{recordBy,jdbcType=NUMERIC}, #{recordByName,jdbcType=VARCHAR}, 
+      #{memo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestionRecord" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="answerRecordId">
+      SELECT SEQ_CRM_QUESTION_RECORD.nextval FROM dual
+    </selectKey>
+    insert into CRM_QUESTION_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="answerRecordId != null" >
+        ANSWER_RECORD_ID,
+      </if>
+      <if test="qid != null" >
+        QID,
+      </if>
+      <if test="recordValue != null" >
+        RECORD_VALUE,
+      </if>
+      <if test="recordDt != null" >
+        RECORD_DT,
+      </if>
+      <if test="recordBy != null" >
+        RECORD_BY,
+      </if>
+      <if test="recordByName != null" >
+        RECORD_BY_NAME,
+      </if>
+      <if test="memo != null" >
+        MEMO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="answerRecordId != null" >
+        #{answerRecordId,jdbcType=NUMERIC},
+      </if>
+      <if test="qid != null" >
+        #{qid,jdbcType=NUMERIC},
+      </if>
+      <if test="recordValue != null" >
+        #{recordValue,jdbcType=NUMERIC},
+      </if>
+      <if test="recordDt != null" >
+        #{recordDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordBy != null" >
+        #{recordBy,jdbcType=NUMERIC},
+      </if>
+      <if test="recordByName != null" >
+        #{recordByName,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestionRecord" >
+    update CRM_QUESTION_RECORD
+    <set >
+      <if test="qid != null" >
+        QID = #{qid,jdbcType=NUMERIC},
+      </if>
+      <if test="recordValue != null" >
+        RECORD_VALUE = #{recordValue,jdbcType=NUMERIC},
+      </if>
+      <if test="recordDt != null" >
+        RECORD_DT = #{recordDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordBy != null" >
+        RECORD_BY = #{recordBy,jdbcType=NUMERIC},
+      </if>
+      <if test="recordByName != null" >
+        RECORD_BY_NAME = #{recordByName,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ANSWER_RECORD_ID = #{answerRecordId,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestionRecord" >
+    update CRM_QUESTION_RECORD
+    set QID = #{qid,jdbcType=NUMERIC},
+      RECORD_VALUE = #{recordValue,jdbcType=NUMERIC},
+      RECORD_DT = #{recordDt,jdbcType=TIMESTAMP},
+      RECORD_BY = #{recordBy,jdbcType=NUMERIC},
+      RECORD_BY_NAME = #{recordByName,jdbcType=VARCHAR},
+      MEMO = #{memo,jdbcType=VARCHAR}
+    where ANSWER_RECORD_ID = #{answerRecordId,jdbcType=NUMERIC}
+  </update>
+
+  <select id="getList"  resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestionRecord" >
+    select
+    <include refid="Base_Column_List" />
+    from CRM_QUESTION_RECORD
+    where 1=1
+    <if test="recordBy != null and recordBy != '' " >
+      AND RECORD_BY = #{recordBy}
+    </if>
+    <if test="qid != null and qid != '' " >
+      AND QID = #{qid}
+    </if>
+
+    <if test="questionIds != null">
+      AND qid in
+      <foreach collection="questionIds" close=")" open="(" item="all" separator=",">
+        #{all}
+      </foreach>
+    </if>
+  </select>
+
+  <select id="selectOne"  resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestionRecord" >
+    select
+    <include refid="Base_Column_List" />
+    from CRM_QUESTION_RECORD
+    where 1=1
+    <if test="recordBy != null and recordBy != '' " >
+      AND RECORD_BY = #{recordBy}
+    </if>
+    <if test="qid != null and qid != '' " >
+      AND QID = #{qid}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.base.facade.dao.DictTransactionTypeMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.base.facade.model.DictTransactionType" >
+    <id column="ID" property="id" />
+    <result column="TYPE_CODE" property="typeCode" />
+    <result column="TYPE_NAME" property="typeName" />
+    <result column="IS_USING" property="isUsing"  />
+    <result column="IS_RECEIVE" property="isReceive"  />
+    <result column="IS_WAREHOUSING" property="isWarehousing"  />
+    <result column="IS_RECOIL" property="isRecoil"  />
+    <result column="IS_RECONCILIATIONS" property="isReconciliations"  />
+    <result column="IS_RETURN" property="isReturn"  />
+    <result column="IS_RETURN_TO_RECEIVE" property="isReturnToReceive"  />
+    <result column="STATUS" property="status"  />
+    <result column="CREATED_BY" property="createdBy" />
+    <result column="CREATED_TIME" property="createdTime"  />
+    <result column="UPDATED_BY" property="updatedBy" />
+    <result column="UPDATED_TIME" property="updatedTime"  />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, TYPE_CODE, TYPE_NAME, IS_USING, IS_RECEIVE, IS_WAREHOUSING, IS_RECOIL, IS_RECONCILIATIONS, 
+    IS_RETURN, IS_RETURN_TO_RECEIVE, STATUS, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from dict_transaction_type
+    where ID = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dict_transaction_type
+    where ID = #{id}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.DictTransactionType" >
+    insert into dict_transaction_type (ID, TYPE_CODE, TYPE_NAME, 
+      IS_USING, IS_RECEIVE, IS_WAREHOUSING, 
+      IS_RECOIL, IS_RECONCILIATIONS, IS_RETURN, 
+      IS_RETURN_TO_RECEIVE, STATUS, CREATED_BY, 
+      CREATED_TIME, UPDATED_BY, UPDATED_TIME
+      )
+    values (#{id}, #{typeCode}, #{typeName},
+      #{isUsing}, #{isReceive}, #{isWarehousing},
+      #{isRecoil}, #{isReconciliations}, #{isReturn},
+      #{isReturnToReceive}, #{status}, #{createdBy},
+      #{createdTime}, #{updatedBy}, #{updatedTime}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.base.facade.model.DictTransactionType" >
+    insert into dict_transaction_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="typeCode != null" >
+        TYPE_CODE,
+      </if>
+      <if test="typeName != null" >
+        TYPE_NAME,
+      </if>
+      <if test="isUsing != null" >
+        IS_USING,
+      </if>
+      <if test="isReceive != null" >
+        IS_RECEIVE,
+      </if>
+      <if test="isWarehousing != null" >
+        IS_WAREHOUSING,
+      </if>
+      <if test="isRecoil != null" >
+        IS_RECOIL,
+      </if>
+      <if test="isReconciliations != null" >
+        IS_RECONCILIATIONS,
+      </if>
+      <if test="isReturn != null" >
+        IS_RETURN,
+      </if>
+      <if test="isReturnToReceive != null" >
+        IS_RETURN_TO_RECEIVE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedTime != null" >
+        UPDATED_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="typeCode != null" >
+        #{typeCode},
+      </if>
+      <if test="typeName != null" >
+        #{typeName},
+      </if>
+      <if test="isUsing != null" >
+        #{isUsing},
+      </if>
+      <if test="isReceive != null" >
+        #{isReceive},
+      </if>
+      <if test="isWarehousing != null" >
+        #{isWarehousing},
+      </if>
+      <if test="isRecoil != null" >
+        #{isRecoil},
+      </if>
+      <if test="isReconciliations != null" >
+        #{isReconciliations},
+      </if>
+      <if test="isReturn != null" >
+        #{isReturn},
+      </if>
+      <if test="isReturnToReceive != null" >
+        #{isReturnToReceive},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.base.facade.model.DictTransactionType" >
+    update dict_transaction_type
+    <set >
+      <if test="typeCode != null" >
+        TYPE_CODE = #{typeCode},
+      </if>
+      <if test="typeName != null" >
+        TYPE_NAME = #{typeName},
+      </if>
+      <if test="isUsing != null" >
+        IS_USING = #{isUsing},
+      </if>
+      <if test="isReceive != null" >
+        IS_RECEIVE = #{isReceive},
+      </if>
+      <if test="isWarehousing != null" >
+        IS_WAREHOUSING = #{isWarehousing},
+      </if>
+      <if test="isRecoil != null" >
+        IS_RECOIL = #{isRecoil},
+      </if>
+      <if test="isReconciliations != null" >
+        IS_RECONCILIATIONS = #{isReconciliations},
+      </if>
+      <if test="isReturn != null" >
+        IS_RETURN = #{isReturn},
+      </if>
+      <if test="isReturnToReceive != null" >
+        IS_RETURN_TO_RECEIVE = #{isReturnToReceive},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME = #{createdTime},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy},
+      </if>
+      <if test="updatedTime != null" >
+        UPDATED_TIME = #{updatedTime},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.base.facade.model.DictTransactionType" >
+    update dict_transaction_type
+    set TYPE_CODE = #{typeCode},
+      TYPE_NAME = #{typeName},
+      IS_USING = #{isUsing},
+      IS_RECEIVE = #{isReceive},
+      IS_WAREHOUSING = #{isWarehousing},
+      IS_RECOIL = #{isRecoil},
+      IS_RECONCILIATIONS = #{isReconciliations},
+      IS_RETURN = #{isReturn},
+      IS_RETURN_TO_RECEIVE = #{isReturnToReceive},
+      STATUS = #{status},
+      CREATED_BY = #{createdBy},
+      CREATED_TIME = #{createdTime},
+      UPDATED_BY = #{updatedBy},
+      UPDATED_TIME = #{updatedTime}
+    where ID = #{id}
+  </update>
+</mapper>

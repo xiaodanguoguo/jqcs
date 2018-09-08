@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.base.facade.dao.SysDescriptionMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.base.facade.model.SysDescription" >
+    <id column="ID" property="id" />
+    <result column="DES_FIELD" property="desField" jdbcType="VARCHAR" />
+    <result column="LANGUAGE" property="language" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status"  />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_TIME" property="createdTime"  />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_TIME" property="updatedTime"  />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, DES_FIELD, LANGUAGE, DESCRIPTION, STATUS, CREATED_BY, CREATED_TIME, UPDATED_BY, 
+    UPDATED_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_description
+    where ID = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_description
+    where ID = #{id}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.SysDescription" >
+    insert into sys_description (ID, DES_FIELD, LANGUAGE, 
+      DESCRIPTION, STATUS, CREATED_BY, 
+      CREATED_TIME, UPDATED_BY, UPDATED_TIME
+      )
+    values (#{id}, #{desField}, #{language},
+      #{description}, #{status}, #{createdBy},
+      #{createdTime}, #{updatedBy}, #{updatedTime}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.base.facade.model.SysDescription" >
+    insert into sys_description
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="desField != null" >
+        DES_FIELD,
+      </if>
+      <if test="language != null" >
+        LANGUAGE,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedTime != null" >
+        UPDATED_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="desField != null" >
+        #{desField},
+      </if>
+      <if test="language != null" >
+        #{language},
+      </if>
+      <if test="description != null" >
+        #{description},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.base.facade.model.SysDescription" >
+    update sys_description
+    <set >
+      <if test="desField != null" >
+        DES_FIELD = #{desField},
+      </if>
+      <if test="language != null" >
+        LANGUAGE = #{language},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME = #{createdTime},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy},
+      </if>
+      <if test="updatedTime != null" >
+        UPDATED_TIME = #{updatedTime},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.base.facade.model.SysDescription" >
+    update sys_description
+    set DES_FIELD = #{desField},
+      LANGUAGE = #{language},
+      DESCRIPTION = #{description},
+      STATUS = #{status},
+      CREATED_BY = #{createdBy},
+      CREATED_TIME = #{createdTime},
+      UPDATED_BY = #{updatedBy},
+      UPDATED_TIME = #{updatedTime}
+    where ID = #{id}
+  </update>
+  <select id="find" resultMap="BaseResultMap" parameterType="string">
+    select
+    <include refid="Base_Column_List" />
+    from sys_description
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="keyword != null and keyword != ''" >
+        AND (DES_FIELD LIKE '%' || #{keyword} ||'%'
+        OR DESCRIPTION LIKE '%' || #{keyword} ||'%')
+      </if>
+      <if test="status != null" >
+        AND STATUS = #{status}
+      </if>
+    </trim>
+  </select>
+</mapper>

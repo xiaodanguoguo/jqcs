@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.MillSheetHeadMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.MillSheetHead" >
+    <id column="SID" property="sid" jdbcType="DECIMAL" />
+    <result column="ZCHEHAO" property="zchehao" jdbcType="VARCHAR" />
+    <result column="ZCHARG" property="zcharg" jdbcType="VARCHAR" />
+    <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
+    <result column="ZKDAUF" property="zkdauf" jdbcType="VARCHAR" />
+    <result column="ZKUNNR" property="zkunnr" jdbcType="VARCHAR" />
+    <result column="ZKUNWE" property="zkunwe" jdbcType="VARCHAR" />
+    <result column="ZDAOZHAN" property="zdaozhan" jdbcType="VARCHAR" />
+    <result column="VBELN_VL" property="vbelnVl" jdbcType="VARCHAR" />
+    <result column="LFDAT" property="lfdat" jdbcType="TIMESTAMP" />
+    <result column="ZHTH" property="zhth" jdbcType="VARCHAR" />
+    <result column="ZCPMC" property="zcpmc" jdbcType="VARCHAR" />
+    <result column="ZPH" property="zph" jdbcType="VARCHAR" />
+    <result column="ZZXBZ" property="zzxbz" jdbcType="VARCHAR" />
+    <result column="ZFJSM" property="zfjsm" jdbcType="VARCHAR" />
+    <result column="TOTAL_ZJISHU" property="totalZjishu" jdbcType="DECIMAL" />
+    <result column="TOTAL_ZLOSMENGE" property="totalZlosmenge" jdbcType="DECIMAL" />
+    <result column="ZJISHU_UNIT" property="zjishuUnit" jdbcType="VARCHAR" />
+    <result column="ZMEINS" property="zmeins" jdbcType="VARCHAR" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SID, ZCHEHAO, MILL_SHEET_NO, ZKDAUF, ZKUNNR, ZKUNWE, ZDAOZHAN, VBELN_VL,
+    LFDAT, ZHTH, ZCPMC, ZPH, ZZXBZ, ZFJSM, TOTAL_ZJISHU, TOTAL_ZLOSMENGE, ZJISHU_UNIT, 
+    ZMEINS, CREATED_BY, CREATED_DT, UPDATED_BY, UPDATED_DT, VERSION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from MILL_SHEET_HEAD
+    where SID = #{sid,jdbcType=DECIMAL}
+  </select>
+
+  <select id="findCategoryCode" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHead" >
+    select
+    <include refid="Base_Column_List" />
+    from MILL_SHEET_HEAD
+    where MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from MILL_SHEET_HEAD
+    where SID = #{sid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHead" >
+    insert into MILL_SHEET_HEAD (SID, ZCHEHAO, ZCHARG, 
+      MILL_SHEET_NO, ZKDAUF, ZKUNNR, 
+      ZKUNWE, ZDAOZHAN, VBELN_VL, 
+      LFDAT, ZHTH, ZCPMC, 
+      ZPH, ZZXBZ, ZFJSM, 
+      TOTAL_ZJISHU, TOTAL_ZLOSMENGE, ZJISHU_UNIT, 
+      ZMEINS, CREATED_BY, CREATED_DT, 
+      UPDATED_BY, UPDATED_DT, VERSION
+      )
+    values (#{sid,jdbcType=DECIMAL}, #{zchehao,jdbcType=VARCHAR}, #{zcharg,jdbcType=VARCHAR}, 
+      #{millSheetNo,jdbcType=VARCHAR}, #{zkdauf,jdbcType=VARCHAR}, #{zkunnr,jdbcType=VARCHAR}, 
+      #{zkunwe,jdbcType=VARCHAR}, #{zdaozhan,jdbcType=VARCHAR}, #{vbelnVl,jdbcType=VARCHAR}, 
+      #{lfdat,jdbcType=TIMESTAMP}, #{zhth,jdbcType=VARCHAR}, #{zcpmc,jdbcType=VARCHAR}, 
+      #{zph,jdbcType=VARCHAR}, #{zzxbz,jdbcType=VARCHAR}, #{zfjsm,jdbcType=VARCHAR}, 
+      #{totalZjishu,jdbcType=DECIMAL}, #{totalZlosmenge,jdbcType=DECIMAL}, #{zjishuUnit,jdbcType=VARCHAR}, 
+      #{zmeins,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHead" >
+    insert into MILL_SHEET_HEAD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        SID,
+      </if>
+      <if test="zchehao != null" >
+        ZCHEHAO,
+      </if>
+      <if test="zcharg != null" >
+        ZCHARG,
+      </if>
+      <if test="millSheetNo != null" >
+        MILL_SHEET_NO,
+      </if>
+      <if test="zkdauf != null" >
+        ZKDAUF,
+      </if>
+      <if test="zkunnr != null" >
+        ZKUNNR,
+      </if>
+      <if test="zkunwe != null" >
+        ZKUNWE,
+      </if>
+      <if test="zdaozhan != null" >
+        ZDAOZHAN,
+      </if>
+      <if test="vbelnVl != null" >
+        VBELN_VL,
+      </if>
+      <if test="lfdat != null" >
+        LFDAT,
+      </if>
+      <if test="zhth != null" >
+        ZHTH,
+      </if>
+      <if test="zcpmc != null" >
+        ZCPMC,
+      </if>
+      <if test="zph != null" >
+        ZPH,
+      </if>
+      <if test="zzxbz != null" >
+        ZZXBZ,
+      </if>
+      <if test="zfjsm != null" >
+        ZFJSM,
+      </if>
+      <if test="totalZjishu != null" >
+        TOTAL_ZJISHU,
+      </if>
+      <if test="totalZlosmenge != null" >
+        TOTAL_ZLOSMENGE,
+      </if>
+      <if test="zjishuUnit != null" >
+        ZJISHU_UNIT,
+      </if>
+      <if test="zmeins != null" >
+        ZMEINS,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=DECIMAL},
+      </if>
+      <if test="zchehao != null" >
+        #{zchehao,jdbcType=VARCHAR},
+      </if>
+      <if test="zcharg != null" >
+        #{zcharg,jdbcType=VARCHAR},
+      </if>
+      <if test="millSheetNo != null" >
+        #{millSheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="zkdauf != null" >
+        #{zkdauf,jdbcType=VARCHAR},
+      </if>
+      <if test="zkunnr != null" >
+        #{zkunnr,jdbcType=VARCHAR},
+      </if>
+      <if test="zkunwe != null" >
+        #{zkunwe,jdbcType=VARCHAR},
+      </if>
+      <if test="zdaozhan != null" >
+        #{zdaozhan,jdbcType=VARCHAR},
+      </if>
+      <if test="vbelnVl != null" >
+        #{vbelnVl,jdbcType=VARCHAR},
+      </if>
+      <if test="lfdat != null" >
+        #{lfdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zhth != null" >
+        #{zhth,jdbcType=VARCHAR},
+      </if>
+      <if test="zcpmc != null" >
+        #{zcpmc,jdbcType=VARCHAR},
+      </if>
+      <if test="zph != null" >
+        #{zph,jdbcType=VARCHAR},
+      </if>
+      <if test="zzxbz != null" >
+        #{zzxbz,jdbcType=VARCHAR},
+      </if>
+      <if test="zfjsm != null" >
+        #{zfjsm,jdbcType=VARCHAR},
+      </if>
+      <if test="totalZjishu != null" >
+        #{totalZjishu,jdbcType=DECIMAL},
+      </if>
+      <if test="totalZlosmenge != null" >
+        #{totalZlosmenge,jdbcType=DECIMAL},
+      </if>
+      <if test="zjishuUnit != null" >
+        #{zjishuUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="zmeins != null" >
+        #{zmeins,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHead" >
+    update MILL_SHEET_HEAD
+    <set >
+      <if test="zchehao != null" >
+        ZCHEHAO = #{zchehao,jdbcType=VARCHAR},
+      </if>
+      <if test="zcharg != null" >
+        ZCHARG = #{zcharg,jdbcType=VARCHAR},
+      </if>
+      <if test="millSheetNo != null" >
+        MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="zkdauf != null" >
+        ZKDAUF = #{zkdauf,jdbcType=VARCHAR},
+      </if>
+      <if test="zkunnr != null" >
+        ZKUNNR = #{zkunnr,jdbcType=VARCHAR},
+      </if>
+      <if test="zkunwe != null" >
+        ZKUNWE = #{zkunwe,jdbcType=VARCHAR},
+      </if>
+      <if test="zdaozhan != null" >
+        ZDAOZHAN = #{zdaozhan,jdbcType=VARCHAR},
+      </if>
+      <if test="vbelnVl != null" >
+        VBELN_VL = #{vbelnVl,jdbcType=VARCHAR},
+      </if>
+      <if test="lfdat != null" >
+        LFDAT = #{lfdat,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zhth != null" >
+        ZHTH = #{zhth,jdbcType=VARCHAR},
+      </if>
+      <if test="zcpmc != null" >
+        ZCPMC = #{zcpmc,jdbcType=VARCHAR},
+      </if>
+      <if test="zph != null" >
+        ZPH = #{zph,jdbcType=VARCHAR},
+      </if>
+      <if test="zzxbz != null" >
+        ZZXBZ = #{zzxbz,jdbcType=VARCHAR},
+      </if>
+      <if test="zfjsm != null" >
+        ZFJSM = #{zfjsm,jdbcType=VARCHAR},
+      </if>
+      <if test="totalZjishu != null" >
+        TOTAL_ZJISHU = #{totalZjishu,jdbcType=DECIMAL},
+      </if>
+      <if test="totalZlosmenge != null" >
+        TOTAL_ZLOSMENGE = #{totalZlosmenge,jdbcType=DECIMAL},
+      </if>
+      <if test="zjishuUnit != null" >
+        ZJISHU_UNIT = #{zjishuUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="zmeins != null" >
+        ZMEINS = #{zmeins,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SID = #{sid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHead" >
+    update MILL_SHEET_HEAD
+    set ZCHEHAO = #{zchehao,jdbcType=VARCHAR},
+      ZCHARG = #{zcharg,jdbcType=VARCHAR},
+      MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
+      ZKDAUF = #{zkdauf,jdbcType=VARCHAR},
+      ZKUNNR = #{zkunnr,jdbcType=VARCHAR},
+      ZKUNWE = #{zkunwe,jdbcType=VARCHAR},
+      ZDAOZHAN = #{zdaozhan,jdbcType=VARCHAR},
+      VBELN_VL = #{vbelnVl,jdbcType=VARCHAR},
+      LFDAT = #{lfdat,jdbcType=TIMESTAMP},
+      ZHTH = #{zhth,jdbcType=VARCHAR},
+      ZCPMC = #{zcpmc,jdbcType=VARCHAR},
+      ZPH = #{zph,jdbcType=VARCHAR},
+      ZZXBZ = #{zzxbz,jdbcType=VARCHAR},
+      ZFJSM = #{zfjsm,jdbcType=VARCHAR},
+      TOTAL_ZJISHU = #{totalZjishu,jdbcType=DECIMAL},
+      TOTAL_ZLOSMENGE = #{totalZlosmenge,jdbcType=DECIMAL},
+      ZJISHU_UNIT = #{zjishuUnit,jdbcType=VARCHAR},
+      ZMEINS = #{zmeins,jdbcType=VARCHAR},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=DECIMAL}
+    where SID = #{sid,jdbcType=DECIMAL}
+  </update>
+</mapper>

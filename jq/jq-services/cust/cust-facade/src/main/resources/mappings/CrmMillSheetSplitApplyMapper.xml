@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.CrmMillSheetSplitApplyMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitApply" >
+    <result column="SPLIT_APPLY_ID" property="splitApplyId" jdbcType="NUMERIC" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+    <result column="MILLSHEET_NO" property="millsheetNo" jdbcType="VARCHAR" />
+    <result column="FATHER_MILLSHEET_NO" property="fatherMillsheetNo" jdbcType="VARCHAR" />
+    <result column="QUALITY_CERTIFICATE_TYPE" property="millSheetType" jdbcType="VARCHAR" />
+    <result column="SALE_PARTY" property="saleParty" jdbcType="VARCHAR" />
+    <result column="CREATION_TIME" property="creationTime" jdbcType="TIMESTAMP" />
+    <result column="PRODUCT_CATEGORY" property="productCategory" jdbcType="VARCHAR" />
+    <result column="SHIP_TO_PARTY" property="shipToParty" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+
+    <!---->
+
+    <result column="ZCHARG" property="zcharg" jdbcType="VARCHAR" />
+    <result column="ZJISHU" property="zjishu" jdbcType="DECIMAL" />
+    <result column="ZLOSMENGE" property="zlosmenge" jdbcType="DECIMAL" />
+   <!-- <result column="STATUS" property="spiltCustomer" jdbcType="VARCHAR" />-->
+  </resultMap>
+
+  <select id="find" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitApply">
+SELECT
+SHIP_TO_PARTY,
+SPLIT_APPLY_ID,
+MILLSHEET_NO
+FROM
+CRM_MILL_SHEET_SPLIT_APPLY
+WHERE FATHER_MILLSHEET_NO=#{millsheetNo,jdbcType=VARCHAR}
+  </select>
+  <select id="findFmillSheet" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitApply">
+    SELECT
+    CRM_MILL_SHEET_SPLIT_APPLY.SPLIT_APPLY_ID
+    FROM
+    CRM_MILL_SHEET_SPLIT_APPLY
+    WHERE FATHER_MILLSHEET_NO=#{millSheetNo,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitApply" >
+    <selectKey resultType="java.lang.Long" keyProperty="splitApplyId" order="BEFORE" >
+      SELECT WARRANTY.SEQ_CRM_MILL_SHEET_SPLIT_APPLY.nextval AS splitApplyId FROM DUAL
+    </selectKey>
+    insert into CRM_MILL_SHEET_SPLIT_APPLY (SPLIT_APPLY_ID, CREATED_BY, CREATED_DT,
+      UPDATED_BY, UPDATED_DT, VERSION,
+      MILLSHEET_NO, FATHER_MILLSHEET_NO, QUALITY_CERTIFICATE_TYPE,
+      SALE_PARTY, CREATION_TIME, PRODUCT_CATEGORY,
+      SHIP_TO_PARTY, STATUS)
+    values (#{splitApplyId,jdbcType=NUMERIC}, #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP},
+      #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC},
+      #{millsheetNo,jdbcType=VARCHAR}, #{fatherMillsheetNo,jdbcType=VARCHAR}, #{millSheetType,jdbcType=VARCHAR},
+      #{saleParty,jdbcType=VARCHAR}, #{creationTime,jdbcType=TIMESTAMP}, #{productCategory,jdbcType=VARCHAR},
+      #{shipToParty,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitApply">
+    <selectKey resultType="java.lang.Long" keyProperty="splitApplyId" order="BEFORE" >
+      SELECT SEQ_CRM_MILL_SHEET_SPLIT_APPLY.nextval AS splitApplyId FROM DUAL
+    </selectKey>
+    insert into CRM_MILL_SHEET_SPLIT_APPLY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="splitApplyId != null" >
+        SPLIT_APPLY_ID,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="millsheetNo != null" >
+        MILLSHEET_NO,
+      </if>
+      <if test="fatherMillsheetNo != null" >
+        FATHER_MILLSHEET_NO,
+      </if>
+      <if test="millSheetType != null" >
+        QUALITY_CERTIFICATE_TYPE,
+      </if>
+      <if test="saleParty != null" >
+        SALE_PARTY,
+      </if>
+      <if test="creationTime != null" >
+        CREATION_TIME,
+      </if>
+      <if test="productCategory != null" >
+        PRODUCT_CATEGORY,
+      </if>
+      <if test="shipToParty != null" >
+        SHIP_TO_PARTY,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="splitApplyId != null" >
+        #{splitApplyId,jdbcType=NUMERIC},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=NUMERIC},
+      </if>
+      <if test="millsheetNo != null" >
+        #{millsheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fatherMillsheetNo != null" >
+        #{fatherMillsheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="millSheetType != null" >
+        #{millSheetType,jdbcType=VARCHAR},
+      </if>
+      <if test="saleParty != null" >
+        #{saleParty,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTime != null" >
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productCategory != null" >
+        #{productCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="shipToParty != null" >
+        #{shipToParty,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

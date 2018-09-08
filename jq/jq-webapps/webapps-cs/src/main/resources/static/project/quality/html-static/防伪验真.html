@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/fake_Verification.css">
+    <link rel="stylesheet" href="../../../base/css/baseOrange.css">
+    <link rel="stylesheet" href="../../../base/css/baseBlue.css">
+    <link rel="stylesheet" href="../../../base/iconfont/iconfont.css">
+    <script src="../../../base/js/jquery.js"></script>
+    <script src="../../../base/js/public.js"></script>
+    <script src="../../../base/js/docassistant.js"></script>
+    <script src="../../../base/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../../base/js/ajaxupload.js"></script>
+    <script src="../../../reqConfig.js"></script>
+    <script src="../../../plugin/WdatePickerBlue/My97DatePicker/WdatePicker.js"></script>
+</head>
+
+<body>
+    <div class="verification">
+        <!--<div class="verification-title">
+            <div class="btnLowNew verification-Home-page">首页</div>
+            <div class="btnLowNew verification-questionnaire">防伪验真
+                <b class="verification-title-close">X</b>
+            </div>
+        </div>-->
+        <div class="verification-Tab">
+            <ul class="tabMenu-four" comtype="tabCtrl" contentcls="tabCon">
+                <li class="tabTitLi" nidx="0">
+                    <span>防伪验真码</span>
+                </li>
+                <li nidx="1">
+                    <span>附件验真</span>
+                </li>
+            </ul>
+            <div class="verification-TabCon">
+                <div class="tabCon verification-TabCon-Every">
+                        <ul class="verification-TabCon-Every__Content" id="checkTrueBox">
+                            <li class="verification-TabCon-Every__Every">
+                                <span class="verification-TabCon-Every__Name">质量证明书号:</span>
+                                <input type="text" class="verification-TabCon-Every__Input"><b class="verification-TabCon-Every__Sign">*</b>
+                            </li>
+                            <li class="verification-TabCon-Every__Every">
+                                <span class="verification-TabCon-Every__Name">防伪码:</span>
+                                <input type="text" class="verification-TabCon-Every__Input"><b class="verification-TabCon-Every__Sign">*</b>
+                            </li>
+                            <li class="verification-TabCon-Every__Every">
+                                <span class="verification-TabCon-Every__Name">滑动验证:</span>
+                                <input type="text" class="verification-TabCon-Every__Input">
+                            </li>
+                            <div class="btnBaseCommon verification-TabCon-Every__Submit" id="submitOpe">提交</div>
+                            <div class="btnBaseCancel verification-TabCon-Every__reset">重置</div>
+                        </ul>
+                </div>
+                <div class="tabCon verification-TabCon-Every" style="display: none;">
+                    <div class="verification-TabCon-uploading">
+                        <input type="text" class="verification-TabCon-Input">
+                        <div comType="uploadCtrl" class="verification-TabCon-File" uploadType="button" uploadTypeVal="点击上传.."
+                            reqPath="http://10.4.82.188/upload.php" uploadSize='{"w":"75","h":"28"}' fileType="xls">
+                        </div>
+                        <div class="btnBaseCommon verification-TabCon-up">上传验证</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

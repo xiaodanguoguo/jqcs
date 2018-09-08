@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.base.facade.dao.AcctInfoMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.base.facade.model.AcctInfo" >
+    <id column="ACCT_ID" property="acctId" />
+    <result column="ENT_ID" property="entId" />
+    <result column="LOGIN_SOURCE" property="loginSource" />
+    <result column="ACCT_TITLE" property="acctTitle" />
+    <result column="ACCT_PASSWORD" property="acctPassword" />
+    <result column="ACCT_CODE" property="acctCode" />
+    <result column="NAME" property="name" />
+    <result column="DEPT" property="dept" />
+    <result column="MOBILE_PHONE" property="mobilePhone" />
+    <result column="EMAIL" property="email" />
+    <result column="REGISTER_TIME" property="registerTime"  />
+    <result column="LAST_LOGIN_TIME" property="lastLoginTime"  />
+    <result column="IS_DELETE" property="isDelete"  />
+    <result column="UPDATED_BY" property="updatedBy" />
+    <result column="UPDATED_TIME" property="updatedTime"  />
+    <result column="STATUS" property="status"  />
+    <result column="START_TIME" property="startTime"  />
+    <result column="ENT_TIME" property="entTime"  />
+    <result column="A_COMPANY_ID" property="aCompanyId" />
+    <result column="O_INFO_ID" property="oInfoId" />
+    <result column="orgTitle" property="orgTitle" />
+    <result column="ORG_ID" property="orgId"/>
+    <result column="ACCT_TYPE" property="acctType" />
+    <association property="companyInfo" javaType="jq.steel.cs.services.base.facade.model.CompanyInfo">
+      <id column="COMPANY_ID" property="companyId" />
+      <result column="COMPANY_NAME" property="companyName" />
+      <result column="COMPANY_CODE" property="companyCode" />
+    </association>
+
+    <collection property="RoleInfo" ofType="jq.steel.cs.services.base.facade.model.RoleInfo">
+      <id column="ROLE_ID" property="roleId"/>
+      <result column="APP_ID" property="appId"/>
+      <result column="ENT_ID" property="entId"/>
+      <result column="ROLE_CODE" property="roleCode"/>
+      <result column="ROLE_TITLE" property="roleTitle"/>
+      <result column="ROLE_STATE" property="roleState"/>
+      <result column="ROLE_DESC" property="roleDesc"/>
+      <result column="IS_DELETE" property="isDelete"/>
+      <result column="STATUS" property="status"/>
+      <result column="CREATED_BY" property="createdBy"/>
+      <result column="CREATED_TIME" property="createdTime"/>
+      <result column="UPDATED_BY" property="updatedBy"/>
+      <result column="UPDATED_TIME" property="updatedTime"/>
+      <result column="ROLE_TYPE" property="roleType"/>
+      <result column="START_TIME" property="startTime"/>
+      <result column="END_TIME" property="endTime"/>
+      <result column="ROLE_TYPE_TITLE" property="roleTypeTitle"/>
+
+    </collection>
+  </resultMap>
+
+
+
+  <resultMap id="BaseResultMap2" type="jq.steel.cs.services.base.facade.model.AcctInfo" >
+    <id column="ACCT_ID" property="acctId" />
+    <result column="ENT_ID" property="entId" />
+    <result column="ACCT_TYPE" property="acctType" />
+    <result column="LOGIN_SOURCE" property="loginSource" />
+    <result column="ACCT_TITLE" property="acctTitle" />
+    <result column="ACCT_PASSWORD" property="acctPassword" />
+    <result column="ACCT_CODE" property="acctCode" />
+    <result column="NAME" property="name" />
+    <result column="DEPT" property="dept" />
+    <result column="MOBILE_PHONE" property="mobilePhone" />
+    <result column="EMAIL" property="email" />
+    <result column="REGISTER_TIME" property="registerTime"  />
+    <result column="LAST_LOGIN_TIME" property="lastLoginTime"  />
+    <result column="IS_DELETE" property="isDelete"  />
+    <result column="UPDATED_BY" property="updatedBy" />
+    <result column="UPDATED_TIME" property="updatedTime"  />
+    <result column="STATUS" property="status"  />
+    <result column="START_TIME" property="startTime"  />
+    <result column="ENT_TIME" property="entTime"  />
+    <result column="A_COMPANY_ID" property="aCompanyId" />
+    <result column="O_INFO_ID" property="oInfoId" />
+    <result column="O_INFO_NAME" property="oInfoName" />
+    <result column="ORG_ID" property="orgId"/>
+    <collection property="arr" ofType="jq.steel.cs.services.base.facade.model.AcctRoleReal">
+      <id column="RELA_ID" property="relaId" />
+      <result column="ACCT_ID" property="acctId" />
+      <result column="ROLE_ID" property="roleId" />
+      <result column="STATUS" property="status"  />
+      <result column="CREATED_BY" property="createdBy" />
+      <result column="CREATED_TIME" property="createdTime"  />
+      <result column="UPDATED_BY" property="updatedBy" />
+      <result column="UPDATED_TIME" property="updatedTime"  />
+
+      <association property="role" javaType="jq.steel.cs.services.base.facade.model.RoleInfo">
+        <id column="ROLE_ID" property="roleId" />
+        <result column="APP_ID" property="appId" />
+        <result column="ENT_ID" property="entId" />
+        <result column="ROLE_CODE" property="roleCode" />
+        <result column="ROLE_TITLE" property="roleTitle" />
+        <result column="ROLE_STATE" property="roleState"  />
+        <result column="ROLE_DESC" property="roleDesc" />
+        <result column="IS_DELETE" property="isDelete"  />
+        <result column="STATUS" property="status"  />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATED_TIME" property="createdTime"  />
+        <result column="UPDATED_BY" property="updatedBy" />
+        <result column="UPDATED_TIME" property="updatedTime"  />
+
+        <result column="ROLE_TYPE" property="roleType"  />
+        <result column="START_TIME" property="startTime"  />
+        <result column="END_TIME" property="endTime"  />
+
+        <result column="ROLE_TYPE_TITLE" property="roleTypeTitle" />
+
+        <result column="ORG_ID" property="orgId" />
+      </association>
+
+    </collection>
+
+    
+
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ACCT_ID, ENT_ID, LOGIN_SOURCE, ACCT_TITLE, ACCT_PASSWORD, ACCT_CODE, NAME, DEPT,
+    MOBILE_PHONE, EMAIL, REGISTER_TIME, LAST_LOGIN_TIME, IS_DELETE, UPDATED_BY, UPDATED_TIME,
+    STATUS, START_TIME, ENT_TIME, A_COMPANY_ID,O_INFO_ID,O_INFO_NAME,ACCT_TYPE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from acct_info
+    where ACCT_ID = #{acctId}  and is_delete = 0
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from acct_info
+    where ACCT_ID = #{acctId}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.AcctInfo" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="acctId">
+      SELECT SEQ_ACCT_INFO.nextval AS acctId FROM dual
+    </selectKey>
+    insert into acct_info (ACCT_ID, ENT_ID, LOGIN_SOURCE,
+      ACCT_TITLE, ACCT_PASSWORD, ACCT_CODE,
+      NAME, DEPT, MOBILE_PHONE,
+      EMAIL, REGISTER_TIME, LAST_LOGIN_TIME,
+      IS_DELETE, UPDATED_BY, UPDATED_TIME,
+      STATUS, START_TIME, ENT_TIME,
+      A_COMPANY_ID,O_INFO_ID)
+    values (#{acctId}, #{entId}, #{loginSource},
+      #{acctTitle}, #{acctPassword}, #{acctCode},
+      #{name}, #{dept}, #{mobilePhone},
+      #{email}, #{registerTime}, #{lastLoginTime},
+      #{isDelete}, #{updatedBy}, #{updatedTime},
+      #{status}, #{startTime}, #{entTime},
+      #{aCompanyId},#{oInfoId})
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.base.facade.model.AcctInfo" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="acctId">
+      SELECT SEQ_ACCT_INFO.nextval AS acctId FROM dual
+    </selectKey>
+    insert into acct_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="acctId != null" >
+        ACCT_ID,
+      </if>
+      <if test="entId != null" >
+        ENT_ID,
+      </if>
+      <if test="loginSource != null" >
+        LOGIN_SOURCE,
+      </if>
+      <if test="acctTitle != null" >
+        ACCT_TITLE,
+      </if>
+      <if test="acctPassword != null" >
+        ACCT_PASSWORD,
+      </if>
+      <if test="acctCode != null" >
+        ACCT_CODE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="dept != null" >
+        DEPT,
+      </if>
+      <if test="mobilePhone != null" >
+        MOBILE_PHONE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="registerTime != null" >
+        REGISTER_TIME,
+      </if>
+      <if test="lastLoginTime != null" >
+        LAST_LOGIN_TIME,
+      </if>
+      <if test="isDelete != null" >
+        IS_DELETE,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedTime != null" >
+        UPDATED_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="entTime != null" >
+        ENT_TIME,
+      </if>
+      <if test="aCompanyId != null" >
+        A_COMPANY_ID,
+      </if>
+      <if test="oInfoId != null" >
+        O_INFO_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="acctId != null" >
+        #{acctId},
+      </if>
+      <if test="entId != null" >
+        #{entId},
+      </if>
+      <if test="loginSource != null" >
+        #{loginSource},
+      </if>
+      <if test="acctTitle != null" >
+        #{acctTitle},
+      </if>
+      <if test="acctPassword != null" >
+        #{acctPassword},
+      </if>
+      <if test="acctCode != null" >
+        #{acctCode},
+      </if>
+      <if test="name != null" >
+        #{name},
+      </if>
+      <if test="dept != null" >
+        #{dept},
+      </if>
+      <if test="mobilePhone != null" >
+        #{mobilePhone},
+      </if>
+      <if test="email != null" >
+        #{email},
+      </if>
+      <if test="registerTime != null" >
+        #{registerTime},
+      </if>
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="startTime != null" >
+        #{startTime},
+      </if>
+      <if test="entTime != null" >
+        #{entTime},
+      </if>
+      <if test="aCompanyId != null" >
+        #{aCompanyId},
+      </if>
+      <if test="oInfoId != null" >
+        #{oInfoId},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.base.facade.model.AcctInfo" >
+    update acct_info
+    <set >
+      <if test="entId != null" >
+        ENT_ID = #{entId},
+      </if>
+      <if test="loginSource != null" >
+        LOGIN_SOURCE = #{loginSource},
+      </if>
+      <if test="acctTitle != null" >
+        ACCT_TITLE = #{acctTitle},
+      </if>
+      <if test="acctPassword != null" >
+        ACCT_PASSWORD = #{acctPassword},
+      </if>
+      <if test="acctCode != null" >
+        ACCT_CODE = #{acctCode},
+      </if>
+      <if test="name != null" >
+        NAME = #{name},
+      </if>
+      <if test="dept != null" >
+        DEPT = #{dept},
+      </if>
+      <if test="mobilePhone != null" >
+        MOBILE_PHONE = #{mobilePhone},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email},
+      </if>
+      <if test="registerTime != null" >
+        REGISTER_TIME = #{registerTime},
+      </if>
+      <if test="lastLoginTime != null" >
+        LAST_LOGIN_TIME = #{lastLoginTime},
+      </if>
+      <if test="isDelete != null" >
+        IS_DELETE = #{isDelete},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy},
+      </if>
+      <if test="updatedTime != null" >
+        UPDATED_TIME = #{updatedTime},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime},
+      </if>
+      <if test="entTime != null" >
+        ENT_TIME = #{entTime},
+      </if>
+      <if test="aCompanyId != null" >
+        A_COMPANY_ID = #{aCompanyId},
+      </if>
+
+      <if test="oInfoId != null" >
+        O_INFO_ID = #{oInfoId},
+      </if>
+
+      <if test="acctType != null" >
+        ACCT_TYPE = #{acctType},
+      </if>
+
+    </set>
+    where ACCT_ID = #{acctId}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.base.facade.model.AcctInfo" >
+    update acct_info
+    set ENT_ID = #{entId},
+      LOGIN_SOURCE = #{loginSource},
+      ACCT_TITLE = #{acctTitle},
+      ACCT_PASSWORD = #{acctPassword},
+      ACCT_CODE = #{acctCode},
+      NAME = #{name},
+      DEPT = #{dept},
+      MOBILE_PHONE = #{mobilePhone},
+      EMAIL = #{email},
+      REGISTER_TIME = #{registerTime},
+      LAST_LOGIN_TIME = #{lastLoginTime},
+      IS_DELETE = #{isDelete},
+      UPDATED_BY = #{updatedBy},
+      UPDATED_TIME = #{updatedTime},
+      STATUS = #{status},
+      START_TIME = #{startTime},
+      ENT_TIME = #{entTime},
+      A_COMPANY_ID = #{aCompanyId},
+      O_INFO_ID = #{oInfoId},
+    where ACCT_ID = #{acctId}
+  </update>
+  <!--  <select id="find" resultMap="BaseResultMap">
+      SELECT
+        comp.COMPANY_ID,comp.COMPANY_CODE,comp.COMPANY_NAME,
+        <include refid="Base_Column_List"/>
+        FROM acct_info acct LEFT JOIN company_info comp ON  acct.A_COMPANY_ID = comp.COMPANY_ID
+
+      <trim prefix="WHERE" prefixOverrides="AND |OR">
+        <if test="acctId != null" >
+          AND ACCT_ID = #{acctId}
+        </if>
+        <if test="acctCode != null and acctCode != ''" >
+          AND ACCT_CODE LIKE CONCAT('%',#{acctCode},'%')
+        </if>
+        <if test="acctTitle != null and acctTitle != ''" >
+          AND ACCT_TITLE LIKE CONCAT('%',#{acctTitle},'%')
+        </if>
+        <if test="aCompanyId != null" >
+          AND A_COMPANY_ID = #{aCompanyId}
+        </if>
+        <if test="companyName != null and companyName != ''" >
+          AND COMPANY_NAME LIKE CONCAT('%',#{companyName},'%')
+        </if>
+        <if test="email != null and email != ''" >
+          AND EMAIL LIKE CONCAT('%',#{email},'%')
+        </if>
+        <if test="acctIds != null and acctIds.size > 0">
+          AND ACCT_ID in
+          <foreach collection="acctIds" close=")" item="acctId" open="(" separator=",">
+              #{acctId}
+          </foreach>
+        </if>
+      </trim>
+    </select>-->
+
+  <!-- 查询全部数据 -->
+  <select id="listSysAcct2Role" parameterType="jq.steel.cs.services.base.facade.model.AcctInfo" resultMap="BaseResultMap">
+		SELECT * FROM
+		role_info a
+		LEFT JOIN acct_role_real b ON a.ROLE_ID =b.ROLE_ID
+		LEFT JOIN acct_info c ON c.ACCT_ID =b.ACCT_ID WHERE b.ACCT_ID = #{acctId} and ORG_ID = #{orgId}  and c.is_delete = 0
+	</select>
+
+  <!--用户管理 修改用户信息-->
+  <update id="updateAcctInfo" parameterType="jq.steel.cs.services.base.facade.model.AcctInfo">
+ update acct_info set ENT_ID = #{entId}, LOGIN_SOURCE = #{loginSource},
+  ACCT_TITLE = #{acctTitle}, ACCT_PASSWORD = #{acctPassword},
+   ACCT_CODE = #{acctCode}, NAME = #{name},
+    DEPT = #{dept}, MOBILE_PHONE = #{mobilePhone},
+     EMAIL = #{email}, REGISTER_TIME = #{registerTime},
+     LAST_LOGIN_TIME = #{lastLoginTime}, IS_DELETE = #{isDelete},
+     UPDATED_BY = #{updatedBy}, UPDATED_TIME = #{updatedTime},
+     STATUS = #{status}, START_TIME = #{startTime},
+     ENT_TIME = #{entTime}, A_COMPANY_ID = #{aCompanyId}, O_INFO_ID = #{oInfoId}
+     where ACCT_ID = #{acctId} </update>
+
+  <!--用户管理 添加用户-->
+  <insert id="insertAcctInfo" parameterType="jq.steel.cs.services.base.facade.model.AcctInfo">
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="acctId">
+      SELECT SEQ_ACCT_INFO.nextval AS acctId FROM dual
+    </selectKey>
+    insert into acct_info
+
+    <trim suffixOverrides="," suffix=")" prefix="(">
+
+      <if test="acctId != null"> ACCT_ID, </if>
+
+      <if test="entId != null"> ENT_ID, </if>
+
+      <if test="loginSource != null"> LOGIN_SOURCE, </if>
+
+      <if test="acctTitle != null"> ACCT_TITLE, </if>
+
+      <if test="acctPassword != null"> ACCT_PASSWORD, </if>
+
+      <if test="acctCode != null"> ACCT_CODE, </if>
+
+      <if test="name != null"> NAME, </if>
+
+      <if test="dept != null"> DEPT, </if>
+
+      <if test="mobilePhone != null"> MOBILE_PHONE, </if>
+
+      <if test="email != null"> EMAIL, </if>
+
+      <if test="registerTime != null"> REGISTER_TIME, </if>
+
+      <if test="lastLoginTime != null"> LAST_LOGIN_TIME, </if>
+
+      <if test="isDelete != null"> IS_DELETE, </if>
+
+      <if test="updatedBy != null"> UPDATED_BY, </if>
+
+      <if test="updatedTime != null"> UPDATED_TIME, </if>
+
+      <if test="status != null"> STATUS, </if>
+
+      <if test="startTime != null"> START_TIME, </if>
+
+      <if test="entTime != null"> ENT_TIME, </if>
+
+      <if test="aCompanyId != null"> A_COMPANY_ID, </if>
+
+      <if test="oInfoId != null"> O_INFO_ID, </if>
+
+      <if test="oInfoName != null"> O_INFO_NAME, </if>
+
+      <if test="acctType != null"> ACCT_TYPE, </if>
+
+    </trim>
+
+
+    <trim suffixOverrides="," suffix=")" prefix="values (">
+
+      <if test="acctId != null"> #{acctId}, </if>
+
+      <if test="entId != null"> #{entId}, </if>
+
+      <if test="loginSource != null"> #{loginSource}, </if>
+
+      <if test="acctTitle != null"> #{acctTitle}, </if>
+
+      <if test="acctPassword != null"> #{acctPassword}, </if>
+
+      <if test="acctCode != null"> #{acctCode}, </if>
+
+      <if test="name != null"> #{name}, </if>
+
+      <if test="dept != null"> #{dept}, </if>
+
+      <if test="mobilePhone != null"> #{mobilePhone}, </if>
+
+      <if test="email != null"> #{email}, </if>
+
+      <if test="registerTime != null"> #{registerTime}, </if>
+
+      <if test="lastLoginTime != null"> #{lastLoginTime}, </if>
+
+      <if test="isDelete != null"> #{isDelete}, </if>
+
+      <if test="updatedBy != null"> #{updatedBy}, </if>
+
+      <if test="updatedTime != null"> #{updatedTime}, </if>
+
+      <if test="status != null"> #{status}, </if>
+
+      <if test="startTime != null"> #{startTime}, </if>
+
+      <if test="entTime != null"> #{entTime}, </if>
+
+      <if test="aCompanyId != null"> #{aCompanyId}, </if>
+
+      <if test="oInfoId != null"> #{oInfoId}, </if>
+
+      <if test="oInfoName != null"> #{oInfoName}, </if>
+
+      <if test="acctType != null"> #{acctType}, </if>
+
+    </trim>
+
+  </insert>
+
+  <!--查询用户信息-->
+  <select id="find" resultMap="BaseResultMap">
+    SELECT
+      acct.acct_id,
+      acct.acct_title,
+      acct.acct_password,
+      acct. NAME,
+      acct.mobile_phone,
+      acct.email,
+      acct.is_delete,
+      acct.status,
+      acct.o_info_id,
+      acct.acct_type,
+      arr.rela_id,
+      ROLE.role_id,
+      ROLE.role_title,
+      (select o.ORG_NAME from org_info o where o.id=acct.O_INFO_ID) as orgTitle
+    FROM
+    acct_info acct
+    LEFT JOIN acct_role_real arr
+    ON acct.ACCT_ID = arr.ACCT_ID
+    LEFT JOIN role_info role
+    ON arr.ROLE_ID = role.ROLE_ID
+    where 1=1 and acct.is_delete = 0
+      <if test="entId != null"> AND ENT_ID = #{entId} </if>
+
+      <if test="loginSource != null"> LOGIN_SOURCE = #{loginSource}, </if>
+
+      <if test="acctTitle != null"> AND ACCT_TITLE LIKE '%' || #{acctTitle} ||'%'</if>
+
+      <if test="acctPassword != null"> AND ACCT_PASSWORD = #{acctPassword} </if>
+
+      <if test="acctCode != null"> AND ACCT_CODE = #{acctCode} </if>
+
+      <if test="name != null"> AND NAME = #{name} </if>
+
+      <if test="dept != null"> AND DEPT = #{dept} </if>
+
+      <if test="mobilePhone != null"> AND MOBILE_PHONE = #{mobilePhone} </if>
+
+      <if test="email != null"> AND EMAIL = #{email} </if>
+
+      <if test="registerTime != null"> AND REGISTER_TIME = #{registerTime} </if>
+
+      <if test="lastLoginTime != null"> AND LAST_LOGIN_TIME = #{lastLoginTime} </if>
+
+      <if test="isDelete != null"> AND IS_DELETE = #{isDelete} </if>
+
+      <if test="updatedBy != null"> AND UPDATED_BY = #{updatedBy} </if>
+
+      <if test="updatedTime != null"> AND UPDATED_TIME = #{updatedTime} </if>
+
+      <if test="status != null"> AND STATUS = #{status} </if>
+
+      <if test="startTime != null"> AND START_TIME = #{startTime} </if>
+
+      <if test="entTime != null"> AND ENT_TIME = #{entTime} </if>
+
+      <if test="aCompanyId != null"> AND A_COMPANY_ID = #{aCompanyId} </if>
+
+      <if test="oInfoId != null"> AND O_INFO_ID = #{oInfoId} </if>
+
+      <if test="oInfoName != null"> AND O_INFO_NAME = #{oInfoName} </if>
+
+      <if test="acctType != null"> AND ACCT_TYPE = #{acctType} </if>
+  </select>
+  
+  <select id="findAcctRoleInfo" resultMap="BaseResultMap">
+    SELECT
+    *
+    FROM
+    acct_info acct
+    LEFT JOIN acct_role_real arr
+    ON acct.ACCT_ID = arr.ACCT_ID
+    LEFT JOIN role_info role
+    ON arr.ROLE_ID = role.ROLE_ID
+    where 1=1 and acct.is_delete = 0
+    <if test="entId != null"> AND ENT_ID = #{entId,jdbcType=BIGINT} </if>
+
+    <if test="loginSource != null"> LOGIN_SOURCE = #{loginSource,jdbcType=VARCHAR}, </if>
+
+    <if test="acctTitle != null"> AND ACCT_TITLE LIKE '%' || #{acctTitle} ||'%' </if>
+
+    <if test="acctPassword != null"> AND ACCT_PASSWORD = #{acctPassword,jdbcType=VARCHAR} </if>
+
+    <if test="acctCode != null"> AND ACCT_CODE = #{acctCode,jdbcType=VARCHAR} </if>
+
+    <if test="name != null"> AND NAME = #{name,jdbcType=VARCHAR} </if>
+
+    <if test="dept != null"> AND DEPT = #{dept,jdbcType=VARCHAR} </if>
+
+    <if test="mobilePhone != null"> AND MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR} </if>
+
+    <if test="email != null"> AND EMAIL = #{email,jdbcType=VARCHAR} </if>
+
+    <if test="registerTime != null"> AND REGISTER_TIME = #{registerTime,jdbcType=TIMESTAMP} </if>
+
+    <if test="lastLoginTime != null"> AND LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=TIMESTAMP} </if>
+
+    <if test="isDelete != null"> AND IS_DELETE = #{isDelete,jdbcType=TINYINT} </if>
+
+    <if test="updatedBy != null"> AND UPDATED_BY = #{updatedBy,jdbcType=VARCHAR} </if>
+
+    <if test="updatedTime != null"> AND UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP} </if>
+
+    <if test="status != null"> AND STATUS = #{status,jdbcType=TINYINT} </if>
+
+    <if test="startTime != null"> AND START_TIME = #{startTime,jdbcType=TIMESTAMP} </if>
+
+    <if test="entTime != null"> AND ENT_TIME = #{entTime,jdbcType=TIMESTAMP} </if>
+
+    <if test="aCompanyId != null"> AND A_COMPANY_ID = #{aCompanyId,jdbcType=BIGINT} </if>
+
+    <if test="oInfoId != null"> AND O_INFO_ID like CONCAT(#{oInfoId,jdbcType=VARCHAR},'%') </if>
+
+    <if test="oInfoName != null"> AND O_INFO_NAME = #{oInfoName,jdbcType=BIGINT} </if>
+
+    <if test="acctType != null"> AND ACCT_TYPE = #{acctType,jdbcType=BIGINT} </if>
+
+    <if test="acctId != null"> AND acct.ACCT_ID = #{acctId} </if>
+  </select>
+  
+  <!--查询用户信息-->
+  <select id="findPage" resultMap="BaseResultMap">
+    SELECT
+    acct.acct_id,
+    acct.acct_title,
+    acct.acct_password,
+    acct. NAME,
+    acct.mobile_phone,
+    acct.email,
+    acct.is_delete,
+    acct.status,
+    acct.o_info_id,
+    acct.acct_type,
+    (
+    SELECT
+    o.org_name
+    FROM
+    org_info o
+    WHERE
+    o. ID = acct.o_info_id
+    ) AS orgtitle
+    FROM
+    acct_info acct
+    WHERE
+    1 = 1
+    AND acct.is_delete = 0
+    <if test="entId != null"> AND ENT_ID = #{entId} </if>
+
+    <if test="loginSource != null"> LOGIN_SOURCE = #{loginSource}, </if>
+
+    <if test="acctTitle != null"> AND ACCT_TITLE LIKE '%' || #{acctTitle} ||'%'</if>
+
+    <if test="acctPassword != null"> AND ACCT_PASSWORD = #{acctPassword} </if>
+
+    <if test="acctCode != null"> AND ACCT_CODE = #{acctCode} </if>
+
+    <if test="name != null"> AND NAME = #{name} </if>
+
+    <if test="dept != null"> AND DEPT = #{dept} </if>
+
+    <if test="mobilePhone != null"> AND MOBILE_PHONE = #{mobilePhone} </if>
+
+    <if test="email != null"> AND EMAIL = #{email} </if>
+
+    <if test="registerTime != null"> AND REGISTER_TIME = #{registerTime} </if>
+
+    <if test="lastLoginTime != null"> AND LAST_LOGIN_TIME = #{lastLoginTime} </if>
+
+    <if test="isDelete != null"> AND IS_DELETE = #{isDelete} </if>
+
+    <if test="updatedBy != null"> AND UPDATED_BY = #{updatedBy} </if>
+
+    <if test="updatedTime != null"> AND UPDATED_TIME = #{updatedTime} </if>
+
+    <if test="status != null"> AND STATUS = #{status} </if>
+
+    <if test="startTime != null"> AND START_TIME = #{startTime} </if>
+
+    <if test="entTime != null"> AND ENT_TIME = #{entTime} </if>
+
+    <if test="aCompanyId != null"> AND A_COMPANY_ID = #{aCompanyId} </if>
+
+    <if test="oInfoId != null"> AND O_INFO_ID like CONCAT(#{oInfoId},'%') </if>
+
+    <if test="oInfoName != null"> AND O_INFO_NAME = #{oInfoName} </if>
+
+    <if test="acctType != null"> AND acct.ACCT_TYPE = #{acctType} </if>
+  </select>
+  
+  	<select id="getAcctOrgid" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT
+			COUNT(O_INFO_ID)
+		FROM
+			acct_info
+		WHERE
+			1 = 1  and is_delete = 0
+		AND O_INFO_ID IN
+		<foreach item="list" collection="cascadeDeletionOrgInfo" index ="index" open="(" separator="," close=")">
+			#{list}
+		</foreach>			
+	</select>
+
+
+
+	
+	<select id="getAcctInfo" parameterType="java.lang.Long" resultType="java.lang.String">
+		SELECT
+			O_INFO_ID
+		FROM
+			acct_info
+		WHERE
+			ACCT_ID = #{acctId}
+	</select>
+
+
+  <select id="LoginAcct" parameterType="jq.steel.cs.services.base.facade.model.AcctInfo" resultType="jq.steel.cs.services.base.facade.model.AcctInfo">
+    SELECT
+    *
+    FROM
+    acct_info
+    WHERE
+    ACCT_TITLE = #{acctTitle} and ACCT_PASSWORD = #{acctPassword}  and is_delete = 0s
+  </select>
+
+  <select id="selectRoleIdAcctInfo" parameterType="jq.steel.cs.services.base.facade.model.AcctInfo" resultType="jq.steel.cs.services.base.facade.model.AcctInfo">
+    select * from acct_info a
+  LEFT JOIN acct_role_real arr on arr.ACCT_ID=a.ACCT_ID
+  LEFT JOIN role_info r on r.ROLE_ID=arr.ROLE_ID
+  where r.ROLE_ID=#{roleId} and arr.ROLE_ID is not null
+   and a.is_delete = 0
+  </select>
+
+
+  <select id="selectOrgIdAcctInfo" parameterType="jq.steel.cs.services.base.facade.model.AcctInfo" resultType="jq.steel.cs.services.base.facade.model.AcctInfo">
+
+select a.acct_id,r.ROLE_TITLE,a.ACCT_TITLE from acct_info a
+LEFT JOIN acct_role_real arr on arr.ACCT_ID=a.ACCT_ID
+LEFT JOIN role_info r on r.ROLE_ID=arr.ROLE_ID
+where  arr.ROLE_ID is not null  and
+a.O_INFO_ID=#{orgId}
+and a.IS_DELETE = 0
+and r.ROLE_ID in (select r.ROLE_ID from role_info r
+LEFT JOIN acct_role_purchase arp on arp.role_id=r.ROLE_ID
+where r.IS_DELETE = 0 and r.STATUS=1  and
+r.ORG_ID=#{orgId} and arp.PURCHASE_TYPE=#{purchaseType}
+and arp.role_id is not null )
+      <if test="acctTitle != null"> AND a.ACCT_TITLE LIKE '%' || #{acctTitle} ||'%'</if>
+  </select>
+
+  <select id="selectByLogin" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select
+    <include refid="Base_Column_List" />
+    from acct_info
+    where ACCT_TITLE = #{acctId}
+  </select>
+  <select id="findByOrgId" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select
+    <include refid="Base_Column_List" />
+    from acct_info
+    where O_INFO_ID = #{id}
+  </select>
+
+  <select id="getAcctInfoByAcctTitle"  parameterType="jq.steel.cs.services.base.facade.model.AcctInfo" resultType="jq.steel.cs.services.base.facade.model.AcctInfo">
+    select
+    ACCT_ID, ENT_ID, LOGIN_SOURCE, ACCT_TITLE, ACCT_PASSWORD, ACCT_CODE, NAME, DEPT,
+    MOBILE_PHONE, EMAIL, REGISTER_TIME, LAST_LOGIN_TIME, IS_DELETE, UPDATED_BY, UPDATED_TIME,
+    STATUS, START_TIME, ENT_TIME, A_COMPANY_ID,O_INFO_ID,O_INFO_NAME,ACCT_TYPE
+    from acct_info
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+        <if test="acctTitle != null" >
+          AND ACCT_TITLE = #{acctTitle}
+        </if>
+    </trim>
+  </select>
+
+  <!--质证书客户类型-->
+  <select id="customerType" parameterType="jq.steel.cs.services.base.facade.model.AcctInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from acct_info
+    where O_INFO_ID = #{orgId}
+  </select>
+
+</mapper>

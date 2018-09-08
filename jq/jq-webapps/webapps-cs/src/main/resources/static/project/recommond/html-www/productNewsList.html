@@ -1,0 +1,87 @@
+@@include('../../commonNav/html/commonHeaderBlue.html')
+<link rel="stylesheet" href="../css/product_vindicate.css">
+<script src="../js/productNewsList.js"></script>
+    <div class="vindicate">
+        <div class="vindicate-box">
+            <div class="vindicate-box-list">
+                <ul class="vindicate-box-list__Content clearfix" id="searchBox">
+                    <li class="vindicate-box-list__Every">
+                        <span class="vindicate-box-list__Name">产品名称:</span>
+                        <input id="condproductName" type="text" class="inputBase">
+                    </li>
+                    <li class="vindicate-box-list__Every">
+                        <span class="vindicate-box-list__Name">产品用途:</span>
+                        <input id="condused" type="text" class="inputBase">
+                    </li>
+                </ul>
+            </div>
+            <div class="vindicate-box-button">
+                <div class="btnLowNew vindicate-box-search" comType="searchBtnCtrl" cond="condproductName,condused" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
+                <div class="btnLowNew vindicate-box-create" id="newOpe">新建</div>
+                <!--<div class="btnLowNew vindicate-box-amend">修改</div>-->
+                <div class="btnLowNew vindicate-box-del" id="deleteOpe">删除</div>
+                <div class="btnLowNew vindicate-box-publish" id="releaseOpe">发布</div>
+                <div class="btnLowNew vindicate-box-protect" id="preserveOpe">产品类别维护</div>
+            </div>
+            <table class="table-list" id="tableList" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData" chkId="chkCoding" isCacheCond="millSheetNo" clsChk="clsChk" clsallchk="clsAllChk">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" width="4%">
+                        <input type="checkbox" id="checkAll" comtype="checkAll" cond="" class="clsAllChk" uniontableid="tableList" chkid="chkCoding">
+                    </th>
+                    <th class="table-list-currentrow-theader" width="11%">产品名称</th>
+                    <th class="table-list-currentrow-theader" width="8%">产品用途</th>
+                    <th class="table-list-currentrow-theader" width="8%">牌号</th>
+                    <th class="table-list-currentrow-theader" width="8%">标注</th>
+                    <th class="table-list-currentrow-theader" width="8%">产地</th>
+                    <th class="table-list-currentrow-theader" width="6%">产品介绍</th>
+                    <th class="table-list-currentrow-theader" width="7%">提报日期</th>
+                    <th class="table-list-currentrow-theader" width="7%">发布人</th>
+                    <th class="table-list-currentrow-theader" width="8%">状态</th>
+                    <th class="table-list-currentrow-theader" width="8%">操作</th>
+                </tr>
+                <tr class="table-list-currentrow" id="templateRow" style="display: none">
+                    <td class="table-list-currentrow-tdetail">
+                        <input type="checkbox" id="chkCoding" class="clsChk">
+                    </td>
+                    <td class="table-list-currentrow-tdetail" id="productName"></td>
+                    <td class="table-list-currentrow-tdetail" id="used"></td>
+                    <td class="table-list-currentrow-tdetail" id="designation"></td>
+                    <td class="table-list-currentrow-tdetail" id="standard"></td>
+                    <td class="table-list-currentrow-tdetail" id="productArea"></td>
+                    <td class="table-list-currentrow-tdetail" id="productDesc"></td>
+                    <td class="table-list-currentrow-tdetail" id="createDt"></td>
+                    <td class="table-list-currentrow-tdetail" id="createBy"></td>
+                    <td class="table-list-currentrow-tdetail" id="statusA"></td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="btnLowImgCom" id="editOpe">修改</span>
+                    </td>
+                </tr>
+            </table>
+            <div id="nonData" class="noDataCon" style="display: none">
+                <i></i>
+                <p>暂无数据......</p>
+            </div>
+            <div class="tcdPageCode"></div>
+        </div>
+    </div>
+    <div id="inputAnswer" class="popup gc_box" style="display:none">
+        <div class="title" style="">
+            <h2>产品类别维护</h2>
+            <div>
+                <a class="min" href=" " title="最小化" style="display:none;"></a>
+                <a class="max" href="javascript:;" title="最大化" style="display:none;">1</a>
+                <a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+                <a class="close" href="javascript:;" title="关闭" style="display:block;"></a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="" style="margin-left: 86px;margin-top: 20px">
+                    <div class="btnLowNew product-add">添加</div>
+                    <div class="btnLowNew product-del">删除</div>
+                    <div class="btnLowNew product-save">保存</div>
+                    <div class="btnLowNew product-submit">提交</div>
+            </div>
+            <div class="product_main"><span class="product_name">产品用途:</span><input type="text" class="product_input"></div>
+        </div>
+    </div>
+@@include('../../commonNav/html/commonFoot.html')

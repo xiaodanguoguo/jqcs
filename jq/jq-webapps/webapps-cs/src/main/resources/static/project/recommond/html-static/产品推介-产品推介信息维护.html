@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/product_vindicate.css">
+    <link rel="stylesheet" href="../../../base/css/baseOrange.css">
+    <link rel="stylesheet" href="../../../base/css/baseBlue.css">
+    <link rel="stylesheet" href="../../../base/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../../../plugin/popup/css/manhuaDialog.1.0_blue.css">
+    <script src="../../../base/js/jquery.js"></script>
+    <script src="../../../base/js/public.js"></script>
+    <script src="../../../base/js/docassistant.js"></script>
+    <script src="../../../base/js/jquery.cookie.js"></script>
+    <script src="../../../reqConfig.js"></script>
+    <script src="../../../plugin/popup/script/manhuaDialog.1.0.js"></script>
+    <script src="../../../plugin/WdatePickerBlue/My97DatePicker/WdatePicker.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.vindicate-box-protect').on('click', function () {
+                openWin('400', '200', 'inputAnswer', true);
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <div class="vindicate">
+        <div class="vindicate-title">
+            <div class="btnLowNew vindicate-Home-page">首页</div>
+            <div class="btnLowNew vindicate-questionnaire">产品推介信息维护
+                <b class="vindicate-title-close">X</b>
+            </div>
+        </div>
+        <div class="vindicate-box">
+            <div class="vindicate-box-list">
+                <ul class="vindicate-box-list__Content clearfix">
+                    <li class="vindicate-box-list__Every">
+                        <span class="vindicate-box-list__Name">产品名称:</span>
+                        <select name="" class="vindicate-box-list__Select"></select>
+                    </li>
+                    <li class="vindicate-box-list__Every">
+                        <span class="vindicate-box-list__Name">产品用途:</span>
+                        <input type="text" class="inputBase">
+                    </li>
+                </ul>
+            </div>
+            <div class="vindicate-box-button">
+                <div class="btnLowNew vindicate-box-search">查询</div>
+                <div class="btnLowNew vindicate-box-create">新建</div>
+                <div class="btnLowNew vindicate-box-amend">修改</div>
+                <div class="btnLowNew vindicate-box-del">删除</div>
+                <div class="btnLowNew vindicate-box-publish">发布</div>
+                <div class="btnLowNew vindicate-box-protect">产品类别维护</div>
+            </div>
+            <table class="table-list">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" width="4%">
+                        <input type="checkbox">
+                    </th>
+                    <th class="table-list-currentrow-theader" width="11%">产品名称</th>
+                    <th class="table-list-currentrow-theader" width="9%">产品用途</th>
+                    <th class="table-list-currentrow-theader" width="9%">牌号</th>
+                    <th class="table-list-currentrow-theader" width="9%">标注</th>
+                    <th class="table-list-currentrow-theader" width="9%">产地</th>
+                    <th class="table-list-currentrow-theader" width="7%">产品介绍</th>
+                    <th class="table-list-currentrow-theader" width="8%">提报日期</th>
+                    <th class="table-list-currentrow-theader" width="8%">发布人</th>
+                    <th class="table-list-currentrow-theader" width="9%">状态</th>
+                </tr>
+                <tr class="table-list-currentrow">
+                    <td class="table-list-currentrow-tdetail">
+                        <input type="checkbox">
+                    </td>
+                    <td class="table-list-currentrow-tdetail">A18072300101</td>
+                    <td class="table-list-currentrow-tdetail">M</td>
+                    <td class="table-list-currentrow-tdetail">驻外销售公司</td>
+                    <td class="table-list-currentrow-tdetail">2018/07/25</td>
+                    <td class="table-list-currentrow-tdetail">8Y28300</td>
+                    <td class="table-list-currentrow-tdetail">6</td>
+                    <td class="table-list-currentrow-tdetail">35000</td>
+                    <td class="table-list-currentrow-tdetail">RE18071930</td>
+                    <td class="table-list-currentrow-tdetail">0</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="inputAnswer" class="popup gc_box" style="display:none">
+        <div class="title" style="">
+            <h2>产品类别维护</h2>
+            <div>
+                <a class="min" href=" " title="最小化" style="display:none;"></a>
+                <a class="max" href="javascript:;" title="最大化" style="display:none;">1</a>
+                <a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+                <a class="close" href="javascript:;" title="关闭" style="display:block;"></a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="button">
+                    <div class="btnLowNew product-add">添加</div>
+                    <div class="btnLowNew product-del">删除</div>
+                    <div class="btnLowNew product-save">保存</div>
+                    <div class="btnLowNew product-submit">提交</div>
+            </div>
+            <div class="product_main"><span class="product_name">产品用途:</span><input type="text" class="product_input"></div>
+        </div>
+    </div>
+</body>
+
+</html>

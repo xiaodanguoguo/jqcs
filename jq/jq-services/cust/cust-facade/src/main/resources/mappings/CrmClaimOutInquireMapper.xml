@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.CrmClaimOutInquireMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
+    <result column="SID" property="sid" jdbcType="NUMERIC" />
+    <result column="CLAIM_NO" property="claimNo" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_PROCESS" property="logisticsProcess" jdbcType="VARCHAR" />
+    <result column="END_PROCESSING_TECH" property="endProcessingTech" jdbcType="VARCHAR" />
+    <result column="DEFECT_NAME" property="defectName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DT" property="productDt" jdbcType="TIMESTAMP" />
+    <result column="SHIFT" property="shift" jdbcType="VARCHAR" />
+    <result column="FIELD_CONCLUSION" property="fieldConclusion" jdbcType="VARCHAR" />
+    <result column="USER_REQUIREMENT" property="userRequirement" jdbcType="VARCHAR" />
+    <result column="HANDING_SUGGESTION" property="handingSuggestion" jdbcType="VARCHAR" />
+    <result column="INQUIRE_STATE" property="inquireState" jdbcType="VARCHAR" />
+    <result column="FOLLOW_REASON" property="followReason" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_DT" property="createDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_DT" property="updateDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+    <result column="AMOUNT_OF_USE" property="amoutOfUse" jdbcType="NUMERIC" />
+
+
+
+    <result column="CLAIM_STATE" property="claimState" jdbcType="VARCHAR" />
+    <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
+    <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="NUMERIC" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="DESIGNATION" property="designation" jdbcType="VARCHAR" />
+    <result column="SIZE_MARK" property="sizeMark" jdbcType="VARCHAR" />
+    <result column="CLAIM_TYPE" property="claimType" jdbcType="VARCHAR" />
+    <result column="OBJECTION_NUM" property="objectionNum" jdbcType="NUMERIC" />
+    <result column="PRESENTATION_DATE" property="presentationDate" jdbcType="TIMESTAMP" />
+    <result column="EXTERNAL_LNVESTIGATOR" property="externalLnvestigator" jdbcType="VARCHAR" />
+    <result column="EXTERNAL_LNVESTIGATION_DATE" property="externalLnvestigationDate" jdbcType="TIMESTAMP" />
+    <result column="INTERNAL_LNVESTIGATOR" property="internalLnvestigator" jdbcType="VARCHAR" />
+    <result column="INTERNAL_LNVESTIGATION_DATE" property="internalLnvestigationDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" extends="BaseResultMap" >
+    <result column="INQUIRE_INFO" property="inquireInfo" jdbcType="CLOB" />
+  </resultMap>
+
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
+    SELECT
+    *
+    FROM
+    CRM_CLAIM_OUT_INQUIRE
+WHERE
+    CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+  </select>
+
+<!--异议调查-->
+  <select id="findByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
+    SELECT
+    A.CLAIM_NO,
+    A.CLAIM_STATE,
+    A.MILL_SHEET_NO,
+    B.DEPT_CODE,
+    A.PRODUCT_ID,
+    A.PRODUCT_NAME,
+    A.DESIGNATION,
+    A.SIZE_MARK,
+    A.CLAIM_TYPE,
+    A.OBJECTION_NUM,
+    C.PRESENTATION_DATE,
+    C.ADMISSIBILITY_TIME,
+    D.INQUIRE_STATE,
+    D.CREATE_BY AS EXTERNAL_LNVESTIGATOR,
+    D.CREATE_DT AS EXTERNAL_LNVESTIGATION_DATE,
+    D.FOLLOW_REASON,
+    E.CREATE_BY AS INTERNAL_LNVESTIGATOR,
+    E.CREATE_DT	AS INTERNAL_LNVESTIGATION_DATE
+    FROM
+    WARRANTY.CRM_CLAIM_INFO A
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.CLAIM_NO = B.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_APPLY C ON A.CLAIM_NO = C.CLAIM_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE D ON A.CLAIM_NO = D.CLAIM_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE E ON A.CLAIM_NO = E.CLAIM_NO
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="endDtStr != null" >
+        AND TO_CHAR (C.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        <!--AND  #{} &gt;= A.PRESENTATION_DATE-->
+      </if>
+      <if test="startDtStr != null" >
+        AND TO_CHAR (C.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+        <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
+      </if>
+      <if test="customerId != null and customerId != ''" >
+        AND A.CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+      </if>
+      <if test="claimType != null and claimType != ''" >
+        AND A.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
+      </if>
+      <if test="productName != null and productName != ''" >
+        AND A.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
+      </if>
+      <if test="claimNo != null and claimNo != ''" >
+        AND A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+      </if>
+      <if test="battenPlateNo != null and battenPlateNo != ''" >
+        AND A.BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR}
+      </if>
+      <if test="claimState != null and claimState != ''" >
+        AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
+      </if>
+      <if test="manufactor != null and manufactor != ''" >
+        AND  B.DEPT_CODE = #{manufactor,jdbcType=VARCHAR}
+      </if>
+      <if test="designation != null and designation != ''" >
+        AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </select>
+
+
+  <select id="findDetails" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
+     SELECT
+  A.CLAIM_NO,
+  A.PRODUCT_ID,
+  A.PRODUCT_NAME,
+  A.CUSTOMER_ID,
+  A.CUSTOMER_NAME,
+  A.CUST_EMP_NO,
+  A.CUST_TEL,
+  A.LAST_USER_ID,
+  A.LAST_USER,
+  A.CREATE_EMP_NO,
+  A.LAST_USER_TEL,
+  A.CONTRACT_VOLUME,
+  A.OBJECTION_NUM,
+  A.BATTEN_PLATE_NO,
+  A.SIZE_MARK,
+  A.ORIGINAL_CAR_NO,
+  A.CLAIM_TYPE,
+  A.LAST_USER_ADDR,
+  A.CONTRACT_NO
+  FROM
+  WARRANTY.CRM_CLAIM_INFO A
+  WHERE  CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+  </select>
+  <sql id="Blob_Column_List" >
+    INQUIRE_INFO
+  </sql>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
+    <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
+      SELECT SEQ_CRM_CLAIM_OUT_INQUIRE.nextval  FROM DUAL
+    </selectKey>
+    insert into CRM_CLAIM_OUT_INQUIRE (SID, CLAIM_NO, LOGISTICS_PROCESS, 
+      END_PROCESSING_TECH, DEFECT_NAME, PRODUCT_DT, 
+      SHIFT, FIELD_CONCLUSION, USER_REQUIREMENT, 
+      HANDING_SUGGESTION, INQUIRE_STATE, FOLLOW_REASON, 
+      CREATE_BY, CREATE_DT, UPDATE_BY, 
+      UPDATE_DT, VERSION, INQUIRE_INFO
+      )
+    values (#{sid,jdbcType=NUMERIC}, #{claimNo,jdbcType=VARCHAR}, #{logisticsProcess,jdbcType=VARCHAR}, 
+      #{endProcessingTech,jdbcType=VARCHAR}, #{defectName,jdbcType=VARCHAR}, #{productDt,jdbcType=TIMESTAMP}, 
+      #{shift,jdbcType=VARCHAR}, #{fieldConclusion,jdbcType=VARCHAR}, #{userRequirement,jdbcType=VARCHAR}, 
+      #{handingSuggestion,jdbcType=VARCHAR}, #{inquireState,jdbcType=VARCHAR}, #{followReason,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC}, #{inquireInfo,jdbcType=CLOB}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
+    <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
+      SELECT SEQ_CRM_CLAIM_OUT_INQUIRE.nextval  FROM DUAL
+    </selectKey>
+    insert into CRM_CLAIM_OUT_INQUIRE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null and sid != ''" >
+        SID,
+      </if>
+      <if test="claimNo != null and claimNo != ''" >
+        CLAIM_NO,
+      </if>
+      <if test="logisticsProcess != null and logisticsProcess != ''" >
+        LOGISTICS_PROCESS,
+      </if>
+      <if test="endProcessingTech != null and endProcessingTech != ''" >
+        END_PROCESSING_TECH,
+      </if>
+      <if test="defectName != null and defectName != ''" >
+        DEFECT_NAME,
+      </if>
+      <if test="productDt != null and productDt != ''" >
+        PRODUCT_DT,
+      </if>
+      <if test="shift != null and shift != ''" >
+        SHIFT,
+      </if>
+      <if test="fieldConclusion != null and fieldConclusion != ''" >
+        FIELD_CONCLUSION,
+      </if>
+      <if test="userRequirement != null and userRequirement != ''" >
+        USER_REQUIREMENT,
+      </if>
+      <if test="handingSuggestion != null and handingSuggestion != ''" >
+        HANDING_SUGGESTION,
+      </if>
+      <if test="inquireState != null and inquireState != ''" >
+        INQUIRE_STATE,
+      </if>
+      <if test="followReason != null and followReason != ''" >
+        FOLLOW_REASON,
+      </if>
+      <if test="createBy != null and createBy != ''" >
+        CREATE_BY,
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT,
+      </if>
+      <if test="updateBy != null and updateBy != ''" >
+        UPDATE_BY,
+      </if>
+      <if test="updateDt != null" >
+        UPDATE_DT,
+      </if>
+      <if test="version != null and version != ''" >
+        VERSION,
+      </if>
+      <if test="inquireInfo != null and inquireInfo != ''" >
+        INQUIRE_INFO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null and sid != ''" >
+        #{sid,jdbcType=NUMERIC},
+      </if>
+      <if test="claimNo != null and claimNo != ''" >
+        #{claimNo,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsProcess != null and logisticsProcess != ''" >
+        #{logisticsProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="endProcessingTech != null and endProcessingTech != ''" >
+        #{endProcessingTech,jdbcType=VARCHAR},
+      </if>
+      <if test="defectName != null and defectName != ''" >
+        #{defectName,jdbcType=VARCHAR},
+      </if>
+      <if test="productDt != null and productDt != ''" >
+        #{productDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shift != null and shift != ''" >
+        #{shift,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldConclusion != null and fieldConclusion != ''" >
+        #{fieldConclusion,jdbcType=VARCHAR},
+      </if>
+      <if test="userRequirement != null and userRequirement != ''" >
+        #{userRequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="handingSuggestion != null and handingSuggestion != ''" >
+        #{handingSuggestion,jdbcType=VARCHAR},
+      </if>
+      <if test="inquireState != null and inquireState != ''" >
+        #{inquireState,jdbcType=VARCHAR},
+      </if>
+      <if test="followReason != null and followReason != ''" >
+        #{followReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null and createBy != ''" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null and updateBy != ''" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDt != null" >
+        #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null and version != ''" >
+        #{version,jdbcType=NUMERIC},
+      </if>
+      <if test="inquireInfo != null and inquireInfo != ''" >
+        #{inquireInfo,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+
+
+
+  <update id="update" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
+    update CRM_CLAIM_OUT_INQUIRE
+    <trim suffixOverrides=",">
+      set version = version + 1,
+      <if test="logisticsProcess != null and logisticsProcess != ''" >
+        LOGISTICS_PROCESS = #{logisticsProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="amountOfUse != null and amountOfUse != ''" >
+        AMOUNT_OF_USE = #{amountOfUse,jdbcType=NUMERIC},
+      </if>
+      <if test="endProcessingTech != null and endProcessingTech != ''" >
+        END_PROCESSING_TECH = #{endProcessingTech,jdbcType=VARCHAR},
+      </if>
+      <if test="defectName != null and defectName != ''" >
+        DEFECT_NAME = #{defectName,jdbcType=VARCHAR},
+      </if>
+      <if test="productDt != null and productDt != ''" >
+        PRODUCT_DT = #{productDt,jdbcType=VARCHAR},
+      </if>
+      <if test="shift != null and shift != ''" >
+        SHIFT = #{shift,jdbcType=VARCHAR},
+      </if>
+      <if test="inquireInfo != null and inquireInfo != ''" >
+        INQUIRE_INFO = #{inquireInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldConclusion != null and fieldConclusion != ''" >
+        FIELD_CONCLUSION = #{fieldConclusion,jdbcType=VARCHAR},
+      </if>
+      <if test="userRequirement != null and userRequirement != ''" >
+        USER_REQUIREMENT = #{userRequirement,jdbcType=VARCHAR},
+      </if>
+      <if test="handingSuggestion != null and handingSuggestion != ''" >
+        HANDING_SUGGESTION = #{handingSuggestion,jdbcType=VARCHAR}
+      </if>
+    </trim>
+    where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+  </update>
+
+
+
+  <select id="find" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
+    SELECT
+    A.CLAIM_NO,
+    A.CLAIM_STATE,
+    A.MILL_SHEET_NO,
+    B.DEPT_CODE,
+    A.PRODUCT_ID,
+    A.PRODUCT_NAME,
+    A.DESIGNATION,
+    A.SIZE_MARK,
+    C.CLAIM_TYPE,
+    A.OBJECTION_NUM,
+    A.PRESENTATION_DATE,
+    A.ADMISSIBILITY_TIME,
+    D.INQUIRE_STATE,
+    D.CREATE_BY AS EXTERNAL_LNVESTIGATOR,
+    D.CREATE_DT AS EXTERNAL_LNVESTIGATION_DATE,
+    D.FOLLOW_REASON,
+    E.CREATE_BY AS INTERNAL_LNVESTIGATOR,
+    E.CREATE_DT	AS INTERNAL_LNVESTIGATION_DATE
+    FROM
+    WARRANTY.CRM_CLAIM_APPLY A
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.CLAIM_NO = B.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_INFO C ON A.CLAIM_NO = C.CLAIM_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE D ON A.CLAIM_NO = D.CLAIM_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE E ON A.CLAIM_NO = E.CLAIM_NO
+
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="endDtStr != null" >
+        AND TO_CHAR (A.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        <!--AND  #{} &gt;= A.PRESENTATION_DATE-->
+      </if>
+      <if test="customerId != null and customerId != ''" >
+        AND A.CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+      </if>
+      <if test="startDtStr != null" >
+        AND TO_CHAR (A.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+        <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
+      </if>
+      <if test="designation != null and designation != ''" >
+        AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}
+      </if>
+      <if test="productName != null and productName != ''" >
+        AND A.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
+      </if>
+      <if test="claimNo != null and claimNo != ''" >
+        AND A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+      </if>
+      <if test="battenPlateNo != null and battenPlateNo != ''" >
+        AND A.BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR}
+      </if>
+      <if test="claimState != null and claimState != ''" >
+        AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
+      </if>
+
+      <!-- <if test="zph != null" >
+         AND A.ZPH = #{zph,jdbcType=VARCHAR}
+       </if>-->
+    </trim>
+  </select>
+</mapper>

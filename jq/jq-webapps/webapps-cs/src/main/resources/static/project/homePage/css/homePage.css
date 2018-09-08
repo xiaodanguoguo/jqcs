@@ -1,0 +1,37 @@
+.Home { margin: 20px auto; width: 990px; height: 600px; }
+
+.Home .Home-title { width: 990px; height: 40px; line-height: 40px; border-bottom: 1px solid #6390f3; }
+
+.Home .Home-title #Home-page { margin: 13px 0 0 26px; }
+
+.Home .Home-personInfo { display: flex; align-items: center; width: 990px; height: 120px; }
+
+.Home .Home-personInfo .head-portrait { width: 63px; height: 63px; background: #eee; border-radius: 50%; margin: 0 0 0 66px; }
+
+.Home .Home-personInfo #redact { width: 100px; margin-left: 45px; margin-right: 65px; }
+
+.Home .Home-myInfo { width: 990px; height: 300px; }
+
+.Home .Home-myInfo .Home-myInfo-title { width: 990px; height: 45px; line-height: 45px; background: #eee; }
+
+.Home .Home-myInfo .Home-myInfo-title h6 { margin-left: 65px; font-weight: bold; }
+
+.Home .Home-myInfo .Home-myInfo-content { margin-top: 22px; }
+
+.Home .Home-myInfo .Home-myInfo-contentEvery { margin: -6px 0 0 65px; }
+
+.Home .Home-myInfo .Home-myInfo-contentEvery h1 { font-weight: bold; height: 38px; line-height: 38px; }
+
+.Home .Home-myInfo .Home-myInfo-contentEvery h1 span { color: orange; }
+
+.Home .Home-myInfo .Home-myInfo-contentEvery .Home-myInfo-contentEverydt { height: 30px; line-height: 30px; }
+
+.Home .Home-myInfo .Home-myInfo-contentEvery .Home-myInfo-contentEverydd { height: 30px; line-height: 30px; }
+
+.Home .Home-announcement { width: 990px; height: 140px; }
+
+.Home .Home-announcement .Home-announcement-title { width: 990px; height: 45px; line-height: 45px; background: #eee; }
+
+.Home .Home-announcement .Home-announcement-title h5 { margin-left: 65px; font-weight: bold; }
+
+.Home .Home-announcement .Home-announcement-content .Home-announcement-contentier { margin-left: 65px; margin-top: 30px; height: 18px; line-height: 18px; float: left; text-align: center; }

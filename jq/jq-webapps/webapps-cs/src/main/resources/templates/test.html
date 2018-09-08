@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<h1>权限展示页面</h1>
+<hr/>
+
+<shiro:hasRole name="user">
+    有用户的角色
+</shiro:hasRole>
+
+
+<button shiro:hasPermission="/sysAcct/addAcct" type="button"  onclick="javascript:alert('有新增用户的权限')" class="btn btn-info" style="float: right; margin-right: 1px;">
+    新增
+</button>
+
+
+
+
+</body>
+</html>

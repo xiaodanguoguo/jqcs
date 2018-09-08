@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/objection_survey.css">
+    <link rel="stylesheet" href="../../../base/css/baseOrange.css">
+    <link rel="stylesheet" href="../../../base/css/baseBlue.css">
+    <link rel="stylesheet" href="../../../base/iconfont/iconfont.css">
+    <script src="../../../base/js/jquery.js"></script>
+    <script src="../../../base/js/public.js"></script>
+    <script src="../../../base/js/docassistant.js"></script>
+    <script src="../../../base/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../../base/js/ajaxupload.js"></script>
+    <script src="../../../reqConfig.js"></script>
+    <script src="../../../plugin/WdatePickerBlue/My97DatePicker/WdatePicker.js"></script>
+</head>
+<body>
+    <div class="submission">
+        <div class="submission-title">
+            <div class="btnLowNew submission-Home-page">首页</div>
+            <div class="btnLowNew submission-questionnaire">异议调查
+                <b class="submission-title-close">X</b>
+            </div>
+        </div>
+        <div class="submission-box">
+            <div class="submission-box-list">
+                <ul class="management-box-list__Content clearfix">
+                    <li class="submission-box-list__Every"><span class="submission-box-list__Name">客户名称:</span><input type="text" class="inputBase"></li>
+                    <li class="submission-box-list__Every"><span class="submission-box-list__Name">生产厂家:</span><input type="text" class="inputBase"></li>
+                    <li class="submission-box-list__Every"><span class="submission-box-list__Name">产品大类:</span><input type="text" class="inputBase"></li>
+                    <li class="submission-box-list__Every"><span class="submission-box-list__Name">异议类别:</span><input type="text" class="inputBase"></li>
+                    <li class="submission-box-list__Every"><span class="submission-box-list__Name">批/板/卷号:</span><input type="text" class="inputBase"></li>
+                    <li class="submission-box-list__Every"><span class="submission-box-list__Name">异议状态:</span><select name="" class="inputBase submission-box-list__Select"></select></li>
+                     <li class="submission-box-list__Every"><span class="submission-box-list__Name">异议编码:</span><input type="text" class="inputBase"></li>
+                    <li class="submission-box-list__Every"><span class="submission-box-list__Name">提报日期:</span><input type="text"  class="inputBase Wdate"  onClick="WdatePicker({minDate:'%y-%M-#{%d+1}'})"></li>
+                    <li class="submission-box-list__Every"><span class="submission-box-list__Name">至:</span><input type="text" class="inputBase Wdate"  onfocus="WdatePicker({
+                        minDate:'%y-%M-%d',firstDayOfWeek:1})"></li>
+                </ul>
+            </div>
+            <div class="submission-box-button">
+                <div class="btnLowNew submission-box-search">查询</div>
+                <div class="btnLowNew submission-box-export">导出</div>
+                <div class="btnLowNew submission-box-print">打印受理单</div>
+                <div class="btnLowNew submission-box-detail">详情</div>
+                <div class="btnLowNew submission-box-without">外部调查</div>
+                <div class="btnLowNew submission-box-inside">内部调查</div>
+                <div class="btnLowNew submission-box-reuturn">驳回</div>
+            </div>
+            <div class="submission-table">
+            <table class="table-list">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" width="4%"><input type="checkbox"></th>
+                    <th class="table-list-currentrow-theader" width="4%">序号</th>
+                    <th class="table-list-currentrow-theader" width="8%">异议编号</th>
+                    <th class="table-list-currentrow-theader" width="8%">异议状态</th>
+                    <th class="table-list-currentrow-theader" width="9%">调查报告状态</th>
+                    <th class="table-list-currentrow-theader" width="7%">产品大类</th>
+                    <th class="table-list-currentrow-theader" width="7%">钢种</th>
+                    <th class="table-list-currentrow-theader" width="6%">规格</th>
+                    <th class="table-list-currentrow-theader" width="7%">异议类别</th>
+                    <th class="table-list-currentrow-theader" width="9%">异议量&nbsp;(&nbsp;吨&nbsp;)</th>
+                    <th class="table-list-currentrow-theader" width="9%">内部调查报告</th>
+                    <th class="table-list-currentrow-theader" width="9%">外部调查报告</th>
+                    <th class="table-list-currentrow-theader" width="7%">提报日期</th>
+                    <th class="table-list-currentrow-theader" width="7%">受理时间</th>
+                    <th class="table-list-currentrow-theader" width="9%">外部调查时间</th>
+                    <th class="table-list-currentrow-theader" width="9%">外部调查人</th>
+                    <th class="table-list-currentrow-theader" width="9%">内部调查时间</th>
+                    <th class="table-list-currentrow-theader" width="8%">内部调查人</th>
+                    <th class="table-list-currentrow-theader" width="7%">跟踪原因</th>
+                </tr>
+                <tr class="table-list-currentrow">
+                    <td class="table-list-currentrow-tdetail"><input type="checkbox"></td>
+                    <td class="table-list-currentrow-tdetail">1</td>
+                    <td class="table-list-currentrow-tdetail">M1</td>
+                    <td class="table-list-currentrow-tdetail">驻外销售公司</td>
+                    <td class="table-list-currentrow-tdetail">2018/07/25</td>
+                    <td class="table-list-currentrow-tdetail">8Y28300</td>
+                    <td class="table-list-currentrow-tdetail">6</td>
+                    <td class="table-list-currentrow-tdetail">35000</td>
+                    <td class="table-list-currentrow-tdetail">RE180730</td>
+                    <td class="table-list-currentrow-tdetail">0</td>
+                    <td class="table-list-currentrow-tdetail"><a href="javascript:;" class="submission-box-watch">下载报告</a></td>
+                    <td class="table-list-currentrow-tdetail"><a href="javascript:;" class="submission-box-watch">下载报告</a></td>
+                    <td class="table-list-currentrow-tdetail">
+                        大家积极
+                    </td>
+                    <td class="table-list-currentrow-tdetail">1</td>
+                    <td class="table-list-currentrow-tdetail">2</td>
+                    <td class="table-list-currentrow-tdetail">35000</td>
+                    <td class="table-list-currentrow-tdetail">35000</td>
+                    <td class="table-list-currentrow-tdetail">RE180730</td>
+                    <td class="table-list-currentrow-tdetail">0</td>
+                </tr>
+            </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

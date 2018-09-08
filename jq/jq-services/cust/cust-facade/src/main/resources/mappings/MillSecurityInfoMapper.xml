@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.MillSecurityInfoMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.MillSecurityInfo" >
+    <id column="SID" property="sid" jdbcType="DECIMAL" />
+    <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
+    <result column="SECURITY_CODE" property="securityCode" jdbcType="VARCHAR" />
+    <result column="EN_CHECK_NUM" property="enCheckNum" jdbcType="DECIMAL" />
+    <result column="EN_CHECK_NUM_MAX" property="enCheckNumMax" jdbcType="DECIMAL" />
+    <result column="CO_CHECK_NUM" property="coCheckNum" jdbcType="DECIMAL" />
+    <result column="CO_CHECK_NUM_MAX" property="coCheckNumMax" jdbcType="DECIMAL" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SID, MILL_SHEET_NO, SECURITY_CODE, EN_CHECK_NUM, EN_CHECK_NUM_MAX, CO_CHECK_NUM, 
+    CO_CHECK_NUM_MAX, CREATED_BY, CREATED_DT, UPDATED_BY, UPDATED_DT, VERSION
+  </sql>
+
+
+
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSecurityInfo" >
+    SELECT
+    A.*
+    FROM
+    WARRANTY.MILL_SECURITY_INFO A
+    INNER JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
+    where A.MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR} AND A.SECURITY_CODE = #{securityCode,jdbcType=VARCHAR} AND
+    B.STATE IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED')
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from MILL_SECURITY_INFO
+    where SID = #{sid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from MILL_SECURITY_INFO
+    where SID = #{sid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.MillSecurityInfo" >
+    insert into MILL_SECURITY_INFO (SID, MILL_SHEET_NO, SECURITY_CODE, 
+      EN_CHECK_NUM, EN_CHECK_NUM_MAX, CO_CHECK_NUM, 
+      CO_CHECK_NUM_MAX, CREATED_BY, CREATED_DT, 
+      UPDATED_BY, UPDATED_DT, VERSION
+      )
+    values (#{sid,jdbcType=DECIMAL}, #{millSheetNo,jdbcType=VARCHAR}, #{securityCode,jdbcType=VARCHAR}, 
+      #{enCheckNum,jdbcType=DECIMAL}, #{enCheckNumMax,jdbcType=DECIMAL}, #{coCheckNum,jdbcType=DECIMAL}, 
+      #{coCheckNumMax,jdbcType=DECIMAL}, #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.MillSecurityInfo" >
+    insert into MILL_SECURITY_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        SID,
+      </if>
+      <if test="millSheetNo != null" >
+        MILL_SHEET_NO,
+      </if>
+      <if test="securityCode != null" >
+        SECURITY_CODE,
+      </if>
+      <if test="enCheckNum != null" >
+        EN_CHECK_NUM,
+      </if>
+      <if test="enCheckNumMax != null" >
+        EN_CHECK_NUM_MAX,
+      </if>
+      <if test="coCheckNum != null" >
+        CO_CHECK_NUM,
+      </if>
+      <if test="coCheckNumMax != null" >
+        CO_CHECK_NUM_MAX,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=DECIMAL},
+      </if>
+      <if test="millSheetNo != null" >
+        #{millSheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="securityCode != null" >
+        #{securityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="enCheckNum != null" >
+        #{enCheckNum,jdbcType=DECIMAL},
+      </if>
+      <if test="enCheckNumMax != null" >
+        #{enCheckNumMax,jdbcType=DECIMAL},
+      </if>
+      <if test="coCheckNum != null" >
+        #{coCheckNum,jdbcType=DECIMAL},
+      </if>
+      <if test="coCheckNumMax != null" >
+        #{coCheckNumMax,jdbcType=DECIMAL},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.MillSecurityInfo" >
+    update MILL_SECURITY_INFO set version = version + 1,
+      <if test="millSheetNo != null" >
+        MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="securityCode != null" >
+        SECURITY_CODE = #{securityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="enCheckNum != null" >
+        EN_CHECK_NUM = #{enCheckNum,jdbcType=DECIMAL},
+      </if>
+      <if test="enCheckNumMax != null" >
+        EN_CHECK_NUM_MAX = #{enCheckNumMax,jdbcType=DECIMAL},
+      </if>
+      <if test="coCheckNum != null" >
+        CO_CHECK_NUM = #{coCheckNum,jdbcType=DECIMAL},
+      </if>
+      <if test="coCheckNumMax != null" >
+        CO_CHECK_NUM_MAX = #{coCheckNumMax,jdbcType=DECIMAL},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP}
+      </if>
+    where MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR} AND SECURITY_CODE = #{securityCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.MillSecurityInfo" >
+    update MILL_SECURITY_INFO
+    set MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
+      SECURITY_CODE = #{securityCode,jdbcType=VARCHAR},
+      EN_CHECK_NUM = #{enCheckNum,jdbcType=DECIMAL},
+      EN_CHECK_NUM_MAX = #{enCheckNumMax,jdbcType=DECIMAL},
+      CO_CHECK_NUM = #{coCheckNum,jdbcType=DECIMAL},
+      CO_CHECK_NUM_MAX = #{coCheckNumMax,jdbcType=DECIMAL},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=DECIMAL}
+    where SID = #{sid,jdbcType=DECIMAL}
+  </update>
+</mapper>

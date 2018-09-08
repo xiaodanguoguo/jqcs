@@ -1,0 +1,234 @@
+@@include('../../commonNav/html/commonHeaderBlue.html')
+<link rel="stylesheet" href="../css/manageNews.css">
+<script src="../js/personManage.js"></script>
+    <div class="manageNews">
+        <ul class="tabMenu-four" comtype="tabCtrl" contentcls="tabCon" id="tabSelect">
+            <li class="tabTitLi" nidx="0"><span>订货单位</span></li>
+            <li nidx="1"><span>使用单位</span></li>
+        </ul>
+        <div class="tabCon manageNews-main" id="orderUnit">
+            <div class="manageNews-main-title">新增订货单位信息</div>
+            <ul class="manageNews-main-search clearfix" id="searchBox1">
+                <li class="manageNews-main-search-list" style="display: none;">
+                    <span class="manageNews-mainSearch-list-name">客户联系编号:</span>
+                    <input id="condcustomerId" type="text" class="inputBase manageNews-mainSearch-list-input" disabled="disabled">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">客户单位名称:</span>
+                    <input id="condcustomerName" type="text" class="inputBase manageNews-mainSearch-list-input" disabled="disabled">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">单位地址:</span>
+                    <input id="condcustAddr" type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">联系人:</span>
+                    <input id="condcustEmpNo" type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">手机号码:</span>
+                    <input id="condcustTel" type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list"></li>
+                <li class="manageNews-main-search-list">
+                   <!-- <input class="manageNews-mainSearch-list-check" type="checkbox" name="" id="">
+                    <span>设为默认联系人</span>-->
+                    <div class="btnLowNew manageNews-mainSearch-list-searchBtn" comType="searchBtnCtrl" cond="condcustomerId,condcustomerName,condcustAddr,condcustEmpNo,condcustTel" rule="cond" unionTableId="tableList1" parentId="searchBox1">搜索</div>
+                    <div class="btnBaseCommon" id="createList">新增</div>
+                </li>
+            </ul>
+            <table class="table-list" id="tableList1" comType="" templateId="templateRow" page="tcdPageCodeFir" reqPath="" reqParam="{}" method="POST" noData="nonData1">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" style="width: 16%">
+                        客户联系编号
+                    </th>
+                    <th class="table-list-currentrow-theader"  style="width: 18%">
+                        客户单位名称
+                    </th>
+                    <th class="table-list-currentrow-theader"  style="width: 24%">
+                        单位地址
+                    </th>
+                    <th class="table-list-currentrow-theader" style="width: 13%">
+                        联系人
+                    </th>
+                    <th class="table-list-currentrow-theader" style="width: 18%">
+                        手机号码
+                    </th>
+                    <th class="table-list-currentrow-theader" style="width: 11%">
+                        操作
+                    </th>
+                </tr>
+                <tr class="table-list-currentrow" id="templateRow" style="display: none">
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td" id="customerId"></span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td" id="customerName"></span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td" id="custAddr"></span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td" id="custEmpNo"></span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td" id="custTel"></span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="btnLowImgCom fl manageNews-main-tableTd-edit" id="editOpe">修改</span>
+                        <span class="btnLowImgDel fl manageNews-main-tableTd-del" id="deleteOpe">删除</span>
+                        <!--<span class="btnLowImgCom fr manageNews-main-tableTd-ope">设为默认联系</span>-->
+                    </td>
+                </tr>
+            </table>
+            <div id="nonData1" class="noDataCon" style="display: none">
+                <i></i>
+                <p>暂无数据......</p>
+            </div>
+            <div class="tcdPageCode tcdPageCodeFir"></div>
+        </div>
+        <div class="tabCon manageNews-main" style="display: none;" id="userUnit">
+            <div class="manageNews-main-title">新增使用单位信息</div>
+            <ul class="manageNews-main-search clearfix" id="searchBox2">
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">使用单位名称:</span>
+                    <input id="condlastUser" type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">货物所在地:</span>
+                    <input id="condlastUserAddr" type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">联系人:</span>
+                    <input id="condcreateEmpNo" type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">手机号码:</span>
+                    <input id="condlastUserTel" type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+
+                </li>
+                <li class="manageNews-main-search-list">
+                    <div class="btnLowNew manageNews-mainSearch-list-searchBtn"  comType="searchBtnCtrl" cond="condlastUser,condlastUserAddr,condcreateEmpNo,condlastUserTel" rule="cond" unionTableId="tableList2" parentId="searchBox2">搜索</div>
+                    <div class="btnBaseCommon" id="createList">新增</div>
+                </li>
+            </ul>
+            <table class="table-list" id="tableList2" comType="" templateId="templateRow" page="tcdPageCodeSec" reqPath="" reqParam="{}" method="POST" noData="nonData2">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" style="width: 16%">
+                        使用单位编号
+                    </th>
+                    <th class="table-list-currentrow-theader"  style="width: 18%">
+                        使用单位名称
+                    </th>
+                    <th class="table-list-currentrow-theader"  style="width: 24%">
+                        货物所在地
+                    </th>
+                    <th class="table-list-currentrow-theader" style="width: 13%">
+                        联系人
+                    </th>
+                    <th class="table-list-currentrow-theader" style="width: 18%">
+                        手机号码
+                    </th>
+                    <th class="table-list-currentrow-theader" style="width: 11%">
+                        操作
+                    </th>
+                </tr>
+                <tr class="table-list-currentrow"  id="templateRow" style="display: none">
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td" id="lastUserId"></span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td" id="lastUser"></span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td" id="lastUserAddr"></span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td" id="createEmpNo"></span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td" id="lastUserTel"></span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="btnLowImgCom fl manageNews-main-tableTd-edit" id="editOpe">修改</span>
+                        <span class="btnLowImgDel fl manageNews-main-tableTd-del" id="deleteOpe">删除</span>
+                    </td>
+                </tr>
+            </table>
+            <div id="nonData2" class="noDataCon" style="display: none">
+                <i></i>
+                <p>暂无数据......</p>
+            </div>
+            <div class="tcdPageCode tcdPageCodeSec"></div>
+        </div>
+    </div>
+    <div id="textChangeBox" class="popup gc_box" style="display:none">
+        <div class="title" style="">
+            <h2 id="textChangeBoxTitle">新增订货单位信息</h2>
+            <div>
+                <a class="min" href=" " title="最小化" style="display:none;"></a>
+                <a class="max" href="javascript:;" title="最大化" style="display:none;"></a>
+                <a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+                <a class="close" href="javascript:;" title="关闭" style="display:block;"></a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="textChangeBox-box">
+                <ul class="manageNews-main-search clearfix" id="orderUnitPopup" style="display: none">
+                    <li class="manageNews-main-search-list" style="display: none;">
+                        <span class="manageNews-mainSearch-list-name">客服联系编号:</span>
+                        <input id="customerId" type="text" class="inputBase manageNews-mainSearch-list-input">
+                    </li>
+                    <li class="manageNews-main-search-list">
+                        <span class="manageNews-mainSearch-list-name">客户单位名称:</span>
+                        <input id="customerName" type="text" class="inputBase manageNews-mainSearch-list-input required" disabled="disabled">
+                    </li>
+                    <li class="manageNews-main-search-list">
+                        <span class="manageNews-mainSearch-list-name">单位地址:</span>
+                        <input id="custAddr" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                    </li>
+                    <li class="manageNews-main-search-list">
+                        <span class="manageNews-mainSearch-list-name">联系人:</span>
+                        <input id="custEmpNo" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                    </li>
+                    <li class="manageNews-main-search-list">
+                        <span class="manageNews-mainSearch-list-name">手机号码:</span>
+                        <input id="custTel" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                    </li>
+                    <li class="manageNews-main-search-list">
+                        <input class="manageNews-mainSearch-list-check" type="checkbox" name="" id="defaultFlag">
+                        <span>设为默认联系人</span>
+                    </li>
+                </ul>
+                <ul class="manageNews-main-search clearfix" id="userUnitPopup" style="display: none;">
+                    <li class="manageNews-main-search-list">
+                        <span class="manageNews-mainSearch-list-name">使用单位名称:</span>
+                        <input id="lastUser" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                    </li>
+                    <li class="manageNews-main-search-list">
+                        <span class="manageNews-mainSearch-list-name">货物所在地:</span>
+                        <input id="lastUserAddr" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                    </li>
+                    <li class="manageNews-main-search-list">
+                        <span class="manageNews-mainSearch-list-name">联系人:</span>
+                        <input id="createEmpNo" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                    </li>
+                    <li class="manageNews-main-search-list">
+                        <span class="manageNews-mainSearch-list-name">手机号码:</span>
+                        <input id="lastUserTel" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                    </li>
+                    <li class="manageNews-main-search-list">
+                        <input class="manageNews-mainSearch-list-check" type="checkbox" name="" id="defaultFlag">
+                        <span>设为默认联系人</span>
+                    </li>
+                </ul>
+                <div class="textChangeBox-box-operate">
+                    <div class="btnBaseCommon" id="newsChageSure">确定</div>
+                    <div class="btnBaseCancel" id="newsChageCancel">取消</div>
+                </div>
+            </div>
+        </div>
+    </div>
+@@include('../../commonNav/html/commonFoot.html')

@@ -1,0 +1,51 @@
+.check { margin: 0 auto; width: 990px; }
+
+.check-title { width: 990px; height: 40px; line-height: 40px; border-bottom: 1px solid #6390f3; }
+
+.check-Home-page { margin: 13px 0 0 15px; }
+
+.check-questionnaire { position: relative; width: 65px; margin-left: -5px; }
+
+.check-questionnaire .check-title-close { position: absolute; top: -7px; right: 2px; }
+
+.check-name { width: 990px; height: 80px; line-height: 80px; }
+
+.check-name .check-name-title { text-align: center; font-size: 28px; }
+
+.check-box { margin-left: 28px; width: 934px; height: 655px; vertical-align: middle; vertical-align: text-top; border: 1px solid #dee3e6; }
+
+.check-box .check-box-number { margin: 10px 8px; }
+
+.check-box .check-box-number .inputBase { width: 152px; height: 28px; margin-left: 8px; }
+
+.check-box-list { width: 990px; }
+
+.check-box-list .submission-box-list__Every { margin-left: 4px; margin-bottom: 5px; vertical-align: middle; vertical-align: text-top; }
+
+.submission-box-list__Every .submission-box-list__Name { display: inline-block; float: left; text-align: right; width: 110px; height: 100%; margin-right: 10px; }
+
+.submission-box-list__Every .submission-box-list__Namenumber { display: inline-block; text-align: right; width: 74px; height: 28px; margin-right: 10px; }
+
+.submission-box-list__Every .submission-box-list__Input { width: 763px; height: 28px; line-height: 28px; border: 1px solid #dee3e6; }
+
+.submission-box-list__Every .submission-box-list__process { width: 760px; height: 60px; }
+
+.submission-box-list__Every .submission-box-list__describe { width: 760px; height: 60px; }
+
+.submission-box-list__Every .submission-box-list__result { width: 760px; height: 110px; }
+
+.submission-box-list__Every .submission-box-list__content { width: 760px; height: 90px; }
+
+.submission-box-list__Every .submission-box-list__cause { width: 658px; height: 40px; line-height: 40px; }
+
+.submission-box-list__Every .submission-box-list__Namenum { margin-left: 117px; margin-right: 4px; }
+
+.submission-box-list__Every .submission-box-list__Namenums { margin-right: 4px; }
+
+.submission-box-list__back { margin-left: 4px; margin-right: 4px; }
+
+.submission-box-list__Every .submission-box-list__numInput { width: 88px; height: 28px; line-height: 28px; }
+
+.submission-box-list__Every .submission-box-list__numberInput { width: 170px; height: 28px; line-height: 28px; }
+
+.submission-box-list__Every .submission-box-list__compactnumber { display: inline-block; text-align: right; width: 54px; height: 28px; margin-right: 10px; }

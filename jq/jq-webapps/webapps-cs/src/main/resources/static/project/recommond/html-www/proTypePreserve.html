@@ -1,0 +1,57 @@
+@@include('../../commonNav/html/commonHeaderBlue.html')
+<script src="../js/proTypePreserve.js"></script>
+<style>
+    .contentA{
+        padding: 30px;
+    }
+    .contentA .product_main{
+        margin-top:26px;
+    }
+    .contentA .product_main .product_input{
+        width: 270px;
+        margin-left:8px;
+        height:28px;
+        line-height:28px;
+        border:1px solid #dee3e6;
+    }
+</style>
+<div class="contentA">
+    <div class="">
+        <div class="btnLowNew product-add" id="btnInsert" unionTableId="tableList">添加</div>
+        <div class="btnLowNew product-del" id="btnDelete" unionTableId="tableList">删除</div>
+        <div class="btnLowNew product-save" id="btnSave" unionTableId="tableList">保存</div>
+        <div class="btnLowNew product-submit" id="btnSubmit" unionTableId="tableList">提交</div>
+    </div>
+    <table class="table-list product_main" id="tableList" insertid="btnInsert" chkid="chkCoding" deleteid="btnDelete" comtype="" templateid="templateRow" reqpath="" reqparam="{}" method="POST" nodata="nonData">
+        <tr class="table-list-currentrow">
+            <th class="table-list-currentrow-theader">
+                <input type="checkbox"
+                       id="allChk" comtype="checkAll" cond=""
+                       uniontableid="tableList" chkid="chkCoding"
+                >全选
+            </th>
+            <th class="table-list-currentrow-theader">
+                产品类别维护
+            </th>
+            <th class="table-list-currentrow-theader">
+                产品类别描述
+            </th>
+        </tr>
+        <tr class="table-list-currentrow" id="templateRow" style="display: none">
+            <td class="table-list-currentrow-tdetail" style="text-align: center">
+                <input type="checkbox" id="chkCoding">
+            </td>
+            <td class="table-list-currentrow-tdetail">
+                <input id="categoryName" type="text" class="inputBase required" style="width: 96%;">
+            </td>
+            <td class="table-list-currentrow-tdetail">
+                <input id="categoryDesc" type="text" class="inputBase required" style="width: 96%;">
+            </td>
+        </tr>
+    </table>
+    <div id="nonData" class="noDataCon" style="display: none">
+        <i></i>
+        <p>暂无数据......</p>
+    </div>
+</div>
+@@include('../../commonNav/html/commonFoot.html')

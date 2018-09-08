@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jq.steel.cs.services.base.facade.dao.MailTemplateDao">
+
+    <resultMap type="jq.steel.cs.services.base.facade.model.MailTemplate" id="mailTemplateResultMap">
+		<result property="templateId" column="TEMPLATE_ID"  />
+		<result property="senderId" column="SENDER_ID"  />
+		<result property="templateCode" column="TEMPLATE_CODE"  />
+		<result property="templateName" column="TEMPLATE_NAME"  />
+		<result property="templateContent" column="TEMPLATE_CONTENT"  />
+		<result property="mailTemplateType" column="MAIL_TEMPLATE_TYPE"  />
+		<result property="status" column="STATUS"  />
+		<result property="timeout" column="TIMEOUT"  />
+		<result property="createTime" column="CREATE_TIME"  />
+		<result property="memo" column="MEMO"  />
+	</resultMap>
+	
+	<sql id="table_columns">
+		TEMPLATE_ID,
+		SENDER_ID,
+		TEMPLATE_CODE,
+		TEMPLATE_NAME,
+		TEMPLATE_CONTENT,
+		MAIL_TEMPLATE_TYPE,
+		STATUS,
+		TIMEOUT,
+		CREATE_TIME,
+		MEMO
+    </sql>
+	<sql id="entity_properties">
+		#{templateId},
+		#{senderId},
+		#{templateCode},
+		#{templateName},
+		#{templateContent},
+		#{mailTemplateType},
+		#{status},
+		#{timeout},
+		#{createTime},
+		#{memo}
+	</sql>
+
+    <!-- like columnName like concat('%',#{columnName},'%') -->
+    <sql id="page_where">
+        <trim prefix="where" prefixOverrides="and | or ">
+				<if test="templateId != null ">and TEMPLATE_ID = #{templateId}</if>
+				<if test="senderId != null ">and SENDER_ID = #{senderId}</if>
+				<if test="templateCode != null and templateCode != ''">and TEMPLATE_CODE = #{templateCode}</if>
+				<if test="templateName != null and templateName != ''">and TEMPLATE_NAME like concat('%',#{templateName},'%') </if>
+				<if test="mailTemplateType != null ">and MAIL_TEMPLATE_TYPE = #{mailTemplateType}</if>
+				<if test="status != null ">and STATUS = #{status}</if>
+				<if test="timeout != null ">and TIMEOUT = #{timeout}</if>
+				<if test="createTime != null ">and CREATE_TIME = #{createTime}</if>
+				<if test="1==1 ">and STATUS != 2</if>
+        </trim>
+    </sql>
+
+
+	<insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.MailTemplate" >
+		insert into mail_template( <include refid="table_columns" /> ) 
+		values ( <include refid="entity_properties" /> )
+	</insert>
+
+    <insert id="insertSelective" parameterType="jq.steel.cs.services.base.facade.model.MailTemplate">
+        insert into mail_template
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+				<if test="templateId != null ">TEMPLATE_ID,</if>
+				<if test="senderId != null ">SENDER_ID,</if>
+				<if test="templateCode != null and templateCode != ''">TEMPLATE_CODE,</if>
+				<if test="templateName != null and templateName != ''">TEMPLATE_NAME,</if>
+				<if test="templateContent != null and templateContent != ''">TEMPLATE_CONTENT,</if>
+				<if test="mailTemplateType != null ">MAIL_TEMPLATE_TYPE,</if>
+				<if test="status != null ">STATUS,</if>
+				<if test="timeout != null ">TIMEOUT,</if>
+				<if test="createTime != null ">CREATE_TIME,</if>
+				<if test="memo != null and memo != ''">MEMO,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+				<if test="templateId != null ">#{templateId},</if>
+				<if test="senderId != null ">#{senderId},</if>
+				<if test="templateCode != null and templateCode != ''">#{templateCode},</if>
+				<if test="templateName != null and templateName != ''">#{templateName},</if>
+				<if test="templateContent != null and templateContent != ''">#{templateContent},</if>
+				<if test="mailTemplateType != null ">#{mailTemplateType},</if>
+				<if test="status != null ">#{status},</if>
+				<if test="timeout != null ">#{timeout},</if>
+				<if test="createTime != null ">#{createTime},</if>
+				<if test="memo != null and memo != ''">#{memo},</if>
+        </trim>
+	</insert>
+
+
+	<delete id="delete" parameterType="jq.steel.cs.services.base.facade.model.MailTemplate">
+		delete from mail_template
+        <include refid="page_where" />
+	</delete>
+
+	<delete id="deleteByPrimaryKey">
+		delete from mail_template
+		<trim prefix="where" prefixOverrides="and | or ">
+			<if test="1==1">and TEMPLATE_ID = #{templateId}</if>
+        </trim>
+	</delete>
+
+
+	<update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.base.facade.model.MailTemplate">
+		update mail_template 
+		<trim prefix="set" suffixOverrides=",">
+				<if test="senderId != null ">SENDER_ID = #{senderId},</if>
+				<if test="templateCode != null and templateCode != ''">TEMPLATE_CODE = #{templateCode},</if>
+				<if test="templateName != null and templateName != ''">TEMPLATE_NAME = #{templateName},</if>
+				<if test="templateContent != null and templateContent != ''">TEMPLATE_CONTENT = #{templateContent},</if>
+				<if test="mailTemplateType != null ">MAIL_TEMPLATE_TYPE = #{mailTemplateType},</if>
+				<if test="status != null ">STATUS = #{status},</if>
+				<if test="timeout != null ">TIMEOUT = #{timeout},</if>
+				<if test="createTime != null ">CREATE_TIME = #{createTime},</if>
+				<if test="memo != null and memo != ''">MEMO = #{memo},</if>
+		</trim>
+		<trim prefix="where" prefixOverrides="and | or ">
+			<if test="1==1">and TEMPLATE_ID = #{templateId}</if>
+        </trim>
+	</update>
+
+    <select id="findAll" resultMap="mailTemplateResultMap">
+        select <include refid="table_columns" />
+        from mail_template
+    </select>
+
+    <select id="find" resultMap="mailTemplateResultMap" >
+        select <include refid="table_columns" />
+        from mail_template
+        <include refid="page_where" />
+        order by CREATE_TIME desc
+	</select>
+
+    <select id="getCount" resultType="int" >
+        select count(*) from mail_template
+        <include refid="page_where" />
+    </select>
+
+    <select id="getByPrimaryKey" resultMap="mailTemplateResultMap"  >
+		select <include refid="table_columns" />
+		from mail_template where TEMPLATE_ID = #{templateId}
+	</select>
+	
+    <select id="getTemplateByCode" resultMap="mailTemplateResultMap"  >
+		select <include refid="table_columns" />
+		from mail_template where TEMPLATE_CODE = #{templateCode} and status = 1
+	</select>
+
+</mapper>

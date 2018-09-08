@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.CrmAgreementInfoMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.CrmAgreementInfo" >
+    <id column="SID" property="sid" jdbcType="NUMERIC" />
+    <result column="CASE_CODE" property="claimNo" jdbcType="VARCHAR" />
+    <result column="AGREEMENT_URL" property="agreementUrl" jdbcType="VARCHAR" />
+    <result column="AGREEMENT_NAME" property="agreementName" jdbcType="VARCHAR" />
+    <result column="AGREEMENT_URL_NAME" property="agreementUrlName" jdbcType="VARCHAR" />
+    <result column="AGREEMENT_STATE" property="agreementState" jdbcType="VARCHAR" />
+    <result column="DOWNLOADABLE_NUM" property="downloadableNum" jdbcType="NUMERIC" />
+    <result column="DOWNLOADED_NUM" property="downloadedNum" jdbcType="NUMERIC" />
+    <result column="AGREEMENT_CONTENT" property="agreementContent" jdbcType="VARCHAR" />
+    <result column="AGREEMENT_NUM" property="agreementNum" jdbcType="NUMERIC" />
+    <result column="AGREEMENT_AMOUNT" property="agreementAmount" jdbcType="NUMERIC" />
+    <result column="AGREEMENT_AMOUNT_UPPER" property="agreementAmountUpper" jdbcType="VARCHAR" />
+    <result column="REJECT_REASON" property="rejectReason" jdbcType="VARCHAR" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SID, CASE_CODE, AGREEMENT_URL, AGREEMENT_NAME, AGREEMENT_STATE, DOWNLOADABLE_NUM,
+    DOWNLOADED_NUM, AGREEMENT_CONTENT, AGREEMENT_NUM, AGREEMENT_AMOUNT, AGREEMENT_AMOUNT_UPPER, 
+    REJECT_REASON, CREATED_BY, CREATED_DT, UPDATED_BY, UPDATED_DT, VERSION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmAgreementInfo" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_AGREEMENT_INFO
+    where CASE_CODE = #{claimNo,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByParms" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmAgreementInfo" >
+     SELECT
+  CASE_CODE,
+  AGREEMENT_URL,
+  AGREEMENT_NAME,
+  AGREEMENT_URL || '//' || AGREEMENT_NAME  AS AGREEMENT_URL_NAME,
+  AGREEMENT_STATE,
+  CLAIM_NO,
+  DOWNABLE_NUM,
+  DOWN_NUM
+  FROM
+  CRM_AGREEMENT_INFO
+    where CASE_CODE = #{claimNo,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="findList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmAgreementInfo" >
+    SELECT
+    CASE_CODE,
+    AGREEMENT_URL,
+    AGREEMENT_NAME,
+    AGREEMENT_URL || '//' || AGREEMENT_NAME  AS AGREEMENT_URL_NAME,
+    AGREEMENT_STATE,
+    CLAIM_NO,
+    DOWNABLE_NUM,
+    DOWN_NUM
+    FROM
+    CRM_AGREEMENT_INFO
+    where CASE_CODE = #{claimNo,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="findAll" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmAgreementInfo" >
+    SELECT
+A.CLAIM_NO,
+A.CUSTOMER_ID,
+A.CUSTOMER_NAME,
+A.LAST_USER_ID,
+A.LAST_USER,
+A.CONTRACT_NO,
+A.MILL_SHEET_NO,
+A.ORIGINAL_CAR_NO,
+A.CLAIM_DESC,
+C.FIELD_CONCLUSION,
+B.AGREEMENT_CONTENT,
+B.AGREEMENT_NUM,
+B.AGREEMENT_AMOUNT,
+B.AGREEMENT_AMOUNT_UPPER,
+D.DEPT_CODE
+FROM
+WARRANTY.CRM_CLAIM_INFO A
+LEFT JOIN WARRANTY.CRM_AGREEMENT_INFO B ON A.CLAIM_NO = B.CASE_CODE
+LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
+LEFT JOIN WARRANTY.MILL_SHEET_HOSTS D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO
+    where A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_AGREEMENT_INFO
+    where SID = #{sid,jdbcType=NUMERIC}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmAgreementInfo" >
+    <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
+      SELECT SEQ_CRM_AGREEMENT_INFO.nextval  FROM DUAL
+    </selectKey>
+    insert into CRM_AGREEMENT_INFO (SID, CASE_CODE, AGREEMENT_URL,
+      AGREEMENT_NAME, AGREEMENT_STATE, DOWNLOADABLE_NUM, 
+      DOWNLOADED_NUM, AGREEMENT_CONTENT, AGREEMENT_NUM, 
+      AGREEMENT_AMOUNT, AGREEMENT_AMOUNT_UPPER, 
+      REJECT_REASON, CREATED_BY, CREATED_DT, 
+      UPDATED_BY, UPDATED_DT, VERSION
+      )
+    values (#{sid,jdbcType=NUMERIC}, #{claimNo,jdbcType=VARCHAR}, #{agreementUrl,jdbcType=VARCHAR},
+      #{agreementName,jdbcType=VARCHAR}, #{agreementState,jdbcType=VARCHAR}, #{downloadableNum,jdbcType=NUMERIC},
+      #{downloadedNum,jdbcType=NUMERIC}, #{agreementContent,jdbcType=VARCHAR}, #{agreementNum,jdbcType=NUMERIC}, 
+      #{agreementAmount,jdbcType=NUMERIC}, #{agreementAmountUpper,jdbcType=VARCHAR}, 
+      #{rejectReason,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmAgreementInfo" >
+    <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
+      SELECT SEQ_CRM_AGREEMENT_INFO.nextval  FROM DUAL
+    </selectKey>
+    insert into CRM_AGREEMENT_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null and sid != ''" >
+        SID,
+      </if>
+      <if test="claimNo != null and claimNo != ''" >
+        CASE_CODE,
+      </if>
+      <if test="agreementUrl != null and agreementUrl != ''" >
+        AGREEMENT_URL,
+      </if>
+      <if test="agreementName != null and agreementName != ''" >
+        AGREEMENT_NAME,
+      </if>
+      <if test="agreementState != null and agreementState != ''" >
+        AGREEMENT_STATE,
+      </if>
+      <if test="downloadableNum != null and downloadableNum != ''" >
+        DOWNLOADABLE_NUM,
+      </if>
+      <if test="downloadedNum != null and downloadedNum != ''" >
+        DOWNLOADED_NUM,
+      </if>
+      <if test="agreementContent != null and agreementContent != ''" >
+        AGREEMENT_CONTENT,
+      </if>
+      <if test="agreementNum != null and agreementNum != ''" >
+        AGREEMENT_NUM,
+      </if>
+      <if test="agreementAmount != null and agreementAmount != ''" >
+        AGREEMENT_AMOUNT,
+      </if>
+      <if test="agreementAmountUpper != null and agreementAmountUpper != ''" >
+        AGREEMENT_AMOUNT_UPPER,
+      </if>
+      <if test="rejectReason != null and rejectReason != ''" >
+        REJECT_REASON,
+      </if>
+      <if test="createdBy != null and createdBy != ''" >
+        CREATED_BY,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="updatedBy != null and updatedBy != ''" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null and version != ''" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null and sid != ''" >
+        #{sid,jdbcType=NUMERIC},
+      </if>
+      <if test="claimNo != null and claimNo != ''" >
+        #{claimNo,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementUrl != null and agreementUrl != ''" >
+        #{agreementUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementName != null and agreementName != ''" >
+        #{agreementName,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementState != null and agreementState != ''" >
+        #{agreementState,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadableNum != null and downloadableNum != ''" >
+        #{downloadableNum,jdbcType=NUMERIC},
+      </if>
+      <if test="downloadedNum != null and downloadedNum != ''" >
+        #{downloadedNum,jdbcType=NUMERIC},
+      </if>
+      <if test="agreementContent != null and agreementContent != ''" >
+        #{agreementContent,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementNum != null and agreementNum != ''" >
+        #{agreementNum,jdbcType=NUMERIC},
+      </if>
+      <if test="agreementAmount != null and agreementAmount != ''" >
+        #{agreementAmount,jdbcType=NUMERIC},
+      </if>
+      <if test="agreementAmountUpper != null and agreementAmountUpper != ''" >
+        #{agreementAmountUpper,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectReason != null and rejectReason != ''" >
+        #{rejectReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null and createdBy != ''" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null and updatedBy != ''" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null and version != ''" >
+        #{version,jdbcType=NUMERIC},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmAgreementInfo" >
+    update CRM_AGREEMENT_INFO
+    <trim suffixOverrides=",">
+      set version = version + 1,
+      <if test="claimNo != null and claimNo != ''" >
+        CASE_CODE = #{caseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementUrl != null and agreementUrl != ''" >
+        AGREEMENT_URL = #{agreementUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementName != null and agreementName != ''" >
+        AGREEMENT_NAME = #{agreementName,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementState != null and agreementState != ''" >
+        AGREEMENT_STATE = #{agreementState,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadableNum != null and downloadableNum != ''" >
+        DOWNLOADABLE_NUM = #{downloadableNum,jdbcType=NUMERIC},
+      </if>
+      <if test="downloadedNum != null and downloadedNum != ''" >
+        DOWNLOADED_NUM = #{downloadedNum,jdbcType=NUMERIC},
+      </if>
+      <if test="agreementContent != null and agreementContent != ''" >
+        AGREEMENT_CONTENT = #{agreementContent,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementNum != null and agreementNum != ''" >
+        AGREEMENT_NUM = #{agreementNum,jdbcType=NUMERIC},
+      </if>
+      <if test="agreementAmount != null and agreementAmount != ''" >
+        AGREEMENT_AMOUNT = #{agreementAmount,jdbcType=NUMERIC},
+      </if>
+      <if test="agreementAmountUpper != null and agreementAmountUpper != ''" >
+        AGREEMENT_AMOUNT_UPPER = #{agreementAmountUpper,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectReason != null and rejectReason != ''" >
+        REJECT_REASON = #{rejectReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null and createdBy != ''" >
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null and updatedBy != ''" >
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.CrmAgreementInfo" >
+    update CRM_AGREEMENT_INFO
+    set CASE_CODE = #{claimNo,jdbcType=VARCHAR},
+      AGREEMENT_URL = #{agreementUrl,jdbcType=VARCHAR},
+      AGREEMENT_NAME = #{agreementName,jdbcType=VARCHAR},
+      AGREEMENT_STATE = #{agreementState,jdbcType=VARCHAR},
+      DOWNLOADABLE_NUM = #{downloadableNum,jdbcType=NUMERIC},
+      DOWNLOADED_NUM = #{downloadedNum,jdbcType=NUMERIC},
+      AGREEMENT_CONTENT = #{agreementContent,jdbcType=VARCHAR},
+      AGREEMENT_NUM = #{agreementNum,jdbcType=NUMERIC},
+      AGREEMENT_AMOUNT = #{agreementAmount,jdbcType=NUMERIC},
+      AGREEMENT_AMOUNT_UPPER = #{agreementAmountUpper,jdbcType=VARCHAR},
+      REJECT_REASON = #{rejectReason,jdbcType=VARCHAR},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=NUMERIC}
+    where SID = #{sid,jdbcType=NUMERIC}
+  </update>
+</mapper>

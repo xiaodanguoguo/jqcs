@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/list.css">
+    <link rel="stylesheet" href="../../../base/css/baseOrange.css">
+    <link rel="stylesheet" href="../../../base/css/baseBlue.css">
+    <link rel="stylesheet" href="../../../base/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../../../plugin/popup/css/manhuaDialog.1.0_blue.css">
+    <script src="../../../base/js/jquery.js"></script>
+    <script src="../../../base/js/public.js"></script>
+    <script src="../../../base/js/docassistant.js"></script>
+    <script src="../../../base/js/jquery.cookie.js"></script>
+    <script src="../../../reqConfig.js"></script>
+    <script src="../../../plugin/popup/script/manhuaDialog.1.0.js"></script>
+    <script src="../../../plugin/WdatePickerBlue/My97DatePicker/WdatePicker.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.btn').on('click', function () {
+                openWin('473', '270', 'inputAnswer', true);
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <button class="btn">订货单位列表</button>
+    <div id="inputAnswer" class="popup gc_box" style="display:none">
+        <div class="title" style="">
+            <h2>订货单位列表</h2>
+            <div>
+                <a class="min" href=" " title="最小化" style="display:none;"></a>
+                <a class="max" href="javascript:;" title="最大化" style="display:none;">1</a>
+                <a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+                <a class="close" href="javascript:;" title="关闭" style="display:block;"></a>
+            </div>
+        </div>
+        <div class="content">
+            <table class="table-list">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" width="4%">序号</th>
+                    <th class="table-list-currentrow-theader" width="12%">客户联系编号</th>
+                    <th class="table-list-currentrow-theader" width="12%">客户单位名称</th>
+                    <th class="table-list-currentrow-theader" width="10%">诉赔地址</th>
+                    <th class="table-list-currentrow-theader" width="5%">联系人</th>
+                    <th class="table-list-currentrow-theader" width="7%">联系电话</th>
+                </tr>
+                <tr class="table-list-currentrow">
+                    <td class="table-list-currentrow-tdetail">
+                        <input type="radio">
+                    </td>
+                    <td class="table-list-currentrow-tdetail">1</td>
+                    <td class="table-list-currentrow-tdetail">M1</td>
+                    <td class="table-list-currentrow-tdetail">销售公司</td>
+                    <td class="table-list-currentrow-tdetail">2018/07/25</td>
+                    <td class="table-list-currentrow-tdetail">8Y28300</td>
+                </tr>
+            </table>
+            <div class="button">
+                    <div class="btnBaseCommon product-save">保存</div>
+                    <div class="btnBaseCancel product-submit">取消</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

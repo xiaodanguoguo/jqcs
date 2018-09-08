@@ -1,0 +1,162 @@
+.vindicate{
+    margin:0 auto;
+    width:990px;
+    height:600px;
+}
+.vindicate-title{
+    width:990px; 
+    height:40px;
+    line-height:40px;
+    border-bottom:1px solid #6390f3;
+}
+.vindicate-Home-page{
+    margin:13px 0 0 15px;
+}
+.vindicate-questionnaire{ 
+    position: relative;
+    width:105px;
+    margin-left:-5px;
+    .vindicate-title-close{
+        position: absolute;
+        top:-7px;
+        right:2px;
+    }
+}
+
+.vindicate-box{
+    width:990px;
+    .vindicate-box-list{
+        width:990px;
+    }
+    .table-list{
+        width:950px;
+        margin-top:20px;
+        margin-left:28px;
+        .table-list-currentrow-tdetail{
+            text-align:center;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+.vindicate-box-list__Content{
+    width:950px;
+    margin-top:4px;
+    margin-left:22px;
+    .vindicate-box-list__Every{
+        margin:16px 0;
+        float: left;
+        width:267px;
+        margin-right:26px;
+        .vindicate-box-list__Name{
+            display:inline-block;
+            text-align:right;
+            margin-right:8px;
+            width:55px;
+        }
+        .inputBase{
+            width:178px;
+        }
+    }
+}
+.vindicate-box-list__Every .vindicate-box-list__Select{
+    width:200px;
+    height:28px;
+    line-height:28px;
+    border:1px solid #dee3e6;
+}
+#vindicate-box-Time{
+    width:120px;
+    border:1px solid #dee3e6; 
+}
+.vindicate-box .vindicate-box-button{
+    clear: both;
+    margin-top:25px;
+    margin-left:28px;
+    width:950px;
+    div{
+        margin-right:8px;
+    }
+    
+}
+.vindicate-box-reset{
+    width:26px;
+}
+
+
+.resourchSe {
+    .resourchSe-ul {
+        display: flex;
+        flex-wrap: wrap;
+        textarea {
+            width: 151px;
+            height: 50px;
+            resize: none;
+            border: 1px solid #eeeeee;
+        }
+        width:100%;
+    }
+    .resourchSe-ul li {
+        display: flex;
+        margin-top: 20px;
+        margin: 14px 42px;
+        width: 240px;
+    }
+    .resourchSe-ul .chosen-single {
+        margin-left: -12px;
+    }
+    .required {
+        width: 160px;
+        border: 1px solid #eeeeee;
+        height: 28px;
+        padding-left: 5px;
+    }
+    .resourchSe-ul label {
+        width: 70px;
+        text-align: left;
+        display: inline-block;
+        line-height: 30px;
+        vertical-align: top;
+        text-align: center;
+    }
+    .resourchSe-ul input[type=text] {
+        width: 150px;
+        border: 1px solid #eeeeee;
+        height: 28px;
+        padding-left: 5px;
+    }
+}
+#inputAnswer .title {
+    width:380px;
+    height:44px;    
+    background:#eee;
+}
+#inputAnswer .title h2{
+    width:400px;
+    height:44px;
+    margin-left:6px;
+    font-size:12px;
+    line-height:44px;
+    font-weight:normal;
+} 
+.content .button{
+    margin-left:82px;
+    margin-top:18px;
+    div{
+        margin-right:8px;
+        width:38px;
+    }
+}
+.content .product_main{
+    margin-left:28px;
+    margin-top:6px;
+}
+.content .product_main .product_input{
+    width: 270px;
+    margin-left:8px;
+    height:28px;
+    line-height:28px;
+    border:1px solid #dee3e6;
+}

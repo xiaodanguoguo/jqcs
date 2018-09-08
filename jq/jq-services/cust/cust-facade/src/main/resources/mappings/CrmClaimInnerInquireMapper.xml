@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.CrmClaimInnerInquireMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.CrmClaimInnerInquire" >
+    <result column="SID" property="sid" jdbcType="NUMERIC" />
+    <result column="CLAIM_NO" property="claimNo" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_PROCESS" property="logisticsProcess" jdbcType="VARCHAR" />
+    <result column="END_PROCESSING_TECH" property="endProcessingTech" jdbcType="VARCHAR" />
+    <result column="OUT_INQUIRE_FACT" property="outInquireFact" jdbcType="VARCHAR" />
+    <result column="CLAIM_CONFIRM" property="claimConfirm" jdbcType="VARCHAR" />
+    <result column="CLAIM_VERDICT" property="claimVerdict" jdbcType="VARCHAR" />
+    <result column="IMPROVEMENT" property="improvement" jdbcType="VARCHAR" />
+    <result column="INQUIRE_STATE" property="inquireState" jdbcType="VARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_DT" property="createDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_DT" property="updateDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+
+  </resultMap>
+  <select id="findByParams" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInnerInquire" >
+    SELECT
+    *
+    FROM
+    CRM_CLAIM_INNER_INQUIRE
+    WHERE
+    CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+  </select>
+
+
+
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInnerInquire" >
+    <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
+      SELECT SEQ_CRM_CLAIM_INNER_INQUIRE.nextval  FROM DUAL
+    </selectKey>
+    insert into CRM_CLAIM_INNER_INQUIRE (SID, CLAIM_NO, LOGISTICS_PROCESS, 
+      END_PROCESSING_TECH, OUT_INQUIRE_FACT, CLAIM_CONFIRM, 
+      CLAIM_VERDICT, IMPROVEMENT, INQUIRE_STATE, 
+      MEMO, CREATE_BY, CREATE_DT, 
+      UPDATE_BY, UPDATE_DT, VERSION
+      )
+    values (#{sid,jdbcType=NUMERIC}, #{claimNo,jdbcType=VARCHAR}, #{logisticsProcess,jdbcType=VARCHAR}, 
+      #{endProcessingTech,jdbcType=VARCHAR}, #{outInquireFact,jdbcType=VARCHAR}, #{claimConfirm,jdbcType=VARCHAR}, 
+      #{claimVerdict,jdbcType=VARCHAR}, #{improvement,jdbcType=VARCHAR}, #{inquireState,jdbcType=VARCHAR}, 
+      #{memo,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInnerInquire" >
+    <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
+      SELECT SEQ_CRM_CLAIM_INNER_INQUIRE.nextval  FROM DUAL
+    </selectKey>
+    insert into CRM_CLAIM_INNER_INQUIRE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        SID,
+      </if>
+      <if test="claimNo != null" >
+        CLAIM_NO,
+      </if>
+      <if test="logisticsProcess != null" >
+        LOGISTICS_PROCESS,
+      </if>
+      <if test="endProcessingTech != null" >
+        END_PROCESSING_TECH,
+      </if>
+      <if test="outInquireFact != null" >
+        OUT_INQUIRE_FACT,
+      </if>
+      <if test="claimConfirm != null" >
+        CLAIM_CONFIRM,
+      </if>
+      <if test="claimVerdict != null" >
+        CLAIM_VERDICT,
+      </if>
+      <if test="improvement != null" >
+        IMPROVEMENT,
+      </if>
+      <if test="inquireState != null" >
+        INQUIRE_STATE,
+      </if>
+      <if test="memo != null" >
+        MEMO,
+      </if>
+      <if test="createBy != null" >
+        CREATE_BY,
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT,
+      </if>
+      <if test="updateBy != null" >
+        UPDATE_BY,
+      </if>
+      <if test="updateDt != null" >
+        UPDATE_DT,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=NUMERIC},
+      </if>
+      <if test="claimNo != null" >
+        #{claimNo,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsProcess != null" >
+        #{logisticsProcess,jdbcType=VARCHAR},
+      </if>
+      <if test="endProcessingTech != null" >
+        #{endProcessingTech,jdbcType=VARCHAR},
+      </if>
+      <if test="outInquireFact != null" >
+        #{outInquireFact,jdbcType=VARCHAR},
+      </if>
+      <if test="claimConfirm != null" >
+        #{claimConfirm,jdbcType=VARCHAR},
+      </if>
+      <if test="claimVerdict != null" >
+        #{claimVerdict,jdbcType=VARCHAR},
+      </if>
+      <if test="improvement != null" >
+        #{improvement,jdbcType=VARCHAR},
+      </if>
+      <if test="inquireState != null" >
+        #{inquireState,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDt != null" >
+        #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=NUMERIC},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="update" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
+  update CRM_CLAIM_INNER_INQUIRE
+  <trim suffixOverrides=",">
+    set version = version + 1,
+    <if test="outInquireFact != null" >
+      OUT_INQUIRE_FACT = #{outInquireFact,jdbcType=VARCHAR},
+    </if>
+    <if test="claimConfirm != null" >
+      CLAIM_CONFIRM = #{claimConfirm,jdbcType=NUMERIC},
+    </if>
+    <if test="claimverdict != null" >
+      CLAIM_VERDICT = #{claimverdict,jdbcType=VARCHAR},
+    </if>
+    <if test="improvement != null" >
+      IMPROVEMENT = #{improvement,jdbcType=VARCHAR},
+    </if>
+  </trim>
+  where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+  </update>
+</mapper>

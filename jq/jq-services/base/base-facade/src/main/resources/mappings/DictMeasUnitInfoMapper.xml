@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.base.facade.dao.DictMeasUnitInfoMapper" >
+
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.base.facade.model.DictMeasUnitInfo" >
+    <id column="ID" property="id" />
+    <result column="CODE" property="code" />
+    <result column="UNIT_TYPE_CODE" property="unitTypeCode" />
+    <result column="IS_BASE" property="isBase"  />
+    <result column="STATUS" property="status"  />
+    <result column="CREATED_BY" property="createdBy" />
+    <result column="CREATED_TIME" property="createdTime"  />
+    <result column="UPDATED_BY" property="updatedBy" />
+    <result column="UPDATED_TIME" property="updatedTime"  />
+    <association property="dictUnitType" javaType="jq.steel.cs.services.base.facade.model.DictUnitType" >
+      <id column="UNIT_TYPE_CODE" property="unitTypeCode" jdbcType="VARCHAR"/>
+      <result column="UNIT_TYPE_NAME" property="unitTypeName" jdbcType="VARCHAR"/>
+      <result column="BASE_UNIT_CODE" property="baseUnitCode" jdbcType="VARCHAR"/>
+      <result column="BASE_UNIT_NAME" property="baseUnitName" jdbcType="VARCHAR"/>
+      <result column="STATUS" property="status" />
+      <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR"/>
+      <result column="CREATED_TIME" property="createdTime" />
+      <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR"/>
+      <result column="UPDATED_TIME" property="updatedTime" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CODE, UNIT_TYPE_CODE, IS_BASE, STATUS, CREATED_BY, CREATED_TIME, UPDATED_BY, 
+    UPDATED_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from dict_meas_unit_info
+    where ID = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dict_meas_unit_info
+    where ID = #{id}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.DictMeasUnitInfo" >
+    insert into dict_meas_unit_info (ID, CODE, UNIT_TYPE_CODE, 
+      IS_BASE, STATUS, CREATED_BY, 
+      CREATED_TIME, UPDATED_BY, UPDATED_TIME
+      )
+    values (#{id}, #{code}, #{unitTypeCode},
+      #{isBase}, #{status}, #{createdBy},
+      #{createdTime}, #{updatedBy}, #{updatedTime}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.base.facade.model.DictMeasUnitInfo" >
+    insert into dict_meas_unit_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="unitTypeCode != null" >
+        UNIT_TYPE_CODE,
+      </if>
+      <if test="isBase != null" >
+        IS_BASE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedTime != null" >
+        UPDATED_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="code != null" >
+        #{code},
+      </if>
+      <if test="unitTypeCode != null" >
+        #{unitTypeCode},
+      </if>
+      <if test="isBase != null" >
+        #{isBase},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.base.facade.model.DictMeasUnitInfo" >
+    update dict_meas_unit_info
+    <set >
+      <if test="code != null" >
+        CODE = #{code},
+      </if>
+      <if test="unitTypeCode != null" >
+        UNIT_TYPE_CODE = #{unitTypeCode},
+      </if>
+      <if test="isBase != null" >
+        IS_BASE = #{isBase},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME = #{createdTime},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy},
+      </if>
+      <if test="updatedTime != null" >
+        UPDATED_TIME = #{updatedTime},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.base.facade.model.DictMeasUnitInfo" >
+    update dict_meas_unit_info
+    set CODE = #{code},
+      UNIT_TYPE_CODE = #{unitTypeCode},
+      IS_BASE = #{isBase},
+      STATUS = #{status},
+      CREATED_BY = #{createdBy},
+      CREATED_TIME = #{createdTime},
+      UPDATED_BY = #{updatedBy},
+      UPDATED_TIME = #{updatedTime}
+    where ID = #{id}
+  </update>
+
+  <select id="find" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.DictMeasUnitInfo">
+    select *
+    <!--<include refid="Base_Column_List" />-->
+    from dict_meas_unit_info a LEFT JOIN dict_unit_type b ON a.UNIT_TYPE_CODE = b.UNIT_TYPE_CODE
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="code != null and code != ''" >
+        AND CODE LIKE CONCAT('%',#{code},'%')
+      </if>
+      <if test="unitTypeCode != null and unitTypeCode != ''" >
+        AND unitTypeCode LIKE CONCAT('%',#{unitTypeCode},'%')
+      </if>
+      <if test="isBase != null" >
+        IS_BASE = #{isBase},
+      </if>
+      <if test="status != null" >
+        and  STATUS = #{status}
+      </if>
+      <if test="createdBy != null" >
+        and  CREATED_BY = #{createdBy}
+      </if>
+      <if test="createdTime != null" >
+        and  CREATED_TIME = #{createdTime}
+      </if>
+      <if test="updatedBy != null" >
+        and  UPDATED_BY = #{updatedBy}
+      </if>
+      <if test="updatedTime != null" >
+        and  UPDATED_TIME = #{updatedTime}
+      </if>
+    </trim>
+  </select>
+</mapper>

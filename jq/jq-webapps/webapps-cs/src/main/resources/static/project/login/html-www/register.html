@@ -1,0 +1,89 @@
+﻿@@include('../../commonNav/html/commonHeaderNoSideBlue.html')
+<link rel="stylesheet" href="../css/register_orange.css" >
+<script src="../js/mregister.js"></script>
+<style>
+    .drag{
+        width: 350px!important;
+    }
+</style>
+    <div class="register-container" style="">
+        <div class="ChangePassword__tittle">
+            <span class="ChangePasswordWrap__icon--index"></span>
+            <h3 class="ChangePasswordWrap__tittle">注册用户</h3>
+        </div>
+        <!--企业注册-->
+        <div class="tabContent" id="enterpriseRegister">
+            <div class="register-container-main" id="js-register-container-main" style="width:620px;padding-top: 30px;">
+                <p class="register-container-text" style="margin-top: 0;">
+                    <label for="" class="register-container-text__label"><i class="register-container__text-imp ">*</i>登录名</label>
+                    <input type="text" id="acctTitle" class="register-container-text__input required numOrLetter isLengthOf inputBase"　v_maxlength="20" v_minlength="6" isLengthOfmsg="请输入6-20个中英文，数字"  placeholder="6-20个中英文，数字">
+                </p>
+                <p class="register-container-text clearfix">
+                    <label for="" class="register-container-text__label"><i class="register-container__text-imp">*</i>登录密码</label>
+                    <input type="password" id="acctPassword" class="register-container-text__input required isLengthOf ennewPassWord inputBase" v_maxlength="20" v_minlength="6" isLengthOfmsg="请输入6-20个大小写英文字母，符号或数字"  placeholder="6-20个大小写英文字母，符号或数字">
+                    <span id="js-password-hint" class="register-container-text__tip"></span>
+                </p>
+                <p class="register-container-text">
+                    <label for="" class="register-container-text__label"><i class="register-container__text-imp">*</i>密码确认</label>
+                    <input type="password" id="confirmPassword" class="register-container-text__input inputBase" placeholder="请再次输入密码">
+                    <span id="passwordSureTip" class="register-container-text__tip"></span>
+                </p>
+                <p class="register-container-text">
+                    <label for="" class="register-container-text__label" style="float: left;margin-top: 3px"><i class="register-container__text-imp">*</i>手机号码</label>
+                    <input id="mobilePhone" type="text" name="phone" style="width:330px;"  class="inputBase register-container-text__input required isLengthOf allCellPhone" maxlength="11" v_maxlength="11" v_minlength="11" isLengthOfmsg="请输入11位手机号码" placeholder="11位手机号码" style="width: 269px">
+                </p>
+                <p class="register-container-text">
+                    <label for="" class="register-container-text__label"><i class="register-container__text-imp ">*</i>单位名称</label>
+                    <input type="text" id="companyName" class="register-container-text__input required numLetterChinese isLengthOf inputBase isLengthOfmsg" v_maxlength="20" v_minlength="0" isLengthOfmsg="请输入20位以内英文,数字或汉字"  placeholder="20位以内英文,数字或汉字">
+                </p>
+                <p class="register-container-text">
+                    <label for="" class="register-container-text__label"><i class="register-container__text-imp ">*</i>单位地址</label>
+                    <input type="text" id="address" class="register-container-text__input required isLengthOf inputBase" v_maxlength="20" v_minlength="0" isLengthOfmsg="请输入20位以内英文,数字或汉字"  placeholder="20位以内英文,数字或汉字">
+                </p>
+                <p class="register-container-text">
+                    <label for="" class="register-container-text__label"><i class="register-container__text-imp ">*</i>电子邮箱</label>
+                    <input type="text" id="email" name="username" class="register-container-text__input required email inputBase"　v_maxlength="20" v_minlength="6"  placeholder="请输入邮箱">
+                </p>
+                <p class="register-container-text clearfix">
+                    <label for="" class="register-container-text__label fl"><i class="register-container__text-imp ">*</i>校验</label>
+                    <div id="dragA" class="drag" style="top: -30px;left: 115px;"></div>
+                </p>
+            </div>
+        </div>
+        <p class="register-container-agree"><input id="agreementInput" type="checkbox" style="vertical-align: middle;"><i style="" class="register-container-agree--link" id="agreement">我已经认真阅读并同意《注册协议》</i> </p>
+        <button id="submitRegister" class="btnBaseBig register-container-text__next" disabled="true" style="width: 170px;margin-top: 10px;margin-left: 450px;background: #e5e5e5;cursor: pointer;">注册</>
+    </div>
+    <!--//弹框-->
+    <div id="agreementPopup" class="popup" style="display: none;">
+        <div class="title">
+            <h2>注册协议</h2>
+            <div>
+                <a class="min" href="javascript:;" title="最小化" style="display:none;"></a>
+                <a class="max" href="javascript:;" title="最大化" style="display:none;"></a>
+                <a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+                <a class="close" href="javascript:;" title="关闭"></a>
+            </div>
+        </div>
+        <div class="content" style="height: 400px;!important;">
+            <div class="register-container-agreement-main">
+                <div id="js-register-container-agreement-list" class="register-container-agreement-list">
+                    <p><strong>【审慎阅读】</strong>您在申请注册流程中点击同意前，应当认真阅读以下协议。<strong class="register-container-agreement-list__underline">请您务必审慎阅读、充分理解协议中相关条款内容，其中包括：</strong></p>
+                    <ul>
+                        <li><strong class="register-container-agreement-list__underline">1、与您约定免除或限制责任的条款；</strong></li>
+                        <li><strong class="register-container-agreement-list__underline">2、与您约定法律适用和管辖的条款；</strong></li>
+                        <li><strong class="register-container-agreement-list__underline">3、其他以粗体下划线标识的重要条款。</strong></li>
+                    </ul>
+                    <p>如您对协议有任何疑问，可向平台客服咨询。</p>
+                    <p><strong>【特别提示】</strong>当您按照注册页面提示填写信息、阅读并同意协议且完成全部注册程序后，即表示您已充分阅读、理解并接受协议的全部内容。如您因平台服务与阳光E购发生争议的，适用《阳光E购平台服务协议》处理。如您在使用平台服务过程中与其他用户发生争议的，依您与其他用户达成的协议处理。
+
+                        阅读协议的过程中，如果您不同意相关协议或其中任何条款约定，您应立即停止注册程序。</p>
+                    <p><strong class="register-container-agreement-list__underline">阅读协议的过程中，如果您不同意相关协议或其中任何条款约定，您应立即停止注册程序。</strong></p>
+                    <p style="font-weight: bold"><a href="">《注册协议》</a></p>
+                </div>
+                <div class="mt10" style="text-align: center">
+                    <button type="button" id="agreementSure" class="btnBaseBig register-container-agreement_btn">同意协议</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@@include('../../commonNav/html/commonFoot.html')

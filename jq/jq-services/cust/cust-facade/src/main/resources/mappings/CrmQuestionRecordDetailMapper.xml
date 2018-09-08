@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.CrmQuestionRecordDetailMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.CrmQuestionRecordDetail" >
+    <id column="RECORD_DETAIL_ID" property="recordDetailId" jdbcType="NUMERIC" />
+    <result column="ANSWER_RECORD_ID" property="answerRecordId" jdbcType="NUMERIC" />
+    <result column="QID" property="qid" jdbcType="NUMERIC" />
+    <result column="QUESTION_ITEM_ID" property="questionItemId" jdbcType="NUMERIC" />
+    <result column="QUESTION_ITEM_ANSWER_ID" property="questionItemAnswerId" jdbcType="NUMERIC" />
+    <result column="ANSWER_VALUE" property="answerValue" jdbcType="NUMERIC" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    RECORD_DETAIL_ID, ANSWER_RECORD_ID, QID, QUESTION_ITEM_ID, QUESTION_ITEM_ANSWER_ID, 
+    ANSWER_VALUE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_QUESTION_RECORD_DETAIL
+    where RECORD_DETAIL_ID = #{recordDetailId,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_QUESTION_RECORD_DETAIL
+    where RECORD_DETAIL_ID = #{recordDetailId,jdbcType=NUMERIC}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestionRecordDetail" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="recordDetailId">
+      SELECT SEQ_CRM_QUESTION_RECORD_DETAIL.nextval FROM dual
+    </selectKey>
+    insert into CRM_QUESTION_RECORD_DETAIL (RECORD_DETAIL_ID, ANSWER_RECORD_ID, QID, 
+      QUESTION_ITEM_ID, QUESTION_ITEM_ANSWER_ID, ANSWER_VALUE
+      )
+    values (#{recordDetailId,jdbcType=NUMERIC}, #{answerRecordId,jdbcType=NUMERIC}, #{qid,jdbcType=NUMERIC}, 
+      #{questionItemId,jdbcType=NUMERIC}, #{questionItemAnswerId,jdbcType=NUMERIC}, #{answerValue,jdbcType=NUMERIC}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestionRecordDetail" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="recordDetailId">
+      SELECT SEQ_CRM_QUESTION_RECORD_DETAIL.nextval FROM dual
+    </selectKey>
+    insert into CRM_QUESTION_RECORD_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recordDetailId != null" >
+        RECORD_DETAIL_ID,
+      </if>
+      <if test="answerRecordId != null" >
+        ANSWER_RECORD_ID,
+      </if>
+      <if test="qid != null" >
+        QID,
+      </if>
+      <if test="questionItemId != null" >
+        QUESTION_ITEM_ID,
+      </if>
+      <if test="questionItemAnswerId != null" >
+        QUESTION_ITEM_ANSWER_ID,
+      </if>
+      <if test="answerValue != null" >
+        ANSWER_VALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recordDetailId != null" >
+        #{recordDetailId,jdbcType=NUMERIC},
+      </if>
+      <if test="answerRecordId != null" >
+        #{answerRecordId,jdbcType=NUMERIC},
+      </if>
+      <if test="qid != null" >
+        #{qid,jdbcType=NUMERIC},
+      </if>
+      <if test="questionItemId != null" >
+        #{questionItemId,jdbcType=NUMERIC},
+      </if>
+      <if test="questionItemAnswerId != null" >
+        #{questionItemAnswerId,jdbcType=NUMERIC},
+      </if>
+      <if test="answerValue != null" >
+        #{answerValue,jdbcType=NUMERIC},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestionRecordDetail" >
+    update CRM_QUESTION_RECORD_DETAIL
+    <set >
+      <if test="answerRecordId != null" >
+        ANSWER_RECORD_ID = #{answerRecordId,jdbcType=NUMERIC},
+      </if>
+      <if test="qid != null" >
+        QID = #{qid,jdbcType=NUMERIC},
+      </if>
+      <if test="questionItemId != null" >
+        QUESTION_ITEM_ID = #{questionItemId,jdbcType=NUMERIC},
+      </if>
+      <if test="questionItemAnswerId != null" >
+        QUESTION_ITEM_ANSWER_ID = #{questionItemAnswerId,jdbcType=NUMERIC},
+      </if>
+      <if test="answerValue != null" >
+        ANSWER_VALUE = #{answerValue,jdbcType=NUMERIC},
+      </if>
+    </set>
+    where RECORD_DETAIL_ID = #{recordDetailId,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestionRecordDetail" >
+    update CRM_QUESTION_RECORD_DETAIL
+    set ANSWER_RECORD_ID = #{answerRecordId,jdbcType=NUMERIC},
+      QID = #{qid,jdbcType=NUMERIC},
+      QUESTION_ITEM_ID = #{questionItemId,jdbcType=NUMERIC},
+      QUESTION_ITEM_ANSWER_ID = #{questionItemAnswerId,jdbcType=NUMERIC},
+      ANSWER_VALUE = #{answerValue,jdbcType=NUMERIC}
+    where RECORD_DETAIL_ID = #{recordDetailId,jdbcType=NUMERIC}
+  </update>
+</mapper>

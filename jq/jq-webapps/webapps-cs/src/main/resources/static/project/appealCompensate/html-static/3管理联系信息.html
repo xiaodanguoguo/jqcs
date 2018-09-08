@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../../base/css/baseBlue.css">
+    <link rel="stylesheet" href="../css/manageNews.css">
+    <script src="../../../base/js/jquery.js"></script>
+    <script src="../../../base/js/docassistant.js"></script>
+    <script src="../../../base/js/public.js"></script>
+</head>
+<body>
+    <div class="manageNews">
+        <ul class="tabMenu-four" comtype="tabCtrl" contentcls="tabCon">
+            <li class="tabTitLi" nidx="0"><span>订货单位</span></li>
+            <li nidx="1"><span>使用单位</span></li>
+        </ul>
+        <div class="tabCon manageNews-main">
+            <div class="manageNews-main-title">新增订货单位信息</div>
+            <ul class="manageNews-main-search clearfix">
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">客户联系编号:</span>
+                    <input type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">客服单位名称:</span>
+                    <input type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">单位地址:</span>
+                    <input type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">联系人:</span>
+                    <input type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">手机号码:</span>
+                    <input type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <input class="manageNews-mainSearch-list-check" type="checkbox" name="" id="">
+                    <span>设为默认联系人</span>
+                    <div class="btnLowNew manageNews-mainSearch-list-searchBtn">搜索</div>
+                    <div class="btnBaseCommon">提交</div>
+                </li>
+            </ul>
+            <table class="table-list">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" style="width: 16%">
+                        客户联系编号
+                    </th>
+                    <th class="table-list-currentrow-theader"  style="width: 18%">
+                        客户单位名称
+                    </th>
+                    <th class="table-list-currentrow-theader"  style="width: 18%">
+                        单位地址
+                    </th>
+                    <th class="table-list-currentrow-theader" style="width: 9%">
+                        联系人
+                    </th>
+                    <th class="table-list-currentrow-theader" style="width: 18%">
+                        手机号码
+                    </th>
+                    <th class="table-list-currentrow-theader" style="width: 21%">
+                        操作
+                    </th>
+                </tr>
+                <tr class="table-list-currentrow">
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td">内容二</span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td">内容二</span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td">内容二</span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td">内容二</span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td">内容二</span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="btnLowImgCom fl manageNews-main-tableTd-edit">修改</span>
+                        <span class="btnLowImgDel fl manageNews-main-tableTd-del">删除</span>
+                        <span class="btnLowImgCom fr manageNews-main-tableTd-ope">设为默认联系</span>
+                    </td>
+                </tr>
+                <tr class="table-list-currentrow table-list-currentrowActive">
+                    <td class="table-list-currentrow-tdetail"><span class="manageNews-main-table-td">内容二</span></td>
+                    <td class="table-list-currentrow-tdetail"><span class="manageNews-main-table-td">内容二</span></td>
+                    <td class="table-list-currentrow-tdetail"><span class="manageNews-main-table-td">内容二</span></td>
+                    <td class="table-list-currentrow-tdetail"><span class="manageNews-main-table-td">内容二</span></td>
+                    <td class="table-list-currentrow-tdetail"><span class="manageNews-main-table-td">内容二</span></td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="btnLowImgCom fl manageNews-main-tableTd-edit">修改</span>
+                        <span class="btnLowImgDel fl manageNews-main-tableTd-del">删除</span>
+                        <span class="btnLowImgCom fr manageNews-main-tableTd-ope">设为默认联系</span>
+                    </td>
+                </tr>
+            </table>
+            <div class="noDataCon" style="display: none;">
+                <i></i>
+                <p>暂无数据......</p>
+            </div>
+        </div>
+        <div class="tabCon manageNews-main" style="display: none;">
+            <div class="manageNews-main-title">新增使用单位信息</div>
+            <ul class="manageNews-main-search clearfix">
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">使用单位名称:</span>
+                    <input type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">货物所在地:</span>
+                    <input type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">联系人:</span>
+                    <input type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">手机号码:</span>
+                    <input type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+
+                </li>
+                <li class="manageNews-main-search-list">
+                    <input class="manageNews-mainSearch-list-check" type="checkbox" name="" id="">
+                    <span>设为默认联系人</span>
+                    <div class="btnLowNew manageNews-mainSearch-list-searchBtn">搜索</div>
+                    <div class="btnBaseCommon">提交</div>
+                </li>
+            </ul>
+            <table class="table-list">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" style="width: 16%">
+                        使用单位编号
+                    </th>
+                    <th class="table-list-currentrow-theader"  style="width: 18%">
+                        客户单位名称
+                    </th>
+                    <th class="table-list-currentrow-theader"  style="width: 18%">
+                        货物所在地
+                    </th>
+                    <th class="table-list-currentrow-theader" style="width: 9%">
+                        联系人
+                    </th>
+                    <th class="table-list-currentrow-theader" style="width: 18%">
+                        手机号码
+                    </th>
+                    <th class="table-list-currentrow-theader" style="width: 21%">
+                        操作
+                    </th>
+                </tr>
+                <tr class="table-list-currentrow">
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td">内容二</span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td">内容二</span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td">内容二</span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td">内容二</span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td">内容二</span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="btnLowImgCom fl manageNews-main-tableTd-edit">修改</span>
+                        <span class="btnLowImgDel fl manageNews-main-tableTd-del">删除</span>
+                        <span class="btnLowImgCom fr manageNews-main-tableTd-ope">设为默认联系</span>
+                    </td>
+                </tr>
+                <tr class="table-list-currentrow table-list-currentrowActive">
+                    <td class="table-list-currentrow-tdetail"><span class="manageNews-main-table-td">内容二</span></td>
+                    <td class="table-list-currentrow-tdetail"><span class="manageNews-main-table-td">内容二</span></td>
+                    <td class="table-list-currentrow-tdetail"><span class="manageNews-main-table-td">内容二</span></td>
+                    <td class="table-list-currentrow-tdetail"><span class="manageNews-main-table-td">内容二</span></td>
+                    <td class="table-list-currentrow-tdetail"><span class="manageNews-main-table-td">内容二</span></td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="btnLowImgCom fl manageNews-main-tableTd-edit">修改</span>
+                        <span class="btnLowImgDel fl manageNews-main-tableTd-del">删除</span>
+                        <span class="btnLowImgCom fr manageNews-main-tableTd-ope">设为默认联系</span>
+                    </td>
+                </tr>
+            </table>
+            <div class="noDataCon" style="display: none;">
+                <i></i>
+                <p>暂无数据......</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

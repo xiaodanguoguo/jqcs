@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.base.facade.dao.DictRegionMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.base.facade.model.DictRegion" >
+    <id column="ID" property="id" />
+    <result column="REGION_CODE" property="regionCode" />
+    <result column="REGION_NAME" property="regionName" />
+    <result column="PARENT_ID" property="parentId" jdbcType="INTEGER" />
+    <result column="STATUS" property="status"  />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, REGION_CODE, REGION_NAME, PARENT_ID, STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from dict_region
+    where ID = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from dict_region
+    where ID = #{id}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.DictRegion" >
+    insert into dict_region (ID, REGION_CODE, REGION_NAME, 
+      PARENT_ID, STATUS)
+    values (#{id}, #{regionCode}, #{regionName},
+      #{parentId}, #{status})
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.base.facade.model.DictRegion" >
+    insert into dict_region
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="regionCode != null" >
+        REGION_CODE,
+      </if>
+      <if test="regionName != null" >
+        REGION_NAME,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="regionCode != null" >
+        #{regionCode},
+      </if>
+      <if test="regionName != null" >
+        #{regionName},
+      </if>
+      <if test="parentId != null" >
+        #{parentId},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.base.facade.model.DictRegion" >
+    update dict_region
+    <set >
+      <if test="regionCode != null" >
+        REGION_CODE = #{regionCode},
+      </if>
+      <if test="regionName != null" >
+        REGION_NAME = #{regionName},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.base.facade.model.DictRegion" >
+    update dict_region
+    set REGION_CODE = #{regionCode},
+      REGION_NAME = #{regionName},
+      PARENT_ID = #{parentId},
+      STATUS = #{status}
+    where ID = #{id}
+  </update>
+  <!-- 结构树 - 模糊查询-->
+  <select id="findDictRegion" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.DictRegion">
+        SELECT
+    <include refid="Base_Column_List" />
+        FROM
+    dict_region
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="regionCode != null and regionCode != ''" >
+        REGION_CODE LIKE '%' || #{regionCode} ||'%'
+      </if>
+      <if test="regionName != null and regionName != ''" >
+        AND REGION_NAME LIKE '%' || #{regionName} ||'%'
+      </if>
+    </trim>
+
+    </select>
+
+  <!--结构树 子查父-->
+  <select id="findDictRegionTree" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.DictRegion">
+        SELECT
+    <include refid="Base_Column_List" />
+        FROM
+    dict_region
+    WHERE
+    <if test="parentId != null">
+       parent_id = #{parentId}
+    </if>
+    </select>
+  <!-- 结构树 子查父-->
+  <select id="findDictRegionTreeSon" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.DictRegion">
+        SELECT
+    <include refid="Base_Column_List" />
+        FROM
+    dict_region
+    WHERE
+    <if test="id != null">
+      ID = #{id}
+    </if>
+    </select>
+</mapper>

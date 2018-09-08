@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.MillSheetHostsMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.MillSheetHosts" >
+    <result column="SID" property="sid" jdbcType="DECIMAL" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="DATA_STATE" property="dataState" jdbcType="VARCHAR" />
+    <result column="MILL_SHEET_NO_OLD" property="millSheetNoOld" jdbcType="VARCHAR" />
+    <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
+    <result column="SPECIAL_NEED" property="specialNeed" jdbcType="VARCHAR" />
+    <result column="PRINTABLE_NUM" property="printableNum" jdbcType="DECIMAL" />
+    <result column="PRINTED_NUM" property="printedNum" jdbcType="DECIMAL" />
+    <result column="MILL_SHEET_URL" property="millSheetUrl" jdbcType="VARCHAR" />
+    <result column="MILL_SHEET_NAME" property="millSheetName" jdbcType="VARCHAR" />
+    <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
+    <result column="DOWNABLE_NUM" property="downableNum" jdbcType="DECIMAL" />
+    <result column="DOWN_NUM" property="downNum" jdbcType="DECIMAL" />
+    <result column="CHEM_STATE" property="chemState" jdbcType="VARCHAR" />
+    <result column="SPLIT_MAX_VALUE" property="splitMaxValue" jdbcType="VARCHAR" />
+    <result column="PHY_STATE" property="phyState" jdbcType="VARCHAR" />
+    <result column="HAVE_STATE" property="haveState" jdbcType="VARCHAR" />
+    <result column="SPLIT_STATE" property="splitState" jdbcType="VARCHAR" />
+    <result column="MILL_SHEET_TYPE" property="millSheetType" jdbcType="VARCHAR" />
+    <result column="SURPLUS_BATCH" property="surplusBatch" jdbcType="DECIMAL" />
+    <result column="ZKUNNR" property="zkunnr" jdbcType="VARCHAR" />
+    <result column="ZKUNWE" property="zkunwe" jdbcType="VARCHAR" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="SPILT_CUSTOMER" property="spiltCustomer" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <resultMap id="FullMap" type="jq.steel.cs.services.cust.facade.model.MillSheetHosts" >
+    <result column="SID" property="sid" jdbcType="DECIMAL" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="DATA_STATE" property="dataState" jdbcType="VARCHAR" />
+    <result column="MILL_SHEET_NO_OLD" property="millSheetNoOld" jdbcType="VARCHAR" />
+    <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
+    <result column="SPECIAL_NEED" property="specialNeed" jdbcType="VARCHAR" />
+    <result column="PRINTABLE_NUM" property="printableNum" jdbcType="DECIMAL" />
+    <result column="PRINTED_NUM" property="printedNum" jdbcType="DECIMAL" />
+    <result column="MILL_SHEET_URL" property="millSheetUrl" jdbcType="VARCHAR" />
+    <result column="MILL_SHEET_NAME" property="millSheetName" jdbcType="VARCHAR" />
+    <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
+    <result column="DOWNABLE_NUM" property="downableNum" jdbcType="DECIMAL" />
+    <result column="DOWN_NUM" property="downNum" jdbcType="DECIMAL" />
+    <result column="CHEM_STATE" property="chemState" jdbcType="VARCHAR" />
+    <result column="PHY_STATE" property="phyState" jdbcType="VARCHAR" />
+    <result column="HAVE_STATE" property="haveState" jdbcType="VARCHAR" />
+    <result column="SPLIT_STATE" property="splitState" jdbcType="VARCHAR" />
+    <result column="MILL_SHEET_TYPE" property="millSheetType" jdbcType="VARCHAR" />
+    <result column="SPLIT_MAX_VALUE" property="splitMaxValue" jdbcType="VARCHAR" />
+    <result column="SURPLUS_BATCH" property="surplusBatch" jdbcType="DECIMAL" />
+    <result column="ZKUNNR" property="zkunnr" jdbcType="VARCHAR" />
+    <result column="ZKUNWE" property="zkunwe" jdbcType="VARCHAR" />
+    <result column="ZCHARG" property="zcharg" jdbcType="VARCHAR" />
+    <result column="ZCHEHAO" property="zchehao" jdbcType="VARCHAR" />
+    <result column="ZCPMC" property="zcpmc" jdbcType="VARCHAR" />
+    <result column="ZHTH" property="zhth" jdbcType="VARCHAR" />
+    <result column="ZPH" property="zph" jdbcType="VARCHAR" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="SPILT_CUSTOMER" property="spiltCustomer" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+
+  <select id="findIsTrue" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
+    SELECT
+    A.STATE,
+    A.DATA_STATE,
+    A.MILL_SHEET_NO_OLD,
+    A.MILL_SHEET_NO,
+    A.SPECIAL_NEED,
+    A.PRINTABLE_NUM,
+    A.PRINTED_NUM,
+    A.MILL_SHEET_URL,
+    A.MILL_SHEET_NAME,
+    A.DEPT_CODE,
+    A.DOWNABLE_NUM,
+    A.DOWN_NUM,
+    A.CHEM_STATE,
+    A.PHY_STATE,
+    A.HAVE_STATE,
+    A.SPLIT_STATE,
+    A.MILL_SHEET_TYPE,
+    A.SURPLUS_BATCH,
+    A.ZKUNNR,
+    A.ZKUNWE,
+    A.FREQUENCY_OF_SPLIT,
+    A.SPLIT_MAX_VALUE,
+    A.MANUAL_MARKING
+    FROM
+    WARRANTY.MILL_SHEET_HOSTS A
+    WHERE
+    A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findMillSheetByPage" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
+    SELECT
+    MSO.STATE,
+    MSO.CREATED_DT,
+    MSO.DATA_STATE,
+    MSO.MILL_SHEET_NO_OLD,
+    MSO.MILL_SHEET_NO,
+    MSO.SPECIAL_NEED,
+    MSO.PRINTABLE_NUM,
+    MSO.PRINTED_NUM,
+    MSO.MILL_SHEET_URL,
+    MSO.MILL_SHEET_NAME,
+    MSO.DEPT_CODE,
+    MSO.DOWNABLE_NUM,
+    MSO.DOWN_NUM,
+    MSO.HAVE_STATE,
+    MSO.SPLIT_STATE,
+    MSO.MILL_SHEET_TYPE,
+    MSO.SURPLUS_BATCH,
+    MSO.ZKUNNR,
+    MSO.ZKUNWE,
+    MSH.ZCHEHAO,
+    MSH.ZHTH,
+    MSH.ZCPMC,
+    MSH.ZPH,
+    MSO.SID
+    FROM
+    WARRANTY.MILL_SHEET_HOSTS MSO
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD MSH ON MSO.MILL_SHEET_NO = MSH.MILL_SHEET_NO
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="endDtStr != null" >
+        AND TO_CHAR (MSO.CREATED_DT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+      </if>
+      <if test="startDtStr != null" >
+        AND TO_CHAR (MSO.CREATED_DT, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+      </if>
+      <if test="millSheetNo != null  and millSheetNo != ''" >
+        AND MSO.MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
+      </if>
+      <if test="millSheetNos != null">
+        AND MSO.MILL_SHEET_NO  in
+        <foreach collection="millSheetNos"  index="index" close=")" open="(" item="item" separator=",">
+          #{millSheetNos[${index}]}
+        </foreach>
+      </if>
+      <if test="zchehao != null and zchehao != ''" >
+        AND MSH.ZCHEHAO = #{zchehao,jdbcType=VARCHAR}
+      </if>
+      <if test="zhth != null  and zhth != ''" >
+        AND MSH.ZHTH = #{zhth,jdbcType=VARCHAR}
+      </if>
+      <if test="zkunnr != null  and zkunnr != ''" >
+        AND MSH.SPILT_CUSTOMER = #{zkunnr,jdbcType=VARCHAR}
+      </if>
+      <if test="zph != null  and zph != ''" >
+        AND MSH.ZPH = #{zph,jdbcType=VARCHAR}
+      </if>
+      <if test="spiltCustomer != null  and zph != ''" >
+        AND MSH.SPILT_CUSTOMER = #{spiltCustomer,jdbcType=VARCHAR}
+      </if>
+
+    </trim>
+  </select>
+
+  <select id="findUrl" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
+    SELECT
+    A.SID,
+    A.STATE,
+    A.DATA_STATE,
+    A.MILL_SHEET_NO_OLD,
+    A.MILL_SHEET_NO,
+    A.SPECIAL_NEED,
+    A.PRINTABLE_NUM,
+    A.PRINTED_NUM,
+    A.MILL_SHEET_URL,
+    A.MILL_SHEET_NAME,
+    A.DEPT_CODE,
+    A.DOWNABLE_NUM,
+    A.DOWN_NUM,
+    A.CHEM_STATE,
+    A.PHY_STATE,
+    A.HAVE_STATE,
+    A.SPLIT_STATE,
+    A.MILL_SHEET_TYPE,
+    A.SURPLUS_BATCH,
+    A.ZKUNNR,
+    A.ZKUNWE,
+    A.FREQUENCY_OF_SPLIT,
+    A.SPLIT_MAX_VALUE,
+    A.MANUAL_MARKING,
+    A.CREATED_BY,
+    A.CREATED_DT,
+    A.UPDATED_BY,
+    A.UPDATED_DT,
+    A.VERSION
+    FROM
+    WARRANTY.MILL_SHEET_HOSTS A
+    WHERE
+    A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR}
+  </select>
+
+  <!--质证书申请回退查询-->
+  <select id="findMillsheetNo" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
+    SELECT
+    A.SID,
+    A.STATE,
+    A.DATA_STATE,
+    A.MILL_SHEET_NO_OLD,
+    A.MILL_SHEET_NO,
+    A.SPECIAL_NEED,
+    A.PRINTABLE_NUM,
+    A.PRINTED_NUM,
+    A.MILL_SHEET_URL,
+    A.MILL_SHEET_NAME,
+    A.DEPT_CODE,
+    A.DOWNABLE_NUM,
+    A.DOWN_NUM,
+    A.CHEM_STATE,
+    A.PHY_STATE,
+    A.HAVE_STATE,
+    A.SPLIT_STATE,
+    A.MILL_SHEET_TYPE,
+    A.SURPLUS_BATCH,
+    A.ZKUNNR,
+    A.ZKUNWE,
+    A.FREQUENCY_OF_SPLIT,
+    A.SPLIT_MAX_VALUE,
+    A.MANUAL_MARKING,
+    A.CREATED_BY,
+    A.CREATED_DT,
+    A.UPDATED_BY,
+    A.UPDATED_DT,
+    A.VERSION
+    FROM
+    WARRANTY.MILL_SHEET_HOSTS A
+    WHERE
+    A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="findList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
+    SELECT
+    A.STATE,
+    A.DATA_STATE,
+    A.MILL_SHEET_NO_OLD,
+    A.MILL_SHEET_NO,
+    A.SPECIAL_NEED,
+    A.PRINTABLE_NUM,
+    A.PRINTED_NUM,
+    A.MILL_SHEET_URL,
+    A.MILL_SHEET_NAME,
+    A.DEPT_CODE,
+    A.DOWNABLE_NUM,
+    A.DOWN_NUM,
+    A.CHEM_STATE,
+    A.PHY_STATE,
+    A.HAVE_STATE,
+    A.SPLIT_STATE,
+    A.MILL_SHEET_TYPE,
+    A.SURPLUS_BATCH,
+    A.ZKUNNR,
+    A.ZKUNWE,
+    A.FREQUENCY_OF_SPLIT,
+    A.SPLIT_MAX_VALUE,
+    A.MANUAL_MARKING
+    FROM
+    WARRANTY.MILL_SHEET_HOSTS A
+    WHERE
+    A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findUrlList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
+    SELECT
+    A.STATE,
+    A.DATA_STATE,
+    A.MILL_SHEET_NO_OLD,
+    A.MILL_SHEET_NO,
+    A.SPECIAL_NEED,
+    A.PRINTABLE_NUM,
+    A.PRINTED_NUM,
+    A.MILL_SHEET_URL,
+    A.MILL_SHEET_NAME,
+    A.DEPT_CODE,
+    A.DOWNABLE_NUM,
+    A.DOWN_NUM,
+    A.CHEM_STATE,
+    A.PHY_STATE,
+    A.HAVE_STATE,
+    A.SPLIT_STATE,
+    A.MILL_SHEET_TYPE,
+    A.SURPLUS_BATCH,
+    A.ZKUNNR,
+    A.ZKUNWE,
+    A.FREQUENCY_OF_SPLIT,
+    A.SPLIT_MAX_VALUE,
+    A.MANUAL_MARKING
+    FROM
+    WARRANTY.MILL_SHEET_HOSTS A
+    WHERE
+    A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR}
+  </select>
+
+
+
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts" >
+    insert into MILL_SHEET_HOSTS (SID, STATE, DATA_STATE, 
+      MILL_SHEET_NO_OLD, MILL_SHEET_NO, SPECIAL_NEED, 
+      PRINTABLE_NUM, PRINTED_NUM, MILL_SHEET_URL, 
+      MILL_SHEET_NAME, DEPT_CODE, DOWNABLE_NUM, 
+      DOWN_NUM, CHEM_STATE, PHY_STATE, 
+      HAVE_STATE, SPLIT_STATE, MILL_SHEET_TYPE, 
+      SURPLUS_BATCH, ZKUNNR, ZKUNWE, 
+      CREATED_BY, CREATED_DT, UPDATED_BY, 
+      UPDATED_DT, VERSION)
+    values (#{sid,jdbcType=DECIMAL}, #{state,jdbcType=VARCHAR}, #{dataState,jdbcType=VARCHAR}, 
+      #{millSheetNoOld,jdbcType=VARCHAR}, #{millSheetNo,jdbcType=VARCHAR}, #{specialNeed,jdbcType=VARCHAR}, 
+      #{printableNum,jdbcType=DECIMAL}, #{printedNum,jdbcType=DECIMAL}, #{millSheetUrl,jdbcType=VARCHAR}, 
+      #{millSheetName,jdbcType=VARCHAR}, #{deptCode,jdbcType=VARCHAR}, #{downableNum,jdbcType=DECIMAL}, 
+      #{downNum,jdbcType=DECIMAL}, #{chemState,jdbcType=VARCHAR}, #{phyState,jdbcType=VARCHAR}, 
+      #{haveState,jdbcType=VARCHAR}, #{splitState,jdbcType=VARCHAR}, #{millSheetType,jdbcType=VARCHAR}, 
+      #{surplusBatch,jdbcType=DECIMAL}, #{zkunnr,jdbcType=VARCHAR}, #{zkunwe,jdbcType=VARCHAR}, 
+      #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, 
+      #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts" >
+    insert into MILL_SHEET_HOSTS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null  and sid != ''" >
+        SID,
+      </if>
+      <if test="state != null  and state != ''" >
+        STATE,
+      </if>
+      <if test="dataState != null  and dataState != ''" >
+        DATA_STATE,
+      </if>
+      <if test="millSheetNoOld != null and millSheetNoOld != ''" >
+        MILL_SHEET_NO_OLD,
+      </if>
+      <if test="millSheetNo != null and millSheetNo != ''" >
+        MILL_SHEET_NO,
+      </if>
+      <if test="specialNeed != null and specialNeed != ''" >
+        SPECIAL_NEED,
+      </if>
+      <if test="printableNum != null and printableNum != ''" >
+        PRINTABLE_NUM,
+      </if>
+      <if test="printedNum != null and printedNum != ''" >
+        PRINTED_NUM,
+      </if>
+      <if test="millSheetUrl != null and millSheetUrl != ''" >
+        MILL_SHEET_URL,
+      </if>
+      <if test="millSheetName != null and millSheetName != ''" >
+        MILL_SHEET_NAME,
+      </if>
+      <if test="deptCode != null and deptCode != ''" >
+        DEPT_CODE,
+      </if>
+      <if test="downableNum != null and downableNum != ''" >
+        DOWNABLE_NUM,
+      </if>
+      <if test="downNum != null and downNum != ''" >
+        DOWN_NUM,
+      </if>
+      <if test="chemState != null and chemState != ''" >
+        CHEM_STATE,
+      </if>
+      <if test="phyState != null and phyState != ''" >
+        PHY_STATE,
+      </if>
+      <if test="haveState != null and haveState != ''" >
+        HAVE_STATE,
+      </if>
+      <if test="splitState != null and splitState != ''" >
+        SPLIT_STATE,
+      </if>
+      <if test="millSheetType != null and millSheetType != ''" >
+        MILL_SHEET_TYPE,
+      </if>
+      <if test="surplusBatch != null and surplusBatch != ''" >
+        SURPLUS_BATCH,
+      </if>
+      <if test="zkunnr != null and zkunnr != ''" >
+        ZKUNNR,
+      </if>
+      <if test="zkunwe != null and zkunwe != ''" >
+        ZKUNWE,
+      </if>
+      <if test="createdBy != null and createdBy != ''" >
+        CREATED_BY,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="updatedBy != null and updatedBy != ''" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null and version != ''" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null and sid != ''" >
+        #{sid,jdbcType=DECIMAL},
+      </if>
+      <if test="state != null and state != ''" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="dataState != null and dataState != ''" >
+        #{dataState,jdbcType=VARCHAR},
+      </if>
+      <if test="millSheetNoOld != null and millSheetNoOld != ''" >
+        #{millSheetNoOld,jdbcType=VARCHAR},
+      </if>
+      <if test="millSheetNo != null and millSheetNo != ''" >
+        #{millSheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="specialNeed != null and specialNeed != ''" >
+        #{specialNeed,jdbcType=VARCHAR},
+      </if>
+      <if test="printableNum != null and printableNum != ''" >
+        #{printableNum,jdbcType=DECIMAL},
+      </if>
+      <if test="printedNum != null and printedNum != ''" >
+        #{printedNum,jdbcType=DECIMAL},
+      </if>
+      <if test="millSheetUrl != null and millSheetUrl != ''" >
+        #{millSheetUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="millSheetName != null and millSheetName != ''" >
+        #{millSheetName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptCode != null and deptCode != ''" >
+        #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="downableNum != null and downableNum != ''" >
+        #{downableNum,jdbcType=DECIMAL},
+      </if>
+      <if test="downNum != null and downNum != ''">
+        #{downNum,jdbcType=DECIMAL},
+      </if>
+      <if test="chemState != null and chemState != ''" >
+        #{chemState,jdbcType=VARCHAR},
+      </if>
+      <if test="phyState != null and phyState != ''" >
+        #{phyState,jdbcType=VARCHAR},
+      </if>
+      <if test="haveState != null and haveState != ''" >
+        #{haveState,jdbcType=VARCHAR},
+      </if>
+      <if test="splitState != null and splitState != ''" >
+        #{splitState,jdbcType=VARCHAR},
+      </if>
+      <if test="millSheetType != null and millSheetType != ''" >
+        #{millSheetType,jdbcType=VARCHAR},
+      </if>
+      <if test="surplusBatch != null and surplusBatch != ''" >
+        #{surplusBatch,jdbcType=DECIMAL},
+      </if>
+      <if test="zkunnr != null and zkunnr != ''" >
+        #{zkunnr,jdbcType=VARCHAR},
+      </if>
+      <if test="zkunwe != null and zkunwe != ''" >
+        #{zkunwe,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null and createdBy != ''" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null and updatedBy != ''" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null and version != ''" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+
+
+    <update id="updateNum" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
+    update MILL_SHEET_HOSTS set version = version + 1,
+    <if test="printableNum != null" >
+      PRINTABLE_NUM = #{printableNum,jdbcType=DECIMAL},
+    </if>
+    <if test="printedNum != null" >
+      PRINTED_NUM = #{printedNum,jdbcType=DECIMAL},
+    </if>
+    <if test="downableNum != null" >
+      DOWNABLE_NUM = #{downableNum,jdbcType=DECIMAL},
+    </if>
+    <if test="downNum != null">
+      DOWN_NUM = #{downNum,jdbcType=DECIMAL},
+    </if>
+    <if test="updatedBy != null" >
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+    </if>
+    <if test="updatedDt != null" >
+      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP}
+    </if>
+    where MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
+  </update>
+</mapper>

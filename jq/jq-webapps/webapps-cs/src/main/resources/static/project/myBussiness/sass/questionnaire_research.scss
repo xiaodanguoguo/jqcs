@@ -1,0 +1,81 @@
+.questionnaire{
+    margin:0 auto;
+    width:990px;
+    height:600px;
+}
+.questionnaire-title{
+    width:990px; 
+    height:40px;
+    line-height:40px;
+    border-bottom:1px solid #6390f3;
+}
+.questionnaire-Homepage{
+    margin:13px 0 0 15px;
+}
+.questionnaire-statistics{ 
+    position: relative;
+    width:100px;
+    margin-left:-5px;
+    .questionnaire-close{
+        position: absolute;
+        top:-7px;
+        right:2px;
+    }
+}
+
+.questionnaire-name{
+    width:990px; 
+    height:85px;
+    line-height:85px;
+    border-bottom:1px solid  #dee3e6;
+    .questionnaire-name__tit{
+        font-size:30px;
+        margin-left:20px;
+    }
+}
+.questionnaire-list{
+    width:990px;
+    height:285px;
+}
+.questionnaire-Every-list{
+    margin-left:50px;
+    margin-top:26px;
+}
+.questionnaire-list-Everyquest{
+    margin-top:10px;
+}
+.questionnaire-list-Everyquest p{
+    height:28px;
+    line-height:28px;
+}
+.questionnaire-list-EveryList{
+    margin:8px 0 15px 0;
+}
+.questionnaire-list-EveryListeve{
+    float: left;
+    margin-right:12px;
+    width:56px;
+    height:18px;
+    line-height:18px;
+    .questionnaire-list-Radio{
+        margin-right: 4px;
+    }
+}
+.questionnaire-list-title{
+    margin-left:52px;
+    margin-top:20px;
+    font-size:14px;
+}
+.questionnaire-list-text{
+    margin-left:52px;
+    margin-top:15px;
+    width:890px;
+    height:75px;
+    border:1px solid  #dee3e6;
+}
+.questionnaire-list-submit{
+    margin-left:52px;
+    margin-top:15px;
+    width:30px;
+    height:28px;
+}

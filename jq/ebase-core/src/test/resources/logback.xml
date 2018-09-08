@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration debug="false" scan="false">
+
+	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d %-5level [%thread] %logger{20} - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="defaultAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/ennew.log</file>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>logs/ennew.log-%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d %-5level [%thread] %logger{20} - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="tracingAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/data/opt/servicelog/api/enn-trace.log</file>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/data/opt/servicelog/api/enn-trace-%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<layout class="com.ebase.core.log.SearchablePatternLayout">
+			<pattern>%d %app %ip %z %uid %rid %-5level [%thread] %res - %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<root level="info">
+		<appender-ref ref="consoleAppender" />
+		<appender-ref ref="defaultAppender" />
+	</root>
+
+	<logger name="generic" additivity="false" level="info">
+		<appender-ref ref="tracingAppender" />
+	</logger>
+	<logger name="costing" additivity="false" level="info">
+		<appender-ref ref="tracingAppender" />
+	</logger>
+
+	<logger name="tracing" additivity="false" level="info">
+		<appender-ref ref="tracingAppender" />
+	</logger>
+
+</configuration>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.MillCustomerMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.MillCustomer" >
+    <result column="SID" property="sid" jdbcType="DECIMAL" />
+   <!-- <result column="BUKRS" property="bukrs" jdbcType="VARCHAR" />
+    <result column="KUNNR" property="kunnr" jdbcType="VARCHAR" />-->
+    <result column="BUKRS" property="custCode" jdbcType="VARCHAR" />
+    <result column="KUNNR" property="customerName" jdbcType="VARCHAR" />
+    <result column="NAME1" property="name1" jdbcType="VARCHAR" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  <select id="findList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCustomer">
+    SELECT
+MILL_CUSTOMER.NAME1
+FROM
+MILL_CUSTOMER
+  </select>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.MillCustomer" >
+    insert into MILL_CUSTOMER (SID, BUKRS, KUNNR, 
+      NAME1, CREATED_BY, CREATED_DT, 
+      UPDATED_BY, UPDATED_DT, VERSION
+      )
+    values (#{sid,jdbcType=DECIMAL}, #{bukrs,jdbcType=VARCHAR}, #{kunnr,jdbcType=VARCHAR}, 
+      #{name1,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.MillCustomer" >
+    insert into MILL_CUSTOMER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        SID,
+      </if>
+      <if test="bukrs != null" >
+        BUKRS,
+      </if>
+      <if test="kunnr != null" >
+        KUNNR,
+      </if>
+      <if test="name1 != null" >
+        NAME1,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=DECIMAL},
+      </if>
+      <if test="bukrs != null" >
+        #{bukrs,jdbcType=VARCHAR},
+      </if>
+      <if test="kunnr != null" >
+        #{kunnr,jdbcType=VARCHAR},
+      </if>
+      <if test="name1 != null" >
+        #{name1,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

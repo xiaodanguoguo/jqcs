@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.CrmProductCategoryMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
+    <id column="CID" property="cid" jdbcType="NUMERIC" />
+    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+    <result column="CATEGORY_DESC" property="categoryDesc" jdbcType="VARCHAR" />
+    <result column="PARENT_CID" property="parentCid" jdbcType="NUMERIC" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="CREATE_BYID" property="createByid" jdbcType="NUMERIC" />
+    <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+    <result column="CREATE_DT" property="createDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BYID" property="updateByid" jdbcType="NUMERIC" />
+    <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+    <result column="UPDATE_DT" property="updateDt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CID, CATEGORY_NAME, CATEGORY_DESC, PARENT_CID, STATUS, CREATE_BYID, CREATE_BY, CREATE_DT, 
+    UPDATE_BYID, UPDATE_BY, UPDATE_DT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_PRODUCT_CATEGORY
+    where CID = #{cid,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_PRODUCT_CATEGORY
+    where CID = #{cid,jdbcType=NUMERIC}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="cid">
+      SELECT SEQ_CRM_PRODUCT_CATEGORY.nextval FROM dual
+    </selectKey>
+    insert into CRM_PRODUCT_CATEGORY (CID, CATEGORY_NAME, CATEGORY_DESC, 
+      PARENT_CID, STATUS, CREATE_BYID, 
+      CREATE_BY, CREATE_DT, UPDATE_BYID, 
+      UPDATE_BY, UPDATE_DT)
+    values (#{cid,jdbcType=NUMERIC}, #{categoryName,jdbcType=VARCHAR}, #{categoryDesc,jdbcType=VARCHAR}, 
+      #{parentCid,jdbcType=NUMERIC}, #{status,jdbcType=VARCHAR}, #{createByid,jdbcType=NUMERIC}, 
+      #{createBy,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP}, #{updateByid,jdbcType=NUMERIC}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateDt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="cid">
+      SELECT SEQ_CRM_PRODUCT_CATEGORY.nextval FROM dual
+    </selectKey>
+    insert into CRM_PRODUCT_CATEGORY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        CID,
+      </if>
+      <if test="categoryName != null" >
+        CATEGORY_NAME,
+      </if>
+      <if test="categoryDesc != null" >
+        CATEGORY_DESC,
+      </if>
+      <if test="parentCid != null" >
+        PARENT_CID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createByid != null" >
+        CREATE_BYID,
+      </if>
+      <if test="createBy != null" >
+        CREATE_BY,
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT,
+      </if>
+      <if test="updateByid != null" >
+        UPDATE_BYID,
+      </if>
+      <if test="updateBy != null" >
+        UPDATE_BY,
+      </if>
+      <if test="updateDt != null" >
+        UPDATE_DT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        #{cid,jdbcType=NUMERIC},
+      </if>
+      <if test="categoryName != null" >
+        #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryDesc != null" >
+        #{categoryDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCid != null" >
+        #{parentCid,jdbcType=NUMERIC},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createByid != null" >
+        #{createByid,jdbcType=NUMERIC},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateByid != null" >
+        #{updateByid,jdbcType=NUMERIC},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDt != null" >
+        #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
+    update CRM_PRODUCT_CATEGORY
+    <set >
+      <if test="categoryName != null" >
+        CATEGORY_NAME = #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryDesc != null" >
+        CATEGORY_DESC = #{categoryDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCid != null" >
+        PARENT_CID = #{parentCid,jdbcType=NUMERIC},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createByid != null" >
+        CREATE_BYID = #{createByid,jdbcType=NUMERIC},
+      </if>
+      <if test="createBy != null" >
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateByid != null" >
+        UPDATE_BYID = #{updateByid,jdbcType=NUMERIC},
+      </if>
+      <if test="updateBy != null" >
+        UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDt != null" >
+        UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CID = #{cid,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
+    update CRM_PRODUCT_CATEGORY
+    set CATEGORY_NAME = #{categoryName,jdbcType=VARCHAR},
+      CATEGORY_DESC = #{categoryDesc,jdbcType=VARCHAR},
+      PARENT_CID = #{parentCid,jdbcType=NUMERIC},
+      STATUS = #{status,jdbcType=VARCHAR},
+      CREATE_BYID = #{createByid,jdbcType=NUMERIC},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      UPDATE_BYID = #{updateByid,jdbcType=NUMERIC},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP}
+    where CID = #{cid,jdbcType=NUMERIC}
+  </update>
+  <select id="getList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
+    select
+    <include refid="Base_Column_List" />
+    from CRM_PRODUCT_CATEGORY
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="categoryName != null and categoryName != '' " >
+        AND CATEGORY_NAME  LIKE '%' || #{categoryName} ||'%'
+      </if>
+      <if test="status != null" >
+        AND STATUS = #{status}
+      </if>
+    </trim>
+  </select>
+  <select id="getOne"  resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
+    select
+    <include refid="Base_Column_List" />
+    from CRM_PRODUCT_CATEGORY
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="categoryName != null and categoryName != '' " >
+        AND CATEGORY_NAME  =  #{categoryName}
+      </if>
+    </trim>
+  </select>
+</mapper>

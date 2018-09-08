@@ -1,0 +1,117 @@
+﻿@@include('../../commonNav/html/commonHeaderNoSideBlue.html')
+    <link rel="stylesheet" href="../css/register_orange.css" >
+    <script src="../js/mlogin.js"></script>
+    <link rel="stylesheet" href="../../quality/css/fake_Verification.css">
+    <script src="../../quality/js/checkTrue.js"></script>
+    <style>
+        .drag{
+            width: 252px!important;
+        }
+    </style>
+    <div class="login__index">
+        <div class="loginFrom">
+            <div id="js-loginFrom__tittle" class="loginFrom__tittle">
+                <div class="loginFrom__tittle-headFirst">Welcome</div>
+                <div class="loginFrom__tittle-headSecond">酒钢服务平台</div>
+            </div>
+            <div id="js-loginFrom__errorHint--hide" class="loginFrom__errorHint--hide"  style="display: none;">
+                <span id="js-loginFrom__hintContent"  class="loginFrom__hintContent"></span>
+                <span class="loginChangePassword__icon--del" id="hideErrContent" style="cursor: pointer;"></span>
+            </div>
+            <div class="loginFrom__item">
+                <div class="login__icon login__icon--user"></div>
+                <input type="text" id="js-input--username" class="input-l loginFrom__input required" placeholder="登录名/手机号/邮箱">
+            </div>
+            <div class="loginFrom__item">
+                <div class="login__icon login__icon--password"></div>
+                <input type="password" id="js-input-password" class="input-l loginFrom__input required">
+            </div>
+            <!--<div class="loginFrom__item">
+                <div id="drag" class="drag"></div>
+            </div>-->
+            <div class="loginFrom__checkBox">
+                <div class="loginFrom__checkBoxLeft">
+                    <input type="checkbox" style="cursor:pointer;" id="isSavePassword">
+                    记住密码
+                </div>
+                <div class="loginFrom__checkBoxRight">
+                    <a href="register.html" style="color:#333;">注册</a>
+                    <span>|</span>
+                    <a href="forgetPassword.html" style="color:#333;">忘记密码？</a>
+                </div>
+            </div>
+            <div class="login__btn">
+                <button type="button" id="js-login__btn--login" value="登录" class="login__btn--login">登陆</button>
+            </div>
+
+        </div>
+    </div>
+    <ul class="login-tab" comtype="tabCtrl" contentcls="login-tabCon">
+        <li class="login-tab-list" nidx="0">产品推荐</li>
+        <li class="login-tab-list" nidx="1">关于我们</li>
+        <li class="login-tab-list" nidx="2">合作伙伴</li>
+        <li class="login-tab-list" nidx="3">防伪验真</li>
+        <li class="login-tab-list" nidx="4">公司荣誉</li>
+    </ul>
+    <div class="login-tabCon">
+        <div class="home-Banner">
+            <ul class="home-Banner-list" id="imgListLun" comType="" reqParam="{}" reqPath="" templateId="templateRow" method="POST">
+                <li class="home-Banner-list-block" id="templateRow" style="display: none;"></li>
+            </ul>
+            <button class="home-Banner-list-left changeGary" id="btnLeftOpe" disabled="true" ><</button>
+            <button class="home-Banner-list-right" id="btnRightOpe">></button>
+        </div>
+    </div>
+    <div class="login-tabCon tabTitLi" nidx="1" style="display: none;"></div>
+    <div class=" login-tabCon tabTitLi" nidx="2" style="display: none;"></div>
+    <div class=" login-tabCon tabTitLi" nidx="3" style="display: none;">
+        <div class="verification">
+            <!--<div class="verification-title">
+                <div class="btnLowNew verification-Home-page">首页</div>
+                <div class="btnLowNew verification-questionnaire">防伪验真
+                    <b class="verification-title-close">X</b>
+                </div>
+            </div>-->
+            <div class="verification-Tab">
+                <ul class="tabMenu-four" comtype="tabCtrl" contentcls="tabCon">
+                    <li class="tabTitLi" nidx="0">
+                        <span>防伪验真码</span>
+                    </li>
+                    <li nidx="1">
+                        <span>附件验真</span>
+                    </li>
+                </ul>
+                <div class="verification-TabCon">
+                    <div class="tabCon verification-TabCon-Every">
+                        <ul class="verification-TabCon-Every__Content" id="checkTrueBox">
+                            <li class="verification-TabCon-Every__Every">
+                                <span class="verification-TabCon-Every__Name">质量证明书号:</span>
+                                <input type="text" id="millSheetNo" class="verification-TabCon-Every__Input required "><b class="verification-TabCon-Every__Sign">*</b>
+                            </li>
+                            <li class="verification-TabCon-Every__Every">
+                                <span class="verification-TabCon-Every__Name">防伪码:</span>
+                                <input type="text" id="securityCode" class="verification-TabCon-Every__Input required"><b class="verification-TabCon-Every__Sign">*</b>
+                            </li>
+                            <li class="verification-TabCon-Every__Every">
+                                <span class="verification-TabCon-Every__Name">滑动验证:</span>
+                                <div id="drag" class="drag" style="top: -30px;left: 87px;width: 354px;"></div>
+                            </li>
+                            <div class="btnBaseCommon verification-TabCon-Every__Submit" id="submitOpe">提交</div>
+                            <div class="btnBaseCancel verification-TabCon-Every__reset" id="resetOpe">重置</div>
+                        </ul>
+                    </div>
+                    <div class="tabCon verification-TabCon-Every" style="display: none;">
+                        <div class="verification-TabCon-uploading">
+                            <input type="text" class="verification-TabCon-Input" id="fileUrl" disabled="true">
+                            <a class="fl" href="javascript:;" comType="uploadCtrl" uploadType="button" uploadTypeVal="上传" reqPath="/file/upload" uploadSize='{"w":"100","h":"28"}' filetype="" fileExt=""></a>
+                            <div style="width: 100%;float: left;">
+                                <div class="btnBaseCommon verification-TabCon-up" id="uploadCheck">上传验证</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" login-tabCon tabTitLi" nidx="4" style="display: none;"></div>
+    @@include('../../commonNav/html/commonFoot.html')

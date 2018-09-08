@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/create_research.css">
+    <link rel="stylesheet" href="../../../base/css/baseOrange.css">
+    <link rel="stylesheet" href="../../../base/css/baseBlue.css">
+    <link rel="stylesheet" href="../../../base/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../../../plugin/popup/css/manhuaDialog.1.0_blue.css">
+    <script src="../../../base/js/jquery.js"></script>
+    <script src="../../../base/js/public.js"></script>
+    <script src="../../../base/js/docassistant.js"></script>
+    <script src="../../../base/js/jquery.cookie.js"></script>
+    <script src="../../../reqConfig.js"></script>
+    <script src="../../../plugin/popup/script/manhuaDialog.1.0.js"></script>
+    <script src="../../../plugin/WdatePickerBlue/My97DatePicker/WdatePicker.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.establish-content-issue').on('click', function () {
+                openWin('360', '306', 'inputAnswer', true);
+            })
+        })
+    </script> 
+</head>
+
+<body>
+    <div class="establish">
+        <div class="establish-title">
+            <div class="btnLowNew establish-Home-page">首页</div>
+            <div class="btnLowNew establish-questionnaire">创建调查问卷
+                <b class="establish-title-close">X</b>
+            </div>
+        </div>
+        <div class="establish-content">
+            <ul class="establish-contenter">
+                <li class="establish-contenter-Every">
+                    <span class="establish-contenter-tit">信息标题</span>
+                    <input type="text" class="inputBase">
+                </li>
+                <li class="establish-contenter-Every">
+                    <span class="establish-contenter-tit">创建时间</span>
+                    <input type="text" class="Wdate" onClick="WdatePicker({minDate:'%y-%M-#{%d+1}'})">
+                </li>
+                <li class="establish-contenter-Every">
+                    <span class="establish-contenter-tit">至</span>
+                    <input type="text" class="Wdate" onfocus="WdatePicker({
+                minDate:'%y-%M-%d',firstDayOfWeek:1})">
+                </li>
+            </ul>
+            <div class="establish-content-table">
+                <div class="establish-content-tableLeft">
+                    <div class="establish-content-tableLeftbutton">
+                        <div class="btnLowNew establish-content-search">查询</div>
+                        <div class="btnLowNew establish-content-create">新建</div>
+                        <div class="btnLowDel establish-content-del">清除</div>
+                        <div class="btnBaseSave establish-content-save">保存</div>
+                        <div class="btnLowNew establish-content-preview">预览</div>
+                        <div class="btnLowNew establish-content-issue">下发</div>
+                    </div>
+                    <table class="table-list establish-content-tableLefts">
+                        <tr class="table-list-currentrow">
+                            <th class="table-list-currentrow-theader" width="3%"></th>
+                            <th class="table-list-currentrow-theader" width="7%">信息编号</th>
+                            <th class="table-list-currentrow-theader" width="7%">创建时间</th>
+                            <th class="table-list-currentrow-theader" width="6%">状态</th>
+                            <th class="table-list-currentrow-theader" width="22%">标题</th>
+                            <th class="table-list-currentrow-theader" width="8%">结束时间</th>
+                        </tr>
+                        <tr class="table-list-currentrow">
+                            <td class="table-list-currentrow-tdetail">
+                                <input type="radio">
+                            </td>
+                            <td class="table-list-currentrow-tdetail">1807001</td>
+                            <td class="table-list-currentrow-tdetail">2018/07/17</td>
+                            <td class="table-list-currentrow-tdetail">新建</td>
+                            <td class="table-list-currentrow-tdetail">关于材料产品的满意度调查</td>
+                            <td class="table-list-currentrow-tdetail">2018/07/27</td>
+                        </tr>
+                        <tr class="table-list-currentrow table-list-currentrowActive">
+                            <td class="table-list-currentrow-tdetail">
+                                <input type="radio">
+                            </td>
+                            <td class="table-list-currentrow-tdetail">1807001</td>
+                            <td class="table-list-currentrow-tdetail">2018/07/17</td>
+                            <td class="table-list-currentrow-tdetail">新建</td>
+                            <td class="table-list-currentrow-tdetail">关于材料产品的满意度调查</td>
+                            <td class="table-list-currentrow">2018/07/27</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="establish-content-tableRight">
+                    <div class="establish-content-tableRightbutton">
+                        <div class="btnLowNew">新增</div>
+                        <div class="btnLowDel">清除</div>
+                        <div class="btnBaseSave">保存</div>
+                    </div>
+                    <table class="table-list establish-content-tableRights">
+                        <tr class="table-list-currentrow">
+                            <th class="table-list-currentrow-theader" width="5%">
+                                <input type="checkbox">
+                            </th>
+                            <th class="table-list-currentrow-theader" width="9%">问题编码</t>
+                                <th class="table-list-currentrow-theader" width="20%">问题项目</th>
+                                <th class="table-list-currentrow-theader" width="10%">答题选项</th>
+                        </tr>
+                        <tr class="table-list-currentrow">
+                            <td class="table-list-currentrow-tdetail">
+                                <input type="checkbox">
+                            </td>
+                            <td class="table-list-currentrow-tdetail">1</td>
+                            <td class="table-list-currentrow-tdetail">对产品售后是否满意？</td>
+                            <td class="table-list-currentrow-tdetail" width="14%">
+                                <select name="" class="graded">
+                                    <option value="">请选择</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="inputAnswer" class="popup gc_box" style="display:none">
+        <div class="title" style="">
+            <h2>异议处理评价</h2>
+            <div>
+                <a class="min" href=" " title="最小化" style="display:none;"></a>
+                <a class="max" href="javascript:;" title="最大化" style="display:none;"></a>
+                <a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+                <a class="close" href="javascript:;" title="关闭" style="display:block;"></a>
+            </div>
+        </div>
+        <div class="content">
+            <table class="table-list">
+                <!-- <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" width="4%"><input type="radio"></th>
+                    <th class="table-list-currentrow-theader" width="10%">用户角色</th>
+                </tr> -->
+                <tr class="table-list-currentrow">
+                    <td class="table-list-currentrow-tdetail"  width="3%">
+                        <input type="radio">
+                    </td>
+                    <td class="table-list-currentrow-tdetail" width="10%">用户角色</td>
+                </tr>
+                <tr class="table-list-currentrow table-list-currentrowActive">
+                    <td class="table-list-currentrow-tdetail" width="3%">
+                        <input type="radio">
+                    </td>
+                    <td class="table-list-currentrow-tdetail" width="10%">销售公司</td>
+                </tr>
+                <tr class="table-list-currentrow">
+                    <td class="table-list-currentrow-tdetail" width="3%">
+                        <input type="radio">
+                    </td>
+                    <td class="table-list-currentrow-tdetail" width="10%">一级代理</td>
+                </tr>
+                <tr class="table-list-currentrow table-list-currentrowActive">
+                    <td class="table-list-currentrow-tdetail" width="3%">
+                        <input type="radio">
+                    </td>
+                    <td class="table-list-currentrow-tdetail" width="10%">贸易商</td>
+                </tr>
+                <tr class="table-list-currentrow">
+                    <td class="table-list-currentrow-tdetail" width="3%">
+                        <input type="radio">
+                    </td>
+                    <td class="table-list-currentrow-tdetail" width="10%">终端用户</td>
+                </tr>
+            </table>
+            <div class="product-button">
+                    <div class="btnBaseCommon product-save">确定</div>
+                    <div class="btnBaseCancel product-submit">取消</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

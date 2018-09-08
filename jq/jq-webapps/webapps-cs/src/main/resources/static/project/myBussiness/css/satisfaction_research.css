@@ -1,0 +1,27 @@
+.researchs { margin: 0 auto; width: 990px; height: 600px; }
+
+.researchs-title { width: 990px; height: 40px; line-height: 40px; border-bottom: 1px solid #6390f3; }
+
+.researchs-Homepage { margin: 13px 0 0 15px; border-right: none; }
+
+.researchs-statistics { position: relative; width: 115px; margin-left: -5px; }
+
+.researchs-statistics .researchs-close { position: absolute; top: -7px; right: 2px; }
+
+.researchs-name { width: 990px; height: 85px; line-height: 85px; border-bottom: 1px solid  #dee3e6; }
+
+.researchs-name .researchs-name__tit { font-size: 30px; margin-left: 20px; }
+
+.researchs-table { width: 990px; }
+
+.researchs-table .researchs-table__Input { width: 990px; height: 105px; }
+
+.researchs-table__Input-title { float: left; margin-top: 48px; margin-left: 52px; }
+
+.researchs-table__Input-title .researchs-tableInput-title-select { width: 170px; height: 28px; line-height: 28px; border: 1px solid  #dee3e6; margin-left: 10px; margin-right: 10px; }
+
+.researchs-table__Input-title .researchs-tableInput-title-search { width: 30px; height: 30px; }
+
+.researchs-table .table-list { width: 840px; margin-left: 52px; }
+
+.researchs-table .table-list .table-list-currentrow-tdetail { text-align: center; }

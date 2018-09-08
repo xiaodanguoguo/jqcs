@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.CrmCustGrumbleMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.CrmCustGrumble" >
+    <id column="CID" property="cid" jdbcType="NUMERIC" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="NUMERIC" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="NUMERIC" />
+    <result column="SUBMIT_BY" property="submitBy" jdbcType="VARCHAR" />
+    <result column="GRUMBLE_CONTENT" property="grumbleContent" jdbcType="VARCHAR" />
+    <result column="CREATE_BYID" property="createByid" jdbcType="NUMERIC" />
+    <result column="CREATE_DT" property="createDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_BYID" property="updateByid" jdbcType="NUMERIC" />
+    <result column="UPDATE_DT" property="updateDt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CID, CATEGORY_ID, PRODUCT_ID, SUBMIT_BY, GRUMBLE_CONTENT, CREATE_BYID, CREATE_DT,
+    UPDATE_BYID, UPDATE_DT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from CRM_CUST_GRUMBLE
+    where CID = #{cid,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_CUST_GRUMBLE
+    where CID = #{cid,jdbcType=NUMERIC}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustGrumble" >
+    insert into CRM_CUST_GRUMBLE (CID, CATEGORY_ID, PRODUCT_ID,
+      SUBMIT_BY, GRUMBLE_CONTENT, CREATE_BYID,
+      CREATE_DT, UPDATE_BYID, UPDATE_DT
+      )
+    values (#{cid,jdbcType=NUMERIC}, #{categoryId,jdbcType=NUMERIC}, #{productId,jdbcType=NUMERIC},
+      #{submitBy,jdbcType=VARCHAR}, #{grumbleContent,jdbcType=VARCHAR}, #{createByid,jdbcType=NUMERIC},
+      #{createDt,jdbcType=TIMESTAMP}, #{updateByid,jdbcType=NUMERIC}, #{updateDt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustGrumble" >
+    insert into CRM_CUST_GRUMBLE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        CID,
+      </if>
+      <if test="categoryId != null" >
+        CATEGORY_ID,
+      </if>
+      <if test="productId != null" >
+        PRODUCT_ID,
+      </if>
+      <if test="submitBy != null" >
+        SUBMIT_BY,
+      </if>
+      <if test="grumbleContent != null" >
+        GRUMBLE_CONTENT,
+      </if>
+      <if test="createByid != null" >
+        CREATE_BYID,
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT,
+      </if>
+      <if test="updateByid != null" >
+        UPDATE_BYID,
+      </if>
+      <if test="updateDt != null" >
+        UPDATE_DT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        #{cid,jdbcType=NUMERIC},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=NUMERIC},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=NUMERIC},
+      </if>
+      <if test="submitBy != null" >
+        #{submitBy,jdbcType=VARCHAR},
+      </if>
+      <if test="grumbleContent != null" >
+        #{grumbleContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createByid != null" >
+        #{createByid,jdbcType=NUMERIC},
+      </if>
+      <if test="createDt != null" >
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateByid != null" >
+        #{updateByid,jdbcType=NUMERIC},
+      </if>
+      <if test="updateDt != null" >
+        #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustGrumble" >
+    update CRM_CUST_GRUMBLE
+    <set >
+      <if test="categoryId != null" >
+        CATEGORY_ID = #{categoryId,jdbcType=NUMERIC},
+      </if>
+      <if test="productId != null" >
+        PRODUCT_ID = #{productId,jdbcType=NUMERIC},
+      </if>
+      <if test="submitBy != null" >
+        SUBMIT_BY = #{submitBy,jdbcType=VARCHAR},
+      </if>
+      <if test="grumbleContent != null" >
+        GRUMBLE_CONTENT = #{grumbleContent,jdbcType=VARCHAR},
+      </if>
+      <if test="createByid != null" >
+        CREATE_BYID = #{createByid,jdbcType=NUMERIC},
+      </if>
+      <if test="createDt != null" >
+        CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateByid != null" >
+        UPDATE_BYID = #{updateByid,jdbcType=NUMERIC},
+      </if>
+      <if test="updateDt != null" >
+        UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CID = #{cid,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustGrumble" >
+    update CRM_CUST_GRUMBLE
+    set CATEGORY_ID = #{categoryId,jdbcType=NUMERIC},
+      PRODUCT_ID = #{productId,jdbcType=NUMERIC},
+      SUBMIT_BY = #{submitBy,jdbcType=VARCHAR},
+      GRUMBLE_CONTENT = #{grumbleContent,jdbcType=VARCHAR},
+      CREATE_BYID = #{createByid,jdbcType=NUMERIC},
+      CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      UPDATE_BYID = #{updateByid,jdbcType=NUMERIC},
+      UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP}
+    where CID = #{cid,jdbcType=NUMERIC}
+  </update>
+</mapper>

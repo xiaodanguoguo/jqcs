@@ -1,0 +1,41 @@
+.submission { margin: 0 auto; width: 990px; }
+
+.submission-title { width: 990px; height: 40px; line-height: 40px; border-bottom: 1px solid #6390f3; }
+
+.submission-Home-page { margin: 13px 0 0 15px; }
+
+.submission-questionnaire { position: relative; width: 65px; margin-left: -5px; }
+
+.submission-questionnaire .submission-title-close { position: absolute; top: -7px; right: 2px; }
+
+.management-box { width: 990px; }
+
+.management-box .management-box-list { width: 990px; }
+
+.management-box-list__Content { margin-left: 12px; margin-top: 20px; width: 850px; }
+
+.management-box-list__Content .submission-box-list__Every { float: left; width: 268px; height: 28px; margin-bottom: 20px; margin-right: 14px; }
+
+.management-box-list__Content .submission-box-list__Every .submission-box-list__Name { display: inline-block; width: 64px; margin-right: 6px; text-align: right; }
+
+.management-box-list__Content .submission-box-list__Every .inputBase { width: 176px; height: 28px; line-height: 28px; }
+
+.management-box-list__Content .submission-box-list__Every .Wdate { width: 184px; border: 1px solid #dee3e6; }
+
+.management-box-list__Content .submission-box-list__Every .submission-box-list__Select { width: 197px; }
+
+.submission-box-list__Every .submission-box-list__Select { width: 197px; }
+
+.submission-box-button { margin-top: 26px; margin-left: 22px; }
+
+.submission-box-button div { margin-right: 4px; }
+
+.submission-table { width: 950px; height: auto; margin-top: 20px; margin-left: 22px; border: 1px solid #dee3e6; overflow-x: scroll; overflow-y: scroll; }
+
+.table-list { table-layout: fixed; width: 1200px !important; }
+
+.table-list .table-list-currentrow-tdetail { width: 45px !important; text-align: center; }
+
+.table-list .table-list-currentrow-tdetail img { width: 20px; height: 20px; }
+
+.table-list .table-list-currentrow-tdetail .submission-box-watch { color: #6390f3; }

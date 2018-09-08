@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.base.facade.dao.AcctRolePurchaseMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.base.facade.model.AcctRolePurchase" >
+    <id column="ROLE_PURCHASE_ID" property="rolePurchaseId" />
+    <result column="ROLE_ID" property="roleId" />
+    <result column="PURCHASE_TYPE" property="purchaseType" />
+    <result column="STATUS" property="status"  />
+    <result column="CREATED_BY" property="createdBy" />
+    <result column="CREATED_TIME" property="createdTime"  />
+  </resultMap>
+
+  <resultMap id="BaseResultMapTwo" type="jq.steel.cs.services.base.facade.model.AcctRolePurchase" >
+    <id column="ROLE_PURCHASE_ID" property="rolePurchaseId" />
+    <result column="ROLE_ID" property="roleId" />
+    <result column="PURCHASE_TYPE" property="purchaseType" />
+    <result column="STATUS" property="status"  />
+    <result column="CREATED_BY" property="createdBy" />
+    <result column="CREATED_TIME" property="createdTime"  />
+
+    <association property="roleInfos"  javaType="jq.steel.cs.services.base.facade.model.RoleInfo" >
+      <id column="r_ROLE_ID" property="roleId" />
+      <result column="r_APP_ID" property="appId" />
+      <result column="r_ENT_ID" property="entId" />
+      <result column="r_ROLE_CODE" property="roleCode" />
+      <result column="r_ROLE_TITLE" property="roleTitle" />
+      <result column="r_ROLE_STATE" property="roleState"  />
+      <result column="r_ROLE_DESC" property="roleDesc" />
+      <result column="r_IS_DELETE" property="isDelete"  />
+      <result column="r_STATUS" property="status"  />
+      <result column="r_CREATED_BY" property="createdBy" />
+      <result column="r_CREATED_TIME" property="createdTime"  />
+      <result column="r_UPDATED_BY" property="updatedBy" />
+      <result column="r_UPDATED_TIME" property="updatedTime"  />
+
+      <result column="r_ROLE_TYPE" property="roleType"  />
+      <result column="r_START_TIME" property="startTime"  />
+      <result column="r_END_TIME" property="endTime"  />
+
+      <result column="r_ROLE_TYPE_TITLE" property="roleTypeTitle" />
+
+      <result column="r_ORG_ID" property="orgId" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLE_PURCHASE_ID, ROLE_ID, PURCHASE_TYPE, STATUS, CREATED_BY, CREATED_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from acct_role_purchase
+    where ROLE_PURCHASE_ID = #{rolePurchaseId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from acct_role_purchase
+    where ROLE_PURCHASE_ID = #{rolePurchaseId}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.AcctRolePurchase" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="functionId">
+      SELECT SEQ_FUNCTION_MANAGE.nextval AS functionId FROM dual
+    </selectKey>
+    insert into acct_role_purchase (ROLE_PURCHASE_ID, ROLE_ID, PURCHASE_TYPE, 
+      STATUS, CREATED_BY, CREATED_TIME
+      )
+    values (#{rolePurchaseId}, #{roleId}, #{purchaseType},
+      #{status}, #{createdBy}, #{createdTime}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.base.facade.model.AcctRolePurchase" >
+    insert into acct_role_purchase
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rolePurchaseId != null" >
+        ROLE_PURCHASE_ID,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="purchaseType != null" >
+        PURCHASE_TYPE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rolePurchaseId != null" >
+        #{rolePurchaseId},
+      </if>
+      <if test="roleId != null" >
+        #{roleId},
+      </if>
+      <if test="purchaseType != null" >
+        #{purchaseType},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.base.facade.model.AcctRolePurchase" >
+    update acct_role_purchase
+    <set >
+      <if test="roleId != null" >
+        ROLE_ID = #{roleId},
+      </if>
+      <if test="purchaseType != null" >
+        PURCHASE_TYPE = #{purchaseType},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy},
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME = #{createdTime},
+      </if>
+    </set>
+    where ROLE_PURCHASE_ID = #{rolePurchaseId}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.base.facade.model.AcctRolePurchase" >
+    update acct_role_purchase
+    set ROLE_ID = #{roleId},
+      PURCHASE_TYPE = #{purchaseType},
+      STATUS = #{status},
+      CREATED_BY = #{createdBy},
+      CREATED_TIME = #{createdTime}
+    where ROLE_PURCHASE_ID = #{rolePurchaseId}
+  </update>
+
+
+  <select id="selectAcctRolePurchase" resultMap="BaseResultMapTwo" parameterType="jq.steel.cs.services.base.facade.model.AcctRolePurchase" >
+    select *
+    from acct_role_purchase a
+    left join LEFT JOIN role_info r on a.role_id=r.ROLE_ID
+    where 1=1
+    <if test="purchaseType != null and purchaseType != '' " >
+      and a.PURCHASE_TYPE = #{purchaseType}
+    </if>
+    <if test="roleId != null and roleId != '' " >
+      and a.ROLE_ID = #{roleId}
+    </if>
+  </select>
+</mapper>
