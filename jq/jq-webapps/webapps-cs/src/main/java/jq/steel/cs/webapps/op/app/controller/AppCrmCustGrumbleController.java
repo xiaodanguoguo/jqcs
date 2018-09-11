@@ -1,5 +1,6 @@
 package jq.steel.cs.webapps.op.app.controller;
 
+import com.ebase.core.AssertContext;
 import com.ebase.core.exception.BusinessException;
 import com.ebase.core.log.SearchableLoggerFactory;
 import com.ebase.core.service.ServiceResponse;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Date;
 
 /**
  * @ClassName: AppCrmCustGrumbleController
@@ -42,8 +45,10 @@ public class AppCrmCustGrumbleController {
         JsonResponse<Integer> jsonResponse = new JsonResponse<>();
 
         try {
-            ServiceResponse<Integer> serviceResponse = appCrmCustGrumbleApi
-                    .addCrmCustGrumble(jsonRequest);
+            CrmCustGrumbleVO grumbleVO = jsonRequest.getReqBody();
+            grumbleVO.setCreateByid(Long.parseLong(AssertContext.getAcctId()));
+            grumbleVO.setCreateDt(new Date());
+            ServiceResponse<Integer> serviceResponse = appCrmCustGrumbleApi.addCrmCustGrumble(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {

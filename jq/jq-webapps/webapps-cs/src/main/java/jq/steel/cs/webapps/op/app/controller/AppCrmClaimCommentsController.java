@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @param:
  * @return:
- * @description:  客户评价
+ * @description:  客户评价 x
  * @author: lirunze
  * @Date: 2018/9/7
  */

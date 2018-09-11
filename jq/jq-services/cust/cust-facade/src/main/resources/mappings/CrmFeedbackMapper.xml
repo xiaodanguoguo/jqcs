@@ -21,12 +21,18 @@
     where CID = #{cid,jdbcType=NUMERIC}
   </delete>
   <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmFeedback" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="cid">
+      SELECT SEQ_CRM_FEEDBACK.nextval FROM dual
+    </selectKey>
     insert into CRM_FEEDBACK (CID, CATEGORY_NAME, CREATE_BYID, 
       CREATE_DT)
     values (#{cid,jdbcType=NUMERIC}, #{categoryName,jdbcType=VARCHAR}, #{createByid,jdbcType=NUMERIC}, 
       #{createDt,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmFeedback" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="cid">
+      SELECT SEQ_CRM_FEEDBACK.nextval FROM dual
+    </selectKey>
     insert into CRM_FEEDBACK
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="cid != null" >

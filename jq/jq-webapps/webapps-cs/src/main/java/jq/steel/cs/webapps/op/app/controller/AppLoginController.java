@@ -1,6 +1,5 @@
 package jq.steel.cs.webapps.op.app.controller;
 
-import com.ebase.core.AssertContext;
 import com.ebase.core.log.SearchableLoggerFactory;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.session.AcctLogin;
@@ -74,16 +73,33 @@ public class AppLoginController {
             }
         }catch (Exception e){
             logger.error("app login occurred error.", e);
+
             jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
         }
 
         return jsonResponse;
     }
 
-    @RequestMapping("/xxx")
-    public JsonResponse<String> xxx(@RequestBody JsonResponse<String> jsonReqest){
-        JsonResponse<String> jsonResponse = new JsonResponse<>();
-        jsonResponse.setRspBody(AssertContext.getAcctName());
+    @RequestMapping("/logout")
+    public JsonResponse<Boolean> logout(@RequestBody JsonRequest<String> jsonRequest){
+        JsonResponse<Boolean> jsonResponse = new JsonResponse<Boolean>();
+        try{
+            String sessionId = jsonRequest.getReqHeader().getSid();
+
+            ServiceResponse<Boolean> serviceResponse = backMemberAPI.delUser(sessionId);
+            if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
+                logger.error("注销成功 !!");
+                jsonResponse.setRspBody(true);
+
+            }else {
+                jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                logger.error("注销成功 !!");
+            }
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
         return jsonResponse;
     }
 

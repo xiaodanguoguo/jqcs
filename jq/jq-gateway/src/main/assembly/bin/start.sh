@@ -3,7 +3,7 @@ cd `dirname $0`
 BIN_DIR=`pwd`
 cd ..
 DEPLOY_DIR=`pwd`
-APP_NAME=claim-gateway-0.0.1-SNAPSHOT
+APP_NAME=jq-gateway-0.0.1-SNAPSHOT
 APP_DIR="${DEPLOY_DIR}/lib"
 rm -f tpid
 
