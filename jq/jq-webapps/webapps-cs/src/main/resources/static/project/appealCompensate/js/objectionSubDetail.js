@@ -469,7 +469,7 @@ function boxChecked(){
 
 //完成提交参数拼接
 function paramJson(){
-    var jsonParam = {"claimNo":"","productId":"","millSheetNo":"","customerId":"","customerName":"","custAddr":"","custEmpNo":"","custTel":"","lastUserId":"","lastUser":"","lastUserAddr":"","createEmpNo":"","lastUserTel":"","battenPlateNo":"","designation":"","used":"","contractNo":"","contractVolume":"","sizeMark":"","originalWeight":"","orderNo":"","originalCarNo":"","contractUnitPrice":"","objectionNum":"","endProcessingTech":"","claimDesc":"","claimReason":"","rejectReason":"","productDt":"","shift":"","userRequirement":"","handingSuggestion":"","inquireInfo":"","fieldConclusion":"","claimVerdict":"","improvement":""};
+    var jsonParam = {"claimNo":"","productId":"","millSheetNo":"","customerId":"","customerName":"","custAddr":"","custEmpNo":"","custTel":"","lastUserId":"","lastUser":"","lastUserAddr":"","createEmpNo":"","lastUserTel":"","battenPlateNo":"","designation":"","used":"","contractNo":"","contractVolume":"","specs":"","originalWeight":"","orderNo":"","originalCarNo":"","contractUnitPrice":"","objectionNum":"","endProcessingTech":"","claimDesc":"","claimReason":"","rejectReason":"","productDt":"","shift":"","userRequirement":"","handingSuggestion":"","inquireInfo":"","fieldConclusion":"","claimVerdict":"","improvement":""};
     getValue4Desc(jsonParam,$("#submitBox")[0]);
     //产品类别
     jsonParam.productId = $("#productId option:selected").val();
