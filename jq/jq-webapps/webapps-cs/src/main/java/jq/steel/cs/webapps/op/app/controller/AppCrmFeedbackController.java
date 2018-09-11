@@ -1,5 +1,6 @@
 package jq.steel.cs.webapps.op.app.controller;
 
+import com.ebase.core.AssertContext;
 import com.ebase.core.exception.BusinessException;
 import com.ebase.core.log.SearchableLoggerFactory;
 import com.ebase.core.service.ServiceResponse;
@@ -7,12 +8,15 @@ import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
 import jq.steel.cs.services.cust.api.controller.app.AppCrmFeedbackApi;
+import jq.steel.cs.services.cust.api.vo.CrmCustGrumbleVO;
 import jq.steel.cs.services.cust.api.vo.CrmFeedbackVO;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Date;
 
 /**
  * @ClassName: AppCrmFeedbackController
@@ -40,7 +44,9 @@ public class AppCrmFeedbackController {
     public JsonResponse<Integer> addCrmFeedback(@RequestBody JsonRequest<CrmFeedbackVO> jsonRequest) {
         logger.info("添加客户意见反馈 = {}", JsonUtil.toJson(jsonRequest));
         JsonResponse<Integer> jsonResponse = new JsonResponse<>();
-
+        CrmFeedbackVO feedbackVO = jsonRequest.getReqBody();
+        feedbackVO.setCreateByid(Long.parseLong(AssertContext.getAcctId()));
+        feedbackVO.setCreateDt(new Date());
         try {
             ServiceResponse<Integer> serviceResponse = appCrmFeedbackApi
                     .addCrmFeedback(jsonRequest);

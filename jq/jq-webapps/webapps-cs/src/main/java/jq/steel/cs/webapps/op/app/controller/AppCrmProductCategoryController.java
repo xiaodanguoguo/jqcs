@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,7 +52,7 @@ public class AppCrmProductCategoryController {
      * @author: lirunze
      * @Date: 2018/8/20
      */
-    @RequestMapping(value = {"/category/introduct/list"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/introduct/list"}, method = RequestMethod.POST)
     public JsonResponse<List<CrmProductCategoryVO>> getIntroductList() {
         logger.info("产品分类列表");
         JsonResponse<List<CrmProductCategoryVO>> jsonResponse = new JsonResponse<>();
@@ -101,7 +102,14 @@ public class AppCrmProductCategoryController {
                 if (CollectionUtils.isNotEmpty(list)) {
                     for (CrmProductInfoVO crmProductInfoVO : list) {
                         List<String> thumbnailList = JsonUtil.parseObject(crmProductInfoVO.getProductManual(), List.class);
-                        crmProductInfoVO.setThumbnail(FileUploadSringUtil.addPath(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), thumbnailList.get(0)));
+
+                        List<String> thumlList = new ArrayList<>();
+                        for(String str : thumbnailList){
+                            str = FileUploadSringUtil.addPath(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), str);
+                            thumlList.add(str);
+                        }
+                        crmProductInfoVO.setThumbnailList(thumlList);
+                        crmProductInfoVO.setThumbnail(thumlList.get(0));
                     }
                 }
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
@@ -143,6 +151,15 @@ public class AppCrmProductCategoryController {
                 CrmProductInfoVO crmProductInfoVO = serviceResponse.getRetContent();
                 List<String> thumbnailList = JsonUtil.parseObject(crmProductInfoVO.getProductManual(), List.class);
                 crmProductInfoVO.setThumbnail(FileUploadSringUtil.addPath(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), thumbnailList.get(0)));
+
+                List<String> thumbList = new ArrayList<>();
+                for(String str : thumbnailList){
+                    str = FileUploadSringUtil.addPath(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), str);
+                    thumbList.add(str);
+                }
+                crmProductInfoVO.setThumbnailList(thumbList);
+                crmProductInfoVO.setThumbnail(thumbList.get(0));
+
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {
                 if (serviceResponse.isHasError()) {
