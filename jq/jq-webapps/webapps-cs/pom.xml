@@ -178,7 +178,7 @@
 						</include>
 					</includes>
 
-					<mainClass>jq.steel.cs.webapps.op.main.WebappsApplication</mainClass>
+					<mainClass>jq.steel.cs.webapps.cs.main.WebappsApplication</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>
