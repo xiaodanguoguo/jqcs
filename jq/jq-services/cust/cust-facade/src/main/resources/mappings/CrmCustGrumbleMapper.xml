@@ -27,6 +27,9 @@
     where CID = #{cid,jdbcType=NUMERIC}
   </delete>
   <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustGrumble" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="cid">
+      SELECT SEQ_CRM_CUST_GRUMBLE.nextval FROM dual
+    </selectKey>
     insert into CRM_CUST_GRUMBLE (CID, CATEGORY_ID, PRODUCT_ID,
       SUBMIT_BY, GRUMBLE_CONTENT, CREATE_BYID,
       CREATE_DT, UPDATE_BYID, UPDATE_DT
@@ -37,6 +40,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustGrumble" >
+    <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="cid">
+      SELECT SEQ_CRM_CUST_GRUMBLE.nextval FROM dual
+    </selectKey>
     insert into CRM_CUST_GRUMBLE
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="cid != null" >
