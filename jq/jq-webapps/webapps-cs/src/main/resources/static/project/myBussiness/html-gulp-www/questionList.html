@@ -215,7 +215,7 @@
     function clsStandardEditTableCtrl$after(){
         $("#btnCDelete").on("click",function(){
             if($("#questionCList *[id=cloneRowC]:visible").length == 0){
-                $("#allChk").removeAttr("checked");
+                $("#checkAll").removeAttr("checked");
             }
         });
     }
