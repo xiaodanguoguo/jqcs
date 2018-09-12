@@ -507,53 +507,6 @@
     </trim>
     where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInfo" >
-    update CRM_CLAIM_INFO
-    set CLAIM_NO = #{claimNo,jdbcType=VARCHAR},
-      PRODUCT_ID = #{productId,jdbcType=NUMERIC},
-      PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
-      MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
-      CUSTOMER_ID = #{customerId,jdbcType=VARCHAR},
-      CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
-      CUST_ADDR = #{custAddr,jdbcType=VARCHAR},
-      CUST_EMP_NO = #{custEmpNo,jdbcType=VARCHAR},
-      CUST_TEL = #{custTel,jdbcType=VARCHAR},
-      LAST_USER_ID = #{lastUserId,jdbcType=VARCHAR},
-      LAST_USER = #{lastUser,jdbcType=VARCHAR},
-      LAST_USER_ADDR = #{lastUserAddr,jdbcType=VARCHAR},
-      CREATE_EMP_NO = #{createEmpNo,jdbcType=VARCHAR},
-      LAST_USER_TEL = #{lastUserTel,jdbcType=VARCHAR},
-      LAST_USER_EMAIL = #{lastUserEmail,jdbcType=VARCHAR},
-      STEEL_TYPE = #{steelType,jdbcType=VARCHAR},
-      CLAIM_TYPE = #{claimType,jdbcType=VARCHAR},
-      BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR},
-      PRO_PROBLEM = #{proProblem,jdbcType=VARCHAR},
-      DESIGNATION = #{designation,jdbcType=VARCHAR},
-      USED = #{used,jdbcType=VARCHAR},
-      CONTRACT_NO = #{contractNo,jdbcType=VARCHAR},
-      CONTRACT_VOLUME = #{contractVolume,jdbcType=NUMERIC},
-      SIZE_MARK = #{specs,jdbcType=VARCHAR},
-      ORIGINAL_WEIGHT = #{originalWeight,jdbcType=NUMERIC},
-      ORDER_NO = #{orderNo,jdbcType=VARCHAR},
-      ORIGINAL_CAR_NO = #{originalCarNo,jdbcType=VARCHAR},
-      CONTRACT_UNIT_PRICE = #{contractUnitPrice,jdbcType=NUMERIC},
-      OBJECTION_NUM = #{objectionNum,jdbcType=NUMERIC},
-      END_PROCESSING_TECH = #{endProcessingTech,jdbcType=VARCHAR},
-      CLAIM_DESC = #{claimDesc,jdbcType=VARCHAR},
-      CLAIM_REASION = #{claimReasion,jdbcType=VARCHAR},
-      CLAIM_STATE = #{claimState,jdbcType=VARCHAR},
-      FILE_PATH = #{filePath,jdbcType=VARCHAR},
-      CHECK_STATE = #{checkState,jdbcType=VARCHAR},
-      REJECT_REASON = #{rejectReason,jdbcType=VARCHAR},
-      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
-      CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
-      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
-      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
-      VERSION = #{version,jdbcType=NUMERIC},
-      DISSENTING = #{dissentingUnit,jdbcType=NUMERIC},
-      INQUIRE_STATE = #{inquireState,jdbcType=VARCHAR}
-    where SID = #{sid,jdbcType=NUMERIC}
-  </update>
 
 
   <select id="findByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInfo" >
@@ -666,23 +619,11 @@
       </if>
     </trim>
   </select>
-
+  <!--销售审核查询-->
   <select id="findByParams" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInfo" >
     SELECT
-    A.CLAIM_NO,
-    A.CLAIM_STATE,
-    A.MILL_SHEET_NO,
+    A.*,
     B.DEPT_CODE,
-    A.PRODUCT_ID,
-    A.PRODUCT_NAME,
-    A.DESIGNATION,
-    A.SIZE_MARK,
-    A.CLAIM_TYPE,
-    A.OBJECTION_NUM,
-    A.INQUIRE_STATE,
-    A.LAST_USER,
-    A.CUSTOMER_NAME,
-    A.CLAIM_TYPE,
     D.PRESENTATION_DATE,
     D.PRESENTATION_USER
     FROM

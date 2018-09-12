@@ -239,39 +239,41 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
 
     //提报/删除
     @Override
-    public Integer submit(ObjectionTiBaoVO objectionTiBaoVO) {
-        String orgCode = objectionTiBaoVO.getOrgCode();
-        String orgName = objectionTiBaoVO.getOrgName();
-        //转换mdel
-        CrmClaimApply crmClaimApply  = new CrmClaimApply();
-        CrmClaimInfo crmClaimInfo = new CrmClaimInfo();
-        BeanCopyUtil.copy(objectionTiBaoVO,crmClaimApply);
-        BeanCopyUtil.copy(objectionTiBaoVO,crmClaimInfo);
-        if (crmClaimApply.getOptionType()==1){
-            //提交
-            crmClaimApply.setClaimState("PRESENT");
-            crmClaimApply.setUpdatedDt(new Date());
-            crmClaimApply.setUpdatedBy(orgCode);
+    public Integer submit(List<ObjectionTiBaoVO> objectionTiBaoVOS) {
+        for (ObjectionTiBaoVO objectionTiBaoVO:objectionTiBaoVOS) {
+            String orgCode = objectionTiBaoVO.getOrgCode();
+            String orgName = objectionTiBaoVO.getOrgName();
+            //转换mdel
+            CrmClaimApply crmClaimApply = new CrmClaimApply();
+            CrmClaimInfo crmClaimInfo = new CrmClaimInfo();
+            BeanCopyUtil.copy(objectionTiBaoVO, crmClaimApply);
+            BeanCopyUtil.copy(objectionTiBaoVO, crmClaimInfo);
+            if (crmClaimApply.getOptionType() == 1) {
+                //提交
+                crmClaimApply.setClaimState("PRESENT");
+                crmClaimApply.setUpdatedDt(new Date());
+                crmClaimApply.setUpdatedBy(orgCode);
 //            crmClaimApply.setPresentationUser(orgCode);
-            crmClaimApply.setPresentationDate(new Date());
-            crmClaimApplyMapper.updateByPrimaryKeySelective(crmClaimApply);
-            crmClaimInfo.setClaimState("PRESENT");
-            crmClaimInfo.setUpdatedBy(orgCode);
-            crmClaimInfo.setUpdatedDt(new Date());
-            Integer integer = crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
-            return integer;
-        }else {
-            //删除
-            crmClaimApply.setUpdatedDt(new Date());
-            crmClaimApply.setUpdatedBy(orgCode);
-            crmClaimApplyMapper.delete(crmClaimApply.getClaimNo());
-            crmClaimInfo.setClaimState("PRESENT");
-            crmClaimInfo.setUpdatedBy(orgCode);
-            crmClaimInfo.setUpdatedDt(new Date());
-            Integer integer = crmClaimInfoMapper.delete(crmClaimInfo.getClaimNo());
-            return integer;
+                crmClaimApply.setPresentationDate(new Date());
+                crmClaimApplyMapper.update(crmClaimApply);
+                crmClaimInfo.setClaimState("PRESENT");
+                crmClaimInfo.setUpdatedBy(orgCode);
+                crmClaimInfo.setUpdatedDt(new Date());
+                Integer integer = crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
+                return integer;
+            } else {
+                //删除
+                crmClaimApply.setUpdatedDt(new Date());
+                crmClaimApply.setUpdatedBy(orgCode);
+                crmClaimApplyMapper.delete(crmClaimApply.getClaimNo());
+                crmClaimInfo.setClaimState("PRESENT");
+                crmClaimInfo.setUpdatedBy(orgCode);
+                crmClaimInfo.setUpdatedDt(new Date());
+                Integer integer = crmClaimInfoMapper.deleteByPrimaryKey(crmClaimInfo.getClaimNo());
+                return integer;
+            }
         }
-
+        return 0;
     }
 
     //导出

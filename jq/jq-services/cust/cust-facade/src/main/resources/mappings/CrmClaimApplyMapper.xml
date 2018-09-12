@@ -194,7 +194,7 @@
 
     </trim>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="string" >
     delete from CRM_CLAIM_APPLY
     where SID = #{sid,jdbcType=NUMERIC}
   </delete>
@@ -651,7 +651,7 @@
       <if test="admissibilityTime != null and admissibilityTime != ''" >
         ADMISSIBILITY_TIME = #{admissibilityTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="presentationDate != null and presentationDate != ''" >
+      <if test="presentationDate != null" >
         PRESENTATION_DATE = #{presentationDate,jdbcType=TIMESTAMP},
       </if>
       <if test="admissibilityUser != null and admissibilityUser != ''" >
