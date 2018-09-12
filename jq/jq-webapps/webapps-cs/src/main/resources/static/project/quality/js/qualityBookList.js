@@ -244,7 +244,7 @@ function isAllCheck(){
             numLength++;
         }
     }
-    if(numLength == listCheck.length && listCheck > 0){
+    if(numLength == listCheck.length && numLength > 0){
         $("#checkAll").attr("checked",true);
     }
 }
