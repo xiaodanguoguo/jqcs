@@ -74,7 +74,7 @@ WHERE CUSTOMER_ID=#{customerId,jdbcType = VARCHAR}
     WHERE CUSTOMER_ID=#{customerId,jdbcType = VARCHAR}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="string" >
+  <delete id="deleteByPrimaryKey" parameterType="long" >
     delete from CRM_LASTUSER_INFO
     where SID = #{sid,jdbcType=NUMERIC}
   </delete>

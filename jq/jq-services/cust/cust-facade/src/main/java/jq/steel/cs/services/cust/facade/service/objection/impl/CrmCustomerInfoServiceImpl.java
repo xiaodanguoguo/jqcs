@@ -59,7 +59,8 @@ public class CrmCustomerInfoServiceImpl implements CrmCustomerInfoService{
                 CrmCustomerInfo crmCustomerInfo1 = new CrmCustomerInfo();
                 crmCustomerInfo1.setUpdatedDt(new Date());
                 crmCustomerInfo1.setUpdatedBy(orgCode);
-                crmCustomerInfo.setCustomerId(crmCustomerInfo.getCustomerId());
+                crmCustomerInfo1.setCustomerId(crmCustomerInfo.getCustomerId());
+                crmCustomerInfo1.setDefaultFlag("N");
                 crmCustomerInfoMapper.updateAll(crmCustomerInfo1);
             }
             crmCustomerInfoMapper.updateByPrimaryKeySelective(crmCustomerInfo);
