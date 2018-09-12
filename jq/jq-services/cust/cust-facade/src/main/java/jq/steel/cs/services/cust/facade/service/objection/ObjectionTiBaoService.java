@@ -3,6 +3,7 @@ package jq.steel.cs.services.cust.facade.service.objection;
 import com.ebase.core.page.PageDTO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoCountVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
+import jq.steel.cs.services.cust.facade.model.CrmClaimApply;
 
 import java.util.List;
 
@@ -37,5 +38,5 @@ public interface ObjectionTiBaoService {
      * @author: lirunze
      * @Date: 2018/9/7
      */
-    ObjectionTiBaoCountVO getCount();
+    ObjectionTiBaoCountVO getCount(CrmClaimApply crmClaimApply);
 }

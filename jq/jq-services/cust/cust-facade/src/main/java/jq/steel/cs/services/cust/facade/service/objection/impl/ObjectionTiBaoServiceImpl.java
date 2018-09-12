@@ -252,7 +252,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             crmClaimApply.setClaimState("PRESENT");
             crmClaimApply.setUpdatedDt(new Date());
             crmClaimApply.setUpdatedBy(orgCode);
-            crmClaimApply.setPresentationUser(orgCode);
+//            crmClaimApply.setPresentationUser(orgCode);
             crmClaimApply.setPresentationDate(new Date());
             crmClaimApplyMapper.updateByPrimaryKeySelective(crmClaimApply);
             crmClaimInfo.setClaimState("PRESENT");
@@ -382,10 +382,10 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
 
     //新增按钮文件上传
     @Override
-    public ObjectionTiBaoCountVO getCount() {
+    public ObjectionTiBaoCountVO getCount(CrmClaimApply crmClaimApply) {
 
 
-        ObjectionTiBaoCountVO vo = crmClaimApplyMapper.getCount();
+        ObjectionTiBaoCountVO vo = crmClaimApplyMapper.getCount(crmClaimApply);
 
         return vo;
     }

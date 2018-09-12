@@ -101,5 +101,5 @@ public interface ObjectionTiBaoAPI {
      * @Date: 2018/9/7
      */
     @RequestMapping(value = "/objectionTiBao/count",method = RequestMethod.POST)
-    ServiceResponse<ObjectionTiBaoCountVO> getCount();
+    ServiceResponse<ObjectionTiBaoCountVO> getCount(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest);
 }

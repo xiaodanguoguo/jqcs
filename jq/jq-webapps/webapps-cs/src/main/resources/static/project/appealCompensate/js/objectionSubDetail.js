@@ -484,9 +484,9 @@ function paramJson(){
     var strFilePath = "";
     for(var nI = 0 ; nI < document.body.jsLee.filePath.length; nI++ ){
         if(nI == document.body.jsLee.filePath.length - 1){
-            strFilePath += document.body.jsLee.filePath;
+            strFilePath += document.body.jsLee.filePath[nI];
         }else{
-            strFilePath += document.body.jsLee.filePath + ";";
+            strFilePath += document.body.jsLee.filePath[nI] + ";";
         }
     }
     jsonParam.filePath = strFilePath;
@@ -505,7 +505,8 @@ function paramJson(){
 function firstSaveCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        jumpUrl("objectionSubmit.html","0000000",0);
+        var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert("保存成功","成功提示",1,"","successJump");
     }
 }
 
@@ -542,6 +543,13 @@ function filePathShow(arr){
             $("#bigImg").attr("src",$(this).attr("src"));
         });
         $("#filePathTemplate").before(filePathClone);
+    }
+}
+
+function clsAlertBoxCtrl$sure() {//成功弹框确定
+    if (this.id == "successJump") {
+        jumpUrl("objectionSubmit.html","0000000",0);
+        closePopupWin();
     }
 }
 

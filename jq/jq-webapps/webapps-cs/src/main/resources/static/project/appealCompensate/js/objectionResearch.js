@@ -329,7 +329,7 @@ function isAllCheck(){
             numLength++;
         }
     }
-    if(numLength == listCheck.length){
+    if(numLength == listCheck.length && numLength != 0){
         $("#checkAll").attr("checked",true);
     }
 }

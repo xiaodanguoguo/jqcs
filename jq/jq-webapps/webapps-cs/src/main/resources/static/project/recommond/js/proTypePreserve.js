@@ -53,7 +53,7 @@ function clsMethodLee$operate(){
             });
             console.log(jsonData)
             document.body.jsLee.opeType = 2;
-            getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",jsonData,"saveCallBack(data)")
+            getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",jsonData,"saveCallBack(data)")
         }
     });
 
