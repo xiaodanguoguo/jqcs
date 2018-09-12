@@ -247,9 +247,9 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
         crmClaimInfo.setUpdatedBy(AssertContext.getAcctName());
         // crmClaimInfo.setInquireState("");
         if(record.getType().equals(1)){
-            crmClaimInfo.setClaimState("OUTSTART");
+            crmClaimInfo.setInquireState("OUTSTART");
         }else {
-            crmClaimInfo.setClaimState("INSTART");
+            crmClaimInfo.setInquireState("INSTART");
         }
 
         int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
