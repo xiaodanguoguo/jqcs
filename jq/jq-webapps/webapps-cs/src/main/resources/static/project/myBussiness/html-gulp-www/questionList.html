@@ -126,11 +126,11 @@
 						<span class="fl">代办</span>
 					</span>-->
 					<span class="og-head-navwrap-opeBoxList">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/2.png')"></div>
-
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('')"></div>
+						<span  class="fl" style="cursor: pointer" id="quitBtn">退出</span>
 					</span>
 					<span class="og-head-navwrap-opeBoxList">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/1.png')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('')"></div>
 						<span class="fl" id="editPassword" style="cursor: pointer">修改密码</span>
 					</span>
 				</div>
@@ -212,6 +212,13 @@
 <link rel="stylesheet" href="../css/create_research.css">
 <script>
     var tarRow = null;
+    function clsStandardEditTableCtrl$after(){
+        $("#btnCDelete").on("click",function(){
+            if($("#questionCList *[id=cloneRowC]:visible").length == 0){
+                $("#allChk").removeAttr("checked");
+            }
+        });
+    }
     function clsStandardEditTableCtrl$progress(jsonItem,cloneRow)
     {
         if(this.ctrl.id == "questionList")
@@ -371,6 +378,7 @@
     }
 
     $(document).ready(function(){
+
         //主表保存
         $("#btnSave").click(function(){
             //initValidateNoBind();
@@ -439,6 +447,8 @@
             var jsonData = {"pushRegions":arr,"qid":tarRow.jsonData.qid};
             getAjaxResult("/question/sentDown","POST",jsonData,"sureCallBack(data)");
         });
+
+
     });
 
     function sureCallBack(data)

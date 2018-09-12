@@ -56,6 +56,11 @@ function clsMethodLee$operate(){
             getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",jsonData,"saveCallBack(data)")
         }
     });
+    $("#btnDelete").on("click",function(){
+        if($("#tableList *[id=cloneRow]:visible").length == 0){
+            $("#allChk").removeAttr("checked");
+        }
+    });
 
 }
 function clsMethodLee$refresh(){
