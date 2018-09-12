@@ -16,7 +16,7 @@
                 <input id="millSheetNo" class="inputBase newsList-search__input fl" type="text">
             </div>
             <div class="box02" style="display: none">
-                <a class="fl" href="javascript:;" comType="uploadCtrl" uploadType="button" uploadTypeVal="上传" reqPath="/file/upload" uploadSize='{"w":"100","h":"26"}' filetype="custom" fileExt="jpg|jpeg|gif|png"></a>
+                <a class="fl" href="javascript:;" comType="uploadCtrl" uploadType="button" uploadTypeVal="上传" reqPath="/file/upload" uploadSize='{"w":"100","h":"26"}' <!--filetype="custom" fileExt="jpg|jpeg|gif|png"-->></a>
                 <div class="fl inputBaseBox clearfix" style="width: 200px;overflow-y: scroll">
                     <span id="filePathTemplate" class="inputBaseList" style="display: none">
                         <img id="filePathContent" class="inputBaseListCon" />
@@ -198,7 +198,7 @@
                     </li>
                     <li class="newsList-content-main-list2">
                         <span class="newsList-content-mainList-title fl">合同重量:</span>
-                        <input id="contractVolume" class="inputBase newsList-content-mainList-text fl" type="text">
+                        <input id="contractVolume" class="inputBase newsList-content-mainList-text fl forallInt" type="text">
                     </li>
                     <li class="newsList-content-main-list2">
                         <span class="newsList-content-mainList-title fl"><i class="mustText disNone">*</i>合同规格:</span>
@@ -206,7 +206,7 @@
                     </li>
                     <li class="newsList-content-main-list2">
                         <span class="newsList-content-mainList-title fl">原卷重量:</span>
-                        <input id="originalWeight" class="inputBase newsList-content-mainList-text fl" type="text">
+                        <input id="originalWeight" class="inputBase newsList-content-mainList-text fl forallInt" type="text">
                     </li>
                     <li class="newsList-content-main-list2">
                         <span class="newsList-content-mainList-title fl">销售提单号:</span>
@@ -218,11 +218,11 @@
                     </li>
                     <li class="newsList-content-main-list2">
                         <span class="newsList-content-mainList-title fl">合同单价:</span>
-                        <input id="contractUnitPrice" class="inputBase newsList-content-mainList-text fl" type="text">
+                        <input id="contractUnitPrice" class="inputBase newsList-content-mainList-text fl forallInt" type="text">
                     </li>
                     <li class="newsList-content-main-list2">
                         <span class="newsList-content-mainList-title fl">异议重量:</span>
-                        <input id="objectionNum" class="inputBase newsList-content-mainList-text fl" type="text">
+                        <input id="objectionNum" class="inputBase newsList-content-mainList-text fl forallInt" type="text">
                     </li>
                     <!-- <li class="newsList-content-main-list2">
                          <span class="newsList-content-mainList-title fl">销售提单号:</span>
