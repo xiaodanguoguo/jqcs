@@ -126,6 +126,8 @@ public class ObjectionTiBaoController {
             // 根据service层返回的编码做不同的操作
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().setPresentationUser(AssertContext.getAcctId());
+
             ServiceResponse<Integer> response = objectionTiBaoAPI.update(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
@@ -165,6 +167,7 @@ public class ObjectionTiBaoController {
             // 根据service层返回的编码做不同的操作
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().setPresentationUser(AssertContext.getAcctId());
             ServiceResponse<Integer> response = objectionTiBaoAPI.submit(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
