@@ -123,9 +123,12 @@ function clsMethodLee$parse(){
             $("#boxFirst").remove();
             $("#boxSecond").show();
             $(".box5").show();
+            $(".box3:first").show();
             $("#productId").remove();//删除第一个异议产品。（原新建页面的异议产品input）
             $("#millSheetNo").remove();//删除第一个质证书。（原新建页面的质证书input）
             $("#rejectReason").remove();//删除第一个驳回原因input
+            var ue = UE.getEditor('editor');
+            var ue2 = UE.getEditor('editor2');
             getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"claimNo":this.claimNo,"optionType":3},"htmlInit2(data)");//数据回显操作
             break;
     }

@@ -119,7 +119,6 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 break;
             case "PRESENT":
                 $(cloneRow).find("#claimStateA").html("已提报");
-                $(cloneRow).find("#auditOpe").show();
                 break;
             case "ACCEPTANCE":
                 $(cloneRow).find("#claimStateA").html("已受理");
@@ -135,7 +134,6 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 break;
             case "END":
                 $(cloneRow).find("#claimStateA").html("已结案");
-                $(cloneRow).find("#evaluateOpe").show();
                 break;
             case "EVALUATE":
                 $(cloneRow).find("#claimStateA").html("已评价");
@@ -174,34 +172,27 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         switch (jsonItem.inquireState){
             case "OUTSTART":
                 $(cloneRow).find("#inquireStateA").html("外部调查开始");
-                $(cloneRow).find("#researchOutOpe").show();
                 break;
             case "TRACK":
                 $(cloneRow).find("#inquireStateA").html("已跟踪");
-                $(cloneRow).find("#researchOutOpe").show();
                 break;
             case "OUTEND":
                 $(cloneRow).find("#inquireStateA").html("外部调查结束");
-                $(cloneRow).find("#researchInOpe").show();
-                $(cloneRow).find("#rejectOpe").show();
                 break;
             case "INSTART":
                 $(cloneRow).find("#inquireStateA").html("内部调查开始");
-                $(cloneRow).find("#researchInOpe").show();
                 break;
             case "INEND":
                 $(cloneRow).find("#inquireStateA").html("内部调查结束");
-                $(cloneRow).find("#rejectOpe").show();
-                $(cloneRow).find("#bookAuditOpe").show();
+                $(cloneRow).find("#sureAuditOpe").show();
                 break;
             case "CONFIRM":
                 $(cloneRow).find("#inquireStateA").html("已确认");
-                $(cloneRow).find("#rejectOpe").show();
-                $(cloneRow).find("#bookAuditOpe").show();
+                $(cloneRow).find("#agreementEditOpe").show();
+                $(cloneRow).find("#agreementAuditOpe").show();
                 break;
             default:
                 $(cloneRow).find("#inquireStateA").html("");
-                $(cloneRow).find("#researchOutOpe").show();
                 break;
         }
         //协议书状态判断 0编辑中 1已审核 2已完成
@@ -228,8 +219,8 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
             openWin("800","600","previewOpeBox");
         });
         //确认书审核操作
-        $(cloneRow).find("#sureBookOpe").on("click",function(){
-            jumpUrl("objectionSubDetail.html","0000000",0);
+        $(cloneRow).find("#sureAuditOpe").on("click",function(){
+            jumpUrl("objectionSubDetail.html?htmlType=6&claimNo="+jsonItem.claimNo,"0000000",0);
         });
         //编辑协议书操作
         $(cloneRow).find("#agreementEditOpe").on("click",function(){
