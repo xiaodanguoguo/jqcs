@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="http://www.padual.com/java/logback.xsd"
     debug="false" scan="true" scanPeriod="30 second">
 	<!-- 文件夹命名规则 -->
-    <property name="PROJECT" value="ego" /> 
+    <property name="PROJECT" value="jq.steel.cs" />
     <property name="ROOT" value="logs/${PROJECT}/" />
     <!-- 日志文件大小 -->
     <property name="FILESIZE" value="50MB" />
