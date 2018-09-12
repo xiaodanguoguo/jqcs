@@ -241,13 +241,13 @@
     </selectKey>
     insert into CRM_CLAIM_APPLY
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="sid != null and sid != ''" >
+      <if test="sid != null'" >
         SID,
       </if>
       <if test="claimNo != null and claimNo != ''" >
         CLAIM_NO,
       </if>
-      <if test="productId != null and productId != ''" >
+      <if test="productId != null" >
         PRODUCT_ID,
       </if>
       <if test="productName != null and productName != ''" >
@@ -301,13 +301,13 @@
       <if test="contractNo != null and contractNo != ''" >
         CONTRACT_NO,
       </if>
-      <if test="contractVolume != null and contractVolume != ''" >
+      <if test="contractVolume != null" >
         CONTRACT_VOLUME,
       </if>
       <if test="sizeMark != null and sizeMark != ''" >
         SIZE_MARK,
       </if>
-      <if test="originalWeight != null and originalWeight != ''" >
+      <if test="originalWeight != null" >
         ORIGINAL_WEIGHT,
       </if>
       <if test="orderNo != null and orderNo != ''" >
@@ -316,10 +316,10 @@
       <if test="originalCarNo != null and originalCarNo != ''" >
         ORIGINAL_CAR_NO,
       </if>
-      <if test="contractUnitPrice != null and contractUnitPrice != ''" >
+      <if test="contractUnitPrice != null" >
         CONTRACT_UNIT_PRICE,
       </if>
-      <if test="objectionNum != null and objectionNum != ''" >
+      <if test="objectionNum != null" >
         OBJECTION_NUM,
       </if>
       <if test="endProcessingTech != null and endProcessingTech != ''" >
@@ -364,13 +364,13 @@
       <if test="version != null and version != ''" >
         VERSION,
       </if>
-      <if test="dissentingUnit != null and dissentingUnit != ''" >
+      <if test="dissentingUnit != null" >
         DISSENTING_UNIT,
       </if>
-      <if test="admissibilityTime != null and admissibilityTime != ''" >
+      <if test="admissibilityTime != null" >
         ADMISSIBILITY_TIME,
       </if>
-      <if test="presentationDate != null and presentationDate != ''" >
+      <if test="presentationDate != null" >
         PRESENTATION_DATE,
       </if>
       <if test="admissibilityUser != null and admissibilityUser != ''" >
@@ -384,13 +384,13 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="sid != null and sid != ''" >
+      <if test="sid != null" >
         #{sid,jdbcType=NUMERIC},
       </if>
       <if test="claimNo != null and claimNo != ''" >
         #{claimNo,jdbcType=VARCHAR},
       </if>
-      <if test="productId != null and productId != ''" >
+      <if test="productId != null" >
         #{productId,jdbcType=NUMERIC},
       </if>
       <if test="productName != null and productName != ''" >
@@ -444,13 +444,13 @@
       <if test="contractNo != null and contractNo != ''" >
         #{contractNo,jdbcType=VARCHAR},
       </if>
-      <if test="contractVolume != null and contractVolume != ''" >
+      <if test="contractVolume != null" >
         #{contractVolume,jdbcType=NUMERIC},
       </if>
       <if test="sizeMark != null and sizeMark != ''" >
         #{sizeMark,jdbcType=VARCHAR},
       </if>
-      <if test="originalWeight != null and originalWeight != ''" >
+      <if test="originalWeight != null" >
         #{originalWeight,jdbcType=NUMERIC},
       </if>
       <if test="orderNo != null and orderNo != ''" >
@@ -459,10 +459,10 @@
       <if test="originalCarNo != null and originalCarNo != ''" >
         #{originalCarNo,jdbcType=VARCHAR},
       </if>
-      <if test="contractUnitPrice != null and contractUnitPrice != ''" >
+      <if test="contractUnitPrice != null" >
         #{contractUnitPrice,jdbcType=NUMERIC},
       </if>
-      <if test="objectionNum != null and objectionNum != ''" >
+      <if test="objectionNum != null" >
         #{objectionNum,jdbcType=NUMERIC},
       </if>
       <if test="endProcessingTech != null and endProcessingTech != ''" >
@@ -504,16 +504,16 @@
       <if test="updatedDt != null" >
         #{updatedDt,jdbcType=TIMESTAMP},
       </if>
-      <if test="version != null and version != ''" >
+      <if test="version != null" >
         #{version,jdbcType=NUMERIC},
       </if>
-      <if test="dissentingUnit != null and dissentingUnit != ''" >
+      <if test="dissentingUnit != null" >
         #{dissentingUnit,jdbcType=NUMERIC},
       </if>
-      <if test="admissibilityTime != null and admissibilityTime != ''" >
+      <if test="admissibilityTime != null" >
         #{admissibilityTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="presentationDate != null and presentationDate != ''" >
+      <if test="presentationDate != null" >
         #{presentationDate,jdbcType=TIMESTAMP},
       </if>
       <if test="admissibilityUser != null and admissibilityUser != ''" >
@@ -531,7 +531,7 @@
     update CRM_CLAIM_APPLY
     <trim suffixOverrides=",">
       set version = version + 1,
-      <if test="productId != null and productId != ''" >
+      <if test="productId != null" >
         PRODUCT_ID = #{productId,jdbcType=NUMERIC},
       </if>
       <if test="productName != null and productName != ''" >
@@ -585,13 +585,13 @@
       <if test="contractNo != null and contractNo != ''" >
         CONTRACT_NO = #{contractNo,jdbcType=VARCHAR},
       </if>
-      <if test="contractVolume != null and contractVolume != ''" >
+      <if test="contractVolume != null" >
         CONTRACT_VOLUME = #{contractVolume,jdbcType=NUMERIC},
       </if>
       <if test="sizeMark != null and sizeMark != ''" >
         SIZE_MARK = #{sizeMark,jdbcType=VARCHAR},
       </if>
-      <if test="originalWeight != null and originalWeight != ''" >
+      <if test="originalWeight != null" >
         ORIGINAL_WEIGHT = #{originalWeight,jdbcType=NUMERIC},
       </if>
       <if test="orderNo != null and orderNo != ''" >
@@ -600,10 +600,10 @@
       <if test="originalCarNo != null and originalCarNo != ''" >
         ORIGINAL_CAR_NO = #{originalCarNo,jdbcType=VARCHAR},
       </if>
-      <if test="contractUnitPrice != null and contractUnitPrice != ''" >
+      <if test="contractUnitPrice != null" >
         CONTRACT_UNIT_PRICE = #{contractUnitPrice,jdbcType=NUMERIC},
       </if>
-      <if test="objectionNum != null and objectionNum != ''" >
+      <if test="objectionNum != null" >
         OBJECTION_NUM = #{objectionNum,jdbcType=NUMERIC},
       </if>
       <if test="endProcessingTech != null and endProcessingTech != ''" >
@@ -645,10 +645,10 @@
       <if test="updatedDt != null" >
         UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
       </if>
-      <if test="dissentingUnit != null and dissentingUnit != ''" >
+      <if test="dissentingUnit != null" >
         DISSENTING_UNIT = #{dissentingUnit,jdbcType=NUMERIC},
       </if>
-      <if test="admissibilityTime != null and admissibilityTime != ''" >
+      <if test="admissibilityTime != null" >
         ADMISSIBILITY_TIME = #{admissibilityTime,jdbcType=TIMESTAMP},
       </if>
       <if test="presentationDate != null" >
