@@ -222,11 +222,11 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         });
         //编辑协议书操作
         $(cloneRow).find("#agreementEditOpe").on("click",function(){
-            jumpUrl("agreementBook.html","0000000",0);
+            jumpUrl("agreementBook.html?htmlType=1&claimNo" + jsonItem.claimNo,"0000000",0);
         });
         //协议书审核操作
-        $(cloneRow).find("#agreementAuditOpe").on("click",function(){
-            jumpUrl("agreementBook.html","0000000",0);
+        $(cloneRow).find("#agreement AuditOpe").on("click",function(){
+            jumpUrl("agreementBook.html?htmlType=2&claimNo" + jsonItem.claimNo,"0000000",0);
         });
         //强制结案操作
         $(cloneRow).find("#strongEndOpe").on("click",function(){
