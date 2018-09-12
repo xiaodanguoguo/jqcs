@@ -37,7 +37,7 @@ function clsMethodLee$init(){
 }
 function clsMethodLee$parse(){
     $("#tableList")[0].cacheArr = [];
-    initplugPath($("#condproductCategoryCode")[0],"singleSelectCtrl",this.requestUrl.path7,null,"POST");
+    initplugPath($("#condprodectId")[0],"singleSelectCtrl",this.requestUrl.path7,null,"POST");
     initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
     // 初始化搜索框下拉
     $("#condclaimState").chosen({
