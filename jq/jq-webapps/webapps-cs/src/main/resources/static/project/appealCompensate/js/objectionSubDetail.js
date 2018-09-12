@@ -8,7 +8,7 @@ function clsMethodLee(){
         "path6":"/objectionTiBao/update",//异议提报新增/修改/保存/销售审核（保存、驳回、通过）1审核保存操作2驳回操作3通过操作4修改保存5新增保存
         "path7":"/objectionTiBao/down",//详情页面下载功能
         "path8":"/objectionTiBao/printing",//详情页面打印功能
-        "path9":"/objectionDiaoCha/findDetail",//异议调查外部调查内部调查回显数据|确认书审核   1是外部调查 2是内部调查 3确认书审核
+        "path9":"/objectionDiaoCha/findDetails",//异议调查外部调查内部调查回显数据|确认书审核   1是外部调查 2是内部调查 3确认书审核
         "path10":"/objectionDiaoCha/update",//内外部调查报告（保存，跟踪，提交）异议处理确认书（通过 ，驳回）
                                             //1外部保存2外部跟踪3外部提交4内部保存5内部提交6确认书通过7确认书审核
         "path11":"/file/upload"//上传
@@ -17,6 +17,10 @@ function clsMethodLee(){
     this.htmlType = GetQueryString("htmlType");//判断页面类型0——新建 5修改 1——详情  2——销售审核  3——外部调查  4——内部调查 6-确认书审核
     this.claimNo = GetQueryString("claimNo") == null ? "":GetQueryString("claimNo");//异议编号
     this.filePath = [];
+    this.selectedMark = {//判断发生异议单位和异议类别是否选中
+        "selMark1":true,
+        "selMark2":true
+    }
     this.init = clsMethodLee$init;//初始化页面的展示内容,绑定dom节点
     this.parse = clsMethodLee$parse;//初始化页面的数据
     this.operate = clsMethodLee$operate;//初始化页面的数据
@@ -88,6 +92,8 @@ function clsMethodLee$parse(){
             $(".box2").show();
             $("#productId").remove();//删除第一个异议产品。（原新建页面的异议产品input）
             $("#millSheetNo").remove();//删除第一个质证书。（原新建页面的质证书input）
+            this.selectedMark.selMark1 = false;
+            this.selectedMark.selMark2 = false;
             getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":this.claimNo,"optionType":4},"htmlInit(data)");//数据回显操作
             break;
         case 3://外部调查
@@ -267,6 +273,14 @@ function clsMethodLee$operate(){
             jsonParam.optionStuts = 7;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
+    });
+    //发生异议单位选中改变事件
+    $("#dissentingUnitA input").on("click",function(){
+        document.body.jsLee.selectedMark.selMark1 = true;
+    });
+    //异议类别选中改变事件
+    $("#claimTypeA input").on("click",function(){
+        document.body.jsLee.selectedMark.selMark2 = true;
     });
 
 }
@@ -458,9 +472,15 @@ function millSheetNoCheckCallBack(data){
 function boxChecked(){
     initValidate($("#submitBox")[0]);
     var valiClass=new clsValidateCtrl();
-    if(!valiClass.validateAll4Ctrl($("#submitBox")[0]) || !$("#productId option:selected").val()){
+    if(!valiClass.validateAll4Ctrl($("#submitBox")[0]) || !$("#productId option:selected").val() || !document.body.jsLee.selectedMark.selMark1 || !document.body.jsLee.selectedMark.selMark2){
         if(!$("#productId option:selected").val()){
             showErrInfoByCustomDiv($("#productId").next()[0],"请选择异议产品")
+        }
+        if(!document.body.jsLee.selectedMark.selMark1){
+            showErrInfoByCustomDiv($("#dissentingUnitA")[0],"请选择发生异议单位!");
+        }
+        if(!document.body.jsLee.selectedMark.selMark2){
+            showErrInfoByCustomDiv($("#claimTypeA")[0],"请选择发生异议单位!");
         }
         return false;
     }
@@ -506,7 +526,7 @@ function firstSaveCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         var alertBox=new clsAlertBoxCtrl();
-        alertBox.Alert("保存成功","成功提示",1,"","successJump");
+        alertBox.Alert(data.retDesc,"成功提示",1,"","successJump");
     }
 }
 

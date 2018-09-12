@@ -37,7 +37,7 @@ function clsMethodLee$init(){
 }
 function clsMethodLee$parse(){
     $("#tableList")[0].cacheArr = [];
-    initplugPath($("#condproductCategoryCode")[0],"singleSelectCtrl",this.requestUrl.path7,null,"POST");
+    initplugPath($("#condprodectId")[0],"singleSelectCtrl",this.requestUrl.path7,null,"POST");
     initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
     // 初始化搜索框下拉
     $("#condclaimState").chosen({
@@ -317,8 +317,14 @@ function viewOpeCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         openWin("800","600","previewOpeBox");
-        document.body.jsLee.previewArr = data.rspBody.url.split(";");
-        document.body.jsLee.previewArrCurrent = document.body.jsLee.previewArr[0];
+        if(data.rspBody.url == "" || data.rspBody.url == null){
+            document.body.jsLee.previewArr = "";
+            document.body.jsLee.previewArrCurrent = "";
+        }else{
+            document.body.jsLee.previewArr = data.rspBody.url.split(";");
+            document.body.jsLee.previewArrCurrent = document.body.jsLee.previewArr[0];
+        }
+
         $("#previewOpeBoxPdf").attr("href",document.body.jsLee.previewArrCurrent);
         $("#previewOpeBoxPdf").media({width:740, height:450});
         $("#previewPrev").attr("disabled",true).addClass("changeGary");
