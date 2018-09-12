@@ -131,6 +131,9 @@
       <if test="claimType != null and claimType != ''" >
         AND C.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
       </if>
+      <if test="productId != null and productId != ''" >
+        AND A.PRODUCT_ID = #{productId,jdbcType=VARCHAR}
+      </if>
       <if test="productName != null and productName != ''" >
         AND A.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
       </if>
@@ -178,6 +181,9 @@
       </if>
       <if test="designation != null and designation != ''" >
         AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}
+      </if>
+      <if test="productId != null and productId != ''" >
+        AND A.PRODUCT_ID = #{productId,jdbcType=VARCHAR}
       </if>
       <if test="productName != null and productName != ''" >
         AND A.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}

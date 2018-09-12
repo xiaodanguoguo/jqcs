@@ -29,7 +29,7 @@
     <result column="PRODUCT_ID" property="productId" jdbcType="NUMERIC" />
     <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
     <result column="DESIGNATION" property="designation" jdbcType="VARCHAR" />
-    <result column="SIZE_MARK" property="sizeMark" jdbcType="VARCHAR" />
+    <result column="SIZE_MARK" property="specs" jdbcType="VARCHAR" />
     <result column="CLAIM_TYPE" property="claimType" jdbcType="VARCHAR" />
     <result column="OBJECTION_NUM" property="objectionNum" jdbcType="NUMERIC" />
     <result column="PRESENTATION_DATE" property="presentationDate" jdbcType="TIMESTAMP" />
@@ -105,8 +105,8 @@ WHERE
       <if test="claimState != null and claimState != ''" >
         AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
       </if>
-      <if test="manufactor != null and manufactor != ''" >
-        AND  B.DEPT_CODE = #{manufactor,jdbcType=VARCHAR}
+      <if test="deptCode != null and deptCode != ''" >
+        AND  B.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
       </if>
       <if test="designation != null and designation != ''" >
         AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}

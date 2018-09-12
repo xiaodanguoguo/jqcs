@@ -123,9 +123,11 @@ public class ObjectionChuLiVO {
     private  String agreementPath;
 
     //受理时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date admissibilityTime;
 
     //提报时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date presentationDate;
 
     //受理人

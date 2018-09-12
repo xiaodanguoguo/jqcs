@@ -12,6 +12,7 @@ public class CrmLastuserInfoVO implements Serializable {
     private int pageNum = 1;
 
     private int pageSize = 10;
+
     private Long sid;
 
     private String createdBy;

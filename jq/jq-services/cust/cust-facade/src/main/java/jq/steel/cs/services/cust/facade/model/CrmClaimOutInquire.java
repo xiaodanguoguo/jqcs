@@ -7,15 +7,9 @@ import java.util.Date;
 
 public class CrmClaimOutInquire {
 
-    private String manufactor;
+    private  String deptCode;
 
-    public String getManufactor() {
-        return manufactor;
-    }
-
-    public void setManufactor(String manufactor) {
-        this.manufactor = manufactor;
-    }
+    private  String specs;
 
     private Long sid;
 
@@ -98,7 +92,6 @@ public class CrmClaimOutInquire {
 
     private BigDecimal contractVolume;
 
-    private String sizeMark;
 
     private BigDecimal originalWeight;
 
@@ -138,6 +131,7 @@ public class CrmClaimOutInquire {
     private Date admissibilityTime;
 
     //提报时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date presentationDate;
 
     //受理人
@@ -162,12 +156,21 @@ public class CrmClaimOutInquire {
     //外部调查人
     private String externalLnvestigator;
     //外部调查时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private  Date externalLnvestigationDate;
     //内部调查人
     private  String internalLnvestigator;
     //内部调查时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date internalLnvestigationDate;
 
+    public String getDeptCode() {
+        return deptCode;
+    }
+
+    public void setDeptCode(String deptCode) {
+        this.deptCode = deptCode;
+    }
 
     public Date getEndDt() {
         return endDt;
@@ -537,12 +540,12 @@ public class CrmClaimOutInquire {
         this.contractVolume = contractVolume;
     }
 
-    public String getSizeMark() {
-        return sizeMark;
+    public String getSpecs() {
+        return specs;
     }
 
-    public void setSizeMark(String sizeMark) {
-        this.sizeMark = sizeMark;
+    public void setSpecs(String specs) {
+        this.specs = specs;
     }
 
     public BigDecimal getOriginalWeight() {
