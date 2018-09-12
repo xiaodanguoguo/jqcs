@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -209,14 +210,14 @@ public class AppObjectionTiBaoController {
      *
      * */
     @RequestMapping(value = "/submit",method = RequestMethod.POST)
-    public JsonResponse<Integer> submit(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
+    public JsonResponse<Integer> submit(@RequestBody JsonRequest<List<ObjectionTiBaoVO>> jsonRequest) {
         logger.info("参数={}",JsonUtil.toJson(jsonRequest));
         JsonResponse<Integer> jsonResponse = new JsonResponse<>();
         try {
             // 根据service层返回的编码做不同的操作
-            jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
-            jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
-            jsonRequest.getReqBody().setPresentationUser(AssertContext.getAcctId());
+            jsonRequest.getReqBody().get(0).setOrgCode(AssertContext.getOrgCode());
+            jsonRequest.getReqBody().get(0).setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().get(0).setPresentationUser(AssertContext.getAcctId());
             ServiceResponse<Integer> response = objectionTiBaoAPI.submit(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
