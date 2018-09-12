@@ -682,7 +682,7 @@
     where claim_No like CONCAT('${claimNo}','___')
   </select>
 
-  <select id="getCount" resultMap="CountResultMap" parameterType="jq.steel.cs.services.cust.api.vo.ObjectionTiBaoCountVO" >
+  <select id="getCount" resultMap="CountResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
     SELECT
         *
     FROM
@@ -703,5 +703,8 @@
             'EVALUATE'as EVALUATE
             )
         )
+    <if test="createdBy != null and createdBy != ''" >
+      WHERE CREATED_BY = #{createdBy,jdbcType=VARCHAR}
+    </if>
   </select>
 </mapper>
