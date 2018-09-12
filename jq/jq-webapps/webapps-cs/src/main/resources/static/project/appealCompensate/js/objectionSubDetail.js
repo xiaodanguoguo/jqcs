@@ -219,7 +219,7 @@ function clsMethodLee$operate(){
     this.forthsubmit.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionStuts = 1;
+            jsonParam.optionType = 1;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
@@ -227,7 +227,7 @@ function clsMethodLee$operate(){
     this.forthFoolow.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionStuts = 2;
+            jsonParam.optionType = 2;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
@@ -235,7 +235,7 @@ function clsMethodLee$operate(){
     this.forthSave.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionStuts = 3;
+            jsonParam.optionType = 3;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
@@ -243,7 +243,7 @@ function clsMethodLee$operate(){
     this.fifthSave.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionStuts = 4;
+            jsonParam.optionType = 4;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
@@ -251,7 +251,7 @@ function clsMethodLee$operate(){
     this.fifthSubmit.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionStuts = 5;
+            jsonParam.optionType = 5;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
@@ -260,7 +260,7 @@ function clsMethodLee$operate(){
         $("#rejectReason").removeClass("required");
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionStuts = 6;
+            jsonParam.optionType = 6;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
 
         }
@@ -270,7 +270,7 @@ function clsMethodLee$operate(){
         $("#rejectReason").addClass("required");
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionStuts = 7;
+            jsonParam.optionType = 7;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
@@ -489,7 +489,7 @@ function boxChecked(){
 
 //完成提交参数拼接
 function paramJson(){
-    var jsonParam = {"claimNo":"","productId":"","millSheetNo":"","customerId":"","customerName":"","custAddr":"","custEmpNo":"","custTel":"","lastUserId":"","lastUser":"","lastUserAddr":"","createEmpNo":"","lastUserTel":"","battenPlateNo":"","designation":"","used":"","contractNo":"","contractVolume":"","specs":"","originalWeight":"","orderNo":"","originalCarNo":"","contractUnitPrice":"","objectionNum":"","endProcessingTech":"","claimDesc":"","claimReason":"","rejectReason":"","productDt":"","shift":"","userRequirement":"","handingSuggestion":"","inquireInfo":"","fieldConclusion":"","claimVerdict":"","improvement":""};
+    var jsonParam = {"claimNo":"","productId":"","millSheetNo":"","customerId":"","customerName":"","custAddr":"","custEmpNo":"","custTel":"","lastUserId":"","lastUser":"","lastUserAddr":"","createEmpNo":"","lastUserTel":"","battenPlateNo":"","designation":"","used":"","contractNo":"","contractVolume":"","specs":"","originalWeight":"","orderNo":"","originalCarNo":"","contractUnitPrice":"","objectionNum":"","endProcessingTech":"","claimDesc":"","claimReason":"","rejectReason":"","productDt":"","shift":"","userRequirement":"","handingSuggestion":"","inquireInfo":"","fieldConclusion":"","claimVerdict":"","improvement":"","amountOfUse":""};
     getValue4Desc(jsonParam,$("#submitBox")[0]);
     //产品类别
     jsonParam.productId = $("#productId option:selected").val();
@@ -533,7 +533,8 @@ function firstSaveCallBack(data){
 function secondSaveCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        jumpUrl("objectionReasearch.html","0000000",0);
+        var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert(data.retDesc,"成功提示",1,"","successJump2");
     }
 }
 function clsUploadCtrl$successAfter(ctrl, response)
@@ -570,6 +571,8 @@ function clsAlertBoxCtrl$sure() {//成功弹框确定
     if (this.id == "successJump") {
         jumpUrl("objectionSubmit.html","0000000",0);
         closePopupWin();
+    }else if(this.id == "successJump2"){
+        jumpUrl("objectionReasearch.html","0000000",0);
     }
 }
 
