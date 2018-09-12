@@ -134,7 +134,8 @@ public class CrmProductInfoServiceImpl implements CrmProductInfoService {
         crmProductInfo.setSortNumber(maxSortNumber);
         crmProductInfo.setCreateDt(new Date());
 //        crmProductInfo.setCreateByid(Long.valueOf(AssertContext.getAcctId()));
-        crmProductInfo.setCreateBy(AssertContext.getAcctName());
+//        crmProductInfo.setCreateBy(AssertContext.getAcctName());
+        crmProductInfo.setStatus(ProductInfoStatus.NEW_CREATE.getCode());
         crmProductInfoMapper.insertSelective(crmProductInfo);
 
         flag = true;
@@ -164,7 +165,7 @@ public class CrmProductInfoServiceImpl implements CrmProductInfoService {
         crmProductInfo.setThumbnail(JsonUtil.toJson(crmProductInfoVO.getThumbnailList()));
         crmProductInfo.setUpdateDt(new Date());
 //        crmProductInfo.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
-        crmProductInfo.setUpdateBy(AssertContext.getAcctName());
+//        crmProductInfo.setUpdateBy(AssertContext.getAcctName());
         crmProductInfoMapper.updateByPrimaryKeySelective(crmProductInfo);
 
         flag = true;
@@ -187,13 +188,13 @@ public class CrmProductInfoServiceImpl implements CrmProductInfoService {
         crmProductInfo1.setSortNumber(crmProductInfo2.getSortNumber());
         crmProductInfo1.setUpdateDt(new Date());
 //        crmProductInfo1.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
-        crmProductInfo1.setUpdateBy(AssertContext.getAcctName());
+//        crmProductInfo1.setUpdateBy(AssertContext.getAcctName());
         crmProductInfoMapper.updateByPrimaryKeySelective(crmProductInfo1);
 
         crmProductInfo2.setSortNumber(median);
         crmProductInfo2.setUpdateDt(new Date());
 //        crmProductInfo2.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
-        crmProductInfo2.setUpdateBy(AssertContext.getAcctName());
+//        crmProductInfo2.setUpdateBy(AssertContext.getAcctName());
         crmProductInfoMapper.updateByPrimaryKeySelective(crmProductInfo2);
 
         flag = true;
