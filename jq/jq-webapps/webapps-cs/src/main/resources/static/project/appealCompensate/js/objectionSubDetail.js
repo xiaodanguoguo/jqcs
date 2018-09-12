@@ -506,7 +506,7 @@ function firstSaveCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         var alertBox=new clsAlertBoxCtrl();
-        alertBox.Alert("保存成功","成功提示",1,"","successJump");
+        alertBox.Alert(data.retDesc,"成功提示",1,"","successJump");
     }
 }
 
