@@ -47,7 +47,7 @@ public class CrmClaimOutInquire {
 
     private String inquireInfo;
 
-    private Integer amoutOfUse;
+    private Integer amountOfUse;
 
 
     /*********************************************************************************/
@@ -204,12 +204,12 @@ public class CrmClaimOutInquire {
         this.startDtStr = startDtStr;
     }
 
-    public Integer getAmoutOfUse() {
-        return amoutOfUse;
+    public Integer getAmountOfUse() {
+        return amountOfUse;
     }
 
-    public void setAmoutOfUse(Integer amoutOfUse) {
-        this.amoutOfUse = amoutOfUse;
+    public void setAmountOfUse(Integer amountOfUse) {
+        this.amountOfUse = amountOfUse;
     }
 
     public String getExternalLnvestigator() {

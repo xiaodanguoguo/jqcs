@@ -97,7 +97,7 @@ public class CrmProductInfoServiceImpl implements CrmProductInfoService {
             crmProductInfo.setPid(pid);
             crmProductInfo.setStatus(ProductInfoStatus.ISSUE.getCode());
             crmProductInfo.setUpdateDt(new Date());
-            crmProductInfo.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
+//            crmProductInfo.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
             crmProductInfo.setUpdateBy(AssertContext.getAcctName());
             crmProductInfoMapper.updateByPrimaryKeySelective(crmProductInfo);
         }
@@ -133,7 +133,7 @@ public class CrmProductInfoServiceImpl implements CrmProductInfoService {
         }
         crmProductInfo.setSortNumber(maxSortNumber);
         crmProductInfo.setCreateDt(new Date());
-        crmProductInfo.setCreateByid(Long.valueOf(AssertContext.getAcctId()));
+//        crmProductInfo.setCreateByid(Long.valueOf(AssertContext.getAcctId()));
         crmProductInfo.setCreateBy(AssertContext.getAcctName());
         crmProductInfoMapper.insertSelective(crmProductInfo);
 
@@ -186,13 +186,13 @@ public class CrmProductInfoServiceImpl implements CrmProductInfoService {
 
         crmProductInfo1.setSortNumber(crmProductInfo2.getSortNumber());
         crmProductInfo1.setUpdateDt(new Date());
-        crmProductInfo1.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
+//        crmProductInfo1.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
         crmProductInfo1.setUpdateBy(AssertContext.getAcctName());
         crmProductInfoMapper.updateByPrimaryKeySelective(crmProductInfo1);
 
         crmProductInfo2.setSortNumber(median);
         crmProductInfo2.setUpdateDt(new Date());
-        crmProductInfo2.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
+//        crmProductInfo2.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
         crmProductInfo2.setUpdateBy(AssertContext.getAcctName());
         crmProductInfoMapper.updateByPrimaryKeySelective(crmProductInfo2);
 
