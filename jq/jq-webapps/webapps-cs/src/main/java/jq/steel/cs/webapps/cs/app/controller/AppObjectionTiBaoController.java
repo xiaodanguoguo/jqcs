@@ -8,6 +8,7 @@ import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
 import feign.FeignException;
+import jq.steel.cs.services.base.api.controller.AcctAPI;
 import jq.steel.cs.services.cust.api.controller.ObjectionTiBaoAPI;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoCountVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -38,6 +39,9 @@ public class AppObjectionTiBaoController {
     @Autowired
     private ObjectionTiBaoAPI objectionTiBaoAPI;
 
+    @Autowired
+    private AcctAPI backMemberAPI;
+
     /**
      * @param:
      * @return:
@@ -51,7 +55,19 @@ public class AppObjectionTiBaoController {
         JsonResponse<ObjectionTiBaoCountVO> jsonResponse = new JsonResponse<>();
 
         try {
-            ServiceResponse<ObjectionTiBaoCountVO> serviceResponse = objectionTiBaoAPI.getCount();
+            JsonRequest<ObjectionTiBaoVO> jsonRequest = new JsonRequest<>();
+            ObjectionTiBaoVO objectionTiBaoVO = new ObjectionTiBaoVO();
+            objectionTiBaoVO.setCreatedBy(AssertContext.getAcctId());
+            // 判断是否有审核权限
+            ServiceResponse<Map<String, String>> authResponse = backMemberAPI.getAcctAuth(AssertContext.getAcctId());
+            Map<String, String> map = authResponse.getRetContent();
+            if(map.get("50") != null){
+                objectionTiBaoVO.setCreatedBy(null);
+            }
+
+            jsonRequest.setReqBody(objectionTiBaoVO);
+
+            ServiceResponse<ObjectionTiBaoCountVO> serviceResponse = objectionTiBaoAPI.getCount(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {
@@ -193,14 +209,14 @@ public class AppObjectionTiBaoController {
      *
      * */
     @RequestMapping(value = "/submit",method = RequestMethod.POST)
-    public JsonResponse<Integer> submit(@RequestBody JsonRequest<List<ObjectionTiBaoVO>> jsonRequest) {
+    public JsonResponse<Integer> submit(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
         logger.info("参数={}",JsonUtil.toJson(jsonRequest));
         JsonResponse<Integer> jsonResponse = new JsonResponse<>();
         try {
             // 根据service层返回的编码做不同的操作
-            jsonRequest.getReqBody().get(0).setOrgCode(AssertContext.getOrgCode());
-            jsonRequest.getReqBody().get(0).setOrgName(AssertContext.getOrgName());
-            jsonRequest.getReqBody().get(0).setPresentationUser(AssertContext.getAcctId());
+            jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
+            jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().setPresentationUser(AssertContext.getAcctId());
             ServiceResponse<Integer> response = objectionTiBaoAPI.submit(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());

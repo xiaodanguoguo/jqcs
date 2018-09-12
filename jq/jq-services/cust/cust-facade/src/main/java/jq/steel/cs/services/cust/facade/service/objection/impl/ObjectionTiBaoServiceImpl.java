@@ -384,10 +384,10 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
 
     //新增按钮文件上传
     @Override
-    public ObjectionTiBaoCountVO getCount() {
+    public ObjectionTiBaoCountVO getCount(CrmClaimApply crmClaimApply) {
 
 
-        ObjectionTiBaoCountVO vo = crmClaimApplyMapper.getCount();
+        ObjectionTiBaoCountVO vo = crmClaimApplyMapper.getCount(crmClaimApply);
 
         return vo;
     }

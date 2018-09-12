@@ -37,7 +37,7 @@ function clsMethodLee$init(){
 }
 function clsMethodLee$parse(){
     $("#tableList")[0].cacheArr = [];
-    initplugPath($("#condproductCategoryCode")[0],"singleSelectCtrl",this.requestUrl.path7,null,"POST");
+    initplugPath($("#condprodectId")[0],"singleSelectCtrl",this.requestUrl.path7,null,"POST");
     initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
     // 初始化搜索框下拉
     $("#condclaimState").chosen({
@@ -61,6 +61,7 @@ function clsMethodLee$operate(){
     });
 
     this.exportOpe.on("click",function(){//导出操作
+        document.body.jsLee.claimNoArr = [];
         if(isChecked()){
             var claimNoArr = [];
             for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
@@ -73,6 +74,7 @@ function clsMethodLee$operate(){
 
     this.deleteOpe.on("click",function(){//删除操作
         if(isChecked()){
+            document.body.jsLee.claimNoArr = [];
             var claimNoArr = document.body.jsLee.claimNoArr;
             var markLock = true;
             for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
@@ -93,6 +95,7 @@ function clsMethodLee$operate(){
     });
     this.submitOpe.on("click",function(){//提报操作
         if(isChecked()){
+            document.body.jsLee.claimNoArr = [];
             var claimNoArr = document.body.jsLee.claimNoArr;
             var markLock = true;
             for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
@@ -314,8 +317,14 @@ function viewOpeCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         openWin("800","600","previewOpeBox");
-        document.body.jsLee.previewArr = data.rspBody;
-        document.body.jsLee.previewArrCurrent = document.body.jsLee.previewArr[0].url;
+        if(data.rspBody.url == "" || data.rspBody.url == null){
+            document.body.jsLee.previewArr = "";
+            document.body.jsLee.previewArrCurrent = "";
+        }else{
+            document.body.jsLee.previewArr = data.rspBody.url.split(";");
+            document.body.jsLee.previewArrCurrent = document.body.jsLee.previewArr[0];
+        }
+
         $("#previewOpeBoxPdf").attr("href",document.body.jsLee.previewArrCurrent);
         $("#previewOpeBoxPdf").media({width:740, height:450});
         $("#previewPrev").attr("disabled",true).addClass("changeGary");
@@ -328,15 +337,15 @@ function viewOpeCallBack(data){
 //预览中上一页下一页操作
 function previewPage(type){//type——0上一页  1下一页
     for(var nI = 0; nI < document.body.jsLee.previewArr.length; nI++){
-        if(document.body.jsLee.previewArr[nI].url == document.body.jsLee.previewArrCurrent){
+        if(document.body.jsLee.previewArr[nI] == document.body.jsLee.previewArrCurrent){
             if(type == 0){//上一页操作
-                document.body.jsLee.previewArrCurrent = document.body.jsLee.previewArr[nI - 1].url;
+                document.body.jsLee.previewArrCurrent = document.body.jsLee.previewArr[nI - 1];
                 if(nI - 1 == 0){//当前点击后是第一页
                     $("#previewPrev").attr("disabled",true).addClass("changeGary");
                     $("#previewNext").removeAttr("disabled").removeClass("changeGary");
                 }
             }else{//下一页操作
-                document.body.jsLee.previewArrCurrent = document.body.jsLee.previewArr[nI + 1].url;
+                document.body.jsLee.previewArrCurrent = document.body.jsLee.previewArr[nI + 1];
                 if(nI + 2 == document.body.jsLee.previewArr.length){//当前点击后是最后一页
                     $("#previewNext").attr("disabled",true).addClass("changeGary");
                     $("#previewPrev").removeAttr("disabled").removeClass("changeGary");

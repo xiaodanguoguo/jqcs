@@ -74,7 +74,7 @@
 							<artifactId>nothing</artifactId>
 						</include>
 					</includes>
-					<mainClass>com.ebase.ego.registry.center.RegisterApplication</mainClass>
+					<mainClass>jq.steel.cs.registry.center.RegisterApplication</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>

@@ -173,7 +173,21 @@
 					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
-
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<layout>ZIP</layout>
+					<executable>true</executable>
+					<includes>
+						<include>
+							<groupId>jq.steel</groupId>
+							<artifactId>base-facade</artifactId>
+						</include>
+					</includes>
+					<mainClass>jq.steel.cs.services.cust.facade.main.ServerBaseApplication</mainClass>
+				</configuration>
+			</plugin>
 
 		</plugins>
 

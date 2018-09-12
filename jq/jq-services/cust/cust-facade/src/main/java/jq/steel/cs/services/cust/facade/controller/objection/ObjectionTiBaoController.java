@@ -7,6 +7,7 @@ import com.ebase.core.web.json.JsonRequest;
 import com.ebase.utils.JsonUtil;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoCountVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
+import jq.steel.cs.services.cust.facade.model.CrmClaimApply;
 import jq.steel.cs.services.cust.facade.service.objection.ObjectionTiBaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -226,12 +227,15 @@ public class ObjectionTiBaoController {
      * @Date: 2018/9/7
      */
     @RequestMapping(value = "/count",method = RequestMethod.POST)
-    ServiceResponse<ObjectionTiBaoCountVO> getCount() {
+    ServiceResponse<ObjectionTiBaoCountVO> getCount(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
         logger.info("根据不同状态计数");
         ServiceResponse<ObjectionTiBaoCountVO> serviceResponse = new ServiceResponse<>();
 
         try {
-            ObjectionTiBaoCountVO vo = objectionTiBaoService.getCount();
+            CrmClaimApply crmClaimApply = new CrmClaimApply();
+            crmClaimApply.setCreatedBy(jsonRequest.getReqBody().getCreatedBy());
+
+            ObjectionTiBaoCountVO vo = objectionTiBaoService.getCount(crmClaimApply);
             serviceResponse.setRetContent(vo);
         } catch (Exception e) {
             logger.error("错误 = {}", e);
