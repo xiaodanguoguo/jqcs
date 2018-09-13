@@ -224,6 +224,9 @@
         line-height:28px;
         border:1px solid #dee3e6;
     }
+    input[type=checkbox]{
+        cursor: pointer;
+    }
 </style>
 <div class="contentA">
     <div class="">
@@ -234,17 +237,17 @@
     </div>
     <table class="table-list product_main" id="tableList" insertid="btnInsert" chkid="chkCoding" deleteid="btnDelete" comtype="" templateid="templateRow" reqpath="" reqparam="{}" method="POST" nodata="nonData">
         <tr class="table-list-currentrow">
-            <th class="table-list-currentrow-theader">
-                <input type="checkbox"
-                       id="allChk" comtype="checkAll" cond=""
-                       uniontableid="tableList" chkid="chkCoding"
-                >全选
+            <th class="table-list-currentrow-theader" style="width: 5%">
+                <input type="checkbox" id="allChk" comtype="checkAll" cond="" uniontableid="tableList" chkid="chkCoding">
             </th>
-            <th class="table-list-currentrow-theader">
+            <th class="table-list-currentrow-theader" style="width: 25%">
                 产品类别维护
             </th>
-            <th class="table-list-currentrow-theader">
+            <th class="table-list-currentrow-theader" style="width: 60%">
                 产品类别描述
+            </th>
+            <th class="table-list-currentrow-theader" style="width: 10%">
+                状态
             </th>
         </tr>
         <tr class="table-list-currentrow" id="templateRow" style="display: none">
@@ -252,11 +255,12 @@
                 <input type="checkbox" id="chkCoding">
             </td>
             <td class="table-list-currentrow-tdetail">
-                <input id="categoryName" type="text" class="inputBase required" style="width: 95%;border: none">
+                <input id="categoryName" type="text" class="inputBase required" style="width: 91%;border: none">
             </td>
             <td class="table-list-currentrow-tdetail">
-                <input id="categoryDesc" type="text" class="inputBase required" style="width: 95%;border: none">
+                <input id="categoryDesc" type="text" class="inputBase required" style="width: 96%;border: none">
             </td>
+            <td class="table-list-currentrow-tdetail" id="statusA" style="text-align: center"></td>
         </tr>
     </table>
     <div id="nonData" class="noDataCon" style="display: none">
