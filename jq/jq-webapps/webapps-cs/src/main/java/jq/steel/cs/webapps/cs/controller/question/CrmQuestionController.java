@@ -8,6 +8,7 @@ import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
+import com.ebase.utils.StringUtil;
 import jq.steel.cs.services.cust.api.controller.CrmQuestionApi;
 import jq.steel.cs.services.cust.api.vo.CrmQuestionRecordVO;
 import jq.steel.cs.services.cust.api.vo.CrmQuestionVO;
@@ -372,6 +373,12 @@ public class CrmQuestionController {
         try {
             JsonRequest<CrmQuestionVO> jsonRequest = new JsonRequest<>();
             CrmQuestionVO vo = new CrmQuestionVO();
+            if (StringUtil.isEmpty(AssertContext.getOrgType())) {
+                CrmQuestionVO crmQuestionVO = new CrmQuestionVO();
+                crmQuestionVO.setCount(0);
+                jsonResponse.setRspBody(crmQuestionVO);
+                return jsonResponse;
+            }
             vo.setOrgType(AssertContext.getOrgType());
             vo.setAcctId(Long.valueOf(AssertContext.getAcctId()));
             jsonRequest.setReqBody(vo);

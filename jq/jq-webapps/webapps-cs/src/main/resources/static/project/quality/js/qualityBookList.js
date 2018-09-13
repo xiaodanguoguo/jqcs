@@ -3,7 +3,7 @@ function clsMethodLee(){
         "path1":"/millsheet/findMillSheetByPage",//初始list列表
         "path2":"/millsheet/preview",//预览接口
         "path3":"/millsheet/downFile",//下载接口
-        "path4":"/sysAcct/customerType"//下载接口
+        "path4":"/sysAcct/customerType"//获取用户信息接口
     };
     this.documentLee = null;
     this.previewArr = [];//缓存预览数组

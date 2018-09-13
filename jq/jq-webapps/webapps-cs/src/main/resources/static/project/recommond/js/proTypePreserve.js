@@ -101,6 +101,14 @@ function clsStandardEditTableCtrl$progress(jsonItem,cloneRow)
 
     }
     //alert("自己业务定义！");
+    if(jsonItem.status == 2){
+        $(cloneRow).find("#categoryName").attr("disabled",true);
+        $(cloneRow).find("#categoryDesc").attr("disabled",true);
+        $(cloneRow).find("#chkCoding").remove()
+        $(cloneRow).find("#statusA").html("已提交");
+    }else{
+        $(cloneRow).find("#statusA").html("待提交");
+    }
 
 }
 

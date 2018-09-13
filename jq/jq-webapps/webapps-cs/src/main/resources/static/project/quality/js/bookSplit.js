@@ -8,7 +8,6 @@ function clsMethodLee(){
     this.jsonData = [];//缓存主数据json数据，拆分操作时复用数据
     this.submitBox = "";
     this.millsheetNo = GetQueryString("millsheetNo");
-    this.spiltCustomerTextDom = "";//拆分订货单位节点
     this.init = clsMethodLee$init;//初始化页面的展示内容,绑定dom节点
     this.parse = clsMethodLee$parse;//初始化页面的数据
     this.operate = clsMethodLee$operate;//初始化页面的数据
@@ -26,29 +25,48 @@ function clsMethodLee$init(){
 
 }
 function clsMethodLee$parse(){
+    $("#tableList")[0].cacheArr = [];
     initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,{"millsheetNo":this.millsheetNo},"POST");
     this.operate();
 }
 
 function clsMethodLee$operate(){
     this.splitOpe.on("click",function(){//拆分操作
-        splitTableInit();
+        initValidate($("#splitBefore")[0]);
+        var valiClass=new clsValidateCtrl();
+        if(valiClass.validateAll4Ctrl($("#splitBefore")[0]) && $("#tableList")[0].cacheArr.length > 0){
+            document.body.jsLee.jsonData = [];
+            for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
+                var jsonCopy = CopyJson($("#tableList")[0].cacheArr[nI]);
+                document.body.jsLee.jsonData.push(jsonCopy);
+            }
+            splitTableInit();
+        }else{
+            if($("#tableList")[0].cacheArr.length == 0){
+                var alertBox=new clsAlertBoxCtrl();
+                alertBox.Alert("请勾选质证书","失败提示");
+            }
+        }
     });
     this.returnBookList.on("click",function(){//返回质证书管理操作
         jumpUrl("qualityBookList.html","0000000",0);
-    })
+    });
+    //拆分单位失焦事件
+    $("#spiltCustomerText").on("change",function(){
+        getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",{"orgName":$(this).val()},"spiltCustomerTextCheckCallBack(data)");
+    });
 }
 function clsMethodLee$refresh(){
 
 }
 
 function clsStandardTableCtrl$before() {//组件渲染数据前操作
-    if(this.ctrl.id == "tableList"){
+    /*if(this.ctrl.id == "tableList"){
         for(var nI = 0 ; nI < this.jsonData.resultData.length; nI++ ){
             var jsonCopy = CopyJson(this.jsonData.resultData[nI]);
             document.body.jsLee.jsonData.push(jsonCopy);
         }
-    }
+    }*/
 }
 
 function clsStandardTableCtrl$progress(jsonItem, cloneRow) {//组件渲染数据循环操作
@@ -115,6 +133,7 @@ function initplugPath(docm,comType,reqPath,reqParam,reqMethod){
 function splitTableInit(){
     var splitTableClone = $("#splitTableTemple").clone(true);
     splitTableClone.attr("id","splitTableClone").show();
+    splitTableClone.find("#spiltCustomerTextA").val($("#spiltCustomerText").val());
     $("#splitTableTemple").before(splitTableClone);
     initplugData(splitTableClone.find("#tableSplitList")[0],"standardTableCtrl",document.body.jsLee.jsonData);
     initValidate(splitTableClone[0]);//初始化校验组件
@@ -123,14 +142,20 @@ function splitTableInit(){
     splitTableClone.find("#submitSplit").on("click",function(){
         splitSubmit(splitTableClone);
     });
-    //拆分后清空操作
+    //取消此拆分后操作
     splitTableClone.find("#resetInput").on("click",function(){
-        $(this).parents("#splitTableClone").find("#spiltCustomerText").val("");
+        splitTableClone.find("*[id=cloneRow] #zjishu").each(function () {
+            $(this).val(0);
+            //获取当前行唯一标识
+            var markRow = $(this).parents("#cloneRow")[0].jsonData.sid;
+            blurCheck($(this),$("*[id=cloneRow] #zjishu"),markRow);
+        });
+        splitTableClone.remove();
     });
-    splitTableClone.find("#spiltCustomerText").on("change",function(){
+    /*splitTableClone.find("#spiltCustomerText").on("change",function(){
         document.body.jsLee.spiltCustomerTextDom = $(this);
         getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",{"orgName":$(this).val()},"spiltCustomerTextCheckCallBack(data)");
-    });
+    });*/
 }
 
 function checkForm(dom){//提交tab1
@@ -208,8 +233,10 @@ function submitSplitCallBack(data){
             $(this).find("#millsheetNoName").html(data.rspBody.millsheetNo);
             $(this).find("#zjishu").attr("disabled",true);
             $(this).find("#zlosmenge").attr("disabled",true);
+            $(this).find("#submitSplit").attr("disabled",true);
+            $(this).find("#resetInput").attr("disabled",true);
         });
-        document.body.jsLee.submitBox.find("#spiltCustomerText").attr("disabled",true).addClass("changeGary");
+       /* document.body.jsLee.submitBox.find("#spiltCustomerText").attr("disabled",true).addClass("changeGary");*/
         //document.body.jsLee.submitBox.find("#spiltCustomerText").attr("initValue",document.body.jsLee.submitBox.find("#spiltCustomerText option:selected").val());
         //initplugPath(document.body.jsLee.submitBox.find("#spiltCustomerText")[0],"singleSelectCtrl",document.body.jsLee.requestUrl.path3,null,"POST")//初始化下拉框
         document.body.jsLee.submitBox.find("#submitSplit").attr("disabled",true).addClass("changeGary");
@@ -237,7 +264,7 @@ function splitSubmit(splitTableClone){
             var jsonParam = {"millsheetType":"","specs":"","zchehao":"","zcpmc":"","zjishu":"","zkunnr":"","zlosmenge":"","zlph":""};
             getValue4Desc(jsonParam,$(this)[0]);
             jsonParam.millsheetNo = this.jsonData.millsheetNo;
-            jsonParam.spiltCustomer = splitTableClone.find("#spiltCustomerText").val();
+            jsonParam.spiltCustomer = splitTableClone.find("#spiltCustomerTextA").val();
             //jsonParam.zkunweCode = splitTableClone.find("#spiltCustomerText option:selected").html();
             arrParam.push(jsonParam);
         });
@@ -271,7 +298,7 @@ function spiltCustomerTextCheckCallBack(data){
         document.body.jsLee.checkname = true;
     }else{
         alert(data.retDesc);
-        document.body.jsLee.spiltCustomerTextDom.val("");
+        $("#spiltCustomerText").val("");
     }
 }
 
