@@ -79,7 +79,7 @@ function clsMethodLee$operate(){
     this.revokeSureOpe.on("click",function(){//撤销确认操作
         if($("#revokeText").val().length >= 5){
             var jsonParam = {"claimNo":document.body.jsLee.claimNo,"reasonsForCompulsoryClosure":$("#revokeText").val()};
-            getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",jsonParam,"revokeOpeCallBack(data)");
+            getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",jsonParam,"revokeOpeCallBack(data)");
         }else if($("#revokeText").val().length > 0){
             showErrInfoByCustomDiv($("#revokeText")[0],"强制结案理由至少5个字！");
         }else{
@@ -140,7 +140,6 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 break;
             case "PRESENT":
                 $(cloneRow).find("#claimStateA").html("已提报");
-                $(cloneRow).find("#auditOpe").show();
                 break;
             case "ACCEPTANCE":
                 $(cloneRow).find("#claimStateA").html("已受理");
@@ -156,7 +155,8 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 break;
             case "END":
                 $(cloneRow).find("#claimStateA").html("已结案");
-                $(cloneRow).find("#evaluateOpe").show();
+                $(cloneRow).find("#strongEndOpe").hide();
+                $(cloneRow).find("#printOpe").show();
                 break;
             case "EVALUATE":
                 $(cloneRow).find("#claimStateA").html("已评价");
