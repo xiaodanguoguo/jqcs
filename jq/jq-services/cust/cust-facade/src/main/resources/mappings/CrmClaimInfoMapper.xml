@@ -52,6 +52,11 @@
     <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
     <result column="PRESENTATION_USER" property="presentationUser" jdbcType="VARCHAR" />
     <result column="PRESENTATION_DATE" property="presentationDate" jdbcType="TIMESTAMP" />
+    <result column="AGREEMENT_URL" property="agreementUrl" jdbcType="VARCHAR" />
+    <result column="AGREEMENT_NAME" property="agreementName" jdbcType="VARCHAR" />
+    <result column="AGREEMENT_STATE" property="agreementState" jdbcType="VARCHAR" />
+    <result column="REASONS_FOR_COMPULSORY_CLOSURE" property="reasonsForCompulsoryClosure" jdbcType="VARCHAR" />
+
   </resultMap>
   <sql id="Base_Column_List" >
     SID, CLAIM_NO, PRODUCT_ID, PRODUCT_NAME, MILL_SHEET_NO, CUSTOMER_ID, CUSTOMER_NAME, 
@@ -582,11 +587,16 @@
     A.LAST_USER,
     A.CUSTOMER_NAME,
     D.PRESENTATION_DATE,
-    D.PRESENTATION_USER
+    D.PRESENTATION_USER,
+    D.REASONS_FOR_COMPULSORY_CLOSURE,
+    E.AGREEMENT_URL,
+    E.AGREEMENT_NAME,
+    E.AGREEMENT_STATE
     FROM
     WARRANTY.CRM_CLAIM_INFO A
-    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.CLAIM_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_APPLY D ON A.CLAIM_NO = D.CLAIM_NO
+    LEFT JOIN WARRANTY.CRM_AGREEMENT_INFO E ON A.CLAIM_NO = E.CASE_CODE
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
         AND TO_CHAR (D.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
