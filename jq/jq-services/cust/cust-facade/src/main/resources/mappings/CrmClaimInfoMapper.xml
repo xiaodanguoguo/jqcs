@@ -52,6 +52,11 @@
     <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
     <result column="PRESENTATION_USER" property="presentationUser" jdbcType="VARCHAR" />
     <result column="PRESENTATION_DATE" property="presentationDate" jdbcType="TIMESTAMP" />
+    <result column="AGREEMENT_URL" property="agreementUrl" jdbcType="VARCHAR" />
+    <result column="AGREEMENT_NAME" property="agreementName" jdbcType="VARCHAR" />
+    <result column="AGREEMENT_STATE" property="agreementState" jdbcType="VARCHAR" />
+    <result column="REASONS_FOR_COMPULSORY_CLOSURE" property="reasonsForCompulsoryClosure" jdbcType="VARCHAR" />
+
   </resultMap>
   <sql id="Base_Column_List" >
     SID, CLAIM_NO, PRODUCT_ID, PRODUCT_NAME, MILL_SHEET_NO, CUSTOMER_ID, CUSTOMER_NAME, 
@@ -115,13 +120,13 @@
     </selectKey>
     insert into CRM_CLAIM_INFO
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="sid != null and sid != ''" >
+      <if test="sid != null" >
         SID,
       </if>
       <if test="claimNo != null and claimNo != ''" >
         CLAIM_NO,
       </if>
-      <if test="productId != null and productId != ''" >
+      <if test="productId != null" >
         PRODUCT_ID,
       </if>
       <if test="productName != null and productName != ''" >
@@ -184,13 +189,13 @@
       <if test="contractNo != null and contractNo != ''" >
         CONTRACT_NO,
       </if>
-      <if test="contractVolume != null and contractVolume != ''" >
+      <if test="contractVolume != null" >
         CONTRACT_VOLUME,
       </if>
       <if test="specs != null and specs != ''" >
         SIZE_MARK,
       </if>
-      <if test="originalWeight != null and originalWeight != ''" >
+      <if test="originalWeight != null" >
         ORIGINAL_WEIGHT,
       </if>
       <if test="orderNo != null and orderNo != ''" >
@@ -199,10 +204,10 @@
       <if test="originalCarNo != null and originalCarNo != ''" >
         ORIGINAL_CAR_NO,
       </if>
-      <if test="contractUnitPrice != null and contractUnitPrice != ''" >
+      <if test="contractUnitPrice != null" >
         CONTRACT_UNIT_PRICE,
       </if>
-      <if test="objectionNum != null and objectionNum != ''" >
+      <if test="objectionNum != null" >
         OBJECTION_NUM,
       </if>
       <if test="endProcessingTech != null and endProcessingTech != ''" >
@@ -238,21 +243,21 @@
       <if test="updatedDt != null" >
         UPDATED_DT,
       </if>
-      <if test="version != null and version != ''" >
+      <if test="version != null'" >
         VERSION,
       </if>
-      <if test="dissentingUnit != null and dissentingUnit != ''" >
+      <if test="dissentingUnit != null" >
         DISSENTING_UNIT,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="sid != null and sid != ''" >
+      <if test="sid != null" >
         #{sid,jdbcType=NUMERIC},
       </if>
       <if test="claimNo != null and claimNo != ''" >
         #{claimNo,jdbcType=VARCHAR},
       </if>
-      <if test="productId != null and productId != ''" >
+      <if test="productId != null" >
         #{productId,jdbcType=NUMERIC},
       </if>
       <if test="productName != null and productName != ''" >
@@ -315,13 +320,13 @@
       <if test="contractNo != null and contractNo != ''" >
         #{contractNo,jdbcType=VARCHAR},
       </if>
-      <if test="contractVolume != null and contractVolume != ''" >
+      <if test="contractVolume != null" >
         #{contractVolume,jdbcType=NUMERIC},
       </if>
       <if test="specs != null and specs != ''" >
         #{specs,jdbcType=VARCHAR},
       </if>
-      <if test="originalWeight != null and originalWeight != ''" >
+      <if test="originalWeight != null" >
         #{originalWeight,jdbcType=NUMERIC},
       </if>
       <if test="orderNo != null and orderNo != ''" >
@@ -330,10 +335,10 @@
       <if test="originalCarNo != null and originalCarNo != ''" >
         #{originalCarNo,jdbcType=VARCHAR},
       </if>
-      <if test="contractUnitPrice != null and contractUnitPrice != ''" >
+      <if test="contractUnitPrice != null" >
         #{contractUnitPrice,jdbcType=NUMERIC},
       </if>
-      <if test="objectionNum != null and objectionNum != ''" >
+      <if test="objectionNum != null" >
         #{objectionNum,jdbcType=NUMERIC},
       </if>
       <if test="endProcessingTech != null and endProcessingTech != ''" >
@@ -369,10 +374,10 @@
       <if test="updatedDt != null" >
         #{updatedDt,jdbcType=TIMESTAMP},
       </if>
-      <if test="version != null and version != ''" >
+      <if test="version != null" >
         #{version,jdbcType=NUMERIC},
       </if>
-      <if test="dissentingUnit != null and dissentingUnit != ''" >
+      <if test="dissentingUnit != null" >
         #{dissentingUnit,jdbcType=NUMERIC},
       </if>
     </trim>
@@ -381,7 +386,7 @@
     update CRM_CLAIM_INFO
     <trim suffixOverrides=",">
     set version = version + 1,
-      <if test="productId != null and productId != ''" >
+      <if test="productId != null" >
         PRODUCT_ID = #{productId,jdbcType=NUMERIC},
       </if>
       <if test="productName != null and productName != ''" >
@@ -444,13 +449,13 @@
       <if test="contractNo != null and contractNo != ''" >
         CONTRACT_NO = #{contractNo,jdbcType=VARCHAR},
       </if>
-      <if test="contractVolume != null and contractVolume != ''" >
+      <if test="contractVolume != null" >
         CONTRACT_VOLUME = #{contractVolume,jdbcType=NUMERIC},
       </if>
       <if test="specs != null and specs != ''" >
         SIZE_MARK = #{specs,jdbcType=VARCHAR},
       </if>
-      <if test="originalWeight != null and originalWeight != ''" >
+      <if test="originalWeight != null" >
         ORIGINAL_WEIGHT = #{originalWeight,jdbcType=NUMERIC},
       </if>
       <if test="orderNo != null and orderNo != ''" >
@@ -459,10 +464,10 @@
       <if test="originalCarNo != null and originalCarNo != ''" >
         ORIGINAL_CAR_NO = #{originalCarNo,jdbcType=VARCHAR},
       </if>
-      <if test="contractUnitPrice != null and contractUnitPrice != ''" >
+      <if test="contractUnitPrice != null" >
         CONTRACT_UNIT_PRICE = #{contractUnitPrice,jdbcType=NUMERIC},
       </if>
-      <if test="objectionNum != null and objectionNum != ''" >
+      <if test="objectionNum != null" >
         OBJECTION_NUM = #{objectionNum,jdbcType=NUMERIC},
       </if>
       <if test="endProcessingTech != null and endProcessingTech != ''" >
@@ -498,7 +503,7 @@
       <if test="updatedDt != null" >
         UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
       </if>
-      <if test="dissentingUnit != null and dissentingUnit != ''" >
+      <if test="dissentingUnit != null" >
         DISSENTING_UNIT = #{dissentingUnit,jdbcType=NUMERIC},
       </if>
       <if test="inquireState != null and inquireState != ''" >
@@ -506,53 +511,6 @@
       </if>
     </trim>
     where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInfo" >
-    update CRM_CLAIM_INFO
-    set CLAIM_NO = #{claimNo,jdbcType=VARCHAR},
-      PRODUCT_ID = #{productId,jdbcType=NUMERIC},
-      PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
-      MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
-      CUSTOMER_ID = #{customerId,jdbcType=VARCHAR},
-      CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
-      CUST_ADDR = #{custAddr,jdbcType=VARCHAR},
-      CUST_EMP_NO = #{custEmpNo,jdbcType=VARCHAR},
-      CUST_TEL = #{custTel,jdbcType=VARCHAR},
-      LAST_USER_ID = #{lastUserId,jdbcType=VARCHAR},
-      LAST_USER = #{lastUser,jdbcType=VARCHAR},
-      LAST_USER_ADDR = #{lastUserAddr,jdbcType=VARCHAR},
-      CREATE_EMP_NO = #{createEmpNo,jdbcType=VARCHAR},
-      LAST_USER_TEL = #{lastUserTel,jdbcType=VARCHAR},
-      LAST_USER_EMAIL = #{lastUserEmail,jdbcType=VARCHAR},
-      STEEL_TYPE = #{steelType,jdbcType=VARCHAR},
-      CLAIM_TYPE = #{claimType,jdbcType=VARCHAR},
-      BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR},
-      PRO_PROBLEM = #{proProblem,jdbcType=VARCHAR},
-      DESIGNATION = #{designation,jdbcType=VARCHAR},
-      USED = #{used,jdbcType=VARCHAR},
-      CONTRACT_NO = #{contractNo,jdbcType=VARCHAR},
-      CONTRACT_VOLUME = #{contractVolume,jdbcType=NUMERIC},
-      SIZE_MARK = #{specs,jdbcType=VARCHAR},
-      ORIGINAL_WEIGHT = #{originalWeight,jdbcType=NUMERIC},
-      ORDER_NO = #{orderNo,jdbcType=VARCHAR},
-      ORIGINAL_CAR_NO = #{originalCarNo,jdbcType=VARCHAR},
-      CONTRACT_UNIT_PRICE = #{contractUnitPrice,jdbcType=NUMERIC},
-      OBJECTION_NUM = #{objectionNum,jdbcType=NUMERIC},
-      END_PROCESSING_TECH = #{endProcessingTech,jdbcType=VARCHAR},
-      CLAIM_DESC = #{claimDesc,jdbcType=VARCHAR},
-      CLAIM_REASION = #{claimReasion,jdbcType=VARCHAR},
-      CLAIM_STATE = #{claimState,jdbcType=VARCHAR},
-      FILE_PATH = #{filePath,jdbcType=VARCHAR},
-      CHECK_STATE = #{checkState,jdbcType=VARCHAR},
-      REJECT_REASON = #{rejectReason,jdbcType=VARCHAR},
-      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
-      CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
-      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
-      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
-      VERSION = #{version,jdbcType=NUMERIC},
-      DISSENTING = #{dissentingUnit,jdbcType=NUMERIC},
-      INQUIRE_STATE = #{inquireState,jdbcType=VARCHAR}
-    where SID = #{sid,jdbcType=NUMERIC}
   </update>
 
 
@@ -571,28 +529,37 @@
     A.INQUIRE_STATE,
     A.LAST_USER,
     A.CUSTOMER_NAME,
-    A.PRESENTATION_DATE,
-    A.PRESENTATION_USER
+    D.PRESENTATION_DATE,
+    D.PRESENTATION_USER,
+    D.REASONS_FOR_COMPULSORY_CLOSURE,
+    E.AGREEMENT_URL,
+    E.AGREEMENT_NAME,
+    E.AGREEMENT_STATE
     FROM
-    WARRANTY.CRM_CLAIM_APPLY A
+    WARRANTY.CRM_CLAIM_INFO A
     LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_APPLY D ON A.CLAIM_NO = D.CLAIM_NO
+    LEFT JOIN WARRANTY.CRM_AGREEMENT_INFO E ON A.CLAIM_NO = E.CASE_CODE
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
-        AND TO_CHAR (A.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        AND TO_CHAR (D.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
         <!--AND  #{} &gt;= A.PRESENTATION_DATE-->
+      </if>
+      <if test="startDtStr != null" >
+        AND TO_CHAR (D.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+        <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
       </if>
       <if test="customerId != null and customerId != ''" >
         AND A.CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
-      </if>
-      <if test="startDtStr != null" >
-        AND TO_CHAR (A.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
-        <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
       </if>
       <if test="claimType != null and claimType != ''" >
         AND A.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
       </if>
       <if test="productName != null and productName != ''" >
         AND A.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
+      </if>
+      <if test="productId != null and productId != ''" >
+        AND A.PRODUCT_ID = #{productId,jdbcType=VARCHAR}
       </if>
       <if test="claimNo != null and claimNo != ''" >
         AND A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
@@ -605,6 +572,9 @@
       </if>
       <if test="manufactor != null and manufactor != ''" >
         AND  B.DEPT_CODE = #{manufactor,jdbcType=VARCHAR}
+      </if>
+      <if test="designation != null and designation != ''" >
+        AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}
       </if>
     </trim>
   </select>
@@ -626,11 +596,16 @@
     A.LAST_USER,
     A.CUSTOMER_NAME,
     D.PRESENTATION_DATE,
-    D.PRESENTATION_USER
+    D.PRESENTATION_USER,
+    D.REASONS_FOR_COMPULSORY_CLOSURE,
+    E.AGREEMENT_URL,
+    E.AGREEMENT_NAME,
+    E.AGREEMENT_STATE
     FROM
     WARRANTY.CRM_CLAIM_INFO A
     LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_APPLY D ON A.CLAIM_NO = D.CLAIM_NO
+    LEFT JOIN WARRANTY.CRM_AGREEMENT_INFO E ON A.CLAIM_NO = E.CASE_CODE
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
         AND TO_CHAR (D.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
@@ -649,6 +624,9 @@
       <if test="productName != null and productName != ''" >
         AND A.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
       </if>
+      <if test="productId != null and productId != ''" >
+        AND A.PRODUCT_ID = #{productId,jdbcType=VARCHAR}
+      </if>
       <if test="claimNo != null and claimNo != ''" >
         AND A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
       </if>
@@ -666,23 +644,11 @@
       </if>
     </trim>
   </select>
-
+  <!--销售审核查询-->
   <select id="findByParams" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInfo" >
     SELECT
-    A.CLAIM_NO,
-    A.CLAIM_STATE,
-    A.MILL_SHEET_NO,
+    A.*,
     B.DEPT_CODE,
-    A.PRODUCT_ID,
-    A.PRODUCT_NAME,
-    A.DESIGNATION,
-    A.SIZE_MARK,
-    A.CLAIM_TYPE,
-    A.OBJECTION_NUM,
-    A.INQUIRE_STATE,
-    A.LAST_USER,
-    A.CUSTOMER_NAME,
-    A.CLAIM_TYPE,
     D.PRESENTATION_DATE,
     D.PRESENTATION_USER
     FROM
@@ -703,6 +669,9 @@
     </if>
       <if test="claimType != null and claimType != ''" >
         AND A.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
+      </if>
+      <if test="productId != null and productId != ''" >
+        AND A.PRODUCT_ID = #{productId,jdbcType=VARCHAR}
       </if>
       <if test="productName != null and productName != ''" >
         AND A.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}

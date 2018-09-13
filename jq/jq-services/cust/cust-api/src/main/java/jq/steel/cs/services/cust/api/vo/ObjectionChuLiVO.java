@@ -7,6 +7,12 @@ import java.util.Date;
 
 public class ObjectionChuLiVO {
 
+    private String agreementUrl;
+
+    private String agreementName;
+
+    private String agreementState;
+
     //产品名称
     private  String zcpmc;
 
@@ -79,8 +85,6 @@ public class ObjectionChuLiVO {
 
     private BigDecimal objectionNum;
 
-    private String endProcessingTech;
-
     private String claimDesc;
 
     private String claimReason;
@@ -123,9 +127,11 @@ public class ObjectionChuLiVO {
     private  String agreementPath;
 
     //受理时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date admissibilityTime;
 
     //提报时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date presentationDate;
 
     //受理人
@@ -151,6 +157,91 @@ public class ObjectionChuLiVO {
 
     //润乾地址
     private  String report;
+
+    //物流过程
+    private String logisticsProcess;
+
+    private String endProcessingTech;
+    private String defectName;
+
+    private Date productDt;
+    private String shift;
+
+    private String userRequirement;
+
+    private String handingSuggestion;
+
+    public String getLogisticsProcess() {
+        return logisticsProcess;
+    }
+
+    public void setLogisticsProcess(String logisticsProcess) {
+        this.logisticsProcess = logisticsProcess;
+    }
+
+    public String getDefectName() {
+        return defectName;
+    }
+
+    public void setDefectName(String defectName) {
+        this.defectName = defectName;
+    }
+
+    public Date getProductDt() {
+        return productDt;
+    }
+
+    public void setProductDt(Date productDt) {
+        this.productDt = productDt;
+    }
+
+    public String getShift() {
+        return shift;
+    }
+
+    public void setShift(String shift) {
+        this.shift = shift;
+    }
+
+    public String getUserRequirement() {
+        return userRequirement;
+    }
+
+    public void setUserRequirement(String userRequirement) {
+        this.userRequirement = userRequirement;
+    }
+
+    public String getHandingSuggestion() {
+        return handingSuggestion;
+    }
+
+    public void setHandingSuggestion(String handingSuggestion) {
+        this.handingSuggestion = handingSuggestion;
+    }
+
+    public String getAgreementUrl() {
+        return agreementUrl;
+    }
+
+    public void setAgreementUrl(String agreementUrl) {
+        this.agreementUrl = agreementUrl;
+    }
+
+    public String getAgreementName() {
+        return agreementName;
+    }
+
+    public void setAgreementName(String agreementName) {
+        this.agreementName = agreementName;
+    }
+
+    public String getAgreementState() {
+        return agreementState;
+    }
+
+    public void setAgreementState(String agreementState) {
+        this.agreementState = agreementState;
+    }
 
     public String getZcpmc() {
         return zcpmc;

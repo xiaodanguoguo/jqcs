@@ -27,7 +27,7 @@ function clsMethodLee$init(){
 }
 function clsMethodLee$parse(){
     $("#tableList")[0].cacheArr = [];
-    initplugPath($("#condproductCategoryCode")[0],"singleSelectCtrl",this.requestUrl.path7,null,"POST");
+    initplugPath($("#condprodectId")[0],"singleSelectCtrl",this.requestUrl.path7,null,"POST");
     initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
     // 初始化搜索框下拉
     $("#condclaimState").chosen({
@@ -119,7 +119,6 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 break;
             case "PRESENT":
                 $(cloneRow).find("#claimStateA").html("已提报");
-                $(cloneRow).find("#auditOpe").show();
                 break;
             case "ACCEPTANCE":
                 $(cloneRow).find("#claimStateA").html("已受理");
@@ -135,7 +134,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 break;
             case "END":
                 $(cloneRow).find("#claimStateA").html("已结案");
-                $(cloneRow).find("#evaluateOpe").show();
+                $(cloneRow).find("#strongEndOpe").hide();
                 break;
             case "EVALUATE":
                 $(cloneRow).find("#claimStateA").html("已评价");
@@ -174,34 +173,26 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         switch (jsonItem.inquireState){
             case "OUTSTART":
                 $(cloneRow).find("#inquireStateA").html("外部调查开始");
-                $(cloneRow).find("#researchOutOpe").show();
                 break;
             case "TRACK":
                 $(cloneRow).find("#inquireStateA").html("已跟踪");
-                $(cloneRow).find("#researchOutOpe").show();
                 break;
             case "OUTEND":
                 $(cloneRow).find("#inquireStateA").html("外部调查结束");
-                $(cloneRow).find("#researchInOpe").show();
-                $(cloneRow).find("#rejectOpe").show();
                 break;
             case "INSTART":
                 $(cloneRow).find("#inquireStateA").html("内部调查开始");
-                $(cloneRow).find("#researchInOpe").show();
                 break;
             case "INEND":
                 $(cloneRow).find("#inquireStateA").html("内部调查结束");
-                $(cloneRow).find("#rejectOpe").show();
-                $(cloneRow).find("#bookAuditOpe").show();
+                $(cloneRow).find("#sureAuditOpe").show();
                 break;
             case "CONFIRM":
                 $(cloneRow).find("#inquireStateA").html("已确认");
-                $(cloneRow).find("#rejectOpe").show();
-                $(cloneRow).find("#bookAuditOpe").show();
+                $(cloneRow).find("#agreementEditOpe").show();
                 break;
             default:
                 $(cloneRow).find("#inquireStateA").html("");
-                $(cloneRow).find("#researchOutOpe").show();
                 break;
         }
         //协议书状态判断 0编辑中 1已审核 2已完成
@@ -211,11 +202,11 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 break;
             case "EXAMINE":
                 $(cloneRow).find("#agreementStateA").html("已审核");
-                $(cloneRow).find("#cancelOpe").show();
+                $(cloneRow).find("#viewDownloadOpe");
                 break;
             case "COMPLETE":
                 $(cloneRow).find("#agreementStateA").html("已完成");
-                $(cloneRow).find("#cancelOpe").show();
+                $(cloneRow).find("#agreementAuditOpe").show();
                 break;
             default:
                 $(cloneRow).find("#agreementStateA").html("");
@@ -227,16 +218,16 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
             openWin("800","600","previewOpeBox");
         });
         //确认书审核操作
-        $(cloneRow).find("#sureBookOpe").on("click",function(){
-            jumpUrl("objectionSubDetail.html","0000000",0);
+        $(cloneRow).find("#sureAuditOpe").on("click",function(){
+            jumpUrl("objectionSubDetail.html?htmlType=6&claimNo="+jsonItem.claimNo,"0000000",0);
         });
         //编辑协议书操作
         $(cloneRow).find("#agreementEditOpe").on("click",function(){
-            jumpUrl("agreementBook.html","0000000",0);
+            jumpUrl("agreementBook.html?htmlType=1&claimNo=" + jsonItem.claimNo,"0000000",0);
         });
         //协议书审核操作
-        $(cloneRow).find("#agreementAuditOpe").on("click",function(){
-            jumpUrl("agreementBook.html","0000000",0);
+        $(cloneRow).find("#agreement AuditOpe").on("click",function(){
+            jumpUrl("agreementBook.html?htmlType=2&claimNo=" + jsonItem.claimNo,"0000000",0);
         });
         //强制结案操作
         $(cloneRow).find("#strongEndOpe").on("click",function(){
@@ -319,7 +310,7 @@ function isAllCheck(){
             numLength++;
         }
     }
-    if(numLength == listCheck.length){
+    if(numLength == listCheck.length && numLength != 0){
         $("#checkAll").attr("checked",true);
     }
 }

@@ -124,7 +124,7 @@ function initHtmlCallBack(data){
        // UE.getEditor('editor').setContent(data.rspBody.fieldConclusion);
         var ue = UE.getEditor('editor');
         ue.ready(function() {//编辑器初始化完成再赋值
-            data.rspBody.inquireInfo = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
+            // data.rspBody.inquireInfo = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
             ue.setContent(data.rspBody.inquireInfo);  //赋值给UEditor
         });
     }
@@ -224,6 +224,14 @@ function boxChecked(){
 function operateSucCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
+        var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert(data.retDesc,"成功提示",1,"","successTip");
+    }
+}
+
+function clsAlertBoxCtrl$sure() {//成功弹框确定
+    if (this.id == "successTip") {
+        closePopupWin();
         jumpUrl("objectionDeal.html","0000000",0);
     }
 }

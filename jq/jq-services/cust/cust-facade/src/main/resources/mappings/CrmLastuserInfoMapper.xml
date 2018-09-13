@@ -63,6 +63,9 @@ WHERE CUSTOMER_ID=#{customerId,jdbcType = VARCHAR}
       <if test="lastUserTel != null and lastUserTel != ''" >
         AND LAST_USER_TEL = #{lastUserTel,jdbcType=VARCHAR}
       </if>
+      <if test="createdBy != null and createdBy != ''" >
+        and CREATED_BY = #{createdBy}
+      </if>
     </trim>
   </select>
 
@@ -74,7 +77,7 @@ WHERE CUSTOMER_ID=#{customerId,jdbcType = VARCHAR}
     WHERE CUSTOMER_ID=#{customerId,jdbcType = VARCHAR}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="string" >
+  <delete id="deleteByPrimaryKey" parameterType="long" >
     delete from CRM_LASTUSER_INFO
     where SID = #{sid,jdbcType=NUMERIC}
   </delete>

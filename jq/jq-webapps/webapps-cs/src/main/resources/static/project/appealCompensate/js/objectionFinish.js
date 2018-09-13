@@ -32,7 +32,7 @@ function clsMethodLee$init(){
 }
 function clsMethodLee$parse(){
     $("#tableList")[0].cacheArr = [];
-    initplugPath($("#condproductCategoryCode")[0],"singleSelectCtrl",this.requestUrl.path7,null,"POST");
+    initplugPath($("#condprodectId")[0],"singleSelectCtrl",this.requestUrl.path7,null,"POST");
     initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
     // 初始化搜索框下拉
     $("#condclaimState").chosen({
@@ -58,13 +58,13 @@ function clsMethodLee$operate(){
                 claimNoArr.push($("#tableList")[0].cacheArr[nI].claimNo);
             }
             var importParam = "name=" + JSON.stringify(claimNoArr);
-            $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
+            $.download(requestUrl + document.body.jsLee.requestUrl.path2, importParam, "POST");
         }
     });
     this.rejectSureOpe.on("click",function(){//强制结案确认操作
         if($("#rejectText").val().length >= 5){
             var jsonParam = {"claimNo":document.body.jsLee.claimNo,"reasonsForCompulsoryClosure":$("#rejectText").val()};
-            getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",jsonParam,"rejectOpeCallBack(data)");
+            getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",jsonParam,"rejectOpeCallBack(data)");
         }else if($("#rejectText").val().length > 0){
             showErrInfoByCustomDiv($("#rejectText")[0],"强制结案理由至少5个字！");
         }else{
@@ -79,7 +79,7 @@ function clsMethodLee$operate(){
     this.revokeSureOpe.on("click",function(){//撤销确认操作
         if($("#revokeText").val().length >= 5){
             var jsonParam = {"claimNo":document.body.jsLee.claimNo,"reasonsForCompulsoryClosure":$("#revokeText").val()};
-            getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",jsonParam,"revokeOpeCallBack(data)");
+            getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",jsonParam,"revokeOpeCallBack(data)");
         }else if($("#revokeText").val().length > 0){
             showErrInfoByCustomDiv($("#revokeText")[0],"强制结案理由至少5个字！");
         }else{
@@ -140,7 +140,6 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 break;
             case "PRESENT":
                 $(cloneRow).find("#claimStateA").html("已提报");
-                $(cloneRow).find("#auditOpe").show();
                 break;
             case "ACCEPTANCE":
                 $(cloneRow).find("#claimStateA").html("已受理");
@@ -156,7 +155,8 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 break;
             case "END":
                 $(cloneRow).find("#claimStateA").html("已结案");
-                $(cloneRow).find("#evaluateOpe").show();
+                $(cloneRow).find("#strongEndOpe").hide();
+                $(cloneRow).find("#printOpe").show();
                 break;
             case "EVALUATE":
                 $(cloneRow).find("#claimStateA").html("已评价");
@@ -317,7 +317,7 @@ function isAllCheck(){
             numLength++;
         }
     }
-    if(numLength == listCheck.length){
+    if(numLength == listCheck.length && numLength != 0){
         $("#checkAll").attr("checked",true);
     }
 }

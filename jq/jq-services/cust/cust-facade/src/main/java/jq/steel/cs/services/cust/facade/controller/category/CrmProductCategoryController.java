@@ -69,7 +69,9 @@ public class CrmProductCategoryController {
 
         try {
             List<CrmProductCategoryVO> list = jsonRequest.getReqBody();
-            list.get(0).setIsSubmit(ProductCategoryStatus.SAVE.getCode());
+            for (CrmProductCategoryVO vo : list) {
+                vo.setIsSubmit(ProductCategoryStatus.SAVE.getCode());
+            }
             serviceResponse = crmProductCategoryService.insertCrmProductCategory(list);
         } catch (Exception e) {
             logger.error("保存or提交产品分类错误 = {}", e);
@@ -116,7 +118,9 @@ public class CrmProductCategoryController {
 
         try {
             List<CrmProductCategoryVO> list = jsonRequest.getReqBody();
-            list.get(0).setIsSubmit(ProductCategoryStatus.SUBMIT.getCode());
+            for (CrmProductCategoryVO vo : list) {
+                vo.setIsSubmit(ProductCategoryStatus.SUBMIT.getCode());
+            }
             serviceResponse = crmProductCategoryService.insertCrmProductCategory(list);
         } catch (Exception e) {
             logger.error("保存or提交产品分类错误 = {}", e);

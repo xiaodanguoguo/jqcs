@@ -126,17 +126,17 @@
 						<span class="fl">代办</span>
 					</span>-->
 					<span class="og-head-navwrap-opeBoxList">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/2.png')"></div>
-						<span class="fl" id="quitBtn" style="cursor: pointer">退出</span>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('')"></div>
+						<span  class="fl" style="cursor: pointer" id="quitBtn">退出</span>
 					</span>
 					<span class="og-head-navwrap-opeBoxList">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/1.png')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('')"></div>
 						<span class="fl" id="editPassword" style="cursor: pointer">修改密码</span>
 					</span>
 				</div>
 	            <div class="og-head-navwrap-box clearfix fr">
 					<span class="og-head-navwrap-boxList">您好，<span id="userName"></span></span>
-					<p id="now_time" class="og-head-navwrap-boxList" style="width: 230px;"></p>
+					<p id="now_time" class="og-head-navwrap-boxList" style="width: 250px;"></p>
 				</div>
 	        </div>
 	    </div>
@@ -236,7 +236,7 @@
                     </li>
                     <li class="submission-box-list__Every">
                         <span class="submission-box-list__Name">产品大类:</span>
-                        <select id="condproductCategoryCode" name="" class="inputBase submission-box-list__Select" comType="" selCode="cid" selValue="categoryName" emptyValue="请选择">
+                        <select id="condprodectId" name="" class="inputBase submission-box-list__Select" comType="" selCode="cid" selValue="categoryName" emptyValue="请选择">
                         </select>
                     </li>
                     <li class="submission-box-list__Every">
@@ -285,7 +285,7 @@
                 </ul>
             </div>
             <div class="submission-box-button">
-                <div class="btnLowNew submission-box-search" comType="searchBtnCtrl" cond="condclaimNo,condcustomerId,conddesignation,condstartDt,condendDt,condclaimType,condclaimState,condproductCategoryCode,condbattenPlateNo" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
+                <div class="btnLowNew submission-box-search" comType="searchBtnCtrl" cond="condclaimNo,condcustomerId,conddesignation,condstartDt,condendDt,condclaimType,condclaimState,condprodectId,condbattenPlateNo" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
                 <div class="btnLowNew submission-box-create" id="newOpe">新建</div>
                 <!--<div class="btnLowNew submission-box-amend">修改</div>
                 <div class="btnLowNew submission-box-submit">提交</div>-->
@@ -331,7 +331,7 @@
                     <td class="table-list-currentrow-tdetail" id="claimNo"></td>
                     <td class="table-list-currentrow-tdetail" id="claimStateA"></td>
                     <td class="table-list-currentrow-tdetail" id="deptCode"></td>
-                    <td class="table-list-currentrow-tdetail" id="productCategory"></td>
+                    <td class="table-list-currentrow-tdetail" id="zcpmc"></td>
                     <td class="table-list-currentrow-tdetail" id="zph"></td>
                     <td class="table-list-currentrow-tdetail" id="specs"></td>
                     <!--<td class="table-list-currentrow-tdetail" id="claimTypeA"></td>-->
@@ -344,10 +344,10 @@
                         <img src="../images/pic.png" class="submission-box-img" alt="" id="downloadOpe">
                     </td>
                     <td class="table-list-currentrow-tdetail" id="rejectReason"></td>
-                    <td class="table-list-currentrow-tdetail">2</td>
+                    <td class="table-list-currentrow-tdetail" id="reasonsForCompulsoryClosure"></td>
                 </tr>
             </table>
-            <div id="nonData" class="noDataCon" style="display: none">
+            <div id="nonData" class="noDataCon" style="width: 950px !important; margin-left: 22px;display: none">
                 <i></i>
                 <p>暂无数据......</p>
             </div>

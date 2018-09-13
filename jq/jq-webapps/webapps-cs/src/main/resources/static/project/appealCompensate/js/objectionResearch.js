@@ -29,7 +29,7 @@ function clsMethodLee$init(){
 }
 function clsMethodLee$parse(){
     $("#tableList")[0].cacheArr = [];
-    initplugPath($("#condproductCategoryCode")[0],"singleSelectCtrl",this.requestUrl.path7,null,"POST");
+    initplugPath($("#condprodectId")[0],"singleSelectCtrl",this.requestUrl.path7,null,"POST");
     initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
     // 初始化搜索框下拉
     $("#condclaimState").chosen({
@@ -269,7 +269,8 @@ function rejectOpeCallBack(data) {
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         closePopupWin();
-        initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
+        var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert("驳回成功","成功提示",1,"","rejectSuccess");
     }
 }
 
@@ -329,8 +330,15 @@ function isAllCheck(){
             numLength++;
         }
     }
-    if(numLength == listCheck.length){
+    if(numLength == listCheck.length && numLength != 0){
         $("#checkAll").attr("checked",true);
+    }
+}
+
+function clsAlertBoxCtrl$sure() {//成功弹框确定
+    if (this.id == "rejectSuccess") {
+        initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
+        closePopupWin();
     }
 }
 

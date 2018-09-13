@@ -3,6 +3,7 @@ package jq.steel.cs.services.cust.facade.service.objection;
 import com.ebase.core.page.PageDTO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoCountVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
+import jq.steel.cs.services.cust.facade.model.CrmClaimApply;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface ObjectionTiBaoService {
     Integer update(ObjectionTiBaoVO objectionTiBaoVO);
 
     //提报删除
-    Integer submit(ObjectionTiBaoVO objectionTiBaoVO);
+    Integer submit(List<ObjectionTiBaoVO> objectionTiBaoVO);
 
     //导出
     List<ObjectionTiBaoVO>  export (List<String> objectionTiBaoVO);
@@ -37,5 +38,24 @@ public interface ObjectionTiBaoService {
      * @author: lirunze
      * @Date: 2018/9/7
      */
-    ObjectionTiBaoCountVO getCount();
+    ObjectionTiBaoCountVO getCount(CrmClaimApply crmClaimApply);
+
+
+    /**
+     * @param:
+     * @return:
+     * @description:  app提报列表
+     * @author: lirunze
+     * @Date: 2018/9/13
+     */
+    PageDTO<ObjectionTiBaoVO> findTiBaoByPage(ObjectionTiBaoVO objectionTiBaoVO);
+
+    /**
+     * @param:
+     * @return:
+     * @description:  app跟踪列表
+     * @author: lirunze
+     * @Date: 2018/9/13
+     */
+    PageDTO<ObjectionTiBaoVO> findgenzongByPage(ObjectionTiBaoVO objectionTiBaoVO);
 }

@@ -126,6 +126,8 @@ public class ObjectionTiBaoController {
             // 根据service层返回的编码做不同的操作
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().setPresentationUser(AssertContext.getAcctId());
+
             ServiceResponse<Integer> response = objectionTiBaoAPI.update(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
@@ -158,13 +160,14 @@ public class ObjectionTiBaoController {
      *
      * */
     @RequestMapping(value = "/submit",method = RequestMethod.POST)
-    public JsonResponse<Integer> submit(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
+    public JsonResponse<Integer> submit(@RequestBody JsonRequest<List<ObjectionTiBaoVO>> jsonRequest) {
         logger.info("参数={}",JsonUtil.toJson(jsonRequest));
         JsonResponse<Integer> jsonResponse = new JsonResponse<>();
         try {
             // 根据service层返回的编码做不同的操作
-            jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
-            jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().get(0).setOrgCode(AssertContext.getOrgCode());
+            jsonRequest.getReqBody().get(0).setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().get(0).setPresentationUser(AssertContext.getAcctId());
             ServiceResponse<Integer> response = objectionTiBaoAPI.submit(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
@@ -357,7 +360,7 @@ public class ObjectionTiBaoController {
         try {
             // 根据service层返回的编码做不同的操作
             ServiceResponse<ObjectionTiBaoVO> response = objectionTiBaoAPI.lookPhoto(jsonRequest);
-            response.getRetContent().setUrl(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern() +"/"+ response.getRetContent().getUrl());
+            response.getRetContent().setUrl( response.getRetContent().getUrl());
 
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());

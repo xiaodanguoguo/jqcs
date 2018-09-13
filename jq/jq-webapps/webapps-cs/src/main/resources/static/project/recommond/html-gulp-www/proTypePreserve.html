@@ -126,17 +126,17 @@
 						<span class="fl">代办</span>
 					</span>-->
 					<span class="og-head-navwrap-opeBoxList">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/2.png')"></div>
-						<span class="fl" id="quitBtn" style="cursor: pointer">退出</span>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('')"></div>
+						<span  class="fl" style="cursor: pointer" id="quitBtn">退出</span>
 					</span>
 					<span class="og-head-navwrap-opeBoxList">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/1.png')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('')"></div>
 						<span class="fl" id="editPassword" style="cursor: pointer">修改密码</span>
 					</span>
 				</div>
 	            <div class="og-head-navwrap-box clearfix fr">
 					<span class="og-head-navwrap-boxList">您好，<span id="userName"></span></span>
-					<p id="now_time" class="og-head-navwrap-boxList" style="width: 230px;"></p>
+					<p id="now_time" class="og-head-navwrap-boxList" style="width: 250px;"></p>
 				</div>
 	        </div>
 	    </div>
@@ -224,6 +224,9 @@
         line-height:28px;
         border:1px solid #dee3e6;
     }
+    input[type=checkbox]{
+        cursor: pointer;
+    }
 </style>
 <div class="contentA">
     <div class="">
@@ -234,17 +237,17 @@
     </div>
     <table class="table-list product_main" id="tableList" insertid="btnInsert" chkid="chkCoding" deleteid="btnDelete" comtype="" templateid="templateRow" reqpath="" reqparam="{}" method="POST" nodata="nonData">
         <tr class="table-list-currentrow">
-            <th class="table-list-currentrow-theader">
-                <input type="checkbox"
-                       id="allChk" comtype="checkAll" cond=""
-                       uniontableid="tableList" chkid="chkCoding"
-                >全选
+            <th class="table-list-currentrow-theader" style="width: 5%">
+                <input type="checkbox" id="allChk" comtype="checkAll" cond="" uniontableid="tableList" chkid="chkCoding">
             </th>
-            <th class="table-list-currentrow-theader">
+            <th class="table-list-currentrow-theader" style="width: 25%">
                 产品类别维护
             </th>
-            <th class="table-list-currentrow-theader">
+            <th class="table-list-currentrow-theader" style="width: 60%">
                 产品类别描述
+            </th>
+            <th class="table-list-currentrow-theader" style="width: 10%">
+                状态
             </th>
         </tr>
         <tr class="table-list-currentrow" id="templateRow" style="display: none">
@@ -252,11 +255,12 @@
                 <input type="checkbox" id="chkCoding">
             </td>
             <td class="table-list-currentrow-tdetail">
-                <input id="categoryName" type="text" class="inputBase required" style="width: 96%;">
+                <input id="categoryName" type="text" class="inputBase required" style="width: 91%;border: none">
             </td>
             <td class="table-list-currentrow-tdetail">
-                <input id="categoryDesc" type="text" class="inputBase required" style="width: 96%;">
+                <input id="categoryDesc" type="text" class="inputBase required" style="width: 96%;border: none">
             </td>
+            <td class="table-list-currentrow-tdetail" id="statusA" style="text-align: center"></td>
         </tr>
     </table>
     <div id="nonData" class="noDataCon" style="display: none">

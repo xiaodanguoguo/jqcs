@@ -96,7 +96,7 @@ public class CrmProductInfoController {
                     .getDetail(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 CrmProductInfoVO crmProductInfoVO = serviceResponse.getRetContent();
-                List<String> thumbnailList = JsonUtil.parseObject(crmProductInfoVO.getProductManual(), List.class);
+                List<String> thumbnailList = JsonUtil.parseObject(crmProductInfoVO.getThumbnail(), List.class);
                 List<String> thumbnails = new ArrayList<>();
                 for (String s : thumbnailList) {
                     thumbnails.add(FileUploadSringUtil.addPath(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), s));
@@ -207,6 +207,16 @@ public class CrmProductInfoController {
         logger.info("产品信息新增 = {}", JsonUtil.toJson(jsonRequest));
 
         try {
+            CrmProductInfoVO vo = jsonRequest.getReqBody();
+            List<String> thumbnailList = vo.getThumbnailList();
+            List<String> thumbnails = new ArrayList<>();
+            for (String s : thumbnailList) {
+                thumbnails.add(FileUploadSringUtil.subString(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), s));
+            }
+            vo.setThumbnailList(thumbnails);
+
+            vo.setCreateByid(Long.valueOf(AssertContext.getAcctId()));
+            vo.setCreateBy(AssertContext.getAcctName());
             ServiceResponse<Boolean> serviceResponse = crmProductInfoApi
                     .insertPruduct(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
@@ -250,7 +260,7 @@ public class CrmProductInfoController {
                 thumbnails.add(FileUploadSringUtil.subString(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), s));
             }
             vo.setThumbnailList(thumbnails);
-//            vo.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
+            vo.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
             vo.setUpdateBy(AssertContext.getAcctName());
             ServiceResponse<Boolean> serviceResponse = crmProductInfoApi
                     .updatePruduct(jsonRequest);

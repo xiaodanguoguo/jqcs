@@ -3,7 +3,7 @@ function clsMethodLee(){
         "path1":"/millsheet/findMillSheetByPage",//初始list列表
         "path2":"/millsheet/preview",//预览接口
         "path3":"/millsheet/downFile",//下载接口
-        "path4":"/sysAcct/customerType"//下载接口
+        "path4":"/sysAcct/customerType"//获取用户信息接口
     };
     this.documentLee = null;
     this.previewArr = [];//缓存预览数组
@@ -244,7 +244,7 @@ function isAllCheck(){
             numLength++;
         }
     }
-    if(numLength == listCheck.length && listCheck > 0){
+    if(numLength == listCheck.length && numLength > 0){
         $("#checkAll").attr("checked",true);
     }
 }
@@ -256,6 +256,8 @@ function getContentCallBack(data){
         if(data.rspBody){
             if(data.rspBody.acctType != 1 && data.rspBody.acctType != 0){
                 $("#condzkunnr").val(data.rspBody.orgName).attr("disabled",true).addClass("changeGary");
+                $("*[comType=clearAllCond]").attr("bindctrlid","condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph");
+                $("*[comType=clearAllCond]")[0].jsCtrl.bindCtrlId = "condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph";
                 $("#tableList")[0].cacheArr = [];
                 initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"zkunnr":data.rspBody.orgName},"POST");
             }else{

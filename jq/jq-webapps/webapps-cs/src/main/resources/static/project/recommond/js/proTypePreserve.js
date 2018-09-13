@@ -53,7 +53,12 @@ function clsMethodLee$operate(){
             });
             console.log(jsonData)
             document.body.jsLee.opeType = 2;
-            getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",jsonData,"saveCallBack(data)")
+            getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",jsonData,"saveCallBack(data)")
+        }
+    });
+    $("#btnDelete").on("click",function(){
+        if($("#tableList *[id=cloneRow]:visible").length == 0){
+            $("#allChk").removeAttr("checked");
         }
     });
 
@@ -96,6 +101,14 @@ function clsStandardEditTableCtrl$progress(jsonItem,cloneRow)
 
     }
     //alert("自己业务定义！");
+    if(jsonItem.status == 2){
+        $(cloneRow).find("#categoryName").attr("disabled",true);
+        $(cloneRow).find("#categoryDesc").attr("disabled",true);
+        $(cloneRow).find("#chkCoding").remove()
+        $(cloneRow).find("#statusA").html("已提交");
+    }else{
+        $(cloneRow).find("#statusA").html("待提交");
+    }
 
 }
 

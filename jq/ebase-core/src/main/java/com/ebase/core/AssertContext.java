@@ -19,19 +19,6 @@ public class AssertContext {
     }
 
     /**
-     * 用户id
-     * @return
-     */
-    public static Long getUserId() {
-        UserSession userSession = get();
-        if (userSession != null) {
-            return userSession.getUser().getUserId();
-        }
-        return null;
-    }
-
-
-    /**
      * 账号id
      * @return
      */
@@ -56,25 +43,13 @@ public class AssertContext {
     }
 
     /**
-     * 公司ID
+     * 账号名称
      * @return
      */
-    public static String getCompanyId() {
+    public static String getAcctType() {
         UserSession userSession = get();
         if (userSession != null) {
-            return userSession.getUser().getCompanyId();
-        }
-        return null;
-    }
-
-    /**
-     * 客户id
-     * @return
-     */
-    public static Long getCustId(){
-        UserSession userSession = get();
-        if (userSession != null) {
-            return userSession.getUser().getCustId();
+            return userSession.getUser().getAcctName();
         }
         return null;
     }
@@ -128,7 +103,7 @@ public class AssertContext {
     }
 
     /**
-     * 组织名称
+     * 组织类型
      * @return
      */
     public static String getOrgType(){

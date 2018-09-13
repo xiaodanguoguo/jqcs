@@ -95,6 +95,7 @@ public class AcctController {
             }else {
                 if (serviceResponse.isHasError()) {
                     jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                    jsonResponse.setRetDesc(serviceResponse.getRetMessage());
                 } else {
                     jsonResponse.setRetCode(serviceResponse.getRetCode());
                     jsonResponse.setRetDesc(serviceResponse.getRetMessage());

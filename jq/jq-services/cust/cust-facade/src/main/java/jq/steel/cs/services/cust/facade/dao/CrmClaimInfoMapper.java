@@ -9,7 +9,7 @@ public interface CrmClaimInfoMapper {
 
     CrmClaimInfo select(CrmClaimInfo record);
 
-    int delete(String claimNo);
+    int deleteByPrimaryKey(String claimNo);
 
     int insert(CrmClaimInfo record);
 
@@ -21,10 +21,10 @@ public interface CrmClaimInfoMapper {
 
     int updateByPrimaryKey(CrmClaimInfo record);
 
-    //分页查询
-    List<CrmClaimInfo> findByPage(CrmClaimInfo record);
+    //导出查询
+    CrmClaimInfo findByPage(CrmClaimInfo record);
 
-    //
+    //分页查询
     List<CrmClaimInfo> findByPageChuLi (CrmClaimInfo record);
 
     CrmClaimInfo  findByParams(CrmClaimInfo record);

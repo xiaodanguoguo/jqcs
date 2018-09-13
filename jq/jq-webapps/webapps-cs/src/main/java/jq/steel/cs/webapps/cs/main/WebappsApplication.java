@@ -41,7 +41,7 @@ public class WebappsApplication  extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		//长短链接
-//		System.setProperty("http.keepAlive", "false");
+		System.setProperty("http.keepAlive", "false");
 		System.setProperty("server.TYPE", "webapp_op");
 		EnvironmentUtil.setSystemEnv(args);
 		SpringApplication.run(WebappsApplication.class, args);

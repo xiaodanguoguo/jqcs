@@ -19,28 +19,44 @@
     <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
     <result column="UPDATE_DT" property="updateDt" jdbcType="TIMESTAMP" />
     <result column="VERSION" property="version" jdbcType="NUMERIC" />
-    <result column="AMOUNT_OF_USE" property="amoutOfUse" jdbcType="NUMERIC" />
+    <result column="AMOUNT_OF_USE" property="amountOfUse" jdbcType="NUMERIC" />
+    <result column="INQUIRE_INFO" property="inquireInfo"/>
 
 
-
+    <result column="LAST_USER_TEL" property="lastUserTel" jdbcType="VARCHAR" />
+    <result column="CREATE_EMP_NO" property="createEmpNo" jdbcType="VARCHAR" />
     <result column="CLAIM_STATE" property="claimState" jdbcType="VARCHAR" />
     <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
     <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
     <result column="PRODUCT_ID" property="productId" jdbcType="NUMERIC" />
+    <result column="CUSTOMER_ID" property="customerId" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_NAME" property="customerName" jdbcType="VARCHAR" />
+    <result column="CUST_ADDR" property="custAddr" jdbcType="VARCHAR" />
+    <result column="CUST_EMP_NO" property="custEmpNo" jdbcType="VARCHAR" />
+    <result column="CUST_TEL" property="custTel" jdbcType="VARCHAR" />
+    <result column="LAST_USER_ID" property="lastUserId" jdbcType="VARCHAR" />
+    <result column="LAST_USER" property="lastUser" jdbcType="VARCHAR" />
+    <result column="LAST_USER_ADDR" property="lastUserAddr" jdbcType="VARCHAR" />
+    <result column="CONTRACT_VOLUME" property="contractVolume" jdbcType="NUMERIC" />
     <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
     <result column="DESIGNATION" property="designation" jdbcType="VARCHAR" />
-    <result column="SIZE_MARK" property="sizeMark" jdbcType="VARCHAR" />
+    <result column="SIZE_MARK" property="specs" jdbcType="VARCHAR" />
     <result column="CLAIM_TYPE" property="claimType" jdbcType="VARCHAR" />
+    <result column="CONTRACT_NO" property="contractNo" jdbcType="VARCHAR" />
     <result column="OBJECTION_NUM" property="objectionNum" jdbcType="NUMERIC" />
+    <result column="BATTEN_PLATE_NO" property="battenPlateNo" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_CAR_NO" property="originalCarNo" jdbcType="VARCHAR" />
     <result column="PRESENTATION_DATE" property="presentationDate" jdbcType="TIMESTAMP" />
     <result column="EXTERNAL_LNVESTIGATOR" property="externalLnvestigator" jdbcType="VARCHAR" />
     <result column="EXTERNAL_LNVESTIGATION_DATE" property="externalLnvestigationDate" jdbcType="TIMESTAMP" />
     <result column="INTERNAL_LNVESTIGATOR" property="internalLnvestigator" jdbcType="VARCHAR" />
     <result column="INTERNAL_LNVESTIGATION_DATE" property="internalLnvestigationDate" jdbcType="TIMESTAMP" />
+    <result column="REJECT_REASON" property="rejectReason" jdbcType="VARCHAR" />
+
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" extends="BaseResultMap" >
+  <!--<resultMap id="ResultMapWithBLOBs" type="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" extends="BaseResultMap" >
     <result column="INQUIRE_INFO" property="inquireInfo" jdbcType="CLOB" />
-  </resultMap>
+  </resultMap>-->
 
   <select id="findByParams" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
     SELECT
@@ -74,7 +90,7 @@ WHERE
     E.CREATE_DT	AS INTERNAL_LNVESTIGATION_DATE
     FROM
     WARRANTY.CRM_CLAIM_INFO A
-    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.CLAIM_NO = B.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_APPLY C ON A.CLAIM_NO = C.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE D ON A.CLAIM_NO = D.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE E ON A.CLAIM_NO = E.CLAIM_NO
@@ -105,8 +121,8 @@ WHERE
       <if test="claimState != null and claimState != ''" >
         AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
       </if>
-      <if test="manufactor != null and manufactor != ''" >
-        AND  B.DEPT_CODE = #{manufactor,jdbcType=VARCHAR}
+      <if test="deptCode != null and deptCode != ''" >
+        AND  B.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
       </if>
       <if test="designation != null and designation != ''" >
         AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}
@@ -114,35 +130,47 @@ WHERE
     </trim>
   </select>
 
-
+<!--异议处理确认书审核查询-->
   <select id="findDetails" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
      SELECT
-  A.CLAIM_NO,
-  A.PRODUCT_ID,
-  A.PRODUCT_NAME,
-  A.CUSTOMER_ID,
-  A.CUSTOMER_NAME,
-  A.CUST_EMP_NO,
-  A.CUST_TEL,
-  A.LAST_USER_ID,
-  A.LAST_USER,
-  A.CREATE_EMP_NO,
-  A.LAST_USER_TEL,
-  A.CONTRACT_VOLUME,
-  A.OBJECTION_NUM,
-  A.BATTEN_PLATE_NO,
-  A.SIZE_MARK,
-  A.ORIGINAL_CAR_NO,
-  A.CLAIM_TYPE,
-  A.LAST_USER_ADDR,
-  A.CONTRACT_NO
-  FROM
-  WARRANTY.CRM_CLAIM_INFO A
-  WHERE  CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+A.CLAIM_NO,
+A.PRODUCT_ID,
+A.PRODUCT_NAME,
+A.CUSTOMER_ID,
+A.CUSTOMER_NAME,
+A.CUST_EMP_NO,
+A.CUST_TEL,
+A.LAST_USER_ID,
+A.LAST_USER,
+A.CREATE_EMP_NO,
+A.LAST_USER_TEL,
+A.CONTRACT_VOLUME,
+A.OBJECTION_NUM,
+A.BATTEN_PLATE_NO,
+A.ORIGINAL_CAR_NO,
+A.LAST_USER_ADDR,
+A.CONTRACT_NO,
+B.LOGISTICS_PROCESS,
+B.END_PROCESSING_TECH,
+B.DEFECT_NAME,
+B.PRODUCT_DT,
+B.SHIFT,
+B.INQUIRE_INFO,
+B.FIELD_CONCLUSION,
+B.USER_REQUIREMENT,
+B.HANDING_SUGGESTION,
+B.INQUIRE_STATE,
+B.FOLLOW_REASON,
+B.REJECT_REASON,
+B.AMOUNT_OF_USE
+FROM
+WARRANTY.CRM_CLAIM_INFO A
+LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
+  WHERE  A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
   </select>
-  <sql id="Blob_Column_List" >
-    INQUIRE_INFO
-  </sql>
+
+
+
   <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
     <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
       SELECT SEQ_CRM_CLAIM_OUT_INQUIRE.nextval  FROM DUAL
@@ -168,7 +196,7 @@ WHERE
     </selectKey>
     insert into CRM_CLAIM_OUT_INQUIRE
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="sid != null and sid != ''" >
+      <if test="sid != null" >
         SID,
       </if>
       <if test="claimNo != null and claimNo != ''" >
@@ -183,7 +211,7 @@ WHERE
       <if test="defectName != null and defectName != ''" >
         DEFECT_NAME,
       </if>
-      <if test="productDt != null and productDt != ''" >
+      <if test="productDt != null" >
         PRODUCT_DT,
       </if>
       <if test="shift != null and shift != ''" >
@@ -216,7 +244,7 @@ WHERE
       <if test="updateDt != null" >
         UPDATE_DT,
       </if>
-      <if test="version != null and version != ''" >
+      <if test="version != null" >
         VERSION,
       </if>
       <if test="inquireInfo != null and inquireInfo != ''" >
@@ -224,7 +252,7 @@ WHERE
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="sid != null and sid != ''" >
+      <if test="sid != null" >
         #{sid,jdbcType=NUMERIC},
       </if>
       <if test="claimNo != null and claimNo != ''" >
@@ -239,7 +267,7 @@ WHERE
       <if test="defectName != null and defectName != ''" >
         #{defectName,jdbcType=VARCHAR},
       </if>
-      <if test="productDt != null and productDt != ''" >
+      <if test="productDt != null" >
         #{productDt,jdbcType=TIMESTAMP},
       </if>
       <if test="shift != null and shift != ''" >
@@ -272,7 +300,7 @@ WHERE
       <if test="updateDt != null" >
         #{updateDt,jdbcType=TIMESTAMP},
       </if>
-      <if test="version != null and version != ''" >
+      <if test="version != null" >
         #{version,jdbcType=NUMERIC},
       </if>
       <if test="inquireInfo != null and inquireInfo != ''" >
@@ -290,7 +318,7 @@ WHERE
       <if test="logisticsProcess != null and logisticsProcess != ''" >
         LOGISTICS_PROCESS = #{logisticsProcess,jdbcType=VARCHAR},
       </if>
-      <if test="amountOfUse != null and amountOfUse != ''" >
+      <if test="amountOfUse != null" >
         AMOUNT_OF_USE = #{amountOfUse,jdbcType=NUMERIC},
       </if>
       <if test="endProcessingTech != null and endProcessingTech != ''" >

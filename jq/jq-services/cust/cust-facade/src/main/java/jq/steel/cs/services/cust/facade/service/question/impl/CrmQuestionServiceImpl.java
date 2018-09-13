@@ -129,6 +129,7 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
 
         CrmQuestion record = new CrmQuestion();
         List<CrmQuestion> crmQuestions = crmQuestionMapper.getList(record);
+        List<String> questionTitle = new ArrayList<>();
 
         for (CrmQuestionVO crmQuestionVO : crmQuestionVOList) {
             // 删除
@@ -139,6 +140,7 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
                             serviceResponse.setRetCode("0901001",new Object[]{crmQuestion.getQuestionTitle()});
                             return serviceResponse;
                         } else {
+                            questionTitle.add(crmQuestion.getQuestionTitle());
                             crmQuestionMapper.deleteByPrimaryKey(crmQuestion.getQid());
                             crmQuestionItemMapper.deleteByQid(crmQuestion.getQid());
                             crmQuestionTeamAnswerMapper.deleteByQid(crmQuestion.getQid());
@@ -173,8 +175,17 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
             if (SysPramType.INSERT.getMsg().equals(crmQuestionVO.getOpt())) {
                 for (CrmQuestion crmQuestion : crmQuestions) {
                     if (crmQuestionVO.getQuestionTitle().equals(crmQuestion.getQuestionTitle())) {
-                        serviceResponse.setRetCode("0901003", new Object[]{crmQuestion.getQuestionTitle()});
-                        return serviceResponse;
+                        boolean b = false;
+                        for (String title : questionTitle) {
+                            if (crmQuestionVO.getQuestionTitle().equals(title)) {
+                                b = true;
+                            }
+                        }
+
+                        if (!b) {
+                            serviceResponse.setRetCode("0901003", new Object[]{crmQuestion.getQuestionTitle()});
+                            return serviceResponse;
+                        }
                     }
 
                 }

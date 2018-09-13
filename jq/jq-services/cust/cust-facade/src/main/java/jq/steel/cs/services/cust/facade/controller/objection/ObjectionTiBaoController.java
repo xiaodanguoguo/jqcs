@@ -7,6 +7,7 @@ import com.ebase.core.web.json.JsonRequest;
 import com.ebase.utils.JsonUtil;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoCountVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
+import jq.steel.cs.services.cust.facade.model.CrmClaimApply;
 import jq.steel.cs.services.cust.facade.service.objection.ObjectionTiBaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,11 +105,11 @@ public class ObjectionTiBaoController {
      * @return
      */
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public ServiceResponse<Integer> submit(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest){
+    public ServiceResponse<Integer> submit(@RequestBody JsonRequest<List<ObjectionTiBaoVO>> jsonRequest){
         logger.info("分页", JsonUtil.toJson(jsonRequest));
         ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
         try {
-            ObjectionTiBaoVO objectionTiBaoVO = jsonRequest.getReqBody();
+            List<ObjectionTiBaoVO> objectionTiBaoVO = jsonRequest.getReqBody();
             Integer integer = objectionTiBaoService.submit(objectionTiBaoVO);
             serviceResponse.setRetContent(integer);
         }catch (BusinessException e){
@@ -226,12 +227,15 @@ public class ObjectionTiBaoController {
      * @Date: 2018/9/7
      */
     @RequestMapping(value = "/count",method = RequestMethod.POST)
-    ServiceResponse<ObjectionTiBaoCountVO> getCount() {
+    ServiceResponse<ObjectionTiBaoCountVO> getCount(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
         logger.info("根据不同状态计数");
         ServiceResponse<ObjectionTiBaoCountVO> serviceResponse = new ServiceResponse<>();
 
         try {
-            ObjectionTiBaoCountVO vo = objectionTiBaoService.getCount();
+            CrmClaimApply crmClaimApply = new CrmClaimApply();
+            crmClaimApply.setCreatedBy(jsonRequest.getReqBody().getCreatedBy());
+
+            ObjectionTiBaoCountVO vo = objectionTiBaoService.getCount(crmClaimApply);
             serviceResponse.setRetContent(vo);
         } catch (Exception e) {
             logger.error("错误 = {}", e);
@@ -240,4 +244,51 @@ public class ObjectionTiBaoController {
 
         return serviceResponse;
     }
+
+
+
+    //app
+
+    /**
+     * 异议提报列表
+     *
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/findTiBaoByPage", method = RequestMethod.POST)
+    ServiceResponse<PageDTO<ObjectionTiBaoVO>> findTiBaoByPage(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
+        logger.info("条件分页查询 = {}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<PageDTO<ObjectionTiBaoVO>> serviceResponse = new ServiceResponse<>();
+        try {
+            ObjectionTiBaoVO objectionTiBaoVO = jsonRequest.getReqBody();
+            PageDTO<ObjectionTiBaoVO> pageDTO = objectionTiBaoService.findTiBaoByPage(objectionTiBaoVO);
+            serviceResponse.setRetContent(pageDTO);
+        }catch (BusinessException e){
+            logger.error("获取分页出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
+    /**
+     * 异议跟踪列表
+     *
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/findgenzongByPage", method = RequestMethod.POST)
+    ServiceResponse<PageDTO<ObjectionTiBaoVO>> findgenzongByPage(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
+        logger.info("条件分页查询 = {}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<PageDTO<ObjectionTiBaoVO>> serviceResponse = new ServiceResponse<>();
+        try {
+            ObjectionTiBaoVO objectionTiBaoVO = jsonRequest.getReqBody();
+            PageDTO<ObjectionTiBaoVO> pageDTO = objectionTiBaoService.findgenzongByPage(objectionTiBaoVO);
+            serviceResponse.setRetContent(pageDTO);
+        }catch (BusinessException e){
+            logger.error("获取分页出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
 }

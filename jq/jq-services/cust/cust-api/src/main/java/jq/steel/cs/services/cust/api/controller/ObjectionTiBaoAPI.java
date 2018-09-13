@@ -52,7 +52,7 @@ public interface ObjectionTiBaoAPI {
      * @return
      */
     @RequestMapping(value = "/objectionTiBao/submit", method = RequestMethod.POST)
-    ServiceResponse<Integer> submit(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest);
+    ServiceResponse<Integer> submit(@RequestBody JsonRequest<List<ObjectionTiBaoVO>> jsonRequest);
 
     /**
      * 导出
@@ -101,5 +101,23 @@ public interface ObjectionTiBaoAPI {
      * @Date: 2018/9/7
      */
     @RequestMapping(value = "/objectionTiBao/count",method = RequestMethod.POST)
-    ServiceResponse<ObjectionTiBaoCountVO> getCount();
+    ServiceResponse<ObjectionTiBaoCountVO> getCount(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest);
+
+    /**
+     * 异议提报列表
+     *
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/objectionTiBao/findTiBaoByPage", method = RequestMethod.POST)
+    ServiceResponse<PageDTO<ObjectionTiBaoVO>> findTiBaoByPage(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest);
+
+    /**
+     * 异议跟踪列表
+     *
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/objectionTiBao/findgenzongByPage", method = RequestMethod.POST)
+    ServiceResponse<PageDTO<ObjectionTiBaoVO>> findgenzongByPage(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest);
 }

@@ -197,25 +197,25 @@ public class AcctServiceImpl implements AcctService {
             AcctInfo acctInfo = acctInfoMapper.selectByLogin(acctLogin.getAcctId());
 
             if (null == acctInfo) {
-                response.setResponseCode("500");
+                response.setResponseCode("0701001");
                 response.setRetMessage("该账号不存在");
                 return response;
             }
 
             if (acctInfo.getStatus().equals(Status.HOLD_AUDIT.getCode())) {
-                response.setResponseCode("500");
-                response.setRetMessage("账号审核中，请耐心等待");
+                response.setResponseCode("0701002");
+                response.setRetMessage("统一社会信用代码已被占用");
                 return response;
             }
 
             if (acctInfo.getStatus().equals(Status.NOT_PASS.getCode())) {
-                response.setResponseCode("500");
+                response.setResponseCode("0701003");
                 response.setRetMessage("账号审核失败，该账户不可用");
                 return response;
             }
 
             if (acctInfo.getIsDelete().equals(IsDelete.YES.getCode())) {
-                response.setResponseCode("500");
+                response.setResponseCode("0701004");
                 response.setRetMessage("账号已被禁用，该账户不可用");
                 return response;
             }

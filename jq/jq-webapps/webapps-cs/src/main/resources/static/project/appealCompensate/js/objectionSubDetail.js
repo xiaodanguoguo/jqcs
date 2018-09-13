@@ -8,7 +8,7 @@ function clsMethodLee(){
         "path6":"/objectionTiBao/update",//异议提报新增/修改/保存/销售审核（保存、驳回、通过）1审核保存操作2驳回操作3通过操作4修改保存5新增保存
         "path7":"/objectionTiBao/down",//详情页面下载功能
         "path8":"/objectionTiBao/printing",//详情页面打印功能
-        "path9":"/objectionDiaoCha/findDetail",//异议调查外部调查内部调查回显数据|确认书审核   1是外部调查 2是内部调查 3确认书审核
+        "path9":"/objectionDiaoCha/findDetails",//异议调查外部调查内部调查回显数据|确认书审核   1是外部调查 2是内部调查 3确认书审核
         "path10":"/objectionDiaoCha/update",//内外部调查报告（保存，跟踪，提交）异议处理确认书（通过 ，驳回）
                                             //1外部保存2外部跟踪3外部提交4内部保存5内部提交6确认书通过7确认书审核
         "path11":"/file/upload"//上传
@@ -17,6 +17,10 @@ function clsMethodLee(){
     this.htmlType = GetQueryString("htmlType");//判断页面类型0——新建 5修改 1——详情  2——销售审核  3——外部调查  4——内部调查 6-确认书审核
     this.claimNo = GetQueryString("claimNo") == null ? "":GetQueryString("claimNo");//异议编号
     this.filePath = [];
+    this.selectedMark = {//判断发生异议单位和异议类别是否选中
+        "selMark1":true,
+        "selMark2":true
+    }
     this.init = clsMethodLee$init;//初始化页面的展示内容,绑定dom节点
     this.parse = clsMethodLee$parse;//初始化页面的数据
     this.operate = clsMethodLee$operate;//初始化页面的数据
@@ -88,6 +92,8 @@ function clsMethodLee$parse(){
             $(".box2").show();
             $("#productId").remove();//删除第一个异议产品。（原新建页面的异议产品input）
             $("#millSheetNo").remove();//删除第一个质证书。（原新建页面的质证书input）
+            this.selectedMark.selMark1 = false;
+            this.selectedMark.selMark2 = false;
             getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":this.claimNo,"optionType":4},"htmlInit(data)");//数据回显操作
             break;
         case 3://外部调查
@@ -117,9 +123,12 @@ function clsMethodLee$parse(){
             $("#boxFirst").remove();
             $("#boxSecond").show();
             $(".box5").show();
+            $(".box3:first").show();
             $("#productId").remove();//删除第一个异议产品。（原新建页面的异议产品input）
             $("#millSheetNo").remove();//删除第一个质证书。（原新建页面的质证书input）
             $("#rejectReason").remove();//删除第一个驳回原因input
+            var ue = UE.getEditor('editor');
+            var ue2 = UE.getEditor('editor2');
             getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"claimNo":this.claimNo,"optionType":3},"htmlInit2(data)");//数据回显操作
             break;
     }
@@ -213,7 +222,7 @@ function clsMethodLee$operate(){
     this.forthsubmit.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionStuts = 1;
+            jsonParam.optionType = 1;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
@@ -221,7 +230,7 @@ function clsMethodLee$operate(){
     this.forthFoolow.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionStuts = 2;
+            jsonParam.optionType = 2;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
@@ -229,7 +238,7 @@ function clsMethodLee$operate(){
     this.forthSave.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionStuts = 3;
+            jsonParam.optionType = 3;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
@@ -237,7 +246,7 @@ function clsMethodLee$operate(){
     this.fifthSave.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionStuts = 4;
+            jsonParam.optionType = 4;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
@@ -245,7 +254,7 @@ function clsMethodLee$operate(){
     this.fifthSubmit.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionStuts = 5;
+            jsonParam.optionType = 5;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
@@ -254,7 +263,7 @@ function clsMethodLee$operate(){
         $("#rejectReason").removeClass("required");
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionStuts = 6;
+            jsonParam.optionType = 6;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
 
         }
@@ -264,9 +273,17 @@ function clsMethodLee$operate(){
         $("#rejectReason").addClass("required");
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionStuts = 7;
+            jsonParam.optionType = 7;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
+    });
+    //发生异议单位选中改变事件
+    $("#dissentingUnitA input").on("click",function(){
+        document.body.jsLee.selectedMark.selMark1 = true;
+    });
+    //异议类别选中改变事件
+    $("#claimTypeA input").on("click",function(){
+        document.body.jsLee.selectedMark.selMark2 = true;
     });
 
 }
@@ -458,9 +475,15 @@ function millSheetNoCheckCallBack(data){
 function boxChecked(){
     initValidate($("#submitBox")[0]);
     var valiClass=new clsValidateCtrl();
-    if(!valiClass.validateAll4Ctrl($("#submitBox")[0]) || !$("#productId option:selected").val()){
+    if(!valiClass.validateAll4Ctrl($("#submitBox")[0]) || !$("#productId option:selected").val() || !document.body.jsLee.selectedMark.selMark1 || !document.body.jsLee.selectedMark.selMark2){
         if(!$("#productId option:selected").val()){
             showErrInfoByCustomDiv($("#productId").next()[0],"请选择异议产品")
+        }
+        if(!document.body.jsLee.selectedMark.selMark1){
+            showErrInfoByCustomDiv($("#dissentingUnitA")[0],"请选择发生异议单位!");
+        }
+        if(!document.body.jsLee.selectedMark.selMark2){
+            showErrInfoByCustomDiv($("#claimTypeA")[0],"请选择发生异议单位!");
         }
         return false;
     }
@@ -469,7 +492,7 @@ function boxChecked(){
 
 //完成提交参数拼接
 function paramJson(){
-    var jsonParam = {"claimNo":"","productId":"","millSheetNo":"","customerId":"","customerName":"","custAddr":"","custEmpNo":"","custTel":"","lastUserId":"","lastUser":"","lastUserAddr":"","createEmpNo":"","lastUserTel":"","battenPlateNo":"","designation":"","used":"","contractNo":"","contractVolume":"","specs":"","originalWeight":"","orderNo":"","originalCarNo":"","contractUnitPrice":"","objectionNum":"","endProcessingTech":"","claimDesc":"","claimReason":"","rejectReason":"","productDt":"","shift":"","userRequirement":"","handingSuggestion":"","inquireInfo":"","fieldConclusion":"","claimVerdict":"","improvement":""};
+    var jsonParam = {"claimNo":"","productId":"","millSheetNo":"","customerId":"","customerName":"","custAddr":"","custEmpNo":"","custTel":"","lastUserId":"","lastUser":"","lastUserAddr":"","createEmpNo":"","lastUserTel":"","battenPlateNo":"","designation":"","used":"","contractNo":"","contractVolume":"","specs":"","originalWeight":"","orderNo":"","originalCarNo":"","contractUnitPrice":"","objectionNum":"","endProcessingTech":"","claimDesc":"","claimReason":"","rejectReason":"","productDt":"","shift":"","userRequirement":"","handingSuggestion":"","inquireInfo":"","fieldConclusion":"","claimVerdict":"","improvement":"","amountOfUse":""};
     getValue4Desc(jsonParam,$("#submitBox")[0]);
     //产品类别
     jsonParam.productId = $("#productId option:selected").val();
@@ -484,9 +507,9 @@ function paramJson(){
     var strFilePath = "";
     for(var nI = 0 ; nI < document.body.jsLee.filePath.length; nI++ ){
         if(nI == document.body.jsLee.filePath.length - 1){
-            strFilePath += document.body.jsLee.filePath;
+            strFilePath += document.body.jsLee.filePath[nI];
         }else{
-            strFilePath += document.body.jsLee.filePath + ";";
+            strFilePath += document.body.jsLee.filePath[nI] + ";";
         }
     }
     jsonParam.filePath = strFilePath;
@@ -505,14 +528,16 @@ function paramJson(){
 function firstSaveCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        jumpUrl("objectionSubmit.html","0000000",0);
+        var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert(data.retDesc,"成功提示",1,"","successJump");
     }
 }
 
 function secondSaveCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        jumpUrl("objectionReasearch.html","0000000",0);
+        var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert(data.retDesc,"成功提示",1,"","successJump2");
     }
 }
 function clsUploadCtrl$successAfter(ctrl, response)
@@ -542,6 +567,15 @@ function filePathShow(arr){
             $("#bigImg").attr("src",$(this).attr("src"));
         });
         $("#filePathTemplate").before(filePathClone);
+    }
+}
+
+function clsAlertBoxCtrl$sure() {//成功弹框确定
+    if (this.id == "successJump") {
+        jumpUrl("objectionSubmit.html","0000000",0);
+        closePopupWin();
+    }else if(this.id == "successJump2"){
+        jumpUrl("objectionReasearch.html","0000000",0);
     }
 }
 

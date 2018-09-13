@@ -96,6 +96,8 @@ function htmlInit(data){
     if(data.retCode == "0000000"){
         setValue4Desc(data.rspBody,$("#boxContent")[0])//赋值
         document.body.jsLee.thumbnailList = data.rspBody.thumbnailList;
+        $("#categoryIdA").attr("initValue",data.rspBody.categoryId);
+        initplugPath($("#categoryIdA")[0],"singleSelectCtrl",this.requestUrl.path2,null,"POST");
     }
 }
 
@@ -149,7 +151,7 @@ function clsUploadCtrl$deleteImg(obj) {
 }
 
 function paramJson(){
-    var jsonParam = {"productName":"","designation":"","standard":"","used":"","productDesc":""};
+    var jsonParam = {"productName":"","designation":"","standard":"","used":"","productDesc":"","productArea":""};
     getValue4Desc(jsonParam,$("#boxContent")[0]);
     jsonParam.categoryId = $("#categoryIdA option:selected").val();
     jsonParam.thumbnailList = document.body.jsLee.thumbnailList;

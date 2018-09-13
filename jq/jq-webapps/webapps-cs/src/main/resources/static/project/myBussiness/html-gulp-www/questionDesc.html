@@ -126,17 +126,17 @@
 						<span class="fl">代办</span>
 					</span>-->
 					<span class="og-head-navwrap-opeBoxList">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/2.png')"></div>
-						<span class="fl" id="quitBtn" style="cursor: pointer">退出</span>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('')"></div>
+						<span  class="fl" style="cursor: pointer" id="quitBtn">退出</span>
 					</span>
 					<span class="og-head-navwrap-opeBoxList">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/1.png')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('')"></div>
 						<span class="fl" id="editPassword" style="cursor: pointer">修改密码</span>
 					</span>
 				</div>
 	            <div class="og-head-navwrap-box clearfix fr">
 					<span class="og-head-navwrap-boxList">您好，<span id="userName"></span></span>
-					<p id="now_time" class="og-head-navwrap-boxList" style="width: 230px;"></p>
+					<p id="now_time" class="og-head-navwrap-boxList" style="width: 250px;"></p>
 				</div>
 	        </div>
 	    </div>
@@ -299,6 +299,7 @@
                 qidJump = data.rspBody.qid;
                 alertBox.Alert("您好，"+ getCookie("userName") +"！有"+ data.rspBody.count +"份问卷调查，期待您的参与！","温馨提示",1,"","questionSure");
             }else{
+                var alertBox=new clsAlertBoxCtrl();
                 alertBox.Alert("您好，"+ getCookie("userName") +"！您已经完成所有问卷调查，谢谢合作！");
 			}
         }

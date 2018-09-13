@@ -48,6 +48,9 @@
       <if test="customerId != null and customerId != ''" >
         AND CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
       </if>
+      <if test="createdBy != null and createdBy != ''" >
+        and CREATED_BY = #{createdBy}
+      </if>
     </trim>
   </select>
 

@@ -204,8 +204,15 @@ public class MillSheetHostsController {
         logger.info("参数",JsonUtil.toJson(jsonRequest));
         JsonResponse<MillSheetHostsVO> jsonResponse = new JsonResponse<>();
         try {
+
             ServiceResponse<MillSheetHostsVO> serviceResponse = millSheetHostsAPI.findIsTrue(jsonRequest);
-            jsonResponse.setRspBody(serviceResponse.getRetContent());
+            if(serviceResponse.getRetContent().getTrue()){
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            }else {
+                jsonResponse.setRetCode("1111111");
+                jsonResponse.setRetDesc(serviceResponse.getRetContent().getCheckInstructions());
+            }
+
         } catch (BusinessException e) {
             logger.error("获取分页列表错误 = {}", e);
             e.printStackTrace();

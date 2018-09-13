@@ -21,6 +21,13 @@
     <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
     <result column="VERSION" property="version" jdbcType="NUMERIC" />
 
+    <result column="LOGISTICS_PROCESS" property="logisticsProcess" jdbcType="VARCHAR" />
+    <result column="END_PROCESSING_TECH" property="endProcessingTech" jdbcType="VARCHAR" />
+    <result column="DEFECT_NAME" property="defectName" jdbcType="VARCHAR" />
+    <result column="PRODUCT_DT" property="productDt" jdbcType="TIMESTAMP" />
+    <result column="SHIFT" property="shift" jdbcType="VARCHAR" />
+    <result column="USER_REQUIREMENT" property="userRequirement" jdbcType="VARCHAR" />
+    <result column="HANDING_SUGGESTION" property="handingSuggestion" jdbcType="VARCHAR" />
 
   </resultMap>
   <sql id="Base_Column_List" >
@@ -43,8 +50,8 @@
   AGREEMENT_URL || '//' || AGREEMENT_NAME  AS AGREEMENT_URL_NAME,
   AGREEMENT_STATE,
   CLAIM_NO,
-  DOWNABLE_NUM,
-  DOWN_NUM
+  DOWNLOADABLE_NUM,
+  DOWNLOADED_NUM
   FROM
   CRM_AGREEMENT_INFO
     where CASE_CODE = #{claimNo,jdbcType=VARCHAR}
@@ -58,9 +65,8 @@
     AGREEMENT_NAME,
     AGREEMENT_URL || '//' || AGREEMENT_NAME  AS AGREEMENT_URL_NAME,
     AGREEMENT_STATE,
-    CLAIM_NO,
-    DOWNABLE_NUM,
-    DOWN_NUM
+    DOWNLOADABLE_NUM,
+    DOWNLOADED_NUM
     FROM
     CRM_AGREEMENT_INFO
     where CASE_CODE = #{claimNo,jdbcType=VARCHAR}
@@ -78,7 +84,7 @@ A.CONTRACT_NO,
 A.MILL_SHEET_NO,
 A.ORIGINAL_CAR_NO,
 A.CLAIM_DESC,
-C.FIELD_CONCLUSION,
+C.*,
 B.AGREEMENT_CONTENT,
 B.AGREEMENT_NUM,
 B.AGREEMENT_AMOUNT,
@@ -122,7 +128,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HOSTS D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO
     </selectKey>
     insert into CRM_AGREEMENT_INFO
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="sid != null and sid != ''" >
+      <if test="sid != null" >
         SID,
       </if>
       <if test="claimNo != null and claimNo != ''" >
@@ -137,19 +143,19 @@ LEFT JOIN WARRANTY.MILL_SHEET_HOSTS D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO
       <if test="agreementState != null and agreementState != ''" >
         AGREEMENT_STATE,
       </if>
-      <if test="downloadableNum != null and downloadableNum != ''" >
+      <if test="downloadableNum != null" >
         DOWNLOADABLE_NUM,
       </if>
-      <if test="downloadedNum != null and downloadedNum != ''" >
+      <if test="downloadedNum != null" >
         DOWNLOADED_NUM,
       </if>
       <if test="agreementContent != null and agreementContent != ''" >
         AGREEMENT_CONTENT,
       </if>
-      <if test="agreementNum != null and agreementNum != ''" >
+      <if test="agreementNum != null" >
         AGREEMENT_NUM,
       </if>
-      <if test="agreementAmount != null and agreementAmount != ''" >
+      <if test="agreementAmount != null" >
         AGREEMENT_AMOUNT,
       </if>
       <if test="agreementAmountUpper != null and agreementAmountUpper != ''" >
@@ -170,12 +176,12 @@ LEFT JOIN WARRANTY.MILL_SHEET_HOSTS D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO
       <if test="updatedDt != null" >
         UPDATED_DT,
       </if>
-      <if test="version != null and version != ''" >
+      <if test="version != null" >
         VERSION,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="sid != null and sid != ''" >
+      <if test="sid != null" >
         #{sid,jdbcType=NUMERIC},
       </if>
       <if test="claimNo != null and claimNo != ''" >
@@ -190,19 +196,19 @@ LEFT JOIN WARRANTY.MILL_SHEET_HOSTS D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO
       <if test="agreementState != null and agreementState != ''" >
         #{agreementState,jdbcType=VARCHAR},
       </if>
-      <if test="downloadableNum != null and downloadableNum != ''" >
+      <if test="downloadableNum != null" >
         #{downloadableNum,jdbcType=NUMERIC},
       </if>
-      <if test="downloadedNum != null and downloadedNum != ''" >
+      <if test="downloadedNum != null" >
         #{downloadedNum,jdbcType=NUMERIC},
       </if>
       <if test="agreementContent != null and agreementContent != ''" >
         #{agreementContent,jdbcType=VARCHAR},
       </if>
-      <if test="agreementNum != null and agreementNum != ''" >
+      <if test="agreementNum != null" >
         #{agreementNum,jdbcType=NUMERIC},
       </if>
-      <if test="agreementAmount != null and agreementAmount != ''" >
+      <if test="agreementAmount != null" >
         #{agreementAmount,jdbcType=NUMERIC},
       </if>
       <if test="agreementAmountUpper != null and agreementAmountUpper != ''" >
@@ -223,7 +229,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HOSTS D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO
       <if test="updatedDt != null" >
         #{updatedDt,jdbcType=TIMESTAMP},
       </if>
-      <if test="version != null and version != ''" >
+      <if test="version != null" >
         #{version,jdbcType=NUMERIC},
       </if>
     </trim>

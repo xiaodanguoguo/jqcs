@@ -33,7 +33,6 @@ public class AuthController {
         try {
             FunctionManageVO functionManageVO = new FunctionManageVO();
             functionManageVO.setAcctId(AssertContext.getAcctId());
-            functionManageVO.setAcctId("16");
 
             ServiceResponse<List<FunctionManageVO>> serviceResponse = functionManageAPI.getUserfunctionList(functionManageVO);
 

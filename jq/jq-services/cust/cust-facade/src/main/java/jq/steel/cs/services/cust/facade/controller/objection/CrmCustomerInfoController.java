@@ -1,13 +1,11 @@
 package jq.steel.cs.services.cust.facade.controller.objection;
 
-import com.ebase.core.AssertContext;
 import com.ebase.core.exception.BusinessException;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.utils.JsonUtil;
 import jq.steel.cs.services.cust.api.vo.CrmCustomerInfoVO;
-import jq.steel.cs.services.cust.api.vo.CrmLastuserInfoVO;
 import jq.steel.cs.services.cust.facade.service.objection.CrmCustomerInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/orderUnit")
@@ -94,5 +94,27 @@ public class CrmCustomerInfoController {
         }
         return  serviceResponse;
     }*/
+
+    /**
+     * @param:
+     * @return:
+     * @description:  订货单位列表
+     * @author: lirunze
+     * @Date: 2018/9/13
+     */
+    @RequestMapping(value ="/list", method = RequestMethod.POST)
+    ServiceResponse<List<CrmCustomerInfoVO>> findorderUnitList(@RequestBody JsonRequest<CrmCustomerInfoVO> jsonRequest) {
+        logger.info("{}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<List<CrmCustomerInfoVO>> serviceResponse = new ServiceResponse<>();
+        try {
+            CrmCustomerInfoVO crmCustomerInfoVO = jsonRequest.getReqBody();
+            List<CrmCustomerInfoVO> pageDTO = crmCustomerInfoService.findorderUnitList(crmCustomerInfoVO);
+            serviceResponse.setRetContent(pageDTO);
+        }catch (BusinessException e){
+            logger.error("获取分页出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
 
 }
