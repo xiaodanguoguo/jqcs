@@ -29,7 +29,7 @@
     <result column="PRODUCT_ID" property="productId" jdbcType="NUMERIC" />
     <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
     <result column="DESIGNATION" property="designation" jdbcType="VARCHAR" />
-    <result column="SIZE_MARK" property="sizeMark" jdbcType="VARCHAR" />
+    <result column="SIZE_MARK" property="specs" jdbcType="VARCHAR" />
     <result column="CLAIM_TYPE" property="claimType" jdbcType="VARCHAR" />
     <result column="OBJECTION_NUM" property="objectionNum" jdbcType="NUMERIC" />
     <result column="PRESENTATION_DATE" property="presentationDate" jdbcType="TIMESTAMP" />
@@ -105,8 +105,8 @@ WHERE
       <if test="claimState != null and claimState != ''" >
         AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
       </if>
-      <if test="manufactor != null and manufactor != ''" >
-        AND  B.DEPT_CODE = #{manufactor,jdbcType=VARCHAR}
+      <if test="deptCode != null and deptCode != ''" >
+        AND  B.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
       </if>
       <if test="designation != null and designation != ''" >
         AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}
@@ -168,7 +168,7 @@ WHERE
     </selectKey>
     insert into CRM_CLAIM_OUT_INQUIRE
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="sid != null and sid != ''" >
+      <if test="sid != null" >
         SID,
       </if>
       <if test="claimNo != null and claimNo != ''" >
@@ -183,7 +183,7 @@ WHERE
       <if test="defectName != null and defectName != ''" >
         DEFECT_NAME,
       </if>
-      <if test="productDt != null and productDt != ''" >
+      <if test="productDt != null" >
         PRODUCT_DT,
       </if>
       <if test="shift != null and shift != ''" >
@@ -216,7 +216,7 @@ WHERE
       <if test="updateDt != null" >
         UPDATE_DT,
       </if>
-      <if test="version != null and version != ''" >
+      <if test="version != null" >
         VERSION,
       </if>
       <if test="inquireInfo != null and inquireInfo != ''" >
@@ -224,7 +224,7 @@ WHERE
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="sid != null and sid != ''" >
+      <if test="sid != null" >
         #{sid,jdbcType=NUMERIC},
       </if>
       <if test="claimNo != null and claimNo != ''" >
@@ -239,7 +239,7 @@ WHERE
       <if test="defectName != null and defectName != ''" >
         #{defectName,jdbcType=VARCHAR},
       </if>
-      <if test="productDt != null and productDt != ''" >
+      <if test="productDt != null" >
         #{productDt,jdbcType=TIMESTAMP},
       </if>
       <if test="shift != null and shift != ''" >
@@ -272,7 +272,7 @@ WHERE
       <if test="updateDt != null" >
         #{updateDt,jdbcType=TIMESTAMP},
       </if>
-      <if test="version != null and version != ''" >
+      <if test="version != null" >
         #{version,jdbcType=NUMERIC},
       </if>
       <if test="inquireInfo != null and inquireInfo != ''" >
@@ -290,7 +290,7 @@ WHERE
       <if test="logisticsProcess != null and logisticsProcess != ''" >
         LOGISTICS_PROCESS = #{logisticsProcess,jdbcType=VARCHAR},
       </if>
-      <if test="amountOfUse != null and amountOfUse != ''" >
+      <if test="amountOfUse != null" >
         AMOUNT_OF_USE = #{amountOfUse,jdbcType=NUMERIC},
       </if>
       <if test="endProcessingTech != null and endProcessingTech != ''" >

@@ -64,8 +64,8 @@ public class ObjectionDiaoChaController {
            /* if (objectionDiaoChaVO1.getExplain()!=null){
                 serviceResponse.setRetCode("1");
                 serviceResponse.setRetMessage(objectionTiBaoVO1.getExplain());
-            }
-            serviceResponse.setRetContent(objectionTiBaoVO1);*/
+            }*/
+            serviceResponse.setRetContent(objectionDiaoChaVO1);
         }catch (BusinessException e){
             logger.error("获取分页出错",e);
             serviceResponse.setException(new BusinessException("500"));

@@ -19,7 +19,7 @@ public interface ObjectionTiBaoService {
     Integer update(ObjectionTiBaoVO objectionTiBaoVO);
 
     //提报删除
-    Integer submit(ObjectionTiBaoVO objectionTiBaoVO);
+    Integer submit(List<ObjectionTiBaoVO> objectionTiBaoVO);
 
     //导出
     List<ObjectionTiBaoVO>  export (List<String> objectionTiBaoVO);

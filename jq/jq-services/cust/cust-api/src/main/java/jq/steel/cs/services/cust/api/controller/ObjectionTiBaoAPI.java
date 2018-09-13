@@ -52,7 +52,7 @@ public interface ObjectionTiBaoAPI {
      * @return
      */
     @RequestMapping(value = "/objectionTiBao/submit", method = RequestMethod.POST)
-    ServiceResponse<Integer> submit(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest);
+    ServiceResponse<Integer> submit(@RequestBody JsonRequest<List<ObjectionTiBaoVO>> jsonRequest);
 
     /**
      * 导出

@@ -71,7 +71,8 @@ public class ObjectionDiaoChaVO {
 
     private BigDecimal contractVolume;
 
-    private String sizeMark;
+    //private String sizeMark;
+    private  String specs;
 
     private BigDecimal originalWeight;
 
@@ -140,6 +141,7 @@ public class ObjectionDiaoChaVO {
 
     private String defectName;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date productDt;
 
     private String shift;
@@ -156,11 +158,31 @@ public class ObjectionDiaoChaVO {
     //外部调查人
     private String externalLnvestigator;
     //外部调查时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private  Date externalLnvestigationDate;
     //内部调查人
     private  String internalLnvestigator;
     //内部调查时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date internalLnvestigationDate;
+
+
+    //受理时间
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date admissibilityTime;
+
+    //提报时间
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date presentationDate;
+
+    //受理人
+    private  String admissibilityUser;
+
+    //提报人
+    private  String presentationUser;
+
+    //强制结案原因
+    private  String reasonsForCompulsoryClosure;
 
 
     private Integer amoutOfUse;
@@ -169,6 +191,46 @@ public class ObjectionDiaoChaVO {
 
     //润乾地址
     private  String report;
+
+    public Date getAdmissibilityTime() {
+        return admissibilityTime;
+    }
+
+    public void setAdmissibilityTime(Date admissibilityTime) {
+        this.admissibilityTime = admissibilityTime;
+    }
+
+    public Date getPresentationDate() {
+        return presentationDate;
+    }
+
+    public void setPresentationDate(Date presentationDate) {
+        this.presentationDate = presentationDate;
+    }
+
+    public String getAdmissibilityUser() {
+        return admissibilityUser;
+    }
+
+    public void setAdmissibilityUser(String admissibilityUser) {
+        this.admissibilityUser = admissibilityUser;
+    }
+
+    public String getPresentationUser() {
+        return presentationUser;
+    }
+
+    public void setPresentationUser(String presentationUser) {
+        this.presentationUser = presentationUser;
+    }
+
+    public String getReasonsForCompulsoryClosure() {
+        return reasonsForCompulsoryClosure;
+    }
+
+    public void setReasonsForCompulsoryClosure(String reasonsForCompulsoryClosure) {
+        this.reasonsForCompulsoryClosure = reasonsForCompulsoryClosure;
+    }
 
     public String getZcpmc() {
         return zcpmc;
@@ -459,12 +521,12 @@ public class ObjectionDiaoChaVO {
         this.contractVolume = contractVolume;
     }
 
-    public String getSizeMark() {
-        return sizeMark;
+    public String getSpecs() {
+        return specs;
     }
 
-    public void setSizeMark(String sizeMark) {
-        this.sizeMark = sizeMark;
+    public void setSpecs(String specs) {
+        this.specs = specs;
     }
 
     public BigDecimal getOriginalWeight() {

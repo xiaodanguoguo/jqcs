@@ -7,14 +7,8 @@ import com.ebase.utils.BeanCopyUtil;
 import com.ebase.utils.DateFormatUtil;
 import jq.steel.cs.services.cust.api.vo.ObjectionDiaoChaVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
-import jq.steel.cs.services.cust.facade.dao.CrmClaimApplyMapper;
-import jq.steel.cs.services.cust.facade.dao.CrmClaimInfoMapper;
-import jq.steel.cs.services.cust.facade.dao.CrmClaimInnerInquireMapper;
-import jq.steel.cs.services.cust.facade.dao.CrmClaimOutInquireMapper;
-import jq.steel.cs.services.cust.facade.model.CrmClaimApply;
-import jq.steel.cs.services.cust.facade.model.CrmClaimInfo;
-import jq.steel.cs.services.cust.facade.model.CrmClaimInnerInquire;
-import jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire;
+import jq.steel.cs.services.cust.facade.dao.*;
+import jq.steel.cs.services.cust.facade.model.*;
 import jq.steel.cs.services.cust.facade.service.objection.ObjectionDiaoChaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +31,9 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
 
     @Autowired
     private CrmClaimApplyMapper crmClaimApplyMapper;
+
+    @Autowired
+    private CrmAgreementInfoMapper crmAgreementInfoMapper;
 
     //条件查询
     @Override
@@ -128,6 +125,14 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimInfo.setUpdatedBy(AssertContext.getAcctName());
             crmClaimInfo.setInquireState("CONFIRM");
             int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
+
+            //添加协议书数据
+            CrmAgreementInfo crmAgreementInfo = new CrmAgreementInfo();
+            crmAgreementInfo.setClaimNo(crmClaimOutInquire.getClaimNo());
+            crmAgreementInfo.setDownloadableNum(3);
+            crmAgreementInfo.setDownloadedNum(0);
+            crmAgreementInfo.setCreatedBy(AssertContext.getAcctId());
+            crmAgreementInfoMapper.insertSelective(crmAgreementInfo);
         }else {
             //确认书驳回
             CrmClaimApply crmClaimApply = new CrmClaimApply();
@@ -247,9 +252,9 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
         crmClaimInfo.setUpdatedBy(AssertContext.getAcctName());
         // crmClaimInfo.setInquireState("");
         if(record.getType().equals(1)){
-            crmClaimInfo.setClaimState("OUTSTART");
+            crmClaimInfo.setInquireState("OUTSTART");
         }else {
-            crmClaimInfo.setClaimState("INSTART");
+            crmClaimInfo.setInquireState("INSTART");
         }
 
         int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);

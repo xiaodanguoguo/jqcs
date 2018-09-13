@@ -7,25 +7,18 @@ import java.util.Date;
 
 public class CrmClaimInfo {
 
+    //强制结案原因
+    private  String reasonsForCompulsoryClosure;
+
+    private String agreementUrl;
+
+    private String agreementName;
+
+    private String agreementState;
+
     private  String deptCode;
 
-    public String getDeptCode() {
-        return deptCode;
-    }
-
-    public void setDeptCode(String deptCode) {
-        this.deptCode = deptCode;
-    }
-
     private String manufactor;
-
-    public String getManufactor() {
-        return manufactor;
-    }
-
-    public void setManufactor(String manufactor) {
-        this.manufactor = manufactor;
-    }
 
     private String type;
 
@@ -149,6 +142,55 @@ public class CrmClaimInfo {
 
     //提报人
     private  String presentationUser;
+
+    public String getReasonsForCompulsoryClosure() {
+        return reasonsForCompulsoryClosure;
+    }
+
+    public void setReasonsForCompulsoryClosure(String reasonsForCompulsoryClosure) {
+        this.reasonsForCompulsoryClosure = reasonsForCompulsoryClosure;
+    }
+
+    public String getAgreementUrl() {
+        return agreementUrl;
+    }
+
+    public void setAgreementUrl(String agreementUrl) {
+        this.agreementUrl = agreementUrl;
+    }
+
+    public String getAgreementName() {
+        return agreementName;
+    }
+
+    public void setAgreementName(String agreementName) {
+        this.agreementName = agreementName;
+    }
+
+    public String getAgreementState() {
+        return agreementState;
+    }
+
+    public void setAgreementState(String agreementState) {
+        this.agreementState = agreementState;
+    }
+
+    public String getManufactor() {
+        return manufactor;
+    }
+
+    public void setManufactor(String manufactor) {
+        this.manufactor = manufactor;
+    }
+
+
+    public String getDeptCode() {
+        return deptCode;
+    }
+
+    public void setDeptCode(String deptCode) {
+        this.deptCode = deptCode;
+    }
 
     public Date getPresentationDate() {
         return presentationDate;

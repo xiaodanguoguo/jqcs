@@ -9,7 +9,7 @@ public interface CrmClaimInfoMapper {
 
     CrmClaimInfo select(CrmClaimInfo record);
 
-    int delete(String claimNo);
+    int deleteByPrimaryKey(String claimNo);
 
     int insert(CrmClaimInfo record);
 

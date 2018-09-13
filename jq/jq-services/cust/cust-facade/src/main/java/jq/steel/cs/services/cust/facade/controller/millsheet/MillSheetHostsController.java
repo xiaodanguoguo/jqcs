@@ -111,6 +111,7 @@ public class MillSheetHostsController {
             if (list.getTrue()){
                 serviceResponse.setRetContent(list);
             }else {
+                serviceResponse.setRetContent(list);
                 serviceResponse.setRetCode("00");
                 serviceResponse.setRetMessage(list.getCheckInstructions());
             }

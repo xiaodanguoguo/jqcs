@@ -70,6 +70,7 @@ public class CrmLastuserInfoServiceImpl implements CrmLastuserInfoService{
                 crmLastuserInfo1.setUpdatedDt(new Date());
                 crmLastuserInfo1.setUpdatedBy(orgCode);
                 crmLastuserInfo1.setCustomerId(orgCode);
+                crmLastuserInfo1.setDefaultFlag("N");
                 crmLastuserInfoMapper.updateAll(crmLastuserInfo1);
             }
             crmLastuserInfoMapper.updateByPrimaryKeySelective(crmLastuserInfo);

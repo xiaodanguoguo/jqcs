@@ -105,11 +105,11 @@ public class ObjectionTiBaoController {
      * @return
      */
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
-    public ServiceResponse<Integer> submit(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest){
+    public ServiceResponse<Integer> submit(@RequestBody JsonRequest<List<ObjectionTiBaoVO>> jsonRequest){
         logger.info("分页", JsonUtil.toJson(jsonRequest));
         ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
         try {
-            ObjectionTiBaoVO objectionTiBaoVO = jsonRequest.getReqBody();
+            List<ObjectionTiBaoVO> objectionTiBaoVO = jsonRequest.getReqBody();
             Integer integer = objectionTiBaoService.submit(objectionTiBaoVO);
             serviceResponse.setRetContent(integer);
         }catch (BusinessException e){

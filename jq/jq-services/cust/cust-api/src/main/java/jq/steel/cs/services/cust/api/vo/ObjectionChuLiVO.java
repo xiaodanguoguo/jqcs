@@ -7,6 +7,12 @@ import java.util.Date;
 
 public class ObjectionChuLiVO {
 
+    private String agreementUrl;
+
+    private String agreementName;
+
+    private String agreementState;
+
     //产品名称
     private  String zcpmc;
 
@@ -123,9 +129,11 @@ public class ObjectionChuLiVO {
     private  String agreementPath;
 
     //受理时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date admissibilityTime;
 
     //提报时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date presentationDate;
 
     //受理人
@@ -151,6 +159,32 @@ public class ObjectionChuLiVO {
 
     //润乾地址
     private  String report;
+
+
+
+    public String getAgreementUrl() {
+        return agreementUrl;
+    }
+
+    public void setAgreementUrl(String agreementUrl) {
+        this.agreementUrl = agreementUrl;
+    }
+
+    public String getAgreementName() {
+        return agreementName;
+    }
+
+    public void setAgreementName(String agreementName) {
+        this.agreementName = agreementName;
+    }
+
+    public String getAgreementState() {
+        return agreementState;
+    }
+
+    public void setAgreementState(String agreementState) {
+        this.agreementState = agreementState;
+    }
 
     public String getZcpmc() {
         return zcpmc;
