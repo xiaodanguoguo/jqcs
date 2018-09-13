@@ -39,4 +39,23 @@ public interface ObjectionTiBaoService {
      * @Date: 2018/9/7
      */
     ObjectionTiBaoCountVO getCount(CrmClaimApply crmClaimApply);
+
+
+    /**
+     * @param:
+     * @return:
+     * @description:  app提报列表
+     * @author: lirunze
+     * @Date: 2018/9/13
+     */
+    PageDTO<ObjectionTiBaoVO> findTiBaoByPage(ObjectionTiBaoVO objectionTiBaoVO);
+
+    /**
+     * @param:
+     * @return:
+     * @description:  app跟踪列表
+     * @author: lirunze
+     * @Date: 2018/9/13
+     */
+    PageDTO<ObjectionTiBaoVO> findgenzongByPage(ObjectionTiBaoVO objectionTiBaoVO);
 }

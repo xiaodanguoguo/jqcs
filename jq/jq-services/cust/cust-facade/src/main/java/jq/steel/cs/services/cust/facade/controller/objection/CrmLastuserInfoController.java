@@ -6,8 +6,6 @@ import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.utils.JsonUtil;
 import jq.steel.cs.services.cust.api.vo.CrmLastuserInfoVO;
-import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
-import jq.steel.cs.services.cust.facade.controller.millsheet.MillSheetHostsController;
 import jq.steel.cs.services.cust.facade.service.objection.CrmLastuserInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/unitOfUse")
@@ -92,5 +92,28 @@ public class CrmLastuserInfoController {
         }
         return  serviceResponse;
     }*/
+
+    /**
+     * @param:
+     * @return:
+     * @description:  使用单位
+     * @author: lirunze
+     * @Date: 2018/9/13
+     */
+    @RequestMapping(value ="/findDefault", method = RequestMethod.POST)
+    ServiceResponse<List<CrmLastuserInfoVO>> findunitOfUseList(JsonRequest<CrmLastuserInfoVO> jsonRequest) {
+        logger.info("分页", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<List<CrmLastuserInfoVO>> serviceResponse = new ServiceResponse<>();
+        try {
+            CrmLastuserInfoVO crmLastuserInfoVO = jsonRequest.getReqBody();
+            List<CrmLastuserInfoVO> pageDTO = crmLastuserInfoService.findunitOfUseList(crmLastuserInfoVO);
+            serviceResponse.setRetContent(pageDTO);
+        }catch (BusinessException e){
+            logger.error("获取分页出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
 
 }

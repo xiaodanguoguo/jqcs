@@ -381,14 +381,61 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
         return objectionTiBaoVO;
     }
 
-
-    //新增按钮文件上传
     @Override
     public ObjectionTiBaoCountVO getCount(CrmClaimApply crmClaimApply) {
-
-
         ObjectionTiBaoCountVO vo = crmClaimApplyMapper.getCount(crmClaimApply);
+        vo.setAll(vo.getCreated() + vo.getPresent() + vo.getReject());
 
         return vo;
+    }
+
+    @Override
+    public PageDTO<ObjectionTiBaoVO> findTiBaoByPage(ObjectionTiBaoVO objectionTiBaoVO) {
+        try {
+            //转换mdel
+            CrmClaimApply crmClaimApply  = new CrmClaimApply();
+            BeanCopyUtil.copy(objectionTiBaoVO,crmClaimApply);
+            PageDTOUtil.startPage(objectionTiBaoVO);
+            String startDtStr = DateFormatUtil.getStartDateStr(crmClaimApply.getStartDt());
+            crmClaimApply.setStartDtStr(startDtStr);
+            String endDtStr = DateFormatUtil.getEndDateStr(crmClaimApply.getEndDt());
+            crmClaimApply.setEndDtStr(endDtStr);
+            List<CrmClaimApply> crmClaimApplies = crmClaimApplyMapper.findTiBaoByPage(crmClaimApply);
+            //转换返回对象
+            List<ObjectionTiBaoVO> objectionTiBaoVOS = BeanCopyUtil.copyList(crmClaimApplies, ObjectionTiBaoVO.class);
+            // 分页对象
+            PageDTO<ObjectionTiBaoVO> transform = PageDTOUtil.transform(objectionTiBaoVOS);
+
+
+            return transform;
+
+        }finally {
+            PageDTOUtil.endPage();
+        }
+    }
+
+    @Override
+    public PageDTO<ObjectionTiBaoVO> findgenzongByPage(ObjectionTiBaoVO objectionTiBaoVO) {
+        try {
+            //转换mdel
+            CrmClaimApply crmClaimApply  = new CrmClaimApply();
+            BeanCopyUtil.copy(objectionTiBaoVO,crmClaimApply);
+            PageDTOUtil.startPage(objectionTiBaoVO);
+            String startDtStr = DateFormatUtil.getStartDateStr(crmClaimApply.getStartDt());
+            crmClaimApply.setStartDtStr(startDtStr);
+            String endDtStr = DateFormatUtil.getEndDateStr(crmClaimApply.getEndDt());
+            crmClaimApply.setEndDtStr(endDtStr);
+            List<CrmClaimApply> crmClaimApplies = crmClaimApplyMapper.findgenzongByPage(crmClaimApply);
+            //转换返回对象
+            List<ObjectionTiBaoVO> objectionTiBaoVOS = BeanCopyUtil.copyList(crmClaimApplies, ObjectionTiBaoVO.class);
+            // 分页对象
+            PageDTO<ObjectionTiBaoVO> transform = PageDTOUtil.transform(objectionTiBaoVOS);
+
+
+            return transform;
+
+        }finally {
+            PageDTOUtil.endPage();
+        }
     }
 }

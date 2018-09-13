@@ -9,7 +9,11 @@ import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
 import feign.FeignException;
 import jq.steel.cs.services.base.api.controller.AcctAPI;
+import jq.steel.cs.services.cust.api.controller.CrmCustomerInfoAPI;
+import jq.steel.cs.services.cust.api.controller.CrmLastuserInfoAPI;
 import jq.steel.cs.services.cust.api.controller.ObjectionTiBaoAPI;
+import jq.steel.cs.services.cust.api.vo.CrmCustomerInfoVO;
+import jq.steel.cs.services.cust.api.vo.CrmLastuserInfoVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoCountVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
 import org.slf4j.Logger;
@@ -42,6 +46,12 @@ public class AppObjectionTiBaoController {
 
     @Autowired
     private AcctAPI backMemberAPI;
+
+    @Autowired
+    private CrmLastuserInfoAPI crmLastuserInfoAPI;
+
+    @Autowired
+    private CrmCustomerInfoAPI crmCustomerInfoAPI;
 
     /**
      * @param:
@@ -91,17 +101,48 @@ public class AppObjectionTiBaoController {
     }
 
     /**
-     *  条件分页查询
+     *  异议提报列表
      * @param  jsonRequest
      * @return
      *
      * */
-    @RequestMapping(value = "/findByPage",method = RequestMethod.POST)
-    public JsonResponse<PageDTO<ObjectionTiBaoVO>> findByPage(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest){
+    @RequestMapping(value = "/submit/findByPage",method = RequestMethod.POST)
+    public JsonResponse<PageDTO<ObjectionTiBaoVO>> findTiBaoByPage(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest){
         logger.info("参数={}",JsonUtil.toJson(jsonRequest));
         JsonResponse<PageDTO<ObjectionTiBaoVO>> jsonResponse = new JsonResponse<>();
         try {
-            ServiceResponse<PageDTO<ObjectionTiBaoVO>> serviceResponse = objectionTiBaoAPI.findByPage(jsonRequest);
+            ServiceResponse<PageDTO<ObjectionTiBaoVO>> serviceResponse = objectionTiBaoAPI.findTiBaoByPage(jsonRequest);
+            if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            } else {
+                if (serviceResponse.isHasError()) {
+                    jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                }else {
+                    jsonResponse.setRetCode(serviceResponse.getRetCode());
+                    jsonResponse.setRetDesc(serviceResponse.getRetMessage());
+                    return jsonResponse;
+                }
+            }
+        } catch (BusinessException e) {
+            logger.error("获取分页列表错误 = {}", e);
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+        return jsonResponse;
+    }
+
+    /**
+     *  异议跟踪列表
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/tailafter/findByPage",method = RequestMethod.POST)
+    public JsonResponse<PageDTO<ObjectionTiBaoVO>> findgenzongByPage(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest){
+        logger.info("参数={}",JsonUtil.toJson(jsonRequest));
+        JsonResponse<PageDTO<ObjectionTiBaoVO>> jsonResponse = new JsonResponse<>();
+        try {
+            ServiceResponse<PageDTO<ObjectionTiBaoVO>> serviceResponse = objectionTiBaoAPI.findgenzongByPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {
@@ -240,6 +281,70 @@ public class AppObjectionTiBaoController {
 
         return jsonResponse;
 
+    }
+
+    /**
+     *订货单位
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/orderUnit/list",method = RequestMethod.POST)
+    public JsonResponse<List<CrmCustomerInfoVO>>  findorderUnit(@RequestBody JsonRequest<CrmCustomerInfoVO> jsonRequest){
+        logger.info("分页", JsonUtil.toJson(jsonRequest));
+        JsonResponse<List<CrmCustomerInfoVO>> jsonResponse = new JsonResponse<>();
+        try {
+            jsonRequest.getReqBody().setCreatedBy(AssertContext.getAcctId());
+            ServiceResponse<List<CrmCustomerInfoVO>> serviceResponse = crmCustomerInfoAPI.findorderUnitList(jsonRequest);
+            if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            } else {
+                if (serviceResponse.isHasError()) {
+                    jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                }else {
+                    jsonResponse.setRetCode(serviceResponse.getRetCode());
+                    jsonResponse.setRetDesc(serviceResponse.getRetMessage());
+                    return jsonResponse;
+                }
+            }
+        } catch (BusinessException e) {
+            logger.error("获取分页列表错误 = {}", e);
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+        return jsonResponse;
+    }
+
+    /**
+     *使用单位
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/unitOfUse/list",method = RequestMethod.POST)
+    public JsonResponse<List<CrmLastuserInfoVO>>  findunitOfUse(@RequestBody JsonRequest<CrmLastuserInfoVO> jsonRequest){
+        logger.info("分页={}", JsonUtil.toJson(jsonRequest));
+        JsonResponse<List<CrmLastuserInfoVO>> jsonResponse = new JsonResponse<>();
+        try {
+            jsonRequest.getReqBody().setCreatedBy(AssertContext.getAcctId());
+            ServiceResponse<List<CrmLastuserInfoVO>> serviceResponse = crmLastuserInfoAPI.findunitOfUseList(jsonRequest);
+            if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            } else {
+                if (serviceResponse.isHasError()) {
+                    jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                }else {
+                    jsonResponse.setRetCode(serviceResponse.getRetCode());
+                    jsonResponse.setRetDesc(serviceResponse.getRetMessage());
+                    return jsonResponse;
+                }
+            }
+        } catch (BusinessException e) {
+            logger.error("获取分页列表错误 = {}", e);
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+        return jsonResponse;
     }
 
 }

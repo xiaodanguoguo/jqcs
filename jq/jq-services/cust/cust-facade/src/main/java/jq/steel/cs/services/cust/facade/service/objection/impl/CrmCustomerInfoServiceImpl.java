@@ -1,18 +1,15 @@
 package jq.steel.cs.services.cust.facade.service.objection.impl;
 
-import com.ebase.core.AssertContext;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.page.PageDTOUtil;
 import com.ebase.utils.BeanCopyUtil;
 import jq.steel.cs.services.cust.api.vo.CrmCustomerInfoVO;
 import jq.steel.cs.services.cust.facade.dao.CrmCustomerInfoMapper;
 import jq.steel.cs.services.cust.facade.model.CrmCustomerInfo;
-import jq.steel.cs.services.cust.facade.model.CrmLastuserInfo;
 import jq.steel.cs.services.cust.facade.service.objection.CrmCustomerInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -104,6 +101,16 @@ public class CrmCustomerInfoServiceImpl implements CrmCustomerInfoService{
         //crmCustomerInfo.setDefaultFlag("Y");
         List<CrmCustomerInfo> crmCustomerInfo1 = crmCustomerInfoMapper.findDefault(crmCustomerInfo);
         List<CrmCustomerInfoVO> crmCustomerInfoVOS = BeanCopyUtil.copyList(crmCustomerInfo1,CrmCustomerInfoVO.class);
+        return crmCustomerInfoVOS;
+    }
+
+    @Override
+    public List<CrmCustomerInfoVO> findorderUnitList(CrmCustomerInfoVO crmCustomerInfoVO) {
+        CrmCustomerInfo crmCustomerInfo = new CrmCustomerInfo();
+        BeanCopyUtil.copy(crmCustomerInfoVO,crmCustomerInfo);
+        List<CrmCustomerInfo> crmCustomerInfos = crmCustomerInfoMapper.findByPage(crmCustomerInfo);
+        //转换返回对象
+        List<CrmCustomerInfoVO> crmCustomerInfoVOS = BeanCopyUtil.copyList(crmCustomerInfos, CrmCustomerInfoVO.class);
         return crmCustomerInfoVOS;
     }
 }

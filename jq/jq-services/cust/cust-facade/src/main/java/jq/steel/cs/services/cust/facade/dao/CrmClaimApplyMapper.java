@@ -31,4 +31,8 @@ public interface CrmClaimApplyMapper {
     CrmClaimApply findByParams(CrmClaimApply record);
 
     ObjectionTiBaoCountVO getCount(CrmClaimApply crmClaimApply);
+
+    List<CrmClaimApply> findTiBaoByPage(CrmClaimApply crmClaimApply);
+
+    List<CrmClaimApply> findgenzongByPage(CrmClaimApply crmClaimApply);
 }

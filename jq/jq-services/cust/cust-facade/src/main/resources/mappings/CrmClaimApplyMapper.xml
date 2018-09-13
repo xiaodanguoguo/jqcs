@@ -697,6 +697,10 @@
                 CLAIM_STATE
             FROM
                 CRM_CLAIM_APPLY
+        where 1 = 1
+        <if test="claimNo != null">
+          and CLAIM_NO LIKE '%' || #{claimNo} ||'%'
+        </if>
         ) PIVOT (
             COUNT (CLAIM_STATE) FOR CLAIM_STATE IN (
                 'NEW' as created,
@@ -712,5 +716,164 @@
     <if test="createdBy != null and createdBy != ''" >
       WHERE CREATED_BY = #{createdBy,jdbcType=VARCHAR}
     </if>
+  </select>
+
+  <select id="findTiBaoByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
+    SELECT
+    A.CLAIM_NO,
+    A.CLAIM_STATE,
+    A.MILL_SHEET_NO,
+    B.DEPT_CODE,
+    A.PRODUCT_ID,
+    A.PRODUCT_NAME,
+    A.DESIGNATION,
+    A.SIZE_MARK,
+    C.CLAIM_TYPE,
+    A.OBJECTION_NUM,
+    C.INQUIRE_STATE,
+    A.LAST_USER,
+    A.CUSTOMER_NAME,
+    A.PRESENTATION_DATE,
+    A.REJECT_REASON,
+    A.REASONS_FOR_COMPULSORY_CLOSURE,
+    A.LAST_USER_ID,
+    case when B.DEPT_CODE = '1000' then '不锈钢厂'
+    when B.DEPT_CODE = '2000' then '炼轧厂'
+    when B.DEPT_CODE = '2200' then '碳钢薄板厂'
+    when B.DEPT_CODE='3000' then '榆钢工厂' else B.DEPT_CODE end as DEPT_CODE_NAME,
+    D.ZCPMC,
+    D.ZPH,
+    F.LAST_USER
+    FROM
+    WARRANTY.CRM_CLAIM_APPLY A
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_INFO C ON A.CLAIM_NO = C.CLAIM_NO
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO
+    LEFT JOIN CRM_LASTUSER_INFO F ON A.LAST_USER_ID = F.LAST_USER_ID
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="endDtStr != null" >
+        AND TO_CHAR (A.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        <!--AND  #{} &gt;= A.PRESENTATION_DATE-->
+      </if>
+      <if test="startDtStr != null" >
+        AND TO_CHAR (A.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+        <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
+      </if>
+      <if test="customerId != null and customerId != ''" >
+        AND A.CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+      </if>
+      <if test="claimType != null and claimType != ''" >
+        AND C.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
+      </if>
+      <if test="productId != null and productId != ''" >
+        AND A.PRODUCT_ID = #{productId,jdbcType=VARCHAR}
+      </if>
+      <if test="productName != null and productName != ''" >
+        AND A.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
+      </if>
+      <if test="claimNo != null and claimNo != ''" >
+        AND A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+      </if>
+      <if test="battenPlateNo != null and battenPlateNo != ''" >
+        AND A.BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR}
+      </if>
+      <if test="claimState != null and claimState != ''" >
+        AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
+      </if>
+      <if test="manufactor != null and manufactor != ''" >
+        AND  B.DEPT_CODE = #{manufactor,jdbcType=VARCHAR}
+      </if>
+      <if test="designation != null and designation != ''" >
+        AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}
+      </if>
+      <choose>
+        <when test="claimState != null ">
+          and a.CLAIM_STATE = #{claimState}
+        </when>
+        <otherwise>
+          and a.CLAIM_STATE = 'CREATED' or a.CLAIM_STATE = 'PRESENT' or a.CLAIM_STATE = 'REJECT'
+        </otherwise>
+      </choose>
+    </trim>
+  </select>
+
+  <select id="findgenzongByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
+    SELECT
+    A.CLAIM_NO,
+    A.CLAIM_STATE,
+    A.MILL_SHEET_NO,
+    B.DEPT_CODE,
+    A.PRODUCT_ID,
+    A.PRODUCT_NAME,
+    A.DESIGNATION,
+    A.SIZE_MARK,
+    C.CLAIM_TYPE,
+    A.OBJECTION_NUM,
+    C.INQUIRE_STATE,
+    A.LAST_USER,
+    A.CUSTOMER_NAME,
+    A.PRESENTATION_DATE,
+    A.REJECT_REASON,
+    A.REASONS_FOR_COMPULSORY_CLOSURE,
+    A.LAST_USER_ID,
+    case when B.DEPT_CODE = '1000' then '不锈钢厂'
+    when B.DEPT_CODE = '2000' then '炼轧厂'
+    when B.DEPT_CODE = '2200' then '碳钢薄板厂'
+    when B.DEPT_CODE='3000' then '榆钢工厂' else B.DEPT_CODE end as DEPT_CODE_NAME,
+    D.ZCPMC,
+    D.ZPH,
+    F.LAST_USER
+    FROM
+    WARRANTY.CRM_CLAIM_APPLY A
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_INFO C ON A.CLAIM_NO = C.CLAIM_NO
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO
+    LEFT JOIN CRM_LASTUSER_INFO F ON A.LAST_USER_ID = F.LAST_USER_ID
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="endDtStr != null" >
+        AND TO_CHAR (A.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        <!--AND  #{} &gt;= A.PRESENTATION_DATE-->
+      </if>
+      <if test="startDtStr != null" >
+        AND TO_CHAR (A.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+        <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
+      </if>
+      <if test="customerId != null and customerId != ''" >
+        AND A.CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+      </if>
+      <if test="claimType != null and claimType != ''" >
+        AND C.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
+      </if>
+      <if test="productId != null and productId != ''" >
+        AND A.PRODUCT_ID = #{productId,jdbcType=VARCHAR}
+      </if>
+      <if test="productName != null and productName != ''" >
+        AND A.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
+      </if>
+      <if test="claimNo != null and claimNo != ''" >
+        AND A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+      </if>
+      <if test="battenPlateNo != null and battenPlateNo != ''" >
+        AND A.BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR}
+      </if>
+      <if test="claimState != null and claimState != ''" >
+        AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
+      </if>
+      <if test="manufactor != null and manufactor != ''" >
+        AND  B.DEPT_CODE = #{manufactor,jdbcType=VARCHAR}
+      </if>
+      <if test="designation != null and designation != ''" >
+        AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}
+      </if>
+      <choose>
+        <when test="claimState != null ">
+          and a.CLAIM_STATE = #{claimState}
+        </when>
+        <otherwise>
+          and a.CLAIM_STATE = 'ACCEPTANCE' or a.CLAIM_STATE = 'REJECT' or a.CLAIM_STATE = 'HANDLE'
+          or a.CLAIM_STATE = 'INVESTIGATION' or a.CLAIM_STATE = 'END' or a.CLAIM_STATE = 'EVALUATE'
+        </otherwise>
+      </choose>
+    </trim>
   </select>
 </mapper>

@@ -244,4 +244,51 @@ public class ObjectionTiBaoController {
 
         return serviceResponse;
     }
+
+
+
+    //app
+
+    /**
+     * 异议提报列表
+     *
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/findTiBaoByPage", method = RequestMethod.POST)
+    ServiceResponse<PageDTO<ObjectionTiBaoVO>> findTiBaoByPage(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
+        logger.info("条件分页查询 = {}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<PageDTO<ObjectionTiBaoVO>> serviceResponse = new ServiceResponse<>();
+        try {
+            ObjectionTiBaoVO objectionTiBaoVO = jsonRequest.getReqBody();
+            PageDTO<ObjectionTiBaoVO> pageDTO = objectionTiBaoService.findTiBaoByPage(objectionTiBaoVO);
+            serviceResponse.setRetContent(pageDTO);
+        }catch (BusinessException e){
+            logger.error("获取分页出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
+    /**
+     * 异议跟踪列表
+     *
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/findgenzongByPage", method = RequestMethod.POST)
+    ServiceResponse<PageDTO<ObjectionTiBaoVO>> findgenzongByPage(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
+        logger.info("条件分页查询 = {}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<PageDTO<ObjectionTiBaoVO>> serviceResponse = new ServiceResponse<>();
+        try {
+            ObjectionTiBaoVO objectionTiBaoVO = jsonRequest.getReqBody();
+            PageDTO<ObjectionTiBaoVO> pageDTO = objectionTiBaoService.findgenzongByPage(objectionTiBaoVO);
+            serviceResponse.setRetContent(pageDTO);
+        }catch (BusinessException e){
+            logger.error("获取分页出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
 }

@@ -8,6 +8,7 @@ package jq.steel.cs.services.cust.api.vo;
  */
 public class ObjectionTiBaoCountVO {
 
+    private Integer all;
     // 新建
     private Integer created;
     // 已提报
@@ -24,6 +25,14 @@ public class ObjectionTiBaoCountVO {
     private Integer end;
     // 已评价
     private Integer evaluate;
+
+    public Integer getAll() {
+        return all;
+    }
+
+    public void setAll(Integer all) {
+        this.all = all;
+    }
 
     public Integer getCreated() {
         return created;

@@ -102,4 +102,22 @@ public interface ObjectionTiBaoAPI {
      */
     @RequestMapping(value = "/objectionTiBao/count",method = RequestMethod.POST)
     ServiceResponse<ObjectionTiBaoCountVO> getCount(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest);
+
+    /**
+     * 异议提报列表
+     *
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/objectionTiBao/findTiBaoByPage", method = RequestMethod.POST)
+    ServiceResponse<PageDTO<ObjectionTiBaoVO>> findTiBaoByPage(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest);
+
+    /**
+     * 异议跟踪列表
+     *
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/objectionTiBao/findgenzongByPage", method = RequestMethod.POST)
+    ServiceResponse<PageDTO<ObjectionTiBaoVO>> findgenzongByPage(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest);
 }

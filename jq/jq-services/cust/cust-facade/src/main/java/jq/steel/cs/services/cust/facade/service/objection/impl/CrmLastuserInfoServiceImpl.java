@@ -1,10 +1,8 @@
 package jq.steel.cs.services.cust.facade.service.objection.impl;
 
-import com.ebase.core.AssertContext;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.page.PageDTOUtil;
 import com.ebase.utils.BeanCopyUtil;
-import jq.steel.cs.services.cust.api.vo.CrmCustomerInfoVO;
 import jq.steel.cs.services.cust.api.vo.CrmLastuserInfoVO;
 import jq.steel.cs.services.cust.facade.dao.CrmLastuserInfoMapper;
 import jq.steel.cs.services.cust.facade.model.CrmLastuserInfo;
@@ -12,7 +10,6 @@ import jq.steel.cs.services.cust.facade.service.objection.CrmLastuserInfoService
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @Service
@@ -113,6 +110,18 @@ public class CrmLastuserInfoServiceImpl implements CrmLastuserInfoService{
         BeanCopyUtil.copy(crmLastuserInfoVO,crmLastuserInfo);
         List<CrmLastuserInfo> crmCustomerInfo1= crmLastuserInfoMapper.findDefault(crmLastuserInfo);
         List<CrmLastuserInfoVO> crmLastuserInfoVOS = BeanCopyUtil.copyList(crmCustomerInfo1,CrmLastuserInfoVO.class);
+        return crmLastuserInfoVOS;
+    }
+
+    @Override
+    public List<CrmLastuserInfoVO> findunitOfUseList(CrmLastuserInfoVO crmLastuserInfoVO) {
+        //转换mdel
+        CrmLastuserInfo crmLastuserInfo = new CrmLastuserInfo();
+        BeanCopyUtil.copy(crmLastuserInfoVO,crmLastuserInfo);
+        List<CrmLastuserInfo> crmLastuserInfos = crmLastuserInfoMapper.findByPage(crmLastuserInfo);
+        //转换返回对象
+        List<CrmLastuserInfoVO> crmLastuserInfoVOS = BeanCopyUtil.copyList(crmLastuserInfos, CrmLastuserInfoVO.class);
+
         return crmLastuserInfoVOS;
     }
 }
