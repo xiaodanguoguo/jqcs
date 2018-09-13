@@ -224,6 +224,14 @@ function boxChecked(){
 function operateSucCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
+        var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert(data.retDesc,"成功提示",1,"","successTip");
+    }
+}
+
+function clsAlertBoxCtrl$sure() {//成功弹框确定
+    if (this.id == "successTip") {
+        closePopupWin();
         jumpUrl("objectionDeal.html","0000000",0);
     }
 }
