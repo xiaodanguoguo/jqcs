@@ -386,7 +386,7 @@
     update CRM_CLAIM_INFO
     <trim suffixOverrides=",">
     set version = version + 1,
-      <if test="productId != null'" >
+      <if test="productId != null" >
         PRODUCT_ID = #{productId,jdbcType=NUMERIC},
       </if>
       <if test="productName != null and productName != ''" >

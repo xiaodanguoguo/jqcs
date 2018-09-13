@@ -185,7 +185,7 @@ public class ObjectionDiaoChaVO {
     private  String reasonsForCompulsoryClosure;
 
 
-    private Integer amoutOfUse;
+    private Integer amountOfUse;
 
     private String manufactor;
 
@@ -313,12 +313,12 @@ public class ObjectionDiaoChaVO {
         this.startDt = startDt;
     }
 
-    public Integer getAmoutOfUse() {
-        return amoutOfUse;
+    public Integer getAmountOfUse() {
+        return amountOfUse;
     }
 
-    public void setAmoutOfUse(Integer amoutOfUse) {
-        this.amoutOfUse = amoutOfUse;
+    public void setAmountOfUse(Integer amountOfUse) {
+        this.amountOfUse = amountOfUse;
     }
 
     public String getExternalLnvestigator() {
