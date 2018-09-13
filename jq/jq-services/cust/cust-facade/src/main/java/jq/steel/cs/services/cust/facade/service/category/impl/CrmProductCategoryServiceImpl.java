@@ -79,13 +79,11 @@ public class CrmProductCategoryServiceImpl implements CrmProductCategoryService 
             // 修改
             if (SysPramType.UPDATE.getMsg().equals(crmProductCategoryVO.getOpt())) {
                 crmProductCategory = crmProductCategoryMapper.selectByPrimaryKey(crmProductCategoryVO.getCid());
-                if (ProductCategoryStatus.SAVE.getCode().equals(crmProductCategory.getStatus())) {
-                    BeanCopyUtil.copy(crmProductCategoryVO, crmProductCategory);
-                    crmProductCategory.setUpdateDt(new Date());
-                    crmProductCategory.setUpdateBy(AssertContext.getAcctName());
+                BeanCopyUtil.copy(crmProductCategoryVO, crmProductCategory);
+                crmProductCategory.setUpdateDt(new Date());
+                crmProductCategory.setUpdateBy(AssertContext.getAcctName());
 //                    crmProductCategory.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
-                    crmProductCategoryMapper.updateByPrimaryKeySelective(crmProductCategory);
-                }
+                crmProductCategoryMapper.updateByPrimaryKeySelective(crmProductCategory);
 
             }
             // 添加
