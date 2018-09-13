@@ -11,8 +11,7 @@ function clsMethodLee(){
         "path9":"/objectionDiaoCha/findDetails",//异议调查外部调查内部调查回显数据|确认书审核   1是外部调查 2是内部调查 3确认书审核
         "path10":"/objectionDiaoCha/update",//内外部调查报告（保存，跟踪，提交）异议处理确认书（通过 ，驳回）
                                             //1外部保存2外部跟踪3外部提交4内部保存5内部提交6确认书通过7确认书审核
-        "path11":"/file/upload",//上传
-        "path12":"/objectionChuLi/findAll"//3确认书审核数据回显接口
+        "path11":"/file/upload"//上传
     };
     this.documentLee = null;
     this.htmlType = GetQueryString("htmlType");//判断页面类型0——新建 5修改 1——详情  2——销售审核  3——外部调查  4——内部调查 6-确认书审核
@@ -130,7 +129,7 @@ function clsMethodLee$parse(){
             $("#rejectReason").remove();//删除第一个驳回原因input
             var ue = UE.getEditor('editor');
             var ue2 = UE.getEditor('editor2');
-            getAjaxResult(document.body.jsLee.requestUrl.path12,"POST",{"claimNo":this.claimNo},"htmlInit2(data)");//数据回显操作
+            getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"claimNo":this.claimNo,"optionType":3},"htmlInit2(data)");//数据回显操作
             break;
     }
     initValidate($("#submitBox")[0]);
