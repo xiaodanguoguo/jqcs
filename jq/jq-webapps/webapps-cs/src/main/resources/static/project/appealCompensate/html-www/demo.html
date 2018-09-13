@@ -7,12 +7,18 @@
     <script src="../../../base/js/jquery.media.js"></script>
     <script type="text/javascript">
         $(function() {
-            $('div.media').media({width:800, height:600});
+            $('div.media').attr("href","yulan.pdf")
+            $('div.media').media({width:1000, height:500});
         });
     </script>
-    <title>Title</title>
+    <style>
+        .media{
+            margin: 20px auto!important;
+        }
+    </style>
+    <title>pdf预览</title>
 </head>
 <body>
-    <div class="media" href="yulan.pdf"></div>
+    <div class="media"></div>
 </body>
 </html>
