@@ -58,13 +58,13 @@ function clsMethodLee$operate(){
                 claimNoArr.push($("#tableList")[0].cacheArr[nI].claimNo);
             }
             var importParam = "name=" + JSON.stringify(claimNoArr);
-            $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
+            $.download(requestUrl + document.body.jsLee.requestUrl.path2, importParam, "POST");
         }
     });
     this.rejectSureOpe.on("click",function(){//强制结案确认操作
         if($("#rejectText").val().length >= 5){
             var jsonParam = {"claimNo":document.body.jsLee.claimNo,"reasonsForCompulsoryClosure":$("#rejectText").val()};
-            getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",jsonParam,"rejectOpeCallBack(data)");
+            getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",jsonParam,"rejectOpeCallBack(data)");
         }else if($("#rejectText").val().length > 0){
             showErrInfoByCustomDiv($("#rejectText")[0],"强制结案理由至少5个字！");
         }else{
