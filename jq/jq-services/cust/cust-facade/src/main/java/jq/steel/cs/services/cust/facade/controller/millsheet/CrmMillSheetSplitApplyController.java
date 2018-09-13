@@ -24,22 +24,22 @@ public class CrmMillSheetSplitApplyController {
 
     @Autowired
     private CrmMillSheetSplitApplyService crmMillSheetSplitApplyService;
+
     /**
-     *
      * @param jsonRequest
      * @return
      */
     @RequestMapping("/splitInsert")
-    public ServiceResponse<CrmMillSheetSplitApplyVO> splitInsert(@RequestBody JsonRequest<List<CrmMillSheetSplitApplyVO>> jsonRequest){
+    public ServiceResponse<CrmMillSheetSplitApplyVO> splitInsert(@RequestBody JsonRequest<List<CrmMillSheetSplitApplyVO>> jsonRequest) {
         logger.info("保存 参数 = {}", JsonUtil.toJson(jsonRequest));
         ServiceResponse<CrmMillSheetSplitApplyVO> serviceResponse = new ServiceResponse<>();
         List<CrmMillSheetSplitApplyVO> reqBody = jsonRequest.getReqBody();
-        try{
+        try {
             CrmMillSheetSplitApplyVO downUrl = crmMillSheetSplitApplyService.splitInsert(reqBody);
             serviceResponse.setRetContent(downUrl);
             return serviceResponse;
-        }catch (Exception e){
-            logger.error("保存 参数 失败 error = {}",e);
+        } catch (Exception e) {
+            logger.error("保存 参数 失败 error = {}", e);
 
             throw new BusinessException("500");
         }
@@ -48,22 +48,23 @@ public class CrmMillSheetSplitApplyController {
 
     /**
      * 拆分历史详情数据回显
+     *
      * @param jsonRequest
      * @return
      */
     @RequestMapping("/splitFindAll")
-    public  ServiceResponse<List<CrmMillSheetSplitDetailVO>> splitFindAll(@RequestBody JsonRequest<CrmMillSheetSplitDetailVO> jsonRequest){
-        logger.info("前台参数值",JsonUtil.toJson(jsonRequest));
-        ServiceResponse <List<CrmMillSheetSplitDetailVO>> serviceResponse = new ServiceResponse<>();
+    public ServiceResponse<List<CrmMillSheetSplitDetailVO>> splitFindAll(@RequestBody JsonRequest<CrmMillSheetSplitDetailVO> jsonRequest) {
+        logger.info("前台参数值", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<List<CrmMillSheetSplitDetailVO>> serviceResponse = new ServiceResponse<>();
         CrmMillSheetSplitDetailVO crmMillSheetSplitDetailVO = jsonRequest.getReqBody();
 
-        try{
+        try {
             List<CrmMillSheetSplitDetailVO> crmMillSheetSplitDetailVOList = crmMillSheetSplitApplyService.splitFindAll(crmMillSheetSplitDetailVO);
             serviceResponse.setRetContent(crmMillSheetSplitDetailVOList);
             return serviceResponse;
-        }catch (Exception e){
+        } catch (Exception e) {
             //logger.error("历史详情数据查询出错");
-            throw new  BusinessException("500");
+            throw new BusinessException("500");
         }
 
     }

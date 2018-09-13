@@ -1,6 +1,10 @@
 package jq.steel.cs.services.cust.facade.dao;
 
+import jq.steel.cs.services.cust.api.vo.CrmMillSheetDetailVO;
+import jq.steel.cs.services.cust.facade.model.CrmMillChemistryData;
+import jq.steel.cs.services.cust.facade.model.CrmMillCoilInfo;
 import jq.steel.cs.services.cust.facade.model.MillCoilInfo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,4 +25,9 @@ public interface MillCoilInfoMapper {
     List<MillCoilInfo> splitFind(MillCoilInfo record);
 
     List<MillCoilInfo> findMillsheetNumber (MillCoilInfo record);
+
+    //查询质证书明细_物理
+    List<CrmMillCoilInfo> getPhysicsListByMillSheet(CrmMillSheetDetailVO vo);
+    //查询质证书明细_化学
+    List<CrmMillCoilInfo> getChemistryListByMillSheet(CrmMillSheetDetailVO vo);
 }

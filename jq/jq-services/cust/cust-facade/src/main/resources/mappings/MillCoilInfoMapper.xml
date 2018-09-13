@@ -61,6 +61,32 @@
     <result column="ZKUNNR" property="zkunnr" jdbcType="VARCHAR" />
     <result column="ZKUNWE" property="zkunwe" jdbcType="VARCHAR" />
   </resultMap>
+
+  <resultMap id="MapForCoilAndPhysics" type="jq.steel.cs.services.cust.facade.model.CrmMillCoilInfo">
+    <result column="ZCHARG" property="zcharg"/>
+    <result column="SPECS" property="specs"/>
+    <result column="ZLOSMENGE" property="zlosmenge"/>
+    <collection property="listForMillPhysicsData"
+                ofType="jq.steel.cs.services.cust.facade.model.CrmMillPhysicsData"
+                columnPrefix="MPD_">
+      <id column="SID" property="sid"/>
+      <result column="KURZTEXT" property="kurztext"/>
+    </collection>
+  </resultMap>
+
+  <resultMap id="MapForCoilAndChemistry" type="jq.steel.cs.services.cust.facade.model.CrmMillCoilInfo">
+    <result column="ZCHARG" property="zcharg"/>
+    <result column="SPECS" property="specs"/>
+    <result column="ZLOSMENGE" property="zlosmenge"/>
+    <collection property="listForMillChemistryData"
+                ofType="jq.steel.cs.services.cust.facade.model.CrmMillChemistryData"
+                columnPrefix="MCD_">
+      <id column="SID" property="sid"/>
+      <result column="KURZTEXT" property="kurztext"/>
+      <result column="ORIGINAL_INPUT" property="original_input"/>
+    </collection>
+  </resultMap>
+
   <select id="splitFind" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo">
     SELECT
     A.SID,
@@ -95,7 +121,7 @@
   WHERE ZCHARG =  #{zcharg,jdbcType=VARCHAR}
   </select>
   <sql id="Base_Column_List" >
-    SID, ZCHEHAO, ZLPH, ZCHARG, SPECS, ZDIAMETER, ZTHICK, ZWIDTH, ZLENGTH, ZJISHU, ZLOSMENGE, 
+    SID, ZCHEHAO, ZLPH, ZCHARG, SPECS, ZDIAMETER, ZTHICK, ZWIDTH, ZLENGTH, ZJISHU, ZLOSMENGE,
     ZJISHU_UNIT, ZMEINS, ZDCZT, ZJHZT, MILL_SHEET_NO, ZBMJD, ZBZFS, ZTSBZ, ZHDPC, CREATED_BY, 
     CREATED_DT, UPDATED_BY, UPDATED_DT, VERSION
   </sql>
@@ -110,7 +136,7 @@
     where SID = #{sid,jdbcType=DECIMAL}
   </delete>
   <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo" >
-    insert into MILL_COIL_INFO (SID, ZCHEHAO, ZLPH, 
+    insert into MILL_COIL_INFO (SID, ZCHEHAO, ZLPH,
       ZCHARG, SPECS, ZDIAMETER, 
       ZTHICK, ZWIDTH, ZLENGTH, 
       ZJISHU, ZLOSMENGE, ZJISHU_UNIT, 
@@ -392,4 +418,24 @@
       VERSION = #{version,jdbcType=DECIMAL}
     where SID = #{sid,jdbcType=DECIMAL}
   </update>
+  <select id="getPhysicsListByMillSheet" resultMap="MapForCoilAndPhysics" parameterType="jq.steel.cs.services.cust.api.vo.CrmMillSheetDetailVO">
+    SELECT
+    msh.MILL_SHEET_NO,
+    mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE,
+    mpd.SID AS MPD_SID, mpd.KURZTEXT AS MPD_KURZTEXT
+    FROM MILL_SHEET_HOSTS msh
+    LEFT JOIN MILL_COIL_INFO mci on msh.MILL_SHEET_NO = mci.MILL_SHEET_NO
+    LEFT JOIN MILL_PHYSICS_DATA mpd on mci.ZCHARG = mpd.ZCHARG
+    WHERE msh.MILL_SHEET_NO = #{millSheetNo} and mpd.SHOW_FLAG = #{showFlag}
+  </select>
+
+  <select id="getChemistryListByMillSheet" resultMap="MapForCoilAndChemistry" parameterType="jq.steel.cs.services.cust.api.vo.CrmMillSheetDetailVO">
+  SELECT msh.MILL_SHEET_NO,
+  mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE,
+  mcd.SID AS MCD_SID, mcd.KURZTEXT AS MCD_KURZTEXT, mcd.ORIGINAL_INPUT AS MCD_ORIGINAL_INPUT
+  FROM MILL_SHEET_HOSTS msh
+  LEFT JOIN MILL_COIL_INFO mci on msh.MILL_SHEET_NO = mci.MILL_SHEET_NO
+  LEFT JOIN MILL_CHEMISTRY_DATA mcd on mci.ZCHARG = mcd.ZCHARG
+  WHERE msh.MILL_SHEET_NO = #{millSheetNo} and mcd.SHOW_FLAG = #{showFlag}
+  </select>
 </mapper>
