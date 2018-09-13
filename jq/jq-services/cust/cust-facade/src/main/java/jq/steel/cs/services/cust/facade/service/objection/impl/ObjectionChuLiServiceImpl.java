@@ -145,14 +145,14 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
         List<CrmClaimInfo> crmClaimInfos = new ArrayList<>();
         for(int i = 0;i < list.size();i++){
             CrmClaimInfo crmClaimInfo = new CrmClaimInfo();
-            crmClaimInfo.setMillSheetNo(list.get(i));
+            crmClaimInfo.setClaimNo(list.get(i));
             crmClaimInfos.add(crmClaimInfo);
         }
         List<CrmClaimInfo> crmClaimInfos1 =new ArrayList<>();
         for (CrmClaimInfo crmClaimApply1:crmClaimInfos){
             CrmClaimInfo crmClaimInfo  = new CrmClaimInfo();
             crmClaimInfo.setClaimNo(crmClaimApply1.getClaimNo());
-            CrmClaimInfo crmClaimInfo1 = crmClaimInfoMapper.findByParams(crmClaimInfo);
+            CrmClaimInfo crmClaimInfo1 = crmClaimInfoMapper.findByPage(crmClaimInfo);
             crmClaimInfos1.add(crmClaimInfo1);
         }
         //转换返回对象

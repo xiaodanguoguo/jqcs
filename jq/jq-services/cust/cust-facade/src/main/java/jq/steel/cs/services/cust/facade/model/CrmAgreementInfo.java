@@ -59,6 +59,16 @@ public class CrmAgreementInfo {
 
     private String lastUser;
 
+    private String endProcessingTech;
+    private String defectName;
+
+    private Date productDt;
+    private String shift;
+
+    private String userRequirement;
+
+    private String handingSuggestion;
+
     //物流过程
     private String logisticsProcess;
 
@@ -86,6 +96,54 @@ public class CrmAgreementInfo {
 
     //协议书图片地址
     private  String  claimNoUrl;
+
+    public String getEndProcessingTech() {
+        return endProcessingTech;
+    }
+
+    public void setEndProcessingTech(String endProcessingTech) {
+        this.endProcessingTech = endProcessingTech;
+    }
+
+    public String getDefectName() {
+        return defectName;
+    }
+
+    public void setDefectName(String defectName) {
+        this.defectName = defectName;
+    }
+
+    public Date getProductDt() {
+        return productDt;
+    }
+
+    public void setProductDt(Date productDt) {
+        this.productDt = productDt;
+    }
+
+    public String getShift() {
+        return shift;
+    }
+
+    public void setShift(String shift) {
+        this.shift = shift;
+    }
+
+    public String getUserRequirement() {
+        return userRequirement;
+    }
+
+    public void setUserRequirement(String userRequirement) {
+        this.userRequirement = userRequirement;
+    }
+
+    public String getHandingSuggestion() {
+        return handingSuggestion;
+    }
+
+    public void setHandingSuggestion(String handingSuggestion) {
+        this.handingSuggestion = handingSuggestion;
+    }
 
     public String getClaimNoUrl() {
         return claimNoUrl;

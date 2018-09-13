@@ -63,11 +63,7 @@ public class ObjectionChuLiController {
         try {
             ObjectionChuLiVO objectionChuLiVO = jsonRequest.getReqBody();
             ObjectionChuLiVO objectionChuLiVO1 = objectionChuLiService.findAll(objectionChuLiVO);
-           /* if (objectionDiaoChaVO1.getExplain()!=null){
-                serviceResponse.setRetCode("1");
-                serviceResponse.setRetMessage(objectionTiBaoVO1.getExplain());
-            }
-            serviceResponse.setRetContent(objectionTiBaoVO1);*/
+            serviceResponse.setRetContent(objectionChuLiVO1);
         }catch (BusinessException e){
             logger.error("获取分页出错",e);
             serviceResponse.setException(new BusinessException("500"));

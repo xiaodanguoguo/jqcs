@@ -85,8 +85,6 @@ public class ObjectionChuLiVO {
 
     private BigDecimal objectionNum;
 
-    private String endProcessingTech;
-
     private String claimDesc;
 
     private String claimReason;
@@ -160,7 +158,66 @@ public class ObjectionChuLiVO {
     //润乾地址
     private  String report;
 
+    //物流过程
+    private String logisticsProcess;
 
+    private String endProcessingTech;
+    private String defectName;
+
+    private Date productDt;
+    private String shift;
+
+    private String userRequirement;
+
+    private String handingSuggestion;
+
+    public String getLogisticsProcess() {
+        return logisticsProcess;
+    }
+
+    public void setLogisticsProcess(String logisticsProcess) {
+        this.logisticsProcess = logisticsProcess;
+    }
+
+    public String getDefectName() {
+        return defectName;
+    }
+
+    public void setDefectName(String defectName) {
+        this.defectName = defectName;
+    }
+
+    public Date getProductDt() {
+        return productDt;
+    }
+
+    public void setProductDt(Date productDt) {
+        this.productDt = productDt;
+    }
+
+    public String getShift() {
+        return shift;
+    }
+
+    public void setShift(String shift) {
+        this.shift = shift;
+    }
+
+    public String getUserRequirement() {
+        return userRequirement;
+    }
+
+    public void setUserRequirement(String userRequirement) {
+        this.userRequirement = userRequirement;
+    }
+
+    public String getHandingSuggestion() {
+        return handingSuggestion;
+    }
+
+    public void setHandingSuggestion(String handingSuggestion) {
+        this.handingSuggestion = handingSuggestion;
+    }
 
     public String getAgreementUrl() {
         return agreementUrl;
