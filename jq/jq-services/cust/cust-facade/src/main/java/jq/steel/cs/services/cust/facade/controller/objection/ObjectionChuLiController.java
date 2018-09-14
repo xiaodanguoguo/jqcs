@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/objectionChuLi")
@@ -143,12 +144,12 @@ public class ObjectionChuLiController {
      *
      * */
     @RequestMapping(value = "/download",method = RequestMethod.POST)
-    public ServiceResponse<ObjectionChuLiVO> download(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
+    public ServiceResponse<List<ObjectionChuLiVO>> download(@RequestBody JsonRequest<List<Map>> jsonRequest){
         logger.info("参数 = {}",JsonUtil.toJson(jsonRequest));
-        ServiceResponse<ObjectionChuLiVO> serviceResponse = new ServiceResponse<>();
-        ObjectionChuLiVO reqBody = jsonRequest.getReqBody();
+        ServiceResponse<List<ObjectionChuLiVO>> serviceResponse = new ServiceResponse<>();
+        List<Map> reqBody = jsonRequest.getReqBody();
         try{
-            ObjectionChuLiVO downUrl = objectionChuLiService.download(reqBody);
+            List<ObjectionChuLiVO> downUrl = objectionChuLiService.download(reqBody);
             serviceResponse.setRetContent(downUrl);
             return serviceResponse;
         }catch (Exception e){

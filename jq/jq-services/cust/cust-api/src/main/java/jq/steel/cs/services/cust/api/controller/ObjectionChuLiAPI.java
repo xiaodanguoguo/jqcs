@@ -3,6 +3,7 @@ package jq.steel.cs.services.cust.api.controller;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
+import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionChuLiVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionDiaoChaVO;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.Map;
 
 @FeignClient(value = "${ser.name.cust}") // 这个是服务名
 public interface ObjectionChuLiAPI {
@@ -70,7 +72,7 @@ public interface ObjectionChuLiAPI {
      *
      * */
     @RequestMapping(value = "/objectionChuLi/download",method = RequestMethod.POST)
-    ServiceResponse<ObjectionChuLiVO> download(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest);
+    ServiceResponse<List<ObjectionChuLiVO>> download(@RequestBody JsonRequest<List<Map>> jsonRequest);
 
     /**
      *  强制结案

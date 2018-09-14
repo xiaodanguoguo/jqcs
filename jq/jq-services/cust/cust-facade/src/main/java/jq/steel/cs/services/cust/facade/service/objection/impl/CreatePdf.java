@@ -26,15 +26,7 @@ public class CreatePdf {
             ReportDefine report;
             Context cxt = new Context();
             cxt.setParamValue("claimNo",claimNo);
-            String modelName="";
-            if (model.equals("A")) {
-                modelName ="CPYYSW";
-            }else if(model.equals("B")){
-                modelName ="CPYY";
-            }else {
-                modelName ="ALL";
-            }
-            report = (ReportDefine) ReportUtils.read(report1 + modelName + ".rpx");
+            report = (ReportDefine) ReportUtils.read(report1 + model + ".rpx");
             FileOutputStream fos = new FileOutputStream(fileName);
             Engine engine = new Engine(report, cxt);
             IReport iReport = engine.calc();
@@ -42,7 +34,6 @@ public class CreatePdf {
             fos.flush();
             fos.close();
             file.setWritable(true, false);    //设置写权限，windows下不用此语句
-            System.out.println("AGRRR表存入地址是"+dirName);
         } catch (Exception e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();

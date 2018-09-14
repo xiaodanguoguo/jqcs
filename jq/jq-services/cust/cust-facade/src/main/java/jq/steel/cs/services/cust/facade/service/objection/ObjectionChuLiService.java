@@ -4,6 +4,7 @@ import com.ebase.core.page.PageDTO;
 import jq.steel.cs.services.cust.api.vo.ObjectionChuLiVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ObjectionChuLiService {
 
@@ -23,7 +24,7 @@ public interface ObjectionChuLiService {
     ObjectionChuLiVO preview(ObjectionChuLiVO record);
 
     // 下载pdf
-    ObjectionChuLiVO download(ObjectionChuLiVO record);
+    List<ObjectionChuLiVO> download(List<Map> record);
 
     //强制结案
     Integer compulsorySettlement(ObjectionChuLiVO record);

@@ -8,8 +8,10 @@ import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
 import com.ebase.utils.excel.ExportExcelUtils;
+import com.ebase.utils.file.ZipUtils;
 import feign.FeignException;
 import jq.steel.cs.services.cust.api.controller.ObjectionChuLiAPI;
+import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionChuLiVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionDiaoChaVO;
 import jq.steel.cs.webapps.cs.controller.file.UploadConfig;
@@ -18,8 +20,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/objectionChuLi")
@@ -233,22 +242,82 @@ public class ObjectionChuLiController {
      * @return
      *
      * */
-    /*@RequestMapping(value = "/download",method = RequestMethod.POST)
-    public ResponseEntity<FileSystemResource> download(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
-        logger.info("参数", JsonUtil.toJson(jsonRequest));
-        JsonResponse<ObjectionChuLiVO>  jsonResponse = new JsonResponse<>();
+    @RequestMapping(value = "/download",method = RequestMethod.POST)
+    public void download(@RequestParam("name") String jsonRequest,HttpServletResponse response){
         try {
-            ServiceResponse<ObjectionChuLiVO> serviceResponse = objectionChuLiAPI.download(jsonRequest);
-            jsonResponse.setRspBody(serviceResponse.getRetContent());
-            //String agreementPath = serviceResponse.getRetContent().getAgreementPath();
-            //return fileIn(new File(agreementPath));
+            List<Map> list = JsonUtil.parseObject(jsonRequest,List.class);
+            JsonRequest<List<Map>> jsonRequest1 = new JsonRequest();
+            jsonRequest1.setReqBody(list);
+            String orgName = AssertContext.getOrgName();
+            String orgCode = AssertContext.getOrgCode();
+            ServiceResponse<List<ObjectionChuLiVO>> serviceResponse = objectionChuLiAPI.download(jsonRequest1);
+            String report ="";
+            if (serviceResponse.getRetContent().size()>1){
+                List<File> fileList = new ArrayList<>();
+                for (int i=0;i<serviceResponse.getRetContent().size();i++){
+                    fileList.add(new File(serviceResponse.getRetContent().get(i).getReport()));
+                }
+                try {
+                    response.setHeader("Content-Disposition", "attachment;fileName="+"zhibaoshu.zip");
+                    FileOutputStream fos2 = new FileOutputStream(new File("zhibaoshu.zip"));
+                    ZipUtils.toZip(fileList, fos2);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                report = "zhibaoshu.zip";
+
+            }else {
+                report = serviceResponse.getRetContent().get(0).getReport();
+                String  millSheetName = serviceResponse.getRetContent().get(0).getReport();
+                response.setHeader("Content-Disposition", "attachment;fileName="+millSheetName);
+            }
+            //String path = servletContex.getRealPath("/");
+
+            //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
+            response.setContentType("multipart/form-data");
+
+            //2.设置文件头：最后一个参数是设置下载文件名(假如我们叫zms.jpg,这里是设置名称)
+
+            ServletOutputStream out=null;
+            FileInputStream inputStream=null;
+            File file = new File(report);
+            try {
+                inputStream  = new FileInputStream(file);
+
+                //3.通过response获取ServletOutputStream对象(out)
+                out = response.getOutputStream();
+
+                int b = 0;
+                byte[] buffer = new byte[512];
+                while (b != -1){
+                    b = inputStream.read(buffer);
+                    if(b != -1){
+                        out.write(buffer,0,b);//4.写到输出流(out)中
+                    }
+
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally{
+                try{
+                    if(inputStream!=null){
+                        inputStream.close();
+                    }
+                    if(out!=null){
+                        out.close();
+                        out.flush();
+                    }
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
         } catch (BusinessException e) {
             logger.error("下载报错", e);
             e.printStackTrace();
-            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
         }
-        return null;
-    }*/
+    }
 
     /**
      *  强制结案

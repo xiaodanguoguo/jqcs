@@ -5,6 +5,7 @@ import com.ebase.core.page.PageDTO;
 import com.ebase.core.page.PageDTOUtil;
 import com.ebase.utils.BeanCopyUtil;
 import com.ebase.utils.DateFormatUtil;
+import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionChuLiVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionDiaoChaVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
@@ -14,6 +15,7 @@ import jq.steel.cs.services.cust.facade.dao.CrmClaimInfoMapper;
 import jq.steel.cs.services.cust.facade.model.CrmAgreementInfo;
 import jq.steel.cs.services.cust.facade.model.CrmClaimApply;
 import jq.steel.cs.services.cust.facade.model.CrmClaimInfo;
+import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
 import jq.steel.cs.services.cust.facade.service.objection.ObjectionChuLiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
@@ -168,24 +171,43 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
         CreatePdf createPdf = new CreatePdf();
         //判断
         if(templateType.equals("1")){
-            createPdf.createPdf(record.getClaimNo(),record.getReport(),"xieyishu");
+            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),"xieyishu");
         }else if(templateType.equals("2")){
-
+            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),"xieyishu");
         }else if(templateType.equals("3")){
-
+            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),"xieyishu");
         }else if(templateType.equals("4")){
-
+            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),"xieyishu");
         }else {
-
+            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),"xieyishu");
         }
-        //record.set
         return record;
     }
 
-    // 协议书模板下载pdf
-    public ObjectionChuLiVO download(ObjectionChuLiVO record) {
-        //根据润乾报表然后地址
-        return null;
+    //
+    public List<ObjectionChuLiVO> download(List<Map> list) {
+        List<MillSheetHosts> millSheetHosts = new ArrayList<>();
+       /* for(int i = 0;i < list.size();i++){
+            MillSheetHosts millSheetHosts1 = new MillSheetHosts();
+            millSheetHosts1.setMillSheetNo(list.get(i));
+            millSheetHosts.add(millSheetHosts1);
+        }
+        for (MillSheetHosts millSheetHosts1:millSheetHosts){
+            MillSheetHosts url = millSheetHostsMapper.findUrl(millSheetHosts1);
+            millSheetHosts1.setMillSheetPath(url.getMillSheetUrl()+"/"+url.getMillSheetName());
+
+            //修改下载次数
+            millSheetHosts1.setDownableNum(url.getDownableNum()-1);
+            millSheetHosts1.setDownNum(url.getDownNum()+1);
+            //millSheetHosts1.setUpdatedBy(orgName);
+            millSheetHosts1.setUpdatedDt(new Date());
+            millSheetHostsMapper.updateNum(millSheetHosts1);
+            millSheetHosts1.setMillSheetName(url.getMillSheetName());
+        }
+        //转换返回对象
+        List<MillSheetHostsVO> millSheetHostsVOS = BeanCopyUtil.copyList(millSheetHosts, MillSheetHostsVO.class);
+        return millSheetHostsVOS;*/
+       return null;
     }
 
     // 强制结案
