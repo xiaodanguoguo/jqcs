@@ -124,4 +124,13 @@ public class CrmLastuserInfoServiceImpl implements CrmLastuserInfoService{
 
         return crmLastuserInfoVOS;
     }
+
+    @Override
+    public CrmLastuserInfoVO findunitOfUseInfo(CrmLastuserInfoVO crmLastuserInfoVO) {
+        CrmLastuserInfo crmLastuserInfo = crmLastuserInfoMapper.selectByPrimaryKey(crmLastuserInfoVO.getSid());
+        CrmLastuserInfoVO crmLastuserInfoVO1 = new CrmLastuserInfoVO();
+        BeanCopyUtil.copy(crmLastuserInfo, crmLastuserInfoVO1);
+
+        return crmLastuserInfoVO1;
+    }
 }

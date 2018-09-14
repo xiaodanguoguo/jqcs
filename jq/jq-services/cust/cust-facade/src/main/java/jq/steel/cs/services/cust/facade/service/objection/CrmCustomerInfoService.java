@@ -17,4 +17,6 @@ public interface CrmCustomerInfoService {
     List<CrmCustomerInfoVO> findDefault(CrmCustomerInfoVO crmCustomerInfoVO);
 
     List<CrmCustomerInfoVO> findorderUnitList(CrmCustomerInfoVO crmCustomerInfoVO);
+
+    CrmCustomerInfoVO findorderUnitInfo(CrmCustomerInfoVO crmCustomerInfoVO);
 }

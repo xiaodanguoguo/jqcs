@@ -113,4 +113,13 @@ public class CrmCustomerInfoServiceImpl implements CrmCustomerInfoService{
         List<CrmCustomerInfoVO> crmCustomerInfoVOS = BeanCopyUtil.copyList(crmCustomerInfos, CrmCustomerInfoVO.class);
         return crmCustomerInfoVOS;
     }
+
+    @Override
+    public CrmCustomerInfoVO findorderUnitInfo(CrmCustomerInfoVO crmCustomerInfoVO) {
+        CrmCustomerInfo crmCustomerInfo = crmCustomerInfoMapper.selectByPrimaryKey(crmCustomerInfoVO.getSid());
+        CrmCustomerInfoVO crmCustomerInfoVO1 = new CrmCustomerInfoVO();
+        BeanCopyUtil.copy(crmCustomerInfo, crmCustomerInfoVO1);
+
+        return crmCustomerInfoVO1;
+    }
 }

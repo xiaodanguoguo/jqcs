@@ -16,4 +16,6 @@ public interface CrmLastuserInfoService {
     List<CrmLastuserInfoVO> findDefault(CrmLastuserInfoVO crmLastuserInfoVO);
 
     List<CrmLastuserInfoVO> findunitOfUseList(CrmLastuserInfoVO crmLastuserInfoVO);
+
+    CrmLastuserInfoVO findunitOfUseInfo(CrmLastuserInfoVO crmLastuserInfoVO);
 }

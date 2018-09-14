@@ -117,4 +117,25 @@ public class CrmCustomerInfoController {
         return  serviceResponse;
     }
 
+    /**
+     * @param:
+     * @return:
+     * @description:  详情
+     * @author: lirunze
+     * @Date: 2018/9/14
+     */
+    ServiceResponse<CrmCustomerInfoVO> findorderUnitInfo(JsonRequest<CrmCustomerInfoVO> jsonRequest) {
+        logger.info("详情 = {}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<CrmCustomerInfoVO> serviceResponse = new ServiceResponse<>();
+        try {
+            CrmCustomerInfoVO crmCustomerInfoVO = jsonRequest.getReqBody();
+            CrmCustomerInfoVO crmLastuserInfoVO1 = crmCustomerInfoService.findorderUnitInfo(crmCustomerInfoVO);
+            serviceResponse.setRetContent(crmLastuserInfoVO1);
+        }catch (BusinessException e){
+            logger.error("详情出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
 }

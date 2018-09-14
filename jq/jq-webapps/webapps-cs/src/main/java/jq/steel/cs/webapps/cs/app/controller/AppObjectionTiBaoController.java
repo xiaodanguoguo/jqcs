@@ -316,6 +316,38 @@ public class AppObjectionTiBaoController {
     }
 
     /**
+     *订货单位详情
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/orderUnit/info",method = RequestMethod.POST)
+    public JsonResponse<CrmCustomerInfoVO> findorderUnitInfo(@RequestBody JsonRequest<CrmCustomerInfoVO> jsonRequest){
+        logger.info("分页", JsonUtil.toJson(jsonRequest));
+        JsonResponse<CrmCustomerInfoVO> jsonResponse = new JsonResponse<>();
+        try {
+            jsonRequest.getReqBody().setCreatedBy(AssertContext.getAcctId());
+            ServiceResponse<CrmCustomerInfoVO> serviceResponse = crmCustomerInfoAPI.findorderUnitInfo(jsonRequest);
+            if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            } else {
+                if (serviceResponse.isHasError()) {
+                    jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                }else {
+                    jsonResponse.setRetCode(serviceResponse.getRetCode());
+                    jsonResponse.setRetDesc(serviceResponse.getRetMessage());
+                    return jsonResponse;
+                }
+            }
+        } catch (BusinessException e) {
+            logger.error("获取分页列表错误 = {}", e);
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+        return jsonResponse;
+    }
+
+    /**
      *使用单位
      * @param  jsonRequest
      * @return
@@ -328,6 +360,38 @@ public class AppObjectionTiBaoController {
         try {
             jsonRequest.getReqBody().setCreatedBy(AssertContext.getAcctId());
             ServiceResponse<List<CrmLastuserInfoVO>> serviceResponse = crmLastuserInfoAPI.findunitOfUseList(jsonRequest);
+            if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            } else {
+                if (serviceResponse.isHasError()) {
+                    jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                }else {
+                    jsonResponse.setRetCode(serviceResponse.getRetCode());
+                    jsonResponse.setRetDesc(serviceResponse.getRetMessage());
+                    return jsonResponse;
+                }
+            }
+        } catch (BusinessException e) {
+            logger.error("获取分页列表错误 = {}", e);
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+        return jsonResponse;
+    }
+
+    /**
+     *使用单位详情
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/unitOfUse/info",method = RequestMethod.POST)
+    public JsonResponse<CrmLastuserInfoVO> findunitOfUseInfo(@RequestBody JsonRequest<CrmLastuserInfoVO> jsonRequest){
+        logger.info("分页={}", JsonUtil.toJson(jsonRequest));
+        JsonResponse<CrmLastuserInfoVO> jsonResponse = new JsonResponse<>();
+        try {
+            jsonRequest.getReqBody().setCreatedBy(AssertContext.getAcctId());
+            ServiceResponse<CrmLastuserInfoVO> serviceResponse = crmLastuserInfoAPI.findunitOfUseInfo(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {

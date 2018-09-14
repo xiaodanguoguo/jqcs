@@ -116,4 +116,24 @@ public class CrmLastuserInfoController {
     }
 
 
+    /**
+     * @param:
+     * @return:
+     * @description:  使用单位详情
+     * @author: lirunze
+     * @Date: 2018/9/13
+     */
+    ServiceResponse<CrmLastuserInfoVO> findunitOfUseInfo(JsonRequest<CrmLastuserInfoVO> jsonRequest) {
+        ServiceResponse<CrmLastuserInfoVO> serviceResponse = new ServiceResponse<>();
+        logger.info("使用单位详情 = {}", JsonUtil.toJson(jsonRequest));
+        try {
+            CrmLastuserInfoVO crmLastuserInfoVO = jsonRequest.getReqBody();
+            CrmLastuserInfoVO crmLastuserInfoVO1 = crmLastuserInfoService.findunitOfUseInfo(crmLastuserInfoVO);
+            serviceResponse.setRetContent(crmLastuserInfoVO1);
+        }catch (BusinessException e){
+            logger.error("使用单位详情出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
 }

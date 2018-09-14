@@ -59,4 +59,13 @@ public interface CrmCustomerInfoAPI {
      */
     @RequestMapping(value ="/orderUnit/list", method = RequestMethod.POST)
     ServiceResponse<List<CrmCustomerInfoVO>> findorderUnitList(@RequestBody JsonRequest<CrmCustomerInfoVO> jsonRequest);
+
+    /**
+     * @param:
+     * @return:
+     * @description:  详情
+     * @author: lirunze
+     * @Date: 2018/9/14
+     */
+    ServiceResponse<CrmCustomerInfoVO> findorderUnitInfo(JsonRequest<CrmCustomerInfoVO> jsonRequest);
 }
