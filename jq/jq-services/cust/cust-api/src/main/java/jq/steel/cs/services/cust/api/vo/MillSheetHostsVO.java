@@ -3,10 +3,14 @@ package jq.steel.cs.services.cust.api.vo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 public class MillSheetHostsVO implements Serializable {
+
+    //合同重量
+    private BigDecimal totalZlosmenge;
 
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date endDt;
@@ -102,6 +106,14 @@ public class MillSheetHostsVO implements Serializable {
 
     //客户名称
     private  String spiltCustomer;
+
+    public BigDecimal getTotalZlosmenge() {
+        return totalZlosmenge;
+    }
+
+    public void setTotalZlosmenge(BigDecimal totalZlosmenge) {
+        this.totalZlosmenge = totalZlosmenge;
+    }
 
     public Date getEndDt() {
         return endDt;

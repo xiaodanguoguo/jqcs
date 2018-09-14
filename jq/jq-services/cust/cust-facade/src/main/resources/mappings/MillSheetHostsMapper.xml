@@ -30,6 +30,10 @@
     <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
     <result column="VERSION" property="version" jdbcType="DECIMAL" />
     <result column="SPILT_CUSTOMER" property="spiltCustomer" jdbcType="VARCHAR" />
+    <result column="ZCHEHAO" property="zchehao" jdbcType="VARCHAR" />
+    <result column="ZHTH" property="zhth" jdbcType="VARCHAR" />
+    <result column="ZPH" property="zph" jdbcType="VARCHAR" />
+    <result column="TOTAL_ZLOSMENGE" property="totalZlosmenge" jdbcType="DECIMAL" />
   </resultMap>
 
 
@@ -73,31 +77,36 @@
 
   <select id="findIsTrue" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
     SELECT
-    A.STATE,
-    A.DATA_STATE,
-    A.MILL_SHEET_NO_OLD,
-    A.MILL_SHEET_NO,
-    A.SPECIAL_NEED,
-    A.PRINTABLE_NUM,
-    A.PRINTED_NUM,
-    A.MILL_SHEET_URL,
-    A.MILL_SHEET_NAME,
-    A.DEPT_CODE,
-    A.DOWNABLE_NUM,
-    A.DOWN_NUM,
-    A.CHEM_STATE,
-    A.PHY_STATE,
-    A.HAVE_STATE,
-    A.SPLIT_STATE,
-    A.MILL_SHEET_TYPE,
-    A.SURPLUS_BATCH,
-    A.ZKUNNR,
-    A.ZKUNWE,
-    A.FREQUENCY_OF_SPLIT,
-    A.SPLIT_MAX_VALUE,
-    A.MANUAL_MARKING
-    FROM
-    WARRANTY.MILL_SHEET_HOSTS A
+A.STATE,
+A.DATA_STATE,
+A.MILL_SHEET_NO_OLD,
+A.MILL_SHEET_NO,
+A.SPECIAL_NEED,
+A.PRINTABLE_NUM,
+A.PRINTED_NUM,
+A.MILL_SHEET_URL,
+A.MILL_SHEET_NAME,
+A.DEPT_CODE,
+A.DOWNABLE_NUM,
+A.DOWN_NUM,
+A.CHEM_STATE,
+A.PHY_STATE,
+A.HAVE_STATE,
+A.SPLIT_STATE,
+A.MILL_SHEET_TYPE,
+A.SURPLUS_BATCH,
+A.ZKUNNR,
+A.ZKUNWE,
+A.FREQUENCY_OF_SPLIT,
+A.SPLIT_MAX_VALUE,
+A.MANUAL_MARKING,
+B.ZCHEHAO,
+B.ZHTH,
+B.TOTAL_ZLOSMENGE,
+B.ZPH
+FROM
+WARRANTY.MILL_SHEET_HOSTS A
+LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     WHERE
     A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR}
   </select>

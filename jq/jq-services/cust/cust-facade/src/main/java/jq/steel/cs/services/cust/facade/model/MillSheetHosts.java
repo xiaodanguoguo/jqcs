@@ -3,10 +3,13 @@ package jq.steel.cs.services.cust.facade.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 public class MillSheetHosts {
+    //合同重量
+    private BigDecimal totalZlosmenge;
 
     //发车日期
     @JsonFormat(pattern="yyyy-MM-dd")
@@ -105,6 +108,14 @@ public class MillSheetHosts {
 
     //客户名称
     private  String spiltCustomer;
+
+    public BigDecimal getTotalZlosmenge() {
+        return totalZlosmenge;
+    }
+
+    public void setTotalZlosmenge(BigDecimal totalZlosmenge) {
+        this.totalZlosmenge = totalZlosmenge;
+    }
 
     public Date getEndDt() {
         return endDt;

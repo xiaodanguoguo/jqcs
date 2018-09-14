@@ -138,12 +138,15 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
         List<MillSheetHosts> list =millSheetHostsMapper.findIsTrue(millSheetHosts);
         if (list.size()>0){
             millSheetHosts.setTrue(true);
+            list.get(0).setTrue(true);
+            BeanCopyUtil.copy(list.get(0),millSheetHostsVO);
         }else {
             millSheetHosts.setTrue(false);
             millSheetHosts.setCheckInstructions("请核实质证书编号"+millSheetHostsVO.getMillSheetNo());
+            BeanCopyUtil.copy(millSheetHosts,millSheetHostsVO);
         }
 
-        BeanCopyUtil.copy(millSheetHosts,millSheetHostsVO);
+
         return millSheetHostsVO;
     }
 }
