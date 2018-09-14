@@ -251,15 +251,15 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         }*/
         //修改
         $(cloneRow).find("#editOpe").on("click",function(){
-            jumpUrl("objectionSubDetail.html?htmlType=5&claimNo="+ jsonItem.claimNo,"0000000",0);
+            jumpUrl("objectionSubDetail.html?htmlType=1&claimNo="+ jsonItem.claimNo,"0000000",0);
         });
         //详情
         $(cloneRow).find("#detailOpe").on("click",function(){
-            jumpUrl("objectionSubDetail.html?htmlType=1&claimNo="+ jsonItem.claimNo,"0000000",0);
+            jumpUrl("objectionSubDetail.html?htmlType=2&claimNo="+ jsonItem.claimNo,"0000000",0);
         });
         //销售审核
         $(cloneRow).find("#auditOpe").on("click",function(){
-            jumpUrl("objectionSubDetail.html?htmlType=2&claimNo="+ jsonItem.claimNo,"0000000",0);
+            jumpUrl("objectionSubDetail.html?htmlType=3&claimNo="+ jsonItem.claimNo,"0000000",0);
         });
         //异议处理评价
         $(cloneRow).find("#evaluateOpe").on("click",function(){

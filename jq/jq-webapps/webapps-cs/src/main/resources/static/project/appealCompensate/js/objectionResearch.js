@@ -222,8 +222,8 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         });
         //查看详情操作
         $(cloneRow).find("#detailOpe").on("click",function(){
-            //跳转销售审核页面
-            jumpUrl("objectionSubDetail.html?htmlType=2&claimNo="+jsonItem.claimNo,"0000000",0);
+            //跳转销售审核详情页面
+            jumpUrl("objectionSubDetail.html?htmlType=7&claimNo="+jsonItem.claimNo,"0000000",0);
         });
         //外部调查操作
         $(cloneRow).find("#researchOutOpe").on("click",function(){
@@ -279,7 +279,7 @@ function statusOutOpeCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         //外部调查页面
-        jumpUrl("objectionSubDetail.html?htmlType=3&claimNo="+document.body.jsLee.claimNo,"0000000",0);
+        jumpUrl("objectionSubDetail.html?htmlType=4&claimNo="+document.body.jsLee.claimNo,"0000000",0);
     }
 }
 
@@ -288,7 +288,7 @@ function statusInOpeCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         //跳转内部调查页面
-        jumpUrl("objectionSubDetail.html?htmlType=4&claimNo="+document.body.jsLee.claimNo,"0000000",0);
+        jumpUrl("objectionSubDetail.html?htmlType=5&claimNo="+document.body.jsLee.claimNo,"0000000",0);
     }
 }
 
