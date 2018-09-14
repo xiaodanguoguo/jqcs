@@ -21,8 +21,8 @@
     <result column="VERSION" property="version" jdbcType="NUMERIC" />
     <result column="AMOUNT_OF_USE" property="amountOfUse" jdbcType="NUMERIC" />
     <result column="INQUIRE_INFO" property="inquireInfo"/>
-
-
+    <result column="ZCPMC" property="zcpmc" jdbcType="VARCHAR" />
+    <result column="ZPH" property="zph" jdbcType="VARCHAR" />
     <result column="LAST_USER_TEL" property="lastUserTel" jdbcType="VARCHAR" />
     <result column="CREATE_EMP_NO" property="createEmpNo" jdbcType="VARCHAR" />
     <result column="CLAIM_STATE" property="claimState" jdbcType="VARCHAR" />
@@ -87,13 +87,18 @@ WHERE
     D.CREATE_DT AS EXTERNAL_LNVESTIGATION_DATE,
     D.FOLLOW_REASON,
     E.CREATE_BY AS INTERNAL_LNVESTIGATOR,
-    E.CREATE_DT	AS INTERNAL_LNVESTIGATION_DATE
+    E.CREATE_DT	AS INTERNAL_LNVESTIGATION_DATE,
+    (select T.TYPE_NAME from sgai_md_common_type t
+    WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
+    WHERE T.TYPE_NAME=E.ZCPMC)) AS ZCPMC,
+    E.ZPH
     FROM
     WARRANTY.CRM_CLAIM_INFO A
     LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_APPLY C ON A.CLAIM_NO = C.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE D ON A.CLAIM_NO = D.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE E ON A.CLAIM_NO = E.CLAIM_NO
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD E ON A.MILL_SHEET_NO = E.MILL_SHEET_NO
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
         AND TO_CHAR (C.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}

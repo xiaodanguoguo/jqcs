@@ -7,6 +7,11 @@ import java.util.Date;
 
 public class CrmClaimInfo {
 
+    //牌号
+    private  String zph;
+
+    private String zcpmc;
+
     //强制结案原因
     private  String reasonsForCompulsoryClosure;
 
@@ -142,6 +147,22 @@ public class CrmClaimInfo {
 
     //提报人
     private  String presentationUser;
+
+    public String getZph() {
+        return zph;
+    }
+
+    public void setZph(String zph) {
+        this.zph = zph;
+    }
+
+    public String getZcpmc() {
+        return zcpmc;
+    }
+
+    public void setZcpmc(String zcpmc) {
+        this.zcpmc = zcpmc;
+    }
 
     public String getReasonsForCompulsoryClosure() {
         return reasonsForCompulsoryClosure;

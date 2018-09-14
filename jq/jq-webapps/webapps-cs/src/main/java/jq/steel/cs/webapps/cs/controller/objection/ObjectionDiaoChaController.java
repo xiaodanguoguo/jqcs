@@ -231,8 +231,8 @@ public class ObjectionDiaoChaController {
         List<String> headers = new ArrayList<>();
         headers.add("异议编号@claimNo@4000");
         headers.add("异议状态@claimState@4000");
-        headers.add("生产厂家@manufactor@4000");
-        headers.add("产品大类@productCategory@4000");
+        headers.add("生产厂家@deptCode@4000");
+        headers.add("产品大类@zcpmc@4000");
         headers.add("牌号@zph@4000");
         headers.add("规格@specs@4000");
         headers.add("异议量(吨)@objectionNum@8000");

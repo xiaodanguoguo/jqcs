@@ -585,7 +585,6 @@
     A.CLAIM_NO,
     A.CLAIM_STATE,
     A.MILL_SHEET_NO,
-    B.DEPT_CODE,
     A.PRODUCT_ID,
     A.PRODUCT_NAME,
     A.DESIGNATION,
@@ -595,6 +594,14 @@
     A.INQUIRE_STATE,
     A.LAST_USER,
     A.CUSTOMER_NAME,
+    case when B.DEPT_CODE = '1000' then '不锈钢厂'
+    when B.DEPT_CODE = '2000' then '炼轧厂'
+    when B.DEPT_CODE = '2200' then '碳钢薄板厂'
+    when B.DEPT_CODE='3000' then '榆钢工厂' else B.DEPT_CODE end as DEPT_CODE,
+    (select T.TYPE_NAME from sgai_md_common_type t
+    WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
+    WHERE T.TYPE_NAME=F.ZCPMC)) AS ZCPMC,
+    F.ZPH,
     D.PRESENTATION_DATE,
     D.PRESENTATION_USER,
     D.REASONS_FOR_COMPULSORY_CLOSURE,
@@ -606,6 +613,7 @@
     LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_APPLY D ON A.CLAIM_NO = D.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_AGREEMENT_INFO E ON A.CLAIM_NO = E.CASE_CODE
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD F ON A.MILL_SHEET_NO = F.MILL_SHEET_NO
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
         AND TO_CHAR (D.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}

@@ -7,6 +7,10 @@ import java.util.Date;
 
 public class CrmClaimOutInquire {
 
+    private  String zph;
+    //产品大类
+    private  String zcpmc;
+
     private  String deptCode;
 
     private  String specs;
@@ -163,6 +167,22 @@ public class CrmClaimOutInquire {
     //内部调查时间
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date internalLnvestigationDate;
+
+    public String getZph() {
+        return zph;
+    }
+
+    public void setZph(String zph) {
+        this.zph = zph;
+    }
+
+    public String getZcpmc() {
+        return zcpmc;
+    }
+
+    public void setZcpmc(String zcpmc) {
+        this.zcpmc = zcpmc;
+    }
 
     public String getDeptCode() {
         return deptCode;
