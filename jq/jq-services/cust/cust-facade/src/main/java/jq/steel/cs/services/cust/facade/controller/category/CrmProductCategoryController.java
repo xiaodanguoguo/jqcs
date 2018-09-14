@@ -70,7 +70,7 @@ public class CrmProductCategoryController {
         try {
             List<CrmProductCategoryVO> list = jsonRequest.getReqBody();
             for (CrmProductCategoryVO vo : list) {
-                vo.setIsSubmit(ProductCategoryStatus.SAVE.getCode());
+                vo.setStatus(ProductCategoryStatus.SAVE.getCode());
             }
             serviceResponse = crmProductCategoryService.insertCrmProductCategory(list);
         } catch (Exception e) {
@@ -119,7 +119,7 @@ public class CrmProductCategoryController {
         try {
             List<CrmProductCategoryVO> list = jsonRequest.getReqBody();
             for (CrmProductCategoryVO vo : list) {
-                vo.setIsSubmit(ProductCategoryStatus.SUBMIT.getCode());
+                vo.setStatus(ProductCategoryStatus.SUBMIT.getCode());
             }
             serviceResponse = crmProductCategoryService.insertCrmProductCategory(list);
         } catch (Exception e) {
