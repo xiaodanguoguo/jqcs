@@ -222,7 +222,7 @@ function clsMethodLee$operate(){
     });
 
     //批板卷号改编，对应质证书号进行校验
-    this.battenPlateNo.on("click",function(){
+    this.battenPlateNo.on("change",function(){
         if(!$("#millSheetNo").val()){
             var alertBox=new clsAlertBoxCtrl();
             alertBox.Alert("请输入质证书号！","失败提示");
@@ -548,7 +548,7 @@ function millSheetNoCheckCallBack(data){
 function battenPlateNoCheckCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-
+        setValue4Desc(data.rspBody,$("#submitBox")[0])
     }else{
         $("#battenPlateNo").val("");
     }
