@@ -5,7 +5,7 @@ function clsMethodLee(){
         "path3":"/objectionChuLi/compulsorySettlement",//强制结案接口
         "path4":"/objectionJieAn/revoke",//撤销接口
         "path5":"/objectionJieAn/look",//查看协议书接口
-        "path7":"/product/category/down/list"//产品大类下拉接口
+        "path7":"/md/findItemsByTypeId"//产品大类下拉接口
     };
     this.documentLee = null;
     this.claimNo = "";//强制结案的当前缓存标识

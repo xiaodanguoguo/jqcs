@@ -6,7 +6,7 @@ function clsMethodLee(){
         "path4":"/claimComments/evaluate",//异议处理评价接口
         "path5":"/objectionTiBao/down",//异议处理评价接口
         "path6":"/objectionTiBao/lookPhoto",//协议书查看接口
-        "path7":"/product/category/down/list",//产品大类下拉接口
+        "path7":"/md/findItemsByTypeId",//产品大类下拉接口
         "path8":"/agreement/down"//异议提报协议书下载接口
     };
     this.documentLee = null;

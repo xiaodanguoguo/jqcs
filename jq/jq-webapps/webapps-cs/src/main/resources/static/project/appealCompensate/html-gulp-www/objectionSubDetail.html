@@ -218,21 +218,11 @@
         <div class="newsList-search" style="height: 58px">
             <span class="newsList-search__name fl">异议编号</span>
             <input id="claimNo" class="inputBase newsList-search__input fl" type="text" disabled="true">
-            <div class="box0" style="display: none;">
-                <span class="newsList-search__name fl"><i class="mustText">*</i>异议产品</span>
-                <select id="productId" name="" class="inputBase newsList-content-mainList-select fl" comType="" selCode="cid" selValue="categoryName" emptyValue="请选择">
-                </select>
+            <div class="box01">
                 <span class="newsList-search__name fl"><i class="mustText">*</i>质证书号</span>
                 <input id="millSheetNo" class="inputBase newsList-search__input fl required" type="text">
-            </div>
-            <div class="box02" style="display: none">
-                <a class="fl" href="javascript:;" comType="uploadCtrl" uploadType="button" uploadTypeVal="上传" reqPath="/file/upload" uploadSize='{"w":"100","h":"26"}' filetype="custom" fileExt="jpg|jpeg|gif|png"></a>
-                <div class="fl inputBaseBox clearfix" style="width: 200px;overflow-y: scroll">
-                    <span id="filePathTemplate" class="inputBaseList" style="display: none">
-                        <img id="filePathContent" class="inputBaseListCon" />
-                        <span id="filePathDelete" class="inputBaseListDel">X</span>
-                    </span>
-                </div>
+                <span class="newsList-search__name fl"><i class="mustText"></i>异议产品</span>
+                <input id="productName" class="inputBase newsList-search__input fl required" type="text" disabled="true">
             </div>
         </div>
         <div id="boxFirst">
@@ -241,7 +231,7 @@
                 <span class="newsList-title__name fl">订货单位信息</span>
             </div>
             <div class="newsList-content" id="firstDetail">
-                <div class="newsList-content-create" id="dinghuoCreate"></div>
+                <div class="newsList-content-create box01" id="dinghuoCreate"></div>
                 <ul class="newsList-content-main clearfix">
                     <li class="newsList-content-main-list">
                         <span class="newsList-content-mainList-title fl">客户联系编号:</span>
@@ -263,10 +253,6 @@
                         <span class="newsList-content-mainList-title fl">手机号码:</span>
                         <input id="custTel" class="inputBase newsList-content-mainList-text fl required" type="text" disabled="true">
                     </li>
-                   <!-- <li class="newsList-content-main-list">
-                        <span class="newsList-content-mainList-title fl">电子邮件:</span>
-                        <input class="inputBase newsList-content-mainList-text fl" type="text" disabled="true">
-                    </li>-->
                 </ul>
             </div>
             <div class="newsList-title clearfix">
@@ -274,7 +260,7 @@
                 <span class="newsList-title__name fl">使用单位信息</span>
             </div>
             <div class="newsList-content" id="secondDetail">
-                <div class="newsList-content-create" id="shiyongCreate"></div>
+                <div class="newsList-content-create box01" id="shiyongCreate"></div>
                 <ul class="newsList-content-main clearfix">
                     <li class="newsList-content-main-list">
                         <span class="newsList-content-mainList-title fl">使用单位编号:</span>
@@ -296,44 +282,32 @@
                         <span class="newsList-content-mainList-title fl">手机号码:</span>
                         <input id="lastUserTel" class="inputBase newsList-content-mainList-text fl required" type="text" disabled="true">
                     </li>
-                   <!-- <li class="newsList-content-main-list">
-                        <span class="newsList-content-mainList-title fl">电子邮件:</span>
-                        <input class="inputBase newsList-content-mainList-text fl" type="text" disabled="true">
-                    </li>-->
                 </ul>
             </div>
-            <div class="box12" style="display: none">
+            <div class="box3">
                 <div class="newsList-title clearfix">
                     <div class="newsList-title__border fl"></div>
                     <span class="newsList-title__name fl">发生异议单位</span>
                 </div>
                 <div class="newsList-content2 clearfix">
-                    <ul class="newsList-content2-boxFir fl" id="dissentingUnitA">
+                    <ul class="newsList-content2-boxFir fl" id="dissentingUnitA" style="width: 900px">
                         <li class="newsList-content2-boxFir-list">
                             <input type="radio" name="objectionType" class="newsList-content2-boxFirList-checked" value="3">
                             <span>不锈</span>
                         </li>
                         <li class="newsList-content2-boxFir-list">
                             <input type="radio" name="objectionType" class="newsList-content2-boxFirList-checked" value="1">
-                            <span>炼扎</span>
+                            <span>炼轧</span>
                         </li>
                         <li class="newsList-content2-boxFir-list">
                             <input type="radio" name="objectionType" class="newsList-content2-boxFirList-checked" value="2">
-                            <span>炭薄</span>
+                            <span>碳钢</span>
                         </li>
                         <li class="newsList-content2-boxFir-list">
                             <input type="radio" name="objectionType" class="newsList-content2-boxFirList-checked" value="4">
                             <span>榆钢</span>
                         </li>
                     </ul>
-                    <div class="newsList-content2-boxSec fl">
-                        <div class="fl clearfix" style="width: 130px;height: 24px;overflow-y: scroll">
-                            <span id="filePathTemplate" class="" style="display: none">
-                                <span id="filePathContent" class="">选项</span>,
-                                <span id="filePathDelete" class="inputBaseListDel" style="display: none;">X</span>
-                            </span>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="newsList-title clearfix">
@@ -342,7 +316,7 @@
             </div>
             <div class="newsList-content">
                 <ul class="newsList-content-main clearfix">
-                    <li class="newsList-content-main-listRow box2" style="display: none;">
+                    <li class="newsList-content-main-listRow box3">
                         <span class="newsList-content-mainList-title fl">异议类别:</span>
                         <ul class="newsList-content-mainList-textChecked fl" id="claimTypeA">
                              <li class="newsList-content2-boxFir-list">
@@ -375,28 +349,17 @@
                              </li>
                         </ul>
                     </li>
-                    <div class="box12" style="display: none;">
-                        <li class="newsList-content-main-list2">
-                            <span class="newsList-content-mainList-title fl"><i class="mustText disNone">*</i>异议产品:</span>
-                            <select id="productId" name="" class="inputBase newsList-content-mainList-select fl" comType="" selCode="cid" selValue="categoryName" emptyValue="请选择">
-                            </select>
-                        </li>
-                        <li class="newsList-content-main-list2">
-                            <span class="newsList-content-mainList-title fl"><i class="mustText disNone">*</i>质证书号:</span>
-                            <input id="millSheetNo" class="inputBase newsList-content-mainList-text fl" type="text">
-                        </li>
-                    </div>
-                    <li class="newsList-content-main-listSpecial">
+                    <li class="newsList-content-main-list2">
                         <span class="newsList-content-mainList-title fl"><i class="mustText">*</i>批/板/卷号:</span>
                         <input id="battenPlateNo" class="inputBase newsList-content-mainList-text fl required" type="text">
                     </li>
-                    <li class="newsList-content-main-list2 box2" style="display: none">
-                        <span class="newsList-content-mainList-title fl"><i class="mustText disNone">*</i>产品问题:</span>
-                        <input id="proProblem" class="inputBase newsList-content-mainList-text fl" type="text">
+                    <li class="newsList-content-main-list2">
+                        <span class="newsList-content-mainList-title fl">销售提单号:</span>
+                        <input id="orderNo" class="inputBase newsList-content-mainList-text fl" type="text">
                     </li>
                     <li class="newsList-content-main-list2">
-                        <span class="newsList-content-mainList-title fl"><i class="mustText disNone">*</i>产品牌号:</span>
-                        <input id="designation" class="inputBase newsList-content-mainList-text fl" type="text">
+                        <span class="newsList-content-mainList-title fl">合同单价:</span>
+                        <input id="contractUnitPrice" class="inputBase newsList-content-mainList-text fl forallInt" type="text">
                     </li>
                     <li class="newsList-content-main-list2">
                         <span class="newsList-content-mainList-title fl">产品用途:</span>
@@ -404,59 +367,130 @@
                     </li>
                     <li class="newsList-content-main-list2">
                         <span class="newsList-content-mainList-title fl"><i class="mustText disNone">*</i>合同号:</span>
-                        <input id="contractNo" class="inputBase newsList-content-mainList-text fl" type="text">
+                        <input id="contractNo" class="inputBase newsList-content-mainList-text fl" type="text" disabled="true">
                     </li>
                     <li class="newsList-content-main-list2">
                         <span class="newsList-content-mainList-title fl">合同重量:</span>
-                        <input id="contractVolume" class="inputBase newsList-content-mainList-text fl forallInt" type="text">
+                        <input id="contractVolume" class="inputBase newsList-content-mainList-text fl forallInt" type="text" disabled="true">
                     </li>
                     <li class="newsList-content-main-list2">
                         <span class="newsList-content-mainList-title fl"><i class="mustText disNone">*</i>合同规格:</span>
-                        <input id="specs" class="inputBase newsList-content-mainList-text fl" type="text">
+                        <input id="specs" class="inputBase newsList-content-mainList-text fl" type="text" disabled="true">
                     </li>
                     <li class="newsList-content-main-list2">
                         <span class="newsList-content-mainList-title fl">原卷重量:</span>
-                        <input id="originalWeight" class="inputBase newsList-content-mainList-text fl forallInt" type="text">
+                        <input id="originalWeight" class="inputBase newsList-content-mainList-text fl forallInt" type="text" disabled="true">
                     </li>
                     <li class="newsList-content-main-list2">
-                        <span class="newsList-content-mainList-title fl">销售提单号:</span>
-                        <input id="orderNo" class="inputBase newsList-content-mainList-text fl" type="text">
+                        <span class="newsList-content-mainList-title fl"><i class="mustText disNone">*</i>产品牌号:</span>
+                        <input id="designation" class="inputBase newsList-content-mainList-text fl" type="text" disabled="true">
                     </li>
                     <li class="newsList-content-main-list2">
                         <span class="newsList-content-mainList-title fl">原车号:</span>
-                        <input id="originalCarNo" class="inputBase newsList-content-mainList-text fl" type="text">
+                        <input id="originalCarNo" class="inputBase newsList-content-mainList-text fl" type="text" disabled="true">
                     </li>
-                    <li class="newsList-content-main-list2">
-                        <span class="newsList-content-mainList-title fl">合同单价:</span>
-                        <input id="contractUnitPrice" class="inputBase newsList-content-mainList-text fl forallInt" type="text">
+                    <div class="box23">
+                        <li class="newsList-content-main-list2">
+                            <span class="newsList-content-mainList-title fl"><i class="mustText disNone">*</i>异议产品:</span>
+                            <input id="productName" class="inputBase newsList-content-mainList-text fl" type="text" disabled="true">
+                        </li>
+                        <li class="newsList-content-main-list2">
+                            <span class="newsList-content-mainList-title fl"><i class="mustText disNone">*</i>质证书号:</span>
+                            <input id="millSheetNo" class="inputBase newsList-content-mainList-text fl" type="text">
+                        </li>
+                    </div>
+                    <li class="newsList-content-main-list2 box3">
+                        <span class="newsList-content-mainList-title fl"><i class="mustText disNone">*</i>产品问题:</span>
+                        <input id="proProblem" class="inputBase newsList-content-mainList-text fl" type="text">
                     </li>
-                    <li class="newsList-content-main-list2">
-                        <span class="newsList-content-mainList-title fl">异议重量:</span>
-                        <input id="objectionNum" class="inputBase newsList-content-mainList-text fl forallInt" type="text">
-                    </li>
-                    <!-- <li class="newsList-content-main-list2">
-                         <span class="newsList-content-mainList-title fl">销售提单号:</span>
-                         <input class="inputBase newsList-content-mainList-text fl" type="text">
-                         <select class="newsList-content-mainList-select fl">
-                             <option value="">请选择</option>
-                         </select>
-                     </li>-->
+
+
                     <li class="newsList-content-main-listRow">
-                        <span class="newsList-content-mainList-title fl">终端用户加工工艺<span class="newsList-content-mainList-titleTip">（50字内）:</span></span>
+                        <span class="newsList-content-mainList-title fl">终端用户加工工艺<span class="newsList-content-mainList-titleTip">（100字内）:</span></span>
                         <textarea id="endProcessingTech" class="inputBase newsList-content-mainList-text fl required"  style="resize:none" ></textarea>
                     </li>
                     <li class="newsList-content-main-listRow">
-                        <span class="newsList-content-mainList-title fl">异议内容描述<span class="newsList-content-mainList-titleTip">（200字内）:</span></span>
+                        <span class="newsList-content-mainList-title fl">异议内容描述<span class="newsList-content-mainList-titleTip">（300字内）:</span></span>
                         <textarea id="claimDesc" class="inputBase newsList-content-mainList-text fl required"  style="resize:none" ></textarea>
                     </li>
                     <li class="newsList-content-main-listRow">
-                        <span class="newsList-content-mainList-title fl">异议要求及理由<span class="newsList-content-mainList-titleTip">（50字内）:</span></span>
+                        <span class="newsList-content-mainList-title fl">异议重量</span>
+                        <input id="objectionNum" class="inputBase newsList-content-mainList-text fl required for0_9" style="height:28px">
+                    </li>
+                    <li class="newsList-content-main-listRow">
+                        <span class="newsList-content-mainList-title fl">异议要求及理由<span class="newsList-content-mainList-titleTip">（100字内）:</span></span>
                         <textarea id="claimReason" class="inputBase newsList-content-mainList-text fl required"  style="resize:none" ></textarea>
                     </li>
+                    <div class="box013">
+                        <li class="newsList-content-main-listRow">
+                            <span class="newsList-content-mainList-title fl">异议产品图片:</span>
+                            <ul class="newsList-content-mainList-textChecked fl" id="claimTypeA" style="height: 120px;">
+                                <li class="newsList-content2-boxFir-list">
+                                    <div comType="uploadCtrl" id="uploadBox" uploadType="" uploadBgSrc="../images/comUploadBg1.png" reqPath="/file/upload" uploadSize='{"w":"100","h":"100"}' filetype="custom" fileExt="" >
+                                    </div>
+                                </li>
+                                <li class="newsList-content2-boxFir-list">
+                                    <div comType="uploadCtrl" id="uploadBox" uploadType="" uploadBgSrc="../images/comUploadBg1.png" reqPath="/file/upload" uploadSize='{"w":"100","h":"100"}' filetype="custom" fileExt="" >
+                                    </div>
+                                </li>
+                                <li class="newsList-content2-boxFir-list">
+                                    <div comType="uploadCtrl" id="uploadBox" uploadType="" uploadBgSrc="../images/comUploadBg1.png" reqPath="/file/upload" uploadSize='{"w":"100","h":"100"}' filetype="custom" fileExt="" >
+                                    </div>
+                                </li>
+                                <li class="newsList-content2-boxFir-list">
+                                    <div comType="uploadCtrl" id="uploadBox" uploadType="" uploadBgSrc="../images/comUploadBg1.png" reqPath="/file/upload" uploadSize='{"w":"100","h":"100"}' filetype="custom" fileExt="" >
+                                    </div>
+                                </li>
+                                <li class="newsList-content2-boxFir-list">
+                                    <div comType="uploadCtrl" id="uploadBox" uploadType="" uploadBgSrc="../images/comUploadBg1.png" reqPath="/file/upload" uploadSize='{"w":"100","h":"100"}' filetype="custom" fileExt="" >
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="newsList-content-main-listRow" style="height: 120px;">
+                            <span class="newsList-content-mainList-title fl">质量异议报告图片:</span>
+                            <ul class="newsList-content-mainList-textChecked fl" id="claimTypeA">
+                                <li class="newsList-content2-boxFir-list">
+                                    <div comType="uploadCtrl" id="uploadBox" uploadType="" uploadBgSrc="../images/comUploadBg1.png" reqPath="/file/upload" uploadSize='{"w":"100","h":"100"}' filetype="custom" fileExt="" >
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </div>
+                    <div class="box27">
+                        <li class="newsList-content-main-listRow">
+                            <span class="newsList-content-mainList-title fl">异议产品图片:</span>
+                            <ul class="newsList-content-mainList-textChecked fl" id="claimTypeA" style="height: 120px;">
+                                <li class="newsList-content2-boxFir-list">
+                                    <img src="" alt="" style="height: 100px;width: 100px;">
+                                </li>
+                                <li class="newsList-content2-boxFir-list">
+                                    <img src="" alt="" style="height: 100px;width: 100px;">
+                                </li>
+                                <li class="newsList-content2-boxFir-list">
+                                    <img src="" alt="" style="height: 100px;width: 100px;">
+                                </li>
+                                <li class="newsList-content2-boxFir-list">
+                                    <img src="" alt="" style="height: 100px;width: 100px;">
+                                </li>
+                                <li class="newsList-content2-boxFir-list">
+                                    <img src="" alt="" style="height: 100px;width: 100px;">
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="newsList-content-main-listRow" style="height: 120px;">
+                            <span class="newsList-content-mainList-title fl">质量异议报告图片:</span>
+                            <ul class="newsList-content-mainList-textChecked fl" id="claimTypeA">
+                                <li class="newsList-content2-boxFir-list">
+                                    <img src="" alt="" style="height: 100px;width: 100px;">
+                                </li>
+                            </ul>
+                        </li>
+                    </div>
                 </ul>
             </div>
         </div>
-        <div id="boxSecond" style="display: none;">
+        <div id="boxSecond">
             <div class="newsList-title clearfix">
                 <div class="newsList-title__border fl"></div>
                 <span class="newsList-title__name fl">用户信息</span>
@@ -496,9 +530,8 @@
             <div class="newsList-content">
                 <ul class="newsList-content-main clearfix">
                     <li class="newsList-content-main-list">
-                        <span class="newsList-content-mainList-title fl">投诉产品:</span>
-                        <select id="productId" name="" class="inputBase newsList-content-mainList-select fl" comType="" selCode="cid" selValue="categoryName" emptyValue="请选择">
-                        </select>
+                        <span class="newsList-content-mainList-title fl">批/板/卷号:</span>
+                        <input id="battenPlateNo" class="inputBase newsList-content-mainList-text fl" type="text">
                     </li>
                     <li class="newsList-content-main-list">
                         <span class="newsList-content-mainList-title fl">购货量:</span>
@@ -509,24 +542,24 @@
                         <input id="amountOfUse" class="inputBase newsList-content-mainList-text fl" type="text">
                     </li>
                     <li class="newsList-content-main-list">
-                        <span class="newsList-content-mainList-title fl">异议量:</span>
-                        <input id="objectionNum" class="inputBase newsList-content-mainList-text fl" type="text">
-                    </li>
-                    <li class="newsList-content-main-list">
-                        <span class="newsList-content-mainList-title fl">批/板/卷号:</span>
-                        <input id="battenPlateNo" class="inputBase newsList-content-mainList-text fl" type="text">
-                    </li>
-                    <li class="newsList-content-main-list">
                         <span class="newsList-content-mainList-title fl">规格:</span>
                         <input id="specs" class="inputBase newsList-content-mainList-text fl" type="text">
+                    </li>
+                    <li class="newsList-content-main-list">
+                        <span class="newsList-content-mainList-title fl">牌号:</span>
+                        <input id="designation" class="inputBase newsList-content-mainList-text fl" type="text">
                     </li>
                     <li class="newsList-content-main-list">
                         <span class="newsList-content-mainList-title fl">车号:</span>
                         <input id="originalCarNo" class="inputBase newsList-content-mainList-text fl" type="text">
                     </li>
                     <li class="newsList-content-main-list">
-                        <span class="newsList-content-mainList-title fl">牌号:</span>
-                        <input id="designation" class="inputBase newsList-content-mainList-text fl" type="text">
+                        <span class="newsList-content-mainList-title fl">投诉产品:</span>
+                        <input id="productName" class="inputBase newsList-content-mainList-text fl" type="text">
+                    </li>
+                    <li class="newsList-content-main-list">
+                        <span class="newsList-content-mainList-title fl">异议量:</span>
+                        <input id="objectionNum" class="inputBase newsList-content-mainList-text fl" type="text">
                     </li>
                     <li class="newsList-content-main-list">
                         <span class="newsList-content-mainList-title fl">缺陷分类:</span>
@@ -548,45 +581,42 @@
                         <span class="newsList-content-mainList-title fl">加工工艺及用途:</span>
                         <textarea id="endProcessingTech" class="inputBase newsList-content-mainList-text fl required"  style="resize:none" ></textarea>
                     </li>
-                    <div class="box3" style="display: none;">
-                        <li class="newsList-content-main-listRows clearfix">
-                            <span class="newsList-content-mainList-title fl">调查事实阐述:</span>
-                            <div class="inputBase newsList-content-mainList-main fl clearfix" style="height: 437px;">
-                                 <ul class="newsList-content-mainListRows-ul clearfix fl" id="inOutReomve">
-                                    <li class="newsList-content-mainListRows-ulList">
-                                        <span class="newsList-content-mainListRowsUlList-title fl">货物所在地:</span>
-                                        <input id="lastUserAddr" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
-                                    </li>
-                                    <li class="newsList-content-mainListRows-ulList">
-                                        <span class="newsList-content-mainListRowsUlList-title fl">合同号:</span>
-                                        <input id="contractNo" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
-                                    </li>
-                                    <li class="newsList-content-mainListRows-ulList">
-                                        <span class="newsList-content-mainListRowsUlList-title fl">质证书编号:</span>
-                                        <input id="millSheetNo" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
-                                    </li>
-                                    <!--<li class="newsList-content-mainListRows-ulList">
-                                        <span class="newsList-content-mainListRowsUlList-title fl">车号:</span>
-                                        <input class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
-                                    </li>-->
-                                    <li class="newsList-content-mainListRows-ulList">
-                                        <span class="newsList-content-mainListRowsUlList-title fl">缺陷名称:</span>
-                                        <input id="defectName" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
-                                    </li>
-                                    <li class="newsList-content-mainListRows-ulList">
-                                        <span class="newsList-content-mainListRowsUlList-title fl">生产日期:</span>
-                                        <input id="productDt" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" >
-                                    </li>
-                                    <li class="newsList-content-mainListRows-ulList">
-                                        <span class="newsList-content-mainListRowsUlList-title fl">班时/班次:</span>
-                                        <input id="shift" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
-                                    </li>
-                                </ul>
-                                <div id="" class="newsList-content-mainList-textEdit fl">
-                                    <script id="editor" type="text/plain"></script>
-                                </div>
+                    <li class="newsList-content-main-listRows clearfix">
+                        <span class="newsList-content-mainList-title fl">调查事实阐述:</span>
+                        <div id="parentBox" class="inputBase newsList-content-mainList-main fl clearfix" style="height: 437px;">
+                            <ul class="newsList-content-mainListRows-ul clearfix fl">
+                                <li class="newsList-content-mainListRows-ulList">
+                                    <span class="newsList-content-mainListRowsUlList-title fl">货物所在地:</span>
+                                    <input id="lastUserAddr" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
+                                </li>
+                                <li class="newsList-content-mainListRows-ulList">
+                                    <span class="newsList-content-mainListRowsUlList-title fl">合同号:</span>
+                                    <input id="contractNo" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
+                                </li>
+                                <li class="newsList-content-mainListRows-ulList">
+                                    <span class="newsList-content-mainListRowsUlList-title fl">质证书编号:</span>
+                                    <input id="millSheetNo" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
+                                </li>
+                                <li class="newsList-content-mainListRows-ulList">
+                                    <span class="newsList-content-mainListRowsUlList-title fl">缺陷名称:</span>
+                                    <input id="defectName" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
+                                </li>
+                                <li class="newsList-content-mainListRows-ulList">
+                                    <span class="newsList-content-mainListRowsUlList-title fl">生产日期:</span>
+                                    <input id="productDt" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" >
+                                </li>
+                                <li class="newsList-content-mainListRows-ulList">
+                                    <span class="newsList-content-mainListRowsUlList-title fl">班时/班次:</span>
+                                    <input id="shift" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
+                                </li>
+                            </ul>
+                            <textarea id="" class="inputBase newsList-content-mainList-text fl required"  style="height: 52px;width: 735px;resize:none" ></textarea>
+                            <div class="newsList-content-mainList-textEdit box4 fl">
+                                <script id="editor" type="text/plain"></script>
                             </div>
-                        </li>
+                        </div>
+                    </li>
+                    <div class="box4">
                         <li class="newsList-content-main-listRow">
                             <span class="newsList-content-mainList-title fl">现场结论:</span>
                             <div id="fieldConclusionA" class="newsList-content-mainList-textEdit fl" style="height: 350px;">
@@ -601,55 +631,42 @@
                             <span class="newsList-content-mainList-title fl">处理建议:</span>
                             <textarea id="handingSuggestion" class="inputBase newsList-content-mainList-text fl required"  style="resize:none" ></textarea>
                         </li>
+                        <li class="newsList-content-main-listRow">
+                            <span class="newsList-content-mainList-title fl">销售经理建议:</span>
+                            <input id="" class="inputBase newsList-content-mainList-text fl required">
+                        </li>
                     </div>
-                    <div class="box4" style="display: none;">
+                    <div class="box5">
+                        <li class="newsList-content-main-listRow">
+                            <span class="newsList-content-mainList-title fl">外部现场调查情况:</span>
+                            <textarea id="fieldConclusionA" class="inputBase newsList-content-mainList-text fl required"  style="resize:none" ></textarea>
+                        </li>
                         <li class="newsList-content-main-listRows clearfix">
-                            <span class="newsList-content-mainList-title fl">异议投诉描述:</span>
-                            <div class="inputBase newsList-content-mainList-main fl clearfix" style="height: 464px;" >
+                            <span class="newsList-content-mainList-title fl">生产工艺过程调查:</span>
+                            <div class="inputBase newsList-content-mainList-main fl clearfix" style="height: 437px;">
                                 <ul class="newsList-content-mainListRows-ul clearfix fl">
                                     <li class="newsList-content-mainListRows-ulList">
-                                        <span class="newsList-content-mainListRowsUlList-title fl">货物所在地:</span>
+                                        <span class="newsList-content-mainListRowsUlList-title fl">质量等级:</span>
                                         <input id="lastUserAddr" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
                                     </li>
                                     <li class="newsList-content-mainListRows-ulList">
-                                        <span class="newsList-content-mainListRowsUlList-title fl">合同号:</span>
+                                        <span class="newsList-content-mainListRowsUlList-title fl">原判定结果:</span>
                                         <input id="contractNo" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
                                     </li>
                                     <li class="newsList-content-mainListRows-ulList">
-                                        <span class="newsList-content-mainListRowsUlList-title fl">质证书编号:</span>
-                                        <input id="millSheetNo" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
+                                        <span class="newsList-content-mainListRowsUlList-title fl">表面结构:</span>
+                                        <input id="contractNo" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
                                     </li>
                                     <li class="newsList-content-mainListRows-ulList">
-                                        <span class="newsList-content-mainListRowsUlList-title fl">异议确认量（吨）:</span>
-                                        <input class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
-                                    </li>
-                                    <li class="newsList-content-mainListRows-ulList">
-                                        <span class="newsList-content-mainListRowsUlList-title fl">缺陷名称:</span>
-                                        <input id="defectName" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
-                                    </li>
-                                    <li class="newsList-content-mainListRows-ulList">
-                                        <span class="newsList-content-mainListRowsUlList-title fl">生产日期:</span>
-                                        <input id="productDt" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
-                                    </li>
-                                    <li class="newsList-content-mainListRows-ulList">
-                                        <span class="newsList-content-mainListRowsUlList-title fl">班时/班次:</span>
-                                        <input id="shift" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
+                                        <span class="newsList-content-mainListRowsUlList-title fl">班别/班次:</span>
+                                        <input id="contractNo" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text">
                                     </li>
                                 </ul>
-                                <div id="" class="newsList-content-mainList-textEdit fl" style="height: 320px;">
+                                <textarea id="" class="inputBase newsList-content-mainList-text fl required"  style="height: 52px;width: 735px;resize:none" ></textarea>
+                                <div id="" class="newsList-content-mainList-textEdit fl">
                                     <script id="editor" type="text/plain"></script>
                                 </div>
                             </div>
-                        </li>
-                        <li class="newsList-content-main-listRow">
-                            <span class="newsList-content-mainList-title fl">外部现场调查情况:</span>
-                            <div id="fieldConclusionA" class="newsList-content-mainList-textEdit fl" style="height: 350px;">
-                                <script id="editor2" type="text/plain"></script>
-                            </div>
-                        </li>
-                        <li class="newsList-content-main-listRow">
-                            <span class="newsList-content-mainList-title fl">异议问题确认:</span>
-                            <textarea id="fieldConclusion" class="inputBase newsList-content-mainList-text fl required"  style="resize:none" ></textarea>
                         </li>
                         <li class="newsList-content-main-listRow">
                             <span class="newsList-content-mainList-title fl">原因分析及结论:</span>
@@ -663,15 +680,15 @@
                 </ul>
             </div>
         </div>
-        <div class="newsList-operater clearfix box0" style="display: none;">
+        <div class="newsList-operater clearfix box01">
             <div class="btnLowNew fr" id="firstReset">清空</div>
             <div class="btnLowNew fr" id="firstSave" style="margin-right: 10px;">保存</div>
         </div>
-        <div class="newsList-operater clearfix box1" style="display: none;">
+        <div class="newsList-operater clearfix box2">
             <div class="btnLowNew fr" id="secondPrint">打印</div>
             <div class="btnLowNew fr" style="margin-right: 10px;" id="secondDownload">下载</div>
         </div>
-        <div class="newsList-operater clearfix box2" style="display: none">
+        <div class="newsList-operater clearfix box3">
             <div class="btnLowNew fl" id="thirdSave">保存</div>
             <div class="btnLowNew fr" id="thirdPromise">通过</div>
             <span class="clearfix fr" style="margin-right: 10px">
@@ -679,16 +696,16 @@
                 <div class="btnLowNew fl" id="thirdReject">驳回</div>
             </span>
         </div>
-        <div class="newsList-operater clearfix box3" style="display: none;">
-            <div id="forthsubmit" class="btnLowNew fr">提交</div>
+        <div class="newsList-operater clearfix box4">
+            <div id="forthsubmit" class="btnLowNew fr">调查结束</div>
             <div id="forthFoolow" class="btnLowNew fr" style="margin-right: 10px;">跟踪</div>
             <div id="forthSave" class="btnLowNew fr" style="margin-right: 10px;">保存</div>
         </div>
-        <div class="newsList-operater clearfix box4" style="display: none;">
+        <div class="newsList-operater clearfix box5">
             <div id="fifthSubmit" class="btnLowNew fr">提交</div>
             <div id="fifthSave" class="btnLowNew fr" style="margin-right: 10px;">保存</div>
         </div>
-        <div class="newsList-operater clearfix box5" style="display: none">
+        <div class="newsList-operater clearfix box6">
             <div class="btnLowNew fr" id="sixthPromise">通过</div>
             <span class="clearfix fr" style="margin-right: 10px">
                     <input id="rejectReason" type="text" class="inputBase fl required" style="width: 200px">

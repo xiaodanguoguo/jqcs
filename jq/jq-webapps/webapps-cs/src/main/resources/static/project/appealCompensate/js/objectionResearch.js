@@ -5,7 +5,7 @@ function clsMethodLee(){
         "path3":"/objectionDiaoCha/downPdf",//异议调查报告下载pdf接口
         "path4":"/objectionDiaoCha/updateState",//异议调查内部外部开始状态改变接口
         "path5":"/objectionDiaoCha/export",//异议调查导出接口
-        "path7":"/product/category/down/list"//产品大类下拉接口
+        "path7":"/md/findItemsByTypeId"//产品大类下拉接口
     };
     this.documentLee = null;
     this.claimNo = "";//驳回时使用的诉赔编号
