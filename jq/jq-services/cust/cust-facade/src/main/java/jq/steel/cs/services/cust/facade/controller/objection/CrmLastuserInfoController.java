@@ -123,6 +123,7 @@ public class CrmLastuserInfoController {
      * @author: lirunze
      * @Date: 2018/9/13
      */
+    @RequestMapping(value ="/info", method = RequestMethod.POST)
     ServiceResponse<CrmLastuserInfoVO> findunitOfUseInfo(JsonRequest<CrmLastuserInfoVO> jsonRequest) {
         ServiceResponse<CrmLastuserInfoVO> serviceResponse = new ServiceResponse<>();
         logger.info("使用单位详情 = {}", JsonUtil.toJson(jsonRequest));

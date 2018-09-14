@@ -124,6 +124,7 @@ public class CrmCustomerInfoController {
      * @author: lirunze
      * @Date: 2018/9/14
      */
+    @RequestMapping(value ="/info", method = RequestMethod.POST)
     ServiceResponse<CrmCustomerInfoVO> findorderUnitInfo(JsonRequest<CrmCustomerInfoVO> jsonRequest) {
         logger.info("详情 = {}", JsonUtil.toJson(jsonRequest));
         ServiceResponse<CrmCustomerInfoVO> serviceResponse = new ServiceResponse<>();
