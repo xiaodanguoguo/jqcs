@@ -145,8 +145,6 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             millSheetHosts.setCheckInstructions("请核实质证书编号"+millSheetHostsVO.getMillSheetNo());
             BeanCopyUtil.copy(millSheetHosts,millSheetHostsVO);
         }
-
-
         return millSheetHostsVO;
     }
 }

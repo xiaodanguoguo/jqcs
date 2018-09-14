@@ -39,4 +39,32 @@ public class MillCoilInfoController {
         }
         return  serviceResponse;
     }
+
+
+    /**
+     * 诉赔界面校验批板卷号输入正确与否
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping("/findIsTrue")
+    public ServiceResponse<MillCoilInfoVO> findIsTrue(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest){
+        logger.info("参数 = {}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<MillCoilInfoVO> serviceResponse = new ServiceResponse<>();
+        try {
+            MillCoilInfoVO millCoilInfoVO = jsonRequest.getReqBody();
+            MillCoilInfoVO list = millCoilInfoService.findIsTrue(millCoilInfoVO);
+            if (list.getTrue()){
+                serviceResponse.setRetContent(list);
+            }else {
+                serviceResponse.setRetContent(list);
+                serviceResponse.setRetCode("00");
+                serviceResponse.setRetMessage(list.getCheckInstructions());
+            }
+
+        }catch (BusinessException e){
+            logger.error("获取分页出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
 }

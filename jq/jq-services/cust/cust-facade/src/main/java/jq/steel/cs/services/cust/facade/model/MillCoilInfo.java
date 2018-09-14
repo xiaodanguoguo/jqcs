@@ -4,6 +4,12 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class MillCoilInfo {
+
+    //校验说明
+    private String checkInstructions;
+    //校验结果
+    private Boolean isTrue;
+
     private String millsheetType;
     private String splitMaxValue;
     private String zcpmc;
@@ -59,6 +65,22 @@ public class MillCoilInfo {
     private Date updatedDt;
 
     private Short version;
+
+    public String getCheckInstructions() {
+        return checkInstructions;
+    }
+
+    public void setCheckInstructions(String checkInstructions) {
+        this.checkInstructions = checkInstructions;
+    }
+
+    public Boolean getTrue() {
+        return isTrue;
+    }
+
+    public void setTrue(Boolean aTrue) {
+        isTrue = aTrue;
+    }
 
     public String getSplitMaxValue() {
         return splitMaxValue;

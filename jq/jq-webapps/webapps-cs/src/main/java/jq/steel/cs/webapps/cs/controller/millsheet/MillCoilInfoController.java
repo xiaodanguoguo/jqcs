@@ -5,8 +5,11 @@ import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
+import com.ebase.utils.JsonUtil;
 import jq.steel.cs.services.cust.api.controller.MillCoilInfoAPI;
+import jq.steel.cs.services.cust.api.vo.CrmMillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
+import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +56,26 @@ public class MillCoilInfoController {
         return jsonResponse;
     }
 
+    //诉赔提报界面校验钢卷编号是否正确
+    @RequestMapping(value = "/findIsTrue",method = RequestMethod.POST)
+    public JsonResponse<MillCoilInfoVO>  findIsTrue(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest){
+        logger.info("参数", JsonUtil.toJson(jsonRequest));
+        JsonResponse<MillCoilInfoVO> jsonResponse = new JsonResponse<>();
+        try {
+
+            ServiceResponse<MillCoilInfoVO> serviceResponse = millCoilInfoAPI.findIsTrue(jsonRequest);
+            if(serviceResponse.getRetContent().getTrue()){
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            }else {
+                jsonResponse.setRetCode("1111111");
+                jsonResponse.setRetDesc(serviceResponse.getRetContent().getCheckInstructions());
+            }
+
+        } catch (BusinessException e) {
+            logger.error("获取分页列表错误 = {}", e);
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+        return jsonResponse;
+    }
 }

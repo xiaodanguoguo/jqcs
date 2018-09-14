@@ -6,6 +6,12 @@ import java.util.Date;
 
 public class MillCoilInfoVO implements Serializable {
 
+
+    //校验说明
+    private String checkInstructions;
+    //校验结果
+    private Boolean isTrue;
+
     private String spiltCustomer;
 
     public String getSpiltCustomer() {
@@ -78,6 +84,22 @@ public class MillCoilInfoVO implements Serializable {
     private Date updatedDt;
 
     private Short version;
+
+    public String getCheckInstructions() {
+        return checkInstructions;
+    }
+
+    public void setCheckInstructions(String checkInstructions) {
+        this.checkInstructions = checkInstructions;
+    }
+
+    public Boolean getTrue() {
+        return isTrue;
+    }
+
+    public void setTrue(Boolean aTrue) {
+        isTrue = aTrue;
+    }
 
     public String getOrgCode() {
         return orgCode;

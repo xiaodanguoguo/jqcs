@@ -112,6 +112,23 @@
     WHERE A.MILL_SHEET_NO = #{millsheetNo,jdbcType=VARCHAR}
   </select>
 
+
+
+  <select id="findIsTrue" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo">
+   SELECT
+  A.ZCHARG,
+  A.ZCHEHAO,
+  A.ZLPH,
+  A.SPECS,
+  A.ZLOSMENGE,
+  A.MILL_SHEET_NO
+  FROM
+  WARRANTY.MILL_COIL_INFO A
+    WHERE
+    A.MILL_SHEET_NO= #{millsheetNo,jdbcType=VARCHAR} AND A.ZCHARG= #{zcharg,jdbcType=VARCHAR}
+  </select>
+
+
   <select id="findMillsheetNumber" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo">
   SELECT
   MILL_SHEET_NO,
