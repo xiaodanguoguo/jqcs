@@ -115,18 +115,18 @@ public class ObjectionChuLiController {
     }
 
     /**
-     *   协议书模板查看
+     * 打印/预览 实时生成pdf并且返回url地址
      * @param  jsonRequest
      * @return
      *
      * */
-    @RequestMapping(value = "/agreementLook",method = RequestMethod.POST)
-    public ServiceResponse agreementLook(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
+    @RequestMapping(value = "/preview",method = RequestMethod.POST)
+    public ServiceResponse preview(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
         logger.info("参数 = {}",JsonUtil.toJson(jsonRequest));
         ServiceResponse<ObjectionChuLiVO> serviceResponse = new ServiceResponse<>();
         ObjectionChuLiVO reqBody = jsonRequest.getReqBody();
         try{
-            ObjectionChuLiVO downUrl = objectionChuLiService.agreementLook(reqBody);
+            ObjectionChuLiVO downUrl = objectionChuLiService.preview(reqBody);
             serviceResponse.setRetContent(downUrl);
             return serviceResponse;
         }catch (Exception e){
@@ -137,18 +137,18 @@ public class ObjectionChuLiController {
     }
 
     /**
-     *  协议书模板下载pdf
+     *  下载 返回文件流
      * @param  jsonRequest
      * @return
      *
      * */
-    @RequestMapping(value = "/agreementModel",method = RequestMethod.POST)
-    public ServiceResponse<ObjectionChuLiVO> agreementModel(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
+    @RequestMapping(value = "/download",method = RequestMethod.POST)
+    public ServiceResponse<ObjectionChuLiVO> download(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
         logger.info("参数 = {}",JsonUtil.toJson(jsonRequest));
         ServiceResponse<ObjectionChuLiVO> serviceResponse = new ServiceResponse<>();
         ObjectionChuLiVO reqBody = jsonRequest.getReqBody();
         try{
-            ObjectionChuLiVO downUrl = objectionChuLiService.agreementModel(reqBody);
+            ObjectionChuLiVO downUrl = objectionChuLiService.download(reqBody);
             serviceResponse.setRetContent(downUrl);
             return serviceResponse;
         }catch (Exception e){

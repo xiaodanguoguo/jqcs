@@ -207,25 +207,20 @@ public class ObjectionChuLiController {
         return headers;
     }
 
-
     /**
-     *  协议书模板查看/下载
-     * @param  jsonRequest
-     * @return
-     *
+     * 打印/预览 实时生成pdf并且返回url地址
      * */
-    @RequestMapping(value = "/agreementLook",method = RequestMethod.POST)
-    public ObjectionDiaoChaVO agreementLook(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
+    @RequestMapping(value = "/preview",method = RequestMethod.POST)
+    public ObjectionDiaoChaVO preview(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
         logger.info("参数", JsonUtil.toJson(jsonRequest));
         JsonResponse<ObjectionChuLiVO>  jsonResponse = new JsonResponse<>();
         try {
-            //协议书模板
-            String report = uploadConfig.getReportUrl()  +"xieyishu.rpx&claim_no="+jsonRequest.getReqBody().getClaimNo();
-            ServiceResponse<ObjectionChuLiVO> serviceResponse = objectionChuLiAPI.agreementLook(jsonRequest);
+            String report = uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern();
+            ServiceResponse<ObjectionChuLiVO> serviceResponse = objectionChuLiAPI.preview(jsonRequest);
             serviceResponse.getRetContent().setReport(report);
             jsonResponse.setRspBody(serviceResponse.getRetContent());
         } catch (BusinessException e) {
-            logger.error("下载报错", e);
+            logger.error("打印报错", e);
             e.printStackTrace();
             jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
         }
@@ -233,17 +228,17 @@ public class ObjectionChuLiController {
     }
 
     /**
-     *  协议书模板下载pdf
+     *  下载 返回文件流
      * @param  jsonRequest
      * @return
      *
      * */
-    /*@RequestMapping(value = "/agreementModel",method = RequestMethod.POST)
-    public ResponseEntity<FileSystemResource> agreementModel(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
+    /*@RequestMapping(value = "/download",method = RequestMethod.POST)
+    public ResponseEntity<FileSystemResource> download(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
         logger.info("参数", JsonUtil.toJson(jsonRequest));
         JsonResponse<ObjectionChuLiVO>  jsonResponse = new JsonResponse<>();
         try {
-            ServiceResponse<ObjectionChuLiVO> serviceResponse = objectionChuLiAPI.agreementModel(jsonRequest);
+            ServiceResponse<ObjectionChuLiVO> serviceResponse = objectionChuLiAPI.download(jsonRequest);
             jsonResponse.setRspBody(serviceResponse.getRetContent());
             //String agreementPath = serviceResponse.getRetContent().getAgreementPath();
             //return fileIn(new File(agreementPath));

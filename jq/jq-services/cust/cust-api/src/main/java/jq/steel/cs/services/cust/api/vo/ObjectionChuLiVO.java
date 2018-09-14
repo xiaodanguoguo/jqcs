@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class ObjectionChuLiVO {
 
+    private  String templateType;
+
     private String agreementUrl;
 
     private String agreementName;
@@ -170,6 +172,14 @@ public class ObjectionChuLiVO {
     private String userRequirement;
 
     private String handingSuggestion;
+
+    public String getTemplateType() {
+        return templateType;
+    }
+
+    public void setTemplateType(String templateType) {
+        this.templateType = templateType;
+    }
 
     public String getLogisticsProcess() {
         return logisticsProcess;

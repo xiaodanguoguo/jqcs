@@ -55,22 +55,22 @@ public interface ObjectionChuLiAPI {
     ServiceResponse<List<ObjectionChuLiVO>> export(@RequestBody JsonRequest<List<String>> jsonRequest);
 
     /**
-     *  协议书模板查看
+     *  打印/预览 实时生成pdf并且返回url地址
      * @param  jsonRequest
      * @return
      *
      * */
-    @RequestMapping(value = "/objectionChuLi/agreementLook",method = RequestMethod.POST)
-    ServiceResponse agreementLook(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest);
+    @RequestMapping(value = "/objectionChuLi/preview",method = RequestMethod.POST)
+    ServiceResponse preview(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest);
 
     /**
-     *  协议书模板下载pdf
+     *   下载 返回文件流
      * @param  jsonRequest
      * @return
      *
      * */
-    @RequestMapping(value = "/objectionChuLi/agreementModel",method = RequestMethod.POST)
-    ServiceResponse<ObjectionChuLiVO> agreementModel(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest);
+    @RequestMapping(value = "/objectionChuLi/download",method = RequestMethod.POST)
+    ServiceResponse<ObjectionChuLiVO> download(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest);
 
     /**
      *  强制结案

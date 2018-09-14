@@ -19,11 +19,11 @@ public interface ObjectionChuLiService {
     //异议处理导出
     List<ObjectionChuLiVO> export (List<String> record);
 
-    //协议书模板查看
-    ObjectionChuLiVO agreementLook(ObjectionChuLiVO record);
+    //打印预览
+    ObjectionChuLiVO preview(ObjectionChuLiVO record);
 
-    // 协议书模板下载pdf
-    ObjectionChuLiVO agreementModel(ObjectionChuLiVO record);
+    // 下载pdf
+    ObjectionChuLiVO download(ObjectionChuLiVO record);
 
     //强制结案
     Integer compulsorySettlement(ObjectionChuLiVO record);

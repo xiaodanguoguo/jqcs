@@ -160,15 +160,30 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
         return list1;
     }
 
-    //协议书模板查看
+    //打印/预览 实时生成pdf并且返回url地址
     @Override
-    public ObjectionChuLiVO agreementLook(ObjectionChuLiVO record) {
-        //根据润乾报表然后地址
-        return null;
+    public ObjectionChuLiVO preview(ObjectionChuLiVO record) {
+        String report = "";
+        String templateType = record.getTemplateType();
+        CreatePdf createPdf = new CreatePdf();
+        //判断
+        if(templateType.equals("1")){
+            createPdf.createPdf(record.getClaimNo(),record.getReport(),"xieyishu");
+        }else if(templateType.equals("2")){
+
+        }else if(templateType.equals("3")){
+
+        }else if(templateType.equals("4")){
+
+        }else {
+
+        }
+        //record.set
+        return record;
     }
 
     // 协议书模板下载pdf
-    public ObjectionChuLiVO agreementModel(ObjectionChuLiVO record) {
+    public ObjectionChuLiVO download(ObjectionChuLiVO record) {
         //根据润乾报表然后地址
         return null;
     }
