@@ -11,7 +11,8 @@ function clsMethodLee(){
         "path9":"/objectionDiaoCha/findDetails",//异议调查外部调查内部调查回显数据|确认书审核   1是外部调查 2是内部调查 3确认书审核
         "path10":"/objectionDiaoCha/update",//内外部调查报告（保存，跟踪，提交）异议处理确认书（通过 ，驳回）
                                             //1外部保存2外部跟踪3外部提交4内部保存5内部提交6确认书通过7确认书审核
-        "path11":"/file/upload"//上传
+        "path11":"/file/upload",//上传
+        "path12":"/coilinfo/findIsTrue"//批板卷号填写校验操作，校验成功带出数据
     };
     this.documentLee = null;
     this.htmlType = GetQueryString("htmlType");//判断页面类型0——新建 1修改 2——详情  3——销售审核  4——外部调查  5——内部调查 6-确认书审核
@@ -34,6 +35,8 @@ function clsMethodLee$init(){
     this.shiyongCreate = $("#shiyongCreate");
     //质证书编号
     this.millSheetNo = $("#millSheetNo");
+    //批板卷号
+    this.battenPlateNo = $("#battenPlateNo");
     //新建|修改  页面清空按钮
     this.firstReset = $("#firstReset");
     //新建|修改  页面保存按钮
@@ -122,7 +125,11 @@ function clsMethodLee$parse(){
             $(".box4").remove();
             $(".box5").remove();
             $(".box6").remove();
-            this.selectedMark.selMark1 = false;
+            $("#submitBox input").attr("disabled",true).addClass("changeGary");
+            $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
+            $("#proProblem").removeAttr("disabled").removeClass("changeGary");
+            $("#claimTypeA input").removeAttr("disabled").removeClass("changeGary");
+           // this.selectedMark.selMark1 = false;
             this.selectedMark.selMark2 = false;
             getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":this.claimNo,"optionType":4},"htmlInit(data)");//数据回显操作
             break;
@@ -151,6 +158,10 @@ function clsMethodLee$parse(){
             $(".box4").remove();
             //$(".box5").remove();
             $(".box6").remove();
+            $("#logisticsProcess").attr("disabled",true).addClass("changeGary");
+            $("#endProcessingTech").attr("disabled",true).addClass("changeGary");
+            $("#inSearchBox input").attr("disabled",true).addClass("changeGary");
+            $("#fieldConclusionA").attr("disabled",true).addClass("changeGary");
             getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"claimNo":this.claimNo,"optionType":2},"htmlInit2(data)");//数据回显操作
             break;
         case 6://确认书审核
@@ -179,11 +190,9 @@ function clsMethodLee$parse(){
             $(".box4").remove();
             $(".box5").remove();
             $(".box6").remove();
-            this.selectedMark.selMark1 = false;
-            this.selectedMark.selMark2 = false;
-            getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":this.claimNo,"optionType":4},"htmlInit(data)");//数据回显操作
             $("#submitBox input").attr("disabled",true).addClass("changeGary");
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
+            getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":this.claimNo,"optionType":4},"htmlInit(data)");//数据回显操作
             break;
     }
     initValidate($("#submitBox")[0]);
@@ -210,6 +219,16 @@ function clsMethodLee$operate(){
     //质证书编号改变，进行接口后台判断
     this.millSheetNo.on("change",function () {
         getAjaxResult(document.body.jsLee.requestUrl.path5,"POST",{"millSheetNo":$(this).val()},"millSheetNoCheckCallBack(data)");
+    });
+
+    //批板卷号改编，对应质证书号进行校验
+    this.battenPlateNo.on("click",function(){
+        if(!$("#millSheetNo").val()){
+            var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert("请输入质证书号！","失败提示");
+        }else{
+            getAjaxResult(document.body.jsLee.requestUrl.path12,"POST",{"millSheetNo":$("#millSheetNo").val(),"zcharg":$(this).val()},"battenPlateNoCheckCallBack(data)");
+        }
     });
     
     //新建 || 修改页面清空操作
@@ -329,10 +348,10 @@ function clsMethodLee$operate(){
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
-    //发生异议单位选中改变事件
+    /*//发生异议单位选中改变事件
     $("#dissentingUnitA input").on("click",function(){
         document.body.jsLee.selectedMark.selMark1 = true;
-    });
+    });*/
     //异议类别选中改变事件
     $("#claimTypeA input").on("click",function(){
         document.body.jsLee.selectedMark.selMark2 = true;
@@ -406,8 +425,8 @@ function htmlInit(data){//数据回显回调
         setValue4Desc(data.rspBody,$("#submitBox")[0])//赋值
         if(document.body.jsLee.htmlType == 0 || document.body.jsLee.htmlType == 1){//新建||修改
             //异议产品赋值
-            //$("#productId").attr("initValue",data.rspBody.productId);
-            //initplugPath( $("#productId")[0],"singleSelectCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+            //$("#productName").attr("initValue",data.rspBody.productName);
+            //initplugPath( $("#productName")[0],"singleSelectCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
             //回显上传图片地址
             if(data.rspBody.filePath == null || data.rspBody.filePath == ""){
                 document.body.jsLee.filePath = [];
@@ -420,8 +439,8 @@ function htmlInit(data){//数据回显回调
 
         }else if(document.body.jsLee.htmlType == 2){//详情
             //异议产品赋值
-            //$("#productId").attr("initValue",data.rspBody.productId).attr("disabled",true);
-            //initplugPath( $("#productId")[0],"singleSelectCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+            //$("#productName").attr("initValue",data.rspBody.productName).attr("disabled",true);
+            //initplugPath( $("#productName")[0],"singleSelectCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
             //置灰
             $("#submitBox input[type=text]").attr("disabled",true).addClass("changeGary");
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
@@ -437,14 +456,14 @@ function htmlInit(data){//数据回显回调
             filePathShow(document.body.jsLee.filePath);
         }else if(document.body.jsLee.htmlType == 3){//销售审核页面
             //异议产品赋值
-            //$("#productId").attr("initValue",data.rspBody.productId);
-            //initplugPath( $("#productId")[0],"singleSelectCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+            //$("#productName").attr("initValue",data.rspBody.productName);
+            //initplugPath( $("#productName")[0],"singleSelectCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
             //异议单位赋值
             $("#dissentingUnitA").find("input").attr("checked",false);
             $("#dissentingUnitA").find("input[value=" + data.rspBody.dissentingUnit + "]").attr("checked",true);
             //异议类别赋值
-            $("#productIdA").find("input").attr("checked",false);
-            $("#productIdA").find("input[value=" + data.rspBody.productId + "]").attr("checked",true);
+            $("#productNameA").find("input").attr("checked",false);
+            $("#productNameA").find("input[value=" + data.rspBody.productName + "]").attr("checked",true);
             $(".disNone").show().parent().next().addClass("required");
             //回显上传图片地址
             if(data.rspBody.filePath == null || data.rspBody.filePath == ""){
@@ -464,8 +483,8 @@ function htmlInit2(data){//数据回显回调
         setValue4Desc(data.rspBody,$("#submitBox")[0])//赋值
         if(document.body.jsLee.htmlType ==4 || document.body.jsLee.htmlType == 5){//外部调查|内部调查|
             //异议产品赋值
-            //$("#productId").attr("initValue",data.rspBody.productId).attr("disabled",true);
-            //initplugPath( $("#productId")[0],"singleSelectCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+            //$("#productName").attr("initValue",data.rspBody.productName).attr("disabled",true);
+            //initplugPath( $("#productName")[0],"singleSelectCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
             //输入框置灰
             $("#submitBox input[type=text]").attr("disabled",true).addClass("changeGary");
             if(document.body.jsLee.htmlType == 4){
@@ -503,8 +522,8 @@ function htmlInit2(data){//数据回显回调
             }
 
         }else if(document.body.jsLee.htmlType == 6){//证明书审核
-            //$("#productId").attr("initValue",data.rspBody.productId).attr("disabled",true);
-            //initplugPath( $("#productId")[0],"singleSelectCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+            //$("#productName").attr("initValue",data.rspBody.productName).attr("disabled",true);
+            //initplugPath( $("#productName")[0],"singleSelectCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
             //置灰
             $("#submitBox input[type=text]").attr("disabled",true).addClass("changeGary");
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
@@ -517,19 +536,30 @@ function htmlInit2(data){//数据回显回调
 function millSheetNoCheckCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
+        setValue4Desc(data.rspBody,$("#submitBox")[0])//赋值
+        $("#battenPlateNo").val("");
+    }else{
+        $("#millSheetNo").val("");
+        $("#battenPlateNo").val("");
+    }
+}
+
+//批板卷号校验回调
+function battenPlateNoCheckCallBack(data){
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
 
     }else{
-        alert(data.retDesc);
-        $("#millSheetNo").val("");
+        $("#battenPlateNo").val("");
     }
 }
 
 function boxChecked(){
     initValidate($("#submitBox")[0]);
     var valiClass=new clsValidateCtrl();
-    if(!valiClass.validateAll4Ctrl($("#submitBox")[0]) || !$("#productId option:selected").val() || !document.body.jsLee.selectedMark.selMark1 || !document.body.jsLee.selectedMark.selMark2){
-        if(!$("#productId option:selected").val()){
-            showErrInfoByCustomDiv($("#productId").next()[0],"请选择异议产品")
+    if(!valiClass.validateAll4Ctrl($("#submitBox")[0]) || !$("#productName option:selected").val() || !document.body.jsLee.selectedMark.selMark1 || !document.body.jsLee.selectedMark.selMark2){
+        if(!$("#productName option:selected").val()){
+            showErrInfoByCustomDiv($("#productName").next()[0],"请选择异议产品")
         }
         if(!document.body.jsLee.selectedMark.selMark1){
             showErrInfoByCustomDiv($("#dissentingUnitA")[0],"请选择发生异议单位!");
@@ -544,11 +574,11 @@ function boxChecked(){
 
 //完成提交参数拼接
 function paramJson(){
-    var jsonParam = {"claimNo":"","productId":"","millSheetNo":"","customerId":"","customerName":"","custAddr":"","custEmpNo":"","custTel":"","lastUserId":"","lastUser":"","lastUserAddr":"","createEmpNo":"","lastUserTel":"","battenPlateNo":"","designation":"","used":"","contractNo":"","contractVolume":"","specs":"","originalWeight":"","orderNo":"","originalCarNo":"","contractUnitPrice":"","objectionNum":"","endProcessingTech":"","claimDesc":"","claimReason":"","rejectReason":"","productDt":"","shift":"","userRequirement":"","handingSuggestion":"","inquireInfo":"","fieldConclusion":"","claimVerdict":"","improvement":"","amountOfUse":""};
+    var jsonParam = {"claimNo":"","productName":"","millSheetNo":"","customerId":"","customerName":"","custAddr":"","custEmpNo":"","custTel":"","lastUserId":"","lastUser":"","lastUserAddr":"","createEmpNo":"","lastUserTel":"","battenPlateNo":"","designation":"","used":"","contractNo":"","contractVolume":"","specs":"","originalWeight":"","orderNo":"","originalCarNo":"","contractUnitPrice":"","objectionNum":"","endProcessingTech":"","claimDesc":"","claimReason":"","rejectReason":"","productDt":"","shift":"","userRequirement":"","handingSuggestion":"","inquireInfo":"","fieldConclusion":"","claimVerdict":"","improvement":"","amountOfUse":""};
     getValue4Desc(jsonParam,$("#submitBox")[0]);
     //产品类别
-    jsonParam.productId = $("#productId option:selected").val();
-    jsonParam.productName = $("#productId option:selected").html();
+    jsonParam.productName = $("#productName option:selected").val();
+    jsonParam.productName = $("#productName option:selected").html();
     //异议单位
     jsonParam.dissentingUnit = $("#dissentingUnitA input:checked").val();
     if(document.body.jsLee.htmlType == 3){//销售审核
