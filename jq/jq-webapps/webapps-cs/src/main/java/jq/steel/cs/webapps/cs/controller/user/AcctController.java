@@ -92,6 +92,7 @@ public class AcctController {
                 String sessionId = serviceResponse.getRetContent().getSessionId();
                 CookieUtil.setCookie(response,"sessionId",sessionId);
                 CookieUtil.setCookie(response,"userName", serviceResponse.getRetContent().getAcct().getName());
+                CookieUtil.setCookie(response,"orgId", serviceResponse.getRetContent().getAcct().getOrgId());
             }else {
                 if (serviceResponse.isHasError()) {
                     jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
