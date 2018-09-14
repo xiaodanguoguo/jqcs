@@ -4,9 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ebase.utils.BeanCopyUtil;
+import jq.steel.cs.services.cust.api.vo.MdCommonTypeVO;
 import jq.steel.cs.services.cust.facade.dao.MdCommonTypeMapper;
 import jq.steel.cs.services.cust.facade.model.MdCommonType;
-import jq.steel.cs.services.cust.facade.service.millsheet.MdCommonTypeService;
+import jq.steel.cs.services.cust.facade.service.objection.MdCommonTypeService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +17,11 @@ import org.springframework.stereotype.Service;
 public class MdCommonTypeServiceImpl implements MdCommonTypeService{
 	@Autowired
 	private MdCommonTypeMapper mdCommonTypeMapper;
-	
+
 	public List<MdCommonType> findByConnect(Map<String, Object> params) {
 		 return this.mdCommonTypeMapper.findByConnect(params);
 	 }
-	
+
 	public List<MdCommonType> findItemsByTypeId(Map<String, Object> params) {
 		 return this.mdCommonTypeMapper.findItemsByTypeId(params);
 	 }
@@ -31,9 +34,11 @@ public class MdCommonTypeServiceImpl implements MdCommonTypeService{
 	}
 
 	@Override
-	public List<MdCommonType> findTypeIdByTypeName(Map<String, Object> params) {
-		
-		return mdCommonTypeMapper.findTypeIdByTypeName(params);
+	public List<MdCommonTypeVO> findItemsByTypeId(MdCommonTypeVO record) {
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("typeId", record.getTypeId());
+		List<MdCommonType> mdCommonTypes =  this.mdCommonTypeMapper.findItemsByTypeId(params);
+		List<MdCommonTypeVO> mdCommonTypeVOS = BeanCopyUtil.copyList(mdCommonTypes,MdCommonTypeVO.class);
+		return mdCommonTypeVOS;
 	}
-	
 }
