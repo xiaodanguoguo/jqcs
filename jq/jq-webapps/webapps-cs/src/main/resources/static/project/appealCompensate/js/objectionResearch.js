@@ -3,7 +3,7 @@ function clsMethodLee(){
         "path1":"/objectionDiaoCha/findByPage",//异议调查list列表
         "path2":"/objectionDiaoCha/reject",//异议调查报告驳回接口
         "path3":"/objectionDiaoCha/downPdf",//异议调查报告下载pdf接口
-        "path4":"/objectionDiaoCha/updateState",//异议调查内部外部开始状态改变接口
+        "path4":"/objectionDiaoCha/updateState",//异议调查内部外部开始状态改变接口  受理接口
         "path5":"/objectionDiaoCha/export",//异议调查导出接口
         "path6":"/",//受理接口
         "path7":"/md/findItemsByTypeId"//产品大类下拉接口
@@ -254,7 +254,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         });
         //受理操作
         $(cloneRow).find("#acceptOpe").on("click",function(){
-            getAjaxResult(document.body.jsLee.requestUrl.path6,"POST",{"claimNo":jsonItem.claimNo},"acceptOpeCallBack(data)");
+            getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":jsonItem.claimNo,"type":3},"acceptOpeCallBack(data)");
 
         });
     }
