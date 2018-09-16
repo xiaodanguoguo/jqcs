@@ -547,11 +547,36 @@ function battenPlateNoCheckCallBack(data){
 function boxChecked(){
     initValidate($("#submitBox")[0]);
     var valiClass=new clsValidateCtrl();
-    if(!valiClass.validateAll4Ctrl($("#submitBox")[0]) || !document.body.jsLee.selectedMark.selMark2){
-        if(!document.body.jsLee.selectedMark.selMark2){
-            showErrInfoByCustomDiv($("#claimTypeA")[0],"请选择异议类别!");
+    if(document.body.jsLee.htmlType == 4 || document.body.jsLee.htmlType == 6){//外部调查  确认书审核
+        if(!valiClass.validateAll4Ctrl($("#submitBox")[0]) || !document.body.jsLee.selectedMark.selMark2 || !UE.getEditor('editor').getContent() || !UE.getEditor('editor2').getContent();){
+            if(!document.body.jsLee.selectedMark.selMark2){
+                showErrInfoByCustomDiv($("#claimTypeA")[0],"请选择异议类别!");
+            }
+            if(!UE.getEditor('editor').getContent()){
+                showErrInfoByCustomDiv($("#inquireInfoAllA")[0],"请输入调查事实阐述图文描述!");
+            }
+            if(!UE.getEditor('editor2').getContent()){
+                showErrInfoByCustomDiv($("#fieldConclusionA")[0],"请输入现场结论!");
+            }
+            return false;
         }
-        return false;
+    }else if(document.body.jsLee.htmlType == 5){//内部调查
+        if(!valiClass.validateAll4Ctrl($("#submitBox")[0]) || !document.body.jsLee.selectedMark.selMark2 || !UE.getEditor('editor').getContent()){
+            if(!document.body.jsLee.selectedMark.selMark2){
+                showErrInfoByCustomDiv($("#claimTypeA")[0],"请选择异议类别!");
+            }
+            if(!UE.getEditor('editor').getContent()){
+                showErrInfoByCustomDiv($("#fieldConclusionA")[0],"请输入异议投诉描述!");
+            }
+            return false;
+        }
+    }else{
+        if(!valiClass.validateAll4Ctrl($("#submitBox")[0]) || !document.body.jsLee.selectedMark.selMark2){
+            if(!document.body.jsLee.selectedMark.selMark2){
+                showErrInfoByCustomDiv($("#claimTypeA")[0],"请选择异议类别!");
+            }
+            return false;
+        }
     }
     return true;
 }
