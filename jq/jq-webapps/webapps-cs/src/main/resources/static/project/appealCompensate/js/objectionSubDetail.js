@@ -163,6 +163,7 @@ function clsMethodLee$parse(){
             $("#endProcessingTech").attr("disabled",true).addClass("changeGary");
             $("#inSearchBox input").attr("disabled",true).addClass("changeGary");
             $("#fieldConclusionA").attr("disabled",true).addClass("changeGary");
+            $("#parentBox").prev().html("异议投诉描述:");
             getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"claimNo":this.claimNo,"optionType":2},"htmlInit2(data)");//数据回显操作
             break;
         case 6://确认书审核
@@ -563,9 +564,9 @@ function secondSaveCallBack(data){
 }
 function clsUploadCtrl$successAfter(ctrl, response)
 {
-    if($(ctrl).parents("#filePath").length == 1){
+    if($(ctrl).parents("#filePathA").length == 1){
         document.body.jsLee.filePath = [];
-        $("#filePath *[id=uploadBox] img").each(function(){
+        $("#filePathA *[id=uploadBox] img").each(function(){
             if($(this).attr("src") != "../images/comUploadBg1.png"){
                 document.body.jsLee.filePath.push($(this).attr("src"));
             }
@@ -578,11 +579,11 @@ function clsUploadCtrl$successAfter(ctrl, response)
 
 //删除上传图片
 function clsUploadCtrl$deleteImg(ctrl) {
-    if(ctrl.parents("#filePath").length == 1){
+    if(ctrl.parents("#filePathA").length == 1){
         ctrl.parents("#uploadBox").removeClass("comUploadAfter");
         ctrl.attr("src","../images/comUploadBg1.png");
         document.body.jsLee.filePath = [];
-        $("#filePath *[id=uploadBox] img").each(function(){
+        $("#filePathA *[id=uploadBox] img").each(function(){
             if($(this).attr("src") != "../images/comUploadBg1.png"){
                 document.body.jsLee.filePath.push($(this).attr("src"));
             }
@@ -595,32 +596,32 @@ function clsUploadCtrl$deleteImg(ctrl) {
 
 //回显上传图片地址
 function filePathShow(arrStr,str2,type){//type 1是复现数据   2是不可编辑，赋值图片地址
-    ducument.body.jsLee.reportPictures = str2;
     if(arrStr == null || arrStr == ""){
         document.body.jsLee.filePath = [];
     }else{
         document.body.jsLee.filePath = arrStr.split(";");
     }
+    document.body.jsLee.reportPictures = str2;
     if(type == 1){
         //异议产品图片:
         for(var nI = 0; nI < document.body.jsLee.filePath.length; nI++ ){
-            $("#filePath *[id=uploadBox]").eq(nI).attr("uploadbgsrc",document.body.jsLee.filePath[nI]);
-            document.body.jsCtrl.ctrl = $("#filePath *[id=uploadBox]")[nI];
+            $("#filePathA *[id=uploadBox]").eq(nI).attr("uploadbgsrc",document.body.jsLee.filePath[nI]);
+            document.body.jsCtrl.ctrl = $("#filePathA *[id=uploadBox]")[nI];
             document.body.jsCtrl.init();
-            $("#filePath *[id=uploadBox]").eq(nI).addClass("comUploadAfter");
+            $("#filePathA *[id=uploadBox]").eq(nI).addClass("comUploadAfter");
         }
         //质量异议报告图片:
-        $("#reportPictures #uploadBox").attr("uploadbgsrc",str2);
-        document.body.jsCtrl.ctrl = $("#reportPictures #uploadBox");
+        $("#reportPicturesA #uploadBox").attr("uploadbgsrc",str2);
+        document.body.jsCtrl.ctrl = $("#reportPicturesA #uploadBox");
         document.body.jsCtrl.init();
-        $("#reportPictures #uploadBox").addClass("comUploadAfter");
+        $("#reportPicturesA #uploadBox").addClass("comUploadAfter");
     }else{
         //异议产品图片:
         for(var nI = 0 ; nI < document.body.jsLee.filePath.length; nI++ ){
-            $("#filePath img").eq(nI).attr("src",document.body.jsLee.filePath[nI]);
+            $("#filePathA img").eq(nI).attr("src",document.body.jsLee.filePath[nI]);
         }
         //质量异议报告图片:
-        $("#reportPictures").attr("src",str2);
+        $("#reportPicturesA").attr("src",str2);
     }
 
 }
