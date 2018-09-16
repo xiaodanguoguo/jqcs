@@ -200,6 +200,9 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 $(cloneRow).find("#claimStateA").html("已提报");
                 $(cloneRow).find("#auditOpe").show();
                 break;
+            case "ADOPT":
+                $(cloneRow).find("#claimStateA").html("销售审核通过");
+                break;
             case "ACCEPTANCE":
                 $(cloneRow).find("#claimStateA").html("已受理");
                 break;

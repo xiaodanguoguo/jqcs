@@ -5,6 +5,7 @@ function clsMethodLee(){
         "path3":"/objectionDiaoCha/downPdf",//异议调查报告下载pdf接口
         "path4":"/objectionDiaoCha/updateState",//异议调查内部外部开始状态改变接口
         "path5":"/objectionDiaoCha/export",//异议调查导出接口
+        "path6":"/",//受理接口
         "path7":"/md/findItemsByTypeId"//产品大类下拉接口
     };
     this.documentLee = null;
@@ -122,6 +123,10 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
             case "PRESENT":
                 $(cloneRow).find("#claimStateA").html("已提报");
                 $(cloneRow).find("#auditOpe").show();
+                break;
+            case "ADOPT":
+                $(cloneRow).find("#claimStateA").html("销售审核通过");
+                $(cloneRow).find("#acceptOpe").show();
                 break;
             case "ACCEPTANCE":
                 $(cloneRow).find("#claimStateA").html("已受理");
@@ -247,6 +252,11 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
             //跳转确认书审核页面
             jumpUrl("objectionSubDetail.html?htmlType=6&claimNo="+jsonItem.claimNo,"0000000",0);
         });
+        //受理操作
+        $(cloneRow).find("#acceptOpe").on("click",function(){
+            getAjaxResult(document.body.jsLee.requestUrl.path6,"POST",{"claimNo":jsonItem.claimNo},"acceptOpeCallBack(data)");
+
+        });
     }
 }
 
@@ -289,6 +299,14 @@ function statusInOpeCallBack(data){
     if(data.retCode == "0000000"){
         //跳转内部调查页面
         jumpUrl("objectionSubDetail.html?htmlType=5&claimNo="+document.body.jsLee.claimNo,"0000000",0);
+    }
+}
+
+//受理成功回调函数
+function acceptOpeCallBack(data){
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
     }
 }
 
