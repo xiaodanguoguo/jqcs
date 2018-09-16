@@ -1,10 +1,7 @@
 package jq.steel.cs.webapps.cs.controller.file;
 
-import java.io.IOException;
-
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.HttpServletRequest;
-
+import com.ebase.core.log.SearchableLoggerFactory;
+import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.file.FileUtil;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.ebase.core.log.SearchableLoggerFactory;
-import com.ebase.core.web.json.JsonResponse;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 /**
  * @Auther: <a mailto:xuyongming@ennew.cn>xuyongming</a>
@@ -29,6 +27,8 @@ public class FileController {
     @Autowired
     UploadConfig uploadConfig;
 
+    private static final long SIZE = 5 * 1048576;
+
     //@CrossOrigin
     @PostMapping("/upload")
     public JsonResponse<FileInfo> upload(@RequestParam("file") MultipartFile[] file, HttpServletRequest request) throws IOException {
@@ -37,6 +37,10 @@ public class FileController {
             //遍历并保存文件
             for (MultipartFile files : file) {
                 if (file != null) {
+                    if (files.getSize() > SIZE) {
+                        jsonResponse.setRetCode("0000002");
+                        return jsonResponse;
+                    }
                     try {
                         //取得原始文件名
                         String originalFilename = files.getOriginalFilename();
