@@ -566,7 +566,7 @@ function boxChecked(){
                 showErrInfoByCustomDiv($("#claimTypeA")[0],"请选择异议类别!");
             }
             if(!UE.getEditor('editor').getContent()){
-                showErrInfoByCustomDiv($("#fieldConclusionA")[0],"请输入异议投诉描述!");
+                showErrInfoByCustomDiv($("#fieldConclusionA")[0],"请输入生产工艺过程调查!");
             }
             return false;
         }
