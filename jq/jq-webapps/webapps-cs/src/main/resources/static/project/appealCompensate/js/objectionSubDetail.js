@@ -424,9 +424,6 @@ function htmlInit(data){//数据回显回调
     if(data.retCode == "0000000"){
         setValue4Desc(data.rspBody,$("#submitBox")[0])//赋值
         if(document.body.jsLee.htmlType == 0 || document.body.jsLee.htmlType == 1){//新建||修改
-            //异议产品赋值
-            //$("#productName").attr("initValue",data.rspBody.productName);
-            //initplugPath( $("#productName")[0],"singleSelectCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
             //回显上传图片地址
             if(data.rspBody.filePath == null || data.rspBody.filePath == ""){
                 document.body.jsLee.filePath = [];
@@ -557,15 +554,9 @@ function battenPlateNoCheckCallBack(data){
 function boxChecked(){
     initValidate($("#submitBox")[0]);
     var valiClass=new clsValidateCtrl();
-    if(!valiClass.validateAll4Ctrl($("#submitBox")[0]) || !$("#productName option:selected").val() || !document.body.jsLee.selectedMark.selMark1 || !document.body.jsLee.selectedMark.selMark2){
-        if(!$("#productName option:selected").val()){
-            showErrInfoByCustomDiv($("#productName").next()[0],"请选择异议产品")
-        }
-        if(!document.body.jsLee.selectedMark.selMark1){
-            showErrInfoByCustomDiv($("#dissentingUnitA")[0],"请选择发生异议单位!");
-        }
+    if(!valiClass.validateAll4Ctrl($("#submitBox")[0]) || !document.body.jsLee.selectedMark.selMark2){
         if(!document.body.jsLee.selectedMark.selMark2){
-            showErrInfoByCustomDiv($("#claimTypeA")[0],"请选择发生异议单位!");
+            showErrInfoByCustomDiv($("#claimTypeA")[0],"请选择异议类别!");
         }
         return false;
     }
@@ -576,9 +567,6 @@ function boxChecked(){
 function paramJson(){
     var jsonParam = {"claimNo":"","productName":"","millSheetNo":"","customerId":"","customerName":"","custAddr":"","custEmpNo":"","custTel":"","lastUserId":"","lastUser":"","lastUserAddr":"","createEmpNo":"","lastUserTel":"","battenPlateNo":"","designation":"","used":"","contractNo":"","contractVolume":"","specs":"","originalWeight":"","orderNo":"","originalCarNo":"","contractUnitPrice":"","objectionNum":"","endProcessingTech":"","claimDesc":"","claimReason":"","rejectReason":"","productDt":"","shift":"","userRequirement":"","handingSuggestion":"","inquireInfo":"","fieldConclusion":"","claimVerdict":"","improvement":"","amountOfUse":""};
     getValue4Desc(jsonParam,$("#submitBox")[0]);
-    //产品类别
-    jsonParam.productName = $("#productName option:selected").val();
-    jsonParam.productName = $("#productName option:selected").html();
     //异议单位
     jsonParam.dissentingUnit = $("#dissentingUnitA input:checked").val();
     if(document.body.jsLee.htmlType == 3){//销售审核
@@ -632,7 +620,13 @@ function clsUploadCtrl$successAfter(ctrl, response)
 function filePathShow(arr){
     $("*[id=filePathClone]").remove();
     for(var nI = 0; nI < arr.length; nI++ ){
-        var filePathClone = $("#filePathTemplate").clone(true);
+        $("*[id=uploadBox]").eq(nI).attr("uploadbgsrc",jsonItemChild[nI]);
+        document.body.jsCtrl.ctrl = $("*[id=uploadBox]")[nI];
+        document.body.jsCtrl.init();
+        $("*[id=uploadBox]").eq(nI).addClass("comUploadAfter");
+
+
+        /*var filePathClone = $("#filePathTemplate").clone(true);
         filePathClone.attr("id","filePathClone").show();
         filePathClone.find("#filePathContent").attr("src",arr[nI]);
         filePathClone.find("#filePathDelete").on("click",function () {//删除当前上传图片地址
@@ -648,7 +642,7 @@ function filePathShow(arr){
             openWin('650', '500', 'imgBigPopup', true);
             $("#bigImg").attr("src",$(this).attr("src"));
         });
-        $("#filePathTemplate").before(filePathClone);
+        $("#filePathTemplate").before(filePathClone);*/
     }
 }
 
