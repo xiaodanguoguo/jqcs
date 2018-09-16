@@ -8,7 +8,7 @@ import java.util.Date;
 public class ObjectionTiBaoVO {
 
     //质量异议报告图片
-    private String reportPicture;
+    private String reportPictures;
 
     //异议确认量
     private  String objectionConfirmation;
@@ -165,12 +165,12 @@ public class ObjectionTiBaoVO {
 
     private Integer count;
 
-    public String getReportPicture() {
-        return reportPicture;
+    public String getReportPictures() {
+        return reportPictures;
     }
 
-    public void setReportPicture(String reportPicture) {
-        this.reportPicture = reportPicture;
+    public void setReportPictures(String reportPictures) {
+        this.reportPictures = reportPictures;
     }
 
     public String getObjectionConfirmation() {

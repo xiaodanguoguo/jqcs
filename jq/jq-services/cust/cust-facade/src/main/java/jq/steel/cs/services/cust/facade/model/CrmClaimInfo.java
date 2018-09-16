@@ -110,7 +110,7 @@ public class CrmClaimInfo {
 
     private String claimDesc;
 
-    private String claimReasion;
+    private String claimReason;
 
     private String claimState;
 
@@ -580,12 +580,12 @@ public class CrmClaimInfo {
         this.claimDesc = claimDesc == null ? null : claimDesc.trim();
     }
 
-    public String getClaimReasion() {
-        return claimReasion;
+    public String getClaimReason() {
+        return claimReason;
     }
 
-    public void setClaimReasion(String claimReasion) {
-        this.claimReasion = claimReasion == null ? null : claimReasion.trim();
+    public void setClaimReason(String claimReason) {
+        this.claimReason = claimReason;
     }
 
     public String getClaimState() {

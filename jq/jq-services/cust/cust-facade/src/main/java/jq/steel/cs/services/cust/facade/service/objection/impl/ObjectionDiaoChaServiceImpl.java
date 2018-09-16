@@ -253,8 +253,17 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
         // crmClaimInfo.setInquireState("");
         if(record.getType().equals(1)){
             crmClaimInfo.setInquireState("OUTSTART");
-        }else {
+        }else  if(record.getType().equals(2)){
             crmClaimInfo.setInquireState("INSTART");
+        }else {
+            CrmClaimApply crmClaimApply = new CrmClaimApply();
+            crmClaimApply.setClaimNo(crmClaimOutInquire.getClaimNo());
+            crmClaimApply.setClaimState("ACCEPTANCE");
+            crmClaimApplyMapper.update(crmClaimApply);
+
+            CrmClaimInfo crmClaimInfo1  = new CrmClaimInfo();
+            crmClaimInfo1.setClaimNo(crmClaimOutInquire.getClaimNo());
+            crmClaimInfo1.setClaimState("ACCEPTANCE");
         }
 
         int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);

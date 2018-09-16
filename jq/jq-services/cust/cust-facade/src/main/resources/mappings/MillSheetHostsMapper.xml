@@ -82,6 +82,17 @@
 
 
 
+  <!--异议提报插入异议单位-->
+  <select id="findDeptCode" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
+   SELECT
+    MILL_SHEET_NO,
+    DEPT_CODE
+FROM
+    WARRANTY.MILL_SHEET_HOSTS
+    WHERE
+MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
+  </select>
+
   <select id="findIsTrue" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
     SELECT
 A.STATE,

@@ -24,4 +24,6 @@ public interface MillSheetHostsMapper {
     //修改次数
     Integer updateNum(MillSheetHosts record);
 
+    List<MillSheetHosts> findDeptCode(MillSheetHosts record);
+
 }

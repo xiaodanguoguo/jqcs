@@ -50,7 +50,7 @@
     <result column="ADMISSIBILITY_USER" property="admissibilityUser" jdbcType="VARCHAR" />
     <result column="PRESENTATION_USER" property="presentationUser" jdbcType="VARCHAR" />
     <result column="REASONS_FOR_COMPULSORY_CLOSURE" property="reasonsForCompulsoryClosure" jdbcType="VARCHAR" />
-    <result column="REPORT_PICTURE" property="reportPicture" jdbcType="VARCHAR" />
+    <result column="REPORT_PICTURE" property="reportPictures" jdbcType="VARCHAR" />
     <result column="OBJECTION_CONFIRMATION" property="objectionConfirmation" jdbcType="VARCHAR" />
 
     <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
@@ -233,7 +233,7 @@
       #{lastUserAddr,jdbcType=VARCHAR}, #{createEmpNo,jdbcType=VARCHAR}, #{lastUserTel,jdbcType=VARCHAR}, 
       #{lastUserEmail,jdbcType=VARCHAR}, #{battenPlateNo,jdbcType=VARCHAR}, #{designation,jdbcType=VARCHAR}, 
       #{used,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, #{contractVolume,jdbcType=NUMERIC}, 
-      #{sizeMark,jdbcType=VARCHAR}, #{originalWeight,jdbcType=NUMERIC}, #{orderNo,jdbcType=VARCHAR}, 
+      #{specs,jdbcType=VARCHAR}, #{originalWeight,jdbcType=NUMERIC}, #{orderNo,jdbcType=VARCHAR},
       #{originalCarNo,jdbcType=VARCHAR}, #{contractUnitPrice,jdbcType=NUMERIC}, #{objectionNum,jdbcType=NUMERIC}, 
       #{endProcessingTech,jdbcType=VARCHAR}, #{claimDesc,jdbcType=VARCHAR}, #{claimReason,jdbcType=VARCHAR}, 
       #{steelType,jdbcType=VARCHAR}, #{proProblem,jdbcType=VARCHAR}, #{proDetail,jdbcType=VARCHAR}, 
@@ -242,7 +242,7 @@
       #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC},#{dissentingUnit,jdbcType=NUMERIC},
       #{admissibilityTime,jdbcType=TIMESTAMP},#{presentationDate,jdbcType=TIMESTAMP},
       #{admissibilityUser,jdbcType=VARCHAR},#{presentationUser,jdbcType=VARCHAR},
-      #{reasonsForCompulsoryClosure,jdbcType=VARCHAR},#{reportPicture,jdbcType=VARCHAR},#{objectionConfirmation ,jdbcType=NUMERIC})
+      #{reasonsForCompulsoryClosure,jdbcType=VARCHAR},#{reportPictures,jdbcType=VARCHAR},#{objectionConfirmation ,jdbcType=NUMERIC})
   </insert>
   <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
     <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
@@ -313,7 +313,7 @@
       <if test="contractVolume != null" >
         CONTRACT_VOLUME,
       </if>
-      <if test="sizeMark != null and sizeMark != ''" >
+      <if test="specs != null and specs != ''" >
         SIZE_MARK,
       </if>
       <if test="originalWeight != null" >
@@ -391,7 +391,7 @@
       <if test="reasonsForCompulsoryClosure != null and reasonsForCompulsoryClosure != ''" >
         REASONS_FOR_COMPULSORY_CLOSURE,
       </if>
-      <if test="reportPicture != null and reportPicture != ''" >
+      <if test="reportPictures != null and reportPictures != ''" >
         REPORT_PICTURE,
       </if>
       <if test="objectionConfirmation != null" >
@@ -462,8 +462,8 @@
       <if test="contractVolume != null" >
         #{contractVolume,jdbcType=NUMERIC},
       </if>
-      <if test="sizeMark != null and sizeMark != ''" >
-        #{sizeMark,jdbcType=VARCHAR},
+      <if test="specs != null and specs != ''" >
+        #{specs,jdbcType=VARCHAR},
       </if>
       <if test="originalWeight != null" >
         #{originalWeight,jdbcType=NUMERIC},
@@ -540,8 +540,8 @@
       <if test="reasonsForCompulsoryClosure != null and reasonsForCompulsoryClosure != ''" >
         #{reasonsForCompulsoryClosure,jdbcType=VARCHAR},
       </if>
-      <if test="reportPicture != null and reportPicture != ''" >
-        #{reportPicture,jdbcType=VARCHAR},
+      <if test="reportPictures != null and reportPictures != ''" >
+        #{reportPictures,jdbcType=VARCHAR},
       </if>
       <if test="objectionConfirmation != null" >
         #{objectionConfirmation ,jdbcType=NUMERIC}
@@ -609,8 +609,8 @@
       <if test="contractVolume != null" >
         CONTRACT_VOLUME = #{contractVolume,jdbcType=NUMERIC},
       </if>
-      <if test="sizeMark != null and sizeMark != ''" >
-        SIZE_MARK = #{sizeMark,jdbcType=VARCHAR},
+      <if test="specs != null and specs != ''" >
+        SIZE_MARK = #{specs,jdbcType=VARCHAR},
       </if>
       <if test="originalWeight != null" >
         ORIGINAL_WEIGHT = #{originalWeight,jdbcType=NUMERIC},
@@ -684,8 +684,8 @@
       <if test="reasonsForCompulsoryClosure != null and reasonsForCompulsoryClosure != ''" >
         REASONS_FOR_COMPULSORY_CLOSURE = #{reasonsForCompulsoryClosure,jdbcType=VARCHAR},
       </if>
-      <if test="reportPicture != null and reportPicture != ''" >
-        REPORT_PICTURE = #{reportPicture,jdbcType=VARCHAR},
+      <if test="reportPictures != null and reportPictures != ''" >
+        REPORT_PICTURE = #{reportPictures,jdbcType=VARCHAR},
       </if>
       <if test="objectionConfirmation != null" >
         OBJECTION_CONFIRMATION = #{objectionConfirmation ,jdbcType=NUMERIC}

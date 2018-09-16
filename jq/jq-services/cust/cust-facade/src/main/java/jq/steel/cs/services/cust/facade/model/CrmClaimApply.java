@@ -145,17 +145,17 @@ public class CrmClaimApply {
     private  String deptCode;
 
     //质量异议报告图片
-    private String reportPicture;
+    private String reportPictures;
 
     //异议确认量
     private  String objectionConfirmation;
 
-    public String getReportPicture() {
-        return reportPicture;
+    public String getReportPictures() {
+        return reportPictures;
     }
 
-    public void setReportPicture(String reportPicture) {
-        this.reportPicture = reportPicture;
+    public void setReportPictures(String reportPictures) {
+        this.reportPictures = reportPictures;
     }
 
     public String getObjectionConfirmation() {

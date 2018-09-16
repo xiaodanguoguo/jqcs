@@ -34,7 +34,7 @@
     <result column="OBJECTION_NUM" property="objectionNum" jdbcType="NUMERIC" />
     <result column="END_PROCESSING_TECH" property="endProcessingTech" jdbcType="VARCHAR" />
     <result column="CLAIM_DESC" property="claimDesc" jdbcType="VARCHAR" />
-    <result column="CLAIM_REASION" property="claimReasion" jdbcType="VARCHAR" />
+    <result column="CLAIM_REASION" property="claimReason" jdbcType="VARCHAR" />
     <result column="CLAIM_STATE" property="claimState" jdbcType="VARCHAR" />
     <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
     <result column="CHECK_STATE" property="checkState" jdbcType="VARCHAR" />
@@ -107,7 +107,7 @@
       #{used,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, #{contractVolume,jdbcType=NUMERIC}, 
       #{specs,jdbcType=VARCHAR}, #{originalWeight,jdbcType=NUMERIC}, #{orderNo,jdbcType=VARCHAR},
       #{originalCarNo,jdbcType=VARCHAR}, #{contractUnitPrice,jdbcType=NUMERIC}, #{objectionNum,jdbcType=NUMERIC}, 
-      #{endProcessingTech,jdbcType=VARCHAR}, #{claimDesc,jdbcType=VARCHAR}, #{claimReasion,jdbcType=VARCHAR}, 
+      #{endProcessingTech,jdbcType=VARCHAR}, #{claimDesc,jdbcType=VARCHAR}, #{claimReason,jdbcType=VARCHAR},
       #{claimState,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, #{checkState,jdbcType=VARCHAR}, 
       #{rejectReason,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, 
       #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC},#{dissentingUnit,jdbcType=NUMERIC},
@@ -217,7 +217,7 @@
       <if test="claimDesc != null and claimDesc != ''" >
         CLAIM_DESC,
       </if>
-      <if test="claimReasion != null and claimReasion != ''" >
+      <if test="claimReason != null and claimReason != ''" >
         CLAIM_REASION,
       </if>
       <if test="claimState != null and claimState != ''" >
@@ -244,7 +244,7 @@
       <if test="updatedDt != null" >
         UPDATED_DT,
       </if>
-      <if test="version != null'" >
+      <if test="version != null" >
         VERSION,
       </if>
       <if test="dissentingUnit != null" >
@@ -354,8 +354,8 @@
       <if test="claimDesc != null and claimDesc != ''" >
         #{claimDesc,jdbcType=VARCHAR},
       </if>
-      <if test="claimReasion != null and claimReasion != ''" >
-        #{claimReasion,jdbcType=VARCHAR},
+      <if test="claimReason != null and claimReason != ''" >
+        #{claimReason,jdbcType=VARCHAR},
       </if>
       <if test="claimState != null and claimState != ''" >
         #{claimState,jdbcType=VARCHAR},
@@ -489,8 +489,8 @@
       <if test="claimDesc != null and claimDesc != ''" >
         CLAIM_DESC = #{claimDesc,jdbcType=VARCHAR},
       </if>
-      <if test="claimReasion != null and claimReasion != ''" >
-        CLAIM_REASION = #{claimReasion,jdbcType=VARCHAR},
+      <if test="claimReason != null and claimReason != ''" >
+        CLAIM_REASION = #{claimReason,jdbcType=VARCHAR},
       </if>
       <if test="claimState != null and claimState != ''" >
         CLAIM_STATE = #{claimState,jdbcType=VARCHAR},

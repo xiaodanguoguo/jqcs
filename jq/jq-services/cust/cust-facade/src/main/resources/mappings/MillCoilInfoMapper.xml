@@ -18,6 +18,7 @@
     <result column="ZDCZT" property="zdczt" jdbcType="VARCHAR" />
     <result column="ZJHZT" property="zjhzt" jdbcType="VARCHAR" />
     <result column="MILL_SHEET_NO" property="millsheetNo" jdbcType="VARCHAR" />
+    <result column="HH" property="millSheetNo" jdbcType="VARCHAR" />
     <result column="ZBMJD" property="zbmjd" jdbcType="VARCHAR" />
     <result column="ZBZFS" property="zbzfs" jdbcType="VARCHAR" />
     <result column="ZTSBZ" property="ztsbz" jdbcType="VARCHAR" />
@@ -119,6 +120,7 @@
 
   <select id="findIsTrue" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo">
    SELECT
+   A.MILL_SHEET_NO AS hh,
   A.SPECS AS specs,
   A.ZLOSMENGE AS  originalWeight
   FROM

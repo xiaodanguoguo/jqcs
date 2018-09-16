@@ -15,9 +15,9 @@ public interface CrmClaimApplyMapper {
 
     CrmClaimApply select(CrmClaimApply record);
 
-    int updateByPrimaryKeySelective(CrmClaimApply record);
+   /* int updateByPrimaryKeySelective(CrmClaimApply record);
 
-    int updateByPrimaryKey(CrmClaimApply record);
+    int updateByPrimaryKey(CrmClaimApply record);*/
 
     List<CrmClaimApply> findByPage(CrmClaimApply record);
 

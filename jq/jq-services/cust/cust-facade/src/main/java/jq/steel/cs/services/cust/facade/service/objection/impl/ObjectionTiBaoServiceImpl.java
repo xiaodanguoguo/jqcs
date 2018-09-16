@@ -25,6 +25,7 @@ import jq.steel.cs.services.cust.facade.service.objection.CrmLastuserInfoService
 import jq.steel.cs.services.cust.facade.service.objection.ObjectionTiBaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -150,6 +151,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
 
     //新增修改销售审核保存驳回通过  保存数据
     @Override
+    @Transactional
     public Integer update(ObjectionTiBaoVO objectionTiBaoVO) {
         String orgCode = objectionTiBaoVO.getOrgCode();
         String orgName = objectionTiBaoVO.getOrgName();
@@ -188,15 +190,18 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 h.setUpdatedDt(new Date());
                 h.setUpdatedBy(orgCode);
                 h.setClaimNo(crmClaimApply.getClaimNo());
-                h.setClaimState("ACCEPTANCE");
+                h.setClaimState("ADOPT");
                 h.setAdmissibilityTime(new Date());
                 h.setAdmissibilityUser(orgCode);
+                h.setProProblem(crmClaimApply.getProProblem());
                 crmClaimApplyMapper.update(h);
                 CrmClaimInfo g  = new CrmClaimInfo();
                 g.setUpdatedDt(new Date());
                 g.setUpdatedBy(orgCode);
                 g.setClaimNo(crmClaimApply.getClaimNo());
-                g.setClaimState("ACCEPTANCE");
+                g.setClaimState("ADOPT");
+                g.setProProblem(crmClaimInfo.getProProblem());
+                g.setClaimType(crmClaimInfo.getClaimType());
                 Integer integer = crmClaimInfoMapper.updateByPrimaryKeySelective(g);
                 return  integer;
             }else if(crmClaimApply.getOptionStuts()== 4){
@@ -205,8 +210,25 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 Integer integer = crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
                 return  integer;
             }else if(crmClaimApply.getOptionStuts()== 5){
-                //获取head表产品名称
+
                 String millsheetNO = objectionTiBaoVO.getMillSheetNo();
+                //获取生产厂家
+                MillSheetHosts millSheetHosts = new MillSheetHosts();
+                millSheetHosts.setMillSheetNo(millsheetNO);
+                List<MillSheetHosts> millSheetHosts1  = millSheetHostsMapper.findDeptCode(millSheetHosts);
+                String deptCode = millSheetHosts1.get(0).getDeptCode();
+                Integer dissentingUnit;
+                //1000：不锈钢厂2000：炼轧厂2200：碳钢薄板厂3000：榆钢工厂
+                if (deptCode.equals("1000")){
+                    dissentingUnit=3;
+                }else if(deptCode.equals("2000")){
+                    dissentingUnit=1;
+                }else if (deptCode.equals("3000")){
+                    dissentingUnit=2;
+                }else {
+                    dissentingUnit=4;
+                }
+                //获取head表产品名称
                 MillSheetHead millSheetHead = new MillSheetHead();
                 millSheetHead.setMillSheetNo(millsheetNO);
                 MillSheetHead millSheetHead1 = millSheetHeadMapper.findCategoryCode(millSheetHead);
@@ -227,6 +249,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                     crmClaimInfo.setCreatedDt(new Date());
                     crmClaimInfo.setCreatedBy(orgCode);
                     crmClaimInfo.setClaimNo(claimNo);
+                    crmClaimInfo.setDissentingUnit(dissentingUnit);
                     Integer integer1 =crmClaimInfoMapper.insertSelective(crmClaimInfo);
                     return  integer;
                 }
