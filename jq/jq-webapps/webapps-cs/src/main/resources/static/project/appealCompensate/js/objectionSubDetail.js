@@ -580,7 +580,7 @@ function clsUploadCtrl$successAfter(ctrl, response)
 function clsUploadCtrl$deleteImg(ctrl) {
     if(ctrl.parents("#filePath").length == 1){
         ctrl.parents("#uploadBox").removeClass("comUploadAfter");
-        c,"../images/comUploadBg1.png")
+        ctrl.attr("src","../images/comUploadBg1.png");
         document.body.jsLee.filePath = [];
         $("#filePath *[id=uploadBox] img").each(function(){
             if($(this).attr("src") != "../images/comUploadBg1.png"){
