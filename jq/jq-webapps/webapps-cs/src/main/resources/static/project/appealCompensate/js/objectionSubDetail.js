@@ -612,7 +612,7 @@ function filePathShow(arrStr,str2,type){//type 1是复现数据   2是不可编�
         }
         //质量异议报告图片:
         $("#reportPicturesA #uploadBox").attr("uploadbgsrc",str2);
-        document.body.jsCtrl.ctrl = $("#reportPicturesA #uploadBox");
+        document.body.jsCtrl.ctrl = $("#reportPicturesA #uploadBox")[0];
         document.body.jsCtrl.init();
         $("#reportPicturesA #uploadBox").addClass("comUploadAfter");
     }else{
