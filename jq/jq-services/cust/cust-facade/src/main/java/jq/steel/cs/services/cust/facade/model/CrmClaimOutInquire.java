@@ -7,6 +7,10 @@ import java.util.Date;
 
 public class CrmClaimOutInquire {
 
+    private  String objectionConfirmation;
+
+    private  String reportPicture;
+
     //销售经理建议
     private  String salesManagerSuggests;
     //调查事实阐述photo
@@ -176,6 +180,23 @@ public class CrmClaimOutInquire {
     //内部调查时间
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date internalLnvestigationDate;
+
+
+    public String getObjectionConfirmation() {
+        return objectionConfirmation;
+    }
+
+    public void setObjectionConfirmation(String objectionConfirmation) {
+        this.objectionConfirmation = objectionConfirmation;
+    }
+
+    public String getReportPicture() {
+        return reportPicture;
+    }
+
+    public void setReportPicture(String reportPicture) {
+        this.reportPicture = reportPicture;
+    }
 
     public String getSalesManagerSuggests() {
         return salesManagerSuggests;

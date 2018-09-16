@@ -52,12 +52,13 @@
     <result column="INTERNAL_LNVESTIGATOR" property="internalLnvestigator" jdbcType="VARCHAR" />
     <result column="INTERNAL_LNVESTIGATION_DATE" property="internalLnvestigationDate" jdbcType="TIMESTAMP" />
     <result column="REJECT_REASON" property="rejectReason" jdbcType="VARCHAR" />
-
+    <result column="REPORT_PICTURE" property="reportPicture" jdbcType="VARCHAR" />
     <result column="SALES_MANAGER_SUGGESTS" property="salesManagerSuggests" jdbcType="VARCHAR" />
     <result column="INQUIRE_INFO_PHOTO" property="inquireInfoPhoto" jdbcType="VARCHAR" />
     <result column="INQUIRE_INFO_TEXT" property="inquireInfoText" jdbcType="VARCHAR" />
     <result column="INQUIRE_INFO_ALL" property="inquireInfoAll" jdbcType="VARCHAR" />
-
+    <result column="DISSENTING_UNIT" property="dissentingUnit" jdbcType="NUMERIC" />
+    <result column="OBJECTION_CONFIRMATION" property="objectionConfirmation" jdbcType="VARCHAR" />
   </resultMap>
   <!--<resultMap id="ResultMapWithBLOBs" type="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" extends="BaseResultMap" >
     <result column="INQUIRE_INFO" property="inquireInfo" jdbcType="CLOB" />
@@ -160,6 +161,12 @@ A.BATTEN_PLATE_NO,
 A.ORIGINAL_CAR_NO,
 A.LAST_USER_ADDR,
 A.CONTRACT_NO,
+A.CLAIM_TYPE,
+A.DESIGNATION,
+A.SIZE_MARK,
+A.REPORT_PICTURE,
+A.DISSENTING_UNIT,
+A.OBJECTION_CONFIRMATION,
 B.LOGISTICS_PROCESS,
 B.END_PROCESSING_TECH,
 B.DEFECT_NAME,
@@ -172,7 +179,7 @@ B.HANDING_SUGGESTION,
 B.INQUIRE_STATE,
 B.FOLLOW_REASON,
 B.REJECT_REASON,
-B.AMOUNT_OF_USE
+B.AMOUNT_OF_USE,
 FROM
 WARRANTY.CRM_CLAIM_INFO A
 LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO

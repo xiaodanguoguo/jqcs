@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class ObjectionDiaoChaVO {
 
+    private Integer dissentingUnit;
+
     /*内部调查字段*/
     //生产工艺过程调查
     private  String productionProcessInvestigati;
@@ -223,6 +225,34 @@ public class ObjectionDiaoChaVO {
 
     //润乾地址
     private  String report;
+
+    private  String  reportPicture;
+
+    private  String objectionConfirmation;
+
+    public String getObjectionConfirmation() {
+        return objectionConfirmation;
+    }
+
+    public void setObjectionConfirmation(String objectionConfirmation) {
+        this.objectionConfirmation = objectionConfirmation;
+    }
+
+    public String getReportPicture() {
+        return reportPicture;
+    }
+
+    public void setReportPicture(String reportPicture) {
+        this.reportPicture = reportPicture;
+    }
+
+    public Integer getDissentingUnit() {
+        return dissentingUnit;
+    }
+
+    public void setDissentingUnit(Integer dissentingUnit) {
+        this.dissentingUnit = dissentingUnit;
+    }
 
     public String getSalesManagerSuggests() {
         return salesManagerSuggests;
