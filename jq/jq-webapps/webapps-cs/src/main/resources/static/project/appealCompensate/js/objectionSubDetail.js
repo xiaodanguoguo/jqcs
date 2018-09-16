@@ -548,7 +548,7 @@ function boxChecked(){
     initValidate($("#submitBox")[0]);
     var valiClass=new clsValidateCtrl();
     if(document.body.jsLee.htmlType == 4 || document.body.jsLee.htmlType == 6){//外部调查  确认书审核
-        if(!valiClass.validateAll4Ctrl($("#submitBox")[0]) || !document.body.jsLee.selectedMark.selMark2 || !UE.getEditor('editor').getContent() || !UE.getEditor('editor2').getContent();){
+        if(!valiClass.validateAll4Ctrl($("#submitBox")[0]) || !document.body.jsLee.selectedMark.selMark2 || !UE.getEditor('editor').getContent() || !UE.getEditor('editor2').getContent()){
             if(!document.body.jsLee.selectedMark.selMark2){
                 showErrInfoByCustomDiv($("#claimTypeA")[0],"请选择异议类别!");
             }
