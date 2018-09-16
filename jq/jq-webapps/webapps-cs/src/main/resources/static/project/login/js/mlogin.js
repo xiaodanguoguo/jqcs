@@ -14,7 +14,7 @@ function clsMethodLee(){
 
 function clsMethodLee$init(){
     //$(".login__index").css("height",window.innerHeight+"px");
-    $('#drag').drag();
+    $('#dragMark').drag();
     this.userName = $("#js-input--username");//用户名input节点
     this.password = $("#js-input-password");//密码input节点
     this.errorHint = $("#js-loginFrom__errorHint--hide");//错误提示节点
@@ -62,9 +62,13 @@ function clsMethodLee$operate(){
     this.loginBtn.on("click",function(){//提交按钮操作
         initValidate($(".loginFrom")[0]);
         var valiClass=new clsValidateCtrl();
-        if(valiClass.validateAll4Ctrl($(".loginFrom")[0])){
+        if(valiClass.validateAll4Ctrl($(".loginFrom")[0]) && document.body.jsLee.checkMark){
             var jsonParam = {"acctId":document.body.jsLee.userName.val(),"password":document.body.jsLee.password.val()};
             getAjaxResult(document.body.jsLee.requestUrl.path1,"POST",jsonParam,"submitCallBack(data)")
+        }else {
+            if(!document.body.jsLee.checkMark){
+                showErrInfoByCustomDiv($("#dragMark")[0],"请通过滑动校验!");
+            }
         }
 
     });
@@ -145,7 +149,6 @@ function validateBefore(){//滑动校验前的操作
 
 function validatePass(handler,text,drag){//滑动校验成功返回函数
     document.body.jsLee.checkMark = true;
-    checkInput();
 }
 
 function checkInput(){//校验输入信息
@@ -188,6 +191,25 @@ function clsAlertBoxCtrl$sure() {//登陆成功弹框确定
     }else if(this.id == "loginTipErrTip"){//登陆失败
         closePopupWin();
     }
+}
+
+//按照组件重新编写div校验
+function showErrInfoByCustomDiv(elem,error)
+{
+    $(elem).poshytip({
+        className: 'tip-twitter',
+        showOn: 'none',
+        alignTo: 'target',
+        alignX: 'right',
+        alignY: 'inner-right',
+        content:error,
+        offsetX: 5,
+        offsetY: -30,
+        autoHide:true,
+        hideTimeout:5000
+    });
+    $(elem).poshytip('hide');
+    $(elem).poshytip('show');
 }
 
 $(function(){

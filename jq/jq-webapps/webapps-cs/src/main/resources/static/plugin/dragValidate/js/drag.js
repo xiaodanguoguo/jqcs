@@ -64,8 +64,8 @@
 			if(typeof(validatePass) == "function")
 				validatePass(handler,text,drag);
 
-			$(".drag_bg").css("width",$(".drag_bg").parent().width()-$(".handler_ok_bg").width()+"px");
-			$(".handler_ok_bg").css("left",$(".drag_bg").parent().width()-$(".handler_ok_bg").width()+"px");
+            handler.parent().find(".drag_bg").css("width",$(".drag_bg").parent().width()-$(".handler_ok_bg").width()+"px");
+            handler.parent().find(".handler_ok_bg").css("left",$(".drag_bg").parent().width()-$(".handler_ok_bg").width()+"px");
         }
     };
 })(jQuery);
