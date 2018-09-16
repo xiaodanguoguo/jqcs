@@ -27,6 +27,9 @@
     <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
     <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
     <result column="VERSION" property="version" jdbcType="DECIMAL" />
+
+    <result column="SPECS" property="specs" jdbcType="VARCHAR" />
+    <result column="ORIGINALWEIGHT" property="originalWeight" jdbcType="DECIMAL" />
   </resultMap>
 
   <resultMap id="FullMap" type="jq.steel.cs.services.cust.facade.model.MillCoilInfo" >
@@ -116,16 +119,12 @@
 
   <select id="findIsTrue" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo">
    SELECT
-  A.ZCHARG,
-  A.ZCHEHAO,
-  A.ZLPH,
-  A.SPECS,
-  A.ZLOSMENGE,
-  A.MILL_SHEET_NO
+  A.SPECS AS specs,
+  A.ZLOSMENGE AS  originalWeight
   FROM
   WARRANTY.MILL_COIL_INFO A
     WHERE
-    A.MILL_SHEET_NO= #{millsheetNo,jdbcType=VARCHAR} AND A.ZCHARG= #{zcharg,jdbcType=VARCHAR}
+    A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR} AND A.ZCHARG= #{zcharg,jdbcType=VARCHAR}
   </select>
 
 

@@ -34,6 +34,13 @@
     <result column="ZHTH" property="zhth" jdbcType="VARCHAR" />
     <result column="ZPH" property="zph" jdbcType="VARCHAR" />
     <result column="TOTAL_ZLOSMENGE" property="totalZlosmenge" jdbcType="DECIMAL" />
+    <result column="ORIGINALCARNO" property="originalCarNo" jdbcType="VARCHAR" />
+    <result column="CONTRACTNO" property="contractNo" jdbcType="VARCHAR" />
+    <result column="CONTRACTVOLUME" property="contractVolume" jdbcType="DECIMAL" />
+    <result column="DESIGNATION" property="designation" jdbcType="VARCHAR" />
+    <result column="ZCPMC" property="zcpmc" jdbcType="VARCHAR" />
+    <result column="PRODUCTNAME" property="productName" jdbcType="VARCHAR" />
+
   </resultMap>
 
 
@@ -100,15 +107,18 @@ A.ZKUNWE,
 A.FREQUENCY_OF_SPLIT,
 A.SPLIT_MAX_VALUE,
 A.MANUAL_MARKING,
-B.ZCHEHAO,
-B.ZHTH,
-B.TOTAL_ZLOSMENGE,
-B.ZPH
+B.ZCHEHAO AS originalCarNo,
+B.ZHTH AS contractNo,
+B.TOTAL_ZLOSMENGE AS contractVolume,
+B.ZPH AS designation,
+(select T.TYPE_NAME from sgai_md_common_type t
+    WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
+    WHERE T.TYPE_NAME=B.ZCPMC)) AS PRODUCTNAME
 FROM
 WARRANTY.MILL_SHEET_HOSTS A
 LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     WHERE
-    A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR}
+    A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR} AND  A.STATE IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED')
   </select>
 
   <select id="findMillSheetByPage" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
@@ -171,7 +181,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       <if test="spiltCustomer != null  and zph != ''" >
         AND MSH.SPILT_CUSTOMER = #{spiltCustomer,jdbcType=VARCHAR}
       </if>
-
+      AND  MSO.STATE IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED')
     </trim>
   </select>
 
@@ -247,7 +257,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     FROM
     WARRANTY.MILL_SHEET_HOSTS A
     WHERE
-    A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR}
+    A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR} AND  A.STATE IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED')
   </select>
 
 

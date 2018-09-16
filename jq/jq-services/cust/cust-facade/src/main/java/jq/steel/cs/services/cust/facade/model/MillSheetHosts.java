@@ -8,6 +8,15 @@ import java.util.Date;
 import java.util.List;
 
 public class MillSheetHosts {
+
+    private  String originalCarNo;
+
+    private  String contractNo;
+
+    private BigDecimal contractVolume;
+
+    private String designation;
+
     //合同重量
     private BigDecimal totalZlosmenge;
 
@@ -22,14 +31,6 @@ public class MillSheetHosts {
 
     private List<String> millSheetNos;
 
-
-    public List<String> getMillSheetNos() {
-        return millSheetNos;
-    }
-
-    public void setMillSheetNos(List<String> millSheetNos) {
-        this.millSheetNos = millSheetNos;
-    }
 
     private int isSplit;
 
@@ -105,9 +106,58 @@ public class MillSheetHosts {
 
     //zcpmc
     private  String zcpmc;
+    private  String productName;
 
     //客户名称
     private  String spiltCustomer;
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getOriginalCarNo() {
+        return originalCarNo;
+    }
+
+    public void setOriginalCarNo(String originalCarNo) {
+        this.originalCarNo = originalCarNo;
+    }
+
+    public String getContractNo() {
+        return contractNo;
+    }
+
+    public void setContractNo(String contractNo) {
+        this.contractNo = contractNo;
+    }
+
+    public BigDecimal getContractVolume() {
+        return contractVolume;
+    }
+
+    public void setContractVolume(BigDecimal contractVolume) {
+        this.contractVolume = contractVolume;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public List<String> getMillSheetNos() {
+        return millSheetNos;
+    }
+
+    public void setMillSheetNos(List<String> millSheetNos) {
+        this.millSheetNos = millSheetNos;
+    }
 
     public BigDecimal getTotalZlosmenge() {
         return totalZlosmenge;

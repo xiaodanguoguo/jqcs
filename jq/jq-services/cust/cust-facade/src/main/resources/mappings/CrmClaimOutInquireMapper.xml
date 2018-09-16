@@ -53,6 +53,11 @@
     <result column="INTERNAL_LNVESTIGATION_DATE" property="internalLnvestigationDate" jdbcType="TIMESTAMP" />
     <result column="REJECT_REASON" property="rejectReason" jdbcType="VARCHAR" />
 
+    <result column="SALES_MANAGER_SUGGESTS" property="salesManagerSuggests" jdbcType="VARCHAR" />
+    <result column="INQUIRE_INFO_PHOTO" property="inquireInfoPhoto" jdbcType="VARCHAR" />
+    <result column="INQUIRE_INFO_TEXT" property="inquireInfoText" jdbcType="VARCHAR" />
+    <result column="INQUIRE_INFO_ALL" property="inquireInfoAll" jdbcType="VARCHAR" />
+
   </resultMap>
   <!--<resultMap id="ResultMapWithBLOBs" type="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" extends="BaseResultMap" >
     <result column="INQUIRE_INFO" property="inquireInfo" jdbcType="CLOB" />
@@ -185,14 +190,18 @@ LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
       SHIFT, FIELD_CONCLUSION, USER_REQUIREMENT, 
       HANDING_SUGGESTION, INQUIRE_STATE, FOLLOW_REASON, 
       CREATE_BY, CREATE_DT, UPDATE_BY, 
-      UPDATE_DT, VERSION, INQUIRE_INFO
+      UPDATE_DT, VERSION, INQUIRE_INFO,REJECT_REASON
+      AMOUNT_OF_USE,SALES_MANAGER_SUGGESTS,INQUIRE_INFO_PHOTO,
+      INQUIRE_INFO_TEXT,INQUIRE_INFO_ALL
       )
     values (#{sid,jdbcType=NUMERIC}, #{claimNo,jdbcType=VARCHAR}, #{logisticsProcess,jdbcType=VARCHAR}, 
       #{endProcessingTech,jdbcType=VARCHAR}, #{defectName,jdbcType=VARCHAR}, #{productDt,jdbcType=TIMESTAMP}, 
       #{shift,jdbcType=VARCHAR}, #{fieldConclusion,jdbcType=VARCHAR}, #{userRequirement,jdbcType=VARCHAR}, 
       #{handingSuggestion,jdbcType=VARCHAR}, #{inquireState,jdbcType=VARCHAR}, #{followReason,jdbcType=VARCHAR}, 
       #{createBy,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
-      #{updateDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC}, #{inquireInfo,jdbcType=CLOB}
+      #{updateDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC}, #{inquireInfo,jdbcType=VARCHAR},
+    #{rejectReason,jdbcType=VARCHAR},#{amountOfUse,jdbcType=NUMERIC},#{salesManagerSuggests,jdbcType=VARCHAR},#{inquireInfoPhoto,jdbcType=VARCHAR},
+    #{inquireInfoText,jdbcType=VARCHAR},#{inquireInfoAll,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
@@ -255,6 +264,24 @@ LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
       <if test="inquireInfo != null and inquireInfo != ''" >
         INQUIRE_INFO,
       </if>
+      <if test="rejectReason != null and rejectReason != ''" >
+        REJECT_REASON,
+      </if>
+      <if test="amountOfUse != null" >
+        AMOUNT_OF_USE,
+      </if>
+      <if test="salesManagerSuggests != null and salesManagerSuggests != ''" >
+        SALES_MANAGER_SUGGESTS,
+      </if>
+      <if test="inquireInfoPhoto != null and inquireInfoPhoto != ''" >
+        INQUIRE_INFO_PHOTO,
+      </if>
+      <if test="inquireInfoText != null and inquireInfoText != ''" >
+        INQUIRE_INFO_TEXT,
+      </if>
+      <if test="inquireInfoAll != null and inquireInfoAll != ''" >
+        INQUIRE_INFO_ALL,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="sid != null" >
@@ -309,7 +336,25 @@ LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
         #{version,jdbcType=NUMERIC},
       </if>
       <if test="inquireInfo != null and inquireInfo != ''" >
-        #{inquireInfo,jdbcType=CLOB},
+        #{inquireInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectReason != null and rejectReason != ''" >
+        #{rejectReason,jdbcType=VARCHAR},
+      </if>
+      <if test="amountOfUse != null" >
+        #{amountOfUse,jdbcType=NUMERIC},
+      </if>
+      <if test="salesManagerSuggests != null and salesManagerSuggests != ''" >
+        #{salesManagerSuggests,jdbcType=VARCHAR},
+      </if>
+      <if test="inquireInfoPhoto != null and inquireInfoPhoto != ''" >
+        #{inquireInfoPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="inquireInfoText != null and inquireInfoText != ''" >
+        #{inquireInfoText,jdbcType=VARCHAR},
+      </if>
+      <if test="inquireInfoAll != null and inquireInfoAll != ''" >
+        #{inquireInfoAll,jdbcType=VARCHAR}
       </if>
     </trim>
   </insert>
@@ -348,7 +393,28 @@ LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
         USER_REQUIREMENT = #{userRequirement,jdbcType=VARCHAR},
       </if>
       <if test="handingSuggestion != null and handingSuggestion != ''" >
-        HANDING_SUGGESTION = #{handingSuggestion,jdbcType=VARCHAR}
+        HANDING_SUGGESTION = #{handingSuggestion,jdbcType=VARCHAR},
+      </if>
+      <if test="inquireState != null and inquireState != ''" >
+        INQUIRE_STATE = #{inquireState,jdbcType=VARCHAR},
+      </if>
+      <if test="followReason != null and followReason != ''" >
+        FOLLOW_REASON = #{followReason,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectReason != null and rejectReason != ''" >
+        REJECT_REASON = #{rejectReason,jdbcType=VARCHAR},
+      </if>
+      <if test="salesManagerSuggests != null and salesManagerSuggests != ''" >
+        SALES_MANAGER_SUGGESTS =  #{salesManagerSuggests,jdbcType=VARCHAR},
+      </if>
+      <if test="inquireInfoPhoto != null and inquireInfoPhoto != ''" >
+        INQUIRE_INFO_PHOTO = #{inquireInfoPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="inquireInfoText != null and inquireInfoText != ''" >
+        INQUIRE_INFO_TEXT = #{inquireInfoText,jdbcType=VARCHAR},
+      </if>
+      <if test="inquireInfoAll != null and inquireInfoAll != ''" >
+        INQUIRE_INFO_ALL = #{inquireInfoAll,jdbcType=VARCHAR}
       </if>
     </trim>
     where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}

@@ -18,6 +18,14 @@
     <result column="UPDATE_DT" property="updateDt" jdbcType="TIMESTAMP" />
     <result column="VERSION" property="version" jdbcType="NUMERIC" />
 
+    <result column="PRODUCTION_PROCESS_INVESTIGATI" property="productionProcessInvestigati" jdbcType="VARCHAR" />
+    <result column="PRODUCTION_PROCESS_PHOTO" property="productionProcessPhoto" jdbcType="VARCHAR" />
+    <result column="QUALITY_GRADE" property="qualityGrade" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_JUDGEMENT_RESULT" property="originalJudgementResult" jdbcType="VARCHAR" />
+    <result column="SURFACE_STRUCTURE" property="surfaceStructure" jdbcType="VARCHAR" />
+    <result column="PRODUCTION_PROCESS_TEXT" property="productionProcessText" jdbcType="VARCHAR" />
+    <result column="PRODUCTION_PROCESS_ALL" property="productionProcessAll" jdbcType="VARCHAR" />
+
   </resultMap>
   <select id="findByParams" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInnerInquire" >
     SELECT
@@ -38,15 +46,21 @@
       END_PROCESSING_TECH, OUT_INQUIRE_FACT, CLAIM_CONFIRM, 
       CLAIM_VERDICT, IMPROVEMENT, INQUIRE_STATE, 
       MEMO, CREATE_BY, CREATE_DT, 
-      UPDATE_BY, UPDATE_DT, VERSION
+      UPDATE_BY, UPDATE_DT, VERSION,PRODUCTION_PROCESS_INVESTIGATI,
+    PRODUCTION_PROCESS_PHOTO,QUALITY_GRADE,ORIGINAL_JUDGEMENT_RESULT,
+    SURFACE_STRUCTURE,PRODUCTION_PROCESS_TEXT,PRODUCTION_PROCESS_ALL
       )
     values (#{sid,jdbcType=NUMERIC}, #{claimNo,jdbcType=VARCHAR}, #{logisticsProcess,jdbcType=VARCHAR}, 
       #{endProcessingTech,jdbcType=VARCHAR}, #{outInquireFact,jdbcType=VARCHAR}, #{claimConfirm,jdbcType=VARCHAR}, 
       #{claimVerdict,jdbcType=VARCHAR}, #{improvement,jdbcType=VARCHAR}, #{inquireState,jdbcType=VARCHAR}, 
       #{memo,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP}, 
-      #{updateBy,jdbcType=VARCHAR}, #{updateDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC}
-      )
+      #{updateBy,jdbcType=VARCHAR}, #{updateDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC},
+    #{productionProcessInvestigati,jdbcType=VARCHAR},#{productionProcessPhoto,jdbcType=VARCHAR},#{qualityGrade,jdbcType=VARCHAR},
+    #{originalJudgementResult,jdbcType=VARCHAR},#{surfaceStructure,jdbcType=VARCHAR},#{productionProcessText,jdbcType=VARCHAR},
+    #{productionProcessAll,jdbcType=VARCHAR}
+    )
   </insert>
+
   <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInnerInquire" >
     <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
       SELECT SEQ_CRM_CLAIM_INNER_INQUIRE.nextval  FROM DUAL
@@ -98,6 +112,28 @@
       <if test="version != null" >
         VERSION,
       </if>
+
+      <if test="productionProcessInvestigati != null" >
+        PRODUCTION_PROCESS_INVESTIGATI,
+      </if>
+      <if test="productionProcessPhoto != null" >
+        PRODUCTION_PROCESS_PHOTO,
+      </if>
+      <if test="qualityGrade != null" >
+        QUALITY_GRADE,
+      </if>
+      <if test="originalJudgementResult != null" >
+        ORIGINAL_JUDGEMENT_RESULT,
+      </if>
+      <if test="surfaceStructure != null" >
+        SURFACE_STRUCTURE,
+      </if>
+      <if test="productionProcessText != null" >
+        PRODUCTION_PROCESS_TEXT,
+      </if>
+      <if test="productionProcessAll != null" >
+        PRODUCTION_PROCESS_ALL,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="sid != null" >
@@ -145,6 +181,27 @@
       <if test="version != null" >
         #{version,jdbcType=NUMERIC},
       </if>
+      <if test="productionProcessInvestigati != null" >
+        #{productionProcessInvestigati,jdbcType=VARCHAR},
+      </if>
+      <if test="productionProcessPhoto != null" >
+        #{productionProcessPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="qualityGrade != null" >
+        #{qualityGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="originalJudgementResult != null" >
+        #{originalJudgementResult,jdbcType=VARCHAR},
+      </if>
+      <if test="surfaceStructure != null" >
+        #{surfaceStructure,jdbcType=VARCHAR},
+      </if>
+      <if test="productionProcessText != null" >
+        #{productionProcessText,jdbcType=VARCHAR},
+      </if>
+      <if test="productionProcessAll != null" >
+        #{productionProcessAll,jdbcType=VARCHAR}
+      </if>
     </trim>
   </insert>
 
@@ -163,6 +220,27 @@
     </if>
     <if test="improvement != null" >
       IMPROVEMENT = #{improvement,jdbcType=VARCHAR},
+    </if>
+    <if test="productionProcessInvestigati != null" >
+      PRODUCTION_PROCESS_INVESTIGATI = #{productionProcessInvestigati,jdbcType=VARCHAR},
+    </if>
+    <if test="productionProcessPhoto != null" >
+      PRODUCTION_PROCESS_PHOTO =  #{productionProcessPhoto,jdbcType=VARCHAR},
+    </if>
+    <if test="qualityGrade != null" >
+      QUALITY_GRADE = #{qualityGrade,jdbcType=VARCHAR},
+    </if>
+    <if test="originalJudgementResult != null" >
+      ORIGINAL_JUDGEMENT_RESULT = #{originalJudgementResult,jdbcType=VARCHAR},
+    </if>
+    <if test="surfaceStructure != null" >
+      SURFACE_STRUCTURE = #{surfaceStructure,jdbcType=VARCHAR},
+    </if>
+    <if test="productionProcessText != null" >
+      PRODUCTION_PROCESS_TEXT = #{productionProcessText,jdbcType=VARCHAR},
+    </if>
+    <if test="productionProcessAll != null" >
+      PRODUCTION_PROCESS_ALL= #{productionProcessAll,jdbcType=VARCHAR}
     </if>
   </trim>
   where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}

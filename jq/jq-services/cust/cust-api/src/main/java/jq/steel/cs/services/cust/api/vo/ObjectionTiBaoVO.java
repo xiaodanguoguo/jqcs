@@ -7,6 +7,12 @@ import java.util.Date;
 
 public class ObjectionTiBaoVO {
 
+    //质量异议报告图片
+    private String reportPicture;
+
+    //异议确认量
+    private  String objectionConfirmation;
+
     //规格
     private String specs;
 
@@ -158,6 +164,22 @@ public class ObjectionTiBaoVO {
     private  String report;
 
     private Integer count;
+
+    public String getReportPicture() {
+        return reportPicture;
+    }
+
+    public void setReportPicture(String reportPicture) {
+        this.reportPicture = reportPicture;
+    }
+
+    public String getObjectionConfirmation() {
+        return objectionConfirmation;
+    }
+
+    public void setObjectionConfirmation(String objectionConfirmation) {
+        this.objectionConfirmation = objectionConfirmation;
+    }
 
     public String getSpecs() {
         return specs;

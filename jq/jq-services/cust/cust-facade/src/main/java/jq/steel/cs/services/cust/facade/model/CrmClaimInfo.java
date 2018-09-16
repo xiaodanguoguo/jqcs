@@ -148,6 +148,28 @@ public class CrmClaimInfo {
     //提报人
     private  String presentationUser;
 
+    //质量异议报告图片
+    private String reportPicture;
+
+    //异议确认量
+    private  String objectionConfirmation;
+
+    public String getReportPicture() {
+        return reportPicture;
+    }
+
+    public void setReportPicture(String reportPicture) {
+        this.reportPicture = reportPicture;
+    }
+
+    public String getObjectionConfirmation() {
+        return objectionConfirmation;
+    }
+
+    public void setObjectionConfirmation(String objectionConfirmation) {
+        this.objectionConfirmation = objectionConfirmation;
+    }
+
     public String getZph() {
         return zph;
     }

@@ -7,6 +7,38 @@ import java.util.Date;
 
 public class ObjectionDiaoChaVO {
 
+    /*内部调查字段*/
+    //生产工艺过程调查
+    private  String productionProcessInvestigati;
+
+    //生产工艺过程调查photo
+    private  String productionProcessPhoto;
+
+    //质量等级
+    private  String qualityGrade;
+
+    //原判定结果
+    private  String originalJudgementResult;
+
+    //表面结构
+    private  String surfaceStructure;
+
+    //生产工艺过程调查TEXT
+    private  String productionProcessText;
+
+    //生产工艺过程调查富文本
+    private  String productionProcessAll;
+    /**/
+
+    //销售经理建议
+    private  String salesManagerSuggests;
+    //调查事实阐述photo
+    private  String inquireInfoPhoto;
+    //调查事实阐述text
+    private  String inquireInfoText;
+    //调查事实阐述富文本
+    private  String inquireInfoAll;
+
     //产品名称
     private  String zcpmc;
 
@@ -191,6 +223,38 @@ public class ObjectionDiaoChaVO {
 
     //润乾地址
     private  String report;
+
+    public String getSalesManagerSuggests() {
+        return salesManagerSuggests;
+    }
+
+    public void setSalesManagerSuggests(String salesManagerSuggests) {
+        this.salesManagerSuggests = salesManagerSuggests;
+    }
+
+    public String getInquireInfoPhoto() {
+        return inquireInfoPhoto;
+    }
+
+    public void setInquireInfoPhoto(String inquireInfoPhoto) {
+        this.inquireInfoPhoto = inquireInfoPhoto;
+    }
+
+    public String getInquireInfoText() {
+        return inquireInfoText;
+    }
+
+    public void setInquireInfoText(String inquireInfoText) {
+        this.inquireInfoText = inquireInfoText;
+    }
+
+    public String getInquireInfoAll() {
+        return inquireInfoAll;
+    }
+
+    public void setInquireInfoAll(String inquireInfoAll) {
+        this.inquireInfoAll = inquireInfoAll;
+    }
 
     public Date getAdmissibilityTime() {
         return admissibilityTime;
@@ -815,5 +879,61 @@ public class ObjectionDiaoChaVO {
 
     public void setFollowReason(String followReason) {
         this.followReason = followReason;
+    }
+
+    public String getProductionProcessInvestigati() {
+        return productionProcessInvestigati;
+    }
+
+    public void setProductionProcessInvestigati(String productionProcessInvestigati) {
+        this.productionProcessInvestigati = productionProcessInvestigati;
+    }
+
+    public String getProductionProcessPhoto() {
+        return productionProcessPhoto;
+    }
+
+    public void setProductionProcessPhoto(String productionProcessPhoto) {
+        this.productionProcessPhoto = productionProcessPhoto;
+    }
+
+    public String getQualityGrade() {
+        return qualityGrade;
+    }
+
+    public void setQualityGrade(String qualityGrade) {
+        this.qualityGrade = qualityGrade;
+    }
+
+    public String getOriginalJudgementResult() {
+        return originalJudgementResult;
+    }
+
+    public void setOriginalJudgementResult(String originalJudgementResult) {
+        this.originalJudgementResult = originalJudgementResult;
+    }
+
+    public String getSurfaceStructure() {
+        return surfaceStructure;
+    }
+
+    public void setSurfaceStructure(String surfaceStructure) {
+        this.surfaceStructure = surfaceStructure;
+    }
+
+    public String getProductionProcessText() {
+        return productionProcessText;
+    }
+
+    public void setProductionProcessText(String productionProcessText) {
+        this.productionProcessText = productionProcessText;
+    }
+
+    public String getProductionProcessAll() {
+        return productionProcessAll;
+    }
+
+    public void setProductionProcessAll(String productionProcessAll) {
+        this.productionProcessAll = productionProcessAll;
     }
 }

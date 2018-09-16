@@ -4,6 +4,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class MillCoilInfo {
+    //异议提报界面输入的millSheetNo
+    private  String millSheetNo;
+
+    private  String originalWeight;
 
     //校验说明
     private String checkInstructions;
@@ -65,6 +69,22 @@ public class MillCoilInfo {
     private Date updatedDt;
 
     private Short version;
+
+    public String getMillSheetNo() {
+        return millSheetNo;
+    }
+
+    public void setMillSheetNo(String millSheetNo) {
+        this.millSheetNo = millSheetNo;
+    }
+
+    public String getOriginalWeight() {
+        return originalWeight;
+    }
+
+    public void setOriginalWeight(String originalWeight) {
+        this.originalWeight = originalWeight;
+    }
 
     public String getCheckInstructions() {
         return checkInstructions;

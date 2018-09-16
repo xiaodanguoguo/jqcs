@@ -7,6 +7,15 @@ import java.util.Date;
 
 public class CrmClaimOutInquire {
 
+    //销售经理建议
+    private  String salesManagerSuggests;
+    //调查事实阐述photo
+    private  String inquireInfoPhoto;
+    //调查事实阐述text
+    private  String inquireInfoText;
+    //调查事实阐述富文本
+    private  String inquireInfoAll;
+
     private  String zph;
     //产品大类
     private  String zcpmc;
@@ -167,6 +176,38 @@ public class CrmClaimOutInquire {
     //内部调查时间
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date internalLnvestigationDate;
+
+    public String getSalesManagerSuggests() {
+        return salesManagerSuggests;
+    }
+
+    public void setSalesManagerSuggests(String salesManagerSuggests) {
+        this.salesManagerSuggests = salesManagerSuggests;
+    }
+
+    public String getInquireInfoPhoto() {
+        return inquireInfoPhoto;
+    }
+
+    public void setInquireInfoPhoto(String inquireInfoPhoto) {
+        this.inquireInfoPhoto = inquireInfoPhoto;
+    }
+
+    public String getInquireInfoText() {
+        return inquireInfoText;
+    }
+
+    public void setInquireInfoText(String inquireInfoText) {
+        this.inquireInfoText = inquireInfoText;
+    }
+
+    public String getInquireInfoAll() {
+        return inquireInfoAll;
+    }
+
+    public void setInquireInfoAll(String inquireInfoAll) {
+        this.inquireInfoAll = inquireInfoAll;
+    }
 
     public String getZph() {
         return zph;

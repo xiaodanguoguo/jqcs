@@ -50,6 +50,8 @@
     <result column="ADMISSIBILITY_USER" property="admissibilityUser" jdbcType="VARCHAR" />
     <result column="PRESENTATION_USER" property="presentationUser" jdbcType="VARCHAR" />
     <result column="REASONS_FOR_COMPULSORY_CLOSURE" property="reasonsForCompulsoryClosure" jdbcType="VARCHAR" />
+    <result column="REPORT_PICTURE" property="reportPicture" jdbcType="VARCHAR" />
+    <result column="OBJECTION_CONFIRMATION" property="objectionConfirmation" jdbcType="VARCHAR" />
 
     <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
     <result column="INQUIRE_STATE" property="inquireState" jdbcType="VARCHAR" />
@@ -223,7 +225,7 @@
       CLAIM_STATE, FILE_PATH, REJECT_REASON, 
       CREATED_BY, CREATED_DT, UPDATED_BY, 
       UPDATED_DT, VERSION,DISSENTING_UNIT,ADMISSIBILITY_TIME,
-      PRESENTATION_DATE,ADMISSIBILITY_USER,PRESENTATION_USER,REASONS_FOR_COMPULSORY_CLOSURE)
+      PRESENTATION_DATE,ADMISSIBILITY_USER,PRESENTATION_USER,REASONS_FOR_COMPULSORY_CLOSURE,REPORT_PICTURE,OBJECTION_CONFIRMATION)
     values (#{sid,jdbcType=NUMERIC}, #{claimNo,jdbcType=VARCHAR}, #{productId,jdbcType=NUMERIC}, 
       #{productName,jdbcType=VARCHAR}, #{millSheetNo,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, 
       #{customerName,jdbcType=VARCHAR}, #{custAddr,jdbcType=VARCHAR}, #{custEmpNo,jdbcType=VARCHAR}, 
@@ -240,7 +242,7 @@
       #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC},#{dissentingUnit,jdbcType=NUMERIC},
       #{admissibilityTime,jdbcType=TIMESTAMP},#{presentationDate,jdbcType=TIMESTAMP},
       #{admissibilityUser,jdbcType=VARCHAR},#{presentationUser,jdbcType=VARCHAR},
-      #{reasonsForCompulsoryClosure,jdbcType=VARCHAR})
+      #{reasonsForCompulsoryClosure,jdbcType=VARCHAR},#{reportPicture,jdbcType=VARCHAR},#{objectionConfirmation ,jdbcType=NUMERIC})
   </insert>
   <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
     <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
@@ -387,7 +389,13 @@
         PRESENTATION_USER,
       </if>
       <if test="reasonsForCompulsoryClosure != null and reasonsForCompulsoryClosure != ''" >
-        REASONS_FOR_COMPULSORY_CLOSURE
+        REASONS_FOR_COMPULSORY_CLOSURE,
+      </if>
+      <if test="reportPicture != null and reportPicture != ''" >
+        REPORT_PICTURE,
+      </if>
+      <if test="objectionConfirmation != null" >
+        OBJECTION_CONFIRMATION,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -530,7 +538,13 @@
         #{presentationUser,jdbcType=VARCHAR},
       </if>
       <if test="reasonsForCompulsoryClosure != null and reasonsForCompulsoryClosure != ''" >
-        #{reasonsForCompulsoryClosure,jdbcType=VARCHAR}
+        #{reasonsForCompulsoryClosure,jdbcType=VARCHAR},
+      </if>
+      <if test="reportPicture != null and reportPicture != ''" >
+        #{reportPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="objectionConfirmation != null" >
+        #{objectionConfirmation ,jdbcType=NUMERIC}
       </if>
     </trim>
   </insert>
@@ -668,7 +682,13 @@
         PRESENTATION_USER = #{presentationUser,jdbcType=VARCHAR},
       </if>
       <if test="reasonsForCompulsoryClosure != null and reasonsForCompulsoryClosure != ''" >
-        REASONS_FOR_COMPULSORY_CLOSURE = #{reasonsForCompulsoryClosure,jdbcType=VARCHAR}
+        REASONS_FOR_COMPULSORY_CLOSURE = #{reasonsForCompulsoryClosure,jdbcType=VARCHAR},
+      </if>
+      <if test="reportPicture != null and reportPicture != ''" >
+        REPORT_PICTURE = #{reportPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="objectionConfirmation != null" >
+        OBJECTION_CONFIRMATION = #{objectionConfirmation ,jdbcType=NUMERIC}
       </if>
     </trim>
     where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}

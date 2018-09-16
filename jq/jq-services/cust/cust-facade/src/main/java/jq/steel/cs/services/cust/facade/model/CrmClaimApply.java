@@ -144,6 +144,27 @@ public class CrmClaimApply {
     //管理单位代码（1000：不锈钢厂2000：炼轧厂2200：碳钢薄板厂3000：榆钢工厂）
     private  String deptCode;
 
+    //质量异议报告图片
+    private String reportPicture;
+
+    //异议确认量
+    private  String objectionConfirmation;
+
+    public String getReportPicture() {
+        return reportPicture;
+    }
+
+    public void setReportPicture(String reportPicture) {
+        this.reportPicture = reportPicture;
+    }
+
+    public String getObjectionConfirmation() {
+        return objectionConfirmation;
+    }
+
+    public void setObjectionConfirmation(String objectionConfirmation) {
+        this.objectionConfirmation = objectionConfirmation;
+    }
 
     public String getInquireState() {
         return inquireState;

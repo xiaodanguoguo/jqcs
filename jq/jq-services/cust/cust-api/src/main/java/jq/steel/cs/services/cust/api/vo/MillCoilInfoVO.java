@@ -7,20 +7,16 @@ import java.util.Date;
 public class MillCoilInfoVO implements Serializable {
 
 
+    private  String millSheetNo;
+
+    private  String originalWeight;
+
     //校验说明
     private String checkInstructions;
     //校验结果
     private Boolean isTrue;
 
     private String spiltCustomer;
-
-    public String getSpiltCustomer() {
-        return spiltCustomer;
-    }
-
-    public void setSpiltCustomer(String spiltCustomer) {
-        this.spiltCustomer = spiltCustomer;
-    }
 
     private  String orgCode;
 
@@ -84,6 +80,30 @@ public class MillCoilInfoVO implements Serializable {
     private Date updatedDt;
 
     private Short version;
+
+    public String getMillSheetNo() {
+        return millSheetNo;
+    }
+
+    public void setMillSheetNo(String millSheetNo) {
+        this.millSheetNo = millSheetNo;
+    }
+
+    public String getSpiltCustomer() {
+        return spiltCustomer;
+    }
+
+    public void setSpiltCustomer(String spiltCustomer) {
+        this.spiltCustomer = spiltCustomer;
+    }
+
+    public String getOriginalWeight() {
+        return originalWeight;
+    }
+
+    public void setOriginalWeight(String originalWeight) {
+        this.originalWeight = originalWeight;
+    }
 
     public String getCheckInstructions() {
         return checkInstructions;

@@ -56,7 +56,8 @@
     <result column="AGREEMENT_NAME" property="agreementName" jdbcType="VARCHAR" />
     <result column="AGREEMENT_STATE" property="agreementState" jdbcType="VARCHAR" />
     <result column="REASONS_FOR_COMPULSORY_CLOSURE" property="reasonsForCompulsoryClosure" jdbcType="VARCHAR" />
-
+    <result column="REPORT_PICTURE" property="reportPicture" jdbcType="VARCHAR" />
+    <result column="OBJECTION_CONFIRMATION" property="objectionConfirmation" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     SID, CLAIM_NO, PRODUCT_ID, PRODUCT_NAME, MILL_SHEET_NO, CUSTOMER_ID, CUSTOMER_NAME, 
@@ -94,7 +95,7 @@
       END_PROCESSING_TECH, CLAIM_DESC, CLAIM_REASION, 
       CLAIM_STATE, FILE_PATH, CHECK_STATE, 
       REJECT_REASON, CREATED_BY, CREATED_DT, 
-      UPDATED_BY, UPDATED_DT, VERSION,DISSENTING_UNIT,INQUIRE_STATE
+      UPDATED_BY, UPDATED_DT, VERSION,DISSENTING_UNIT,INQUIRE_STATE,REPORT_PICTURE,OBJECTION_CONFIRMATION
       )
     values (#{sid,jdbcType=NUMERIC}, #{claimNo,jdbcType=VARCHAR}, #{productId,jdbcType=NUMERIC}, 
       #{productName,jdbcType=VARCHAR}, #{millSheetNo,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, 
@@ -110,7 +111,7 @@
       #{claimState,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, #{checkState,jdbcType=VARCHAR}, 
       #{rejectReason,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, 
       #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC},#{dissentingUnit,jdbcType=NUMERIC},
-      #{inquireState,jdbcType=VARCHAR}
+      #{inquireState,jdbcType=VARCHAR},#{reportPicture,jdbcType=VARCHAR},#{objectionConfirmation ,jdbcType=NUMERIC}
       )
   </insert>
 
@@ -249,6 +250,12 @@
       <if test="dissentingUnit != null" >
         DISSENTING_UNIT,
       </if>
+      <if test="reportPicture != null and reportPicture != ''" >
+        REPORT_PICTURE,
+      </if>
+      <if test="objectionConfirmation != null" >
+        OBJECTION_CONFIRMATION,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="sid != null" >
@@ -380,6 +387,12 @@
       <if test="dissentingUnit != null" >
         #{dissentingUnit,jdbcType=NUMERIC},
       </if>
+      <if test="reportPicture != null and reportPicture != ''" >
+        #{reportPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="objectionConfirmation != null" >
+        #{objectionConfirmation ,jdbcType=NUMERIC}
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInfo" >
@@ -508,6 +521,12 @@
       </if>
       <if test="inquireState != null and inquireState != ''" >
         INQUIRE_STATE = #{inquireState,jdbcType=VARCHAR},
+      </if>
+      <if test="reportPicture != null and reportPicture != ''" >
+        REPORT_PICTURE = #{reportPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="objectionConfirmation != null" >
+        OBJECTION_CONFIRMATION = #{objectionConfirmation ,jdbcType=NUMERIC}
       </if>
     </trim>
     where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
