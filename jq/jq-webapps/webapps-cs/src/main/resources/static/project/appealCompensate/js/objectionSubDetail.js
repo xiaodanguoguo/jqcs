@@ -73,14 +73,14 @@ function clsMethodLee$init(){
 function clsMethodLee$parse(){
     //判断页面类型（进行显示隐藏dom节点）0——新建 1修改 2——详情  3——销售审核  4——外部调查  5——内部调查 6-确认书审核（外部调查不可编辑）7-销售审核详情（销售审核不可编辑）
     switch (Number(this.htmlType)){
-        //差异class  box01 box2  box3  box23 box4  box5  box013  box27 box6
+        //差异class  box01 box2  box3  box23 box4  box5  box013  box237 box6
         case 0://新建
             $("#boxSecond").remove();
             //$(".box01").remove();
             //$(".box013").remove();x
             $(".box2").remove();
             $(".box23").remove();
-            $(".box27").remove();
+            $(".box237").remove();
             $(".box3").remove();
             $(".box4").remove();
             $(".box5").remove();
@@ -93,7 +93,7 @@ function clsMethodLee$parse(){
             //$(".box013").remove();
             $(".box2").remove();
             $(".box23").remove();
-            $(".box27").remove();
+            $(".box237").remove();
             $(".box3").remove();
             $(".box4").remove();
             $(".box5").remove();
@@ -106,7 +106,7 @@ function clsMethodLee$parse(){
             $(".box013").remove();
             //$(".box2").remove();
             //$(".box23").remove();
-            //$(".box27").remove();
+            //$(".box237").remove();
             $(".box3").remove();
             $(".box4").remove();
             $(".box5").remove();
@@ -121,7 +121,7 @@ function clsMethodLee$parse(){
             //$(".box013").remove();
             $(".box2").remove();
             //$(".box23").remove();
-            $(".box27").remove();
+            //$(".box237").remove();
             //$(".box3").remove();
             $(".box4").remove();
             $(".box5").remove();
@@ -140,7 +140,7 @@ function clsMethodLee$parse(){
             $(".box013").remove();
             $(".box2").remove();
             $(".box23").remove();
-            $(".box27").remove();
+            $(".box237").remove();
             $(".box3").remove();
             //$(".box4").remove();
             $(".box5").remove();
@@ -153,7 +153,7 @@ function clsMethodLee$parse(){
             $(".box013").remove();
             $(".box2").remove();
             $(".box23").remove();
-            $(".box27").remove();
+            $(".box237").remove();
             $(".box3").remove();
             $(".box4").parents("#parentBox").css("height","138px");
             $(".box4").remove();
@@ -172,7 +172,7 @@ function clsMethodLee$parse(){
             $(".box013").remove();
             $(".box2").remove();
             $(".box23").remove();
-            $(".box27").remove();
+            $(".box237").remove();
             $(".box3").remove();
             //$(".box4").remove();
             $(".box5").remove();
@@ -187,7 +187,7 @@ function clsMethodLee$parse(){
             //$(".box013").remove();
             $(".box2").remove();
             //$(".box23").remove();
-            $(".box27").remove();
+            //$(".box237").remove();
             //$(".box3").remove();
             $(".box4").remove();
             $(".box5").remove();
@@ -438,7 +438,7 @@ function htmlInit(data){//数据回显回调
             $("#productNameA").find("input[value=" + data.rspBody.productName + "]").attr("checked",true);
             //$(".disNone").show().parent().next().addClass("required");
             //回显上传图片地址
-            filePathShow(data.rspBody.filePath,data.rspBody.reportPictures,1);
+            filePathShow(data.rspBody.filePath,data.rspBody.reportPictures,2);
         }else if(document.body.jsLee.htmlType == 7){//销售审核详情页面
             //异议单位赋值
             $("#dissentingUnitA").find("input[value=" + data.rspBody.dissentingUnit + "]").attr("checked",true);
