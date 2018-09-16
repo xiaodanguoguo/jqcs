@@ -38,8 +38,9 @@ function jumpUrl(strUrl,status,jumpType,data)
                 break;
             case "0200000":
                 var allPath = escape(document.location.href);
-                clearCookie("sid",jsonReqHeaderData);
-                objWin.href = "../../login/html-gulp-www/login.html";
+                // clearCookie("sid",jsonReqHeaderData);
+                setCookie("urlPath",allPath);
+                objWin.href = "../../login/html-gulp-www/login.html?overtime=1";
                 break;
             default:
                 if(status != 0000000 && data != null)

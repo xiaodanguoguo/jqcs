@@ -180,7 +180,11 @@ function submitCallBack(data){
 function clsAlertBoxCtrl$sure() {//登陆成功弹框确定
     if (this.id == "loginTip") {//登陆成功
         closePopupWin();
-        jumpUrl("../../homePage/html-gulp-www/homePage.html","0000000",0);
+        if(GetQueryString("overtime") == 1){
+            jumpUrl(unescape(getCookie("urlPath")),"0000000",0);
+        }else{
+            jumpUrl("../../homePage/html-gulp-www/homePage.html","0000000",0);
+        }
     }else if(this.id == "loginTipErrTip"){//登陆失败
         closePopupWin();
     }
