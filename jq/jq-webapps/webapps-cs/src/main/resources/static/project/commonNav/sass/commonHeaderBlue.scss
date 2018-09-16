@@ -68,31 +68,33 @@
 
 .og-head-nav{
   width: 1200px;
-  height:100px;
-  margin: 0 auto 10px;
+  height:65px;
+  margin: 0 auto;
+  background: #fff;
 }
 .og-head-navwrap{
   width:1200px;
   margin:0 auto;
   overflow:hidden;
-  background:$bg_main;
+  /*background:$bg_main;*/
   color: $fc_ff;
 }
 //6390f3
 .og-head-navlogo{
   width: 190px;
-  height: 100px;
+  /*height: 100px;*/
   display: block;
   float: left;
   padding-left:10px;
 
   &__logoimg{
-    width: 214px;
-    height: 64px;
+    width: 250px;
+    height: 48px;
     display: block;
     background: url("../images/logo.png") no-repeat 0 center;
-    background-size: 214px 64px;
-    margin-top: 18px;
+    background-size: 250px 48px;
+    margin-top: 10px;
+    margin-left: 10px;
   }
 }
 .og-head-navlist{

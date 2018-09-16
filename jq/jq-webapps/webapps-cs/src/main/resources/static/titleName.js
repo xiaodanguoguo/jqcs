@@ -72,17 +72,19 @@ function titleEval(titleJson){//赋值每一个页面的title
                     if(urlText.indexOf("htmlType=0") != -1 && key2 == "objectionSubDetail.html"){
                         document.title = "异议提报-新建";
                     }else if(urlText.indexOf("htmlType=1") != -1 && key2 == "objectionSubDetail.html"){
-                        document.title = "异议提报-详情";
-                    }else if(urlText.indexOf("htmlType=2") != -1 && key2 == "objectionSubDetail.html"){
-                        document.title = "销售审核";
-                    }else if(urlText.indexOf("htmlType=3") != -1 && key2 == "objectionSubDetail.html"){
-                        document.title = "外部调查-录入界面";
-                    }else if(urlText.indexOf("htmlType=4") != -1 && key2 == "objectionSubDetail.html"){
-                        document.title = "内部调查";
-                    }else if(urlText.indexOf("htmlType=5") != -1 && key2 == "objectionSubDetail.html"){
                         document.title = "异议提报-修改";
+                    }else if(urlText.indexOf("htmlType=2") != -1 && key2 == "objectionSubDetail.html"){
+                        document.title = "异议提报-详情";
+                    }else if(urlText.indexOf("htmlType=3") != -1 && key2 == "objectionSubDetail.html"){
+                        document.title = "销售审核";
+                    }else if(urlText.indexOf("htmlType=4") != -1 && key2 == "objectionSubDetail.html"){
+                        document.title = "外部调查-录入界面";
+                    }else if(urlText.indexOf("htmlType=5") != -1 && key2 == "objectionSubDetail.html"){
+                        document.title = "内部调查";
                     }else if(urlText.indexOf("htmlType=6") != -1 && key2 == "objectionSubDetail.html"){
                         document.title = "确认书审核";
+                    }else if(urlText.indexOf("htmlType=7") != -1 && key2 == "objectionSubDetail.html"){
+                        document.title = "销售审核详情";
                     }
                     //异议处理协议书
                     if(urlText.indexOf("htmlType=1") != -1 && key2 == "agreementBook.html"){
