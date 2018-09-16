@@ -34,7 +34,13 @@ function checkForm(){//提交tab1
 }
 
 function validatePass(handler,text,drag){//滑动校验成功返回函数
-    checkDrag = true;
+    if(handler.parents("*[dragMark=loginMark]").length > 0){
+        document.body.jsLee.checkMark = true;
+       // $('#drag').html("").drag();
+    }else{
+        checkDrag = true;
+        //$('#dragMark').html("").drag();
+    }
 }
 
 //按照组件重新编写div校验
