@@ -50,11 +50,13 @@
 
 .og-head-nav { width: 1200px; height: 65px; margin: 0 auto; background: #fff; }
 
-.og-head-navwrap { width: 1200px; margin: 0 auto; overflow: hidden; /*background:$bg_main;*/ color: #fff; }
+.og-head-navwrap { width: 1200px; margin: 0 auto; overflow: hidden; background: #6390f3; color: #fff; }
 
-.og-head-navlogo { width: 190px; /*height: 100px;*/ display: block; float: left; padding-left: 10px; }
+.og-head-navlogo { /* width: 280px;*/ /*height: 100px;*/ display: block; float: left; padding-left: 10px; }
 
 .og-head-navlogo__logoimg { width: 250px; height: 48px; display: block; background: url("../images/logo.png") no-repeat 0 center; background-size: 250px 48px; margin-top: 10px; margin-left: 10px; }
+
+.og-head-navlogo__logoText { color: #666; line-height: 60px; margin-left: 30px; font-size: 16px; }
 
 .og-head-navlist { float: left; height: 60px; width: 872px; color: #333; }
 
@@ -116,13 +118,13 @@
 
 .navwrap-role-div span { display: inline-block; line-height: 60px; }
 
-.og-head-navwrap-box { line-height: 100px; margin-right: 24px; }
+.og-head-navwrap-box { line-height: 65px; margin-right: 24px; }
 
 .og-head-navwrap-boxList { float: left; margin-left: 30px; color: #fff; }
 
 .og-head-navwrap-opeBox { padding-right: 20px; }
 
-.og-head-navwrap-opeBoxList { margin-right: 6px; color: #fff; float: left; line-height: 100px; }
+.og-head-navwrap-opeBoxList { margin-right: 6px; color: #fff; float: left; line-height: 65px; }
 
 .og-head-navwrap-opeBoxListImg { width: 30px; height: 30px; margin-right: 6px; margin-top: 35px; background-size: 30px 30px; }
 

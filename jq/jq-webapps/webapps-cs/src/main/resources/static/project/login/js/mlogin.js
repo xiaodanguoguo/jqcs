@@ -35,6 +35,7 @@ function clsMethodLee$parse(){
         $("#js-input-password").val(getCookie("acctPassword"));
     }
     initplugPath($("#imgListLun")[0],"standardTableCtrl",this.requestUrl.path2,{},"POST");
+    $("#titleNameHead").html("| 客户登录")
     this.operate();
 }
 

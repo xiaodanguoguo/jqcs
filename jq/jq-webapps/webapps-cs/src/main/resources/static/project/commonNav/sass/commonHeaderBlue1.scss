@@ -76,7 +76,8 @@
   width:1200px;
   margin:0 auto;
   overflow:hidden;
-  background:$bg_main;
+  background: #fff;
+  /*background:$bg_main;*/
   color: $fc_ff;
 }
 //6390f3
@@ -287,7 +288,7 @@
 
 
 .og-head-navwrap-box{
-  line-height: 65px;
+  line-height: 100px;
   margin-right: 24px;
 }
 .og-head-navwrap-boxList{
@@ -302,7 +303,7 @@
   margin-right: 6px;
   color: #fff;
   float: left;
-  line-height: 65px;
+  line-height: 100px;
 }
 .og-head-navwrap-opeBoxListImg{
   width: 30px;
