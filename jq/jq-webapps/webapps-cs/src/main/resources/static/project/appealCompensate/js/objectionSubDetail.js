@@ -145,6 +145,7 @@ function clsMethodLee$parse(){
             //$(".box4").remove();
             $(".box5").remove();
             $(".box6").remove();
+            $("#amountOfUse").removeAttr("disabled").removeClass("changeGary")
             getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"claimNo":this.claimNo,"optionType":1},"htmlInit2(data)");//数据回显操作
             break;
         case 5://内部调查
@@ -192,6 +193,7 @@ function clsMethodLee$parse(){
             $(".box4").remove();
             $(".box5").remove();
             $(".box6").remove();
+            $(".box3:last").remove();
             $("#submitBox input").attr("disabled",true).addClass("changeGary");
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
             getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":this.claimNo,"optionType":4},"htmlInit(data)");//数据回显操作
@@ -432,6 +434,10 @@ function htmlInit(data){//数据回显回调
             //回显上传图片地址
             filePathShow(data.rspBody.filePath,data.rspBody.reportPictures,2);
         }else if(document.body.jsLee.htmlType == 3){//销售审核页面
+            //异议类别赋值
+            if(data.rspBody.claimType){
+                $("#claimTypeA").find("input").eq(data.rspBody.claimType - 1).attr("checked",true);
+            };
             //异议单位赋值
             $("#dissentingUnitA").find("input[value=" + data.rspBody.dissentingUnit + "]").attr("checked",true);
             //异议类别赋值
@@ -440,6 +446,10 @@ function htmlInit(data){//数据回显回调
             //回显上传图片地址
             filePathShow(data.rspBody.filePath,data.rspBody.reportPictures,2);
         }else if(document.body.jsLee.htmlType == 7){//销售审核详情页面
+            //异议类别赋值
+            if(data.rspBody.claimType){
+                $("#claimTypeA").find("input").eq(data.rspBody.claimType - 1).attr("checked",true);
+            };
             //异议单位赋值
             $("#dissentingUnitA").find("input[value=" + data.rspBody.dissentingUnit + "]").attr("checked",true);
             //异议类别赋值
@@ -454,6 +464,29 @@ function htmlInit2(data){//数据回显回调
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         setValue4Desc(data.rspBody,$("#submitBox")[0])//赋值
+        switch(Number(data.rspBody.claimType)){
+            case 1:
+                $("#claimTypeA").val("表面外观").attr("markCode",1);
+                break;
+            case 2:
+                $("#claimTypeA").val("理化性能").attr("markCode",2);
+                break;
+            case 3:
+                $("#claimTypeA").val("加工使用").attr("markCode",3);
+                break;
+            case 4:
+                $("#claimTypeA").val("尺寸公差").attr("markCode",4);
+                break;
+            case 5:
+                $("#claimTypeA").val("实物不符").attr("markCode",5);
+                break;
+            case 6:
+                $("#claimTypeA").val("计量").attr("markCode",6);
+                break;
+            case 7:
+                $("#claimTypeA").val("其他").attr("markCode",7);
+                break;
+        };
         if(document.body.jsLee.htmlType == 4){//外部调查
             //富文本数据回显
             var ue = UE.getEditor('editor');
@@ -527,22 +560,32 @@ function boxChecked(){
 function paramJson(){
     var jsonParam = {"claimNo":"","productName":"","millSheetNo":"","customerId":"","customerName":"","custAddr":"","custEmpNo":"","custTel":"","lastUserId":"","lastUser":"","lastUserAddr":"","createEmpNo":"","lastUserTel":"","battenPlateNo":"","designation":"","used":"","contractNo":"","contractVolume":"","specs":"","originalWeight":"","orderNo":"","originalCarNo":"","contractUnitPrice":"","objectionNum":"","endProcessingTech":"","claimDesc":"","claimReason":"","rejectReason":"","productDt":"","shift":"","userRequirement":"","handingSuggestion":"","inquireInfo":"","fieldConclusion":"","claimVerdict":"","improvement":"","amountOfUse":"","proProblem":""};
     getValue4Desc(jsonParam,$("#submitBox")[0]);
-    //异议单位
-    jsonParam.dissentingUnit = $("#dissentingUnitA input:checked").val();
-    if(document.body.jsLee.htmlType == 3){//销售审核
-        //异议类别
-        jsonParam.claimType = $("#claimTypeA input:checked").val();
-    }
     //上传图片
     jsonParam.filePath = document.body.jsLee.filePath.join(";");
     jsonParam.reportPictures = document.body.jsLee.reportPictures;
     //富文本编辑器
-    if(document.body.jsLee.htmlType == 4){//外部调查
+    if(document.body.jsLee.htmlType == 3){//销售审核
+        //异议类别
+        jsonParam.claimType = $("#claimTypeA input:checked").val();
+        //异议单位
+        jsonParam.dissentingUnit = $("#dissentingUnitA input:checked").val();
+    }else if(document.body.jsLee.htmlType == 4){//外部调查
         jsonParam.inquireInfo = UE.getEditor('editor').getContent();
         jsonParam.fieldConclusion = UE.getEditor('editor2').getContent();
+        //异议分类和缺陷分类获取值（同一个字段）
+        jsonParam.claimType = $("#claimTypeA").attr("markCode");
     }else if(document.body.jsLee.htmlType == 5){//内部调查
         jsonParam.inquireInfo = UE.getEditor('editor').getContent();
-
+        //异议分类和缺陷分类获取值（同一个字段）
+        jsonParam.claimType = $("#claimTypeA").attr("markCode");
+    }else if(document.body.jsLee.htmlType == 6){//通知书审核
+        //异议分类和缺陷分类获取值（同一个字段）
+        jsonParam.claimType = $("#claimTypeA").attr("markCode");
+    }else if(document.body.jsLee.htmlType == 7){//销售审核详情
+        //异议分类和缺陷分类获取值（同一个字段）
+        jsonParam.claimType = $("#claimTypeA input:checked").val();
+        //异议单位
+        jsonParam.dissentingUnit = $("#dissentingUnitA input:checked").val();
     }
     return jsonParam;
 }
