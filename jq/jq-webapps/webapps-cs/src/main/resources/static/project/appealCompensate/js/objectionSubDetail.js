@@ -18,7 +18,7 @@ function clsMethodLee(){
     this.htmlType = GetQueryString("htmlType");//判断页面类型0——新建 1修改 2——详情  3——销售审核  4——外部调查  5——内部调查 6-确认书审核  7-销售审核详情页面
     this.claimNo = GetQueryString("claimNo") == null ? "":GetQueryString("claimNo");//异议编号
     this.filePath = [];//异议产品图片:
-    this.reportPictures = [];//质量异议报告图片:
+    this.reportPictures = "";//质量异议报告图片:
     this.selectedMark = {//判断发生异议单位和异议类别是否选中
         "selMark1":true,
         "selMark2":true
@@ -657,7 +657,7 @@ function clsUploadCtrl$deleteImg(ctrl) {
             }
         });
     }else{
-        document.body.jsLee.reportPictures = [];
+        document.body.jsLee.reportPictures = "";
     }
 
 }
