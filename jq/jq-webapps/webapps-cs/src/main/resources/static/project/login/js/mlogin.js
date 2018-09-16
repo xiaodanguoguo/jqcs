@@ -159,8 +159,8 @@ function checkInput(){//校验输入信息
 function submitCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        var alertBox=new clsAlertBoxCtrl();
-        alertBox.Alert("登陆成功","成功提示",1,"","loginTip");
+        /*var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert("登陆成功","成功提示",1,"","loginTip");*/
         if($("#isSavePassword").is(":checked")){
             setCookie("isTrue",1);
             setCookie("acctTitle",$("#js-input--username").val());
@@ -170,6 +170,7 @@ function submitCallBack(data){
             setCookie("acctTitle",$("#js-input--username").val());
             setCookie("acctPassword",$("#js-input-password").val());
         }
+        jumpUrl("../../homePage/html-gulp-www/homePage.html","0000000",0);
     }/*else {
         var alertBox=new clsAlertBoxCtrl();
         alertBox.Alert(data.retDesc,"失败提示",1,"","loginTipErrTip");
