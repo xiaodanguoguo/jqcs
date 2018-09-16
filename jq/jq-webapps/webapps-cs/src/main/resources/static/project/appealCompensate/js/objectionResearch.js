@@ -254,8 +254,10 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         });
         //受理操作
         $(cloneRow).find("#acceptOpe").on("click",function(){
-            getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":jsonItem.claimNo,"type":3},"acceptOpeCallBack(data)");
-
+            document.body.jsLee.claimNo = jsonItem.claimNo;
+            //弹框
+            var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert("是否受理此条异议？","警告提示",1,"","acceptOpeTip");
         });
     }
 }
@@ -357,6 +359,9 @@ function clsAlertBoxCtrl$sure() {//成功弹框确定
     if (this.id == "rejectSuccess") {
         initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
         closePopupWin();
+    }else if(this.id == "acceptOpeTip"){
+        closePopupWin();
+        getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":document.body.jsLee.claimNo,"type":3},"acceptOpeCallBack(data)");
     }
 }
 
