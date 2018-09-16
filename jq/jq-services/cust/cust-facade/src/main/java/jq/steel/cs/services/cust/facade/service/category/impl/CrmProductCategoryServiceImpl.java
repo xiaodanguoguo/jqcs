@@ -4,7 +4,6 @@ import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.ebase.core.AssertContext;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.utils.BeanCopyUtil;
-import com.ebase.utils.StringUtil;
 import jq.steel.cs.services.cust.api.vo.CrmProductCategoryVO;
 import jq.steel.cs.services.cust.facade.common.ProductCategoryStatus;
 import jq.steel.cs.services.cust.facade.common.SysPramType;
@@ -47,11 +46,6 @@ public class CrmProductCategoryServiceImpl implements CrmProductCategoryService 
         boolean flag = false;
         serviceResponse.setRetContent(flag);
         if (CollectionUtils.isEmpty(list)) {
-            serviceResponse.setResponseCode("0000001");
-            return serviceResponse;
-        }
-
-        if (StringUtil.isEmpty(list.get(0).getIsSubmit())) {
             serviceResponse.setResponseCode("0000001");
             return serviceResponse;
         }
