@@ -214,7 +214,7 @@
                     <div class="box013">
                         <li class="newsList-content-main-listRow">
                             <span class="newsList-content-mainList-title fl">异议产品图片:</span>
-                            <ul class="newsList-content-mainList-textChecked fl" id="" style="height: 120px;">
+                            <ul class="newsList-content-mainList-textChecked fl" id="filePath" style="height: 120px;">
                                 <li class="newsList-content2-boxFir-list">
                                     <div comType="uploadCtrl" id="uploadBox" uploadType="" uploadBgSrc="../images/comUploadBg1.png" reqPath="/file/upload" uploadSize='{"w":"100","h":"100"}' filetype="custom" fileExt="" >
                                     </div>
@@ -239,7 +239,7 @@
                         </li>
                         <li class="newsList-content-main-listRow" style="height: 120px;">
                             <span class="newsList-content-mainList-title fl">质量异议报告图片:</span>
-                            <ul class="newsList-content-mainList-textChecked fl" id="">
+                            <ul class="newsList-content-mainList-textChecked fl" id="reportPictures">
                                 <li class="newsList-content2-boxFir-list">
                                     <div comType="uploadCtrl" id="uploadBox" uploadType="" uploadBgSrc="../images/comUploadBg1.png" reqPath="/file/upload" uploadSize='{"w":"100","h":"100"}' filetype="custom" fileExt="" >
                                     </div>
@@ -250,7 +250,7 @@
                     <div class="box27">
                         <li class="newsList-content-main-listRow">
                             <span class="newsList-content-mainList-title fl">异议产品图片:</span>
-                            <ul class="newsList-content-mainList-textChecked fl" id="" style="height: 120px;">
+                            <ul class="newsList-content-mainList-textChecked fl" id="filePath" style="height: 120px;">
                                 <li class="newsList-content2-boxFir-list">
                                     <img src="" alt="" style="height: 100px;width: 100px;">
                                 </li>
@@ -270,9 +270,9 @@
                         </li>
                         <li class="newsList-content-main-listRow" style="height: 120px;">
                             <span class="newsList-content-mainList-title fl">质量异议报告图片:</span>
-                            <ul class="newsList-content-mainList-textChecked fl" id="">
+                            <ul class="newsList-content-mainList-textChecked fl">
                                 <li class="newsList-content2-boxFir-list">
-                                    <img src="" alt="" style="height: 100px;width: 100px;">
+                                    <img src="" alt="" style="height: 100px;width: 100px;" id="reportPictures">
                                 </li>
                             </ul>
                         </li>
@@ -388,6 +388,10 @@
                                     <input id="millSheetNo" class="inputBase newsList-content-mainListRowsUlList-text fl required" type="text">
                                 </li>
                                 <li class="newsList-content-mainListRows-ulList">
+                                    <span class="newsList-content-mainListRowsUlList-title fl">异议确认量（吨）:</span>
+                                    <input id="objectionConfirmation" class="inputBase newsList-content-mainListRowsUlList-text fl required" type="text">
+                                </li>
+                                <li class="newsList-content-mainListRows-ulList">
                                     <span class="newsList-content-mainListRowsUlList-title fl">缺陷名称:</span>
                                     <input id="defectName" class="inputBase newsList-content-mainListRowsUlList-text fl required" type="text">
                                 </li>
@@ -419,7 +423,7 @@
                         </li>
                         <li class="newsList-content-main-listRow">
                             <span class="newsList-content-mainList-title fl">销售经理建议:</span>
-                            <input id="" class="inputBase newsList-content-mainList-text fl required">
+                            <input id="salesManagerSuggests" class="inputBase newsList-content-mainList-text fl required">
                         </li>
                     </div>
                     <div class="box5">
@@ -433,22 +437,22 @@
                                 <ul class="newsList-content-mainListRows-ul clearfix fl">
                                     <li class="newsList-content-mainListRows-ulList">
                                         <span class="newsList-content-mainListRowsUlList-title fl">质量等级:</span>
-                                        <input id="lastUserAddr" class="inputBase newsList-content-mainListRowsUlList-text fl required" type="text">
+                                        <input id="qualityGrade" class="inputBase newsList-content-mainListRowsUlList-text fl required" type="text">
                                     </li>
                                     <li class="newsList-content-mainListRows-ulList">
                                         <span class="newsList-content-mainListRowsUlList-title fl">原判定结果:</span>
-                                        <input id="contractNo" class="inputBase newsList-content-mainListRowsUlList-text fl required" type="text">
+                                        <input id="originalJudgementResult" class="inputBase newsList-content-mainListRowsUlList-text fl required" type="text">
                                     </li>
                                     <li class="newsList-content-mainListRows-ulList">
                                         <span class="newsList-content-mainListRowsUlList-title fl">表面结构:</span>
-                                        <input id="contractNo" class="inputBase newsList-content-mainListRowsUlList-text fl required" type="text">
+                                        <input id="surfaceStructure" class="inputBase newsList-content-mainListRowsUlList-text fl required" type="text">
                                     </li>
                                     <li class="newsList-content-mainListRows-ulList">
                                         <span class="newsList-content-mainListRowsUlList-title fl">班别/班次:</span>
-                                        <input id="contractNo" class="inputBase newsList-content-mainListRowsUlList-text fl required" type="text">
+                                        <input id="shift" class="inputBase newsList-content-mainListRowsUlList-text fl required" type="text">
                                     </li>
                                 </ul>
-                                <textarea id="" class="inputBase newsList-content-mainList-text fl required"  style="height: 52px;width: 735px;resize:none" ></textarea>
+                                <textarea id="productionProcessInvestigati" class="inputBase newsList-content-mainList-text fl required"  style="height: 52px;width: 735px;resize:none" ></textarea>
                                 <div id="" class="newsList-content-mainList-textEdit fl">
                                     <script id="editor" type="text/plain"></script>
                                 </div>

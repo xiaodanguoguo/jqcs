@@ -15,9 +15,10 @@ function clsMethodLee(){
         "path12":"/coilinfo/findIsTrue"//批板卷号填写校验操作，校验成功带出数据
     };
     this.documentLee = null;
-    this.htmlType = GetQueryString("htmlType");//判断页面类型0——新建 1修改 2——详情  3——销售审核  4——外部调查  5——内部调查 6-确认书审核
+    this.htmlType = GetQueryString("htmlType");//判断页面类型0——新建 1修改 2——详情  3——销售审核  4——外部调查  5——内部调查 6-确认书审核  7-销售审核详情页面
     this.claimNo = GetQueryString("claimNo") == null ? "":GetQueryString("claimNo");//异议编号
-    this.filePath = [];
+    this.filePath = [];//异议产品图片:
+    this.reportPictures = [];//质量异议报告图片:
     this.selectedMark = {//判断发生异议单位和异议类别是否选中
         "selMark1":true,
         "selMark2":true
@@ -425,51 +426,25 @@ function htmlInit(data){//数据回显回调
         setValue4Desc(data.rspBody,$("#submitBox")[0])//赋值
         if(document.body.jsLee.htmlType == 0 || document.body.jsLee.htmlType == 1){//新建||修改
             //回显上传图片地址
-            if(data.rspBody.filePath == null || data.rspBody.filePath == ""){
-                document.body.jsLee.filePath = [];
-            }else{
-                document.body.jsLee.filePath = data.rspBody.filePath.split(";");
-            }
-
-            filePathShow(document.body.jsLee.filePath);
-
-
+            filePathShow(data.rspBody.filePath,data.rspBody.reportPictures,1);
         }else if(document.body.jsLee.htmlType == 2){//详情
-            //异议产品赋值
-            //$("#productName").attr("initValue",data.rspBody.productName).attr("disabled",true);
-            //initplugPath( $("#productName")[0],"singleSelectCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
-            //置灰
-            $("#submitBox input[type=text]").attr("disabled",true).addClass("changeGary");
-            $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
-            //异议单位赋值
-            $("#dissentingUnitA").find("input").attr({"checked":false,"disabled":true}).addClass("changeGary");
-            $("#dissentingUnitA").find("input[value=" + data.rspBody.dissentingUnit + "]").attr("checked",true);
             //回显上传图片地址
-            if(data.rspBody.filePath == null || data.rspBody.filePath == ""){
-                document.body.jsLee.filePath = [];
-            }else{
-                document.body.jsLee.filePath = data.rspBody.filePath.split(";");
-            }
-            filePathShow(document.body.jsLee.filePath);
+            filePathShow(data.rspBody.filePath,data.rspBody.reportPictures,2);
         }else if(document.body.jsLee.htmlType == 3){//销售审核页面
-            //异议产品赋值
-            //$("#productName").attr("initValue",data.rspBody.productName);
-            //initplugPath( $("#productName")[0],"singleSelectCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
             //异议单位赋值
-            $("#dissentingUnitA").find("input").attr("checked",false);
             $("#dissentingUnitA").find("input[value=" + data.rspBody.dissentingUnit + "]").attr("checked",true);
             //异议类别赋值
-            $("#productNameA").find("input").attr("checked",false);
             $("#productNameA").find("input[value=" + data.rspBody.productName + "]").attr("checked",true);
-            $(".disNone").show().parent().next().addClass("required");
+            //$(".disNone").show().parent().next().addClass("required");
             //回显上传图片地址
-            if(data.rspBody.filePath == null || data.rspBody.filePath == ""){
-                document.body.jsLee.filePath = [];
-            }else{
-                document.body.jsLee.filePath = data.rspBody.filePath.split(";");
-            }
-            filePathShow(document.body.jsLee.filePath);
-            $("#filePathTemplate").parent().css("width","590px");
+            filePathShow(data.rspBody.filePath,data.rspBody.reportPictures,1);
+        }else if(document.body.jsLee.htmlType == 7){//销售审核详情页面
+            //异议单位赋值
+            $("#dissentingUnitA").find("input[value=" + data.rspBody.dissentingUnit + "]").attr("checked",true);
+            //异议类别赋值
+            $("#productNameA").find("input[value=" + data.rspBody.productName + "]").attr("checked",true);
+            //回显上传图片地址
+            filePathShow(data.rspBody.filePath,data.rspBody.reportPictures,2);
         }
     }
 }
@@ -478,53 +453,37 @@ function htmlInit2(data){//数据回显回调
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         setValue4Desc(data.rspBody,$("#submitBox")[0])//赋值
-        if(document.body.jsLee.htmlType ==4 || document.body.jsLee.htmlType == 5){//外部调查|内部调查|
-            //异议产品赋值
-            //$("#productName").attr("initValue",data.rspBody.productName).attr("disabled",true);
-            //initplugPath( $("#productName")[0],"singleSelectCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
-            //输入框置灰
-            $("#submitBox input[type=text]").attr("disabled",true).addClass("changeGary");
-            if(document.body.jsLee.htmlType == 4){
-                //使用量手填  缺陷名称  生产日期 班时班次
-                $("#amountOfUse").removeAttr("disabled").removeClass("changeGary");
-                $("#defectName").removeAttr("disabled").removeClass("changeGary");
-                $("#productDt").removeAttr("disabled").removeClass("changeGary");
-                $("#shift").removeAttr("disabled").removeClass("changeGary");
-                //富文本数据回显
-                /*UE.getEditor('editor').setContent(data.rspBody.inquireInfo);*/
-                var ue = UE.getEditor('editor');
-                ue.ready(function() {//编辑器初始化完成再赋值
-                    data.rspBody.inquireInfo = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
-                    ue.setContent(data.rspBody.inquireInfo);  //赋值给UEditor
-                });
-                var ue2 = UE.getEditor('editor2');
-                ue2.ready(function() {//编辑器初始化完成再赋值
-                    data.rspBody.fieldConclusion = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
-                    ue2.setContent(data.rspBody.fieldConclusion);  //赋值给UEditor
-                });
-            }else {
-                //富文本数据回显
-                var ue = UE.getEditor('editor');
-                ue.ready(function() {//编辑器初始化完成再赋值
-                    data.rspBody.inquireInfo = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
-                    ue.setContent(data.rspBody.inquireInfo);  //赋值给UEditor
-                });
-                /*var ue2 = UE.getEditor('editor2');
-                ue2.ready(function() {//编辑器初始化完成再赋值
-                    data.rspBody.fieldConclusion = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
-                    ue2.setContent(data.rspBody.fieldConclusion);  //赋值给UEditor
-                });*/
-                /*UE.getEditor('editor').setContent(data.rspBody.claimDesc);
-                UE.getEditor('editor2').setContent(data.rspBody.inquireInfo);*/
-            }
-
-        }else if(document.body.jsLee.htmlType == 6){//证明书审核
-            //$("#productName").attr("initValue",data.rspBody.productName).attr("disabled",true);
-            //initplugPath( $("#productName")[0],"singleSelectCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
-            //置灰
-            $("#submitBox input[type=text]").attr("disabled",true).addClass("changeGary");
-            $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
-            $("#rejectReason").removeClass("changeGary").removeAttr("disabled");
+        if(document.body.jsLee.htmlType == 4){//外部调查
+            //富文本数据回显
+            var ue = UE.getEditor('editor');
+            ue.ready(function() {//编辑器初始化完成再赋值
+                data.rspBody.inquireInfo = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
+                ue.setContent(data.rspBody.inquireInfo);  //赋值给UEditor
+            });
+            var ue2 = UE.getEditor('editor2');
+            ue2.ready(function() {//编辑器初始化完成再赋值
+                data.rspBody.fieldConclusion = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
+                ue2.setContent(data.rspBody.fieldConclusion);  //赋值给UEditor
+            });
+        }else if(document.body.jsLee.htmlType == 5){//内部调查
+            //富文本数据回显
+            var ue = UE.getEditor('editor');
+            ue.ready(function() {//编辑器初始化完成再赋值
+                data.rspBody.inquireInfo = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
+                ue.setContent(data.rspBody.inquireInfo);  //赋值给UEditor
+            });
+        }else if(document.body.jsLee.htmlType == 6){//确认书审核
+            //富文本数据回显
+            var ue = UE.getEditor('editor');
+            ue.ready(function() {//编辑器初始化完成再赋值
+                data.rspBody.inquireInfo = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
+                ue.setContent(data.rspBody.inquireInfo);  //赋值给UEditor
+            });
+            var ue2 = UE.getEditor('editor2');
+            ue2.ready(function() {//编辑器初始化完成再赋值
+                data.rspBody.fieldConclusion = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
+                ue2.setContent(data.rspBody.fieldConclusion);  //赋值给UEditor
+            });
         }
     }
 }
@@ -574,22 +533,14 @@ function paramJson(){
         jsonParam.claimType = $("#claimTypeA input:checked").val();
     }
     //上传图片
-    var strFilePath = "";
-    for(var nI = 0 ; nI < document.body.jsLee.filePath.length; nI++ ){
-        if(nI == document.body.jsLee.filePath.length - 1){
-            strFilePath += document.body.jsLee.filePath[nI];
-        }else{
-            strFilePath += document.body.jsLee.filePath[nI] + ";";
-        }
-    }
-    jsonParam.filePath = strFilePath;
+    jsonParam.filePath = document.body.jsLee.filePath;
+    jsonParam.reportPictures = document.body.jsLee.reportPictures;
     //富文本编辑器
     if(document.body.jsLee.htmlType == 4){//外部调查
         jsonParam.inquireInfo = UE.getEditor('editor').getContent();
         jsonParam.fieldConclusion = UE.getEditor('editor2').getContent();
     }else if(document.body.jsLee.htmlType == 5){//内部调查
-        jsonParam.claimDesc = UE.getEditor('editor').getContent();
-        jsonParam.inquireInfo = UE.getEditor('editor2').getContent();
+        jsonParam.inquireInfo = UE.getEditor('editor').getContent();
 
     }
     return jsonParam;
@@ -612,38 +563,66 @@ function secondSaveCallBack(data){
 }
 function clsUploadCtrl$successAfter(ctrl, response)
 {
-    document.body.jsLee.filePath.push(response.rspBody.viewUrl);
-    filePathShow(document.body.jsLee.filePath);
+    if($(ctrl).parents("#filePath").length == 1){
+        document.body.jsLee.filePath = [];
+        $("#filePath *[id=uploadBox] img").each(function(){
+            if($(this).attr("src") != "../images/comUploadBg1.png"){
+                document.body.jsLee.filePath.push($(this).attr("src"));
+            }
+        });
+    }else{
+        document.body.jsLee.reportPictures = ctrl.attr("src");
+    }
+
+}
+
+//删除上传图片
+function clsUploadCtrl$deleteImg(ctrl) {
+    if(ctrl.parents("#filePath").length == 1){
+        ctrl.parents("#uploadBox").removeClass("comUploadAfter");
+        c,"../images/comUploadBg1.png")
+        document.body.jsLee.filePath = [];
+        $("#filePath *[id=uploadBox] img").each(function(){
+            if($(this).attr("src") != "../images/comUploadBg1.png"){
+                document.body.jsLee.filePath.push($(this).attr("src"));
+            }
+        });
+    }else{
+        document.body.jsLee.reportPictures = [];
+    }
+
 }
 
 //回显上传图片地址
-function filePathShow(arr){
-    $("*[id=filePathClone]").remove();
-    for(var nI = 0; nI < arr.length; nI++ ){
-        $("*[id=uploadBox]").eq(nI).attr("uploadbgsrc",jsonItemChild[nI]);
-        document.body.jsCtrl.ctrl = $("*[id=uploadBox]")[nI];
-        document.body.jsCtrl.init();
-        $("*[id=uploadBox]").eq(nI).addClass("comUploadAfter");
-
-
-        /*var filePathClone = $("#filePathTemplate").clone(true);
-        filePathClone.attr("id","filePathClone").show();
-        filePathClone.find("#filePathContent").attr("src",arr[nI]);
-        filePathClone.find("#filePathDelete").on("click",function () {//删除当前上传图片地址
-            for(var mI = 0 ; mI < document.body.jsLee.filePath.length; mI++ ){
-                if($(this).prev().attr("src") == document.body.jsLee.filePath[mI]){
-                    document.body.jsLee.filePath.splice(mI,1);
-                    $(this).parents("#filePathClone").remove();
-                }
-            }
-
-        });
-        filePathClone.find("#filePathContent").on("click",function(){
-            openWin('650', '500', 'imgBigPopup', true);
-            $("#bigImg").attr("src",$(this).attr("src"));
-        });
-        $("#filePathTemplate").before(filePathClone);*/
+function filePathShow(arrStr,str2,type){//type 1是复现数据   2是不可编辑，赋值图片地址
+    ducument.body.jsLee.reportPictures = str2;
+    if(arrStr == null || arrStr == ""){
+        document.body.jsLee.filePath = [];
+    }else{
+        document.body.jsLee.filePath = arrStr.split(";");
     }
+    if(type == 1){
+        //异议产品图片:
+        for(var nI = 0; nI < document.body.jsLee.filePath.length; nI++ ){
+            $("#filePath *[id=uploadBox]").eq(nI).attr("uploadbgsrc",document.body.jsLee.filePath[nI]);
+            document.body.jsCtrl.ctrl = $("#filePath *[id=uploadBox]")[nI];
+            document.body.jsCtrl.init();
+            $("#filePath *[id=uploadBox]").eq(nI).addClass("comUploadAfter");
+        }
+        //质量异议报告图片:
+        $("#reportPictures #uploadBox").attr("uploadbgsrc",str2);
+        document.body.jsCtrl.ctrl = $("#reportPictures #uploadBox");
+        document.body.jsCtrl.init();
+        $("#reportPictures #uploadBox").addClass("comUploadAfter");
+    }else{
+        //异议产品图片:
+        for(var nI = 0 ; nI < document.body.jsLee.filePath.length; nI++ ){
+            $("#filePath img").eq(nI).attr("src",document.body.jsLee.filePath[nI]);
+        }
+        //质量异议报告图片:
+        $("#reportPictures").attr("src",str2);
+    }
+
 }
 
 function clsAlertBoxCtrl$sure() {//成功弹框确定
