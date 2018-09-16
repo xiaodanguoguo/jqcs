@@ -572,7 +572,7 @@ function clsUploadCtrl$successAfter(ctrl, response)
             }
         });
     }else{
-        document.body.jsLee.reportPictures = ctrl.attr("src");
+        document.body.jsLee.reportPictures = $(ctrl).find("img").attr("src");
     }
 
 }
