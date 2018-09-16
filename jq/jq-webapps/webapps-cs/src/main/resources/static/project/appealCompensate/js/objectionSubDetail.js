@@ -534,7 +534,7 @@ function paramJson(){
         jsonParam.claimType = $("#claimTypeA input:checked").val();
     }
     //上传图片
-    jsonParam.filePath = document.body.jsLee.filePath;
+    jsonParam.filePath = document.body.jsLee.filePath.join(";");
     jsonParam.reportPictures = document.body.jsLee.reportPictures;
     //富文本编辑器
     if(document.body.jsLee.htmlType == 4){//外部调查
