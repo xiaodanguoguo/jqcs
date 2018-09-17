@@ -62,6 +62,22 @@
     <result column="PRO_PROBLEM" property="proProblem" jdbcType="VARCHAR" />
     <result column="FIELD_CONCLUSION_TEXT" property="fieldConclusionText" jdbcType="VARCHAR" />
     <result column="FIELD_CONCLUSION_PHOTO" property="fieldConclusionPhoto" jdbcType="VARCHAR" />
+
+
+
+    <!--内部调查-->
+    <result column="OUT_INQUIRE_FACT" property="outInquireFact" jdbcType="VARCHAR" />
+    <result column="CLAIM_CONFIRM" property="claimConfirm" jdbcType="VARCHAR" />
+    <result column="CLAIM_VERDICT" property="claimVerdict" jdbcType="VARCHAR" />
+    <result column="IMPROVEMENT" property="improvement" jdbcType="VARCHAR" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+    <result column="PRODUCTION_PROCESS_INVESTIGATI" property="productionProcessInvestigati" jdbcType="VARCHAR" />
+    <result column="PRODUCTION_PROCESS_PHOTO" property="productionProcessPhoto" jdbcType="VARCHAR" />
+    <result column="QUALITY_GRADE" property="qualityGrade" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_JUDGEMENT_RESULT" property="originalJudgementResult" jdbcType="VARCHAR" />
+    <result column="SURFACE_STRUCTURE" property="surfaceStructure" jdbcType="VARCHAR" />
+    <result column="PRODUCTION_PROCESS_TEXT" property="productionProcessText" jdbcType="VARCHAR" />
+    <result column="PRODUCTION_PROCESS_ALL" property="productionProcessAll" jdbcType="VARCHAR" />
   </resultMap>
   <!--<resultMap id="ResultMapWithBLOBs" type="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" extends="BaseResultMap" >
     <result column="INQUIRE_INFO" property="inquireInfo" jdbcType="CLOB" />
@@ -146,8 +162,8 @@ WHERE
 
 <!--异议处理确认书审核查询-->
   <select id="findDetails" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
-     SELECT
-     A.MILL_SHEET_NO,
+    SELECT
+A.MILL_SHEET_NO,
 A.CLAIM_NO,
 A.PRO_PROBLEM,
 A.PRODUCT_ID,
@@ -186,10 +202,25 @@ B.HANDING_SUGGESTION,
 B.INQUIRE_STATE,
 B.FOLLOW_REASON,
 B.REJECT_REASON,
-B.AMOUNT_OF_USE
+B.SALES_MANAGER_SUGGESTS,
+B.INQUIRE_INFO_ALL,
+B.AMOUNT_OF_USE,
+C.OUT_INQUIRE_FACT,
+C.CLAIM_CONFIRM,
+C.CLAIM_VERDICT,
+C.IMPROVEMENT,
+C.MEMO,
+C.PRODUCTION_PROCESS_INVESTIGATI,
+C.PRODUCTION_PROCESS_PHOTO,
+C.QUALITY_GRADE,
+C.ORIGINAL_JUDGEMENT_RESULT,
+C.SURFACE_STRUCTURE,
+C.PRODUCTION_PROCESS_TEXT,
+C.PRODUCTION_PROCESS_ALL
 FROM
 WARRANTY.CRM_CLAIM_INFO A
 LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
+LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
   WHERE  A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
   </select>
 
@@ -376,13 +407,13 @@ LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
         #{inquireInfoText,jdbcType=VARCHAR},
       </if>
       <if test="inquireInfoAll != null and inquireInfoAll != ''" >
-        #{inquireInfoAll,jdbcType=VARCHAR}
+        #{inquireInfoAll,jdbcType=VARCHAR},
       </if>
       <if test="fieldConclusionText != null and fieldConclusionText != ''" >
-        #{fieldConclusionText,jdbcType=VARCHAR}
+        #{fieldConclusionText,jdbcType=VARCHAR},
       </if>
       <if test="fieldConclusionPhoto != null and fieldConclusionPhoto != ''" >
-        #{fieldConclusionPhoto,jdbcType=VARCHAR}
+        #{fieldConclusionPhoto,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -442,13 +473,13 @@ LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
         INQUIRE_INFO_TEXT = #{inquireInfoText,jdbcType=VARCHAR},
       </if>
       <if test="inquireInfoAll != null and inquireInfoAll != ''" >
-        INQUIRE_INFO_ALL = #{inquireInfoAll,jdbcType=VARCHAR}
+        INQUIRE_INFO_ALL = #{inquireInfoAll,jdbcType=VARCHAR},
       </if>
       <if test="fieldConclusionText != null and fieldConclusionText != ''" >
-        FIELD_CONCLUSION_TEXT = #{fieldConclusionText,jdbcType=VARCHAR}
+        FIELD_CONCLUSION_TEXT = #{fieldConclusionText,jdbcType=VARCHAR},
       </if>
       <if test="fieldConclusionPhoto != null and fieldConclusionPhoto != ''" >
-        FIELD_CONCLUSION_PHOTO = #{fieldConclusionPhoto,jdbcType=VARCHAR}
+        FIELD_CONCLUSION_PHOTO = #{fieldConclusionPhoto,jdbcType=VARCHAR},
       </if>
     </trim>
     where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}

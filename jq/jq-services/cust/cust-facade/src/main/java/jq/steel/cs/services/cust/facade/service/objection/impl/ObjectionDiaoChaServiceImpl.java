@@ -188,23 +188,46 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
         BeanCopyUtil.copy(record,crmClaimInnerInquire);
         if (crmClaimInnerInquire.getOptionType()==1){
             //查询
+            Integer integer;
             List<CrmClaimInnerInquire> list = crmClaimInnerInquireMapper.findByParams(crmClaimInnerInquire);
             if (list.size()>0){
-               Integer integer =  crmClaimInnerInquireMapper.update(crmClaimInnerInquire);
-                return integer;
+               integer =  crmClaimInnerInquireMapper.update(crmClaimInnerInquire);
+
             }else {
-                Integer integer =  crmClaimInnerInquireMapper.insertSelective(crmClaimInnerInquire);
-                return integer;
+
+             integer =  crmClaimInnerInquireMapper.insertSelective(crmClaimInnerInquire);
+
             }
+            //修改外部表
+            CrmClaimOutInquire crmClaimOutInquire = new CrmClaimOutInquire();
+            crmClaimOutInquire.setClaimNo(record.getClaimNo());
+            crmClaimOutInquire.setShift(record.getShift());
+            crmClaimOutInquireMapper.update(crmClaimOutInquire);
+            return integer;
         }else {
+            //修改外部表
+            CrmClaimOutInquire crmClaimOutInquire = new CrmClaimOutInquire();
+            crmClaimOutInquire.setClaimNo(record.getClaimNo());
+            crmClaimOutInquire.setShift(record.getShift());
+            crmClaimOutInquireMapper.update(crmClaimOutInquire);
+
             //点击“提交”则内部调查报告结束，报告的状态修改为“调查结束”，记录调查结束时间和内部调查人员信息
             CrmClaimInfo crmClaimInfo  = new CrmClaimInfo();
             crmClaimInfo.setClaimNo(crmClaimInnerInquire.getClaimNo());
             crmClaimInfo.setUpdatedDt(new Date());
             crmClaimInfo.setUpdatedBy(AssertContext.getAcctName());
-            // crmClaimInfo.setInquireState("");
-            crmClaimInfo.setClaimState("INEND");
+            crmClaimInfo.setInquireState("INEND");
+            crmClaimInfo.setClaimState("INVESTIGATION");
             int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
+            crmClaimInnerInquireMapper.update(crmClaimInnerInquire);
+
+            //修改异议申请_用户表
+            CrmClaimInfo crmClaimInfo1  = new CrmClaimInfo();
+            crmClaimInfo1.setClaimNo(crmClaimOutInquire.getClaimNo());
+            crmClaimInfo1.setUpdatedDt(new Date());
+            crmClaimInfo1.setUpdatedBy(AssertContext.getAcctName());
+            crmClaimInfo.setClaimState("INVESTIGATION");
+            crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
             return i;
         }
     }

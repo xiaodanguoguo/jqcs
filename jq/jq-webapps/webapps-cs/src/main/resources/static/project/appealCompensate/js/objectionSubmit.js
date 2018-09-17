@@ -218,6 +218,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
             case "END":
                 $(cloneRow).find("#claimStateA").html("已结案");
                 $(cloneRow).find("#evaluateOpe").show();
+                $(cloneRow).find("#downloadOpe").show();
                 break;
             case "EVALUATE":
                 $(cloneRow).find("#claimStateA").html("已评价");

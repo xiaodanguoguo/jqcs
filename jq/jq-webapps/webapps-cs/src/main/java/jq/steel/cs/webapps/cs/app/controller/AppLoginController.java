@@ -8,6 +8,7 @@ import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.WebUtil;
 import jq.steel.cs.services.base.api.controller.AcctAPI;
+import jq.steel.cs.services.base.api.vo.AcctInfoVO;
 import jq.steel.cs.webapps.cs.app.vo.AppAcct;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,6 +101,41 @@ public class AppLoginController {
             e.printStackTrace();
             jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
         }
+        return jsonResponse;
+    }
+
+    /**
+     * 用户注册
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping("/register")
+    private JsonResponse<String> userRegister(@RequestBody JsonRequest<AcctInfoVO> jsonRequest){
+        JsonResponse<String> jsonResponse = new JsonResponse<>();
+
+        try{
+            AcctInfoVO acctInfoVO = jsonRequest.getReqBody();
+
+            ServiceResponse<String> response =  backMemberAPI.userRegister(acctInfoVO);
+
+            if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode())) {
+                jsonResponse.setRetCode(JsonResponse.SUCCESS);
+                jsonResponse.setRetDesc(response.getRetContent());
+            }else {
+                if (response.isHasError()) {
+                    jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                } else {
+                    jsonResponse.setRetCode(response.getRetCode());
+                    jsonResponse.setRetDesc(response.getRetMessage());
+                }
+            }
+
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+
         return jsonResponse;
     }
 

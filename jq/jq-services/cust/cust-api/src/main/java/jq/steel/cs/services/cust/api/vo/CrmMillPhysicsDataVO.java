@@ -8,9 +8,7 @@ public class CrmMillPhysicsDataVO {
 
     private String kurztext ;   //物理信息值
 
-    private String millSheetNo;
-
-    private String zcharg ;
+    private String originalInput;
 
 
     public BigDecimal getSid() {
@@ -29,20 +27,11 @@ public class CrmMillPhysicsDataVO {
         this.kurztext = kurztext;
     }
 
-    public String getMillSheetNo() {
-        return millSheetNo;
+    public String getOriginalInput() {
+        return originalInput;
     }
 
-    public void setMillSheetNo(String millSheetNo) {
-        this.millSheetNo = millSheetNo;
+    public void setOriginalInput(String originalInput) {
+        this.originalInput = originalInput;
     }
-
-    public String getZcharg() {
-        return zcharg;
-    }
-
-    public void setZcharg(String zcharg) {
-        this.zcharg = zcharg;
-    }
-
 }

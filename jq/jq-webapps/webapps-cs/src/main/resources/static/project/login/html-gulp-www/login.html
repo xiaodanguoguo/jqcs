@@ -60,6 +60,9 @@
             $("#quitBtn").on("click",function(){
                 getAjaxResult("/acct/remSession","post",{},"quitFun(data)");
             })
+            $("#logo").on("click",function () {
+                jumpUrl("../../login/html-gulp-www/login.html","0000000",0)
+            });
         })
         //退出接口
         function quitFun(data){
@@ -98,7 +101,7 @@
 <div class="og-head">
 	<div class="og-head-nav">
 		<div class="og-head-navwrap">
-			<div class="og-head-navlogo">
+			<div class="og-head-navlogo" id="logo">
 				<a href="javascript:;" class="og-head-navlogo__logoimg fl"></a>
 				<div id="titleNameHead" class="og-head-navlogo__logoText fl"></div>
 			</div>
@@ -207,9 +210,6 @@
                 <ul class="tabMenu-four" comtype="tabCtrl" contentcls="tabCon">
                     <li class="tabTitLi" nidx="0">
                         <span>防伪验真码</span>
-                    </li>
-                    <li nidx="1">
-                        <span>附件验真</span>
                     </li>
                 </ul>
                 <div class="verification-TabCon">

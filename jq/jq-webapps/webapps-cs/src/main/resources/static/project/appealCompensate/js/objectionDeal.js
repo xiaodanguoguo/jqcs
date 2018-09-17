@@ -192,7 +192,8 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 break;
             case "CONFIRM":
                 $(cloneRow).find("#inquireStateA").html("已确认");
-                $(cloneRow).find("#agreementEditOpe").show();
+                if(jsonItem.agreementState != "COMPLETE")
+                    $(cloneRow).find("#agreementEditOpe").show();
                 break;
             default:
                 $(cloneRow).find("#inquireStateA").html("");
@@ -229,7 +230,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
             jumpUrl("agreementBook.html?htmlType=1&claimNo=" + jsonItem.claimNo,"0000000",0);
         });
         //协议书审核操作
-        $(cloneRow).find("#agreement AuditOpe").on("click",function(){
+        $(cloneRow).find("#agreementAuditOpe").on("click",function(){
             jumpUrl("agreementBook.html?htmlType=2&claimNo=" + jsonItem.claimNo,"0000000",0);
         });
         //强制结案操作

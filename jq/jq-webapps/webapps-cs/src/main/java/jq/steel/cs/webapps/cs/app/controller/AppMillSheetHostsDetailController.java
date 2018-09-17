@@ -1,9 +1,11 @@
 package jq.steel.cs.webapps.cs.app.controller;
 
+import com.ebase.core.exception.BusinessException;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
+import jq.steel.cs.services.cust.api.controller.MillSheetHostsAPI;
 import jq.steel.cs.services.cust.api.controller.app.AppMillSheetHostsDetailAPI;
 import jq.steel.cs.services.cust.api.vo.CrmMillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.CrmMillSheetDetailVO;
@@ -20,13 +22,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/app")
+@RequestMapping("/app/millsheet")
 public class AppMillSheetHostsDetailController {
 
     private final static Logger logger = LoggerFactory.getLogger(AppMillSheetHostsDetailController.class);
 
     @Autowired
     private AppMillSheetHostsDetailAPI appMillSheetHostsDetailAPI;
+
+    @Autowired
+    private MillSheetHostsAPI millSheetHostsAPI;
 
     @RequestMapping(value = "/findMillSheetDeatilBySheet", method = RequestMethod.POST)
     public JsonResponse<List<CrmMillCoilInfoVO>> getCoilDetailByMillSheet(@RequestBody JsonRequest<CrmMillSheetDetailVO> jsonRequest) {
@@ -37,11 +42,36 @@ public class AppMillSheetHostsDetailController {
         }
 
         try {
+            jsonRequest.getReqBody().setShowFlag(0);
             ServiceResponse<List<CrmMillCoilInfoVO>> coilDetailByMillSheet = appMillSheetHostsDetailAPI.getCoilDetailByMillSheet(jsonRequest);
             List<CrmMillCoilInfoVO> listAll = coilDetailByMillSheet.getRetContent();
             jsonResponse.setRspBody(listAll);
         } catch (Exception e) {
             logger.error("查询错误:", e);
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+        return jsonResponse;
+    }
+
+    @RequestMapping(value = "/findMillSheetByPage",method = RequestMethod.POST)
+    public JsonResponse<PageDTO<MillSheetHostsVO>>  findMillSheetByPage(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest){
+        JsonResponse<PageDTO<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
+        try {
+            ServiceResponse<PageDTO<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findMillSheetByPage(jsonRequest);
+            if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            } else {
+                if (serviceResponse.isHasError()) {
+                    jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                }else {
+                    jsonResponse.setRetCode(serviceResponse.getRetCode());
+                    jsonResponse.setRetDesc(serviceResponse.getRetMessage());
+                    return jsonResponse;
+                }
+            }
+        } catch (BusinessException e) {
+            logger.error("获取分页列表错误 = {}", e);
+            e.printStackTrace();
             jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
         }
         return jsonResponse;

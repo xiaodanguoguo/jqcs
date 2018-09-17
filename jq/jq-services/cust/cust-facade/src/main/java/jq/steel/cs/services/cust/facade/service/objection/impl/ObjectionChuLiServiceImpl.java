@@ -127,7 +127,7 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
         }else if(crmAgreementInfo.getOptionStuts()== 3){
             crmAgreementInfo.setUpdatedBy(AssertContext.getAcctName());
             crmAgreementInfo.setUpdatedDt(new Date());
-            crmAgreementInfo.setAgreementState("REJECT");
+            crmAgreementInfo.setAgreementState("EDIT");
             crmAgreementInfo.setClaimNo(record.getClaimNo());
             Integer integer =crmAgreementInfoMapper.updateByPrimaryKeySelective(crmAgreementInfo);
             return  integer;

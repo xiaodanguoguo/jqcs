@@ -1,6 +1,7 @@
 package jq.steel.cs.services.base.facade.model;
 
 
+import jq.steel.cs.services.base.facade.common.NoticeIsDelete;
 import jq.steel.cs.services.base.facade.common.NoticeStatus;
 
 import java.util.Date;
@@ -31,19 +32,19 @@ public class SysNotice {
     //状态
     private NoticeStatus status;
 
-//    是否删除
-    private jq.steel.csservices.base.facade.common.NoticeIsDelete isDelete;
+    //    是否删除
+    private NoticeIsDelete isDelete;
 
-//    创建人
+    //    创建人
     private String createdBy;
 
-//    创建时间
+    //    创建时间
     private Date createdTime;
 
-//    修改人
+    //    修改人
     private String updatedBy;
 
-//    修改时间
+    //    修改时间
     private Date updatedTime;
 
     private String opt; //标记是什么数据
@@ -105,26 +106,26 @@ public class SysNotice {
     }
 
     public byte getStatus() {
-		if(status != null)
-			return status.getCode();
-		return 0;
-	}
+        if (status != null)
+            return status.getCode();
+        return 0;
+    }
 
-	public void setStatus(byte code) {
-		this.status = NoticeStatus.getNoticeStatus(code);
-	}
+    public void setStatus(byte code) {
+        this.status = NoticeStatus.getNoticeStatus(code);
+    }
 
-	public byte getIsDelete() {
-    	if(isDelete != null)
-    		return isDelete.getCode();
-		return 0;
-	}
+    public byte getIsDelete() {
+        if (isDelete != null)
+            return isDelete.getCode();
+        return 0;
+    }
 
-	public void setIsDelete(byte isDelete) {
-		this.isDelete = jq.steel.csservices.base.facade.common.NoticeIsDelete.getIsDelete(isDelete);
-	}
+    public void setIsDelete(byte isDelete) {
+        this.isDelete = NoticeIsDelete.getIsDelete(isDelete);
+    }
 
-	public String getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 
