@@ -153,7 +153,7 @@ function clsMethodLee$operate(){
     });
     //下载协议书
     $("#downView").on("click",function(){
-        var importParam = "name=" + JSON.stringify({"claimNo":[document.body.jsLee.claimNo],"templateType":1});
+        var importParam = "name=" + JSON.stringify({"claimNos":[document.body.jsLee.claimNo],"templateType":1});
         $.download(requestUrl + document.body.jsLee.requestUrl.path9, importParam, "POST");
     });
     //下载协议书关闭
