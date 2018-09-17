@@ -2,7 +2,7 @@ function clsMethodLee(){
     this.requestUrl = {
         "path1":"/objectionDiaoCha/findByPage",//异议调查list列表
         "path2":"/objectionDiaoCha/reject",//异议调查报告驳回接口
-        "path3":"/objectionDiaoCha/downPdf",//异议调查报告下载pdf接口
+        "path3":"/objectionChuLi/download",//异议调查报告下载pdf接口
         "path4":"/objectionDiaoCha/updateState",//异议调查内部外部开始状态改变接口  受理接口
         "path5":"/objectionDiaoCha/export",//异议调查导出接口
         "path6":"/",//受理接口
@@ -218,12 +218,12 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         });
         //下载内部调查
         $(cloneRow).find("#downloadInOpe").on("click",function(){
-            var importParam = "name=" + JSON.stringify({"claimNo":jsonItem.claimNo,"type":2});
+            var importParam = "name=" + JSON.stringify({"templateType":4,"claimNos":[jsonItem.claimNo]});
             $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
         });
         //下载外部调查
         $(cloneRow).find("#downloadOutOpe").on("click",function(){
-            var importParam = "name=" + JSON.stringify({"claimNo":jsonItem.claimNo,"type":1});
+            var importParam = "name=" + JSON.stringify({"templateType":5,"claimNos":[jsonItem.claimNo]});
             $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
         });
         //查看详情操作

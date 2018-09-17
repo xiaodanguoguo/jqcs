@@ -6,7 +6,8 @@ function clsMethodLee(){
         "path4":"/objectionJieAn/revoke",//撤销接口
         "path5":"/objectionJieAn/look",//查看协议书接口
         "path7":"/md/findItemsByTypeId",//产品大类下拉接口
-        "path8":"/objectionJieAn/upload"//上传之后把上传图片传给后台
+        "path8":"/objectionJieAn/upload",//上传之后把上传图片传给后台
+        "path9":"/objectionChuLi/preview"//查看pdf接口
     };
     this.documentLee = null;
     this.claimNo = "";//强制结案的当前缓存标识
@@ -92,7 +93,15 @@ function clsMethodLee$operate(){
         closePopupWin();
     });
 
-
+    //下载协议书
+    $("#downView").on("click",function(){
+        var importParam = "name=" + JSON.stringify({"claimNos":[document.body.jsLee.claimNo],"templateType":1});
+        $.download(requestUrl + document.body.jsLee.requestUrl.path9, importParam, "POST");
+    });
+    //下载协议书关闭
+    $("#downViewCancel").on("click",function(){
+        closePopupWin();
+    });
 
 }
 function clsMethodLee$refresh(){
@@ -218,8 +227,8 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         });*/
         //查看协议书操作
         $(cloneRow).find("#viewUploadOpe").on("click",function(){
-            getAjaxResult(document.body.jsLee.requestUrl.path5,"POST",{"claimNo":jsonItem.claimNo},"viewUploadOpeCallBack(data)")
-            openWin("800","600","previewOpeBox");
+            document.body.jsLee.claimNo = jsonItem.claimNo;
+            getAjaxResult(document.body.jsLee.requestUrl.path8,"POST",{"templateType":8,"claimNo":jsonItem.claimNo},"pdfViewCallBack2(data)");
         });
         //撤销操作
         $(cloneRow).find("#cancelOpe").on("click",function(){
@@ -235,6 +244,8 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         });
         //打印通知单操作
         $(cloneRow).find("#printOpe").on("click",function () {
+            document.body.jsLee.claimNo = jsonItem.claimNo;
+            getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"templateType":7,"claimNo":jsonItem.claimNo},"pdfViewCallBack(data)");
 
         });
     }
@@ -333,6 +344,23 @@ function clsUploadCtrl$successAfter(ctrl, response)
 
 function uploadCallBack(data){
 
+}
+
+function pdfViewCallBack(data){
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody.report,"0000000","1");
+    }
+}
+
+function pdfViewCallBack2(data){
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        openWin("800","600","previewOpeBox2");
+        $("#previewOpeBoxPdf2").attr("href",data.rspBody.report);
+        $("#previewOpeBoxPdf2").media({width:740, height:450});
+        //jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody.report,"0000000","1");
+    }
 }
 
 $(function(){

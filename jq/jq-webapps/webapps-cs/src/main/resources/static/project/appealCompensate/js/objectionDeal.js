@@ -2,7 +2,7 @@ function clsMethodLee(){
     this.requestUrl = {
         "path1":"/objectionChuLi/findByPage",//异议处理list列表
         "path2":"/objectionChuLi/compulsorySettlement",//强制结案接口
-        "path3":"/objectionChuLi/agreementLook",//查看协议书接口
+        "path3":"/objectionChuLi/preview",//查看pdf接口
         "path4":"/objectionChuLi/export",//查看协议书接口
         "path7":"/md/findItemsByTypeId"//产品大类下拉接口
     };
@@ -218,8 +218,8 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         }
         //查看并下载
         $(cloneRow).find("#viewDownloadOpe").on("click",function(){
-            getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",{"claimNo":jsonItem.claimNo},"viewDownloadOpeCallBack(data)")
-            openWin("800","600","previewOpeBox");
+            document.body.jsLee.claimNo = jsonItem.claimNo;
+            getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",{"templateType":6,"claimNo":jsonItem.claimNo},"pdfViewCallBack(data)");
         });
         //确认书审核操作
         $(cloneRow).find("#sureAuditOpe").on("click",function(){
@@ -316,6 +316,13 @@ function isAllCheck(){
     }
     if(numLength == listCheck.length && numLength != 0){
         $("#checkAll").attr("checked",true);
+    }
+}
+
+function pdfViewCallBack(data){
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody.report,"0000000","1");
     }
 }
 
