@@ -157,7 +157,7 @@ function clsMethodLee$parse(){
             $(".box23").remove();
             $(".box237").remove();
             $(".box3").remove();
-            $(".box4").parents("#parentBox").css("height","138px");
+            $(".box4").parents("#parentBox").css("height","167px");
             $(".box4").remove();
             //$(".box5").remove();
             $(".box6").remove();
@@ -492,8 +492,8 @@ function htmlInit2(data){//数据回显回调
             //富文本数据回显
             var ue = UE.getEditor('editor');
             ue.ready(function() {//编辑器初始化完成再赋值
-                data.rspBody.inquireInfo = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
-                ue.setContent(data.rspBody.inquireInfo);  //赋值给UEditor
+                data.rspBody.inquireInfoAll = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
+                ue.setContent(data.rspBody.inquireInfoAll);  //赋值给UEditor
             });
             var ue2 = UE.getEditor('editor2');
             ue2.ready(function() {//编辑器初始化完成再赋值
@@ -504,15 +504,15 @@ function htmlInit2(data){//数据回显回调
             //富文本数据回显
             var ue = UE.getEditor('editor');
             ue.ready(function() {//编辑器初始化完成再赋值
-                data.rspBody.inquireInfo = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
-                ue.setContent(data.rspBody.inquireInfo);  //赋值给UEditor
+                data.rspBody.productionProcessAll = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
+                ue.setContent(data.rspBody.productionProcessAll);  //赋值给UEditor
             });
         }else if(document.body.jsLee.htmlType == 6){//确认书审核
             //富文本数据回显
             var ue = UE.getEditor('editor');
             ue.ready(function() {//编辑器初始化完成再赋值
-                data.rspBody.inquireInfo = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
-                ue.setContent(data.rspBody.inquireInfo);  //赋值给UEditor
+                data.rspBody.inquireInfoAll = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
+                ue.setContent(data.rspBody.inquireInfoAll);  //赋值给UEditor
             });
             var ue2 = UE.getEditor('editor2');
             ue2.ready(function() {//编辑器初始化完成再赋值
@@ -596,15 +596,29 @@ function paramJson(){
         //异议单位
         jsonParam.dissentingUnit = $("#dissentingUnitA input:checked").val();
     }else if(document.body.jsLee.htmlType == 4){//外部调查
-        jsonParam.inquireInfo = UE.getEditor('editor').getContent();
+        //富文本参数拼接
+        jsonParam.inquireInfoAll = UE.getEditor('editor').getContent();
+        jsonParam.inquireInfoText = UE.getEditor('editor').getPlainTxt();
+        jsonParam.inquireInfoPhoto = UE.getEditor('editor').getContent();
         jsonParam.fieldConclusion = UE.getEditor('editor2').getContent();
+        jsonParam.fieldConclusionText = UE.getEditor('editor2').getPlainTxt();
+        jsonParam.fieldConclusionPhoto = UE.getEditor('editor2').getContent();
         //异议分类和缺陷分类获取值（同一个字段）
         jsonParam.claimType = $("#claimTypeA").attr("markCode");
     }else if(document.body.jsLee.htmlType == 5){//内部调查
-        jsonParam.inquireInfo = UE.getEditor('editor').getContent();
+        jsonParam.productionProcessAll = UE.getEditor('editor').getContent();
+        jsonParam.productionProcessText = UE.getEditor('editor').getPlainTxt();
+        jsonParam.productionProcessPhoto = UE.getEditor('editor').getContent();
         //异议分类和缺陷分类获取值（同一个字段）
         jsonParam.claimType = $("#claimTypeA").attr("markCode");
     }else if(document.body.jsLee.htmlType == 6){//确认书审核
+        //富文本参数拼接
+        jsonParam.inquireInfoAll = UE.getEditor('editor').getContent();
+        jsonParam.inquireInfoText = UE.getEditor('editor').getPlainTxt();
+        jsonParam.inquireInfoPhoto = UE.getEditor('editor').getContent();
+        jsonParam.fieldConclusion = UE.getEditor('editor2').getContent();
+        jsonParam.fieldConclusionText = UE.getEditor('editor2').getPlainTxt();
+        jsonParam.fieldConclusionPhoto = UE.getEditor('editor2').getContent();
         //异议分类和缺陷分类获取值（同一个字段）
         jsonParam.claimType = $("#claimTypeA").attr("markCode");
     }else if(document.body.jsLee.htmlType == 7){//销售审核详情
