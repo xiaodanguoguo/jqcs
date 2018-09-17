@@ -29,6 +29,7 @@
     <result column="USER_REQUIREMENT" property="userRequirement" jdbcType="VARCHAR" />
     <result column="HANDING_SUGGESTION" property="handingSuggestion" jdbcType="VARCHAR" />
 
+    <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     SID, CASE_CODE, AGREEMENT_URL, AGREEMENT_NAME, AGREEMENT_STATE, DOWNLOADABLE_NUM,
@@ -84,6 +85,7 @@ A.CONTRACT_NO,
 A.MILL_SHEET_NO,
 A.ORIGINAL_CAR_NO,
 A.CLAIM_DESC,
+A.MILL_SHEET_NO,
 C.*,
 B.AGREEMENT_CONTENT,
 B.AGREEMENT_NUM,
@@ -238,9 +240,6 @@ LEFT JOIN WARRANTY.MILL_SHEET_HOSTS D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO
     update CRM_AGREEMENT_INFO
     <trim suffixOverrides=",">
       set version = version + 1,
-      <if test="claimNo != null and claimNo != ''" >
-        CASE_CODE = #{caseCode,jdbcType=VARCHAR},
-      </if>
       <if test="agreementUrl != null and agreementUrl != ''" >
         AGREEMENT_URL = #{agreementUrl,jdbcType=VARCHAR},
       </if>
@@ -284,7 +283,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HOSTS D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO
         UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
       </if>
     </trim>
-    where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+    where CASE_CODE = #{claimNo,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.CrmAgreementInfo" >
     update CRM_AGREEMENT_INFO

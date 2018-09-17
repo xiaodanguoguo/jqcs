@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class ObjectionDiaoChaVO {
 
+    private String inquireInfo;
+
     private String fieldConclusionText;
 
     private String fieldConclusionPhoto;
@@ -234,6 +236,13 @@ public class ObjectionDiaoChaVO {
 
     private  String objectionConfirmation;
 
+    public String getInquireInfo() {
+        return inquireInfo;
+    }
+
+    public void setInquireInfo(String inquireInfo) {
+        this.inquireInfo = inquireInfo;
+    }
 
     public String getFieldConclusionText() {
         return fieldConclusionText;

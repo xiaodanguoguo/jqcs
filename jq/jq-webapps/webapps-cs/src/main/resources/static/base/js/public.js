@@ -1855,7 +1855,12 @@ function clearCookie(name,jsonHead) {
 
 //权限code处理
 //进行codeArr和domArr匹配，进行remove页面没权限的dom
-function limitCodeDeal(codeArr,domArr,attrName){//codeArr：请求后台，返回code集合。||domArr：获取页面集所有带有limitCode的节点。|| attrName: 页面内code码的自定义属性
+function limitCodeDeal(domArr,attrName){//codeArr：请求后台，返回code集合。||domArr：获取页面集所有带有limitCode的节点。|| attrName: 页面内code码的自定义属性
+    if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
+        var codeArr = JSON.parse(window.localStorage[attrName]);
+    }else{
+        var codeArr = JSON.parse(getCookie(attrName));
+    }
     for(var nI = 0; nI < domArr.length; nI++ ){
         var isTrue = false;
         for(var mI = 0 ; mI < codeArr.length; mI++){
@@ -1868,5 +1873,4 @@ function limitCodeDeal(codeArr,domArr,attrName){//codeArr：请求后台，返�
         }
     }
 }
-
 

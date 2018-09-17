@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class CrmAgreementInfo {
 
+    private String millSheetNo;
+
 
     private Long sid;
 
@@ -96,6 +98,15 @@ public class CrmAgreementInfo {
 
     //协议书图片地址
     private  String  claimNoUrl;
+
+
+    public String getMillSheetNo() {
+        return millSheetNo;
+    }
+
+    public void setMillSheetNo(String millSheetNo) {
+        this.millSheetNo = millSheetNo;
+    }
 
     public String getEndProcessingTech() {
         return endProcessingTech;

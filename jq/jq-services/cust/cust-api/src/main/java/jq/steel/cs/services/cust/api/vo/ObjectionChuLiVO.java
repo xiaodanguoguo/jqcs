@@ -7,6 +7,21 @@ import java.util.Date;
 
 public class ObjectionChuLiVO {
 
+
+
+    //协议内容
+    private String agreementContent;
+
+
+    //异议确认量
+    private BigDecimal agreementNum;
+
+    //赔偿金额（小写）
+    private BigDecimal agreementAmount;
+
+    //赔偿金额（大写)
+    private String agreementAmountUpper;
+
     private  String templateType;
 
     private String agreementUrl;
@@ -172,6 +187,38 @@ public class ObjectionChuLiVO {
     private String userRequirement;
 
     private String handingSuggestion;
+
+    public String getAgreementContent() {
+        return agreementContent;
+    }
+
+    public void setAgreementContent(String agreementContent) {
+        this.agreementContent = agreementContent;
+    }
+
+    public BigDecimal getAgreementNum() {
+        return agreementNum;
+    }
+
+    public void setAgreementNum(BigDecimal agreementNum) {
+        this.agreementNum = agreementNum;
+    }
+
+    public BigDecimal getAgreementAmount() {
+        return agreementAmount;
+    }
+
+    public void setAgreementAmount(BigDecimal agreementAmount) {
+        this.agreementAmount = agreementAmount;
+    }
+
+    public String getAgreementAmountUpper() {
+        return agreementAmountUpper;
+    }
+
+    public void setAgreementAmountUpper(String agreementAmountUpper) {
+        this.agreementAmountUpper = agreementAmountUpper;
+    }
 
     public String getTemplateType() {
         return templateType;

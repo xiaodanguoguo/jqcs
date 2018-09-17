@@ -7,6 +7,38 @@ import java.util.Date;
 
 public class CrmClaimOutInquire {
 
+
+    //生产工艺过程调查
+    private  String productionProcessInvestigati;
+
+    //生产工艺过程调查photo
+    private  String productionProcessPhoto;
+
+    //质量等级
+    private  String qualityGrade;
+
+    //原判定结果
+    private  String originalJudgementResult;
+
+    //表面结构
+    private  String surfaceStructure;
+
+    //生产工艺过程调查TEXT
+    private  String productionProcessText;
+
+    //生产工艺过程调查富文本
+    private  String productionProcessAll;
+
+    private String outInquireFact;
+
+    private String claimConfirm;
+
+    private String claimVerdict;
+
+    private String improvement;
+
+    private String memo;
+
     private String fieldConclusionText;
 
     private String fieldConclusionPhoto;
@@ -185,6 +217,101 @@ public class CrmClaimOutInquire {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date internalLnvestigationDate;
 
+    public String getProductionProcessInvestigati() {
+        return productionProcessInvestigati;
+    }
+
+    public void setProductionProcessInvestigati(String productionProcessInvestigati) {
+        this.productionProcessInvestigati = productionProcessInvestigati;
+    }
+
+    public String getProductionProcessPhoto() {
+        return productionProcessPhoto;
+    }
+
+    public void setProductionProcessPhoto(String productionProcessPhoto) {
+        this.productionProcessPhoto = productionProcessPhoto;
+    }
+
+    public String getQualityGrade() {
+        return qualityGrade;
+    }
+
+    public void setQualityGrade(String qualityGrade) {
+        this.qualityGrade = qualityGrade;
+    }
+
+    public String getOriginalJudgementResult() {
+        return originalJudgementResult;
+    }
+
+    public void setOriginalJudgementResult(String originalJudgementResult) {
+        this.originalJudgementResult = originalJudgementResult;
+    }
+
+    public String getSurfaceStructure() {
+        return surfaceStructure;
+    }
+
+    public void setSurfaceStructure(String surfaceStructure) {
+        this.surfaceStructure = surfaceStructure;
+    }
+
+    public String getProductionProcessText() {
+        return productionProcessText;
+    }
+
+    public void setProductionProcessText(String productionProcessText) {
+        this.productionProcessText = productionProcessText;
+    }
+
+    public String getProductionProcessAll() {
+        return productionProcessAll;
+    }
+
+    public void setProductionProcessAll(String productionProcessAll) {
+        this.productionProcessAll = productionProcessAll;
+    }
+
+    public String getOutInquireFact() {
+        return outInquireFact;
+    }
+
+    public void setOutInquireFact(String outInquireFact) {
+        this.outInquireFact = outInquireFact;
+    }
+
+    public String getClaimConfirm() {
+        return claimConfirm;
+    }
+
+    public void setClaimConfirm(String claimConfirm) {
+        this.claimConfirm = claimConfirm;
+    }
+
+    public String getClaimVerdict() {
+        return claimVerdict;
+    }
+
+    public void setClaimVerdict(String claimVerdict) {
+        this.claimVerdict = claimVerdict;
+    }
+
+    public String getImprovement() {
+        return improvement;
+    }
+
+    public void setImprovement(String improvement) {
+        this.improvement = improvement;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
 
     public String getFieldConclusionText() {
         return fieldConclusionText;
