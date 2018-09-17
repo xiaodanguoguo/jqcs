@@ -328,7 +328,7 @@ function isAllCheck(){
 
 function clsUploadCtrl$successAfter(ctrl, response)
 {
-    getAjaxResult(document.body.jsLee.requestUrl.path8,"POST",{"claimNo":$(ctrl).parents("tr")[0].jsonData.claimNo,"claimNoUrl":response.rspBody},"uploadCallBack(data)")
+    getAjaxResult(document.body.jsLee.requestUrl.path8,"POST",{"claimNo":$(ctrl).parents("tr")[0].jsonData.claimNo,"claimNoUrl":response.rspBody.viewUrl},"uploadCallBack(data)")
 }
 
 $(function(){
