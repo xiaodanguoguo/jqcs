@@ -40,7 +40,7 @@ public class CrmClaimOutInquire {
 
     private String endProcessingTech;
 
-    private String defectName;
+    //private String defectName;
 
     private Date productDt;
 
@@ -376,14 +376,6 @@ public class CrmClaimOutInquire {
 
     public void setEndProcessingTech(String endProcessingTech) {
         this.endProcessingTech = endProcessingTech == null ? null : endProcessingTech.trim();
-    }
-
-    public String getDefectName() {
-        return defectName;
-    }
-
-    public void setDefectName(String defectName) {
-        this.defectName = defectName == null ? null : defectName.trim();
     }
 
     public Date getProductDt() {
