@@ -526,7 +526,7 @@
         REPORT_PICTURE = #{reportPicture,jdbcType=VARCHAR},
       </if>
       <if test="objectionConfirmation != null" >
-        OBJECTION_CONFIRMATION = #{objectionConfirmation ,jdbcType=NUMERIC}
+        OBJECTION_CONFIRMATION = #{objectionConfirmation ,jdbcType=NUMERIC},
       </if>
     </trim>
     where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}

@@ -215,8 +215,8 @@
     <if test="claimConfirm != null" >
       CLAIM_CONFIRM = #{claimConfirm,jdbcType=NUMERIC},
     </if>
-    <if test="claimverdict != null" >
-      CLAIM_VERDICT = #{claimverdict,jdbcType=VARCHAR},
+    <if test="claimVerdict != null" >
+      CLAIM_VERDICT = #{claimVerdict,jdbcType=VARCHAR},
     </if>
     <if test="improvement != null" >
       IMPROVEMENT = #{improvement,jdbcType=VARCHAR},

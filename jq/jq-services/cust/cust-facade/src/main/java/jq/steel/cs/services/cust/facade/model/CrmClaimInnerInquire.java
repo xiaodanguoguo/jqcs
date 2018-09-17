@@ -58,6 +58,9 @@ public class CrmClaimInnerInquire {
     //操作类型
     private  Integer optionType;
 
+
+
+
     public Integer getOptionType() {
         return optionType;
     }
