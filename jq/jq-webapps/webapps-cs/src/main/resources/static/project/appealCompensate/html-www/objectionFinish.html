@@ -1,5 +1,13 @@
 @@include('../../commonNav/html/commonHeaderBlue.html')
 <link rel="stylesheet" href="../css/objection_manage.css">
+<style>
+    .comUpload{
+        color: #6390f3!important;
+        background: #fff;
+        border: 0;
+        line-height: 24px!important;
+    }
+</style>
 <script src="../js/objectionFinish.js"></script>
     <div class="submission">
         <!--<div class="submission-title">
@@ -120,7 +128,7 @@
                         <td class="table-list-currentrow-tdetail" id="lastUser"></td>
                         <td class="table-list-currentrow-tdetail" id="presentationDate"></td>
                         <td class="table-list-currentrow-tdetail">
-                            <span class="btnLowImgCom" id="uploadOpe">上传</span>
+                            <span class="btnLowImgCom fl" id="uploadOpe" comType="uploadCtrl" uploadType="button" uploadTypeVal="上传" reqPath="/file/upload" uploadSize='{"w":"50","h":"26"}' filetype="custom" fileExt="jpg|jpeg|gif|png">上传</span>
                             <span class="btnLowImgCom" id="viewUploadOpe">查看</span>
                         </td>
                         <td class="table-list-currentrow-tdetail" id="reasonsForCompulsoryClosure"></td>

@@ -7,7 +7,7 @@ function clsMethodLee(){
         "path5":"/objectionTiBao/down",//异议处理评价接口
         "path6":"/objectionTiBao/lookPhoto",//协议书查看接口
         "path7":"/md/findItemsByTypeId",//产品大类下拉接口
-        "path8":"/agreement/down"//异议提报协议书下载接口
+        "path8":"/objectionChuLi/preview"//查看pdf接口
     };
     this.documentLee = null;
     this.claimNo = "";//异议处理评价的异议编号
@@ -276,8 +276,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         });
         //下载协议书
         $(cloneRow).find("#downloadOpe").on("click",function(){
-            var importParam = "name=" + jsonItem.claimNo;
-            $.download(requestUrl + document.body.jsLee.requestUrl.path8, importParam, "POST");
+           getAjaxResult(document.body.jsLee.requestUrl.path8,"POST",{"templateType":1,"claimNo":jsonItem.claimNo},"pdfViewCallBack(data)");
         });
     }
 }
@@ -396,6 +395,13 @@ function clsAlertBoxCtrl$sure() {
         closePopupWin();
         getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",document.body.jsLee.claimNoArr,"deleteOpeCallBack(data)");
 
+    }
+}
+
+function pdfViewCallBack(data){
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody.report,"0000000","1");
     }
 }
 
