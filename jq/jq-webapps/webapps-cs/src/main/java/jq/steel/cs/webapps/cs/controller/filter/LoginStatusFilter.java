@@ -81,6 +81,7 @@ public class LoginStatusFilter implements Filter {
             chain.doFilter(request, response);
             return ;
         }
+        String path = servletRequest.getRequestURI();
 
         //验证用户是否登录..
         String sessionId = CookieUtil.getSessionId(servletRequest);

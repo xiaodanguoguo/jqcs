@@ -281,11 +281,11 @@ public class AcctServiceImpl implements AcctService {
 
     @Override
     public Map<String, String> getAcctAuth(String acctId){
-        String authKey = CacheKeyConstant.ACCT_AUTH+acctId;
+        String authKey = CacheKeyConstant.ACCT_AUTH_ID+acctId;
 
         Map<String, String> map =  cacheService.getObject(authKey, Map.class);
         if(null == map){
-            System.err.println("----------------授权缓存无效-------------------");
+            System.err.println("----------------授权id缓存无效-------------------");
             FunctionManageVO manageVO = new FunctionManageVO();
             manageVO.setAcctId(acctId);
 
@@ -293,6 +293,27 @@ public class AcctServiceImpl implements AcctService {
             map = new HashMap<>();
             for(FunctionManageVO manage : list){
                 map.put(String.valueOf(manage.getFunctionId()),String.valueOf(manage.getFunctionId()));
+            }
+            cacheService.set(authKey, map, TIME_EXPIRE);
+        }
+
+        return map;
+    }
+
+    @Override
+    public Map<String, String> getAcctAuthPath(String acctId){
+        String authKey = CacheKeyConstant.ACCT_AUTH_PATH+acctId;
+
+        Map<String, String> map =  cacheService.getObject(authKey, Map.class);
+        if(null == map){
+            System.err.println("----------------授权路径缓存无效-------------------");
+            FunctionManageVO manageVO = new FunctionManageVO();
+            manageVO.setAcctId(acctId);
+
+            List<FunctionManageVO> list = functionManageService.getUserfunctionList(manageVO);
+            map = new HashMap<>();
+            for(FunctionManageVO manage : list){
+                map.put(manage.getFunctionPath(), manage.getFunctionPath());
             }
             cacheService.set(authKey, map, TIME_EXPIRE);
         }
@@ -316,7 +337,7 @@ public class AcctServiceImpl implements AcctService {
         FunctionManageVO functionManageVO = new FunctionManageVO();
         functionManageVO.setAcctId(String.valueOf(acct.getAcctId()));
         List<FunctionManageVO> authList = functionManageService.getUserfunctionList(functionManageVO);
-        String authKey = CacheKeyConstant.ACCT_AUTH+acct.getAcctId();
+        String authKey = CacheKeyConstant.ACCT_AUTH_ID+acct.getAcctId();
 
         Map<String, String> authMap = new HashMap<>();
         for(FunctionManageVO manageVO : authList){

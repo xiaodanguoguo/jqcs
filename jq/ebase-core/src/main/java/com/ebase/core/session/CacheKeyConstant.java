@@ -19,6 +19,9 @@ public class CacheKeyConstant {
     //物料
     public static final String MATERIEL_KEY = "MATERIEL_KEY|";
 
-    // 用户权限资源
-    public static final String ACCT_AUTH = "ACCT_AUTH|";
+    // 用户权限资源id
+    public static final String ACCT_AUTH_ID = "ACCT_AUTH_ID|";
+
+    // 用户权限资源path
+    public static final String ACCT_AUTH_PATH = "ACCT_AUTH_PATH|";
 }

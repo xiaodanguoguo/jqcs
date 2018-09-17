@@ -30,5 +30,22 @@ public interface AcctService {
      */
     AcctInfoVO getAcct(String acctName);
 
+    /**
+     * @param:
+     * @return:  
+     * @description:  获取权限id
+     * @author: lirunze
+     * @Date: 2018/9/16
+     */
     Map<String, String> getAcctAuth(String acctId);
+
+    /**
+     * @param:
+     * @return:
+     * @description:  获取权限路径
+     * @author: lirunze
+     * @Date: 2018/9/16
+     */
+    Map<String, String> getAcctAuthPath(String acctId);
+
 }

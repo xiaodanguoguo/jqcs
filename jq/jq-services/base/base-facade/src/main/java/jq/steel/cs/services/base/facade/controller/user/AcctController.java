@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -206,4 +205,19 @@ public class AcctController {
         return serviceResponse;
     }
 
+    @RequestMapping("/getAcctAuthPath")
+    public ServiceResponse<Map<String, String>> getAcctAuthPath(String acctId){
+        ServiceResponse<Map<String, String>> serviceResponse = new ServiceResponse<>();
+
+        try{
+            Map<String, String> map = acctService.getAcctAuth(acctId);
+            serviceResponse.setRetContent(map);
+
+        } catch (Exception e){
+            LOG.error("获取用户信息 error  = {}", e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+
+        return serviceResponse;
+    }
 }

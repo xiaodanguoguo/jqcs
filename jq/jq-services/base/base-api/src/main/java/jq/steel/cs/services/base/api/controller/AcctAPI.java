@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,4 +60,7 @@ public interface AcctAPI {
 
     @RequestMapping(value = "acct/getAcctAuth",method = RequestMethod.POST)
     public ServiceResponse<Map<String, String>> getAcctAuth(@RequestParam(value = "acctId") String acctId);
+
+    @RequestMapping(value = "acct/getAcctAuthPath",method = RequestMethod.POST)
+    public ServiceResponse<Map<String, String>> getAcctAuthPath(@RequestParam(value = "acctId") String acctId);
 }
