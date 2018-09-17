@@ -7,7 +7,8 @@ function clsMethodLee(){
         "path5":"/objectionTiBao/down",//异议处理评价接口
         "path6":"/objectionTiBao/lookPhoto",//协议书查看接口
         "path7":"/md/findItemsByTypeId",//产品大类下拉接口
-        "path8":"/objectionChuLi/preview"//查看pdf接口
+        "path8":"/objectionChuLi/preview",//查看pdf接口
+        "path9":"/objectionChuLi/download"//下载pdf接口
     };
     this.documentLee = null;
     this.claimNo = "";//异议处理评价的异议编号
@@ -150,6 +151,15 @@ function clsMethodLee$operate(){
     $("#previewNext").on("click",function () {//下一页
         previewPage(1);
     });
+    //下载协议书
+    $("#downView").on("click",function(){
+        var importParam = "name=" + JSON.stringify({"claimNo":[document.body.jsLee.claimNo],"templateType":1});
+        $.download(requestUrl + document.body.jsLee.requestUrl.path9, importParam, "POST");
+    });
+    //下载协议书关闭
+    $("#downViewCancel").on("click",function(){
+       closePopupWin();
+    });
 
 }
 function clsMethodLee$refresh(){
@@ -274,10 +284,12 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         $(cloneRow).find("#viewOpe").on("click",function(){
             getAjaxResult(document.body.jsLee.requestUrl.path6,"POST",{"claimNo":jsonItem.claimNo},"viewOpeCallBack(data)");
         });
-        //下载协议书
+        //查看协议书
         $(cloneRow).find("#downloadOpe").on("click",function(){
+            document.body.jsLee.claimNo = jsonItem.claimNo;
            getAjaxResult(document.body.jsLee.requestUrl.path8,"POST",{"templateType":1,"claimNo":jsonItem.claimNo},"pdfViewCallBack(data)");
         });
+
     }
 }
 
@@ -401,7 +413,10 @@ function clsAlertBoxCtrl$sure() {
 function pdfViewCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody.report,"0000000","1");
+        openWin("800","600","previewOpeBox2");
+        $("#previewOpeBoxPdf2").attr("href",data.rspBody.report);
+        $("#previewOpeBoxPdf2").media({width:740, height:450});
+        //jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody.report,"0000000","1");
     }
 }
 
