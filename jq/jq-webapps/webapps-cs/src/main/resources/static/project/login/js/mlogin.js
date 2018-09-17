@@ -2,6 +2,7 @@ function clsMethodLee(){
     this.requestUrl = {
         "path1":"/acct/login",//登陆接口
         "path2":"/product/info/index/list"//轮播图接口
+        "path3":"//auth/list"//权限code集
     };
     this.documentLee = null;
     this.checkMark = false;//滑动校验标示
