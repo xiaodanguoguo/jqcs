@@ -238,7 +238,7 @@ function clsAlertBoxCtrl$sure() {//成功弹框确定
 
 //提交参数拼接
 function paramJson(){
-    var jsonParam = {"agreementAmount":"","agreementAmountUpper":"","agreementContent":"","fiekdConclusion":"","claimDesc":"","agreementNum":"","rejectReason":""};
+    var jsonParam = {"claimNo":"","agreementAmount":"","agreementAmountUpper":"","agreementContent":"","fiekdConclusion":"","claimDesc":"","agreementNum":"","rejectReason":""};
     getValue4Desc(jsonParam,$("#htmlBox")[0]);
     jsonParam.fieldConclusion = UE.getEditor('editor').getContent();
     return jsonParam;
