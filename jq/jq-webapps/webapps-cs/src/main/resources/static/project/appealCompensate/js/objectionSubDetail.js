@@ -594,26 +594,26 @@ function paramJson(){
         //富文本参数拼接
         jsonParam.inquireInfoAll = UE.getEditor('editor').getContent();
         jsonParam.inquireInfoText = UE.getEditor('editor').getPlainTxt();
-        jsonParam.inquireInfoPhoto = UE.getEditor('editor').getContent();
+        jsonParam.inquireInfoPhoto = splitImg(UE.getEditor('editor').getContent());
         jsonParam.fieldConclusion = UE.getEditor('editor2').getContent();
         jsonParam.fieldConclusionText = UE.getEditor('editor2').getPlainTxt();
-        jsonParam.fieldConclusionPhoto = UE.getEditor('editor2').getContent();
+        jsonParam.fieldConclusionPhoto = splitImg(UE.getEditor('editor2').getContent());
         //异议分类和缺陷分类获取值（同一个字段）
         jsonParam.claimType = $("#claimTypeA").attr("markCode");
     }else if(document.body.jsLee.htmlType == 5){//内部调查
         jsonParam.productionProcessAll = UE.getEditor('editor').getContent();
         jsonParam.productionProcessText = UE.getEditor('editor').getPlainTxt();
-        jsonParam.productionProcessPhoto = UE.getEditor('editor').getContent();
+        jsonParam.productionProcessPhoto = splitImg(UE.getEditor('editor').getContent());
         //异议分类和缺陷分类获取值（同一个字段）
         jsonParam.claimType = $("#claimTypeA").attr("markCode");
     }else if(document.body.jsLee.htmlType == 6){//确认书审核
         //富文本参数拼接
         jsonParam.inquireInfoAll = UE.getEditor('editor').getContent();
         jsonParam.inquireInfoText = UE.getEditor('editor').getPlainTxt();
-        jsonParam.inquireInfoPhoto = UE.getEditor('editor').getContent();
+        jsonParam.inquireInfoPhoto = splitImg(UE.getEditor('editor').getContent());
         jsonParam.fieldConclusion = UE.getEditor('editor2').getContent();
         jsonParam.fieldConclusionText = UE.getEditor('editor2').getPlainTxt();
-        jsonParam.fieldConclusionPhoto = UE.getEditor('editor2').getContent();
+        jsonParam.fieldConclusionPhoto = splitImg(UE.getEditor('editor2').getContent());
         //异议分类和缺陷分类获取值（同一个字段）
         jsonParam.claimType = $("#claimTypeA").attr("markCode");
     }else if(document.body.jsLee.htmlType == 7){//销售审核详情
@@ -711,6 +711,18 @@ function clsAlertBoxCtrl$sure() {//成功弹框确定
     }else if(this.id == "successJump2"){
         jumpUrl("objectionReasearch.html","0000000",0);
     }
+}
+
+//富文本提取src
+function splitImg(strAll){
+    var arrAll = [];
+    $("body").append("<span id='spanspan' style='display: none'></span>");
+    $("#spanspan").html(strAll);
+    $("#spanspan img").each(function(){
+        arrAll.push($(this).attr("src"));
+    });
+    $("#spanspan").remove();
+    return arrAll.join(";");
 }
 
 $(function(){
