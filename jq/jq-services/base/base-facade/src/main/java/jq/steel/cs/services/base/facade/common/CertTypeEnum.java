@@ -1,11 +1,10 @@
-package jq.steel.csservices.base.facade.common;
+package jq.steel.cs.services.base.facade.common;
 
 import java.util.HashMap;
 import java.util.Map;
 
 //证件类型
 public enum CertTypeEnum {
-
     ID_NUMBER((byte)1,"身份证号");
 
     private byte code;

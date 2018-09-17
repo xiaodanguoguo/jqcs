@@ -1,4 +1,4 @@
-package jq.steel.csservices.base.facade.common;
+package jq.steel.cs.services.base.facade.common;
 
 import java.util.HashMap;
 import java.util.Map;
