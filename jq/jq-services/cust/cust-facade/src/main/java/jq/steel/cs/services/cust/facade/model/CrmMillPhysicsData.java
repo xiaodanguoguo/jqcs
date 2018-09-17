@@ -7,7 +7,9 @@ public class CrmMillPhysicsData {
 
     private BigDecimal sid;
 
-    private String kurztext ;   //物理信息值
+    private String kurztext;   //物理信息值
+
+    private String originalInput;
 
 
     public BigDecimal getSid() {
@@ -26,4 +28,11 @@ public class CrmMillPhysicsData {
         this.kurztext = kurztext;
     }
 
+    public String getOriginalInput() {
+        return originalInput;
+    }
+
+    public void setOriginalInput(String originalInput) {
+        this.originalInput = originalInput;
+    }
 }

@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
     <groupId>jq.steel</groupId>
-    <artifactId>services-base</artifactId>
+    <artifactId>services-cust</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 	 <artifactId>cust-facade</artifactId>
@@ -67,11 +67,11 @@
 		</dependency>
 		<!--签章结束-->
 		<!--润乾开始-->
-		<!--<dependency>
+		<dependency>
 			<groupId>com.raqsoft</groupId>
 			<artifactId>raqsoftReport</artifactId>
 			<version>1</version>
-		</dependency>-->
+		</dependency>
 		<!--润乾结束-->
 	</dependencies>
 	<dependencyManagement>
