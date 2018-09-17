@@ -492,31 +492,26 @@ function htmlInit2(data){//数据回显回调
             //富文本数据回显
             var ue = UE.getEditor('editor');
             ue.ready(function() {//编辑器初始化完成再赋值
-                data.rspBody.inquireInfoAll = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
                 ue.setContent(data.rspBody.inquireInfoAll);  //赋值给UEditor
             });
             var ue2 = UE.getEditor('editor2');
             ue2.ready(function() {//编辑器初始化完成再赋值
-                data.rspBody.fieldConclusion = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
                 ue2.setContent(data.rspBody.fieldConclusion);  //赋值给UEditor
             });
         }else if(document.body.jsLee.htmlType == 5){//内部调查
             //富文本数据回显
             var ue = UE.getEditor('editor');
             ue.ready(function() {//编辑器初始化完成再赋值
-                data.rspBody.productionProcessAll = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
                 ue.setContent(data.rspBody.productionProcessAll);  //赋值给UEditor
             });
         }else if(document.body.jsLee.htmlType == 6){//确认书审核
             //富文本数据回显
             var ue = UE.getEditor('editor');
             ue.ready(function() {//编辑器初始化完成再赋值
-                data.rspBody.inquireInfoAll = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
                 ue.setContent(data.rspBody.inquireInfoAll);  //赋值给UEditor
             });
             var ue2 = UE.getEditor('editor2');
             ue2.ready(function() {//编辑器初始化完成再赋值
-                data.rspBody.fieldConclusion = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
                 ue2.setContent(data.rspBody.fieldConclusion);  //赋值给UEditor
             });
         }
