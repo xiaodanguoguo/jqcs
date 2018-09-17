@@ -84,8 +84,7 @@ public class OraclePagingPrivIdInterceptor extends AbstractPagingInterceptor {
 	 * 
 	 */
 	@Override
-	protected String getSelectPagingSql(String targetSql,PageDTO<?> pageDto) {
-		String sql = targetSql.toLowerCase();
+	protected String getSelectPagingSql(String sql,PageDTO<?> pageDto) {
 		StringBuilder sqlBuilder = new StringBuilder();
 		sqlBuilder.append("SELECT * FROM  (SELECT R.*, ROWNUM RN FROM (");
 		sqlBuilder.append(sql);

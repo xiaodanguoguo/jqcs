@@ -179,6 +179,7 @@ function clsMethodLee$parse(){
             //$(".box4").remove();
             $(".box5").remove();
             //$(".box6").remove();
+            $(".box4:last").remove();
             $("#submitBox input").attr("disabled",true).addClass("changeGary");
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
             getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"claimNo":this.claimNo,"optionType":3},"htmlInit2(data)");//数据回显操作

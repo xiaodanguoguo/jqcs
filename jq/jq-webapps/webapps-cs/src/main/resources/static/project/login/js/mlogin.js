@@ -1,7 +1,8 @@
 function clsMethodLee(){
     this.requestUrl = {
         "path1":"/acct/login",//登陆接口
-        "path2":"/product/info/index/list"//轮播图接口
+        "path2":"/product/info/index/list",//轮播图接口
+        "path3":"//auth/list"//权限code集
     };
     this.documentLee = null;
     this.checkMark = false;//滑动校验标示
@@ -174,6 +175,7 @@ function submitCallBack(data){
             setCookie("acctTitle",$("#js-input--username").val());
             setCookie("acctPassword",$("#js-input-password").val());
         }
+        //getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",{},"codeSetCallBack(data)");
         if(GetQueryString("overtime") == 1){
             jumpUrl(unescape(getCookie("urlPath")),"0000000",0);
         }else{
