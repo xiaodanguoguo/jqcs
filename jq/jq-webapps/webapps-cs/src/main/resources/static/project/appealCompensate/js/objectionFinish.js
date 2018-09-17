@@ -5,7 +5,8 @@ function clsMethodLee(){
         "path3":"/objectionChuLi/compulsorySettlement",//强制结案接口
         "path4":"/objectionJieAn/revoke",//撤销接口
         "path5":"/objectionJieAn/look",//查看协议书接口
-        "path7":"/md/findItemsByTypeId"//产品大类下拉接口
+        "path7":"/md/findItemsByTypeId",//产品大类下拉接口
+        "path8":"/objectionJieAn/upload"//上传之后把上传图片传给后台
     };
     this.documentLee = null;
     this.claimNo = "";//强制结案的当前缓存标识
@@ -212,9 +213,9 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         }
 
         //上传协议书操作
-        $(cloneRow).find("#uploadOpe").on("click",function(){
-
-        });
+        /*$(cloneRow).find("#uploadOpe").on("click",function(){
+            document.body.jsLee.claimNo = jsonItem.claimNo;
+        });*/
         //查看协议书操作
         $(cloneRow).find("#viewUploadOpe").on("click",function(){
             getAjaxResult(document.body.jsLee.requestUrl.path5,"POST",{"claimNo":jsonItem.claimNo},"viewUploadOpeCallBack(data)")
@@ -323,6 +324,11 @@ function isAllCheck(){
     if(numLength == listCheck.length && numLength != 0){
         $("#checkAll").attr("checked",true);
     }
+}
+
+function clsUploadCtrl$successAfter(ctrl, response)
+{
+    getAjaxResult(document.body.jsLee.requestUrl.path8,"POST",{"claimNo":$(ctrl).parents("tr")[0].jsonData.claimNo,"claimNoUrl":response.rspBody.viewUrl},"uploadCallBack(data)")
 }
 
 $(function(){

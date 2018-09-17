@@ -66,8 +66,6 @@ function clsMethodLee$operate(){
             }
             var importParam = "name=" + JSON.stringify(millSheetNoArr);
             $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
-            //getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",millSheetNoArr,"callBAcka(data)")
-
         }
     });
 
