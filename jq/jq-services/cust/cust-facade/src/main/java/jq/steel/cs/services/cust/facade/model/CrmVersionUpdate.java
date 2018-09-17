@@ -1,23 +1,29 @@
 package jq.steel.cs.services.cust.facade.model;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
-public class CrmVersionUpdate {
+public class CrmVersionUpdate implements Serializable {
     private Long vid;
 
-    private String versionNumber;
+    private String versionNumber;   //版本号
+
+    private String versionPath;
 
     private String versionContent;
 
-    private Short updateWay;
+    private BigDecimal updateWay;
 
-    private Long createByid;
+    private BigDecimal createByid;
 
     private Date createDt;
 
-    private Long updateByid;
+    private BigDecimal updateByid;
 
     private Date updateDt;
+
+    private static final long serialVersionUID = 1L;
 
     public Long getVid() {
         return vid;
@@ -35,6 +41,14 @@ public class CrmVersionUpdate {
         this.versionNumber = versionNumber == null ? null : versionNumber.trim();
     }
 
+    public String getVersionPath() {
+        return versionPath;
+    }
+
+    public void setVersionPath(String versionPath) {
+        this.versionPath = versionPath == null ? null : versionPath.trim();
+    }
+
     public String getVersionContent() {
         return versionContent;
     }
@@ -43,19 +57,19 @@ public class CrmVersionUpdate {
         this.versionContent = versionContent == null ? null : versionContent.trim();
     }
 
-    public Short getUpdateWay() {
+    public BigDecimal getUpdateWay() {
         return updateWay;
     }
 
-    public void setUpdateWay(Short updateWay) {
+    public void setUpdateWay(BigDecimal updateWay) {
         this.updateWay = updateWay;
     }
 
-    public Long getCreateByid() {
+    public BigDecimal getCreateByid() {
         return createByid;
     }
 
-    public void setCreateByid(Long createByid) {
+    public void setCreateByid(BigDecimal createByid) {
         this.createByid = createByid;
     }
 
@@ -67,11 +81,11 @@ public class CrmVersionUpdate {
         this.createDt = createDt;
     }
 
-    public Long getUpdateByid() {
+    public BigDecimal getUpdateByid() {
         return updateByid;
     }
 
-    public void setUpdateByid(Long updateByid) {
+    public void setUpdateByid(BigDecimal updateByid) {
         this.updateByid = updateByid;
     }
 
@@ -81,5 +95,25 @@ public class CrmVersionUpdate {
 
     public void setUpdateDt(Date updateDt) {
         this.updateDt = updateDt;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", vid=").append(vid);
+        sb.append(", versionNumber=").append(versionNumber);
+        sb.append(", versionPath=").append(versionPath);
+        sb.append(", versionContent=").append(versionContent);
+        sb.append(", updateWay=").append(updateWay);
+        sb.append(", createByid=").append(createByid);
+        sb.append(", createDt=").append(createDt);
+        sb.append(", updateByid=").append(updateByid);
+        sb.append(", updateDt=").append(updateDt);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
     }
 }

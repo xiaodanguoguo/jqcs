@@ -3,6 +3,7 @@ package jq.steel.cs.services.cust.api.controller;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
+import jq.steel.cs.services.cust.api.vo.CrmMillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import org.springframework.cloud.netflix.feign.FeignClient;
@@ -30,4 +31,24 @@ public interface MillCoilInfoAPI {
      */
     @RequestMapping(value = "/coilinfo/findIsTrue",method = RequestMethod.POST)
     ServiceResponse<MillCoilInfoVO> findIsTrue(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest);
+
+
+    /**
+     *  通过当前用户查询所有的钢卷
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value ="/app/millCoil/getCoilsByCurrentUser", method = RequestMethod.POST)
+    public ServiceResponse<PageDTO<MillCoilInfoVO>> CoilsByCurrentUser(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest);
+
+    /**
+     *  查询钢卷对应的物理,化学数据
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/app/millCoil/getCoilDetailByCoil", method = RequestMethod.POST)
+    public ServiceResponse<List<CrmMillCoilInfoVO>> getCoilDetail(@RequestBody JsonRequest<CrmMillCoilInfoVO> jsonRequest);
+
+
 }

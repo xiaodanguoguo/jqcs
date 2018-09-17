@@ -1,21 +1,25 @@
 package jq.steel.cs.services.cust.facade.model;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
-public class CrmAnnouncement {
+public class CrmAnnouncement implements Serializable {
     private Long aid;
 
     private String annName;
 
-    private Short annType;
+    private BigDecimal annType;
 
-    private Long createByid;
+    private BigDecimal createByid;
 
     private Date createDt;
 
-    private Long updateByid;
+    private BigDecimal updateByid;
 
     private Date updateDt;
+
+    private static final long serialVersionUID = 1L;
 
     public Long getAid() {
         return aid;
@@ -33,19 +37,19 @@ public class CrmAnnouncement {
         this.annName = annName == null ? null : annName.trim();
     }
 
-    public Short getAnnType() {
+    public BigDecimal getAnnType() {
         return annType;
     }
 
-    public void setAnnType(Short annType) {
+    public void setAnnType(BigDecimal annType) {
         this.annType = annType;
     }
 
-    public Long getCreateByid() {
+    public BigDecimal getCreateByid() {
         return createByid;
     }
 
-    public void setCreateByid(Long createByid) {
+    public void setCreateByid(BigDecimal createByid) {
         this.createByid = createByid;
     }
 
@@ -57,11 +61,11 @@ public class CrmAnnouncement {
         this.createDt = createDt;
     }
 
-    public Long getUpdateByid() {
+    public BigDecimal getUpdateByid() {
         return updateByid;
     }
 
-    public void setUpdateByid(Long updateByid) {
+    public void setUpdateByid(BigDecimal updateByid) {
         this.updateByid = updateByid;
     }
 
@@ -71,5 +75,23 @@ public class CrmAnnouncement {
 
     public void setUpdateDt(Date updateDt) {
         this.updateDt = updateDt;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", aid=").append(aid);
+        sb.append(", annName=").append(annName);
+        sb.append(", annType=").append(annType);
+        sb.append(", createByid=").append(createByid);
+        sb.append(", createDt=").append(createDt);
+        sb.append(", updateByid=").append(updateByid);
+        sb.append(", updateDt=").append(updateDt);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
+        sb.append("]");
+        return sb.toString();
     }
 }
