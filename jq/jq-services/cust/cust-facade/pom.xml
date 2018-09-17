@@ -67,11 +67,11 @@
 		</dependency>
 		<!--签章结束-->
 		<!--润乾开始-->
-		<!--<dependency>
+		<dependency>
 			<groupId>com.raqsoft</groupId>
 			<artifactId>raqsoftReport</artifactId>
 			<version>1</version>
-		</dependency>-->
+		</dependency>
 		<!--润乾结束-->
 	</dependencies>
 	<dependencyManagement>
