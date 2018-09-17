@@ -10,9 +10,10 @@ function clsMethodLee(){
         "path8":"/objectionTiBao/printing",//详情页面打印功能
         "path9":"/objectionDiaoCha/findDetails",//异议调查外部调查内部调查回显数据|确认书审核   1是外部调查 2是内部调查 3确认书审核
         "path10":"/objectionDiaoCha/update",//内外部调查报告（保存，跟踪，提交）异议处理确认书（通过 ，驳回）
-                                            //1外部保存2外部跟踪3外部提交4内部保存5内部提交6确认书通过7确认书审核
+                                            //1外部保存2外部跟踪3外部提交4确认书通过5确认书审核
         "path11":"/file/upload",//上传
-        "path12":"/coilinfo/findIsTrue"//批板卷号填写校验操作，校验成功带出数据
+        "path12":"/coilinfo/findIsTrue",//批板卷号填写校验操作，校验成功带出数据
+        "path13":"/objectionDiaoCha/updateInside"//1内部保存2内部提交
     };
     this.documentLee = null;
     this.htmlType = GetQueryString("htmlType");//判断页面类型0——新建 1修改 2——详情  3——销售审核  4——外部调查  5——内部调查 6-确认书审核  7-销售审核详情页面
@@ -293,11 +294,11 @@ function clsMethodLee$operate(){
         }
     });
 
-    //外部调查保存按钮
+    //外部调查调查结束按钮
     this.forthsubmit.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionType = 1;
+            jsonParam.optionType = 3;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
@@ -309,11 +310,11 @@ function clsMethodLee$operate(){
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
-    //外部调查提交按钮
+    //外部调查保存按钮
     this.forthSave.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionType = 3;
+            jsonParam.optionType = 1;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
@@ -321,34 +322,34 @@ function clsMethodLee$operate(){
     this.fifthSave.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionType = 4;
-            getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
+            jsonParam.optionType = 1;
+            getAjaxResult(document.body.jsLee.requestUrl.path13,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
     //内部调查提交按钮
     this.fifthSubmit.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionType = 5;
-            getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
+            jsonParam.optionType = 2;
+            getAjaxResult(document.body.jsLee.requestUrl.path13,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
-    //通知书审核通过操作
+    //确认书审核通过操作
     this.sixthPromise.on("click",function(){
         $("#rejectReason").removeClass("required");
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionType = 6;
+            jsonParam.optionType = 4;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
 
         }
     });
-    //通知书审核驳回操作
+    //确认书审核驳回操作
     this.sixthReject.on("click",function(){
         $("#rejectReason").addClass("required");
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionType = 7;
+            jsonParam.optionType = 5;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
@@ -603,7 +604,7 @@ function paramJson(){
         jsonParam.inquireInfo = UE.getEditor('editor').getContent();
         //异议分类和缺陷分类获取值（同一个字段）
         jsonParam.claimType = $("#claimTypeA").attr("markCode");
-    }else if(document.body.jsLee.htmlType == 6){//通知书审核
+    }else if(document.body.jsLee.htmlType == 6){//确认书审核
         //异议分类和缺陷分类获取值（同一个字段）
         jsonParam.claimType = $("#claimTypeA").attr("markCode");
     }else if(document.body.jsLee.htmlType == 7){//销售审核详情
