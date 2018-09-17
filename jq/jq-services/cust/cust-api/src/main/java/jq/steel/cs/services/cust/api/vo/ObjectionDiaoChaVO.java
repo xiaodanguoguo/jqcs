@@ -7,6 +7,10 @@ import java.util.Date;
 
 public class ObjectionDiaoChaVO {
 
+    private String fieldConclusionText;
+
+    private String fieldConclusionPhoto;
+
     private Integer dissentingUnit;
 
     /*内部调查字段*/
@@ -226,9 +230,26 @@ public class ObjectionDiaoChaVO {
     //润乾地址
     private  String report;
 
-    private  String  reportPicture;
+    private  String reportPictures;
 
     private  String objectionConfirmation;
+
+
+    public String getFieldConclusionText() {
+        return fieldConclusionText;
+    }
+
+    public void setFieldConclusionText(String fieldConclusionText) {
+        this.fieldConclusionText = fieldConclusionText;
+    }
+
+    public String getFieldConclusionPhoto() {
+        return fieldConclusionPhoto;
+    }
+
+    public void setFieldConclusionPhoto(String fieldConclusionPhoto) {
+        this.fieldConclusionPhoto = fieldConclusionPhoto;
+    }
 
     public String getObjectionConfirmation() {
         return objectionConfirmation;
@@ -238,12 +259,12 @@ public class ObjectionDiaoChaVO {
         this.objectionConfirmation = objectionConfirmation;
     }
 
-    public String getReportPicture() {
-        return reportPicture;
+    public String getReportPictures() {
+        return reportPictures;
     }
 
-    public void setReportPicture(String reportPicture) {
-        this.reportPicture = reportPicture;
+    public void setReportPictures(String reportPictures) {
+        this.reportPictures = reportPictures;
     }
 
     public Integer getDissentingUnit() {

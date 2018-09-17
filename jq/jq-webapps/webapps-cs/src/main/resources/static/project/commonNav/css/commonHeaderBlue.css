@@ -54,7 +54,7 @@
 
 .og-head-navlogo { /* width: 280px;*/ /*height: 100px;*/ display: block; float: left; padding-left: 10px; }
 
-.og-head-navlogo__logoimg { width: 250px; height: 48px; display: block; background: url("../images/logoMain.jpeg") no-repeat 0 center; background-size: 250px 48px; margin-top: 10px; margin-left: 10px; }
+.og-head-navlogo__logoimg { width: 250px; height: 48px; display: block; background: url("../images/logoMain.png") no-repeat 0 center; background-size: 250px 48px; margin-top: 10px; margin-left: 10px; }
 
 .og-head-navlogo__logoText { color: #666; line-height: 60px; margin-left: 30px; font-size: 16px; }
 

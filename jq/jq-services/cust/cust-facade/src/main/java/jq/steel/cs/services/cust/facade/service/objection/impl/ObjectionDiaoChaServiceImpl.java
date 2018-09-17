@@ -78,20 +78,27 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
         CrmClaimOutInquire crmClaimOutInquire  = new CrmClaimOutInquire();
         BeanCopyUtil.copy(record,crmClaimOutInquire);
         if (crmClaimOutInquire.getOptionType()==1){
-            //先查询是否有数据
+            Integer integer;
+                    //先查询是否有数据
            List<CrmClaimOutInquire> list = crmClaimOutInquireMapper.findByParams(crmClaimOutInquire);
             if (list.size()>0){
                 crmClaimOutInquire.setUpdateBy(AssertContext.getAcctName());
                 crmClaimOutInquire.setUpdateDt(new Date());
-                Integer integer = crmClaimOutInquireMapper.update(crmClaimOutInquire);
-                return integer;
+                integer = crmClaimOutInquireMapper.update(crmClaimOutInquire);
             }else {
                 //新增数据
                 crmClaimOutInquire.setCreateBy(AssertContext.getAcctName());
                 crmClaimOutInquire.setCreateDt(new Date());
-                Integer integer = crmClaimOutInquireMapper.insert(crmClaimOutInquire);
-                return  integer;
+                integer = crmClaimOutInquireMapper.insert(crmClaimOutInquire);
             }
+            //修改  货物所在地 lastUserAddr  缺陷名称 proProblem 异议确认量（吨）OBJECTION_CONFIRMATION
+            CrmClaimInfo crmClaimInfo1 = new CrmClaimInfo();
+            crmClaimInfo1.setClaimNo(record.getClaimNo());
+            crmClaimInfo1.setLastUserAddr(record.getLastUserAddr());
+            crmClaimInfo1.setProProblem(record.getProProblem());
+            crmClaimInfo1.setObjectionConfirmation(record.getObjectionConfirmation());
+            crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo1);
+            return integer;
 
         }else if(crmClaimOutInquire.getOptionType()==2){
             //修改外部数据 + 修改外部调查状态
@@ -102,6 +109,14 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimInfo.setUpdatedBy(AssertContext.getAcctName());
             crmClaimInfo.setInquireState("TRACK");
             int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
+
+            //修改  货物所在地 lastUserAddr  缺陷名称 proProblem 异议确认量（吨）OBJECTION_CONFIRMATION
+            CrmClaimInfo crmClaimInfo1 = new CrmClaimInfo();
+            crmClaimInfo1.setClaimNo(record.getClaimNo());
+            crmClaimInfo1.setLastUserAddr(record.getLastUserAddr());
+            crmClaimInfo1.setProProblem(record.getProProblem());
+            crmClaimInfo1.setObjectionConfirmation(record.getObjectionConfirmation());
+            crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo1);
             return  i;
         }else if (crmClaimOutInquire.getOptionType()==3){
             //外部调查报告状态变为“外部调查结束”；异议状态变为或者保持“调查中”，记录外部调查报告提交时间和提交人。
@@ -116,6 +131,14 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimInfo.setInquireState("OUTEND");
             crmClaimInfo.setClaimState("INVESTIGATION");
             int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
+
+            //修改  货物所在地 lastUserAddr  缺陷名称 proProblem 异议确认量（吨）OBJECTION_CONFIRMATION
+            CrmClaimInfo crmClaimInfo1 = new CrmClaimInfo();
+            crmClaimInfo1.setClaimNo(record.getClaimNo());
+            crmClaimInfo1.setLastUserAddr(record.getLastUserAddr());
+            crmClaimInfo1.setProProblem(record.getProProblem());
+            crmClaimInfo1.setObjectionConfirmation(record.getObjectionConfirmation());
+            crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo1);
             return i;
         }else if(crmClaimOutInquire.getOptionType()==4){
             //确认书（外部调查报告）状态变由“待确认”变为为“已确认” ,记录审核通过时间和审核人员信息。

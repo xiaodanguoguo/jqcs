@@ -7,9 +7,13 @@ import java.util.Date;
 
 public class CrmClaimOutInquire {
 
+    private String fieldConclusionText;
+
+    private String fieldConclusionPhoto;
+
     private  String objectionConfirmation;
 
-    private  String reportPicture;
+    private  String reportPictures;
 
     //销售经理建议
     private  String salesManagerSuggests;
@@ -182,6 +186,22 @@ public class CrmClaimOutInquire {
     private Date internalLnvestigationDate;
 
 
+    public String getFieldConclusionText() {
+        return fieldConclusionText;
+    }
+
+    public void setFieldConclusionText(String fieldConclusionText) {
+        this.fieldConclusionText = fieldConclusionText;
+    }
+
+    public String getFieldConclusionPhoto() {
+        return fieldConclusionPhoto;
+    }
+
+    public void setFieldConclusionPhoto(String fieldConclusionPhoto) {
+        this.fieldConclusionPhoto = fieldConclusionPhoto;
+    }
+
     public String getObjectionConfirmation() {
         return objectionConfirmation;
     }
@@ -190,12 +210,12 @@ public class CrmClaimOutInquire {
         this.objectionConfirmation = objectionConfirmation;
     }
 
-    public String getReportPicture() {
-        return reportPicture;
+    public String getReportPictures() {
+        return reportPictures;
     }
 
-    public void setReportPicture(String reportPicture) {
-        this.reportPicture = reportPicture;
+    public void setReportPictures(String reportPictures) {
+        this.reportPictures = reportPictures;
     }
 
     public String getSalesManagerSuggests() {
