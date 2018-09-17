@@ -6,7 +6,7 @@ function clsMethodLee(){
         "path4":"/objectionTiBao/findDetails",//异议提报新建/修改/详情/销售审核数据回显 1是新建2是修改3是详情4销售审核
         "path5":"/millsheet/findIsTrue",//质证书编号检验
         "path6":"/objectionTiBao/update",//异议提报新增/修改/保存/销售审核（保存、驳回、通过）1审核保存操作2驳回操作3通过操作4修改保存5新增保存
-        "path7":"/objectionTiBao/down",//详情页面下载功能
+        "path7":"/objectionChuLi/download",//详情页面下载功能
         "path8":"/objectionTiBao/printing",//详情页面打印功能
         "path9":"/objectionDiaoCha/findDetails",//异议调查外部调查内部调查回显数据|确认书审核   1是外部调查 2是内部调查 3确认书审核
         "path10":"/objectionDiaoCha/update",//内外部调查报告（保存，跟踪，提交）异议处理确认书（通过 ，驳回）
@@ -44,7 +44,7 @@ function clsMethodLee$init(){
     //新建|修改  页面保存按钮
     this.firstSave = $("#firstSave");
     //详情页面打印按钮
-    this.secondPrint = $("#secondPrint");
+    //this.secondPrint = $("#secondPrint");
     //详情页面下载按钮
     this.secondDownload = $("#secondDownload");
     //销售管理保存按钮
@@ -258,12 +258,12 @@ function clsMethodLee$operate(){
     });
 
     //详情页面打印操作
-    this.secondPrint.on("click",function(){
+   /* this.secondPrint.on("click",function(){
 
-    });
+    });*/
     //详情页面下载操作
     this.secondDownload.on("click",function(){
-        var importParam = "name=" + JSON.stringify(document.body.jsLee.claimNo);
+        var importParam = "name=" + JSON.stringify({"claimNos":[document.body.jsLee.claimNo],"templateType":2});
         $.download(requestUrl + document.body.jsLee.requestUrl.path7, importParam, "POST");
     });
     //销售管理保存操作

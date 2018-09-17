@@ -6,7 +6,8 @@ function clsMethodLee(){
         "path4":"/objectionDiaoCha/updateState",//异议调查内部外部开始状态改变接口  受理接口
         "path5":"/objectionDiaoCha/export",//异议调查导出接口
         "path6":"/",//受理接口
-        "path7":"/md/findItemsByTypeId"//产品大类下拉接口
+        "path7":"/md/findItemsByTypeId",//产品大类下拉接口
+        "path8":"/objectionChuLi/preview"//查看pdf接口
     };
     this.documentLee = null;
     this.claimNo = "";//驳回时使用的诉赔编号
@@ -213,7 +214,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         }
         //打印受理单
         $(cloneRow).find("#printOpe").on("click",function () {//打印受理单操作
-
+            getAjaxResult(document.body.jsLee.requestUrl.path8,"POST",{"templateType":3,"claimNo":jsonItem.claimNo},"pdfViewCallBack(data)");
         });
         //下载内部调查
         $(cloneRow).find("#downloadInOpe").on("click",function(){
@@ -362,6 +363,13 @@ function clsAlertBoxCtrl$sure() {//成功弹框确定
     }else if(this.id == "acceptOpeTip"){
         closePopupWin();
         getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":document.body.jsLee.claimNo,"type":3},"acceptOpeCallBack(data)");
+    }
+}
+
+function pdfViewCallBack(data){
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody.report,"0000000","1");
     }
 }
 

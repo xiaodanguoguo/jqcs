@@ -287,7 +287,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         //查看协议书
         $(cloneRow).find("#downloadOpe").on("click",function(){
             document.body.jsLee.claimNo = jsonItem.claimNo;
-           getAjaxResult(document.body.jsLee.requestUrl.path8,"POST",{"templateType":1,"claimNo":jsonItem.claimNo},"pdfViewCallBack(data)");
+            getAjaxResult(document.body.jsLee.requestUrl.path8,"POST",{"templateType":1,"claimNo":jsonItem.claimNo},"pdfViewCallBack(data)");
         });
 
     }
