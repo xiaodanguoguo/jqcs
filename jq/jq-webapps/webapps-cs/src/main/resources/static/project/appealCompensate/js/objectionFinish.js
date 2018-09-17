@@ -331,6 +331,10 @@ function clsUploadCtrl$successAfter(ctrl, response)
     getAjaxResult(document.body.jsLee.requestUrl.path8,"POST",{"claimNo":$(ctrl).parents("tr")[0].jsonData.claimNo,"filePath":response.rspBody.filePath,"originalName":response.rspBody.originalName,"viewUrl":response.rspBody.viewUrl},"uploadCallBack(data)")
 }
 
+function uploadCallBack(data){
+
+}
+
 $(function(){
     //初始化自己封装方法
     var methodLee = new clsMethodLee();
