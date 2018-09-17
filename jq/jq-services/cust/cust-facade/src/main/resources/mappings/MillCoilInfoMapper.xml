@@ -441,7 +441,7 @@
     SELECT
     msh.MILL_SHEET_NO,
     mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE,
-    mpd.SID AS MPD_SID, mpd.KURZTEXT AS MPD_KURZTEXT, mpd.ORIGINAL_INPUT as ORIGINAL_INPUT
+    mpd.SID AS MPD_SID, mpd.KURZTEXT AS MPD_KURZTEXT, mpd.ORIGINAL_INPUT as MPD_ORIGINAL_INPUT
     FROM MILL_SHEET_HOSTS msh
     LEFT JOIN MILL_COIL_INFO mci on msh.MILL_SHEET_NO = mci.MILL_SHEET_NO
     LEFT JOIN MILL_PHYSICS_DATA mpd on mci.ZCHARG = mpd.ZCHARG
@@ -457,4 +457,59 @@
   LEFT JOIN MILL_CHEMISTRY_DATA mcd on mci.ZCHARG = mcd.ZCHARG
   WHERE msh.MILL_SHEET_NO = #{millSheetNo} and mcd.SHOW_FLAG = #{showFlag}
   </select>
+
+
+
+  <select id="queryForListByCurrentUser" resultMap="BaseResultMap">
+
+    SELECT
+    mci.SID, mci.ZCHEHAO, mci.ZLPH, mci.ZCHARG, mci.SPECS, mci.ZDIAMETER, mci.ZTHICK, mci.ZWIDTH, mci.ZLENGTH, mci.ZJISHU, mci.ZLOSMENGE,
+    mci.ZJISHU_UNIT, mci.ZMEINS, mci.ZDCZT, mci.MILL_SHEET_NO, mci.ZBMJD, mci.ZBZFS, mci.ZTSBZ, mci.ZHDPC, mci.CREATED_BY,
+    mci.CREATED_DT, mci.UPDATED_BY, mci.UPDATED_DT, mci.VERSION
+    FROM MILL_COIL_INFO mci
+    LEFT JOIN MILL_SHEET_HEAD msh
+    ON mci.MILL_SHEET_NO = msh.MILL_SHEET_NO
+    WHERE mci. MILL_SHEET_NO IN
+    (
+    SELECT DISTINCT MILL_SHEET_NO
+    FROM MILL_SHEET_HEAD
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="zkunnr != null and zkunnr != ''" >
+        AND ZKUNNR = #{zkunnr}
+      </if>
+    </trim>
+    )
+
+  </select>
+
+  <select id="getPhysicsInfoListByCoil" resultMap="MapForCoilAndPhysics">
+
+    SELECT
+    DISTINCT mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE,
+    mpd.SID AS MPD_SID, mpd.KURZTEXT AS MPD_KURZTEXT
+    FROM MILL_COIL_INFO mci
+    LEFT JOIN MILL_PHYSICS_DATA mpd on mci.ZCHARG = mpd.ZCHARG
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="zcharg != null and zcharg != ''" >
+        AND mci.ZCHARG = #{zcharg}
+      </if>
+    </trim>
+
+  </select>
+
+  <select id="getChemistryListByCoil" resultMap="MapForCoilAndChemistry">
+
+    SELECT
+    DISTINCT mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE,
+    mcd.SID AS MCD_SID, mcd.KURZTEXT AS MCD_KURZTEXT, mcd.ORIGINAL_INPUT AS MCD_ORIGINAL_INPUT
+    FROM MILL_COIL_INFO mci
+    LEFT JOIN MILL_CHEMISTRY_DATA mcd on mci.ZCHARG = mcd.ZCHARG
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="zcharg != null and zcharg != ''" >
+        AND mci.ZCHARG = #{zcharg}
+      </if>
+    </trim>
+
+  </select>
+
 </mapper>

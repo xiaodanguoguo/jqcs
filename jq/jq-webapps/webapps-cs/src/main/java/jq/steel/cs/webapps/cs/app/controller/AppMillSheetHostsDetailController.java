@@ -42,7 +42,7 @@ public class AppMillSheetHostsDetailController {
         }
 
         try {
-            jsonRequest.getReqBody().setShowFlag(0);
+            jsonRequest.getReqBody().setShowFlag(1);
             ServiceResponse<List<CrmMillCoilInfoVO>> coilDetailByMillSheet = appMillSheetHostsDetailAPI.getCoilDetailByMillSheet(jsonRequest);
             List<CrmMillCoilInfoVO> listAll = coilDetailByMillSheet.getRetContent();
             jsonResponse.setRspBody(listAll);
