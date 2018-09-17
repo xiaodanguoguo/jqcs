@@ -52,13 +52,16 @@
     <result column="INTERNAL_LNVESTIGATOR" property="internalLnvestigator" jdbcType="VARCHAR" />
     <result column="INTERNAL_LNVESTIGATION_DATE" property="internalLnvestigationDate" jdbcType="TIMESTAMP" />
     <result column="REJECT_REASON" property="rejectReason" jdbcType="VARCHAR" />
-    <result column="REPORT_PICTURE" property="reportPicture" jdbcType="VARCHAR" />
+    <result column="REPORT_PICTURE" property="reportPictures" jdbcType="VARCHAR" />
     <result column="SALES_MANAGER_SUGGESTS" property="salesManagerSuggests" jdbcType="VARCHAR" />
     <result column="INQUIRE_INFO_PHOTO" property="inquireInfoPhoto" jdbcType="VARCHAR" />
     <result column="INQUIRE_INFO_TEXT" property="inquireInfoText" jdbcType="VARCHAR" />
     <result column="INQUIRE_INFO_ALL" property="inquireInfoAll" jdbcType="VARCHAR" />
     <result column="DISSENTING_UNIT" property="dissentingUnit" jdbcType="NUMERIC" />
     <result column="OBJECTION_CONFIRMATION" property="objectionConfirmation" jdbcType="VARCHAR" />
+    <result column="PRO_PROBLEM" property="proProblem" jdbcType="VARCHAR" />
+    <result column="FIELD_CONCLUSION_TEXT" property="fieldConclusionText" jdbcType="VARCHAR" />
+    <result column="FIELD_CONCLUSION_PHOTO" property="fieldConclusionPhoto" jdbcType="VARCHAR" />
   </resultMap>
   <!--<resultMap id="ResultMapWithBLOBs" type="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" extends="BaseResultMap" >
     <result column="INQUIRE_INFO" property="inquireInfo" jdbcType="CLOB" />
@@ -88,7 +91,7 @@ WHERE
     A.OBJECTION_NUM,
     C.PRESENTATION_DATE,
     C.ADMISSIBILITY_TIME,
-    D.INQUIRE_STATE,
+    A.INQUIRE_STATE,
     D.CREATE_BY AS EXTERNAL_LNVESTIGATOR,
     D.CREATE_DT AS EXTERNAL_LNVESTIGATION_DATE,
     D.FOLLOW_REASON,
@@ -144,7 +147,9 @@ WHERE
 <!--异议处理确认书审核查询-->
   <select id="findDetails" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
      SELECT
+     A.MILL_SHEET_NO,
 A.CLAIM_NO,
+A.PRO_PROBLEM,
 A.PRODUCT_ID,
 A.PRODUCT_NAME,
 A.CUSTOMER_ID,
@@ -167,6 +172,8 @@ A.SIZE_MARK,
 A.REPORT_PICTURE,
 A.DISSENTING_UNIT,
 A.OBJECTION_CONFIRMATION,
+B.FIELD_CONCLUSION_TEXT,
+B.FIELD_CONCLUSION_PHOTO,
 B.LOGISTICS_PROCESS,
 B.END_PROCESSING_TECH,
 B.DEFECT_NAME,
@@ -179,7 +186,7 @@ B.HANDING_SUGGESTION,
 B.INQUIRE_STATE,
 B.FOLLOW_REASON,
 B.REJECT_REASON,
-B.AMOUNT_OF_USE,
+B.AMOUNT_OF_USE
 FROM
 WARRANTY.CRM_CLAIM_INFO A
 LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
@@ -199,7 +206,8 @@ LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
       CREATE_BY, CREATE_DT, UPDATE_BY, 
       UPDATE_DT, VERSION, INQUIRE_INFO,REJECT_REASON
       AMOUNT_OF_USE,SALES_MANAGER_SUGGESTS,INQUIRE_INFO_PHOTO,
-      INQUIRE_INFO_TEXT,INQUIRE_INFO_ALL
+      INQUIRE_INFO_TEXT,INQUIRE_INFO_ALL,FIELD_CONCLUSION_TEXT,
+      FIELD_CONCLUSION_PHOTO
       )
     values (#{sid,jdbcType=NUMERIC}, #{claimNo,jdbcType=VARCHAR}, #{logisticsProcess,jdbcType=VARCHAR}, 
       #{endProcessingTech,jdbcType=VARCHAR}, #{defectName,jdbcType=VARCHAR}, #{productDt,jdbcType=TIMESTAMP}, 
@@ -208,9 +216,10 @@ LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
       #{createBy,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
       #{updateDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC}, #{inquireInfo,jdbcType=VARCHAR},
     #{rejectReason,jdbcType=VARCHAR},#{amountOfUse,jdbcType=NUMERIC},#{salesManagerSuggests,jdbcType=VARCHAR},#{inquireInfoPhoto,jdbcType=VARCHAR},
-    #{inquireInfoText,jdbcType=VARCHAR},#{inquireInfoAll,jdbcType=VARCHAR}
+    #{inquireInfoText,jdbcType=VARCHAR},#{inquireInfoAll,jdbcType=VARCHAR},#{fieldConclusionText,jdbcType=VARCHAR},#{fieldConclusionPhoto,jdbcType=VARCHAR}
       )
   </insert>
+
   <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
     <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
       SELECT SEQ_CRM_CLAIM_OUT_INQUIRE.nextval  FROM DUAL
@@ -289,6 +298,12 @@ LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
       <if test="inquireInfoAll != null and inquireInfoAll != ''" >
         INQUIRE_INFO_ALL,
       </if>
+      <if test="fieldConclusionText != null and fieldConclusionText != ''" >
+        FIELD_CONCLUSION_TEXT,
+      </if>
+      <if test="fieldConclusionText != null and fieldConclusionText != ''" >
+        FIELD_CONCLUSION_PHOTO,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="sid != null" >
@@ -363,6 +378,12 @@ LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
       <if test="inquireInfoAll != null and inquireInfoAll != ''" >
         #{inquireInfoAll,jdbcType=VARCHAR}
       </if>
+      <if test="fieldConclusionText != null and fieldConclusionText != ''" >
+        #{fieldConclusionText,jdbcType=VARCHAR}
+      </if>
+      <if test="fieldConclusionPhoto != null and fieldConclusionPhoto != ''" >
+        #{fieldConclusionPhoto,jdbcType=VARCHAR}
+      </if>
     </trim>
   </insert>
 
@@ -384,7 +405,7 @@ LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
       <if test="defectName != null and defectName != ''" >
         DEFECT_NAME = #{defectName,jdbcType=VARCHAR},
       </if>
-      <if test="productDt != null and productDt != ''" >
+      <if test="productDt != null" >
         PRODUCT_DT = #{productDt,jdbcType=VARCHAR},
       </if>
       <if test="shift != null and shift != ''" >
@@ -422,6 +443,12 @@ LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
       </if>
       <if test="inquireInfoAll != null and inquireInfoAll != ''" >
         INQUIRE_INFO_ALL = #{inquireInfoAll,jdbcType=VARCHAR}
+      </if>
+      <if test="fieldConclusionText != null and fieldConclusionText != ''" >
+        FIELD_CONCLUSION_TEXT = #{fieldConclusionText,jdbcType=VARCHAR}
+      </if>
+      <if test="fieldConclusionPhoto != null and fieldConclusionPhoto != ''" >
+        FIELD_CONCLUSION_PHOTO = #{fieldConclusionPhoto,jdbcType=VARCHAR}
       </if>
     </trim>
     where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}

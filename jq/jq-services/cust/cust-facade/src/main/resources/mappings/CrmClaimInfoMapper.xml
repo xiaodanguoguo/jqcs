@@ -56,7 +56,7 @@
     <result column="AGREEMENT_NAME" property="agreementName" jdbcType="VARCHAR" />
     <result column="AGREEMENT_STATE" property="agreementState" jdbcType="VARCHAR" />
     <result column="REASONS_FOR_COMPULSORY_CLOSURE" property="reasonsForCompulsoryClosure" jdbcType="VARCHAR" />
-    <result column="REPORT_PICTURE" property="reportPicture" jdbcType="VARCHAR" />
+    <result column="REPORT_PICTURE" property="reportPictures" jdbcType="VARCHAR" />
     <result column="OBJECTION_CONFIRMATION" property="objectionConfirmation" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -111,7 +111,7 @@
       #{claimState,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, #{checkState,jdbcType=VARCHAR}, 
       #{rejectReason,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, 
       #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC},#{dissentingUnit,jdbcType=NUMERIC},
-      #{inquireState,jdbcType=VARCHAR},#{reportPicture,jdbcType=VARCHAR},#{objectionConfirmation ,jdbcType=NUMERIC}
+      #{inquireState,jdbcType=VARCHAR},#{reportPictures,jdbcType=VARCHAR},#{objectionConfirmation ,jdbcType=NUMERIC}
       )
   </insert>
 
@@ -250,7 +250,7 @@
       <if test="dissentingUnit != null" >
         DISSENTING_UNIT,
       </if>
-      <if test="reportPicture != null and reportPicture != ''" >
+      <if test="reportPictures != null and reportPictures != ''" >
         REPORT_PICTURE,
       </if>
       <if test="objectionConfirmation != null" >
@@ -387,8 +387,8 @@
       <if test="dissentingUnit != null" >
         #{dissentingUnit,jdbcType=NUMERIC},
       </if>
-      <if test="reportPicture != null and reportPicture != ''" >
-        #{reportPicture,jdbcType=VARCHAR},
+      <if test="reportPictures != null and reportPictures != ''" >
+        #{reportPictures,jdbcType=VARCHAR},
       </if>
       <if test="objectionConfirmation != null" >
         #{objectionConfirmation ,jdbcType=NUMERIC}
@@ -522,7 +522,7 @@
       <if test="inquireState != null and inquireState != ''" >
         INQUIRE_STATE = #{inquireState,jdbcType=VARCHAR},
       </if>
-      <if test="reportPicture != null and reportPicture != ''" >
+      <if test="reportPictures != null and reportPictures != ''" >
         REPORT_PICTURE = #{reportPicture,jdbcType=VARCHAR},
       </if>
       <if test="objectionConfirmation != null" >
