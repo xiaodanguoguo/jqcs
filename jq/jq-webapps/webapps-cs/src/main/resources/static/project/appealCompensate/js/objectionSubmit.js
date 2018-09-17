@@ -276,8 +276,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         });
         //下载协议书
         $(cloneRow).find("#downloadOpe").on("click",function(){
-            var importParam = "name=" + jsonItem.claimNo;
-            $.download(requestUrl + document.body.jsLee.requestUrl.path8, importParam, "POST");
+           getAjaxResult(document.body.jsLee.requestUrl.path1,"POST",{"templateType":1,"claimNo":jsonItem.claimNo},"pdfViewCallBack(data)");
         });
     }
 }
@@ -396,6 +395,13 @@ function clsAlertBoxCtrl$sure() {
         closePopupWin();
         getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",document.body.jsLee.claimNoArr,"deleteOpeCallBack(data)");
 
+    }
+}
+
+function pdfViewCallBack(data){
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html")
     }
 }
 
