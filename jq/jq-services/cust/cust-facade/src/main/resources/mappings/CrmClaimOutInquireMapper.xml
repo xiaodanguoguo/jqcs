@@ -6,7 +6,7 @@
     <result column="CLAIM_NO" property="claimNo" jdbcType="VARCHAR" />
     <result column="LOGISTICS_PROCESS" property="logisticsProcess" jdbcType="VARCHAR" />
     <result column="END_PROCESSING_TECH" property="endProcessingTech" jdbcType="VARCHAR" />
-    <result column="DEFECT_NAME" property="defectName" jdbcType="VARCHAR" />
+    <result column="DEFECT_NAME" property="proProblem" jdbcType="VARCHAR" />
     <result column="PRODUCT_DT" property="productDt" jdbcType="TIMESTAMP" />
     <result column="SHIFT" property="shift" jdbcType="VARCHAR" />
     <result column="FIELD_CONCLUSION" property="fieldConclusion" jdbcType="VARCHAR" />
@@ -210,7 +210,7 @@ LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
       FIELD_CONCLUSION_PHOTO
       )
     values (#{sid,jdbcType=NUMERIC}, #{claimNo,jdbcType=VARCHAR}, #{logisticsProcess,jdbcType=VARCHAR}, 
-      #{endProcessingTech,jdbcType=VARCHAR}, #{defectName,jdbcType=VARCHAR}, #{productDt,jdbcType=TIMESTAMP}, 
+      #{endProcessingTech,jdbcType=VARCHAR}, #{proProblem,jdbcType=VARCHAR}, #{productDt,jdbcType=TIMESTAMP},
       #{shift,jdbcType=VARCHAR}, #{fieldConclusion,jdbcType=VARCHAR}, #{userRequirement,jdbcType=VARCHAR}, 
       #{handingSuggestion,jdbcType=VARCHAR}, #{inquireState,jdbcType=VARCHAR}, #{followReason,jdbcType=VARCHAR}, 
       #{createBy,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, 
@@ -238,7 +238,7 @@ LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
       <if test="endProcessingTech != null and endProcessingTech != ''" >
         END_PROCESSING_TECH,
       </if>
-      <if test="defectName != null and defectName != ''" >
+      <if test="proProblem != null and proProblem != ''" >
         DEFECT_NAME,
       </if>
       <if test="productDt != null" >
@@ -318,8 +318,8 @@ LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
       <if test="endProcessingTech != null and endProcessingTech != ''" >
         #{endProcessingTech,jdbcType=VARCHAR},
       </if>
-      <if test="defectName != null and defectName != ''" >
-        #{defectName,jdbcType=VARCHAR},
+      <if test="proProblem != null and proProblem != ''" >
+        #{proProblem,jdbcType=VARCHAR},
       </if>
       <if test="productDt != null" >
         #{productDt,jdbcType=TIMESTAMP},
@@ -402,8 +402,8 @@ LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
       <if test="endProcessingTech != null and endProcessingTech != ''" >
         END_PROCESSING_TECH = #{endProcessingTech,jdbcType=VARCHAR},
       </if>
-      <if test="defectName != null and defectName != ''" >
-        DEFECT_NAME = #{defectName,jdbcType=VARCHAR},
+      <if test="proProblem != null and proProblem != ''" >
+        DEFECT_NAME = #{proProblem,jdbcType=VARCHAR},
       </if>
       <if test="productDt != null" >
         PRODUCT_DT = #{productDt,jdbcType=VARCHAR},

@@ -79,7 +79,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
         BeanCopyUtil.copy(record,crmClaimOutInquire);
         if (crmClaimOutInquire.getOptionType()==1){
             Integer integer;
-                    //先查询是否有数据
+            //先查询是否有数据
            List<CrmClaimOutInquire> list = crmClaimOutInquireMapper.findByParams(crmClaimOutInquire);
             if (list.size()>0){
                 crmClaimOutInquire.setUpdateBy(AssertContext.getAcctName());
@@ -89,7 +89,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
                 //新增数据
                 crmClaimOutInquire.setCreateBy(AssertContext.getAcctName());
                 crmClaimOutInquire.setCreateDt(new Date());
-                integer = crmClaimOutInquireMapper.insert(crmClaimOutInquire);
+                integer = crmClaimOutInquireMapper.insertSelective(crmClaimOutInquire);
             }
             //修改  货物所在地 lastUserAddr  缺陷名称 proProblem 异议确认量（吨）OBJECTION_CONFIRMATION
             CrmClaimInfo crmClaimInfo1 = new CrmClaimInfo();

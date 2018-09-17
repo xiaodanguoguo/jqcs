@@ -10,9 +10,10 @@ function clsMethodLee(){
         "path8":"/objectionTiBao/printing",//详情页面打印功能
         "path9":"/objectionDiaoCha/findDetails",//异议调查外部调查内部调查回显数据|确认书审核   1是外部调查 2是内部调查 3确认书审核
         "path10":"/objectionDiaoCha/update",//内外部调查报告（保存，跟踪，提交）异议处理确认书（通过 ，驳回）
-                                            //1外部保存2外部跟踪3外部提交4内部保存5内部提交6确认书通过7确认书审核
+                                            //1外部保存2外部跟踪3外部提交4确认书通过5确认书审核
         "path11":"/file/upload",//上传
-        "path12":"/coilinfo/findIsTrue"//批板卷号填写校验操作，校验成功带出数据
+        "path12":"/coilinfo/findIsTrue",//批板卷号填写校验操作，校验成功带出数据
+        "path13":"/objectionDiaoCha/updateInside"//1内部保存2内部提交
     };
     this.documentLee = null;
     this.htmlType = GetQueryString("htmlType");//判断页面类型0——新建 1修改 2——详情  3——销售审核  4——外部调查  5——内部调查 6-确认书审核  7-销售审核详情页面
@@ -156,7 +157,7 @@ function clsMethodLee$parse(){
             $(".box23").remove();
             $(".box237").remove();
             $(".box3").remove();
-            $(".box4").parents("#parentBox").css("height","138px");
+            $(".box4").parents("#parentBox").css("height","167px");
             $(".box4").remove();
             //$(".box5").remove();
             $(".box6").remove();
@@ -178,6 +179,7 @@ function clsMethodLee$parse(){
             //$(".box4").remove();
             $(".box5").remove();
             //$(".box6").remove();
+            $(".box4:last").remove();
             $("#submitBox input").attr("disabled",true).addClass("changeGary");
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
             getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"claimNo":this.claimNo,"optionType":3},"htmlInit2(data)");//数据回显操作
@@ -293,11 +295,11 @@ function clsMethodLee$operate(){
         }
     });
 
-    //外部调查保存按钮
+    //外部调查调查结束按钮
     this.forthsubmit.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionType = 1;
+            jsonParam.optionType = 3;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
@@ -309,11 +311,11 @@ function clsMethodLee$operate(){
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
-    //外部调查提交按钮
+    //外部调查保存按钮
     this.forthSave.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionType = 3;
+            jsonParam.optionType = 1;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
@@ -321,34 +323,34 @@ function clsMethodLee$operate(){
     this.fifthSave.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionType = 4;
-            getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
+            jsonParam.optionType = 1;
+            getAjaxResult(document.body.jsLee.requestUrl.path13,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
     //内部调查提交按钮
     this.fifthSubmit.on("click",function () {
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionType = 5;
-            getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
+            jsonParam.optionType = 2;
+            getAjaxResult(document.body.jsLee.requestUrl.path13,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
-    //通知书审核通过操作
+    //确认书审核通过操作
     this.sixthPromise.on("click",function(){
         $("#rejectReason").removeClass("required");
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionType = 6;
+            jsonParam.optionType = 4;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
 
         }
     });
-    //通知书审核驳回操作
+    //确认书审核驳回操作
     this.sixthReject.on("click",function(){
         $("#rejectReason").addClass("required");
         if(boxChecked()){
             var jsonParam = paramJson();
-            jsonParam.optionType = 7;
+            jsonParam.optionType = 5;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
         }
     });
@@ -491,31 +493,26 @@ function htmlInit2(data){//数据回显回调
             //富文本数据回显
             var ue = UE.getEditor('editor');
             ue.ready(function() {//编辑器初始化完成再赋值
-                data.rspBody.inquireInfo = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
-                ue.setContent(data.rspBody.inquireInfo);  //赋值给UEditor
+                ue.setContent(data.rspBody.inquireInfoAll);  //赋值给UEditor
             });
             var ue2 = UE.getEditor('editor2');
             ue2.ready(function() {//编辑器初始化完成再赋值
-                data.rspBody.fieldConclusion = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
                 ue2.setContent(data.rspBody.fieldConclusion);  //赋值给UEditor
             });
         }else if(document.body.jsLee.htmlType == 5){//内部调查
             //富文本数据回显
             var ue = UE.getEditor('editor');
             ue.ready(function() {//编辑器初始化完成再赋值
-                data.rspBody.inquireInfo = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
-                ue.setContent(data.rspBody.inquireInfo);  //赋值给UEditor
+                ue.setContent(data.rspBody.productionProcessAll);  //赋值给UEditor
             });
         }else if(document.body.jsLee.htmlType == 6){//确认书审核
             //富文本数据回显
             var ue = UE.getEditor('editor');
             ue.ready(function() {//编辑器初始化完成再赋值
-                data.rspBody.inquireInfo = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
-                ue.setContent(data.rspBody.inquireInfo);  //赋值给UEditor
+                ue.setContent(data.rspBody.inquireInfoAll);  //赋值给UEditor
             });
             var ue2 = UE.getEditor('editor2');
             ue2.ready(function() {//编辑器初始化完成再赋值
-                data.rspBody.fieldConclusion = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
                 ue2.setContent(data.rspBody.fieldConclusion);  //赋值给UEditor
             });
         }
@@ -583,7 +580,7 @@ function boxChecked(){
 
 //完成提交参数拼接
 function paramJson(){
-    var jsonParam = {"claimNo":"","productName":"","millSheetNo":"","customerId":"","customerName":"","custAddr":"","custEmpNo":"","custTel":"","lastUserId":"","lastUser":"","lastUserAddr":"","createEmpNo":"","lastUserTel":"","battenPlateNo":"","designation":"","used":"","contractNo":"","contractVolume":"","specs":"","originalWeight":"","orderNo":"","originalCarNo":"","contractUnitPrice":"","objectionNum":"","endProcessingTech":"","claimDesc":"","claimReason":"","rejectReason":"","productDt":"","shift":"","userRequirement":"","handingSuggestion":"","inquireInfo":"","fieldConclusion":"","claimVerdict":"","improvement":"","amountOfUse":"","proProblem":""};
+    var jsonParam = {"claimNo":"","productName":"","millSheetNo":"","customerId":"","customerName":"","custAddr":"","custEmpNo":"","custTel":"","lastUserId":"","lastUser":"","lastUserAddr":"","createEmpNo":"","lastUserTel":"","battenPlateNo":"","designation":"","used":"","contractNo":"","contractVolume":"","specs":"","originalWeight":"","orderNo":"","originalCarNo":"","contractUnitPrice":"","objectionNum":"","endProcessingTech":"","claimDesc":"","claimReason":"","rejectReason":"","productDt":"","shift":"","userRequirement":"","handingSuggestion":"","inquireInfo":"","fieldConclusion":"","claimVerdict":"","improvement":"","amountOfUse":"","proProblem":"","logisticsProcess":"","objectionConfirmation":"","salesManagerSuggests":"","productionProcessInvestigati":"","surfaceStructure":"","originalJudgementResult":"","qualityGrade":""};
     getValue4Desc(jsonParam,$("#submitBox")[0]);
     //上传图片
     jsonParam.filePath = document.body.jsLee.filePath.join(";");
@@ -595,15 +592,29 @@ function paramJson(){
         //异议单位
         jsonParam.dissentingUnit = $("#dissentingUnitA input:checked").val();
     }else if(document.body.jsLee.htmlType == 4){//外部调查
-        jsonParam.inquireInfo = UE.getEditor('editor').getContent();
+        //富文本参数拼接
+        jsonParam.inquireInfoAll = UE.getEditor('editor').getContent();
+        jsonParam.inquireInfoText = UE.getEditor('editor').getPlainTxt();
+        jsonParam.inquireInfoPhoto = splitImg(UE.getEditor('editor').getContent());
         jsonParam.fieldConclusion = UE.getEditor('editor2').getContent();
+        jsonParam.fieldConclusionText = UE.getEditor('editor2').getPlainTxt();
+        jsonParam.fieldConclusionPhoto = splitImg(UE.getEditor('editor2').getContent());
         //异议分类和缺陷分类获取值（同一个字段）
         jsonParam.claimType = $("#claimTypeA").attr("markCode");
     }else if(document.body.jsLee.htmlType == 5){//内部调查
-        jsonParam.inquireInfo = UE.getEditor('editor').getContent();
+        jsonParam.productionProcessAll = UE.getEditor('editor').getContent();
+        jsonParam.productionProcessText = UE.getEditor('editor').getPlainTxt();
+        jsonParam.productionProcessPhoto = splitImg(UE.getEditor('editor').getContent());
         //异议分类和缺陷分类获取值（同一个字段）
         jsonParam.claimType = $("#claimTypeA").attr("markCode");
-    }else if(document.body.jsLee.htmlType == 6){//通知书审核
+    }else if(document.body.jsLee.htmlType == 6){//确认书审核
+        //富文本参数拼接
+        jsonParam.inquireInfoAll = UE.getEditor('editor').getContent();
+        jsonParam.inquireInfoText = UE.getEditor('editor').getPlainTxt();
+        jsonParam.inquireInfoPhoto = splitImg(UE.getEditor('editor').getContent());
+        jsonParam.fieldConclusion = UE.getEditor('editor2').getContent();
+        jsonParam.fieldConclusionText = UE.getEditor('editor2').getPlainTxt();
+        jsonParam.fieldConclusionPhoto = splitImg(UE.getEditor('editor2').getContent());
         //异议分类和缺陷分类获取值（同一个字段）
         jsonParam.claimType = $("#claimTypeA").attr("markCode");
     }else if(document.body.jsLee.htmlType == 7){//销售审核详情
@@ -701,6 +712,18 @@ function clsAlertBoxCtrl$sure() {//成功弹框确定
     }else if(this.id == "successJump2"){
         jumpUrl("objectionReasearch.html","0000000",0);
     }
+}
+
+//富文本提取src
+function splitImg(strAll){
+    var arrAll = [];
+    $("body").append("<span id='spanspan' style='display: none'></span>");
+    $("#spanspan").html(strAll);
+    $("#spanspan img").each(function(){
+        arrAll.push($(this).attr("src"));
+    });
+    $("#spanspan").remove();
+    return arrAll.join(";");
 }
 
 $(function(){
