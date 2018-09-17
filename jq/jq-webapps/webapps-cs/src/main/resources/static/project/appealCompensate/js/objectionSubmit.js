@@ -401,7 +401,7 @@ function clsAlertBoxCtrl$sure() {
 function pdfViewCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html")
+        jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody.report,"0000000","0");
     }
 }
 
