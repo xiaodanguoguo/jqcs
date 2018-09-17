@@ -1,5 +1,6 @@
 package jq.steel.cs.services.base.facade.service.user.impl;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.ebase.core.MD5Util;
 import com.ebase.core.StringHelper;
 import com.ebase.core.cache.CacheService;
@@ -31,6 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -202,21 +204,27 @@ public class AcctServiceImpl implements AcctService {
                 return response;
             }
 
-            if (acctInfo.getStatus().equals(Status.HOLD_AUDIT.getCode())) {
+            if (acctInfo.getStatus().toString().equals(Status.HOLD_AUDIT.getCode())) {
                 response.setResponseCode("0701002");
-                response.setRetMessage("统一社会信用代码已被占用");
+                response.setRetMessage("账号待审核失败，该账户不可用");
                 return response;
             }
 
-            if (acctInfo.getStatus().equals(Status.NOT_PASS.getCode())) {
+            if (acctInfo.getStatus().toString().equals(Status.NOT_PASS.getCode())) {
                 response.setResponseCode("0701003");
                 response.setRetMessage("账号审核失败，该账户不可用");
                 return response;
             }
 
-            if (acctInfo.getIsDelete().equals(IsDelete.YES.getCode())) {
+            if (acctInfo.getIsDelete().toString().equals(IsDelete.YES.getCode())) {
                 response.setResponseCode("0701004");
                 response.setRetMessage("账号已被禁用，该账户不可用");
+                return response;
+            }
+
+            if (acctInfo.getStatus().toString().equals(Status.STOP.getCode())) {
+                response.setResponseCode("0701005");
+                response.setRetMessage("账号未激活，该账户不可用");
                 return response;
             }
 
@@ -339,11 +347,15 @@ public class AcctServiceImpl implements AcctService {
         List<FunctionManageVO> authList = functionManageService.getUserfunctionList(functionManageVO);
         String authKey = CacheKeyConstant.ACCT_AUTH_ID+acct.getAcctId();
 
-        Map<String, String> authMap = new HashMap<>();
-        for(FunctionManageVO manageVO : authList){
-            authMap.put(String.valueOf(manageVO.getFunctionId()), String.valueOf(manageVO.getFunctionId()));
+        if (CollectionUtils.isNotEmpty(authList)) {
+            Map<String, String> authMap = new HashMap<>();
+            List<String> limitCode = new ArrayList<>();
+            for(FunctionManageVO manageVO : authList){
+                authMap.put(String.valueOf(manageVO.getFunctionId()), String.valueOf(manageVO.getFunctionId()));
+                limitCode.add(manageVO.getFunctionId().toString());
+            }
+            cacheService.set(authKey, authMap, TIME_EXPIRE);
         }
-        cacheService.set(authKey, authMap, TIME_EXPIRE);
 
         acctSession.setSessionId(Base64Util.encode(acctLogin.getSessionId() + acctLogin.getClientType()));
 

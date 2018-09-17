@@ -1,6 +1,7 @@
 package com.ebase.core.session;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Auther: wangyu
@@ -58,6 +59,8 @@ public class Acct {
     private String companyId;   //公司ID
 
     private String orgType;
+
+    private List<String> limitCode;
 
     public String getCompanyId() {
         return companyId;
@@ -265,5 +268,13 @@ public class Acct {
 
     public void setOrgType(String orgType) {
         this.orgType = orgType;
+    }
+
+    public List<String> getLimitCode() {
+        return limitCode;
+    }
+
+    public void setLimitCode(List<String> limitCode) {
+        this.limitCode = limitCode;
     }
 }

@@ -6,6 +6,7 @@ import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.BeanCopyUtil;
 import com.ebase.utils.DateUtil;
+import com.ebase.utils.secret.Md5Util;
 import jq.steel.cs.services.base.api.vo.AcctInfoExcel;
 import jq.steel.cs.services.base.api.vo.AcctInfoRoleVO;
 import jq.steel.cs.services.base.api.vo.AcctInfoVO;
@@ -471,6 +472,7 @@ public class SysBasicsAcctServiceImpl implements SysBasicsAcctService {
         {
             acctInfo.setStatus((byte)1);
             acctInfo.setIsDelete((byte)0);
+            acctInfo.setAcctPassword(Md5Util.encrpt(acctInfo.getAcctPassword()));
             if(StringUtils.isEmpty(acctInfo.getoInfoId())) {
                 String id=getOrgInfoId();
                 OrgInfo orgInfo=new OrgInfo();

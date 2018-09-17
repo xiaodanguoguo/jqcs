@@ -94,7 +94,6 @@ public class AppCrmProductCategoryController {
         JsonResponse<PageDTO<CrmProductInfoVO>> jsonResponse = new JsonResponse<>();
 
         try {
-            jsonRequest.getReqBody().setPageSize(9);
             ServiceResponse<PageDTO<CrmProductInfoVO>> serviceResponse = crmProductInfoApi
                     .getIntroductPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
