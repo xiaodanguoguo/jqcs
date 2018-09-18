@@ -2,6 +2,7 @@ package com.ebase.core.session;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Auther: wangyu
@@ -60,7 +61,11 @@ public class Acct {
 
     private String orgType;
 
-    private List<String> limitCode;
+    private List<String> limitCode;     // code集合
+
+    private Map<String, String> authMap;        // code键值对
+
+    private Map<String, String> authMapPath;    // code路径
 
     public String getCompanyId() {
         return companyId;
@@ -276,5 +281,21 @@ public class Acct {
 
     public void setLimitCode(List<String> limitCode) {
         this.limitCode = limitCode;
+    }
+
+    public Map<String, String> getAuthMap() {
+        return authMap;
+    }
+
+    public void setAuthMap(Map<String, String> authMap) {
+        this.authMap = authMap;
+    }
+
+    public Map<String, String> getAuthMapPath() {
+        return authMapPath;
+    }
+
+    public void setAuthMapPath(Map<String, String> authMapPath) {
+        this.authMapPath = authMapPath;
     }
 }

@@ -338,8 +338,6 @@ public class AcctServiceImpl implements AcctService {
         //生成key
         String key = CacheKeyConstant.ACCT_SESSION + acctLogin.getSessionId() + acctLogin.getClientType();
 
-        //保存到 session 中 30 分钟
-        cacheService.set(key,acctSession,TIME_EXPIRE);
 
         // 用户权限
         FunctionManageVO functionManageVO = new FunctionManageVO();
@@ -349,13 +347,22 @@ public class AcctServiceImpl implements AcctService {
 
         if (CollectionUtils.isNotEmpty(authList)) {
             Map<String, String> authMap = new HashMap<>();
+            Map<String, String> authMapPath = new HashMap<>();
             List<String> limitCode = new ArrayList<>();
             for(FunctionManageVO manageVO : authList){
-                authMap.put(String.valueOf(manageVO.getFunctionId()), String.valueOf(manageVO.getFunctionId()));
-                limitCode.add(manageVO.getFunctionId().toString());
+                authMap.put(manageVO.getFunctionCode(), manageVO.getFunctionCode());
+                authMapPath.put(manageVO.getFunctionPath(), manageVO.getFunctionPath());
+                limitCode.add(manageVO.getFunctionCode().toString());
             }
-            cacheService.set(authKey, authMap, TIME_EXPIRE);
+
+            acctSession.getAcct().setLimitCode(limitCode);
+            acctSession.getAcct().setAuthMap(authMap);
+            acctSession.getAcct().setAuthMapPath(authMapPath);
+            acctSession.getAcct().setLimitCode(limitCode);
         }
+
+        //保存到 session 中 60 分钟
+        cacheService.set(key,acctSession,TIME_EXPIRE);
 
         acctSession.setSessionId(Base64Util.encode(acctLogin.getSessionId() + acctLogin.getClientType()));
 
