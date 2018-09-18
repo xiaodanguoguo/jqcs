@@ -15,7 +15,9 @@ var titleJson = {
             "orgFrame.html":"组织管理",
             "resourceManage.html":"资源管理",
             "roleManage.html":"角色管理",
-            "accountAudit":"账户审核"
+            "accountAudit.html":"账户审核",
+            "annDetailPreserve.html":"公告信息维护",
+            "annListPreserve.html":"公告维护信息-列表"
         },
         "myBussiness":{//系统管理
             "questionDesc.html":"问卷调查界面展示",
@@ -47,7 +49,9 @@ var titleJson = {
             "productDetail.html":"产品详情展示"
         },
         "homePage":{
-            "homePage.html":"首页"
+            "homePage.html":"首页",
+            "announceMentList.html":"公告列表",
+            "announceMentDetail.html":"公告详情"
         }
     }
 }
