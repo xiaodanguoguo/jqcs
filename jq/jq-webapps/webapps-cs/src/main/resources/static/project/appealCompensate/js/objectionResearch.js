@@ -30,6 +30,7 @@ function clsMethodLee$init(){
 
 }
 function clsMethodLee$parse(){
+    limitCodeDeal($("*[limitCode]"),"limitCode");
     $("#tableList")[0].cacheArr = [];
     initplugPath($("#condsid")[0],"singleSelectCtrl",this.requestUrl.path7,{"typeId": "MILL_BIG_TYPE"},"POST");
     initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");

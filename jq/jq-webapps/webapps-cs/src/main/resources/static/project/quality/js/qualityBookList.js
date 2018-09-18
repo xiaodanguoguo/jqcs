@@ -29,6 +29,7 @@ function clsMethodLee$init(){
 
 }
 function clsMethodLee$parse(){
+    limitCodeDeal($("*[limitCode]"),"limitCode");
     getAjaxResult(this.requestUrl.path4,"POST",{},"getContentCallBack(data)");
 
     this.operate();

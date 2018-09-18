@@ -76,12 +76,12 @@
             </div>
             <div class="submission-box-button">
                 <div class="btnLowNew submission-box-search" comType="searchBtnCtrl" cond="condclaimNo,condcustomerId,conddesignation,condstartDt,condendDt,condclaimType,condclaimState,condsid,condbattenPlateNo" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
-                <div class="btnLowNew submission-box-create" id="newOpe">新建</div>
+                <div class="btnLowNew submission-box-create" id="newOpe" limitCode="M30201">新建</div>
                 <!--<div class="btnLowNew submission-box-amend">修改</div>
                 <div class="btnLowNew submission-box-submit">提交</div>-->
-                <div class="btnLowNew submission-box-del" id="deleteOpe">删除</div>
-                <div class="btnLowNew submission-box-del" id="submitOpe">提报</div>
-                <div class="btnLowNew submission-box-export" id="exportOpe">导出</div>
+                <div class="btnLowNew submission-box-del" id="deleteOpe" limitCode="M30203">删除</div>
+                <div class="btnLowNew submission-box-del" id="submitOpe" limitCode="M30204">提报</div>
+                <div class="btnLowNew submission-box-export" id="exportOpe" limitCode="M30205">导出</div>
                 <!--<div class="btnLowNew submission-box-detail">详情</div>
                 <div class="btnLowNew submission-box-apply">销售审核</div>
                 <div class="btnLowNew submission-box-appraise">异议处理评价</div>-->
@@ -109,10 +109,10 @@
                 </tr>
                 <tr class="table-list-currentrow" id="templateRow" style="display: none;">
                     <td class="table-list-currentrow-tdetail">
-                        <span class="btnLowImgCom" id="editOpe">修改</span>
-                        <span class="btnLowImgCom" id="detailOpe">详情</span>
-                        <span class="btnLowImgCom" id="auditOpe" style="display: none;">销售审核</span>
-                        <span class="btnLowImgCom" id="evaluateOpe" style="display: none;">异议处理评价</span>
+                        <span class="btnLowImgCom" id="editOpe" limitCode="M30202">修改</span>
+                        <span class="btnLowImgCom" id="detailOpe" limitCode="M30208">详情</span>
+                        <span class="btnLowImgCom" id="auditOpe" limitCode="M30206" style="display: none;">销售审核</span>
+                        <span class="btnLowImgCom" id="evaluateOpe" limitCode="M30207" style="display: none;">异议处理评价</span>
                     </td>
                     <td class="table-list-currentrow-tdetail">
                         <input type="checkbox" id="chkCoding" class="clsChk">
@@ -128,7 +128,7 @@
                     <td class="table-list-currentrow-tdetail" id="objectionNum"></td>
                     <td class="table-list-currentrow-tdetail" id="presentationDate"></td>
                     <td class="table-list-currentrow-tdetail">
-                        <a href="javascript:;" class="submission-box-watch" id="viewOpe">查看</a>
+                        <a href="javascript:;" class="submission-box-watch" id="viewOpe" limitCode="M30209">查看</a>
                     </td>
                     <td class="table-list-currentrow-tdetail">
                         <img src="../images/pic.png" class="submission-box-img" alt="" id="downloadOpe" style="display:none;">

@@ -68,7 +68,7 @@
             </div>
             <div class="submission-box-button">
                 <div class="btnLowNew submission-box-search" comType="searchBtnCtrl" cond="condclaimNo,condcustomerId,conddeptCode,condstartDt,condendDt,condclaimType,condclaimState,condsid,condbattenPlateNo" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
-                <div class="btnLowNew submission-box-export" id="exportOpe">导出</div>
+                <div class="btnLowNew submission-box-export" id="exportOpe" limitCode="M30401">导出</div>
               <!--  <div class="btnLowNew submission-box-print">确认书审核</div>
                 <div class="btnLowNew submission-box-detail">编辑协议书</div>
                 <div class="btnLowNew submission-box-without">协议书审核</div>
@@ -100,10 +100,10 @@
                     </tr>
                     <tr class="table-list-currentrow" id="templateRow" style="display: none;">
                         <td class="table-list-currentrow-tdetail">
-                            <span class="btnLowImgCom" id="sureAuditOpe" style="display: none;">确认书审核</span>
-                            <span class="btnLowImgCom" id="agreementEditOpe" style="display: none;">编辑协议书</span>
-                            <span class="btnLowImgCom" id="agreementAuditOpe" style="display:none;">协议书审核</span>
-                            <span class="btnLowImgCom" id="strongEndOpe">强制结案</span>
+                            <span class="btnLowImgCom" id="sureAuditOpe" limitCode="M30402" style="display: none;">确认书审核</span>
+                            <span class="btnLowImgCom" id="agreementEditOpe" limitCode="M30403" style="display: none;">编辑协议书</span>
+                            <span class="btnLowImgCom" id="agreementAuditOpe" limitCode="M30404" style="display:none;">协议书审核</span>
+                            <!--<span class="btnLowImgCom" id="strongEndOpe">强制结案</span>-->
                         </td>
                         <td class="table-list-currentrow-tdetail">
                             <input type="checkbox" id="chkCoding" class="clsChk">
@@ -123,7 +123,7 @@
                         <td class="table-list-currentrow-tdetail" id="lastUser"></td>
                         <td class="table-list-currentrow-tdetail" id="presentationDate"></td>
                         <td class="table-list-currentrow-tdetail">
-                            <span class="btnLowImgCom clearfix" id="viewDownloadOpe" style="display: none">查看/下载</span>
+                            <span class="btnLowImgCom clearfix" id="viewDownloadOpe" limitCode="M30405" style="display: none">查看/下载</span>
                         </td>
                         <td class="table-list-currentrow-tdetail" id="reasonsForCompulsoryClosure"></td>
                     </tr>

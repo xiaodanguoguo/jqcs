@@ -76,7 +76,7 @@
             </div>
             <div class="submission-box-button">
                 <div class="btnLowNew submission-box-search" comType="searchBtnCtrl" cond="condclaimNo,condcustomerId,conddeptCode,condstartDt,condendDt,condclaimType,condclaimState,condsid,condbattenPlateNo" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
-                <div class="btnLowNew submission-box-export" id="exportOpe">导出</div>
+                <div class="btnLowNew submission-box-export" id="exportOpe" limitCode="M30502">导出</div>
                 <!--  <div class="btnLowNew submission-box-print">确认书审核</div>
                 <div class="btnLowNew submission-box-detail" id="printOpe">打印通知单</div>
                   <div class="btnLowNew submission-box-without">协议书审核</div>
@@ -107,9 +107,9 @@
                     </tr>
                     <tr class="table-list-currentrow" id="templateRow" style="display: none;">
                         <td class="table-list-currentrow-tdetail">
-                            <span class="btnLowImgCom" id="cancelOpe" style="display: none;">撤销</span>
-                            <span class="btnLowImgCom" id="strongEndOpe">强制结案</span>
-                            <span class="btnLowImgCom" id="printOpe" style="display: none;">打印通知单</span>
+                            <span class="btnLowImgCom" id="cancelOpe" limitCode="M30501" style="display: none;">撤销</span>
+                            <span class="btnLowImgCom" id="strongEndOpe" limitCode="M30504">强制结案</span>
+                            <span class="btnLowImgCom" id="printOpe" limitCode="M30503" style="display: none;">打印通知单</span>
                         </td>
                         <td class="table-list-currentrow-tdetail">
                             <input type="checkbox" id="chkCoding" class="clsChk">
@@ -128,8 +128,8 @@
                         <td class="table-list-currentrow-tdetail" id="lastUser"></td>
                         <td class="table-list-currentrow-tdetail" id="presentationDate"></td>
                         <td class="table-list-currentrow-tdetail">
-                            <span class="btnLowImgCom fl" id="uploadOpe" comType="uploadCtrl" uploadType="button" uploadTypeVal="上传" reqPath="/file/upload" uploadSize='{"w":"50","h":"26"}' filetype="custom" fileExt="jpg|jpeg|gif|png">上传</span>
-                            <span class="btnLowImgCom" id="viewUploadOpe">查看</span>
+                            <span class="btnLowImgCom fl" limitCode="M30505" id="uploadOpe" comType="uploadCtrl" uploadType="button" uploadTypeVal="上传" reqPath="/file/upload" uploadSize='{"w":"50","h":"26"}' filetype="custom" fileExt="jpg|jpeg|gif|png">上传</span>
+                            <span class="btnLowImgCom" id="viewUploadOpe" limitCode="M30506">查看</span>
                         </td>
                         <td class="table-list-currentrow-tdetail" id="reasonsForCompulsoryClosure"></td>
                     </tr>
