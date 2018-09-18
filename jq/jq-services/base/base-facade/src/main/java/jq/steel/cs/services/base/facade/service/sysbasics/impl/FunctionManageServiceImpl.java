@@ -160,7 +160,7 @@ public class FunctionManageServiceImpl implements FunctionManageService {
         FunctionManage functionManage=new FunctionManage();
         BeanCopyUtil.copy(functionManageVO,functionManage);
         //获取当前用户下的所有组织
-        functionManage=getFunctionOrgId(functionManage);
+//        functionManage=getFunctionOrgId(functionManage);
 
         List<FunctionManage> list = functionManageMapper.findRole(functionManage);
         List<FunctionManage> listTreeNull=new ArrayList<>();
