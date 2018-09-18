@@ -31,12 +31,12 @@ public interface MillCoilInfoMapper {
     List<CrmMillCoilInfo> getChemistryListByMillSheet(CrmMillSheetDetailVO vo);
 
     //通过当前用户信息查询对应所有对应的钢卷
-    List<MillCoilInfo> queryForListByCurrentUser(MillCoilInfo millCoilInfo );
+    List<MillCoilInfo> queryForListByCurrentUser(MillCoilInfo millCoilInfo);
 
     //通过钢卷编号查询物理信息
-    List<CrmMillCoilInfo> getPhysicsInfoListByCoil(@Param("zcharg") String zcharg , @Param("showFlag") Integer showFlag);
+    List<CrmMillCoilInfo> getPhysicsInfoListByCoil(CrmMillCoilInfo millCoilInfo);
     //通过钢卷编号查询化学信息
-    List<CrmMillCoilInfo> getChemistryListByCoil(@Param("zcharg") String zcharg , @Param("showFlag") Integer showFlag);
+    List<CrmMillCoilInfo> getChemistryListByCoil(CrmMillCoilInfo millCoilInfo);
 
     List<MillCoilInfo> findIsTrue (MillCoilInfo record);
 }

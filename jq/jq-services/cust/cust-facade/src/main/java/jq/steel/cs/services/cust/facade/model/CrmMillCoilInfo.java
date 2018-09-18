@@ -5,7 +5,7 @@ import java.util.List;
 
 //钢卷信息
 public class CrmMillCoilInfo {
-
+    private Long sid;
     private String zcharg;      //钢卷编号
 
     private String specs;       //钢卷规格
@@ -20,7 +20,15 @@ public class CrmMillCoilInfo {
     //用于存储钢卷对应的物理数据
     private List<CrmMillPhysicsData> listForMillPhysicsData = new ArrayList<>();
 
+    private int showFlag;
 
+    public Long getSid() {
+        return sid;
+    }
+
+    public void setSid(Long sid) {
+        this.sid = sid;
+    }
 
     public String getZcharg() { return zcharg; }
 
@@ -56,5 +64,13 @@ public class CrmMillCoilInfo {
 
     public void setzJiShu(int zJiShu) {
         this.zJiShu = zJiShu;
+    }
+
+    public int getShowFlag() {
+        return showFlag;
+    }
+
+    public void setShowFlag(int showFlag) {
+        this.showFlag = showFlag;
     }
 }
