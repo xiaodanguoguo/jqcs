@@ -445,7 +445,14 @@
     FROM MILL_SHEET_HOSTS msh
     LEFT JOIN MILL_COIL_INFO mci on msh.MILL_SHEET_NO = mci.MILL_SHEET_NO
     LEFT JOIN MILL_PHYSICS_DATA mpd on mci.ZCHARG = mpd.ZCHARG
-    WHERE msh.MILL_SHEET_NO = #{millSheetNo} and mpd.SHOW_FLAG = #{showFlag}
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="millSheetNo != null and millSheetNo != ''" >
+        and msh.MILL_SHEET_NO = #{millSheetNo}
+      </if>
+      <if test="showFlag != null and showFlag != ''" >
+        and mpd.SHOW_FLAG = #{showFlag}
+      </if>
+    </trim>
   </select>
 
   <select id="getChemistryListByMillSheet" resultMap="MapForCoilAndChemistry" parameterType="jq.steel.cs.services.cust.api.vo.CrmMillSheetDetailVO">
@@ -455,7 +462,14 @@
   FROM MILL_SHEET_HOSTS msh
   LEFT JOIN MILL_COIL_INFO mci on msh.MILL_SHEET_NO = mci.MILL_SHEET_NO
   LEFT JOIN MILL_CHEMISTRY_DATA mcd on mci.ZCHARG = mcd.ZCHARG
-  WHERE msh.MILL_SHEET_NO = #{millSheetNo} and mcd.SHOW_FLAG = #{showFlag}
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="millSheetNo != null and millSheetNo != ''" >
+        and msh.MILL_SHEET_NO = #{millSheetNo}
+      </if>
+      <if test="showFlag != null and showFlag != ''" >
+        and mcd.SHOW_FLAG = #{showFlag}
+      </if>
+    </trim>
   </select>
 
 
@@ -493,6 +507,9 @@
       <if test="zcharg != null and zcharg != ''" >
         AND mci.ZCHARG = #{zcharg}
       </if>
+      <if test="showFlag != null and showFlag != ''" >
+        AND mpd.SHOW_FLAG = #{showFlag}
+      </if>
     </trim>
 
   </select>
@@ -507,6 +524,9 @@
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="zcharg != null and zcharg != ''" >
         AND mci.ZCHARG = #{zcharg}
+      </if>
+      <if test="showFlag != null and showFlag != ''" >
+        AND mcd.SHOW_FLAG = #{showFlag}
       </if>
     </trim>
 
