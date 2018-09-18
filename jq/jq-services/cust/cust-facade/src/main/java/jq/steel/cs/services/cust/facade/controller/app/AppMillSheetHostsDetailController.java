@@ -47,7 +47,7 @@ public class AppMillSheetHostsDetailController {
         }
         try {
             CrmMillSheetDetailVO cmsdVO = jsonRequest.getReqBody();
-            List<CrmMillCoilInfoVO> listAll = appCrmCoilService.getListByMillSheet(cmsdVO.getMillSheetNo(),cmsdVO.getShowFlag());
+            List<CrmMillCoilInfoVO> listAll = appCrmCoilService.getListByMillSheet(cmsdVO.getMillSheetNo(),1);
             serviceResponse.setRetContent(listAll);
         } catch (Exception e) {
             serviceResponse.setException(new BusinessException("500"));

@@ -91,9 +91,9 @@ public class MillCoilInfoServiceImpl implements MillCoilInfoService{
     public List<CrmMillCoilInfoVO> getCoilDetail(CrmMillCoilInfoVO reqBody) {
 
         //物理
-        List<CrmMillCoilInfo> coilAndPhysicsInfo = millCoilInfoMapper.getPhysicsInfoListByCoil(reqBody.getZcharg());
+        List<CrmMillCoilInfo> coilAndPhysicsInfo = millCoilInfoMapper.getPhysicsInfoListByCoil(reqBody.getZcharg() , 1);
         //化学
-        List<CrmMillCoilInfo> coilAndChemistryInfo = millCoilInfoMapper.getChemistryListByCoil(reqBody.getZcharg());
+        List<CrmMillCoilInfo> coilAndChemistryInfo = millCoilInfoMapper.getChemistryListByCoil(reqBody.getZcharg() , 1);
 
         Map<String, CrmMillCoilInfo> coilInfoMap = new HashMap<String, CrmMillCoilInfo>();
         for (CrmMillCoilInfo coilInfo : coilAndPhysicsInfo) {
