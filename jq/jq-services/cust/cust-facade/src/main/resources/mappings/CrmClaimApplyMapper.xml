@@ -764,14 +764,12 @@
     (select T.TYPE_NAME from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
     WHERE T.TYPE_NAME=D.ZCPMC)) AS ZCPMC,
-    D.ZPH,
-    F.LAST_USER
+    D.ZPH
     FROM
     WARRANTY.CRM_CLAIM_APPLY A
     LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_INFO C ON A.CLAIM_NO = C.CLAIM_NO
     LEFT JOIN WARRANTY.MILL_SHEET_HEAD D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO
-    LEFT JOIN CRM_LASTUSER_INFO F ON A.LAST_USER_ID = F.LAST_USER_ID
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
         AND TO_CHAR (A.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
@@ -844,14 +842,12 @@
     (select T.TYPE_NAME from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
     WHERE T.TYPE_NAME=D.ZCPMC)) AS ZCPMC,
-    D.ZPH,
-    F.LAST_USER
+    D.ZPH
     FROM
     WARRANTY.CRM_CLAIM_APPLY A
     LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_INFO C ON A.CLAIM_NO = C.CLAIM_NO
     LEFT JOIN WARRANTY.MILL_SHEET_HEAD D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO
-    LEFT JOIN CRM_LASTUSER_INFO F ON A.LAST_USER_ID = F.LAST_USER_ID
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
         AND TO_CHAR (A.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
