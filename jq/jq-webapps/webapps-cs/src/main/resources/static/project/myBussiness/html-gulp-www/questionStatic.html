@@ -195,34 +195,12 @@
 	    	</div>
 	    	<div id="js-loader" class="og-head-maincontent">
 
-<link rel="stylesheet" href="../css/product_detail.css">
-    <div class="detail" id="boxContent">
-        <div class="detail-nav">
-            <h1 class="detail-nav-name" id="productName"></h1>
-                <!--<ul class="detail-nav-list">
-                    <li class="detail-nav-list_block"><span class="detail-nav-list_tit">时间&nbsp;&nbsp;:</span><b class="detail-nav-list_main">2016-02-02 10:41</b></li>
-                    <li class="detail-nav-list_block"><span class="detail-nav-list_tit">责任人&nbsp;&nbsp;:</span><b class="detail-nav-list_main">李猛</b></li>
-                    <li class="detail-nav-list_block"><span class="detail-nav-list_tit">点击&nbsp;&nbsp;:</span><b class="detail-nav-list_main">3331次</b></li>
-                </ul>-->
-        </div>
-        <div class="detail-content">
-            <img class="detail-content-picture" id="thumbnail"/>
-            <!--<p class="detail-content-headline">热轧卷板是碳钢薄板厂主要销售产品之一,采用薄板呸连铸连轧工艺。</p>-->
-            <div class="detail-content-introduce" id="productDesc"></div>
-        </div>
-    </div>
-<script>
-    $(function(){
-        var pid = GetQueryString("pid");
-        getAjaxResult("/product/info/introduct/detail","POST",{"pid":pid},"successCallBack(data)");
-    })
-    function successCallBack(data){
-        data = JSON.parse(data);
-        if(data.retCode == "0000000"){
-            setValue4Desc(data.rspBody,$("#boxContent")[0])//赋值
-        }
-    }
-</script>
+<div id="searchBox" style="height: 50px;">
+    <span style="margin-right: 10px;">信息标题：</span>
+    <input type="text" class="inputBase" id="condannTitle">
+    <div class="btnLowNew" id="establish-Home-page" comtype="searchBtnCtrl" rule="cond" cond="condannTitle" uniontableid="announcementList" parentId="searchBox">查询</div>
+</div>
+<div></div>
 
 </div>
 </div>
