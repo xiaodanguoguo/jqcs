@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Config Version="2">
+    <Runtime>
+        <DBList>
+            <DB name="bgcrmdbt_crm">
+            	<!-- bg -->
+             	<!-- <property name="url" value="jdbc:oracle:thin:@10.1.4.75:1521:bgcrmdb"/> -->
+				<!-- qg -->
+                <!-- <property name="url" value="jdbc:oracle:thin:@10.3.247.175:1521:bgcrmdbt"/> -->
+                <!--云平台 正式 -->
+                <property name="url" value="jdbc:oracle:thin:@192.168.2.2:1521:bgcrmdb"/>
+                <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+                <property name="type" value="1"/>
+                <property name="user" value="CRM"/>
+                <property name="password" value="CRM"/>
+                <property name="batchSize" value="1000"/>
+                <property name="autoConnect" value="false"/>
+                <property name="useSchema" value="false"/>
+                <property name="addTilde" value="false"/>
+                <property name="dbCharset" value="GBK"/>
+                <property name="clientCharset" value="GBK"/>
+                <property name="needTransContent" value="false"/>
+                <property name="needTransSentence" value="false"/>
+                <property name="caseSentence" value="false"/>
+            </DB>
+        </DBList>
+        <!-- 本地 -->
+    	<Report>
+            <license>E:/tomcat-8180/raqspath/reportLicense.xml</license>
+            <home>E:/tomcat-8180/raqspath</home>
+            <styleConfig>/tmp/reportStyleConfig.xml</styleConfig>
+        </Report>
+        <!-- qg -->
+   		<!-- <Report>
+            <license>/app/tomcat-8280/templatePath/reportLicense.lic</license>
+            <home>/app/tomcat-8280/templatePath</home>
+            <styleConfig>/tmp/reportStyleConfig.xml</styleConfig>
+        </Report> -->
+        <!-- bg -->
+        <!-- <Report>
+            <license>/app/tomcat-8-khfw/templatePath/reportLicense.xml</license>
+            <home>/app/tomcat-8-khfw/templatePath</home>
+            <styleConfig>/tmp/reportStyleConfig.xml</styleConfig>
+        </Report> -->
+        <Logger>
+            <Level>DEBUG</Level>
+        </Logger>
+    </Runtime>
+    <Server>
+        <property name="slimerjsDir" value=""/>
+    </Server>
+</Config>

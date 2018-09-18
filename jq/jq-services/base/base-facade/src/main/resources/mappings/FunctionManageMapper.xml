@@ -389,9 +389,9 @@
     f1.PARENT_APPLICATION_ID IS NULL
     AND f1. STATUS = 1
     AND f1.IS_DELETE = 0
-    <if test="orgId != null and orgId !='' " >
-      AND f1.ORG_ID = #{orgId}
-    </if>
+    <!--<if test="orgId != null and orgId !='' " >-->
+      <!--AND f1.ORG_ID = #{orgId}-->
+    <!--</if>-->
 
   </select>
   <select id="findRoleThree" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.FunctionManage">

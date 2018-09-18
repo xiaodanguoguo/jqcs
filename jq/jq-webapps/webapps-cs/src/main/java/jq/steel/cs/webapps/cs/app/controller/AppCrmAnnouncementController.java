@@ -34,7 +34,7 @@ public class AppCrmAnnouncementController {
      * @param jsonRequest
      * @return
      */
-    @RequestMapping(value = "/getNewAnnouncement", method = RequestMethod.GET)
+    @RequestMapping(value = "/getNewAnnouncement", method = RequestMethod.POST)
     public JsonResponse<CrmAnnouncementVO> getNewAnnouncement() {
         JsonResponse<CrmAnnouncementVO> jsonResponse = new JsonResponse<>();
 

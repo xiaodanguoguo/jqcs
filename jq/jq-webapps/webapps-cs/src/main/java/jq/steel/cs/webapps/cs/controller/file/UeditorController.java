@@ -35,6 +35,7 @@ public class UeditorController {
         String rootPath = request.getSession().getServletContext().getRealPath("/");
         try {
             String exec = new ActionEnter(request, rootPath).exec();
+            logger.info("ueditor-json = {}", exec);
             PrintWriter writer = response.getWriter();
             writer.write(exec);
             writer.flush();
