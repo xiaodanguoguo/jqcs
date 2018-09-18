@@ -150,6 +150,7 @@ public class AcctController {
                 }else{
                     serviceResponse.setRetContent(boo);
                     serviceResponse.setResponseCode("0702006");
+                    serviceResponse.setRetMessage(new BusinessException("0702006").getMessage());
                 }
             }
 

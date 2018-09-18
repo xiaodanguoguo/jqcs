@@ -82,7 +82,7 @@ public class AppLoginController {
     }
 
     @RequestMapping("/logout")
-    public JsonResponse<Boolean> logout(@RequestBody JsonRequest<String> jsonRequest){
+    public JsonResponse<Boolean> logout(@RequestBody JsonRequest jsonRequest){
         JsonResponse<Boolean> jsonResponse = new JsonResponse<Boolean>();
         try{
             String sessionId = jsonRequest.getReqHeader().getSid();
@@ -93,7 +93,8 @@ public class AppLoginController {
                 jsonResponse.setRspBody(true);
 
             }else {
-                jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                jsonResponse.setRetCode(serviceResponse.getRetCode());
+                jsonResponse.setRetDesc(serviceResponse.getRetMessage());
                 logger.error("注销成功 !!");
             }
         }catch (Exception e){
