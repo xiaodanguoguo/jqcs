@@ -195,89 +195,59 @@
 	    	</div>
 	    	<div id="js-loader" class="og-head-maincontent">
 
-<script type="text/javascript" charset="utf-8" src="../../../plugin/ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../../plugin/ueditor/ueditor.all.js"> </script>
-<script type="text/javascript" charset="utf-8" src="../../../plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
-<link rel="stylesheet" href="../css/book_edit.css">
-<script src="../js/agreementBook.js"></script>
-    <div class="check">
-        <!--<div class="check-title">
-            <div class="btnLowNew check-Home-page">首页</div>
-            <div class="btnLowNew check-questionnaire">内部调查
-                <b class="check-title-close">X</b>
-            </div>
-        </div>-->
-        <div class="check-name">
-            <h1 class="check-name-title">协议书</h1>
-        </div>
-        <div class="check-box" id="htmlBox">
-            <p class="check-box-number">异议编号:
-                <input id="claimNo" type="text" class="inputBase changeGary" disabled="true">
-            </p>
-            <ul class="check-box-list clearfix">
-                <li class="submission-box-list__Every">
-                    <span class="submission-box-list__Name">甲方&nbsp;(发货单位)&nbsp;:</span>
-                    <input id="deptName" type="text" class="submission-box-list__Input changeGary" disabled="true">
-                </li>
-                <li class="submission-box-list__Every">
-                    <span class="submission-box-list__Name">乙方&nbsp;(发货单位)&nbsp;:</span>
-                    <input id="customerName" type="text" class="submission-box-list__Input changeGary" disabled="true">
-                </li>
-                <li class="submission-box-list__Every">
-                    <span class="submission-box-list__Name">丙方&nbsp;(发货单位)&nbsp;:</span>
-                    <input id="lastUser" type="text" class="submission-box-list__Input changeGary" disabled="true">
-                </li>
-                <li class="submission-box-list__Every">
-                    <span class="submission-box-list__Name">物流过程:</span>
-                    <textarea id="logisticsProcess" class="submission-box-list__Input  submission-box-list__process changeGary" disabled="true" style="resize: none"></textarea>
-                </li>
-                <li class="submission-box-list__Every">
-                    <span class="submission-box-list__Name">车号:</span>
-                    <input id="originalCarNo" type="text" class="inputBase changeGary" disabled="true">
-                    <span class="submission-box-list__Namenumber">质证书编号:</span>
-                    <input id="millSheetNo" type="text" class="inputBase changeGary" disabled="true">
-                    <span class="submission-box-list__compactnumber">合同号:</span>
-                    <input id="contractNo" type="text" class="inputBase changeGary" disabled="true">
-                </li>
-                <div id="secondBox">
-                    <li class="submission-box-list__Every">
-                        <span class="submission-box-list__Name">投诉内容描述:</span>
-                        <textarea id="claimDesc" class="submission-box-list__Input submission-box-list__describe required" style="resize: none"></textarea>
-                    </li>
-                    <li class="submission-box-list__Every">
-                        <span class="submission-box-list__Name fl">现场结论:</span>
-                        <div id="fieldConclusionA" class="fl submission-box-list__Input  submission-box-list__result" style="height: 360px;width: 764px;">
-                            <script id="editor" type="text/plain"></script>
-                        </div>
-                    </li>
-                    <li class="submission-box-list__Every">
-                        <span class="submission-box-list__Name submission-box-list__Names">协议内容:</span>
-                        <textarea id="agreementContent" class="submission-box-list__Input submission-box-list__content required" style="resize: none"></textarea>
-                    </li>
-                    <li class="submission-box-list__Every">
-                        <span class="submission-box-list__Namenum">异议确认量:</span>
-                        <input id="agreementNum" type="text" class="inputBase submission-box-list__numInput required for0_9">
-                        <span class="submission-box-list__Namenums">赔偿金额&nbsp;(&nbsp;小写&nbsp;):</span>
-                        <div style="display: inline-block">
-                            <input id="agreementAmount" type="text" class="inputBase submission-box-list__numberInput required forMoney">
-                        </div>
-                        <span class="submission-box-list__Namenums">赔偿金额&nbsp;(&nbsp;大写&nbsp;):</span>
-                        <input id="agreementAmountUpper" type="text" class="inputBase submission-box-list__numberInput required">
-                    </li>
-                </div>
-
-                <li class="submission-box-list__Every clearfix" id="box1" style="display: none">
-                    <div class="btnLowNew submission-box-list__save" id="firstSave">保存</div>
-                    <div class="btnLowNew submission-box-list__submit" id="firstSubmit">提交</div>
-                </li>
-                <li class="submission-box-list__Every" id="box2" style="display: none;">
-                    <input id="rejectReason" type="text" class="fl inputBase" style="margin-left: 650px;">
-                    <div class="btnLowNew" id="secondReject">驳回</div>
-                    <div class="btnLowNew submission-box-list__submit" id="secondPromise">通过</div>
-                </li>
-            </ul>
-        </div>
+<div style="padding: 20px;">
+    <table class="table-list" id="announcementList" style="table-layout: fixed" comType="" templateId="templateRow" page="tcdPageCode" reqPath="" reqParam="{}" method="POST" noData="nonData">
+        <tr class="table-list-currentrow">
+            <th class="table-list-currentrow-theader" style="width: 60%">
+                标题
+            </th>
+            <th class="table-list-currentrow-theader" style="width: 40%;">
+                发布时间
+            </th>
+        </tr>
+        <tr class="table-list-currentrow" id="templateRow" style="display: none;">
+            <td class="table-list-currentrow-tdetail">
+                <span style="padding: 0 10px;cursor: pointer" id="annTitle">1</span>
+            </td>
+            <td class="table-list-currentrow-tdetail" style="text-align: center">
+                <span style="padding: 0 10px;" id="createDt">1</span>
+            </td>
+        </tr>
+    </table>
+    <div id="nonData" class="noDataCon" style="display: none">
+        <i></i>
+        <p>暂无数据......</p>
     </div>
+    <div class="tcdPageCode"></div>
+</div>
+<script>
+    $(function(){
+        $("#announcementList")[0].data = {"rspBody":{"resultData":[{"annTitle":"123","createDt":"1992-01-01"},{"annTitle":"234","createDt":"1992-01-05"}]}};
+        initplugPath($("#announcementList")[0],"standardTableCtrl","runze",null,"POST");
+    });
+
+    function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
+        $(cloneRow).find("#annTitle").on("click",function () {
+            jumpUrl("../../homePage/html-gulp-www/announceMentDetail.html?aId=" + jsonItem.aId,"0000000",0);
+        });
+    }
+
+    //未知数组，已有接口，初始化插件;
+    function initplugPath(docm,comType,reqPath,reqParam,reqMethod){
+        if(reqPath != null){
+            $(docm).attr("reqPath",reqPath);
+        }
+        if(reqParam != null){
+            $(docm).attr("reqParam",JSON.stringify(reqParam));
+        }
+        if(reqMethod != null){
+            $(docm).attr("reqMethod",reqMethod);
+        }
+        $(docm).attr("comType",comType);
+        document.body.jsCtrl.ctrl = docm;
+        document.body.jsCtrl.init();
+    }
+</script>
 
 </div>
 </div>
