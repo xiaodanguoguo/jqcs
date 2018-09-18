@@ -12,6 +12,8 @@ public class CrmMillCoilInfo {
 
     private String zlosmenge;   //钢卷重量
 
+    private int zJiShu;// 件数
+
     //用于存储钢卷对应的化学数据
     private List<CrmMillChemistryData> listForMillChemistryData = new ArrayList<>();
 
@@ -48,5 +50,11 @@ public class CrmMillCoilInfo {
         this.listForMillPhysicsData = listForMillPhysicsData;
     }
 
+    public int getzJiShu() {
+        return zJiShu;
+    }
 
+    public void setzJiShu(int zJiShu) {
+        this.zJiShu = zJiShu;
+    }
 }
