@@ -20,26 +20,11 @@ public class WebConfig {
 
         registration.setLoadOnStartup(1);
 
-//        Resource resource = new ClassPathResource("raqsoftConfig.xml");
-//        File file = resource.getFile();
-//        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-//
-//        String line = null;
-//        String message = new String();
-//        final StringBuffer buffer = new StringBuffer(2048);
-//        while ((line = br.readLine()) != null) {
-//            // buffer.append(line);
-//            message += line;
-//        }
-//        System.out.println(message);
+        System.err.println(ClassLoader.getSystemResource("raqsoftConfig.xml").getPath());
+        registration.addInitParameter("configFile", ClassLoader.getSystemResource("raqsoftConfig.xml").getPath());
 
-        //        ResourceLoader resourceLoader = this.createResourceLoader();
-//        Resource resource = resourceLoader.getResource("classpath:resources/raqsoftConfig.xml");
-
-        registration.addInitParameter("configFile", "/WEB-INF/raqsoftConfig.xml");
 
         registration.addInitParameter("headless", "none");
-//        registration.addInitParameter("configFile", message);
 
         registration.setName("reportServlet");
 
