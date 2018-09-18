@@ -24,7 +24,7 @@ public interface ObjectionChuLiService {
     ObjectionChuLiVO preview(ObjectionChuLiVO record);
 
     // 下载pdf
-    List<ObjectionChuLiVO> download(List<Map> record);
+    List<ObjectionChuLiVO> download(ObjectionChuLiVO record);
 
     //强制结案
     Integer compulsorySettlement(ObjectionChuLiVO record);

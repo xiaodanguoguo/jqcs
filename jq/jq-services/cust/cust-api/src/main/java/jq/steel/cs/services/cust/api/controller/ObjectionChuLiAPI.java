@@ -63,7 +63,7 @@ public interface ObjectionChuLiAPI {
      *
      * */
     @RequestMapping(value = "/objectionChuLi/preview",method = RequestMethod.POST)
-    ServiceResponse preview(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest);
+    ServiceResponse<ObjectionChuLiVO> preview(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest);
 
     /**
      *   下载 返回文件流
@@ -72,7 +72,7 @@ public interface ObjectionChuLiAPI {
      *
      * */
     @RequestMapping(value = "/objectionChuLi/download",method = RequestMethod.POST)
-    ServiceResponse<List<ObjectionChuLiVO>> download(@RequestBody JsonRequest<List<Map>> jsonRequest);
+    ServiceResponse<List<ObjectionChuLiVO>> download(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest);
 
     /**
      *  强制结案

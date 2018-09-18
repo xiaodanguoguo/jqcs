@@ -4,10 +4,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class ObjectionChuLiVO {
 
+    private List claimNos;
 
+    public List getClaimNos() {
+        return claimNos;
+    }
+
+    public void setClaimNos(List claimNos) {
+        this.claimNos = claimNos;
+    }
 
     //协议内容
     private String agreementContent;

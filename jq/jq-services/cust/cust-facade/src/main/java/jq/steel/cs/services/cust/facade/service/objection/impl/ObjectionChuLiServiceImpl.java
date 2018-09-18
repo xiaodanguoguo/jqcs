@@ -17,6 +17,7 @@ import jq.steel.cs.services.cust.facade.model.CrmClaimApply;
 import jq.steel.cs.services.cust.facade.model.CrmClaimInfo;
 import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
 import jq.steel.cs.services.cust.facade.service.objection.ObjectionChuLiService;
+import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -171,9 +172,15 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
         CreatePdf createPdf = new CreatePdf();
         //判断
         if(templateType.equals("1")){
-            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),"xieyishu");
+            //协议书预览(图片)
+            CrmAgreementInfo  crmAgreementInfo  = new CrmAgreementInfo();
+            crmAgreementInfo.setClaimNo(record.getClaimNo());
+            List<CrmAgreementInfo> list= crmAgreementInfoMapper.findList(crmAgreementInfo);
+             report = list.get(0).getAgreementUrl();
+            record.setReport(report);
         }else if(templateType.equals("2")){
-            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),"xieyishu");
+            //下载质量异议报告
+            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),"yiyibaogao");
         }else if(templateType.equals("3")){
             report = createPdf.createPdf(record.getClaimNo(),record.getReport(),"xieyishu");
         }else if(templateType.equals("4")){
@@ -184,30 +191,32 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
         return record;
     }
 
-    //
-    public List<ObjectionChuLiVO> download(List<Map> list) {
-        List<MillSheetHosts> millSheetHosts = new ArrayList<>();
-       /* for(int i = 0;i < list.size();i++){
-            MillSheetHosts millSheetHosts1 = new MillSheetHosts();
-            millSheetHosts1.setMillSheetNo(list.get(i));
-            millSheetHosts.add(millSheetHosts1);
+    //下载 返回文件流
+    public List<ObjectionChuLiVO> download(ObjectionChuLiVO list) {
+        CreatePdf createPdf = new CreatePdf();
+        List<ObjectionChuLiVO> liVOS = new ArrayList<>();
+        String templateType = list.getTemplateType();
+        String claimNo = (String) list.getClaimNos().get(0);
+        if (templateType.equals("1")){
+            //异议提报协议书图片下载
+            CrmAgreementInfo  crmAgreementInfo  = new CrmAgreementInfo();
+            crmAgreementInfo.setClaimNo(claimNo);
+            List<CrmAgreementInfo> crmAgreementInfos= crmAgreementInfoMapper.findList(crmAgreementInfo);
+            ObjectionChuLiVO objectionChuLiVO = new ObjectionChuLiVO();
+            objectionChuLiVO.setReport(crmAgreementInfos.get(0).getAgreementUrl());
+            objectionChuLiVO.setTemplateType("1");
+            liVOS.add(objectionChuLiVO);
+        }else if(templateType.equals("2")){
+            //异议提报详情页面下载
+            ObjectionChuLiVO objectionChuLiVO = new ObjectionChuLiVO();
+            String  record1 = "E:/";
+            String report = createPdf.createPdf(claimNo,record1,"yiyibaogao");
+            objectionChuLiVO.setTemplateType("2");
+            objectionChuLiVO.setReport(report);
+            liVOS.add(objectionChuLiVO);
         }
-        for (MillSheetHosts millSheetHosts1:millSheetHosts){
-            MillSheetHosts url = millSheetHostsMapper.findUrl(millSheetHosts1);
-            millSheetHosts1.setMillSheetPath(url.getMillSheetUrl()+"/"+url.getMillSheetName());
 
-            //修改下载次数
-            millSheetHosts1.setDownableNum(url.getDownableNum()-1);
-            millSheetHosts1.setDownNum(url.getDownNum()+1);
-            //millSheetHosts1.setUpdatedBy(orgName);
-            millSheetHosts1.setUpdatedDt(new Date());
-            millSheetHostsMapper.updateNum(millSheetHosts1);
-            millSheetHosts1.setMillSheetName(url.getMillSheetName());
-        }
-        //转换返回对象
-        List<MillSheetHostsVO> millSheetHostsVOS = BeanCopyUtil.copyList(millSheetHosts, MillSheetHostsVO.class);
-        return millSheetHostsVOS;*/
-       return null;
+       return liVOS;
     }
 
     // 强制结案
