@@ -1,5 +1,6 @@
 package jq.steel.cs.webapps.cs.app.controller;
 
+import com.ebase.core.AssertContext;
 import com.ebase.core.exception.BusinessException;
 import com.ebase.core.log.SearchableLoggerFactory;
 import com.ebase.core.page.PageDTO;
@@ -36,12 +37,15 @@ public class AppMillCoilInfoController {
 
     @RequestMapping(value = {"/getCoilsByCurrentUser"}, method = RequestMethod.POST)
     public JsonResponse<PageDTO<MillCoilInfoVO>> getCoilsByCurrentUser(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest) {
+        //获取当前用户的orgCode
+        String orgCode = AssertContext.getOrgCode();
 
         JsonResponse<PageDTO<MillCoilInfoVO>> jsonResponse = new JsonResponse<>();
         logger.info("用户对应钢卷分页钢卷分页 = {}", JsonUtil.toJson(jsonRequest));
 
         try {
 
+            jsonRequest.getReqBody().setOrgCode(orgCode);
             ServiceResponse<PageDTO<MillCoilInfoVO>> pageDTOServiceResponse = millCoilInfoAPI.CoilsByCurrentUser(jsonRequest);
             PageDTO<MillCoilInfoVO> retContent = pageDTOServiceResponse.getRetContent();
             jsonResponse.setRspBody(retContent);
