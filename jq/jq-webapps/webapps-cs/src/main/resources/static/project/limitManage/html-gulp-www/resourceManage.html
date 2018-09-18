@@ -197,7 +197,6 @@
 
 <span id="hiddenSpan" style="display:none">0,0,3</span>
     <title>资源管理</title>
-    <link rel="stylesheet" href="../../../base/css/base_blue.css">
     <link rel="stylesheet" href="../css/resourchAd.css">
     <link rel="stylesheet" href="../css/useManage.css">
     <link rel="stylesheet" href="../../../plugin/page/css/table_blue.css">
@@ -272,7 +271,7 @@
                         var status = 0;
                     }
                     if($("#resourchSe h2").html() == "新建权限" ){//新建
-                        var reqParam = {"functionTitle":$("#resourchSe #functionTitle").val(),"opt":"insert","orgId":orgId,"parentApplicationId":"","status":$("#resourchSe #status").prop("checked"),"functionPath":$("#resourchSe #functionPath").val(),"status":1};
+                        var reqParam = {"functionCode":$("#resourchSe #functionCode").val(),"functionTitle":$("#resourchSe #functionTitle").val(),"opt":"insert","orgId":orgId,"parentApplicationId":"","status":$("#resourchSe #status").prop("checked"),"functionPath":$("#resourchSe #functionPath").val(),"status":1};
                         if($("#detailRow")[0].data){
                             reqParam.parentApplicationId = $("#detailRow")[0].data.functionId;
                         }
@@ -283,7 +282,7 @@
                         var data = $("#detailRow")[0].data;
                         var reqParam = {};
                         if(data){
-                            reqParam = {"functionTitle":$("#resourchSe #functionTitle").val(),"functionPath":$("#resourchSe #functionPath").val(),"opt":"update","orgId":orgId,"functionId":data.functionId,"status":1}
+                            reqParam = {"functionCode":$("#resourchSe #functionCode").val(),"functionTitle":$("#resourchSe #functionTitle").val(),"functionPath":$("#resourchSe #functionPath").val(),"opt":"update","orgId":orgId,"functionId":data.functionId,"status":1}
                         };
                         //globalFunctionId = $("#detailRow")[0].data.functionId;
                         getAjaxResult("/functionManage/keepFunctionManage", "post", reqParam, 'delOrSavePermission(data)');
@@ -318,6 +317,7 @@
             /***********************编辑权限开始****************************/
             $("#editPermission").click(function(){//编辑当前权限
                 openWin(400, 300, "resourchSe", true);
+                $("#resourchSe #functionCode").attr("disabled",true);
                 $("#resourchSe h2").html("编辑权限");
                 //setValue4Desc($("#detailRow")[0].data, $("#resourchSe")[0]);
                 setValueGlobal($("#detailRow")[0].data, $("#resourchSe")[0]);
@@ -645,6 +645,7 @@
                             <!-- <li><span>功能类型：</span><span class="fot-ul-span" id="functionType"></span></li>
                             <li><span>功能描述：</span><span class="fot-ul-span" id="functionDesc"></span></li>
                             <li><span>功能编码：</span><span class="fot-ul-span" id="functionCode"></span></li> -->
+                            <li><span>功能编码：</span><span class="fot-ul-span" id="functionCode"></span></li>
                             <li><span>父级功能名称：</span><span class="fot-ul-span" id="parentApplicationName"></span></li>
                             <li><span>创建人：</span><span class="fot-ul-span" id="createdBy"></span></li>
                             <li><span>创建时间：</span><span class="fot-ul-span" id="createdTime"></span></li>
@@ -675,6 +676,7 @@
         <div class="resourchSe" style="padding:0 30px;">
             <ul class="resourchSe-ul">
                 <li><label>名称：</label><input type="text" class="required" id="functionTitle"/></li>
+                <li><label>code码：</label><input type="text" class="required" id="functionCode"/></li>
                 <li><label>路径：</label><textarea type="text" class="required" id="functionPath"></textarea></li>
                 <li style="position:relative;display:none"><label>选择组织：</label><!-- <input type="text" id="orgId" class="required"/> -->
 
