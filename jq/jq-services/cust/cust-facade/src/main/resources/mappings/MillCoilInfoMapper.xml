@@ -70,6 +70,7 @@
     <result column="ZCHARG" property="zcharg"/>
     <result column="SPECS" property="specs"/>
     <result column="ZLOSMENGE" property="zlosmenge"/>
+    <result column="ZJISHU" property="zJiShu"/>
     <collection property="listForMillPhysicsData"
                 ofType="jq.steel.cs.services.cust.facade.model.CrmMillPhysicsData"
                 columnPrefix="MPD_">
@@ -83,6 +84,7 @@
     <result column="ZCHARG" property="zcharg"/>
     <result column="SPECS" property="specs"/>
     <result column="ZLOSMENGE" property="zlosmenge"/>
+    <result column="ZJISHU" property="zJiShu"/>
     <collection property="listForMillChemistryData"
                 ofType="jq.steel.cs.services.cust.facade.model.CrmMillChemistryData"
                 columnPrefix="MCD_">
@@ -440,7 +442,7 @@
   <select id="getPhysicsListByMillSheet" resultMap="MapForCoilAndPhysics" parameterType="jq.steel.cs.services.cust.api.vo.CrmMillSheetDetailVO">
     SELECT
     msh.MILL_SHEET_NO,
-    mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE,
+    mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE,mci.ZJISHU,
     mpd.SID AS MPD_SID, mpd.KURZTEXT AS MPD_KURZTEXT, mpd.ORIGINAL_INPUT as MPD_ORIGINAL_INPUT
     FROM MILL_SHEET_HOSTS msh
     LEFT JOIN MILL_COIL_INFO mci on msh.MILL_SHEET_NO = mci.MILL_SHEET_NO
@@ -457,7 +459,7 @@
 
   <select id="getChemistryListByMillSheet" resultMap="MapForCoilAndChemistry" parameterType="jq.steel.cs.services.cust.api.vo.CrmMillSheetDetailVO">
   SELECT msh.MILL_SHEET_NO,
-  mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE,
+  mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE,mci.ZJISHU,
   mcd.SID AS MCD_SID, mcd.KURZTEXT AS MCD_KURZTEXT, mcd.ORIGINAL_INPUT AS MCD_ORIGINAL_INPUT
   FROM MILL_SHEET_HOSTS msh
   LEFT JOIN MILL_COIL_INFO mci on msh.MILL_SHEET_NO = mci.MILL_SHEET_NO

@@ -102,7 +102,7 @@ public class ObjectionChuLiController {
      * */
     @RequestMapping(value = "/export",method = RequestMethod.POST)
     public ServiceResponse<List<ObjectionChuLiVO>> export(@RequestBody JsonRequest<List<String>> jsonRequest){
-        logger.info("分页", JsonUtil.toJson(jsonRequest));
+        logger.info("导出", JsonUtil.toJson(jsonRequest));
         ServiceResponse<List<ObjectionChuLiVO>> serviceResponse = new ServiceResponse<>();
         try {
             List<String> liVOS = jsonRequest.getReqBody();
@@ -122,19 +122,19 @@ public class ObjectionChuLiController {
      *
      * */
     @RequestMapping(value = "/preview",method = RequestMethod.POST)
-    public ServiceResponse preview(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
+    public ServiceResponse<ObjectionChuLiVO> preview(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
         logger.info("参数 = {}",JsonUtil.toJson(jsonRequest));
         ServiceResponse<ObjectionChuLiVO> serviceResponse = new ServiceResponse<>();
         ObjectionChuLiVO reqBody = jsonRequest.getReqBody();
         try{
             ObjectionChuLiVO downUrl = objectionChuLiService.preview(reqBody);
             serviceResponse.setRetContent(downUrl);
-            return serviceResponse;
         }catch (Exception e){
             logger.error("保存 参数 失败 error = {}",e);
 
             throw new BusinessException("0000001");
         }
+        return serviceResponse;
     }
 
     /**
@@ -144,10 +144,10 @@ public class ObjectionChuLiController {
      *
      * */
     @RequestMapping(value = "/download",method = RequestMethod.POST)
-    public ServiceResponse<List<ObjectionChuLiVO>> download(@RequestBody JsonRequest<List<Map>> jsonRequest){
+    public ServiceResponse<List<ObjectionChuLiVO>> download(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
         logger.info("参数 = {}",JsonUtil.toJson(jsonRequest));
         ServiceResponse<List<ObjectionChuLiVO>> serviceResponse = new ServiceResponse<>();
-        List<Map> reqBody = jsonRequest.getReqBody();
+        ObjectionChuLiVO reqBody = jsonRequest.getReqBody();
         try{
             List<ObjectionChuLiVO> downUrl = objectionChuLiService.download(reqBody);
             serviceResponse.setRetContent(downUrl);

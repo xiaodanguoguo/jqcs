@@ -15,6 +15,7 @@ import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionChuLiVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionDiaoChaVO;
 import jq.steel.cs.webapps.cs.controller.file.UploadConfig;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -220,12 +221,12 @@ public class ObjectionChuLiController {
      * 打印/预览 实时生成pdf并且返回url地址
      * */
     @RequestMapping(value = "/preview",method = RequestMethod.POST)
-    public ObjectionDiaoChaVO preview(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
+    public JsonResponse<ObjectionChuLiVO> preview(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
         logger.info("参数", JsonUtil.toJson(jsonRequest));
         JsonResponse<ObjectionChuLiVO>  jsonResponse = new JsonResponse<>();
         try {
-            String report = uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern();
             ServiceResponse<ObjectionChuLiVO> serviceResponse = objectionChuLiAPI.preview(jsonRequest);
+            String report = uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern()+serviceResponse.getRetContent().getReport();
             serviceResponse.getRetContent().setReport(report);
             jsonResponse.setRspBody(serviceResponse.getRetContent());
         } catch (BusinessException e) {
@@ -233,7 +234,7 @@ public class ObjectionChuLiController {
             e.printStackTrace();
             jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
         }
-        return null;
+        return jsonResponse;
     }
 
     /**
@@ -245,9 +246,9 @@ public class ObjectionChuLiController {
     @RequestMapping(value = "/download",method = RequestMethod.POST)
     public void download(@RequestParam("name") String jsonRequest,HttpServletResponse response){
         try {
-            List<Map> list = JsonUtil.parseObject(jsonRequest,List.class);
-            JsonRequest<List<Map>> jsonRequest1 = new JsonRequest();
-            jsonRequest1.setReqBody(list);
+            ObjectionChuLiVO objectionChuLiVO = (ObjectionChuLiVO)JsonUtil.parseObject(jsonRequest,ObjectionChuLiVO.class);
+            JsonRequest<ObjectionChuLiVO> jsonRequest1 = new JsonRequest();
+            jsonRequest1.setReqBody(objectionChuLiVO);
             String orgName = AssertContext.getOrgName();
             String orgCode = AssertContext.getOrgCode();
             ServiceResponse<List<ObjectionChuLiVO>> serviceResponse = objectionChuLiAPI.download(jsonRequest1);
@@ -267,9 +268,16 @@ public class ObjectionChuLiController {
                 report = "zhibaoshu.zip";
 
             }else {
-                report = serviceResponse.getRetContent().get(0).getReport();
-                String  millSheetName = serviceResponse.getRetContent().get(0).getReport();
-                response.setHeader("Content-Disposition", "attachment;fileName="+millSheetName);
+                String type =  serviceResponse.getRetContent().get(0).getTemplateType();
+                if (type.equals("1")){
+                    report = uploadConfig.getUploadPath() + serviceResponse.getRetContent().get(0).getReport();
+                    String a = serviceResponse.getRetContent().get(0).getReport();
+                    String  fileName = a.substring(a.lastIndexOf("/")+1);
+                    response.setHeader("Content-Disposition", "attachment;fileName="+fileName);
+                }else if (type.equals("2")){
+
+                }
+
             }
             //String path = servletContex.getRealPath("/");
 

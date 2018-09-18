@@ -2,6 +2,11 @@ package jq.steel.cs.services.cust.api.vo;
 
 public class ObjectionJieAnVO {
 
+    //上传文件图片字段
+    private String viewUrl;
+    private String originalName;
+    private String filePath;
+
     private  String orgCode;
 
     private  String orgName;
@@ -11,8 +16,34 @@ public class ObjectionJieAnVO {
     //协议书文件地址
     private  String  claimNoUrl;
 
+
+
     //润乾地址
     private  String report;
+
+    public String getViewUrl() {
+        return viewUrl;
+    }
+
+    public void setViewUrl(String viewUrl) {
+        this.viewUrl = viewUrl;
+    }
+
+    public String getOriginalName() {
+        return originalName;
+    }
+
+    public void setOriginalName(String originalName) {
+        this.originalName = originalName;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 
     public String getOrgCode() {
         return orgCode;

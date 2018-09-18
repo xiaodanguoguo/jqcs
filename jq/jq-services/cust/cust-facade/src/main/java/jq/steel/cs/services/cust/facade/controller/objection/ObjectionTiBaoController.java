@@ -211,13 +211,6 @@ public class ObjectionTiBaoController {
     }
 
 
-    /**
-     * 新增按钮文件上传
-     * @param  jsonRequest
-     * @return
-     *
-     * */
-
 
     /**
      * @param:
