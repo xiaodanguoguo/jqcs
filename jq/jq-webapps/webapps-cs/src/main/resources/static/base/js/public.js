@@ -1857,9 +1857,17 @@ function clearCookie(name,jsonHead) {
 //进行codeArr和domArr匹配，进行remove页面没权限的dom
 function limitCodeDeal(domArr,attrName){//codeArr：请求后台，返回code集合。||domArr：获取页面集所有带有limitCode的节点。|| attrName: 页面内code码的自定义属性
     if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
-        var codeArr = JSON.parse(window.localStorage[attrName]);
+        if(window.localStorage[attrName] == null || window.localStorage[attrName] == "" || window.localStorage[attrName] == undefined){
+            var codeArr = [];
+        }else{
+            var codeArr = JSON.parse(window.localStorage[attrName]);
+        }
     }else{
-        var codeArr = JSON.parse(getCookie(attrName));
+        if(getCookie(attrName) == null || getCookie(attrName) == "" || getCookie(attrName) == undefined){
+            var codeArr = [];
+        }else{
+            var codeArr = JSON.parse(getCookie(attrName));
+        }
     }
     for(var nI = 0; nI < domArr.length; nI++ ){
         var isTrue = false;
@@ -1869,7 +1877,7 @@ function limitCodeDeal(domArr,attrName){//codeArr：请求后台，返回code集
             }
         }
         if(!isTrue){//说明domArr集合中没有匹配到后台返回的codeArr集合中的权限整理，则此dom节点没有权限，进行remove操作
-            domArr.eq(nI).remove();
+            //domArr.eq(nI).remove();
         }
     }
 }

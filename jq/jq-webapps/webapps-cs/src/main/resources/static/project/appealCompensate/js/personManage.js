@@ -51,6 +51,12 @@ function clsMethodLee$init(){
 
 }
 function clsMethodLee$parse(){
+    limitCodeDeal($("*[limitCode]"),"limitCode");
+    if($("#tabSelect li").eq(0).attr("limitCode") == "M30102"){//说明是订货单位
+        initplugPath($("#tableList2")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path2,null,"POST");
+        $("#orderUnit").remove();
+        $("#userUnit").show();
+    }
     getAjaxResult(document.body.jsLee.requestUrl.path7,"POST",{},"loginerNewsCallBack(data)");
     this.operate();
 }

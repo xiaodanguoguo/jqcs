@@ -253,9 +253,9 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
 
         //禁用，启用判断
         if(jsonItem.status == 0){
-            $(cloneRow).find("#disableOperate").html("禁用");
-        }else{
             $(cloneRow).find("#disableOperate").html("启用");
+        }else{
+            $(cloneRow).find("#disableOperate").html("禁用");
         }
 
         //每一行查看操作
