@@ -65,7 +65,7 @@ public class AppMillCoilInfoController {
         JsonResponse<List<CrmMillCoilInfoVO>> jsonResponse = new JsonResponse<>();
 
         try {
-
+            jsonRequest.getReqBody().setShowFlag(1);
             ServiceResponse<List<CrmMillCoilInfoVO>> coilDetail = millCoilInfoAPI.getCoilDetail(jsonRequest);
             List<CrmMillCoilInfoVO> retContent = coilDetail.getRetContent();
             jsonResponse.setRspBody(retContent);
