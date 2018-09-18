@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @CreateDate:
  */
 @RestController
-@RequestMapping("/app/Version")
+@RequestMapping("/app/version")
 public class AppCrmVersionUpdateController {
 
     private final static Logger logger = LoggerFactory.getLogger(AppMillSheetHostsDetailController.class);
@@ -30,7 +30,7 @@ public class AppCrmVersionUpdateController {
      * 返回最新的版本信息
      * @return
      */
-    @RequestMapping(value = "/getNewVersion", method = RequestMethod.GET)
+    @RequestMapping(value = "/getNewVersion", method = RequestMethod.POST)
     public JsonResponse<CrmVersionUpdateVO> newVersion() {
 
         JsonResponse<CrmVersionUpdateVO> jsonResponse = new JsonResponse<>();
