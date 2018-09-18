@@ -32,9 +32,9 @@ treeCheck.prototype.unionChecked = function(dom){
         //         a++;
         //     }
         //}
-        if(a==num){
+        /*if(a==num){
             $(this).parent("li").parent("ul").siblings("input").attr("checked",false);
-        }
+        }*/
     });
 }
 treeCheck.prototype.loopLoad = function(options){//递归,无限遍历下级dom树
