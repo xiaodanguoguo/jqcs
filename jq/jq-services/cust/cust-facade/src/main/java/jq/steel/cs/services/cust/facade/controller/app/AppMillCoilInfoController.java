@@ -47,13 +47,11 @@ public class AppMillCoilInfoController {
             return serviceResponse;
         }
         logger.info("保存 参数 = {}", JsonUtil.toJson(jsonRequest));
-        //获取当前用户的orgCode
-        String orgCode = AssertContext.getOrgCode();
 
         MillCoilInfoVO reqBody = jsonRequest.getReqBody();
         try {
+            String orgCode = jsonRequest.getReqBody().getOrgCode();
             PageDTO<MillCoilInfoVO> coilInfoVOList = millCoilInfoService.getCoilsByCurrentUser(orgCode, reqBody);
-
             serviceResponse.setRetContent(coilInfoVOList);
         } catch (Exception e) {
             logger.error("获取钢卷分页出错", e);
