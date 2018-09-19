@@ -77,26 +77,31 @@
 			<artifactId>dm</artifactId>
 			<version>1</version>
 		</dependency>
-		<!--<dependency>-->
-			<!--<groupId>com.raqsoft</groupId>-->
-			<!--<artifactId>zxing_core</artifactId>-->
-			<!--<version>1</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>com.raqsoft</groupId>-->
-			<!--<artifactId>itext2_rq</artifactId>-->
-			<!--<version>1</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>com.raqsoft</groupId>-->
-			<!--<artifactId>Qrcode_swetake</artifactId>-->
-			<!--<version>1</version>-->
-		<!--</dependency>-->
-		<!--<dependency>-->
-			<!--<groupId>com.raqsoft</groupId>-->
-			<!--<artifactId>pdfbox-1.8.14</artifactId>-->
-			<!--<version>1</version>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>com.raqsoft</groupId>
+			<artifactId>zxing_core</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.raqsoft</groupId>
+			<artifactId>itext2_rq</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.raqsoft</groupId>
+			<artifactId>Qrcode_swetake</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.raqsoft</groupId>
+			<artifactId>pdfbox-1.8.14</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.raqsoft</groupId>
+			<artifactId>batik-all-flex</artifactId>
+			<version>1</version>
+		</dependency>
 
 		<!--润乾结束-->
 
@@ -281,7 +286,7 @@
 		<repository>
 			<id>nexus</id>
 			<name>releases Repository</name>
-			<url>http://localhost:8081/repository/maven-releases/</url>
+			<url>http://10.20.108.4:8081/repository/maven-releases/</url>
 		</repository>
 	</repositories>
 </project>

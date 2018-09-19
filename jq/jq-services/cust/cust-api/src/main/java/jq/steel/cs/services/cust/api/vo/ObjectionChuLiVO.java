@@ -31,7 +31,8 @@ public class ObjectionChuLiVO {
     //赔偿金额（大写)
     private String agreementAmountUpper;
 
-    private  String templateType;
+    //private  String templateType;
+    private  Integer templateType;
 
     private String agreementUrl;
 
@@ -229,11 +230,11 @@ public class ObjectionChuLiVO {
         this.agreementAmountUpper = agreementAmountUpper;
     }
 
-    public String getTemplateType() {
+    public Integer getTemplateType() {
         return templateType;
     }
 
-    public void setTemplateType(String templateType) {
+    public void setTemplateType(Integer templateType) {
         this.templateType = templateType;
     }
 
