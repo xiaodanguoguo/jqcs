@@ -239,6 +239,7 @@ public class AcctServiceImpl implements AcctService {
                 acct.setOrgId(orgInfo.getId());
                 acct.setoInfoName(orgInfo.getOrgName());
                 acct.setOrgType(orgInfo.getOrgType());
+                acct.setOrgCode(orgInfo.getOrgCode());
 
                 if (StringUtil.isEmpty(orgInfo.getSapCode())) {
                     acct.setOrgCode(orgInfo.getSapCode());
@@ -337,6 +338,8 @@ public class AcctServiceImpl implements AcctService {
 
         //生成key
         String key = CacheKeyConstant.ACCT_SESSION + acctLogin.getSessionId() + acctLogin.getClientType();
+//        String key = CacheKeyConstant.ACCT_SESSION + acctLogin.getSessionId();
+        System.err.println("--------redis login cache key --------"+key+"--------------");
 
         //保存到 session 中 30 分钟
         cacheService.set(key,acctSession,TIME_EXPIRE);

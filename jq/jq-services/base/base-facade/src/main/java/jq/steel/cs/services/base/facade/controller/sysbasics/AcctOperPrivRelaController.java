@@ -38,16 +38,16 @@ public class AcctOperPrivRelaController {
     public ServiceResponse<Integer> addAcctOperPrivRela(@RequestBody AcctOperPrivRelaVO jsonRequest){
         ServiceResponse<Integer> response = new ServiceResponse<>();
         try {
-            //功能ID
-            if(StringUtils.isEmpty(jsonRequest.getFunctionIds())){
-                response.setRetCode("0102005");
-                return response;
-            }
-            //角色ID
-            if(StringUtils.isEmpty(jsonRequest.getRoleId())){
-                response.setRetCode("0102005");
-                return response;
-            }
+//            //功能ID
+//            if(StringUtils.isEmpty(jsonRequest.getFunctionIds())){
+//                response.setRetCode("0102005");
+//                return response;
+//            }
+//            //角色ID
+//            if(StringUtils.isEmpty(jsonRequest.getRoleId())){
+//                response.setRetCode("0102005");
+//                return response;
+//            }
             LOG.info("list 参数 = {}", JsonUtil.toJson(jsonRequest));
             Integer acctOperPrivRela = acctOperPrivRelaService.addAcctOperPrivRela(jsonRequest);
             response.setRetContent(acctOperPrivRela);

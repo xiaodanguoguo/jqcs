@@ -4,6 +4,7 @@ import com.ebase.core.page.PageDTO;
 import com.ebase.core.page.PageDTOUtil;
 import com.ebase.utils.BeanCopyUtil;
 import com.ebase.utils.DateFormatUtil;
+import com.ebase.utils.StringUtil;
 import jq.steel.cs.services.cust.api.vo.CrmCustomerInfoVO;
 import jq.steel.cs.services.cust.api.vo.CrmLastuserInfoVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoCountVO;
@@ -26,6 +27,7 @@ import jq.steel.cs.services.cust.facade.service.objection.ObjectionTiBaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -216,7 +218,13 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 MillSheetHosts millSheetHosts = new MillSheetHosts();
                 millSheetHosts.setMillSheetNo(millsheetNO);
                 List<MillSheetHosts> millSheetHosts1  = millSheetHostsMapper.findDeptCode(millSheetHosts);
+                if(CollectionUtils.isEmpty(millSheetHosts1)){
+                    return -100;
+                }
                 String deptCode = millSheetHosts1.get(0).getDeptCode();
+                if(StringUtil.isEmpty(deptCode)){
+                    return  -101;
+                }
                 Integer dissentingUnit;
                 //1000：不锈钢厂2000：炼轧厂2200：碳钢薄板厂3000：榆钢工厂
                 if (deptCode.equals("1000")){
@@ -242,12 +250,14 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 crmClaimApply.setClaimState("NEW");
                 crmClaimApply.setClaimNo(claimNo);
                 crmClaimApply.setCreatedBy(orgCode);
+                crmClaimApply.setCustomerId(orgCode);
                 crmClaimApply.setCreatedDt(new Date());
                 Integer integer = crmClaimApplyMapper.insertSelective(crmClaimApply);
                 if (integer>0){
                     crmClaimInfo.setClaimState("NEW");
                     crmClaimInfo.setCreatedDt(new Date());
                     crmClaimInfo.setCreatedBy(orgCode);
+                    crmClaimInfo.setCustomerId(orgCode);
                     crmClaimInfo.setClaimNo(claimNo);
                     crmClaimInfo.setDissentingUnit(dissentingUnit);
                     Integer integer1 =crmClaimInfoMapper.insertSelective(crmClaimInfo);

@@ -719,6 +719,9 @@
             FROM
                 CRM_CLAIM_APPLY
         where 1 = 1
+        <if test="customerId != null and customerId != ''" >
+          and CUSTOMER_ID = #{customerId}
+        </if>
         <if test="claimNo != null">
           and CLAIM_NO LIKE '%' || #{claimNo} ||'%'
         </if>
@@ -734,9 +737,6 @@
             'EVALUATE'as EVALUATE
             )
         )
-    <if test="createdBy != null and createdBy != ''" >
-      WHERE CREATED_BY = #{createdBy,jdbcType=VARCHAR}
-    </if>
   </select>
 
   <select id="findTiBaoByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >

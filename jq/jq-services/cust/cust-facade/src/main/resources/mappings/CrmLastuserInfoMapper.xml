@@ -64,7 +64,10 @@ WHERE CUSTOMER_ID=#{customerId,jdbcType = VARCHAR}
         AND LAST_USER_TEL = #{lastUserTel,jdbcType=VARCHAR}
       </if>
       <if test="createdBy != null and createdBy != ''" >
-        and CREATED_BY = #{createdBy}
+        AND CREATED_BY = #{createdBy}
+      </if>
+      <if test="customerId != null and customerId != ''" >
+        AND CUSTOMER_ID = #{customerId}
       </if>
     </trim>
   </select>
