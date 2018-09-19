@@ -1,7 +1,7 @@
 function clsMethodLee(){
     /*注释*/
-    $.cookie('orgId',101);
-    $.cookie('acctType',1);
+    /*$.cookie('orgId',101);
+    $.cookie('acctType',1);*/
     /*注释*/
     this.requestUrl = {
         "path1":"/sysAcct/sysAcctList", //用户管理列表查询

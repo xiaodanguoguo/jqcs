@@ -180,6 +180,8 @@ function submitCallBack(data){
         }else{
             setCookie("limitCode",JSON.stringify(data.rspBody.acct.limitCode));
         }
+        setCookie("acctType",data.rspBody.acct.acctType);
+        setCookie("orgId",data.rspBody.acct.orgId);
         if(GetQueryString("overtime") == 1){
             jumpUrl(unescape(getCookie("urlPath")),"0000000",0);
         }else{
