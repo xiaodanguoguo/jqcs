@@ -253,7 +253,6 @@ function initplugPath(docm,comType,reqPath,reqParam,reqMethod){
 //渲染table每一行
 function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
     if(this.ctrl.id == "tableList"){//页面用户列表
-
         //进行赋值操作
         $(cloneRow).find("#nameDatil").html(jsonItem.name);
 
@@ -311,6 +310,11 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         },function(){
             $(this).find(".useMange-contentTableContent-detail").hide();
         });
+
+        if(jsonItem.acctId == getCookie("acctId")){
+            $(cloneRow).find("#disableOperate").remove();
+            $(cloneRow).find("#deleteOperate").remove();
+        }
     }else if(this.ctrl.id == "roleList"){//角色弹框列表
         if(jsonItem.orAcct == 0){//添加
             $(cloneRow).find("#operateBtn").html("添加");
