@@ -323,7 +323,7 @@
 
         });
         function initZz(data){
-            if(data.retCode == "0000000"){
+            if(JSON.parse(data).retCode == "0000000"){
                 data = JSON.parse(data).rspBody.children;
                 console.log(data)
                 if(data.length == 0){
