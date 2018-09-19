@@ -59,9 +59,9 @@ function clsMethodLee$init(){
 }
 function clsMethodLee$parse(){
     //判断是个人用户还是企业用户
-    this.userId = $.cookie("orgId");
+    this.userId = getCookie("orgId");
     //判断是否用户是否是超级管理员
-    this.acctType = $.cookie("acctType");
+    this.acctType = getCookie("acctType");
     if(this.userId.length == "11"){
         $(".userNewPopup-ulist-listPosition").eq(0).remove();
     }
