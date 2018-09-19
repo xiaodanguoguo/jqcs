@@ -76,6 +76,12 @@ function clsMethodLee$parse(){
     jsonParam.acctType = document.body.jsLee.acctType;
     jsonParam.oInfoId = document.body.jsLee.userId;
     initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,jsonParam,"POST");
+    $("#acctType").chosen({
+        no_results_text: "暂无结果",
+        width: "180PX",
+        enable_split_word_search: false,
+        placeholder_text_single: ""
+    });
     this.operate();
 }
 
@@ -98,7 +104,7 @@ function clsMethodLee$operate(){
     this.userNewSure.on("click",function(){//新建||编辑用户提交操作
         //获取提交入参json数据
         if(submitChek()){
-            var jsonParam = {"acctTitle":"","acctPassword":"","name":"","mobilePhone":"","email":""};
+            var jsonParam = {"acctTitle":"","acctPassword":"","name":"","mobilePhone":"","email":"","acctType":""};
             getValue4Desc(jsonParam,$("#userNewPopup")[0]);
             if(document.body.jsLee.editListMark == 0){//新建操作
                 jsonParam.acctId = "";
