@@ -360,7 +360,7 @@
 
   <select id="findRole" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.FunctionManage">
     SELECT
-    f1.*,
+
     CASE NVL(
     (
     SELECT
@@ -382,7 +382,7 @@
     0
     ELSE
     1
-    END AS STATUS
+    END AS STATUS，f1.*
     FROM
     function_manage f1
     WHERE
@@ -399,7 +399,7 @@
 
 
     SELECT
-    f1.*,
+
     CASE NVL(
     (
     SELECT
@@ -421,7 +421,7 @@
     0
     ELSE
     1
-    END AS STATUS
+    END AS STATUS，f1.*
     FROM
     function_manage f1
     WHERE
