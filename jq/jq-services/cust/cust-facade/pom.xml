@@ -77,6 +77,27 @@
 			<artifactId>dm</artifactId>
 			<version>1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.raqsoft</groupId>
+			<artifactId>zxing_core</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.raqsoft</groupId>
+			<artifactId>itext2_rq</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.raqsoft</groupId>
+			<artifactId>Qrcode_swetake</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.raqsoft</groupId>
+			<artifactId>pdfbox-1.8.14</artifactId>
+			<version>1</version>
+		</dependency>
+
 		<!--润乾结束-->
 
 		<!--servlet-->
@@ -257,10 +278,10 @@
 			<name>aliyun Repository</name>
 			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
 		</repository>
-		<!--<repository>-->
-			<!--<id>nexus</id>-->
-			<!--<name>releases Repository</name>-->
-			<!--<url>http://localhost:8081/repository/maven-releases/</url>-->
-		<!--</repository>-->
+		<repository>
+			<id>nexus</id>
+			<name>releases Repository</name>
+			<url>http://localhost:8081/repository/maven-releases/</url>
+		</repository>
 	</repositories>
 </project>

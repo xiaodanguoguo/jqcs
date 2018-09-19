@@ -352,14 +352,17 @@ public class AcctServiceImpl implements AcctService {
             for(FunctionManageVO manageVO : authList){
                 authMap.put(manageVO.getFunctionCode(), manageVO.getFunctionCode());
                 authMapPath.put(manageVO.getFunctionPath(), manageVO.getFunctionPath());
-                limitCode.add(manageVO.getFunctionCode().toString());
+                limitCode.add(manageVO.getFunctionCode());
             }
 
             acctSession.getAcct().setLimitCode(limitCode);
             acctSession.getAcct().setAuthMap(authMap);
             acctSession.getAcct().setAuthMapPath(authMapPath);
             acctSession.getAcct().setLimitCode(limitCode);
+        } else {
+            acctSession.getAcct().setLimitCode(new ArrayList<>());
         }
+
 
         //保存到 session 中 60 分钟
         cacheService.set(key,acctSession,TIME_EXPIRE);
