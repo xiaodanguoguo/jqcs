@@ -307,6 +307,7 @@
             }else{
                 _this.rank=3;
             }
+
             $(this).css({"color":"#6390f3"});
             $("#fotTable").css("display","")
             getAjaxResult("/orgInfo/getOrgInfo","post",{"id":$(this).parents('li')[0].data.id},"initTissue(data)");

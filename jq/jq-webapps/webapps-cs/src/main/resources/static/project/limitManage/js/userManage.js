@@ -66,7 +66,7 @@ function clsMethodLee$parse(){
         $(".userNewPopup-ulist-listPosition").eq(0).remove();
     }
     if(this.acctType == 0){
-        $(".userNewPopup-ulist-listPosition").eq(1).remove();
+       // $(".userNewPopup-ulist-listPosition").eq(1).remove();
     }
     if($("#tableList").attr("reqParam")){
         var jsonParam = JSON.parse($("#tableList").attr("reqParam"));
