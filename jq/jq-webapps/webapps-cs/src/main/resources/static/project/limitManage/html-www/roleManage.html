@@ -323,48 +323,51 @@
 
         });
         function initZz(data){
-            data = JSON.parse(data).rspBody.children;
-            console.log(data)
-            if(data.length == 0){
-                orgId = $.cookie("orgId");
-            }else{
-               orgId = data[0].id;
-            }
-            // if((data.length>0 && data[0].children.length>0)||(data.length>1)){
-            //     $("#chooseZz").show();
-            //     var a = new treeCheck();
-            //     a.loopLoad({"data":data, "parentDom":$("#looptree2"),"parentId":"looptree2","showName":"orgName"});
-            //     $("#looptree2").treeview();
-            //     openWin(400, 400, "chooseZz", true);
+            if(data.retCode == "0000000"){
+                data = JSON.parse(data).rspBody.children;
+                console.log(data)
+                if(data.length == 0){
+                    orgId = $.cookie("orgId");
+                }else{
+                    orgId = data[0].id;
+                }
+                // if((data.length>0 && data[0].children.length>0)||(data.length>1)){
+                //     $("#chooseZz").show();
+                //     var a = new treeCheck();
+                //     a.loopLoad({"data":data, "parentDom":$("#looptree2"),"parentId":"looptree2","showName":"orgName"});
+                //     $("#looptree2").treeview();
+                //     openWin(400, 400, "chooseZz", true);
 
-            // }else{
-            //     initTree(orgId);
-            // }
-            
-            initTree(orgId);
-            $("#chooseZzBtn").click(function(){
-                $("#chooseZz").show();
-                var a = new treeCheck();
-                a.loopLoad({
-                    "data":data, 
-                    "parentDom":$("#looptree2"),
-                    "parentId":"looptree2",
-                    "showName":"orgName"
+                // }else{
+                //     initTree(orgId);
+                // }
+
+                initTree(orgId);
+                $("#chooseZzBtn").click(function(){
+                    $("#chooseZz").show();
+                    var a = new treeCheck();
+                    a.loopLoad({
+                        "data":data,
+                        "parentDom":$("#looptree2"),
+                        "parentId":"looptree2",
+                        "showName":"orgName"
+                    });
+                    $("#looptree2").treeview();
+                    openWin(400, 380, "chooseZz", true);
+
+                })
+
+                $("#looptree2").on("click",".cloneTreeA",function(){
+
+                    $("#looptree2 a").removeClass("domTreeActive");
+                    $(this).addClass("domTreeActive");
+
+                    orgId = $(this).parent()[0].data.id;
+                    orgName = $(this).parent()[0].data.orgName;
+
                 });
-                $("#looptree2").treeview();
-                openWin(400, 380, "chooseZz", true);
-                
-            })
+            }
 
-            $("#looptree2").on("click",".cloneTreeA",function(){
-
-                $("#looptree2 a").removeClass("domTreeActive");
-                $(this).addClass("domTreeActive");
-
-                orgId = $(this).parent()[0].data.id;
-                orgName = $(this).parent()[0].data.orgName;
-
-            });
         }
         function deleteWarn(data){
             data = JSON.parse(data);
