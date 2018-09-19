@@ -432,7 +432,7 @@
       AND f1.PARENT_APPLICATION_ID = #{parentApplicationId}
     </if>
     <!--<if test="orgId != null and orgId !='' " >-->
-      <!--AND f1.ORG_ID = #{orgId}-->
+    <!--AND f1.ORG_ID = #{orgId}-->
     <!--</if>-->
 
 

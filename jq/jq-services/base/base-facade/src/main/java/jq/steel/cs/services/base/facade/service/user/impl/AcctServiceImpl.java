@@ -351,7 +351,9 @@ public class AcctServiceImpl implements AcctService {
             Map<String, String> authMapPath = new HashMap<>();
             List<String> limitCode = new ArrayList<>();
             for(FunctionManageVO manageVO : authList){
-                authMap.put(manageVO.getFunctionCode(), manageVO.getFunctionCode());
+                if (!StringUtil.isEmpty(manageVO.getFunctionCode())) {
+                    authMap.put(manageVO.getFunctionCode(), manageVO.getFunctionCode());
+                }
                 authMapPath.put(manageVO.getFunctionPath(), manageVO.getFunctionPath());
                 limitCode.add(manageVO.getFunctionCode());
             }
@@ -359,9 +361,10 @@ public class AcctServiceImpl implements AcctService {
             acctSession.getAcct().setLimitCode(limitCode);
             acctSession.getAcct().setAuthMap(authMap);
             acctSession.getAcct().setAuthMapPath(authMapPath);
-            acctSession.getAcct().setLimitCode(limitCode);
         } else {
             acctSession.getAcct().setLimitCode(new ArrayList<>());
+            acctSession.getAcct().setAuthMap(null);
+            acctSession.getAcct().setAuthMapPath(null);
         }
 
 

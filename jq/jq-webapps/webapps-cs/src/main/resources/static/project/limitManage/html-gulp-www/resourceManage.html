@@ -352,54 +352,57 @@
             /**************************删除权限结束*****************************/
         });
         function initZz(data){
-            data = JSON.parse(data).rspBody.children;
-            console.log(data)
-            if(data.length == 0){
-                orgId = $.cookie("orgId");
-            }else{
-               orgId = data[0].id;
+            if(JSON.parse(data).retCode == "0000000"){
+                data = JSON.parse(data).rspBody.children;
+                console.log(data)
+                if(data.length == 0){
+                    orgId = $.cookie("orgId");
+                }else{
+                    orgId = data[0].id;
+                }
+
+
+                // if((data.length>0 && data[0].children.length>0)||(data.length>1)){
+                //     $("#chooseZz").show();
+                //     var a = new treeCheck();
+                //     a.loopLoad({
+                //         "data":data,
+                //         "parentDom":$("#looptree2"),
+                //         "parentId":"looptree2",
+                //         "showName":"orgName"
+                //     });
+                //     $("#looptree2").treeview();
+                //     openWin(400, 400, "chooseZz", true);
+
+                // }else{//只有一条组织
+                //     initTree(orgId);
+                // }
+                initTree(orgId);
+                $("#chooseZzBtn").click(function(){
+                    $("#chooseZz").show();
+                    var a = new treeCheck();
+                    a.loopLoad({
+                        "data":data,
+                        "parentDom":$("#looptree2"),
+                        "parentId":"looptree2",
+                        "showName":"orgName"
+                    });
+                    $("#looptree2").treeview();
+                    openWin(400, 380, "chooseZz", true);
+
+                })
+
+                $("#looptree2").on("click",".cloneTreeA",function(){
+
+                    $("#looptree2 a").removeClass("domTreeActive");
+                    $(this).addClass("domTreeActive");
+
+                    orgId = $(this).parent()[0].data.id;
+                    orgName = $(this).parent()[0].data.orgName;
+
+                });
             }
 
-            
-            // if((data.length>0 && data[0].children.length>0)||(data.length>1)){
-            //     $("#chooseZz").show();
-            //     var a = new treeCheck();
-            //     a.loopLoad({
-            //         "data":data, 
-            //         "parentDom":$("#looptree2"),
-            //         "parentId":"looptree2",
-            //         "showName":"orgName"
-            //     });
-            //     $("#looptree2").treeview();
-            //     openWin(400, 400, "chooseZz", true);
-
-            // }else{//只有一条组织
-            //     initTree(orgId);
-            // }
-            initTree(orgId);
-            $("#chooseZzBtn").click(function(){
-                $("#chooseZz").show();
-                var a = new treeCheck();
-                a.loopLoad({
-                    "data":data, 
-                    "parentDom":$("#looptree2"),
-                    "parentId":"looptree2",
-                    "showName":"orgName"
-                });
-                $("#looptree2").treeview();
-                openWin(400, 380, "chooseZz", true);
-                
-            })
-
-            $("#looptree2").on("click",".cloneTreeA",function(){
-
-                $("#looptree2 a").removeClass("domTreeActive");
-                $(this).addClass("domTreeActive");
-
-                orgId = $(this).parent()[0].data.id;
-                orgName = $(this).parent()[0].data.orgName;
-
-            });
         }
 
         function initTree(orgId){
@@ -771,7 +774,7 @@
 </div>
 </div>
 <div style="width: 1200px;height: 70px;margin: 0 auto;text-align: center;line-height: 70px;">
-    copyright & 2018 甘肃酒钢集团宏兴钢铁股份有限公司 版权所有
+    copyright ©️ 2018 甘肃酒钢集团宏兴钢铁股份有限公司 版权所有
 </div>
 </div>
 </body>

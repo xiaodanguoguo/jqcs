@@ -1,7 +1,7 @@
 function clsMethodLee(){
     /*注释*/
-    $.cookie('orgId',101);
-    $.cookie('acctType',1);
+    /*$.cookie('orgId',101);
+    $.cookie('acctType',1);*/
     /*注释*/
     this.requestUrl = {
         "path1":"/sysAcct/sysAcctList", //用户管理列表查询
@@ -104,7 +104,7 @@ function clsMethodLee$operate(){
     this.userNewSure.on("click",function(){//新建||编辑用户提交操作
         //获取提交入参json数据
         if(submitChek()){
-            var jsonParam = {"acctTitle":"","acctPassword":"","name":"","mobilePhone":"","email":"","acctType":""};
+            var jsonParam = {"acctTitle":"","acctPassword":"","name":"","mobilePhone":"","email":""/*,"acctType":""*/};
             getValue4Desc(jsonParam,$("#userNewPopup")[0]);
             if(document.body.jsLee.editListMark == 0){//新建操作
                 jsonParam.acctId = "";
@@ -116,11 +116,11 @@ function clsMethodLee$operate(){
             }else{
                 jsonParam.oInfoId = document.body.jsLee.organizationlastId;
             }
-            /*if(document.body.jsLee.acctType == 0){
+            if(document.body.jsLee.acctType == 0){
                 jsonParam.acctType = 1;
             }else if(document.body.jsLee.acctType == 1){
                  jsonParam.acctType = 2;
-            }*/
+            }
 
             jsonParam.roleIds = $("#selectRole").attr("roleids") ? JSON.parse($("#selectRole").attr("roleids")) : [];
             getAjaxResult(document.body.jsLee.requestUrl.path7,"POST",jsonParam,"submitCallBack(data)")
@@ -538,7 +538,7 @@ function editCallBack(data){
         for(var nI = orgInfoArr.length - 1; nI >= 0; nI-- ){
             document.body.jsLee.organizationjoinId += nI==orgInfoArr.length - 1 ? orgInfoArr[nI].id : "," + orgInfoArr[nI].id;
         }
-        $("#acctType").attr("initValue",data.rspBody.acctType).trigger('chosen:updated');;
+        //$("#acctType").attr("initValue",data.rspBody.acctType).trigger('chosen:updated');;
     }
 }
 

@@ -1,6 +1,7 @@
 package com.ebase.core.session;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,9 +64,9 @@ public class Acct {
 
     private List<String> limitCode;     // code集合
 
-    private Map<String, String> authMap;        // code键值对
+    private Map<String, String> authMap = new HashMap<>();        // code键值对
 
-    private Map<String, String> authMapPath;    // code路径
+    private Map<String, String> authMapPath = new HashMap<>();    // code路径
 
     public String getCompanyId() {
         return companyId;
