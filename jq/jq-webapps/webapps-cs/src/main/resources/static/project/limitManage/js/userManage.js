@@ -116,11 +116,11 @@ function clsMethodLee$operate(){
             }else{
                 jsonParam.oInfoId = document.body.jsLee.organizationlastId;
             }
-            if(document.body.jsLee.acctType == 0){
+            /*if(document.body.jsLee.acctType == 0){
                 jsonParam.acctType = 1;
             }else if(document.body.jsLee.acctType == 1){
                  jsonParam.acctType = 2;
-            }
+            }*/
 
             jsonParam.roleIds = $("#selectRole").attr("roleids") ? JSON.parse($("#selectRole").attr("roleids")) : [];
             getAjaxResult(document.body.jsLee.requestUrl.path7,"POST",jsonParam,"submitCallBack(data)")
@@ -538,6 +538,7 @@ function editCallBack(data){
         for(var nI = orgInfoArr.length - 1; nI >= 0; nI-- ){
             document.body.jsLee.organizationjoinId += nI==orgInfoArr.length - 1 ? orgInfoArr[nI].id : "," + orgInfoArr[nI].id;
         }
+        $("#acctType").attr("initValue",data.rspBody.acctType).trigger('chosen:updated');;
     }
 }
 
