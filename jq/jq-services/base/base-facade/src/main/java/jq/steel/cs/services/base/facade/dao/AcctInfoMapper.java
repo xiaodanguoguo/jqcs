@@ -63,4 +63,6 @@ public interface AcctInfoMapper {
     AcctInfo getAcctInfoByAcctTitle(AcctInfo acctInfo);
 
     AcctInfo customerType(AcctInfo acctInfo);
+
+    List<AcctInfo> selectAll(AcctInfo acctInfo);
 }
