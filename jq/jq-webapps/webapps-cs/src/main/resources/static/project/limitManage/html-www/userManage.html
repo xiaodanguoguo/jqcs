@@ -1,23 +1,10 @@
  @@include('../../commonNav/html/commonHeaderBlue.html')
 <span id="hiddenSpan" style="display:none">0,0,2</span>
-    <title>用户管理</title>
-    <link rel="stylesheet" href="../../../plugin/popup/css/manhuaDialog.1.0_blue.css">
-    <link rel="stylesheet" href="../../../plugin/page/css/table.css">
-    <link rel="stylesheet" href="../../../plugin/tip/css/tip-twitter/tip-twitter.css">
     <link rel="stylesheet" href="../css/useManage.css">
-    <script src='../../../base/js/jquery.js'></script>
-    <script src="../../../base/js/docassistant.js"></script>
-    <script src="../../../base/js/public.js"></script>
-    <script src="../../../base/js/validate.js"></script>
-    <script src="../../../plugin/treeview/lib/jquery.cookie.js"></script>
-    <script src="../../../plugin/popup/script/manhuaDialog.1.0.js"></script>
-    <script type="text/javascript" src="../../../plugin/page/script/jquery.page.js"></script>
-    <script type="text/javascript" src="../../../plugin/tip/script/jquery.poshytip.js"></script>
     <script src="../js/userManage.js"></script>
-    <script src="../../../reqConfig.js"></script>
     <div class="useMange-content">
         <div class="useMange-content-search" id="searchBox">
-            <input class="fl useMange-content-search__input" id="condacctTitle" placeholder="查询用户">
+            <input class="fl useMange-content-search__input" id="condacctTitle" placeholder="用户名查询">
             <div class="fl useMange-content-search__btn" comType="searchBtnCtrl" cond="condacctTitle" rule="cond" unionTableId="tableList" parentId="searchBox">搜索</div>
             <div class="useMange-content-search__btn fl" id="userNew" style="margin-left: 10px;">新建</div>
         </div>
@@ -70,6 +57,13 @@
             <div class="content" style="height: 400px;!important;">
                 <div class="userNewPopup">
                     <ul class="userNewPopup-ulist clearfix">
+                        <li class="userNewPopup-ulist-list">
+                            <span class="userNewPopup-ulist-list-name fl">用户类型</span>
+                            <select id="acctType" type="text" class="userNewPopup-ulist-list-input">
+                                <option value="2">普通用户</option>
+                                <option value="1">管理员</option>
+                            </select>
+                        </li>
                         <li class="userNewPopup-ulist-list">
                             <span class="userNewPopup-ulist-list-name fl">名称</span>
                             <input id="acctTitle" type="text" class="userNewPopup-ulist-list-input required isLengthOf" v_maxlength="12">

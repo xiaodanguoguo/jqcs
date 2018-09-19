@@ -176,17 +176,23 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
             CrmAgreementInfo  crmAgreementInfo  = new CrmAgreementInfo();
             crmAgreementInfo.setClaimNo(record.getClaimNo());
             List<CrmAgreementInfo> list= crmAgreementInfoMapper.findList(crmAgreementInfo);
-             report = list.get(0).getAgreementUrl();
+            report = list.get(0).getAgreementUrl();
             record.setReport(report);
+            record.setTemplateType("1");
         }else if(templateType.equals("2")){
             //下载质量异议报告
-            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),"yiyibaogao");
+            record.setTemplateType("2");
+            String  pdfName = record.getClaimNo() + ".pdf";
+            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),pdfName,"yiyibaogao");
         }else if(templateType.equals("3")){
-            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),"xieyishu");
+            String  pdfName = record.getClaimNo() + ".pdf";
+            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),pdfName,"xieyishu");
         }else if(templateType.equals("4")){
-            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),"xieyishu");
+            String  pdfName = record.getClaimNo() + ".pdf";
+            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),pdfName,"xieyishu");
         }else {
-            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),"xieyishu");
+            String  pdfName = record.getClaimNo() + ".pdf";
+            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),pdfName,"xieyishu");
         }
         return record;
     }
@@ -209,8 +215,8 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
         }else if(templateType.equals("2")){
             //异议提报详情页面下载
             ObjectionChuLiVO objectionChuLiVO = new ObjectionChuLiVO();
-            String  record1 = "E:/";
-            String report = createPdf.createPdf(claimNo,record1,"yiyibaogao");
+            String  pdfName = claimNo + ".pdf";
+            String report = createPdf.createPdf(claimNo,list.getReport(),pdfName,"11");
             objectionChuLiVO.setTemplateType("2");
             objectionChuLiVO.setReport(report);
             liVOS.add(objectionChuLiVO);

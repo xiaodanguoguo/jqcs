@@ -247,8 +247,11 @@ public class ObjectionChuLiController {
     public void download(@RequestParam("name") String jsonRequest,HttpServletResponse response){
         try {
             ObjectionChuLiVO objectionChuLiVO = (ObjectionChuLiVO)JsonUtil.parseObject(jsonRequest,ObjectionChuLiVO.class);
+            String createPdfPath = uploadConfig.getReportUrl();
+            objectionChuLiVO.setReport(createPdfPath);
             JsonRequest<ObjectionChuLiVO> jsonRequest1 = new JsonRequest();
             jsonRequest1.setReqBody(objectionChuLiVO);
+
             String orgName = AssertContext.getOrgName();
             String orgCode = AssertContext.getOrgCode();
             ServiceResponse<List<ObjectionChuLiVO>> serviceResponse = objectionChuLiAPI.download(jsonRequest1);
@@ -270,12 +273,16 @@ public class ObjectionChuLiController {
             }else {
                 String type =  serviceResponse.getRetContent().get(0).getTemplateType();
                 if (type.equals("1")){
+                    //协议书图片
                     report = uploadConfig.getUploadPath() + serviceResponse.getRetContent().get(0).getReport();
                     String a = serviceResponse.getRetContent().get(0).getReport();
                     String  fileName = a.substring(a.lastIndexOf("/")+1);
                     response.setHeader("Content-Disposition", "attachment;fileName="+fileName);
                 }else if (type.equals("2")){
-
+                    report = uploadConfig.getUploadPath() + serviceResponse.getRetContent().get(0).getReport();
+                    String a = serviceResponse.getRetContent().get(0).getReport();
+                    String  fileName = a.substring(a.lastIndexOf("/")+1);
+                    response.setHeader("Content-Disposition", "attachment;fileName="+fileName);
                 }
 
             }

@@ -80,8 +80,34 @@ public class LoginStatusFilter implements Filter {
         if(allowedUrl(requestURL) || allowedSuffix(requestURL)){
             chain.doFilter(request, response);
             return ;
+        } else {
+            /*String path = servletRequest.getRequestURI();
+
+            Map<String, String> map =  AssertContext.getAuthMapPath();
+
+            if(map == null || map.size()<1) {
+                servletRequest.setCharacterEncoding("UTF-8");
+                JsonResponse jsonResponse = new JsonResponse();
+                servletResponse.setContentType("application/json; charset=UTF-8"); // 转码
+
+                jsonResponse.setRetCode("0000003");
+                servletResponse.getWriter().write(JsonUtil.toJson(jsonResponse));
+                return;
+            } else {
+                String url = map.get("path");
+                if (StringUtil.isEmpty(url)) {
+                    servletRequest.setCharacterEncoding("UTF-8");
+                    JsonResponse jsonResponse = new JsonResponse();
+                    servletResponse.setContentType("application/json; charset=UTF-8"); // 转码
+
+                    jsonResponse.setRetCode("0000003");
+                    servletResponse.getWriter().write(JsonUtil.toJson(jsonResponse));
+                    return;
+                }
+            }*/
         }
-        String path = servletRequest.getRequestURI();
+
+
 
         //验证用户是否登录..
         String sessionId = CookieUtil.getSessionId(servletRequest);
@@ -119,7 +145,6 @@ public class LoginStatusFilter implements Filter {
 
         UserSession userSession = convert(acctSession);
         AssertContext.init(userSession);
-//        AdminContext.init(acctSession);
 
 
         CookieUtil.setCookie(servletResponse,"sessionId",sessionId);
@@ -138,6 +163,9 @@ public class LoginStatusFilter implements Filter {
         user.setCompanyId(acctSession.getAcct().getCompanyId());
         user.setOrgCode(acctSession.getAcct().getOrgCode());
         user.setOrgType(acctSession.getAcct().getOrgType());
+        user.setLimitCode(acctSession.getAcct().getLimitCode());
+        user.setAuthMap(acctSession.getAcct().getAuthMap());
+        user.setAuthMapPath(acctSession.getAcct().getAuthMapPath());
         userSession.setUser(user);
         return userSession;
     }

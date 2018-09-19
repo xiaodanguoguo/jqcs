@@ -1,6 +1,8 @@
 package jq.steel.cs.services.base.facade.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -82,6 +84,7 @@ public class OrgInfo{
 	/**
 	 * 创建时间
 	 */
+	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
 	private Date createdTime;
 
 	/**
