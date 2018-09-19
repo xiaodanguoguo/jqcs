@@ -23,15 +23,14 @@ public class CreatePdf {
             if (file.isFile() && file.exists()) {// 路径为文件且不为空则进行删除
                 file.delete();// 文件删除
             }
-            ReportDefine report;
-            Context cxt = new Context();
-            cxt.setParamValue("claim_no",claimNo);
-            report = (ReportDefine) ReportUtils.read(reporturl + model + ".rpx");
-            //report = (ReportDefine) ReportUtils.read("E:/model/A.rpx");
-            FileOutputStream fos = new FileOutputStream(fileName);
-            Engine engine = new Engine(report, cxt);
-            IReport iReport = engine.calc();
-            ReportUtils.exportToPDF(fos, iReport,true,false);
+                ReportDefine report;
+                Context cxt = new Context();
+                cxt.setParamValue("claim_no",claimNo);
+                report = (ReportDefine) ReportUtils.read(reporturl + model + ".rpx");
+                FileOutputStream fos = new FileOutputStream(fileName);
+                Engine engine = new Engine(report, cxt);
+                IReport iReport = engine.calc();
+                ReportUtils.exportToPDF(fos, iReport);
             fos.flush();
             fos.close();
             //file.setWritable(true, false);    //设置写权限，windows下不用此语句
