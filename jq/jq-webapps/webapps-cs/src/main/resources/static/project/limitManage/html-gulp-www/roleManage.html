@@ -219,7 +219,7 @@
 
 
 
-            
+
             /***************************选择组织开始*************************/
             // $("#chooseZzBtn").click(function(){
             //     getAjaxResult("/orgInfo/getListRecursionOrgInfo","POST",{"id":"101"},"initZz(data)");
@@ -280,7 +280,7 @@
                 $("#creatRuleEdit").hide();
 
                 initFlVal($("#resourchSe #roleGroupTitle")[0],$("#detailRow1")[0].data);//回显选择分类
-                
+
 
                 openWin(400, 300, "resourchSe", true);
                 $("#resourchSe h2").html("新建角色");
@@ -293,8 +293,8 @@
             });
             $("#creatRule").click(function(){
                 initValidate($("#resourchSe")[0]);
-                var obj = new clsValidateCtrl(); 
-                //var data = $("#detailRow")[0].data; 
+                var obj = new clsValidateCtrl();
+                //var data = $("#detailRow")[0].data;
                 if(obj.validateAll()){
                     if($("#resourchSe #status").prop("checked")){
                         var status = 1;
@@ -358,7 +358,7 @@
                     //showOrganization($("#detailRow1")[0].data);
                 }
             });
-            
+
             $("#cancelRuleOrRules").click(function(){//取消角色修改
                 closePopupWin()
             })
@@ -376,7 +376,7 @@
                 };
 
                 initValidate($("#resourchSe1")[0]);
-                var obj = new clsValidateCtrl();  
+                var obj = new clsValidateCtrl();
                 if(obj.validateAll()){
                     getAjaxResult("/roleInfo/keepRoleInfo", "post", reqParam, 'delOrSavePermission(data)');
                 }
@@ -385,8 +385,8 @@
 
             $("#creatRulesEdit").click(function(){//保存编辑角色组
                 initValidate($("#resourchFl")[0]);
-                var obj = new clsValidateCtrl(); 
-                //var data = $("#detailRow")[0].data; 
+                var obj = new clsValidateCtrl();
+                //var data = $("#detailRow")[0].data;
                 if(obj.validateAll()){
                     if($("#resourchFl #status").prop("checked")){
                         var status = 1;
@@ -414,7 +414,7 @@
             });
             $("#creatRules").click(function(){
                 initValidate($("#resourchFl")[0]);
-                var obj = new clsValidateCtrl(); 
+                var obj = new clsValidateCtrl();
                 //var data = $("#detailRow")[0].data;
                 if(obj.validateAll()){
                     if($("#resourchFl #status").prop("checked")){
@@ -477,7 +477,7 @@
             $("#cancelRoleResource").click(function(){
                 closePopupWin();
             });
-                
+
             /*************************给角色分配权限结束***************************/
 
 
@@ -514,7 +514,7 @@
                     getAjaxResult("/roleInfo/verificationDeleteRoelInfo", "post", reqParam, 'deleteWarn(data)');
                 }else if($("#detailRow1").css("display") == "block"){//角色组=分类
                     var data = $("#detailRow1")[0].data;
-                   
+
                     reqParam = {"opt":"delete","roleGroupId":data.roleGroupId}
                     getAjaxResult("/roleGroup/verificationDeleteRoleGroup", "post", reqParam, 'deleteWarn(data)');
                 };
@@ -524,8 +524,9 @@
 
         });
         function initZz(data){
+            data = JSON.parse(data)
             if(data.retCode == "0000000"){
-                data = JSON.parse(data).rspBody.children;
+                data = data.rspBody.children;
                 console.log(data)
                 if(data.length == 0){
                     orgId = $.cookie("orgId");
@@ -590,7 +591,7 @@
                     getAjaxResult("/roleInfo/DeleteRoleInfo", "post", reqParam, 'delOrSavePermission(data)');
                 }else if($("#detailRow1").css("display") == "block"){//角色组=分类
                     var data = $("#detailRow1")[0].data;
-                   
+
                     reqParam = {"opt":"delete","roleGroupId":data.roleGroupId}
                     getAjaxResult("/roleGroup/DeleteRoleGroup", "post", reqParam, 'delOrSavePermission(data)');
                 };
@@ -600,9 +601,9 @@
         }
 
         function initFlVal(dom,data){//$("#resourchSe #roleGroupId")[0]
-            
+
             if(data){
-                // dom.setAttribute("initValue",data.roleGroupId) 
+                // dom.setAttribute("initValue",data.roleGroupId)
                 // document.body.jsCtrl.ctrl = dom;
                 // document.body.jsCtrl.init();
 
@@ -672,12 +673,12 @@
         /************************删除角色/分类开始*****************************/
         function clsMessageBoxCtrl$after() {
 
-            
+
             //GetId()//删除时候存储父级id;
-            
+
             //删除的时候默认父级id选中
             //initTree();
-        }   
+        }
         /************************删除角色/分类结束*****************************/
 
 
@@ -829,14 +830,14 @@
                         var aa = new treeCheck();
                         aa.loopLoad({"data":data, "parentDom":$("#"+id), "isNeedCheck":isNeedCheck, "parentId":id,"showName":"functionTitle"});
                         aa.unionChecked("input[type=checkbox]");
-                       
+
                         //$("#" + id + " #navigation").treeview();
                 }
                 $("#" + id + " #navigation").treeview();
         }
 
     </script>
-    
+
     <div class="resource" style="display:none">
         <div class="resource-div">
             <span>
@@ -914,7 +915,7 @@
                             </li>
                             <li><span>角色组名称：</span><span class="fot-ul-span" id="roleGroupTitle"></span></li>
                             <li><span>角色组id：</span><span class="fot-ul-span" id="roleGroupId"></span></li>
-                            <!-- <li><span>角色组编码：</span><span class="fot-ul-span" id="roleGroupCode"></span></li> -->   
+                            <!-- <li><span>角色组编码：</span><span class="fot-ul-span" id="roleGroupCode"></span></li> -->
                             <!-- <li><span>角色组描述：</span><span class="fot-ul-span" id="roleGroupDesc"></span></li> -->
                             <li><span>创建人：</span><span class="fot-ul-span" id="createdBy"></span></li>
                             <li><span>创建时间：</span><span class="fot-ul-span" id="createdTime"></span></li>
@@ -1097,7 +1098,7 @@
     </div>
     <div class="content">
         <div id="looptree2" style="height:280px;overflow:scroll">
-            
+
         </div>
         <div class="btn">
             <!-- <p class="tl"><span style="color:red">*</span>如果不选择组织，将直接显示该用户默认关联的组织下数据</p> -->
@@ -1107,7 +1108,7 @@
     </div>
 </div>
 
-<!-- 
+<!--
 <div class="resourceSet" style="display:none">
     <ul class="resourceSet-ul">
         <li><span>有效时间：</span><span>2018年1月1日</span></li>
@@ -1120,7 +1121,7 @@
         <a href="javascript:;" class="mod-searchBtn ml20"><span>关闭</span></a>
     </div>
 </div> -->
-    
+
 </div>
 </div>
 <div style="width: 1200px;height: 70px;margin: 0 auto;text-align: center;line-height: 70px;">

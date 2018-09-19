@@ -241,10 +241,8 @@ public class AcctServiceImpl implements AcctService {
                 acct.setOrgType(orgInfo.getOrgType());
                 acct.setOrgCode(orgInfo.getOrgCode());
 
-                if (StringUtil.isEmpty(orgInfo.getSapCode())) {
+                if (StringUtil.isNotEmpty(orgInfo.getSapCode()) && StringUtil.isNotEmpty(acct.getOrgCode())) {
                     acct.setOrgCode(orgInfo.getSapCode());
-                } else {
-                    acct.setOrgCode(orgInfo.getOrgCode());
                 }
 
                 AcctSession acctSession = loginSuccess(acct,acctLogin);

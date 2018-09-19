@@ -361,10 +361,10 @@
   <select id="findRole" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.FunctionManage">
     SELECT
     f1.*,
-    CASE nullif(
+    CASE NVL(
     (
     SELECT
-    nullif(f.FUNCTION_ID, 0)
+    NVL(f.FUNCTION_ID, 0)
     FROM
     function_manage f
     LEFT JOIN acct_oper_priv_rela ao ON ao.FUNCTION_ID = f.function_id
@@ -400,10 +400,10 @@
 
     SELECT
     f1.*,
-    CASE nullif(
+    CASE NVL(
     (
     SELECT
-    nullif(f.FUNCTION_ID, 0)
+    NVL(f.FUNCTION_ID, 0)
     FROM
     function_manage f
     LEFT JOIN acct_oper_priv_rela ao ON ao.FUNCTION_ID = f.function_id
