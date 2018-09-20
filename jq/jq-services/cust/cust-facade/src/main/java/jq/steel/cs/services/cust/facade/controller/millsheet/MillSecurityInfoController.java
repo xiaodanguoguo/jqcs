@@ -43,7 +43,6 @@ public class MillSecurityInfoController {
     }
 
     //附件验真
-    //防伪码验真
     @RequestMapping(value = "/fuJian",method = RequestMethod.POST)
     public ServiceResponse<MillSecurityInfoVO> fuJian(@RequestBody JsonRequest<MillSecurityInfoVO> jsonRequest,HttpServletRequest request){
         logger.info("文件地址", JsonUtil.toJson(jsonRequest));
@@ -53,7 +52,7 @@ public class MillSecurityInfoController {
             MillSecurityInfoVO list = millSecurityInfoService.fuJian(MillSecurityInfoVO,request);
             serviceResponse.setRetContent(list);
         }catch (BusinessException e){
-            logger.error("防伪码验真出错",e);
+            logger.error("附件验真出错",e);
             serviceResponse.setException(new BusinessException("500"));
         }
         return  serviceResponse;
