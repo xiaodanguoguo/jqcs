@@ -78,8 +78,8 @@ public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
         MillSecurityInfo millSecurityInfo = new MillSecurityInfo();
         BeanCopyUtil.copy(millSecurityInfoVO,millSecurityInfo);
         PfxSignShell signShell = new PfxSignShell(); // 验证PDF文件内的签名是否有效
-        String filePath = millSecurityInfo.getFileUrl();
-        if(signShell.verifySign(filePath)){
+        String url = millSecurityInfo.getFileUrl();
+        if(signShell.verifySign(url)){
             signShell.close();
             boolean success = deleteDir(new File(millSecurityInfo.getFileUrl()));
             if (success) {
