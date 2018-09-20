@@ -36,7 +36,6 @@ import org.springframework.util.StringUtils;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -479,17 +478,17 @@ public class SysBasicsAcctServiceImpl implements SysBasicsAcctService {
             acctInfo.setStatus((byte)1);
             acctInfo.setIsDelete((byte)0);
             acctInfo.setAcctPassword(Md5Util.encrpt(acctInfo.getAcctPassword()));
-            if(StringUtils.isEmpty(acctInfo.getoInfoId())) {
-                String id=getOrgInfoId();
-                OrgInfo orgInfo=new OrgInfo();
-                orgInfo.setId(id);
-                orgInfo.setStatus("1");
-                orgInfo.setCreatedBy("创建人");
-                orgInfo.setCreatedTime(new Date());
-                orgInfo.setParentId("1");
-                orgInfoMapper.insertOrgInfo(orgInfo);
-                acctInfo.setoInfoId(id);
-            }
+//            if(StringUtils.isEmpty(acctInfo.getoInfoId())) {
+//                String id=getOrgInfoId();
+//                OrgInfo orgInfo=new OrgInfo();
+//                orgInfo.setId(id);
+//                orgInfo.setStatus("1");
+//                orgInfo.setCreatedBy("创建人");
+//                orgInfo.setCreatedTime(new Date());
+//                orgInfo.setParentId("1");
+//                orgInfoMapper.insertOrgInfo(orgInfo);
+//                acctInfo.setoInfoId(id);
+//            }
             //添加 用户表
             acctInfoMapper.insertAcctInfo(acctInfo);
 

@@ -11,6 +11,15 @@
     <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
     <result column="REGRESSES" property="regresses" jdbcType="VARCHAR" />
   </resultMap>
+
+
+  <select id="find" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetRebackApply" >
+    SELECT
+    MILL_SHEET_NO
+    FROM
+    CRM_MILL_SHEET_REBACK_APPLY WHERE MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
+  </select>
+
   <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetRebackApply" >
     <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
       SELECT SEQ_MILL_SHEET_REBACK_APPLY.nextval FROM DUAL

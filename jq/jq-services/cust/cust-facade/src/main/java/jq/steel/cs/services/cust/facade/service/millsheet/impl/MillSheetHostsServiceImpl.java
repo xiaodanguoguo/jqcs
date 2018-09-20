@@ -6,6 +6,7 @@ import com.ebase.utils.BeanCopyUtil;
 import com.ebase.utils.DateFormatUtil;
 import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
+import jq.steel.cs.services.cust.facade.dao.CrmMillSheetRebackApplyMapper;
 import jq.steel.cs.services.cust.facade.dao.CrmMillSheetSplitApplyMapper;
 import jq.steel.cs.services.cust.facade.dao.MillCoilInfoMapper;
 import jq.steel.cs.services.cust.facade.dao.MillSheetHostsMapper;
@@ -30,6 +31,8 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     private CrmMillSheetSplitApplyMapper crmMillSheetSplitApplyMapper;
     @Autowired
     private MillCoilInfoMapper millCoilInfoMapper;
+    @Autowired
+    private CrmMillSheetRebackApplyMapper crmMillSheetRebackApplyMapper;
 
 
     @Override
@@ -121,7 +124,16 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
         List<MillSheetHosts> list = millSheetHostsMapper.findMillsheetNo(millSheetHosts);
         if (list.size()>0){
             millSheetHostsVO.setTrue(true);
-            millSheetHostsVO.setMillSheetPath(list.get(0).getMillSheetUrl()+"/"+list.get(0).getMillSheetName());
+            //校验是否回退过
+            CrmMillSheetRebackApply millSheetRebackApply = new CrmMillSheetRebackApply();
+            millSheetRebackApply.setMillSheetNo(millSheetHostsVO.getMillSheetNo());
+            List<CrmMillSheetRebackApply> crmMillSheetRebackApplies = crmMillSheetRebackApplyMapper.find(millSheetRebackApply);
+            if (crmMillSheetRebackApplies.size()>0){
+                millSheetHostsVO.setIsReback("Y");
+                millSheetHostsVO.setMillSheetPath(list.get(0).getMillSheetUrl()+"/"+list.get(0).getMillSheetName());
+            }else {
+                millSheetHostsVO.setIsReback("N");
+            }
         }else {
             //校验质证书编号
             millSheetHostsVO.setTrue(false);

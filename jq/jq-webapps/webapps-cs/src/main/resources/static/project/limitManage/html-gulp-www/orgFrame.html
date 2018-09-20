@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+	<title>酒钢客户服务平台</title>
 	<link rel="stylesheet" href="../../../base/css/baseBlue.css">
 	<link rel="stylesheet" href="../../../base/iconfont/iconfont.css">
 	<link rel="stylesheet" href="../../commonNav/css/commonHeaderBlue.css">
@@ -12,7 +12,7 @@
 	<script src="../../../base/js/validate.js"></script>
 	<script src="../../../base/js/jquery.media.js"></script>
 	<script src="../../../base/js/jquery.cookie.js"></script>
-	<script src='../../../titleName.js'></script>
+	<!--<script src='../../../titleName.js'></script>-->
 	<script src="../../../reqConfig.js"></script>
 	<!--！！！！！！
 		组件js
@@ -41,6 +41,10 @@
         var i=0;
 		$(function(){
             $("#userName").html(getCookie("userName"));
+            $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
+            if(getCookie("navListIdx")){
+                $(".og-head-mainlt__sasety").eq(getCookie("navListIdx")).addClass("og-head-mainlt__sidebar--shrinkActive");
+            }
 		    //导航的点击
 		    $(".og-head-navlist li a").on("click",function(){
                 $(".og-head-navlist li a").removeClass("og-head-navlist____linkActive");
@@ -50,20 +54,23 @@
 		        $(".og-head-mainlt__sidebar").eq($(this).parents(".og-head-navlist__item").index()).css("display","")
 			})
 			//左侧的点击事件
-			$(".og-head-mainlt__sidebar .og-head-mainlt__sasety").on("click",function(){
+			$("#js-leftNavBar .og-head-mainlt__sasety").on("click",function(){
                 $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
 			    $(this).addClass("og-head-mainlt__sidebar--shrinkActive");
+			    setCookie("navListIdx",$(this).val());
 			    window.location.href=$(this).find("a").attr("acSrc")
 				//$(this).parents(".og-head-mainlt__sidebar--menu").find("ul").css("display","");
 			})
             //点击退出
             $("#quitBtn").on("click",function(){
                 getAjaxResult("/acct/remSession","post",{},"quitFun(data)");
+
             })
 			$("#editPassword").on("click",function(){
 			    jumpUrl("../../login/html-gulp-www/passwordNew.html","0000000",0);
 			});
             $("#logo").on("click",function () {
+                clearCookie("navListIdx");
                 jumpUrl("../../homePage/html-gulp-www/homePage.html","0000000",0)
             });
             start();
@@ -73,6 +80,7 @@
             var jsData=JSON.parse(data);
             if(jsData.retCode=="0000000"){
                 clearCookie("userName");
+                clearCookie("navListIdx");
                 if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
                     window.localStorage.limitCode = [];
                 }else{
@@ -154,45 +162,45 @@
 	    			<li class="og-head-mainlt__sidebar--menu">
 	    				<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">系统管理</span></a>
 						<ul class="menu-ul">
-							<li class="og-head-mainlt__sasety" limitCode=""><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/accountAudit.html">账号审核</a></li>
-							<li class="og-head-mainlt__sasety" limitCode=""><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/orgFrame.html">组织管理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode=""><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/roleManage.html">角色管理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode=""><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/resourceManage.html">资源管理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode=""><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/userManage.html">人员管理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="M104"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/annListPreserve.html">发布公告</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="" value="0"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/accountAudit.html">账号审核</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="" value="1"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/orgFrame.html">组织管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="" value="2"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/roleManage.html">角色管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="" value="3"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/resourceManage.html">资源管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="" value="4"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/userManage.html">人员管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M104" value="5"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/annListPreserve.html">发布公告</a></li>
 						</ul>
 	    			</li>
 					<li class="og-head-mainlt__sidebar--menu">
-						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">问卷调查</span></a>
-						<ul class="menu-ul">
-							<li class="og-head-mainlt__sasety" limitCode="M101"><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/questionList.html">创建调查问卷</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="M103"><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/questionStatic.html">问卷调查统计</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="M102"><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/questionWrite.html">请填写调查问卷</a></li>
-						</ul>
-					</li>
-					<li class="og-head-mainlt__sidebar--menu">
 						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">质量证明书</span></a>
 						<ul class="menu-ul">
-							<li class="og-head-mainlt__sasety" limitCode="M201"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/checkTrue.html">防伪验证</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="M202"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList.html">质证书管理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="M203"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M201" value="6"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/checkTrue.html">防伪验证</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M202" value="7"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList.html">质证书管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M203" value="8"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>
 						</ul>
 					</li>
 					<li class="og-head-mainlt__sidebar--menu">
 						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">产品诉赔</span></a>
 						<ul class="menu-ul">
-							<li class="og-head-mainlt__sasety" limitCode="M301"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/personManage.html">管理联系信息</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="M302"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionSubmit.html">异议提报</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="M303"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionReasearch.html">异议调查</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="M304"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionDeal.html">异议处理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="M305"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionFinish.html">异议结案</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M301" value="9"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/personManage.html">管理联系信息</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M302" value="10"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionSubmit.html">异议提报</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M303" value="11"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionReasearch.html">异议调查</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M304" value="12"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionDeal.html">异议处理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M305" value="13"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionFinish.html">异议结案</a></li>
+						</ul>
+					</li>
+					<li class="og-head-mainlt__sidebar--menu">
+						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">问卷调查</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" limitCode="M101" value="14"><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/questionList.html">创建调查问卷</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M103" value="15"><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/questionStatic.html">问卷调查统计</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M102" value="16"><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/questionWrite.html">请填写调查问卷</a></li>
 						</ul>
 					</li>
 					<li class="og-head-mainlt__sidebar--menu">
 						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">产品推荐</span></a>
 						<ul class="menu-ul">
-							<li class="og-head-mainlt__sasety" limitCode="M401"><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/productNewsList.html">产品推荐信息维护</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="M402"><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/proTypeList.html">按品种分类</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M401" value="17"><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/productNewsList.html">产品推荐信息维护</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M402"  value="18"><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/proTypeList.html">按品种分类</a></li>
 							<!--<li class="og-head-mainlt__sasety" limitCode=""><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/productNewsList.html">按用途分类</a></li>-->
 						</ul>
 					</li>

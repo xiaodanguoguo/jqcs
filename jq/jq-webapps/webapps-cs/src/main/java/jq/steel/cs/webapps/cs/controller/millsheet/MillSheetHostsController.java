@@ -98,7 +98,13 @@ public class MillSheetHostsController {
         try {
             ServiceResponse<MillSheetHostsVO> serviceResponse = millSheetHostsAPI.rollbackQuery(jsonRequest);
             if (serviceResponse.getRetContent().getTrue()){
-                jsonResponse.setRspBody(serviceResponse.getRetContent());
+
+                if (serviceResponse.getRetContent().getIsReback().equals("Y")){
+                    jsonResponse.setRetCode("1111111");
+                    jsonResponse.setRetDesc("此质证书已回退过，不可再次回退");
+                }else {
+                    jsonResponse.setRspBody(serviceResponse.getRetContent());
+                }
             }else {
                 jsonResponse.setRetCode("1111111");
                 jsonResponse.setRetDesc("请验证质证书编号"+serviceResponse.getRetContent().getMillSheetNo());

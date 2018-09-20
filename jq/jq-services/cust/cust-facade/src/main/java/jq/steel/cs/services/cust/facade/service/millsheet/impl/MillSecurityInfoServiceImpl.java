@@ -48,10 +48,10 @@ public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
         crmMillSheetCheckLog.setIpAddr(ip);
         crmMillSheetCheckLog.setVerifier(AssertContext.getAcctName());
         crmMillSheetCheckLogMapper.insertSelective(crmMillSheetCheckLog);
-        if (millSheetByPage.size()>0){
+            if (millSheetByPage.size()>0){
             List<MillSecurityInfo> millSecurityInfos = millSecurityInfoMapper.findByParams(millSecurityInfo);
-            int coCheckNum = millSecurityInfos.get(0).getCoCheckNum()+1;
             if (millSecurityInfos.size()>0){
+                int coCheckNum = millSecurityInfos.get(0).getCoCheckNum()+1;
                 if(millSecurityInfos.get(0).getCoCheckNum()>=millSecurityInfos.get(0).getCoCheckNumMax()){
                     millSecurityInfoVO.setExplain("此质证书超过验证次数");
                 }else{
@@ -62,7 +62,7 @@ public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
                     millSecurityInfoVO.setExplain("此质证书"+millSecurityInfos.get(0).getMillSheetNo()+"已成功验证"+coCheckNum+"次");
                 }
             }else {
-                millSecurityInfoVO.setExplain("此质证书防伪码"+millSecurityInfos.get(0).getSecurityCode()+"有误");
+                millSecurityInfoVO.setExplain("此质证书防伪码"+millSecurityInfoVO.getSecurityCode()+"有误");
             }
         }else {
             millSecurityInfoVO.setExplain("此质证书编号"+millSecurityInfoVO.getMillSheetNo()+"有误");
@@ -78,7 +78,8 @@ public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
         MillSecurityInfo millSecurityInfo = new MillSecurityInfo();
         BeanCopyUtil.copy(millSecurityInfoVO,millSecurityInfo);
         PfxSignShell signShell = new PfxSignShell(); // 验证PDF文件内的签名是否有效
-        if(signShell.verifySign(millSecurityInfo.getFileUrl())){
+        String url = millSecurityInfo.getFileUrl();
+        if(signShell.verifySign(url)){
             signShell.close();
             boolean success = deleteDir(new File(millSecurityInfo.getFileUrl()));
             if (success) {
