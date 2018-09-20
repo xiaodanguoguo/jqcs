@@ -7,6 +7,9 @@ import java.util.List;
 
 public class CrmMillSheetSplitApplyVO implements Serializable {
 
+    //
+    private String millsheetType;
+
     //送达方
     private String shipToParty;
 
@@ -58,13 +61,21 @@ public class CrmMillSheetSplitApplyVO implements Serializable {
     private  String zcharg;
 
     //批次件次
-    private  String zjishu;
+    private  Long zjishu;
 
     //批次重量
-    private  String zlosmenge;
+    private  BigDecimal zlosmenge;
 
     //订货单位
     private  String spiltCustomer;
+
+    public String getMillsheetType() {
+        return millsheetType;
+    }
+
+    public void setMillsheetType(String millsheetType) {
+        this.millsheetType = millsheetType;
+    }
 
     public String getShipToParty() {
         return shipToParty;
@@ -82,19 +93,19 @@ public class CrmMillSheetSplitApplyVO implements Serializable {
         this.zcharg = zcharg;
     }
 
-    public String getZjishu() {
+    public Long getZjishu() {
         return zjishu;
     }
 
-    public void setZjishu(String zjishu) {
+    public void setZjishu(Long zjishu) {
         this.zjishu = zjishu;
     }
 
-    public String getZlosmenge() {
+    public BigDecimal getZlosmenge() {
         return zlosmenge;
     }
 
-    public void setZlosmenge(String zlosmenge) {
+    public void setZlosmenge(BigDecimal zlosmenge) {
         this.zlosmenge = zlosmenge;
     }
 

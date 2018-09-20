@@ -44,7 +44,14 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         MillSheetHosts millSheetHosts = new MillSheetHosts();
         millSheetHosts.setMillSheetNo(crmMillSheetSplitInfoList.get(0).getMillsheetNo());
         List<MillSheetHosts> url = millSheetHostsMapper.findUrlList(millSheetHosts);
-        String  mill = url.get(0).getSplitMaxValue();
+        String mill ="";
+        if( url.get(0).getSplitMaxValue()==null){
+            //质证书编号+00
+            mill = crmMillSheetSplitInfoList.get(0).getMillsheetNo()+"00";
+        }else {
+            mill = url.get(0).getSplitMaxValue();
+        }
+
         String regEx="[^0-9]";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(mill);
@@ -91,7 +98,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             map.put("inzlosmenge",1);
             map.put("inspiltCustomer","ceshi");*/
             //this.cunChu("A1809040299","A180904029904","M","8888888",1,1,"ceshi");
-            this.cunChu(crmMillSheetSplitInfo.getMillsheetNo(),newMillSheetNo,crmMillSheetSplitInfo.getMillSheetType(),
+            this.cunChu(crmMillSheetSplitInfo.getMillsheetNo(),newMillSheetNo,crmMillSheetSplitInfo.getMillsheetType(),
                     crmMillSheetSplitInfo.getZcharg(),crmMillSheetSplitInfo.getZjishu(),crmMillSheetSplitInfo.getZlosmenge(),
                     crmMillSheetSplitInfo.getSpiltCustomer());
         }
