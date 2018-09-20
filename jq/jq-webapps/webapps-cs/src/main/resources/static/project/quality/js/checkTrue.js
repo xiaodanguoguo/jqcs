@@ -16,7 +16,7 @@ $(function(){
     });
     $("#uploadCheck").on("click",function(){//上传验证操作
         if($("#fileUrl").val()){
-            getAjaxResult("/millsheetcheck/fuJian","POST",{"fileUrl":$("#fileUrl").val()},"uploadCheckCallBack(data)");
+            getAjaxResult("/millsheetcheck/fuJian","POST",{"fileUrl":$("#fileUrl").attr("allPath")},"uploadCheckCallBack(data)");
         }
     });
 });
@@ -79,7 +79,8 @@ function uploadCheckCallBack(data){
     }
 }
 
+
 function clsUploadCtrl$successAfter(ctrl, response)
 {
-    $("#fileUrl").val(response.rspBody.originalName)
+    $("#fileUrl").val(response.rspBody.originalName).attr("allPath",response.rspBody.viewUrl);
 }
