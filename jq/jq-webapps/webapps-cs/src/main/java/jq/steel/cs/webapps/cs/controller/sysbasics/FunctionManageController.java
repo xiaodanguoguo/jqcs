@@ -49,12 +49,14 @@ public class FunctionManageController {
                 return result;
             }
 
-            FunctionManageVO functionManageVO=jsonRequest.getReqBody();
-            functionManageVO.setAcctId(AssertContext.getAcctId());
-
             if (jsonRequest.getReqBody().getOrgIdAll().equals("1")){
                 jsonRequest.getReqBody().setOrgIdAll("101");
             }
+
+            FunctionManageVO functionManageVO=jsonRequest.getReqBody();
+            functionManageVO.setAcctId(AssertContext.getAcctId());
+
+
             //根据service层返回的编码做不同的操作
             ServiceResponse<HashMap> response=functionManageAPI.functionManageList(functionManageVO);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode())) {
