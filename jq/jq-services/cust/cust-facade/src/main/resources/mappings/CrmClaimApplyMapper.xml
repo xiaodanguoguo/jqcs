@@ -730,14 +730,15 @@
         </if>
         ) PIVOT (
             COUNT (CLAIM_STATE) FOR CLAIM_STATE IN (
-                'NEW' as created,
+                'NEW' as CREATED,
                 'PRESENT'as PRESENT,
                 'ACCEPTANCE' as ACCEPTANCE,
                 'REJECT' as REJECT,
                 'INVESTIGATION' as INVESTIGATION,
                 'HANDLE' as HANDLE,
                 'END' as END,
-            'EVALUATE'as EVALUATE
+                'ADOPT' as ADOPT,
+                'EVALUATE'as EVALUATE
             )
         )
   </select>
@@ -899,6 +900,7 @@
         <otherwise>
           and a.CLAIM_STATE = 'ACCEPTANCE' or a.CLAIM_STATE = 'REJECT' or a.CLAIM_STATE = 'HANDLE'
           or a.CLAIM_STATE = 'INVESTIGATION' or a.CLAIM_STATE = 'END' or a.CLAIM_STATE = 'EVALUATE'
+          or a.CLAIM_STATE = 'ADOPT'
         </otherwise>
       </choose>
     </trim>

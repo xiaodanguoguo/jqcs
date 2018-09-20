@@ -68,5 +68,5 @@ public interface CrmLastuserInfoAPI {
      * @Date: 2018/9/13
      */
     @RequestMapping(value ="/unitOfUse/info", method = RequestMethod.POST)
-    ServiceResponse<CrmLastuserInfoVO> findunitOfUseInfo(JsonRequest<CrmLastuserInfoVO> jsonRequest);
+    ServiceResponse<CrmLastuserInfoVO> findunitOfUseInfo(@RequestBody JsonRequest<CrmLastuserInfoVO> jsonRequest);
 }

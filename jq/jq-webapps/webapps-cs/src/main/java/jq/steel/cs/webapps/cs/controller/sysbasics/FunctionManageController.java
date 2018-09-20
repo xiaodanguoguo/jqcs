@@ -49,13 +49,15 @@ public class FunctionManageController {
                 return result;
             }
 
-            if (jsonRequest.getReqBody().getOrgIdAll().equals("1")){
-                jsonRequest.getReqBody().setOrgIdAll("101");
-            }
 
             FunctionManageVO functionManageVO=jsonRequest.getReqBody();
-            functionManageVO.setAcctId(AssertContext.getAcctId());
 
+
+            if (jsonRequest.getReqBody().getOrgIdAll().equals("1")){
+                jsonRequest.getReqBody().setOrgIdAll("101");
+            } else {
+                functionManageVO.setAcctId(AssertContext.getAcctId());
+            }
 
             //根据service层返回的编码做不同的操作
             ServiceResponse<HashMap> response=functionManageAPI.functionManageList(functionManageVO);
