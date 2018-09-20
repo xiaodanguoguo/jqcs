@@ -49,7 +49,7 @@ var titleJson = {
             "productDetail.html":"产品详情展示"
         },
         "homePage":{
-            "homePage.html":"首页",
+            "homePage.html":"",
             "announceMentList.html":"公告列表",
             "announceMentDetail.html":"公告详情"
         }
@@ -70,38 +70,41 @@ function titleEval(titleJson){//赋值每一个页面的title
             var titleVarJson = titleVar[key];
             for(var key2 in titleVarJson){
                 if(urlText.indexOf(key2) != -1) {
-                    // $("title").eq(0).html(titleVarJson[key2]);ie8及一下不支持用这种方法给title赋值
-                    document.title = titleVarJson[key2];
+                    // $("title").eq(0).html("酒钢客户服务平台-" + titleVarJson[key2]);ie8及一下不支持用这种方法给title赋值
+                    document.title = "酒钢客户服务平台-" + titleVarJson[key2];
+                    if(titleVarJson[key2] == ""){
+                        document.title = "酒钢客户服务平台";
+                    }
                     //异议提报新建。详情。销售审核等
                     if(urlText.indexOf("htmlType=0") != -1 && key2 == "objectionSubDetail.html"){
-                        document.title = "异议提报-新建";
+                        document.title = "酒钢客户服务平台-" +"异议提报-新建";
                     }else if(urlText.indexOf("htmlType=1") != -1 && key2 == "objectionSubDetail.html"){
-                        document.title = "异议提报-修改";
+                        document.title = "酒钢客户服务平台-" +"异议提报-修改";
                     }else if(urlText.indexOf("htmlType=2") != -1 && key2 == "objectionSubDetail.html"){
-                        document.title = "异议提报-详情";
+                        document.title = "酒钢客户服务平台-" +"异议提报-详情";
                     }else if(urlText.indexOf("htmlType=3") != -1 && key2 == "objectionSubDetail.html"){
-                        document.title = "销售审核";
+                        document.title = "酒钢客户服务平台-" +"销售审核";
                     }else if(urlText.indexOf("htmlType=4") != -1 && key2 == "objectionSubDetail.html"){
-                        document.title = "外部调查-录入界面";
+                        document.title = "酒钢客户服务平台-" +"外部调查-录入界面";
                     }else if(urlText.indexOf("htmlType=5") != -1 && key2 == "objectionSubDetail.html"){
-                        document.title = "内部调查";
+                        document.title = "酒钢客户服务平台-" +"内部调查";
                     }else if(urlText.indexOf("htmlType=6") != -1 && key2 == "objectionSubDetail.html"){
-                        document.title = "确认书审核";
+                        document.title = "酒钢客户服务平台-" +"确认书审核";
                     }else if(urlText.indexOf("htmlType=7") != -1 && key2 == "objectionSubDetail.html"){
-                        document.title = "销售审核详情";
+                        document.title = "酒钢客户服务平台-" +"销售审核详情";
                     }
                     //异议处理协议书
                     if(urlText.indexOf("htmlType=1") != -1 && key2 == "agreementBook.html"){
-                        document.title = "异议处理-协议书编辑";
+                        document.title = "酒钢客户服务平台-" +"异议处理-协议书编辑";
                     }else if(urlText.indexOf("htmlType=2") != -1 && key2 == "agreementBook.html"){
-                        document.title = "协议书审核";
+                        document.title = "酒钢客户服务平台-" +"协议书审核";
                     }
 
                     //产品信息维护新增。修改。
                     if(urlText.indexOf("htmlType=1") != -1 && key2 == "productUpdate.html"){
-                        document.title = "产品推介信息-新增";
+                        document.title = "酒钢客户服务平台-" +"产品推介信息-新增";
                     }else if(urlText.indexOf("htmlType=2") != -1 && key2 == "productUpdate.html"){
-                        document.title = "产品推介信息-修改";
+                        document.title = "酒钢客户服务平台-" +"产品推介信息-修改";
                     }
 
                 }

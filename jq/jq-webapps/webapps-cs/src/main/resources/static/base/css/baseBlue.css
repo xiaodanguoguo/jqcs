@@ -685,3 +685,7 @@ body { font-size: 12px; font-family: "Microsoft Yahei"; color: #666; }
 .progressBar_li_cur .progressName { color: #6390f3; height: 22px; }
 
 .progressBar_li_data { height: 30px; line-height: 30px; }
+
+.x-icon { width: 15px; height: 15px; background: url(../images/symbol.png) 0px 0px no-repeat; display: inline-block; vertical-align: middle; }
+
+.x-icon-l { width: 15px; height: 15px; background: url(../images/symbol.png) 0px 0px no-repeat; display: inline-block; vertical-align: middle; }

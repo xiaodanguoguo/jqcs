@@ -720,7 +720,8 @@
 
     <if test="aCompanyId != null"> AND A_COMPANY_ID = #{aCompanyId} </if>
 
-    <if test="oInfoId != null"> AND O_INFO_ID like CONCAT(#{oInfoId},'%') </if>
+    <!--<if test="oInfoId != null"> AND O_INFO_ID like CONCAT(#{oInfoId},'%') </if>-->
+    <if test="oInfoId != null"> AND O_INFO_ID = #{oInfoId} </if>
 
     <if test="oInfoName != null"> AND O_INFO_NAME = #{oInfoName} </if>
 

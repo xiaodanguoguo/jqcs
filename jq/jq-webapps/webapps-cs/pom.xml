@@ -118,6 +118,42 @@
 			<version>1.9</version>
 		</dependency>
 
+		<!--润乾开始-->
+		<dependency>
+			<groupId>com.raqsoft</groupId>
+			<artifactId>raqsoftReport</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.raqsoft</groupId>
+			<artifactId>dm</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.raqsoft</groupId>
+			<artifactId>zxing_core</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.raqsoft</groupId>
+			<artifactId>itext2_rq</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.raqsoft</groupId>
+			<artifactId>Qrcode_swetake</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.raqsoft</groupId>
+			<artifactId>pdfbox-1.8.14</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.raqsoft</groupId>
+			<artifactId>batik-all-flex</artifactId>
+			<version>1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.github.theborakompanioni</groupId>
@@ -143,6 +179,20 @@
 			<version>1.3.2</version>
 		</dependency>
 
+		<!--servlet-->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+		</dependency>
+		<!--servlet-->
 
     </dependencies>
 	<dependencyManagement>
@@ -265,7 +315,7 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
-	</build>
+	</build>mm
 
 
 	<repositories>

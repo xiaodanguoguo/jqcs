@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>酒钢客户服务平台</title>
+	<link rel="icon" href="../../../base/images/symbol.png" type="../../base/images/x-icon">
 	<link rel="stylesheet" href="../../../base/css/baseBlue.css">
 	<link rel="stylesheet" href="../../../base/iconfont/iconfont.css">
 	<link rel="stylesheet" href="../../commonNav/css/commonHeaderBlue.css">
@@ -12,7 +13,7 @@
 	<script src="../../../base/js/validate.js"></script>
 	<script src="../../../base/js/jquery.media.js"></script>
 	<script src="../../../base/js/jquery.cookie.js"></script>
-	<!--<script src='../../../titleName.js'></script>-->
+	<script src='../../../titleName.js'></script>
 	<script src="../../../reqConfig.js"></script>
 	<!--！！！！！！
 		组件js
@@ -114,7 +115,7 @@
             //getMonth 方法返回一个0到11之间的整数，是Date对象中的月份值，并不是现实中的月份值，要加+1才是。
             //开始运行时间
             document.getElementById("now_time").innerHTML=
-                "现在时间："+date_end.getFullYear()+"年"
+                ""+date_end.getFullYear()+"年"
                 +(date_end.getMonth()+1)+"月"+date_end.getDate()+"日"
                 +date_end.getHours()+"时"+date_end.getMinutes()+"分"
                 +date_end.getSeconds()+"秒"
@@ -139,17 +140,17 @@
 						<span class="fl">代办</span>
 					</span>-->
 					<span class="og-head-navwrap-opeBoxList">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/2.png')"></div>
 						<span  class="fl" style="cursor: pointer" id="quitBtn">退出</span>
 					</span>
 					<span class="og-head-navwrap-opeBoxList">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/1.png')"></div>
 						<span class="fl" id="editPassword" style="cursor: pointer">修改密码</span>
 					</span>
 				</div>
 	            <div class="og-head-navwrap-box clearfix fr">
 					<span class="og-head-navwrap-boxList">您好，<span id="userName"></span></span>
-					<p id="now_time" class="og-head-navwrap-boxList" style="width: 250px;"></p>
+					<p id="now_time" class="og-head-navwrap-boxList" style="width: 200px;"></p>
 				</div>
 	        </div>
 	    </div>

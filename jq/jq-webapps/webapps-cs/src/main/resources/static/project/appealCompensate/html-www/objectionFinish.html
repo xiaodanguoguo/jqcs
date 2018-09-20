@@ -89,24 +89,24 @@
             <div class="submission-table">
                 <table class="table-list" id="tableList" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData" chkId="chkCoding" isCacheCond="claimNo" clsChk="clsChk" clsallchk="clsAllChk">
                     <tr class="table-list-currentrow">
-                        <th class="table-list-currentrow-theader" width="10%">操作</th>
-                        <th class="table-list-currentrow-theader" width="4%">
+                        <th class="table-list-currentrow-theader" width="7%">操作</th>
+                        <th class="table-list-currentrow-theader" width="3%">
                             <input type="checkbox" id="checkAll" comtype="checkAll" cond="" class="clsAllChk" uniontableid="tableList" chkid="chkCoding">
                         </th>
-                        <th class="table-list-currentrow-theader" width="4%">序号</th>
-                        <th class="table-list-currentrow-theader" width="8%">异议编号</th>
+                        <th class="table-list-currentrow-theader" width="3%">序号</th>
+                        <th class="table-list-currentrow-theader" width="9%">异议编号</th>
                         <th class="table-list-currentrow-theader" width="8%">异议状态</th>
-                        <th class="table-list-currentrow-theader" width="9%">协议书状态</th>
+                        <th class="table-list-currentrow-theader" width="7%">协议书状态</th>
                         <th class="table-list-currentrow-theader" width="7%">生产厂家</th>
                         <th class="table-list-currentrow-theader" width="6%">产品大类</th>
-                        <th class="table-list-currentrow-theader" width="7%">客户</th>
+                        <th class="table-list-currentrow-theader" width="11%">客户</th>
                         <th class="table-list-currentrow-theader" width="9%">牌号</th>
-                        <th class="table-list-currentrow-theader" width="9%">规格</th>
-                        <th class="table-list-currentrow-theader" width="9%">异议类别</th>
-                        <th class="table-list-currentrow-theader" width="8%">异议量&nbsp;(&nbsp;吨&nbsp;)</th>
-                        <th class="table-list-currentrow-theader" width="7%">使用单位</th>
-                        <th class="table-list-currentrow-theader" width="9%">提报日期</th>
-                        <th class="table-list-currentrow-theader" width="15%">上传查看协议书有效文件</th>
+                        <th class="table-list-currentrow-theader" width="11%">规格</th>
+                        <th class="table-list-currentrow-theader" width="6%">异议类别</th>
+                        <th class="table-list-currentrow-theader" width="6%">异议量&nbsp;(&nbsp;吨&nbsp;)</th>
+                        <th class="table-list-currentrow-theader" width="11%">使用单位</th>
+                        <th class="table-list-currentrow-theader" width="6%">提报日期</th>
+                        <th class="table-list-currentrow-theader" width="7%">上传查看协议书有效文件</th>
                         <th class="table-list-currentrow-theader" width="9%">强制结案原因</th>
                     </tr>
                     <tr class="table-list-currentrow" id="templateRow" style="display: none;">
@@ -133,7 +133,7 @@
                         <td class="table-list-currentrow-tdetail" id="presentationDate"></td>
                         <td class="table-list-currentrow-tdetail">
                             <span class="btnLowImgCom fl" limitCode="M30505" id="uploadOpe" comType="uploadCtrl" uploadType="button" uploadTypeVal="上传" reqPath="/file/upload" uploadSize='{"w":"50","h":"26"}' filetype="custom" fileExt="jpg|jpeg|gif|png">上传</span>
-                            <span class="btnLowImgCom" id="viewUploadOpe" limitCode="M30506">查看</span>
+                            <span class="btnLowImgCom" id="viewUploadOpe" limitCode="M30506" style="position:relative;top: 2px;">查看</span>
                         </td>
                         <td class="table-list-currentrow-tdetail" id="reasonsForCompulsoryClosure"></td>
                     </tr>
@@ -142,8 +142,8 @@
                     <i></i>
                     <p>暂无数据......</p>
                 </div>
-                <div class="tcdPageCode"></div>
             </div>
+            <div class="tcdPageCode"></div>
         </div>
     </div>
     <div id="inputAnswer" class="popup gc_box" style="display:none">

@@ -78,6 +78,7 @@
   overflow:hidden;
   background:$bg_main;
   color: $fc_ff;
+  font-size: 14px;
 }
 //6390f3
 .og-head-navlogo{
@@ -247,7 +248,7 @@
   position: absolute;
   right: 0;
   top: 0px;
-  min-height: 750px;
+  min-height: 701px;
   background-color: $bg_ff;
 }
 .navwrap-arr-div{
@@ -291,11 +292,11 @@
 
 .og-head-navwrap-box{
   line-height: 65px;
-  margin-right: 24px;
+  margin-right: 15px;
 }
 .og-head-navwrap-boxList{
   float: left;
-  margin-left: 30px;
+  margin-left: 15px;
   color: #fff;
 }
 .og-head-navwrap-opeBox{
@@ -311,7 +312,7 @@
   width: 30px;
   height: 30px;
   margin-right: 6px;
-  margin-top: 35px;
+  margin-top: 18px;
   background-size: 30px 30px;
 }
 .og-homePage-name{

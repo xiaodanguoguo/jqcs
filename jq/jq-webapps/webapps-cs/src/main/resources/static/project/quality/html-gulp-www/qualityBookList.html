@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>酒钢客户服务平台</title>
+	<link rel="icon" href="../../../base/images/symbol.png" type="../../base/images/x-icon">
 	<link rel="stylesheet" href="../../../base/css/baseBlue.css">
 	<link rel="stylesheet" href="../../../base/iconfont/iconfont.css">
 	<link rel="stylesheet" href="../../commonNav/css/commonHeaderBlue.css">
@@ -12,7 +13,7 @@
 	<script src="../../../base/js/validate.js"></script>
 	<script src="../../../base/js/jquery.media.js"></script>
 	<script src="../../../base/js/jquery.cookie.js"></script>
-	<!--<script src='../../../titleName.js'></script>-->
+	<script src='../../../titleName.js'></script>
 	<script src="../../../reqConfig.js"></script>
 	<!--！！！！！！
 		组件js
@@ -114,7 +115,7 @@
             //getMonth 方法返回一个0到11之间的整数，是Date对象中的月份值，并不是现实中的月份值，要加+1才是。
             //开始运行时间
             document.getElementById("now_time").innerHTML=
-                "现在时间："+date_end.getFullYear()+"年"
+                ""+date_end.getFullYear()+"年"
                 +(date_end.getMonth()+1)+"月"+date_end.getDate()+"日"
                 +date_end.getHours()+"时"+date_end.getMinutes()+"分"
                 +date_end.getSeconds()+"秒"
@@ -139,17 +140,17 @@
 						<span class="fl">代办</span>
 					</span>-->
 					<span class="og-head-navwrap-opeBoxList">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/2.png')"></div>
 						<span  class="fl" style="cursor: pointer" id="quitBtn">退出</span>
 					</span>
 					<span class="og-head-navwrap-opeBoxList">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/1.png')"></div>
 						<span class="fl" id="editPassword" style="cursor: pointer">修改密码</span>
 					</span>
 				</div>
 	            <div class="og-head-navwrap-box clearfix fr">
 					<span class="og-head-navwrap-boxList">您好，<span id="userName"></span></span>
-					<p id="now_time" class="og-head-navwrap-boxList" style="width: 250px;"></p>
+					<p id="now_time" class="og-head-navwrap-boxList" style="width: 200px;"></p>
 				</div>
 	        </div>
 	    </div>
@@ -256,10 +257,10 @@
             </div>
             <div class="management-box-button">
                 <div class="btnLowNew management-box-search" comType="searchBtnCtrl" cond="condzkunnr,condzhth,condzchehao,condmillSheetNo,condbattenPlateNo,condzph,condstartDt,condendDt" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
-                <div class="btnBaseCancel management-box-reset" comType="clearAllCond" parentId="searchBox" bindCtrlId="condzkunnr,condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph">重置</div>
                 <div class="btnLowNew management-box-preview" id="previewOpe">预览</div>
                 <div class="btnLowNew management-box-print" id="printOpe" limitCode="M20201">打印</div>
                 <div class="btnLowNew management-box-print" id="downLoadOpe" limitCode="M20202">下载</div>
+                <div class="btnBaseCancel management-box-reset" comType="clearAllCond" parentId="searchBox" bindCtrlId="condzkunnr,condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph">重置</div>
                 <!--<div class="btnLowNew management-box-apply">拆分申请</div>
                 <div class="btnLowNew management-box-split">强制拆分</div>-->
             </div>
@@ -268,32 +269,32 @@
                     <th class="table-list-currentrow-theader" width="3%">
                         <input type="checkbox" id="checkAll" comtype="checkAll" cond="" class="clsAllChk" uniontableid="tableList" chkid="chkCoding">
                     </th>
-                    <th class="table-list-currentrow-theader" width="10%">质保书编号</th>
-                    <th class="table-list-currentrow-theader" width="8%">质证书类别</th>
-                    <th class="table-list-currentrow-theader" width="8%">质证书状态</th>
-                    <th class="table-list-currentrow-theader" width="8%">售达方</th>
-                    <th class="table-list-currentrow-theader" width="8%">发车时间</th>
-                    <th class="table-list-currentrow-theader" width="6%">车号</th>
-                    <th class="table-list-currentrow-theader" width="7%">产品名称</th>
+                    <th class="table-list-currentrow-theader" width="12%">质证书编号</th>
+                    <th class="table-list-currentrow-theader" width="5%">质证书类别</th>
+                    <th class="table-list-currentrow-theader" width="5%">质证书状态</th>
+                    <th class="table-list-currentrow-theader" width="18%">售达方</th>
+                    <th class="table-list-currentrow-theader" width="10%">发车时间</th>
+                    <th class="table-list-currentrow-theader" width="12%">车号</th>
+                    <th class="table-list-currentrow-theader" width="12%">产品名称</th>
                     <th class="table-list-currentrow-theader" width="7%">牌号</th>
-                    <th class="table-list-currentrow-theader"  width="8%">已打印次数</th>
-                    <th class="table-list-currentrow-theader"  width="8%">可打印次数</th>
-                    <th class="table-list-currentrow-theader"  width="8%">可下载次数</th>
-                    <th class="table-list-currentrow-theader"  width="15%">操作</th>
+                    <th class="table-list-currentrow-theader"  width="5%">已打印次数</th>
+                    <th class="table-list-currentrow-theader"  width="5%">可打印次数</th>
+                    <th class="table-list-currentrow-theader"  width="5%">可下载次数</th>
+                    <th class="table-list-currentrow-theader"  width="7%">操作</th>
                 </tr>
                 <tr class="table-list-currentrow" id="templateRow" style="display: none;">
                     <td class="table-list-currentrow-tdetail"><input type="checkbox" id="chkCoding" class="clsChk"></td>
                     <td class="table-list-currentrow-tdetail" id="millSheetNo"></td>
-                    <td class="table-list-currentrow-tdetail" id="millSheetType"></td>
-                    <td class="table-list-currentrow-tdetail" id="stateName"></td>
+                    <td class="table-list-currentrow-tdetail" id="millSheetType" style="text-align: center"></td>
+                    <td class="table-list-currentrow-tdetail" id="stateName" style="text-align: center"></td>
                     <td class="table-list-currentrow-tdetail" id="zkunnr"></td>
-                    <td class="table-list-currentrow-tdetail" id="createdDt"></td>
+                    <td class="table-list-currentrow-tdetail" id="createdDt" style="text-align: center"></td>
                     <td class="table-list-currentrow-tdetail" id="zchehao"></td>
                     <td class="table-list-currentrow-tdetail" id="zcpmc"></td>
                     <td class="table-list-currentrow-tdetail" id="zph"></td>
-                    <td class="table-list-currentrow-tdetail" id="printedNum"></td>
-                    <td class="table-list-currentrow-tdetail" id="printableNum"></td>
-                    <td class="table-list-currentrow-tdetail" id="downableNum"></td>
+                    <td class="table-list-currentrow-tdetail" id="printedNum" style="text-align: center"></td>
+                    <td class="table-list-currentrow-tdetail" id="printableNum" style="text-align: center"></td>
+                    <td class="table-list-currentrow-tdetail" id="downableNum" style="text-align: center"></td>
                     <td class="table-list-currentrow-tdetail">
                         <span class="btnLowImgCom" id="commonSplit" style="display: none" limitCode="M20203">拆分申请</span>
                         <span class="btnLowImgCom" id="strongSplit" style="display:none;" limitCode="M20204">强制拆分</span>

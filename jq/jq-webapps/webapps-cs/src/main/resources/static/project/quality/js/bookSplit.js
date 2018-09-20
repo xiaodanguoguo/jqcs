@@ -228,7 +228,7 @@ function blurCheck(dom,doms,markRow){//dom当前事件节点，doms所有这个�
 function submitSplitCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        //赋值质保书编号   输入框置灰
+        //赋值质证书编号   输入框置灰
         document.body.jsLee.submitBox.find("tr[id=cloneRow]").each(function(){
             $(this).find("#millsheetNoName").html(data.rspBody.millsheetNo);
             $(this).find("#zjishu").attr("disabled",true);
@@ -261,7 +261,7 @@ function splitSubmit(splitTableClone){
         document.body.jsLee.submitBox = splitTableClone;
         var arrParam = [];
         splitTableClone.find("tr[id=cloneRow]").each(function(){
-            var jsonParam = {"millsheetType":"","specs":"","zchehao":"","zcpmc":"","zjishu":"","zkunnr":"","zlosmenge":"","zlph":""};
+            var jsonParam = {"millsheetType":"","specs":"","zchehao":"","zcpmc":"","zjishu":"","zkunnr":"","zlosmenge":"","zcharg":""};
             getValue4Desc(jsonParam,$(this)[0]);
             jsonParam.millsheetNo = this.jsonData.millsheetNo;
             jsonParam.spiltCustomer = splitTableClone.find("#spiltCustomerTextA").val();

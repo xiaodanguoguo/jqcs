@@ -352,13 +352,13 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
         millSheetHosts.setMillSheetNo(millSheetNo);
         MillSheetHosts millSheetHosts1=millSheetHostsMapper.findUrl(millSheetHosts);
         String one = "";
-        if (millSheetHosts1.getDeptCode().equals(1000)){
+        if (millSheetHosts1.getDeptCode().equals("1000")){
             one = "BX";
-        }else if (millSheetHosts1.getDeptCode().equals(2000)){
+        }else if (millSheetHosts1.getDeptCode().equals("2000")){
             one = "LZ";
-        }else if(millSheetHosts1.getDeptCode().equals(2200)){
+        }else if(millSheetHosts1.getDeptCode().equals("2200")){
             one = "TG";
-        }else if (millSheetHosts1.getDeptCode().equals(3000)){
+        }else if (millSheetHosts1.getDeptCode().equals("3000")){
             one = "YG";
         }else {
             one = "XX";

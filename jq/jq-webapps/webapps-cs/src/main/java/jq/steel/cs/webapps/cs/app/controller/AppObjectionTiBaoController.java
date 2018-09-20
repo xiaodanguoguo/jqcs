@@ -61,12 +61,11 @@ public class AppObjectionTiBaoController {
      * @Date: 2018/9/7
      */
     @RequestMapping(value = "/count",method = RequestMethod.POST)
-    public JsonResponse<ObjectionTiBaoCountVO> getCount(){
+    public JsonResponse<ObjectionTiBaoCountVO> getCount(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest){
         logger.info("根据不同状态计数");
         JsonResponse<ObjectionTiBaoCountVO> jsonResponse = new JsonResponse<>();
 
         try {
-            JsonRequest<ObjectionTiBaoVO> jsonRequest = new JsonRequest<>();
             ObjectionTiBaoVO objectionTiBaoVO = new ObjectionTiBaoVO();
             objectionTiBaoVO.setCustomerId(AssertContext.getOrgCode());
             // 判断是否有审核权限
@@ -294,7 +293,7 @@ public class AppObjectionTiBaoController {
         logger.info("分页", JsonUtil.toJson(jsonRequest));
         JsonResponse<List<CrmCustomerInfoVO>> jsonResponse = new JsonResponse<>();
         try {
-            jsonRequest.getReqBody().setCreatedBy(AssertContext.getOrgCode());
+            jsonRequest.getReqBody().setCustomerId(AssertContext.getOrgCode());
             ServiceResponse<List<CrmCustomerInfoVO>> serviceResponse = crmCustomerInfoAPI.findorderUnitList(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
@@ -326,7 +325,6 @@ public class AppObjectionTiBaoController {
         logger.info("分页", JsonUtil.toJson(jsonRequest));
         JsonResponse<CrmCustomerInfoVO> jsonResponse = new JsonResponse<>();
         try {
-            jsonRequest.getReqBody().setCreatedBy(AssertContext.getAcctId());
             ServiceResponse<CrmCustomerInfoVO> serviceResponse = crmCustomerInfoAPI.findorderUnitInfo(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
@@ -390,7 +388,6 @@ public class AppObjectionTiBaoController {
         logger.info("分页={}", JsonUtil.toJson(jsonRequest));
         JsonResponse<CrmLastuserInfoVO> jsonResponse = new JsonResponse<>();
         try {
-            jsonRequest.getReqBody().setCreatedBy(AssertContext.getAcctId());
             ServiceResponse<CrmLastuserInfoVO> serviceResponse = crmLastuserInfoAPI.findunitOfUseInfo(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());

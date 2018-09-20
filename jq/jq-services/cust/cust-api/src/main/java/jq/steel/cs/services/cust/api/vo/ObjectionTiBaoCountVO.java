@@ -25,6 +25,8 @@ public class ObjectionTiBaoCountVO {
     private Integer end;
     // 已评价
     private Integer evaluate;
+    // 销售审核通过
+    private Integer adopt;
 
     public Integer getAll() {
         return all;
@@ -96,5 +98,13 @@ public class ObjectionTiBaoCountVO {
 
     public void setEvaluate(Integer evaluate) {
         this.evaluate = evaluate;
+    }
+
+    public Integer getAdopt() {
+        return adopt;
+    }
+
+    public void setAdopt(Integer adopt) {
+        this.adopt = adopt;
     }
 }

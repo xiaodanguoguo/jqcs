@@ -9,17 +9,17 @@
                     <th class="table-list-currentrow-theader" width="5%">
                         <input type="checkbox" id="checkAll" comtype="checkAll" cond="" class="clsAllChk" uniontableid="tableList" chkid="chkCoding">
                     </th>
-                    <th class="table-list-currentrow-theader" width="12%">质保书编号</th>
+                    <th class="table-list-currentrow-theader" width="10%">质证书编号</th>
                     <th class="table-list-currentrow-theader" width="5%">质证书类别</th>
-                    <th class="table-list-currentrow-theader"  width="10%">售达方</th>
-                    <th class="table-list-currentrow-theader"  width="10%">发车时间</th>
-                    <th class="table-list-currentrow-theader"  width="10%">炉&nbsp;(批)&nbsp;号</th>
-                    <th class="table-list-currentrow-theader" width="7%">件次</th>
-                    <th class="table-list-currentrow-theader"  width="8%">重量(kg)</th>
+                    <th class="table-list-currentrow-theader"  width="15%">售达方</th>
+                    <th class="table-list-currentrow-theader"  width="8%">发车时间</th>
+                    <th class="table-list-currentrow-theader"  width="7%">批/板/卷号</th>
+                    <th class="table-list-currentrow-theader" width="5%">件次</th>
+                    <th class="table-list-currentrow-theader"  width="6%">重量(kg)</th>
                     <th class="table-list-currentrow-theader"  width="9%">车号</th>
-                    <th class="table-list-currentrow-theader"  width="8%">产品名称</th>
-                    <th class="table-list-currentrow-theader" width="7%">规格</th>
-                    <th class="table-list-currentrow-theader" width="8%">送达方</th>
+                    <th class="table-list-currentrow-theader"  width="10%">产品名称</th>
+                    <th class="table-list-currentrow-theader" width="10%">规格</th>
+                    <th class="table-list-currentrow-theader" width="15%">送达方</th>
                 </tr>
                 <tr class="table-list-currentrow" id="templateRow" style="display: none;">
                     <td class="table-list-currentrow-tdetail">
@@ -29,7 +29,7 @@
                     <td class="table-list-currentrow-tdetail" id="millsheetType"></td>
                     <td class="table-list-currentrow-tdetail" id="zkunnr"></td>
                     <td class="table-list-currentrow-tdetail" id="createdDt"></td>
-                    <td class="table-list-currentrow-tdetail" id="zlph"></td>
+                    <td class="table-list-currentrow-tdetail" id="zcharg"></td>
                     <td class="table-list-currentrow-tdetail" id="zjishu"></td>
                     <td class="table-list-currentrow-tdetail" id="zlosmenge"></td>
                     <td class="table-list-currentrow-tdetail" id="zchehao"></td>
@@ -45,7 +45,7 @@
             <div class="split-Tab-button" id="splitBefore">
                 <span class="fl" style="line-height: 28px;">拆分订货单位:&nbsp;</span>
                 <input type="text" class="inputBase split-Table-nav__Input required fl" id="spiltCustomerText">
-                    <div class="btnBaseCommon split-Tab-Split" id="splitOpe">拆分</div>
+                <div class="btnBaseCommon split-Tab-Split" id="splitOpe">拆分</div>
                 <div class="btnBaseCommon split-Tab-Return" id="returnBookList">返回质证书管理</div>
             </div>
         </div>
@@ -53,29 +53,29 @@
             <div class="split-Table-nav">
                 <span>拆分订货单位:&nbsp;</span>
                 <!--<select class="" id="spiltCustomerText" comType="" reqPath="" reqParam="" selCode="custCode" selValue="customerName"></select>-->
-                <input type="text" class="split-Table-nav__Input required" id="spiltCustomerTextA" disabled="true">
+                <input type="text" class="split-Table-nav__Input required changeGary" id="spiltCustomerTextA" disabled="true">
                 <button class="btnBaseCommon split-Table-nav__Submit" id="submitSplit">提交</button>
                 <button class="btnLowDel split-Table-nav__Empty" id="resetInput">取消此拆分</button>
             </div>
             <table class="table-list" style="table-layout: fixed" id="tableSplitList" comType="" templateId="templateRow" idx="indexNum" reqPath="" reqParam="{}" method="POST">
                 <tr class="table-list-currentrow">
-                    <th class="table-list-currentrow-theader" width="12%">质保书编号</th>
-                    <th class="table-list-currentrow-theader" width="10%">质证书类别</th>
-                    <th class="table-list-currentrow-theader"  width="10%">售达方</th>
-                    <th class="table-list-currentrow-theader"  width="10%">发车时间</th>
-                    <th class="table-list-currentrow-theader"  width="10%">炉&nbsp;(批)&nbsp;号</th>
-                    <th class="table-list-currentrow-theader" width="7%">件次</th>
-                    <th class="table-list-currentrow-theader"  width="8%">重量(kg)</th>
+                    <th class="table-list-currentrow-theader" width="10%">质证书编号</th>
+                    <th class="table-list-currentrow-theader" width="4%">质证书类别</th>
+                    <th class="table-list-currentrow-theader"  width="15%">售达方</th>
+                    <th class="table-list-currentrow-theader"  width="8%">发车时间</th>
+                    <th class="table-list-currentrow-theader"  width="7%">批/板/卷号</th>
+                    <th class="table-list-currentrow-theader" width="5%">件次</th>
+                    <th class="table-list-currentrow-theader"  width="6%">重量(kg)</th>
                     <th class="table-list-currentrow-theader"  width="9%">车号</th>
-                    <th class="table-list-currentrow-theader"  width="8%">产品名称</th>
-                    <th class="table-list-currentrow-theader" width="7%">规格</th>
+                    <th class="table-list-currentrow-theader"  width="10%">产品名称</th>
+                    <th class="table-list-currentrow-theader" width="10%">规格</th>
                 </tr>
                 <tr class="table-list-currentrow" id="templateRow" style="display: none">
                     <td class="table-list-currentrow-tdetail" id="millsheetNoName"></td>
                     <td class="table-list-currentrow-tdetail" id="millsheetType"></td>
                     <td class="table-list-currentrow-tdetail" id="zkunnr"></td>
                     <td class="table-list-currentrow-tdetail" id="createdDt"></td>
-                    <td class="table-list-currentrow-tdetail" id="zlph"></td>
+                    <td class="table-list-currentrow-tdetail" id="zcharg"></td>
                     <td class="table-list-currentrow-tdetail">
                         <input id="zjishu" class="required for0_9" type="text" style="width: 98%">
                     </td>

@@ -50,7 +50,7 @@
 
 .og-head-nav { width: 1200px; height: 65px; margin: 0 auto; background: #fff; }
 
-.og-head-navwrap { width: 1200px; margin: 0 auto; overflow: hidden; background: #6390f3; color: #fff; }
+.og-head-navwrap { width: 1200px; margin: 0 auto; overflow: hidden; background: #6390f3; color: #fff; font-size: 14px; }
 
 .og-head-navlogo { /* width: 280px;*/ /*height: 100px;*/ display: block; float: left; padding-left: 10px; }
 
@@ -106,7 +106,7 @@
 
 .arrow-span { font-size: 14px; }
 
-.og-head-maincontent { width: 990px; position: absolute; right: 0; top: 0px; min-height: 750px; background-color: #fff; }
+.og-head-maincontent { width: 990px; position: absolute; right: 0; top: 0px; min-height: 701px; background-color: #fff; }
 
 .navwrap-arr-div { float: left; margin-top: 12px; }
 
@@ -120,14 +120,14 @@
 
 .navwrap-role-div span { display: inline-block; line-height: 60px; }
 
-.og-head-navwrap-box { line-height: 65px; margin-right: 24px; }
+.og-head-navwrap-box { line-height: 65px; margin-right: 15px; }
 
-.og-head-navwrap-boxList { float: left; margin-left: 30px; color: #fff; }
+.og-head-navwrap-boxList { float: left; margin-left: 15px; color: #fff; }
 
 .og-head-navwrap-opeBox { padding-right: 20px; }
 
 .og-head-navwrap-opeBoxList { margin-right: 6px; color: #fff; float: left; line-height: 65px; }
 
-.og-head-navwrap-opeBoxListImg { width: 30px; height: 30px; margin-right: 6px; margin-top: 35px; background-size: 30px 30px; }
+.og-head-navwrap-opeBoxListImg { width: 30px; height: 30px; margin-right: 6px; margin-top: 18px; background-size: 30px 30px; }
 
 .og-homePage-name { font-size: 28px; line-height: 100px; color: #fff; margin-left: 14px; }

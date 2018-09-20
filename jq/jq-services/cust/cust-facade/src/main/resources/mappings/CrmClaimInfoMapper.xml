@@ -34,7 +34,7 @@
     <result column="OBJECTION_NUM" property="objectionNum" jdbcType="NUMERIC" />
     <result column="END_PROCESSING_TECH" property="endProcessingTech" jdbcType="VARCHAR" />
     <result column="CLAIM_DESC" property="claimDesc" jdbcType="VARCHAR" />
-    <result column="CLAIM_REASION" property="claimReason" jdbcType="VARCHAR" />
+    <result column="CLAIM_REASON" property="claimReason" jdbcType="VARCHAR" />
     <result column="CLAIM_STATE" property="claimState" jdbcType="VARCHAR" />
     <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
     <result column="CHECK_STATE" property="checkState" jdbcType="VARCHAR" />
@@ -65,7 +65,7 @@
     LAST_USER_TEL, LAST_USER_EMAIL, STEEL_TYPE, CLAIM_TYPE, BATTEN_PLATE_NO, PRO_PROBLEM, 
     DESIGNATION, USED, CONTRACT_NO, CONTRACT_VOLUME, SIZE_MARK, ORIGINAL_WEIGHT, ORDER_NO, 
     ORIGINAL_CAR_NO, CONTRACT_UNIT_PRICE, OBJECTION_NUM, END_PROCESSING_TECH, CLAIM_DESC, 
-    CLAIM_REASION, CLAIM_STATE, FILE_PATH, CHECK_STATE, REJECT_REASON, CREATED_BY, CREATED_DT, 
+    CLAIM_REASON, CLAIM_STATE, FILE_PATH, CHECK_STATE, REJECT_REASON, CREATED_BY, CREATED_DT,
     UPDATED_BY, UPDATED_DT, VERSION,DISSENTING_UNIT,INQUIRE_STATE
   </sql>
   <!--<select id="select" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInfo" >
@@ -92,7 +92,7 @@
       USED, CONTRACT_NO, CONTRACT_VOLUME, 
       SIZE_MARK, ORIGINAL_WEIGHT, ORDER_NO, 
       ORIGINAL_CAR_NO, CONTRACT_UNIT_PRICE, OBJECTION_NUM, 
-      END_PROCESSING_TECH, CLAIM_DESC, CLAIM_REASION, 
+      END_PROCESSING_TECH, CLAIM_DESC, CLAIM_REASON,
       CLAIM_STATE, FILE_PATH, CHECK_STATE, 
       REJECT_REASON, CREATED_BY, CREATED_DT, 
       UPDATED_BY, UPDATED_DT, VERSION,DISSENTING_UNIT,INQUIRE_STATE,REPORT_PICTURE,OBJECTION_CONFIRMATION
@@ -218,7 +218,7 @@
         CLAIM_DESC,
       </if>
       <if test="claimReason != null and claimReason != ''" >
-        CLAIM_REASION,
+        CLAIM_REASON,
       </if>
       <if test="claimState != null and claimState != ''" >
         CLAIM_STATE,
@@ -490,7 +490,7 @@
         CLAIM_DESC = #{claimDesc,jdbcType=VARCHAR},
       </if>
       <if test="claimReason != null and claimReason != ''" >
-        CLAIM_REASION = #{claimReason,jdbcType=VARCHAR},
+        CLAIM_REASON = #{claimReason,jdbcType=VARCHAR},
       </if>
       <if test="claimState != null and claimState != ''" >
         CLAIM_STATE = #{claimState,jdbcType=VARCHAR},

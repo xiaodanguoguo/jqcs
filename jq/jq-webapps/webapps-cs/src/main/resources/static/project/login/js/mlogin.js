@@ -106,6 +106,10 @@ function clsMethodLee$operate(){
         $(this).attr("checked",true).addClass("changeGary");
         $("#btnLeftOpe").removeAttr("disabled").removeClass("changeGary")
     });
+    $(".login-tab-list").on("click",function(){
+        $(".login-tab-list").removeClass("login-tab-listActive");
+        $(this).addClass("login-tab-listActive");
+    });
 }
 function clsMethodLee$refresh(){
 

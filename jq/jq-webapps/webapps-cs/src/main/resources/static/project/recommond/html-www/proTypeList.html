@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="../css/product.css">
     <div class="product">
         <ul class="product-list" comtype="standardTableCtrl" templateid="templateRow" reqpath="/product/category/introduct/list" reqparam="{}" method="POST">
-            <li class="product-list-box" id="templateRow" style="display: none;">
+            <li class="product-list-box" id="templateRow" style="display: none;cursor: pointer">
                 <div class="product-list-box__line">
                     <span class="product-list-box__name" id="categoryName"></span>
                     <b class="product-list-box__paragraph" id="categoryDesc"></b>
@@ -14,7 +14,7 @@
     function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         $(cloneRow).find("#categoryName").attr("title",jsonItem.categoryName);
         $(cloneRow).find("#categoryDesc").attr("title",jsonItem.categoryDesc);
-        $(cloneRow).find("#categoryName").on("click",function(){
+        $(cloneRow).on("click",function(){
             jumpUrl("productShow.html?categoryId="+ jsonItem.cid,"0000000",0);
         })
     }

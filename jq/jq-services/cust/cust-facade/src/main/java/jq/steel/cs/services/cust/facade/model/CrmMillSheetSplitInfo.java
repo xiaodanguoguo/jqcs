@@ -67,6 +67,7 @@ public class CrmMillSheetSplitInfo {
     //private String qualityCertificateType;
 
     private String millSheetType;
+    private String millsheetType;
 
     private String saleParty;
 
@@ -81,6 +82,14 @@ public class CrmMillSheetSplitInfo {
     private String productCategory;
 
     private String specifications;
+
+    public String getMillsheetType() {
+        return millsheetType;
+    }
+
+    public void setMillsheetType(String millsheetType) {
+        this.millsheetType = millsheetType;
+    }
 
     public String getZchehao() {
         return zchehao;
