@@ -223,18 +223,26 @@ public class ObjectionChuLiController {
     @RequestMapping(value = "/preview",method = RequestMethod.POST)
     public JsonResponse<ObjectionChuLiVO> preview(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
         logger.info("参数", JsonUtil.toJson(jsonRequest));
+        CreatePdf createPdf = new CreatePdf();
         JsonResponse<ObjectionChuLiVO>  jsonResponse = new JsonResponse<>();
-        String createPdfPath = uploadConfig.getReportUrl();
+        String createPdfPath = uploadConfig.getUploadPath();
         jsonRequest.getReqBody().setReport(createPdfPath);
         try {
             ServiceResponse<ObjectionChuLiVO> serviceResponse = objectionChuLiAPI.preview(jsonRequest);
             String report = "";
             if (serviceResponse.getRetContent().getTemplateType()==1){
                 report = uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern()+serviceResponse.getRetContent().getReport();
-            }else {
-                report = uploadConfig.getDomain() +"/"+serviceResponse.getRetContent().getReport();
+            }else if(jsonRequest.getReqBody().getTemplateType()==3) {
+                //report = uploadConfig.getDomain() +"/"+serviceResponse.getRetContent().getReport();
+                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "S.pdf";
+                report = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,jsonRequest.getReqBody().getReport(),pdfName,"shoulidan");
+            }else if(jsonRequest.getReqBody().getTemplateType()==6){
+                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "X.pdf";
+                report = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,jsonRequest.getReqBody().getReport(),pdfName,"xieyishu");
+            }else if(jsonRequest.getReqBody().getTemplateType()==7){
+                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "T.pdf";
+                report = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,jsonRequest.getReqBody().getReport(),pdfName,"tongzhidan");
             }
-
             serviceResponse.getRetContent().setReport(report);
             jsonResponse.setRspBody(serviceResponse.getRetContent());
         } catch (BusinessException e) {
@@ -254,12 +262,15 @@ public class ObjectionChuLiController {
     @RequestMapping(value = "/download",method = RequestMethod.POST)
     public void download(@RequestParam("name") String jsonRequest,HttpServletResponse response){
         try {
+            CreatePdf createPdf = new CreatePdf();
             ObjectionChuLiVO objectionChuLiVO = (ObjectionChuLiVO)JsonUtil.parseObject(jsonRequest,ObjectionChuLiVO.class);
-            String createPdfPath = uploadConfig.getReportUrl();
+            //下载地址
+            String createPdfPath = uploadConfig.getUploadPath();
             objectionChuLiVO.setReport(createPdfPath);
             JsonRequest<ObjectionChuLiVO> jsonRequest1 = new JsonRequest();
             jsonRequest1.setReqBody(objectionChuLiVO);
 
+            String claimNo = (String) objectionChuLiVO.getClaimNos().get(0);
             String orgName = AssertContext.getOrgName();
             String orgCode = AssertContext.getOrgCode();
             ServiceResponse<List<ObjectionChuLiVO>> serviceResponse = objectionChuLiAPI.download(jsonRequest1);
@@ -279,22 +290,30 @@ public class ObjectionChuLiController {
                 report = "zhibaoshu.zip";
 
             }else {
-                Integer type =  serviceResponse.getRetContent().get(0).getTemplateType();
-                if (type.equals("1")){
+                Integer templateType =  serviceResponse.getRetContent().get(0).getTemplateType();
+                if (templateType ==1){
                     //协议书图片
                     report = uploadConfig.getUploadPath() + serviceResponse.getRetContent().get(0).getReport();
                     String a = serviceResponse.getRetContent().get(0).getReport();
                     String  fileName = a.substring(a.lastIndexOf("/")+1);
                     response.setHeader("Content-Disposition", "attachment;fileName="+fileName);
-                }else {
-                    report = serviceResponse.getRetContent().get(0).getReport();
+                }else if(templateType ==2 ){
+                    /*report = serviceResponse.getRetContent().get(0).getReport();
                     String a = serviceResponse.getRetContent().get(0).getReport();
                     String  fileName = a.substring(a.lastIndexOf("/")+1);
-                    response.setHeader("Content-Disposition", "attachment;fileName="+fileName);
+                    response.setHeader("Content-Disposition", "attachment;fileName="+fileName);*/
+                    String  pdfName = claimNo + "Y.pdf";
+                    report = createPdf.createPdf(claimNo,createPdfPath,pdfName,"yiyibaogao");
+                }else if (templateType ==5){
+                    String  pdfName = claimNo + "N.pdf";
+                    report = createPdf.createPdf(claimNo,createPdfPath,pdfName,"neibudiaocha");
+                }else if(templateType ==6){
+                    String  pdfName = claimNo + "W.pdf";
+                    report = createPdf.createPdf(claimNo,createPdfPath,pdfName,"waibudiaocha");
                 }
 
             }
-            //String path = servletContex.getRealPath("/");
+
 
             //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
             response.setContentType("multipart/form-data");
