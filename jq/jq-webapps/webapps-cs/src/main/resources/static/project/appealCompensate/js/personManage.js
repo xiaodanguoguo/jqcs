@@ -52,11 +52,6 @@ function clsMethodLee$init(){
 }
 function clsMethodLee$parse(){
     limitCodeDeal($("*[limitCode]"),"limitCode");
-    if($("#tabSelect li").eq(0).attr("limitCode") == "M30102"){//说明是订货单位
-        initplugPath($("#tableList2")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path2,null,"POST");
-        $("#orderUnit").remove();
-        $("#userUnit").show();
-    }
     getAjaxResult(document.body.jsLee.requestUrl.path7,"POST",{},"loginerNewsCallBack(data)");
     this.operate();
 }
@@ -67,7 +62,14 @@ function clsMethodLee$operate(){
         if($(this).attr("nidx") == 0){//订货单位
             initplugPath($("#tableList1")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
         }else{//使用单位
-            initplugPath($("#tableList2")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path2,null,"POST");
+            $("#tableList2").attr("comType","standardTableCtrl");
+            var paramJson = JSON.parse($("#tableList2").attr("reqParam"));
+            paramJson.customerId = document.body.jsLee.loginerNews.customerId;
+            paramJson.customerName = document.body.jsLee.loginerNews.customerName;
+            $("#tableList2").attr("reqParam",JSON.stringify(paramJson));
+            document.body.jsCtrl.ctrl = $("#tableList2")[0];
+            document.body.jsCtrl.init();
+            //initplugPath($("#tableList2")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path2,null,"POST");
         }
     });
 
@@ -145,10 +147,15 @@ function showErrInfoByCustomDiv(elem,error)
 function loginerNewsCallBack(data){//获取登陆人信息回调
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        //document.body.jsLee.loginerNews.customerId = data.rspBody.customerId;
+        document.body.jsLee.loginerNews.customerId = data.rspBody.customerId;
         document.body.jsLee.loginerNews.customerName = data.rspBody.customerName;
         $("#orderUnit #condcustomerName").val(document.body.jsLee.loginerNews.customerName);
         initplugPath($("#tableList1")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,document.body.jsLee.loginerNews,"POST");
+        if($("#tabSelect li").eq(0).attr("limitCode") == "M30102"){//说明是订货单位
+            initplugPath($("#tableList2")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path2,document.body.jsLee.loginerNews,"POST");
+            $("#orderUnit").remove();
+            $("#userUnit").show();
+        }
     }
 }
 

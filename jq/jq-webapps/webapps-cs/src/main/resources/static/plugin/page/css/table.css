@@ -218,13 +218,13 @@
 		.tcdPageCode a{ text-decoration:none;}
 		.tcdPageCode a:hover{ text-decoration:none;}
 		.tcdPageCode{padding: 15px 0;text-align: right;color: #ccc;font-size:12px;}
-		.tcdPageCode a{display: inline-block;color: #5f5f5f;height: 38px;	line-height: 38px;padding:0 16px;border: 1px solid #eeeeee;margin: 0 2px;vertical-align: middle;background:#fff;}
-		.tcdPageCode a:hover{text-decoration: none;border: 2px solid #59ABE3;color:#59ABE3;height: 36px;line-height: 36px;padding:0 15px;}
+		.tcdPageCode a{display: inline-block;color: #5f5f5f;height: 28px;	line-height: 28px;padding:0 16px;border: 1px solid #eeeeee;margin: 0 2px;vertical-align: middle;background:#fff;}
+		.tcdPageCode a:hover{text-decoration: none;border: 2px solid #59ABE3;color:#59ABE3;height: 26px;line-height: 26px;padding:0 15px;}
 		.tcdPageCode a.jumpPage{margin-right:0px;}
-		.tcdPageCode span.current{display: inline-block;height: 37px;line-height: 37px;padding: 0 16px;margin: 0 2px;color: #fff;background-color: #59ABE3;	border: 1px solid #59ABE3;vertical-align: middle;}
-		.tcdPageCode span.disabled{	display: inline-block;height: 37px;line-height: 37px;padding: 0 16px;margin: 0 2px;	color: #bfbfbf;background: #f2f2f2;border: 1px solid #eeeeee;vertical-align: middle;}
-		.tcdPageCode span.totalPage{display: inline-block;vertical-align: middle;height:40px;line-height: 40px;}
-		.tcdPageCode input{box-sizing:content-box;margin-top: -3px;text-align: center;border:1px solid #eee;width:41px;font-size:14px;height:14px;line-height:14px;padding:12px 5px;}
+		.tcdPageCode span.current{display: inline-block;height: 27px;line-height: 27px;padding: 0 16px;margin: 0 2px;color: #fff;background-color: #59ABE3;	border: 1px solid #59ABE3;vertical-align: middle;}
+		.tcdPageCode span.disabled{	display: inline-block;height: 27px;line-height: 27px;padding: 0 16px;margin: 0 2px;	color: #bfbfbf;background: #f2f2f2;border: 1px solid #eeeeee;vertical-align: middle;}
+		.tcdPageCode span.totalPage{display: inline-block;vertical-align: middle;height: 30px;;line-height: 30px;}
+		.tcdPageCode input{box-sizing:content-box;margin-top: -3px;text-align: center;border:1px solid #eee;width:41px;font-size:14px;height:14px;line-height:14px;padding:6px 5px;}
 		.tcdPageCode input:focus{border:1px solid #59ABE3;}
 
 		/**********************************************************/
@@ -233,12 +233,12 @@
 		.tcdPageCode1 a{ text-decoration:none;}
 		.tcdPageCode1 a:hover{ text-decoration:none;}
 		.tcdPageCode1{padding: 15px 0;text-align: left;color: #ccc;font-size:12px;}
-		.tcdPageCode1 a{display: inline-block;color: #5f5f5f;height: 38px;	line-height: 38px;padding:0 16px;border: 1px solid #eeeeee;margin: 0 2px;vertical-align: middle;background:#fff;}
-		.tcdPageCode1 a:hover{text-decoration: none;border: 2px solid #59ABE3;color:#59ABE3;height: 36px;line-height: 36px;padding:0 15px;}
+		.tcdPageCode1 a{display: inline-block;color: #5f5f5f;height: 28px;	line-height: 28px;padding:0 16px;border: 1px solid #eeeeee;margin: 0 2px;vertical-align: middle;background:#fff;}
+		.tcdPageCode1 a:hover{text-decoration: none;border: 2px solid #59ABE3;color:#59ABE3;height: 26px;line-height: 26px;padding:0 15px;}
 		.tcdPageCode1 a.jumpPage{margin-right:0px;}
-		.tcdPageCode1 span.current{display: inline-block;height: 38px;line-height: 38px;padding: 0 16px;margin: 0 2px;color: #fff;background-color: #59ABE3;	border: 1px solid #59ABE3;vertical-align: middle;}
-		.tcdPageCode1 span.disabled{display: inline-block;height: 38px;line-height: 38px;padding: 0 16px;margin: 0 2px;	color: #bfbfbf;background: #f2f2f2;border: 1px solid #eeeeee;vertical-align: middle;}
-		.tcdPageCode1 span.totalPage{display: inline-block;vertical-align: middle;height:40px;line-height: 40px;}
+		.tcdPageCode1 span.current{display: inline-block;height: 28px;line-height: 28px;padding: 0 16px;margin: 0 2px;color: #fff;background-color: #59ABE3;	border: 1px solid #59ABE3;vertical-align: middle;}
+		.tcdPageCode1 span.disabled{display: inline-block;height: 28px;line-height: 28px;padding: 0 16px;margin: 0 2px;	color: #bfbfbf;background: #f2f2f2;border: 1px solid #eeeeee;vertical-align: middle;}
+		.tcdPageCode1 span.totalPage{display: inline-block;vertical-align: middle;height: 30px;;line-height: 30px;}
 		.tcdPageCode1 input{box-sizing:content-box;margin-top: -3px;text-align: center;border:1px solid #eee;width:41px;font-size:14px;height:14px;line-height:14px;padding:0 5px;}
 		.tcdPageCode1 input:focus{border:1px solid #59ABE3;}
 

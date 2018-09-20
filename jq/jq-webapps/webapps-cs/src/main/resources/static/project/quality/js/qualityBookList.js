@@ -39,7 +39,7 @@ function clsMethodLee$operate(){
     this.previewOpe.on("click",function(){//预览操作  打开弹框 初始化数据
         if($("#tableList")[0].cacheArr.length == 0){
             var alertBox=new clsAlertBoxCtrl();
-            alertBox.Alert("请勾选将要预览的质保书","失败提示");
+            alertBox.Alert("请勾选将要预览的质证书","失败提示");
         }else{
             var millSheetNoArr = [];
             for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
@@ -59,7 +59,7 @@ function clsMethodLee$operate(){
     this.downLoadOpe.on("click",function () {//下载
         if($("#tableList")[0].cacheArr.length == 0){
             var alertBox=new clsAlertBoxCtrl();
-            alertBox.Alert("请勾选将要下载的质保书","失败提示");
+            alertBox.Alert("请勾选将要下载的质证书","失败提示");
         }else{
             var millSheetNoArr = [];
             for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){

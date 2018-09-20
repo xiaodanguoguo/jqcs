@@ -33,6 +33,7 @@ public class CrmLastuserInfoServiceImpl implements CrmLastuserInfoService{
                 crmLastuserInfo1.setUpdatedDt(new Date());
                 crmLastuserInfo1.setUpdatedBy(orgCode);
                 crmLastuserInfo1.setDefaultFlag("N");
+                crmLastuserInfo1.setCustomerId(crmLastuserInfo.getCustomerId());
                 crmLastuserInfoMapper.updateAll(crmLastuserInfo1);
             }else {
                 //如果是第一条就设置默认联系人
