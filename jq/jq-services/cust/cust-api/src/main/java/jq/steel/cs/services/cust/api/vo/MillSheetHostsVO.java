@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 public class MillSheetHostsVO implements Serializable {
+    //是否回退
+    private String isReback;
 
 
     private  String originalCarNo;
@@ -118,6 +120,14 @@ public class MillSheetHostsVO implements Serializable {
     private  String spiltCustomer;
 
     private  String productName;
+
+    public String getIsReback() {
+        return isReback;
+    }
+
+    public void setIsReback(String isReback) {
+        this.isReback = isReback;
+    }
 
     public String getProductName() {
         return productName;
