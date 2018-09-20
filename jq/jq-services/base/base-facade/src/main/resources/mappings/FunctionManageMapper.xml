@@ -244,12 +244,11 @@
     from function_manage f
     where 1=1
       and f.IS_DELETE = 0
-      <if test="orgIdAlls != null">
-          AND f.ORG_ID in
-          <foreach collection="orgIdAlls" close=")" open="(" item="all" separator=",">
-              #{all}
-          </foreach>
-      </if>
+    and f.FUNCTION_ID in (select fac.FUNCTION_ID from function_manage fac
+    LEFT JOIN acct_oper_priv_rela aoprc on aoprc.FUNCTION_ID=fac.FUNCTION_ID
+    LEFT JOIN acct_role_real arrc on arrc.ROLE_ID=aoprc.ROLE_ID
+    where arrc.ACCT_ID=#{acctId} and aoprc.FUNCTION_ID is not null
+    )
     ) f2 <trim prefix="WHERE" prefixOverrides="AND |OR">
       <if test="parentApplicationName != null and parentApplicationName != '' "  >
         OR f2.FUNCTION_TITLE  LIKE '%' || #{parentApplicationName} ||'%'
@@ -282,7 +281,11 @@
     where
     f.PARENT_APPLICATION_ID is null
     and f.IS_DELETE = 0
-
+    and f.FUNCTION_ID in (select fac.FUNCTION_ID from function_manage fac
+    LEFT JOIN acct_oper_priv_rela aoprc on aoprc.FUNCTION_ID=fac.FUNCTION_ID
+    LEFT JOIN acct_role_real arrc on arrc.ROLE_ID=aoprc.ROLE_ID
+    where arrc.ACCT_ID=#{acctId} and aoprc.FUNCTION_ID is not null
+    )
     <!--<if test="orgId != null and orgId !='' " >-->
       <!--AND f.ORG_ID = #{orgId}-->
     <!--</if>-->
@@ -324,7 +327,11 @@
     where
      1=1
     and f.IS_DELETE = 0
-
+    and f.FUNCTION_ID in (select fac.FUNCTION_ID from function_manage fac
+    LEFT JOIN acct_oper_priv_rela aoprc on aoprc.FUNCTION_ID=fac.FUNCTION_ID
+    LEFT JOIN acct_role_real arrc on arrc.ROLE_ID=aoprc.ROLE_ID
+    where arrc.ACCT_ID=#{acctId} and aoprc.FUNCTION_ID is not null
+    )
     <!--<if test="orgId != null and orgId !='' " >-->
       <!--AND f.ORG_ID = #{orgId}-->
     <!--</if>-->
@@ -389,6 +396,12 @@
     f1.PARENT_APPLICATION_ID IS NULL
     AND f1. STATUS = 1
     AND f1.IS_DELETE = 0
+
+    and f1.FUNCTION_ID in (select fac.FUNCTION_ID from function_manage fac
+    LEFT JOIN acct_oper_priv_rela aoprc on aoprc.FUNCTION_ID=fac.FUNCTION_ID
+    LEFT JOIN acct_role_real arrc on arrc.ROLE_ID=aoprc.ROLE_ID
+    where arrc.ACCT_ID=#{acctId} and aoprc.FUNCTION_ID is not null
+    )
     <!--<if test="orgId != null and orgId !='' " >-->
       <!--AND f1.ORG_ID = #{orgId}-->
     <!--</if>-->
@@ -431,6 +444,12 @@
     <if test="parentApplicationId != null and parentApplicationId != '' ">
       AND f1.PARENT_APPLICATION_ID = #{parentApplicationId}
     </if>
+
+    and f1.FUNCTION_ID in (select fac.FUNCTION_ID from function_manage fac
+    LEFT JOIN acct_oper_priv_rela aoprc on aoprc.FUNCTION_ID=fac.FUNCTION_ID
+    LEFT JOIN acct_role_real arrc on arrc.ROLE_ID=aoprc.ROLE_ID
+    where arrc.ACCT_ID=#{acctId} and aoprc.FUNCTION_ID is not null
+    )
     <!--<if test="orgId != null and orgId !='' " >-->
     <!--AND f1.ORG_ID = #{orgId}-->
     <!--</if>-->

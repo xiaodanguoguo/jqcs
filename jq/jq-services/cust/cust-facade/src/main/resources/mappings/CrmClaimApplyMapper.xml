@@ -173,6 +173,9 @@
     LEFT JOIN WARRANTY.CRM_CLAIM_INFO C ON A.CLAIM_NO = C.CLAIM_NO
 
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="sid != null" >
+        AND  A.SID = #{sid,jdbcType=NUMERIC}
+      </if>
       <if test="endDt != null and endDt != ''" >
         AND  #{endDt,jdbcType=TIMESTAMP} &gt;= A.PRESENTATION_DATE
       </if>
@@ -748,6 +751,7 @@
     A.PRODUCT_NAME,
     A.DESIGNATION,
     A.SIZE_MARK,
+    A.ORDER_NO,
     C.CLAIM_TYPE,
     A.OBJECTION_NUM,
     C.INQUIRE_STATE,
@@ -811,7 +815,7 @@
           and a.CLAIM_STATE = #{claimState}
         </when>
         <otherwise>
-          and a.CLAIM_STATE = 'CREATED' or a.CLAIM_STATE = 'PRESENT' or a.CLAIM_STATE = 'REJECT'
+          and a.CLAIM_STATE = 'NEW' or a.CLAIM_STATE = 'PRESENT' or a.CLAIM_STATE = 'REJECT'
         </otherwise>
       </choose>
     </trim>
@@ -826,6 +830,7 @@
     A.PRODUCT_NAME,
     A.DESIGNATION,
     A.SIZE_MARK,
+    A.ORDER_NO,
     C.CLAIM_TYPE,
     A.OBJECTION_NUM,
     C.INQUIRE_STATE,

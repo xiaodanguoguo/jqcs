@@ -1,6 +1,7 @@
 package jq.steel.cs.webapps.cs.controller.sysbasics;
 
 
+import com.ebase.core.AssertContext;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
@@ -47,8 +48,12 @@ public class FunctionManageController {
                 result.setRetCode("0102005");
                 return result;
             }
+
+            FunctionManageVO functionManageVO=jsonRequest.getReqBody();
+            functionManageVO.setAcctId(AssertContext.getAcctId());
+
             //根据service层返回的编码做不同的操作
-            ServiceResponse<HashMap> response=functionManageAPI.functionManageList(jsonRequest.getReqBody());
+            ServiceResponse<HashMap> response=functionManageAPI.functionManageList(functionManageVO);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode())) {
                 result.setRspBody(response.getRetContent());
                 //如果需要异常信息
@@ -126,8 +131,10 @@ public class FunctionManageController {
                 result.setRetCode("0102005");
                 return result;
             }
+            FunctionManageVO functionManageVO=jsonRequest.getReqBody();
+            functionManageVO.setAcctId(AssertContext.getAcctId());
             //根据service层返回的编码做不同的操作
-            ServiceResponse<HashMap> response=functionManageAPI.functionManageRoleList(jsonRequest.getReqBody());
+            ServiceResponse<HashMap> response=functionManageAPI.functionManageRoleList(functionManageVO);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode())) {
                 result.setRspBody(response.getRetContent());
                 //如果需要异常信息
