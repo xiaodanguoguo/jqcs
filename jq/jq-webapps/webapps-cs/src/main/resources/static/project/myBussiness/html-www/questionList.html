@@ -186,7 +186,7 @@
         });
         //子表保存
         $("#btnCSave").click(function(){
-            initValidateNoBind();
+            //initValidateNoBind();
             var obj = new clsValidateCtrl();
             if(obj.validateAll())
             {
@@ -348,7 +348,7 @@
                         <div class="btnLowDel" id="btnDelete" unionTableId="questionList">清除</div>
                         <div class="btnBaseSave" id="btnSave">保存</div>
                         <div class="btnLowNew" id="btnPreview">预览</div>
-                        <button type="button" class="btnLowNew" id="btnSend">下发</button>
+                        <button type="button" class="btnLowNew" id="btnSend" style="line-height: 28px;height: 28px;position: relative;top: 2px;">下发</button>
                     </div>
                     <table class="table-list" chkId="questionRadio" insertid="btnInsert" deleteid="btnDelete" id="questionList" comtype="standardEditTableCtrl" page="tcdPageCode" templateid="templateRow" reqpath="/question/list" reqparam="{}" method="POST" nodata="noDataCon">
                         <tr class="table-list-currentrow">
@@ -361,11 +361,11 @@
                         </tr>
                         <tr id="templateRow" style="display:none;" class="table-list-currentrow">
                             <td class="table-list-currentrow-tdetail"><input type="radio" name="questionRadio" id="questionRadio"></td>
-                            <td class="table-list-currentrow-tdetail" id="messageNumber"></td>
-                            <td class="table-list-currentrow-tdetail" id="createDt"></td>
-                            <td class="table-list-currentrow-tdetail" id="questionStatusText"></td>
+                            <td class="table-list-currentrow-tdetail" id="messageNumber" style="text-align: center"></td>
+                            <td class="table-list-currentrow-tdetail" id="createDt" style="text-align: center"></td>
+                            <td class="table-list-currentrow-tdetail" id="questionStatusText" style="text-align: center"></td>
                             <td class="table-list-currentrow-tdetail"><input type="text" id="questionTitle" class="required"></td>
-                            <td class="table-list-currentrow-tdetail"><input type="text" name="endDt" id="endDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></td>
+                            <td class="table-list-currentrow-tdetail"><input type="text" name="endDt" id="endDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"  style="text-align: center" /></td>
                         </tr>
                         
                     </table>
@@ -377,8 +377,8 @@
                </div>
                <div class="establish-content-tableRight">
                 <div class="establish-content-tableRightbutton" style="padding: 26px 0;">
-                        <button type="button" disabled="disabled" class="btnLowNew changeGary" id="btnCInsert"  unionTableId="questionCList">新增</button>
-                        <button type="button" class="btnLowDel changeGary" id="btnCDelete" disabled="disabled"  unionTableId="questionCList">清除</button>
+                        <button type="button" disabled="disabled" class="btnLowNew changeGary" id="btnCInsert"  unionTableId="questionCList" style="line-height: 28px;height: 28px;position: relative;top: 2px;">新增</button>
+                        <button type="button" class="btnLowDel changeGary" id="btnCDelete" disabled="disabled"  unionTableId="questionCList" style="line-height: 28px;height: 28px;position: relative;top: 2px;">清除</button>
                         <button type="button" class="btnBaseSave changeGary" disabled="disabled" id="btnCSave">保存</button>
                 </div>
                 <table class="table-list" chkId="questionCheck" insertid="btnCInsert" deleteid="btnCDelete" id="questionCList" comtype="" idx="rowNum" templateid="templateRowC" reqpath="" reqparam="{}" method="POST" style="table-layout: fixed" chkId="questionCheck" >
@@ -389,8 +389,8 @@
                         <th  class="table-list-currentrow-theader" style="width: 45%">答题选项</th>
                     </tr>
                     <tr class="table-list-currentrow" id="templateRowC" style="display:none">
-                        <td class="table-list-currentrow-tdetail"><input type="checkbox" id="questionCheck" class="clsChk"></td>
-                        <td class="table-list-currentrow-tdetail" id="rowNum">1</td>
+                        <td class="table-list-currentrow-tdetail"><input type="checkbox" id="questionCheck" class="clsChk" style="margin-left: 5px;"></td>
+                        <td class="table-list-currentrow-tdetail" id="rowNum"  style="text-align: center">1</td>
                         <td class="table-list-currentrow-tdetail"><input type="text" id="itemTitle" style="width: 178px;"></td>
                         <td class="table-list-currentrow-tdetail" width="14%">
                             <ul>

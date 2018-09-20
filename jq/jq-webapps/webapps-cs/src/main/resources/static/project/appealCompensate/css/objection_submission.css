@@ -26,7 +26,7 @@
 
 .submission-box-list__Every .submission-box-list__Select { width: 197px; }
 
-.submission-box-button { margin-top: 26px; margin-left: 22px; }
+.submission-box-button { /* margin-top: 26px;*/ margin-left: 22px; }
 
 .submission-box-button div { margin-right: 4px; }
 
