@@ -33,7 +33,7 @@ public class CreatePdf {
                 ReportUtils.exportToPDF(fos, iReport);
             fos.flush();
             fos.close();
-            //file.setWritable(true, false);    //设置写权限，windows下不用此语句
+            file.setWritable(true, false);    //设置写权限，windows下不用此语句
             return fileName;
         } catch (Exception e1) {
             // TODO Auto-generated catch block
