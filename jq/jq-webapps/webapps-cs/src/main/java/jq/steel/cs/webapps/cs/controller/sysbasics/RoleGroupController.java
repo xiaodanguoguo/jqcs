@@ -1,5 +1,6 @@
 package jq.steel.cs.webapps.cs.controller.sysbasics;
 
+import com.ebase.core.AssertContext;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
@@ -149,6 +150,8 @@ public class RoleGroupController {
         JsonResponse<RoleGroupVO> result = new JsonResponse<>();
         try {
             //根据service层返回的编码做不同的操作
+            jsonRequest.getReqBody().setCreatedBy(AssertContext.getAcctId());
+            jsonRequest.getReqBody().setUpdatedBy(AssertContext.getAcctId());
             ServiceResponse<RoleGroupVO> response=roleGroupAPI.keepRoleGroup(jsonRequest.getReqBody());
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode())) {
                 result.setRspBody(response.getRetContent());

@@ -210,12 +210,12 @@ public class RoleGroupServiceImpl implements RoleGroupService {
             //返回删除此数据的父级ID
             roleGroup.setRoleGroupId(group1.getParentApplicationId());
         }else if(SysPramType.UPDATE.getMsg().equals(opt)){
-            roleGroup.setUpdatedBy("修改人");
+//            roleGroup.setUpdatedBy("修改人");
             roleGroup.setUpdatedTime(new Date());
             //修改
             roleGroupMapper.updateByPrimaryKeySelective(roleGroup);
         }else if(SysPramType.INSERT.getMsg().equals(opt)){
-            roleGroup.setCreatedBy("创建人");
+//            roleGroup.setCreatedBy("创建人");
             roleGroup.setCreatedTime(new Date());
             roleGroup.setIsDelete(IsDelete.NO.getCode());
             String idFullPath="";

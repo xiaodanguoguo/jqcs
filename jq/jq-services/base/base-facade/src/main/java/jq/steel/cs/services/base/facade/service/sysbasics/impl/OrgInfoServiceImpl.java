@@ -133,11 +133,15 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		childorgInfoMapper.forEach(org -> map.put(org.getId(), org));
 
 		for (OrgInfo org : childorgInfoMapper) {
-			OrgInfo parent = map.get(org.getParentId());
-			if (parent != null)
-				parent.addChild(org);
-			else
-				rootOrg = org;
+			if (!org.getStatus().toString().equals(Status.HOLD_AUDIT.getCode()) &&
+					!org.getStatus().toString().equals(Status.PASS.getCode())) {
+				OrgInfo parent = map.get(org.getParentId());
+				if (parent != null)
+					parent.addChild(org);
+				else
+					rootOrg = org;
+			}
+
 		}
 		return rootOrg;
 	}
