@@ -660,15 +660,25 @@
       <if test="battenPlateNo != null and battenPlateNo != ''" >
         AND A.BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR}
       </if>
-      <if test="claimState != null and claimState != ''" >
-        AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
-      </if>
       <if test="manufactor != null and manufactor != ''" >
         AND  B.DEPT_CODE = #{manufactor,jdbcType=VARCHAR}
       </if>
       <if test="designation != null and designation != ''" >
         AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}
       </if>
+
+      <if test="claimState != null and claimState != ''" >
+        AND A.CLAIM_STATE = #{claimState}
+      </if>
+
+      <if test="inquireState != null and inquireState != ''" >
+        AND A.INQUIRE_STATE = #{inquireState}
+      </if>
+
+      <if test="agreementState != null and agreementState != ''" >
+        AND E.AGREEMENT_STATE = #{agreementState}
+      </if>
+
     </trim>
   </select>
   <!--销售审核查询-->
