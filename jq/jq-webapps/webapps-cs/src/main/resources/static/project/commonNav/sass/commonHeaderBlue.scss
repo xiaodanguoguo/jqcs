@@ -184,6 +184,9 @@
       color: $fc_66;
       .og-head-mainlt__sidebar--shrinkActive{
         color: $fc_main !important;
+        a{
+          color: $fc_main !important;
+        }
       }
       .og-head-mainlt__sidebar--shrink{
         width:170px;
