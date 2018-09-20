@@ -228,7 +228,7 @@ function blurCheck(dom,doms,markRow){//dom当前事件节点，doms所有这个�
 function submitSplitCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        //赋值质保书编号   输入框置灰
+        //赋值质证书编号   输入框置灰
         document.body.jsLee.submitBox.find("tr[id=cloneRow]").each(function(){
             $(this).find("#millsheetNoName").html(data.rspBody.millsheetNo);
             $(this).find("#zjishu").attr("disabled",true);
