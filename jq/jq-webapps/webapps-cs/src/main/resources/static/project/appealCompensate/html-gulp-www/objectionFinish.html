@@ -54,7 +54,7 @@
 		        $(".og-head-mainlt__sidebar").eq($(this).parents(".og-head-navlist__item").index()).css("display","")
 			})
 			//左侧的点击事件
-			$(".og-head-mainlt__sidebar .og-head-mainlt__sasety").on("click",function(){
+			$("#js-leftNavBar .og-head-mainlt__sasety").on("click",function(){
                 $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
 			    $(this).addClass("og-head-mainlt__sidebar--shrinkActive");
 			    setCookie("navListIdx",$(this).index());
@@ -215,6 +215,10 @@
         background: #fff;
         border: 0;
         line-height: 24px!important;
+    }
+    .chosen-container{
+        width: 192px;
+        margin-left: 0;
     }
 </style>
 <script src="../js/objectionFinish.js"></script>

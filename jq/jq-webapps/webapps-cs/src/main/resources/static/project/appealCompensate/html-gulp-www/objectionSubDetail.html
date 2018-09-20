@@ -54,7 +54,7 @@
 		        $(".og-head-mainlt__sidebar").eq($(this).parents(".og-head-navlist__item").index()).css("display","")
 			})
 			//左侧的点击事件
-			$(".og-head-mainlt__sidebar .og-head-mainlt__sasety").on("click",function(){
+			$("#js-leftNavBar .og-head-mainlt__sasety").on("click",function(){
                 $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
 			    $(this).addClass("og-head-mainlt__sidebar--shrinkActive");
 			    setCookie("navListIdx",$(this).index());
@@ -212,6 +212,14 @@
 <script type="text/javascript" charset="utf-8" src="../../../plugin/ueditor/ueditor.all.js"> </script>
 <script type="text/javascript" charset="utf-8" src="../../../plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
 <link rel="stylesheet" href="../css/newsTotal.css">
+<style>
+    input::-webkit-input-placeholder {
+        text-align: left;color: #aab2bd;font-size: 12px;
+    }
+    textarea::-webkit-input-placeholder {
+        text-align: left;color: #aab2bd;font-size: 12px;
+    }
+</style>
 <script src="../js/objectionSubDetail.js"></script>
     <div class="newsList" id="submitBox">
         <div class="newsList-search" style="height: 58px">
@@ -370,7 +378,7 @@
                     </li>
                     <li class="newsList-content-main-list2">
                         <span class="newsList-content-mainList-title fl">合同重量:</span>
-                        <input id="contractVolume" class="inputBase newsList-content-mainList-text fl forallInt" type="text" disabled="true">
+                        <input id="contractVolume" class="inputBase newsList-content-mainList-text" type="text" disabled="true">
                     </li>
                     <li class="newsList-content-main-list2">
                         <span class="newsList-content-mainList-title fl"><i class="mustText disNone">*</i>合同规格:</span>
@@ -413,7 +421,7 @@
                         <textarea id="claimDesc" class="inputBase newsList-content-mainList-text fl required"  style="resize:none" placeholder="涉及到多份质证书或者多个批/板/卷号的情况，请将所有卷号、质证书以及缺陷信息描述清楚！"></textarea>
                     </li>
                     <li class="newsList-content-main-listRow">
-                        <span class="newsList-content-mainList-title fl">异议重量</span>
+                        <span class="newsList-content-mainList-title fl">异议重量<span class="newsList-content-mainList-titleTip">（吨）:</span></span>
                         <input id="objectionNum" class="inputBase newsList-content-mainList-text fl for0_9" style="height:28px">
                     </li>
                     <li class="newsList-content-main-listRow">

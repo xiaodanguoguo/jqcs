@@ -54,7 +54,7 @@
 		        $(".og-head-mainlt__sidebar").eq($(this).parents(".og-head-navlist__item").index()).css("display","")
 			})
 			//左侧的点击事件
-			$(".og-head-mainlt__sidebar .og-head-mainlt__sasety").on("click",function(){
+			$("#js-leftNavBar .og-head-mainlt__sasety").on("click",function(){
                 $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
 			    $(this).addClass("og-head-mainlt__sidebar--shrinkActive");
 			    setCookie("navListIdx",$(this).index());
@@ -214,6 +214,10 @@
     .chosen-single{
         min-width: 170px;
     }
+    .chosen-container{
+        width: 192px;
+        margin-left: 0;
+    }
 </style>
     <div class="submission">
         <!--<div class="submission-title">
@@ -239,7 +243,7 @@
                         </select>
                     </li>
                     <li class="submission-box-list__Every">
-                        <span class="sdownloadOpeubmission-box-list__Name">异议编号:</span>
+                        <span class="submission-box-list__Name">异议编号:</span>
                         <input id="condclaimNo" type="text" class="inputBase">
                     </li>
                     <li class="submission-box-list__Every">
@@ -262,7 +266,7 @@
                     </li>
                     <li class="submission-box-list__Every" style="display: none">
                         <span class="submission-box-list__Name">异议类别:</span>
-                        <select id="condclaimType" name="" class="inputBase submission-box-list__Select">
+                        <select id="condclaimType" name="" class="inputBase submission-box-list__Select" style="margin-left: 0;width: 192px;">
                             <option value="">请选择</option>
                             <option value="0">表面外观</option>
                             <option value="1">理化性能</option>
