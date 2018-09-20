@@ -67,6 +67,8 @@ function clsMethodLee$operate(){
             }
             var importParam = "name=" + JSON.stringify(millSheetNoArr);
             $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
+            initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+
         }
     });
 
