@@ -1,10 +1,14 @@
 package jq.steel.cs.services.cust.api.vo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CrmMillCoilInfoVO {
+public class CrmMillCoilInfoVO implements Serializable {
     private Long sid;
+
+    private String state;
+
     private String zcharg;      //钢卷编号
 
     private String specs;       //钢卷规格
@@ -20,6 +24,15 @@ public class CrmMillCoilInfoVO {
     private List<CrmMillPhysicsDataVO> listForMillPhysicsData = new ArrayList<>();
 
     private int showFlag;
+
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 
     public Long getSid() {
         return sid;

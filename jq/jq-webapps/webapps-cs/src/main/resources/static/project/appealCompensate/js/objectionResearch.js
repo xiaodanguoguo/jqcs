@@ -37,13 +37,13 @@ function clsMethodLee$parse(){
     // 初始化搜索框下拉
     $("#condclaimState").chosen({
         no_results_text: "暂无结果",
-        width: "180PX",
+        width: "192PX",
         enable_split_word_search: false,
         placeholder_text_single: ""
     });
     $("#condclaimType").chosen({
         no_results_text: "暂无结果",
-        width: "180PX",
+        width: "192PX",
         enable_split_word_search: false,
         placeholder_text_single: ""
     });

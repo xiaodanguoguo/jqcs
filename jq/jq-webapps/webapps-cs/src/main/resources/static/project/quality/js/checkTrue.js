@@ -82,5 +82,5 @@ function uploadCheckCallBack(data){
 
 function clsUploadCtrl$successAfter(ctrl, response)
 {
-    $("#fileUrl").val(response.rspBody.originalName).attr("allPath",response.rspBody.viewUrl);
+    $("#fileUrl").val(response.rspBody.originalName).attr("allPath",response.rspBody.filePath);
 }

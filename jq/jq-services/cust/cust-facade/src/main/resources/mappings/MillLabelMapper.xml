@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.MillLabelMapper">
+    <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.MillLabel">
+        <id column="SID" jdbcType="DECIMAL" property="sid" />
+        <result column="ZCPMC" jdbcType="VARCHAR" property="zcpmc" />
+        <result column="ZCHARG" jdbcType="VARCHAR" property="zcharg" />
+        <result column="ZPH" jdbcType="VARCHAR" property="zph" />
+        <result column="SPECS" jdbcType="VARCHAR" property="specs" />
+        <result column="ZZXBZ" jdbcType="VARCHAR" property="zzxbz" />
+        <result column="ZLOSMENGE" jdbcType="DECIMAL" property="zlosmenge" />
+        <result column="INPUT_ZLOSMENGE" jdbcType="DECIMAL" property="inputZlosmenge" />
+        <result column="COIL_ID" jdbcType="VARCHAR" property="coilId" />
+        <result column="SUPPORT_NUMBER" jdbcType="DECIMAL" property="supportNumber" />
+        <result column="OPERATOR_ID" jdbcType="VARCHAR" property="operatorId" />
+        <result column="OPERATION_TIME" jdbcType="TIMESTAMP" property="operationTime" />
+        <result column="PRODUCTION_TIME" jdbcType="TIMESTAMP" property="productionTime" />
+        <result column="ID" jdbcType="VARCHAR" property="id" />
+        <result column="MAKE_UP" jdbcType="VARCHAR" property="makeUp" />
+        <result column="INPUT_SIGN" jdbcType="VARCHAR" property="inputSign" />
+        <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+        <result column="CREATED_BY" jdbcType="VARCHAR" property="createdBy" />
+        <result column="CREATED_DT" jdbcType="TIMESTAMP" property="createdDt" />
+        <result column="UPDATED_BY" jdbcType="VARCHAR" property="updatedBy" />
+        <result column="UPDATED_DT" jdbcType="TIMESTAMP" property="updatedDt" />
+        <result column="VERSION" jdbcType="DECIMAL" property="version" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        SID, ZCPMC, ZCHARG, ZPH, SPECS, ZZXBZ, ZLOSMENGE, INPUT_ZLOSMENGE, COIL_ID, SUPPORT_NUMBER, 
+        OPERATOR_ID, OPERATION_TIME, PRODUCTION_TIME, ID, MAKE_UP, INPUT_SIGN, REMARK, CREATED_BY, 
+        CREATED_DT, UPDATED_BY, UPDATED_DT, VERSION
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select 
+        <include refid="Base_Column_List" />
+        from MILL_LABEL
+        where SID = #{sid,jdbcType=DECIMAL}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from MILL_LABEL
+        where SID = #{sid,jdbcType=DECIMAL}
+    </delete>
+    <insert id="insert" parameterType="jq.steel.cs.services.cust.api.vo.MillLabelVO">
+        insert into MILL_LABEL (SID, ZCPMC, ZCHARG, 
+            ZPH, SPECS, ZZXBZ, 
+            ZLOSMENGE, INPUT_ZLOSMENGE, COIL_ID, 
+            SUPPORT_NUMBER, OPERATOR_ID, OPERATION_TIME, 
+            PRODUCTION_TIME, ID, MAKE_UP, 
+            INPUT_SIGN, REMARK, CREATED_BY, 
+            CREATED_DT, UPDATED_BY, UPDATED_DT, 
+            VERSION)
+        values (#{sid,jdbcType=DECIMAL}, #{zcpmc,jdbcType=VARCHAR}, #{zcharg,jdbcType=VARCHAR}, 
+            #{zph,jdbcType=VARCHAR}, #{specs,jdbcType=VARCHAR}, #{zzxbz,jdbcType=VARCHAR}, 
+            #{zlosmenge,jdbcType=DECIMAL}, #{inputZlosmenge,jdbcType=DECIMAL}, #{coilId,jdbcType=VARCHAR}, 
+            #{supportNumber,jdbcType=DECIMAL}, #{operatorId,jdbcType=VARCHAR}, #{operationTime,jdbcType=TIMESTAMP}, 
+            #{productionTime,jdbcType=TIMESTAMP}, #{id,jdbcType=VARCHAR}, #{makeUp,jdbcType=VARCHAR}, 
+            #{inputSign,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, 
+            #{createdDt,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, 
+            #{version,jdbcType=DECIMAL})
+    </insert>
+    <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.api.vo.MillLabelVO">
+        insert into MILL_LABEL
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sid != null">
+                SID,
+            </if>
+            <if test="zcpmc != null">
+                ZCPMC,
+            </if>
+            <if test="zcharg != null">
+                ZCHARG,
+            </if>
+            <if test="zph != null">
+                ZPH,
+            </if>
+            <if test="specs != null">
+                SPECS,
+            </if>
+            <if test="zzxbz != null">
+                ZZXBZ,
+            </if>
+            <if test="zlosmenge != null">
+                ZLOSMENGE,
+            </if>
+            <if test="inputZlosmenge != null">
+                INPUT_ZLOSMENGE,
+            </if>
+            <if test="coilId != null">
+                COIL_ID,
+            </if>
+            <if test="supportNumber != null">
+                SUPPORT_NUMBER,
+            </if>
+            <if test="operatorId != null">
+                OPERATOR_ID,
+            </if>
+            <if test="operationTime != null">
+                OPERATION_TIME,
+            </if>
+            <if test="productionTime != null">
+                PRODUCTION_TIME,
+            </if>
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="makeUp != null">
+                MAKE_UP,
+            </if>
+            <if test="inputSign != null">
+                INPUT_SIGN,
+            </if>
+            <if test="remark != null">
+                REMARK,
+            </if>
+            <if test="createdBy != null">
+                CREATED_BY,
+            </if>
+            <if test="createdDt != null">
+                CREATED_DT,
+            </if>
+            <if test="updatedBy != null">
+                UPDATED_BY,
+            </if>
+            <if test="updatedDt != null">
+                UPDATED_DT,
+            </if>
+            <if test="version != null">
+                VERSION,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sid != null">
+                #{sid,jdbcType=DECIMAL},
+            </if>
+            <if test="zcpmc != null">
+                #{zcpmc,jdbcType=VARCHAR},
+            </if>
+            <if test="zcharg != null">
+                #{zcharg,jdbcType=VARCHAR},
+            </if>
+            <if test="zph != null">
+                #{zph,jdbcType=VARCHAR},
+            </if>
+            <if test="specs != null">
+                #{specs,jdbcType=VARCHAR},
+            </if>
+            <if test="zzxbz != null">
+                #{zzxbz,jdbcType=VARCHAR},
+            </if>
+            <if test="zlosmenge != null">
+                #{zlosmenge,jdbcType=DECIMAL},
+            </if>
+            <if test="inputZlosmenge != null">
+                #{inputZlosmenge,jdbcType=DECIMAL},
+            </if>
+            <if test="coilId != null">
+                #{coilId,jdbcType=VARCHAR},
+            </if>
+            <if test="supportNumber != null">
+                #{supportNumber,jdbcType=DECIMAL},
+            </if>
+            <if test="operatorId != null">
+                #{operatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="operationTime != null">
+                #{operationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="productionTime != null">
+                #{productionTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="makeUp != null">
+                #{makeUp,jdbcType=VARCHAR},
+            </if>
+            <if test="inputSign != null">
+                #{inputSign,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createdDt != null">
+                #{createdDt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null">
+                #{updatedBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedDt != null">
+                #{updatedDt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.api.vo.MillLabelVO">
+        update MILL_LABEL
+        <set>
+            <if test="zcpmc != null">
+                ZCPMC = #{zcpmc,jdbcType=VARCHAR},
+            </if>
+            <if test="zcharg != null">
+                ZCHARG = #{zcharg,jdbcType=VARCHAR},
+            </if>
+            <if test="zph != null">
+                ZPH = #{zph,jdbcType=VARCHAR},
+            </if>
+            <if test="specs != null">
+                SPECS = #{specs,jdbcType=VARCHAR},
+            </if>
+            <if test="zzxbz != null">
+                ZZXBZ = #{zzxbz,jdbcType=VARCHAR},
+            </if>
+            <if test="zlosmenge != null">
+                ZLOSMENGE = #{zlosmenge,jdbcType=DECIMAL},
+            </if>
+            <if test="inputZlosmenge != null">
+                INPUT_ZLOSMENGE = #{inputZlosmenge,jdbcType=DECIMAL},
+            </if>
+            <if test="coilId != null">
+                COIL_ID = #{coilId,jdbcType=VARCHAR},
+            </if>
+            <if test="supportNumber != null">
+                SUPPORT_NUMBER = #{supportNumber,jdbcType=DECIMAL},
+            </if>
+            <if test="operatorId != null">
+                OPERATOR_ID = #{operatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="operationTime != null">
+                OPERATION_TIME = #{operationTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="productionTime != null">
+                PRODUCTION_TIME = #{productionTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="id != null">
+                ID = #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="makeUp != null">
+                MAKE_UP = #{makeUp,jdbcType=VARCHAR},
+            </if>
+            <if test="inputSign != null">
+                INPUT_SIGN = #{inputSign,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null">
+                CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createdDt != null">
+                CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null">
+                UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedDt != null">
+                UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="version != null">
+                VERSION = #{version,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where SID = #{sid,jdbcType=DECIMAL}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.api.vo.MillLabelVO">
+        update MILL_LABEL
+        set ZCPMC = #{zcpmc,jdbcType=VARCHAR},
+            ZCHARG = #{zcharg,jdbcType=VARCHAR},
+            ZPH = #{zph,jdbcType=VARCHAR},
+            SPECS = #{specs,jdbcType=VARCHAR},
+            ZZXBZ = #{zzxbz,jdbcType=VARCHAR},
+            ZLOSMENGE = #{zlosmenge,jdbcType=DECIMAL},
+            INPUT_ZLOSMENGE = #{inputZlosmenge,jdbcType=DECIMAL},
+            COIL_ID = #{coilId,jdbcType=VARCHAR},
+            SUPPORT_NUMBER = #{supportNumber,jdbcType=DECIMAL},
+            OPERATOR_ID = #{operatorId,jdbcType=VARCHAR},
+            OPERATION_TIME = #{operationTime,jdbcType=TIMESTAMP},
+            PRODUCTION_TIME = #{productionTime,jdbcType=TIMESTAMP},
+            ID = #{id,jdbcType=VARCHAR},
+            MAKE_UP = #{makeUp,jdbcType=VARCHAR},
+            INPUT_SIGN = #{inputSign,jdbcType=VARCHAR},
+            REMARK = #{remark,jdbcType=VARCHAR},
+            CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+            CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+            UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+            UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+            VERSION = #{version,jdbcType=DECIMAL}
+        where SID = #{sid,jdbcType=DECIMAL}
+    </update>
+    <select id="select" resultMap="BaseResultMap">
+        select 
+        <include refid="Base_Column_List" />
+        from MILL_LABEL
+        <include refid="Base_Where_Column_List" />
+    </select>
+    <sql id="Base_Where_Column_List">
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="sid != null">
+                and SID = #{sid,jdbcType=DECIMAL}
+            </if>
+            <if test="zcpmc != null">
+                and ZCPMC = #{zcpmc,jdbcType=VARCHAR}
+            </if>
+            <if test="zcharg != null">
+                and ZCHARG = #{zcharg,jdbcType=VARCHAR}
+            </if>
+            <if test="zph != null">
+                and ZPH = #{zph,jdbcType=VARCHAR}
+            </if>
+            <if test="specs != null">
+                and SPECS = #{specs,jdbcType=VARCHAR}
+            </if>
+            <if test="zzxbz != null">
+                and ZZXBZ = #{zzxbz,jdbcType=VARCHAR}
+            </if>
+            <if test="zlosmenge != null">
+                and ZLOSMENGE = #{zlosmenge,jdbcType=DECIMAL}
+            </if>
+            <if test="inputZlosmenge != null">
+                and INPUT_ZLOSMENGE = #{inputZlosmenge,jdbcType=DECIMAL}
+            </if>
+            <if test="coilId != null">
+                and COIL_ID = #{coilId,jdbcType=VARCHAR}
+            </if>
+            <if test="supportNumber != null">
+                and SUPPORT_NUMBER = #{supportNumber,jdbcType=DECIMAL}
+            </if>
+            <if test="operatorId != null">
+                and OPERATOR_ID = #{operatorId,jdbcType=VARCHAR}
+            </if>
+            <if test="operationTime != null">
+                and OPERATION_TIME = #{operationTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="productionTime != null">
+                and PRODUCTION_TIME = #{productionTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="id != null">
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="makeUp != null">
+                and MAKE_UP = #{makeUp,jdbcType=VARCHAR}
+            </if>
+            <if test="inputSign != null">
+                and INPUT_SIGN = #{inputSign,jdbcType=VARCHAR}
+            </if>
+            <if test="remark != null">
+                and REMARK = #{remark,jdbcType=VARCHAR}
+            </if>
+            <if test="createdBy != null">
+                and CREATED_BY = #{createdBy,jdbcType=VARCHAR}
+            </if>
+            <if test="createdDt != null">
+                and CREATED_DT = #{createdDt,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updatedBy != null">
+                and UPDATED_BY = #{updatedBy,jdbcType=VARCHAR}
+            </if>
+            <if test="updatedDt != null">
+                and UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP}
+            </if>
+            <if test="version != null">
+                and VERSION = #{version,jdbcType=DECIMAL}
+            </if>
+        </trim>
+    </sql>
+
+
+    <!--根据二维码信息查询数据-->
+    <select id="queryByQrcode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from MILL_LABEL
+        where TO_CHAR (PRODUCTION_TIME, 'yyyy-MM-dd hh24:mi') = #{productionTimeStr}
+              and ZPH = #{zph}
+              and SPECS = #{specs}
+              and ZCHARG = #{zcharg}
+    </select>
+
+    <!--用于返回质证书结构化数据-->
+    <select id="querSheeltHostsBymillLabe" resultMap="BaseResultMap">
+        SELECT
+        MSO.STATE,
+        MSO.CREATED_DT,
+        MSO.DATA_STATE,
+        MSO.MILL_SHEET_NO_OLD,
+        MSO.MILL_SHEET_NO,
+        MSO.SPECIAL_NEED,
+        MSO.PRINTABLE_NUM,
+        MSO.PRINTED_NUM,
+        MSO.MILL_SHEET_URL,
+        MSO.MILL_SHEET_NAME,
+        MSO.DEPT_CODE,
+        MSO.DOWNABLE_NUM,
+        MSO.DOWN_NUM,
+        MSO.HAVE_STATE,
+        MSO.SPLIT_STATE,
+        MSO.MILL_SHEET_TYPE,
+        MSO.SURPLUS_BATCH,
+        MSO.ZKUNNR,
+        MSO.ZKUNWE,
+        MSH.ZCHEHAO,
+        MSH.ZHTH,
+        MSH.ZCPMC,
+        MSH.ZPH,
+        MSO.SID
+        FROM
+        WARRANTY.MILL_SHEET_HOSTS MSO
+        LEFT JOIN WARRANTY.MILL_SHEET_HEAD MSH ON MSO.MILL_SHEET_NO = MSH.MILL_SHEET_NO
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="spiltCustomer != null  and zph != ''" >
+                AND MSH.SPILT_CUSTOMER = #{spiltCustomer,jdbcType=VARCHAR}
+            </if>
+            <if test="spiltCustomer != null  and zph != ''" >
+                AND MSH.SPILT_CUSTOMER = #{spiltCustomer,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </select>
+</mapper>

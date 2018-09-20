@@ -62,6 +62,8 @@ public class MillSecurityInfoController {
         try {
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            String localUrl = uploadConfig.getUploadPath()+jsonRequest.getReqBody().getFileUrl();
+            jsonRequest.getReqBody().setFileUrl(localUrl);
             ServiceResponse<MillSecurityInfoVO> serviceResponse = millSecurityInfoAPI.fuJian(jsonRequest);
             jsonResponse.setRspBody(serviceResponse.getRetContent());
         } catch (BusinessException e) {

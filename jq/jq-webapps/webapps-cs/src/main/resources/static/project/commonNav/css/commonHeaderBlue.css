@@ -86,6 +86,8 @@
 
 .og-head-mainlt .og-head-mainlt__sidebar .og-head-mainlt__sidebar--menu .og-head-mainlt__sidebar--shrinkActive { color: #6390f3 !important; }
 
+.og-head-mainlt .og-head-mainlt__sidebar .og-head-mainlt__sidebar--menu .og-head-mainlt__sidebar--shrinkActive a { color: #6390f3 !important; }
+
 .og-head-mainlt .og-head-mainlt__sidebar .og-head-mainlt__sidebar--menu .og-head-mainlt__sidebar--shrink { width: 170px; margin-top: 10px; padding-left: 20px; display: block; color: #333; position: relative; font-weight: bold; padding-bottom: 6px; }
 
 .og-head-mainlt .og-head-mainlt__sidebar .og-head-mainlt__sidebar--menu .og-head-mainlt__sidebar--shrink i { right: 20px; top: 20px; }
