@@ -116,6 +116,7 @@ public class AcctController {
             }else{
 
                 String key = CacheKeyConstant.ACCT_SESSION + Base64Util.decode(sessionId);
+                System.err.println("-------getCacheUser key-------"+key+"---------");
 
                 AcctSession acctSession = cacheService.getObject(key, AcctSession.class);
 

@@ -821,4 +821,11 @@ and arp.role_id is not null )
     where O_INFO_ID = #{orgId}
   </select>
 
+  <select id="selectAll" parameterType="jq.steel.cs.services.base.facade.model.AcctInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from acct_info
+    where is_delete = 0 and status = 1
+  </select>
+
 </mapper>

@@ -114,7 +114,7 @@
 
 .explain-span { float: left; margin-left: 20px; margin-top: 15px; }
 
-#navigation a { color: #888888; width: 50px; overflow: hidden; text-overflow: ellipsis; display: inline-block; white-space: nowrap; }
+#navigation a { color: #888888; width: 120px; overflow: hidden; text-overflow: ellipsis; display: inline-block; white-space: nowrap; }
 
 #fotTable .mod-searchBtn { margin-top: 0px; }
 

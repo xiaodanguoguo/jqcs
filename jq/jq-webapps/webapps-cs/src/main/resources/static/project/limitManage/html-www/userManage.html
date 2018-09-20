@@ -4,7 +4,7 @@
     <script src="../js/userManage.js"></script>
     <div class="useMange-content">
         <div class="useMange-content-search" id="searchBox">
-            <input class="fl useMange-content-search__input" id="condacctTitle" placeholder="查询用户">
+            <input class="fl useMange-content-search__input" id="condacctTitle" placeholder="用户名查询">
             <div class="fl useMange-content-search__btn" comType="searchBtnCtrl" cond="condacctTitle" rule="cond" unionTableId="tableList" parentId="searchBox">搜索</div>
             <div class="useMange-content-search__btn fl" id="userNew" style="margin-left: 10px;">新建</div>
         </div>
@@ -57,13 +57,13 @@
             <div class="content" style="height: 400px;!important;">
                 <div class="userNewPopup">
                     <ul class="userNewPopup-ulist clearfix">
-                        <li class="userNewPopup-ulist-list">
+                        <!--<li class="userNewPopup-ulist-list">
                             <span class="userNewPopup-ulist-list-name fl">用户类型</span>
                             <select id="acctType" type="text" class="userNewPopup-ulist-list-input">
                                 <option value="2">普通用户</option>
                                 <option value="1">管理员</option>
                             </select>
-                        </li>
+                        </li>-->
                         <li class="userNewPopup-ulist-list">
                             <span class="userNewPopup-ulist-list-name fl">名称</span>
                             <input id="acctTitle" type="text" class="userNewPopup-ulist-list-input required isLengthOf" v_maxlength="12">

@@ -224,9 +224,17 @@ public class ObjectionChuLiController {
     public JsonResponse<ObjectionChuLiVO> preview(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
         logger.info("参数", JsonUtil.toJson(jsonRequest));
         JsonResponse<ObjectionChuLiVO>  jsonResponse = new JsonResponse<>();
+        String createPdfPath = uploadConfig.getReportUrl();
+        jsonRequest.getReqBody().setReport(createPdfPath);
         try {
             ServiceResponse<ObjectionChuLiVO> serviceResponse = objectionChuLiAPI.preview(jsonRequest);
-            String report = uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern()+serviceResponse.getRetContent().getReport();
+            String report = "";
+            if (serviceResponse.getRetContent().getTemplateType()==1){
+                report = uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern()+serviceResponse.getRetContent().getReport();
+            }else {
+                report = uploadConfig.getDomain() +"/"+serviceResponse.getRetContent().getReport();
+            }
+
             serviceResponse.getRetContent().setReport(report);
             jsonResponse.setRspBody(serviceResponse.getRetContent());
         } catch (BusinessException e) {
@@ -247,8 +255,11 @@ public class ObjectionChuLiController {
     public void download(@RequestParam("name") String jsonRequest,HttpServletResponse response){
         try {
             ObjectionChuLiVO objectionChuLiVO = (ObjectionChuLiVO)JsonUtil.parseObject(jsonRequest,ObjectionChuLiVO.class);
+            String createPdfPath = uploadConfig.getReportUrl();
+            objectionChuLiVO.setReport(createPdfPath);
             JsonRequest<ObjectionChuLiVO> jsonRequest1 = new JsonRequest();
             jsonRequest1.setReqBody(objectionChuLiVO);
+
             String orgName = AssertContext.getOrgName();
             String orgCode = AssertContext.getOrgCode();
             ServiceResponse<List<ObjectionChuLiVO>> serviceResponse = objectionChuLiAPI.download(jsonRequest1);
@@ -268,14 +279,18 @@ public class ObjectionChuLiController {
                 report = "zhibaoshu.zip";
 
             }else {
-                String type =  serviceResponse.getRetContent().get(0).getTemplateType();
+                Integer type =  serviceResponse.getRetContent().get(0).getTemplateType();
                 if (type.equals("1")){
+                    //协议书图片
                     report = uploadConfig.getUploadPath() + serviceResponse.getRetContent().get(0).getReport();
                     String a = serviceResponse.getRetContent().get(0).getReport();
                     String  fileName = a.substring(a.lastIndexOf("/")+1);
                     response.setHeader("Content-Disposition", "attachment;fileName="+fileName);
-                }else if (type.equals("2")){
-
+                }else {
+                    report = serviceResponse.getRetContent().get(0).getReport();
+                    String a = serviceResponse.getRetContent().get(0).getReport();
+                    String  fileName = a.substring(a.lastIndexOf("/")+1);
+                    response.setHeader("Content-Disposition", "attachment;fileName="+fileName);
                 }
 
             }

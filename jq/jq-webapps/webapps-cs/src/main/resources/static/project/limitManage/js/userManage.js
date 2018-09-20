@@ -1,7 +1,7 @@
 function clsMethodLee(){
     /*注释*/
-    $.cookie('orgId',101);
-    $.cookie('acctType',1);
+    /*$.cookie('orgId',101);
+    $.cookie('acctType',1);*/
     /*注释*/
     this.requestUrl = {
         "path1":"/sysAcct/sysAcctList", //用户管理列表查询
@@ -59,14 +59,14 @@ function clsMethodLee$init(){
 }
 function clsMethodLee$parse(){
     //判断是个人用户还是企业用户
-    this.userId = $.cookie("orgId");
+    this.userId = getCookie("orgId");
     //判断是否用户是否是超级管理员
-    this.acctType = $.cookie("acctType");
+    this.acctType = getCookie("acctType");
     if(this.userId.length == "11"){
         $(".userNewPopup-ulist-listPosition").eq(0).remove();
     }
     if(this.acctType == 0){
-        $(".userNewPopup-ulist-listPosition").eq(1).remove();
+       // $(".userNewPopup-ulist-listPosition").eq(1).remove();
     }
     if($("#tableList").attr("reqParam")){
         var jsonParam = JSON.parse($("#tableList").attr("reqParam"));
@@ -104,7 +104,7 @@ function clsMethodLee$operate(){
     this.userNewSure.on("click",function(){//新建||编辑用户提交操作
         //获取提交入参json数据
         if(submitChek()){
-            var jsonParam = {"acctTitle":"","acctPassword":"","name":"","mobilePhone":"","email":"","acctType":""};
+            var jsonParam = {"acctTitle":"","acctPassword":"","name":"","mobilePhone":"","email":""/*,"acctType":""*/};
             getValue4Desc(jsonParam,$("#userNewPopup")[0]);
             if(document.body.jsLee.editListMark == 0){//新建操作
                 jsonParam.acctId = "";
@@ -253,7 +253,6 @@ function initplugPath(docm,comType,reqPath,reqParam,reqMethod){
 //渲染table每一行
 function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
     if(this.ctrl.id == "tableList"){//页面用户列表
-
         //进行赋值操作
         $(cloneRow).find("#nameDatil").html(jsonItem.name);
 
@@ -311,6 +310,11 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         },function(){
             $(this).find(".useMange-contentTableContent-detail").hide();
         });
+
+        if(jsonItem.acctId == getCookie("acctId")){
+            $(cloneRow).find("#disableOperate").remove();
+            $(cloneRow).find("#deleteOperate").remove();
+        }
     }else if(this.ctrl.id == "roleList"){//角色弹框列表
         if(jsonItem.orAcct == 0){//添加
             $(cloneRow).find("#operateBtn").html("添加");
@@ -538,6 +542,7 @@ function editCallBack(data){
         for(var nI = orgInfoArr.length - 1; nI >= 0; nI-- ){
             document.body.jsLee.organizationjoinId += nI==orgInfoArr.length - 1 ? orgInfoArr[nI].id : "," + orgInfoArr[nI].id;
         }
+        //$("#acctType").attr("initValue",data.rspBody.acctType).trigger('chosen:updated');;
     }
 }
 

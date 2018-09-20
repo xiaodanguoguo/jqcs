@@ -360,11 +360,11 @@
 
   <select id="findRole" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.FunctionManage">
     SELECT
-    f1.*,
-    CASE nullif(
+
+    CASE NVL(
     (
     SELECT
-    nullif(f.FUNCTION_ID, 0)
+    NVL(f.FUNCTION_ID, 0)
     FROM
     function_manage f
     LEFT JOIN acct_oper_priv_rela ao ON ao.FUNCTION_ID = f.function_id
@@ -382,7 +382,7 @@
     0
     ELSE
     1
-    END AS STATUS
+    END AS STATUS，f1.*
     FROM
     function_manage f1
     WHERE
@@ -399,11 +399,11 @@
 
 
     SELECT
-    f1.*,
-    CASE nullif(
+
+    CASE NVL(
     (
     SELECT
-    nullif(f.FUNCTION_ID, 0)
+    NVL(f.FUNCTION_ID, 0)
     FROM
     function_manage f
     LEFT JOIN acct_oper_priv_rela ao ON ao.FUNCTION_ID = f.function_id
@@ -421,7 +421,7 @@
     0
     ELSE
     1
-    END AS STATUS
+    END AS STATUS，f1.*
     FROM
     function_manage f1
     WHERE
@@ -431,9 +431,9 @@
     <if test="parentApplicationId != null and parentApplicationId != '' ">
       AND f1.PARENT_APPLICATION_ID = #{parentApplicationId}
     </if>
-    <if test="orgId != null and orgId !='' " >
-      AND f1.ORG_ID = #{orgId}
-    </if>
+    <!--<if test="orgId != null and orgId !='' " >-->
+    <!--AND f1.ORG_ID = #{orgId}-->
+    <!--</if>-->
 
 
   </select>

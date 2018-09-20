@@ -239,11 +239,10 @@ public class AcctServiceImpl implements AcctService {
                 acct.setOrgId(orgInfo.getId());
                 acct.setoInfoName(orgInfo.getOrgName());
                 acct.setOrgType(orgInfo.getOrgType());
+                acct.setOrgCode(orgInfo.getOrgCode());
 
-                if (StringUtil.isEmpty(orgInfo.getSapCode())) {
+                if (StringUtil.isNotEmpty(orgInfo.getSapCode()) && StringUtil.isNotEmpty(acct.getOrgCode())) {
                     acct.setOrgCode(orgInfo.getSapCode());
-                } else {
-                    acct.setOrgCode(orgInfo.getOrgCode());
                 }
 
                 AcctSession acctSession = loginSuccess(acct,acctLogin);
@@ -337,9 +336,9 @@ public class AcctServiceImpl implements AcctService {
 
         //生成key
         String key = CacheKeyConstant.ACCT_SESSION + acctLogin.getSessionId() + acctLogin.getClientType();
+//        String key = CacheKeyConstant.ACCT_SESSION + acctLogin.getSessionId();
+        System.err.println("--------redis login cache key --------"+key+"--------------");
 
-        //保存到 session 中 30 分钟
-        cacheService.set(key,acctSession,TIME_EXPIRE);
 
         // 用户权限
         FunctionManageVO functionManageVO = new FunctionManageVO();
@@ -349,13 +348,28 @@ public class AcctServiceImpl implements AcctService {
 
         if (CollectionUtils.isNotEmpty(authList)) {
             Map<String, String> authMap = new HashMap<>();
+            Map<String, String> authMapPath = new HashMap<>();
             List<String> limitCode = new ArrayList<>();
             for(FunctionManageVO manageVO : authList){
-                authMap.put(String.valueOf(manageVO.getFunctionId()), String.valueOf(manageVO.getFunctionId()));
-                limitCode.add(manageVO.getFunctionId().toString());
+                if (!StringUtil.isEmpty(manageVO.getFunctionCode())) {
+                    authMap.put(manageVO.getFunctionCode(), manageVO.getFunctionCode());
+                }
+                authMapPath.put(manageVO.getFunctionPath(), manageVO.getFunctionPath());
+                limitCode.add(manageVO.getFunctionCode());
             }
-            cacheService.set(authKey, authMap, TIME_EXPIRE);
+
+            acctSession.getAcct().setLimitCode(limitCode);
+            acctSession.getAcct().setAuthMap(authMap);
+            acctSession.getAcct().setAuthMapPath(authMapPath);
+        } else {
+            acctSession.getAcct().setLimitCode(new ArrayList<>());
+            acctSession.getAcct().setAuthMap(null);
+            acctSession.getAcct().setAuthMapPath(null);
         }
+
+
+        //保存到 session 中 60 分钟
+        cacheService.set(key,acctSession,TIME_EXPIRE);
 
         acctSession.setSessionId(Base64Util.encode(acctLogin.getSessionId() + acctLogin.getClientType()));
 

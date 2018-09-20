@@ -17,7 +17,7 @@ public class WebConfig {
         ServletRegistrationBean registration = new ServletRegistrationBean(new ReportServlet());
 
         registration.setLoadOnStartup(1);
-        registration.addInitParameter("configFile", ClassLoader.getSystemResource("raqsoftConfig.xml").getPath());
+        registration.addInitParameter("configFile", "/Users/xuyongming/dev/raqsoftConfig.xml");
         registration.addInitParameter("headless", "none");
         registration.setName("reportServlet");
         registration.addUrlMappings("/reportServlet");

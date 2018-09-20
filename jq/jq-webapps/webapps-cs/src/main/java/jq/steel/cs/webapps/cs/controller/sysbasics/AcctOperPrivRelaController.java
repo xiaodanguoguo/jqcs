@@ -39,16 +39,16 @@ public class AcctOperPrivRelaController {
     public JsonResponse<Integer> addAcctOperPrivRela(@RequestBody JsonRequest<AcctOperPrivRelaVO> jsonRequest){
         JsonResponse<Integer> result = new JsonResponse<>();
         try {
-            //功能ID
-            if(StringUtils.isEmpty(jsonRequest.getReqBody().getFunctionIds())){
-                result.setRetCode("0102005");
-                return result;
-            }
-            //角色ID
-            if(StringUtils.isEmpty(jsonRequest.getReqBody().getRoleId())){
-                result.setRetCode("0102005");
-                return result;
-            }
+//            //功能ID
+//            if(StringUtils.isEmpty(jsonRequest.getReqBody().getFunctionIds())){
+//                result.setRetCode("0102005");
+//                return result;
+//            }
+//            //角色ID
+//            if(StringUtils.isEmpty(jsonRequest.getReqBody().getRoleId())){
+//                result.setRetCode("0102005");
+//                return result;
+//            }
             //根据service层返回的编码做不同的操作
             ServiceResponse<Integer> response=acctOperPrivRelaAPI.addAcctOperPrivRela(jsonRequest.getReqBody());
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode())) {

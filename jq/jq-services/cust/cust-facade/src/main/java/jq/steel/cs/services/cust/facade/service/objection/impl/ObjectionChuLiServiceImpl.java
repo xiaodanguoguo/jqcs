@@ -168,25 +168,37 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
     @Override
     public ObjectionChuLiVO preview(ObjectionChuLiVO record) {
         String report = "";
-        String templateType = record.getTemplateType();
+        Integer templateType = record.getTemplateType();
         CreatePdf createPdf = new CreatePdf();
         //判断
-        if(templateType.equals("1")){
+        if(templateType ==1){
             //协议书预览(图片)
             CrmAgreementInfo  crmAgreementInfo  = new CrmAgreementInfo();
             crmAgreementInfo.setClaimNo(record.getClaimNo());
             List<CrmAgreementInfo> list= crmAgreementInfoMapper.findList(crmAgreementInfo);
-             report = list.get(0).getAgreementUrl();
+            report = list.get(0).getAgreementUrl();
             record.setReport(report);
-        }else if(templateType.equals("2")){
-            //下载质量异议报告
-            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),"yiyibaogao");
-        }else if(templateType.equals("3")){
-            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),"xieyishu");
-        }else if(templateType.equals("4")){
-            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),"xieyishu");
-        }else {
-            report = createPdf.createPdf(record.getClaimNo(),record.getReport(),"xieyishu");
+           // record.setTemplateType("1");
+        }else if(templateType ==3){
+            //打印受理单操作 3   查看pdf接口
+            ObjectionChuLiVO objectionChuLiVO = new ObjectionChuLiVO();
+            String  pdfName = record.getClaimNo() + "S.pdf";
+            String reportReturn = createPdf.createPdf(record.getClaimNo() ,record.getReport(),pdfName,"shoulidan");
+            record.setReport(reportReturn);
+        }else if(templateType ==6 ){
+            //异议处理。协议书数据模板查看下载。   6。 查看pdf接口
+            ObjectionChuLiVO objectionChuLiVO = new ObjectionChuLiVO();
+            String  pdfName = record.getClaimNo() + "X.pdf";
+            String reportReturn = createPdf.createPdf(record.getClaimNo() ,record.getReport(),pdfName,"xieyishu");
+            //record.setTemplateType("3");
+            record.setReport(reportReturn);
+        }else if (templateType ==7 ){
+            //打印通知单。7。   查看pdf接口
+            ObjectionChuLiVO objectionChuLiVO = new ObjectionChuLiVO();
+            String  pdfName = record.getClaimNo() + "T.pdf";
+            String reportReturn = createPdf.createPdf(record.getClaimNo() ,record.getReport(),pdfName,"tongzhidan");
+            //record.setTemplateType("3");
+            record.setReport(reportReturn);
         }
         return record;
     }
@@ -195,23 +207,39 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
     public List<ObjectionChuLiVO> download(ObjectionChuLiVO list) {
         CreatePdf createPdf = new CreatePdf();
         List<ObjectionChuLiVO> liVOS = new ArrayList<>();
-        String templateType = list.getTemplateType();
+        Integer templateType = list.getTemplateType();
         String claimNo = (String) list.getClaimNos().get(0);
-        if (templateType.equals("1")){
+        if (templateType==1){
             //异议提报协议书图片下载
             CrmAgreementInfo  crmAgreementInfo  = new CrmAgreementInfo();
             crmAgreementInfo.setClaimNo(claimNo);
             List<CrmAgreementInfo> crmAgreementInfos= crmAgreementInfoMapper.findList(crmAgreementInfo);
             ObjectionChuLiVO objectionChuLiVO = new ObjectionChuLiVO();
             objectionChuLiVO.setReport(crmAgreementInfos.get(0).getAgreementUrl());
-            objectionChuLiVO.setTemplateType("1");
+            objectionChuLiVO.setTemplateType(1);
             liVOS.add(objectionChuLiVO);
-        }else if(templateType.equals("2")){
+        }else if(templateType==2){
             //异议提报详情页面下载
             ObjectionChuLiVO objectionChuLiVO = new ObjectionChuLiVO();
-            String  record1 = "E:/";
-            String report = createPdf.createPdf(claimNo,record1,"yiyibaogao");
-            objectionChuLiVO.setTemplateType("2");
+            String  pdfName = claimNo + "Y.pdf";
+            String report = createPdf.createPdf(claimNo,list.getReport(),pdfName,"yiyibaogao");
+            objectionChuLiVO.setTemplateType(2);
+            objectionChuLiVO.setReport(report);
+            liVOS.add(objectionChuLiVO);
+        }else if(templateType==4){
+            //下载内部调查  4  下载接口
+            ObjectionChuLiVO objectionChuLiVO = new ObjectionChuLiVO();
+            String  pdfName = claimNo + "N.pdf";
+            String report = createPdf.createPdf(claimNo,list.getReport(),pdfName,"neibudiaocha");
+            objectionChuLiVO.setTemplateType(4);
+            objectionChuLiVO.setReport(report);
+            liVOS.add(objectionChuLiVO);
+        }else if(templateType==5){
+            //下载外部调查  5  下载接口
+            ObjectionChuLiVO objectionChuLiVO = new ObjectionChuLiVO();
+            String  pdfName = claimNo + "W.pdf";
+            String report = createPdf.createPdf(claimNo,list.getReport(),pdfName,"waibudiaocha");
+            objectionChuLiVO.setTemplateType(5);
             objectionChuLiVO.setReport(report);
             liVOS.add(objectionChuLiVO);
         }

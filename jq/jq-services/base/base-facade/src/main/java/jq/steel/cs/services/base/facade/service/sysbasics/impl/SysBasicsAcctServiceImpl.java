@@ -36,7 +36,6 @@ import org.springframework.util.StringUtils;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -467,42 +466,48 @@ public class SysBasicsAcctServiceImpl implements SysBasicsAcctService {
         JsonResponse jsonResponse = new JsonResponse();
         AcctToRoleInfoVO reqBody = jsonRequest.getReqBody();
         AcctInfo acctInfo = new AcctInfo();
+        List<AcctInfo> list = acctInfoMapper.selectAll(acctInfo);
+        for (AcctInfo acctInfo1 : list) {
+            if (reqBody.getAcctTitle().equals(acctInfo1.getAcctTitle())) {
+                jsonResponse.setRetCode("0701006");
+            }
+        }
         BeanCopyUtil.copy(reqBody,acctInfo);
         if(acctInfo.getAcctId()==null||acctInfo.getAcctId()==' ')
         {
             acctInfo.setStatus((byte)1);
             acctInfo.setIsDelete((byte)0);
             acctInfo.setAcctPassword(Md5Util.encrpt(acctInfo.getAcctPassword()));
-            if(StringUtils.isEmpty(acctInfo.getoInfoId())) {
-                String id=getOrgInfoId();
-                OrgInfo orgInfo=new OrgInfo();
-                orgInfo.setId(id);
-                orgInfo.setStatus("1");
-                orgInfo.setCreatedBy("创建人");
-                orgInfo.setCreatedTime(new Date());
-                orgInfo.setParentId("1");
-                orgInfoMapper.insertOrgInfo(orgInfo);
-                acctInfo.setoInfoId(id);
-            }
+//            if(StringUtils.isEmpty(acctInfo.getoInfoId())) {
+//                String id=getOrgInfoId();
+//                OrgInfo orgInfo=new OrgInfo();
+//                orgInfo.setId(id);
+//                orgInfo.setStatus("1");
+//                orgInfo.setCreatedBy("创建人");
+//                orgInfo.setCreatedTime(new Date());
+//                orgInfo.setParentId("1");
+//                orgInfoMapper.insertOrgInfo(orgInfo);
+//                acctInfo.setoInfoId(id);
+//            }
             //添加 用户表
             acctInfoMapper.insertAcctInfo(acctInfo);
 
-            if(acctInfo.getAcctType()==1){
-                //创建默认管理员角色
-                RoleInfo roleInfo=new RoleInfo();
-                roleInfo.setCreatedBy("创建人");
-                roleInfo.setCreatedTime(new Date());
-                roleInfo.setIsDelete("0");
-                roleInfo.setStatus("1");
-                roleInfo.setRoleTitle("管理员");
-                roleInfo.setOrgId(acctInfo.getoInfoId());
-                roleInfoMapper.insertSelective(roleInfo);
-                //创建默认角色与用户关联
-                AcctRoleReal acctRoleReal = new AcctRoleReal();
-                acctRoleReal.setAcctId(acctInfo.getAcctId());
-                acctRoleReal.setRoleId(roleInfo.getRoleId());
-                acctRoleRealMapper.insertSelective(acctRoleReal);
-            }
+//            if(acctInfo.getAcctType()==1){
+//                //创建默认管理员角色
+//                RoleInfo roleInfo=new RoleInfo();
+//                roleInfo.setCreatedBy("创建人");
+//                roleInfo.setCreatedTime(new Date());
+//                roleInfo.setIsDelete("0");
+//                roleInfo.setStatus("1");
+//                roleInfo.setRoleTitle("管理员");
+//                roleInfo.setOrgId(acctInfo.getoInfoId());
+//                roleInfoMapper.insertSelective(roleInfo);
+//                //创建默认角色与用户关联
+//                AcctRoleReal acctRoleReal = new AcctRoleReal();
+//                acctRoleReal.setAcctId(acctInfo.getAcctId());
+//                acctRoleReal.setRoleId(roleInfo.getRoleId());
+//                acctRoleRealMapper.insertSelective(acctRoleReal);
+//            }
 
             List<Long> roleIds = reqBody.getRoleIds();
             for(Long r: roleIds){

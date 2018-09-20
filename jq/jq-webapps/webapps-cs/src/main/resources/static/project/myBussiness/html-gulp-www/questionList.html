@@ -73,6 +73,11 @@
             var jsData=JSON.parse(data);
             if(jsData.retCode=="0000000"){
                 clearCookie("userName");
+                if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
+                    window.localStorage.limitCode = [];
+                }else{
+                    setCookie("limitCode",JSON.stringify([]));
+                }
                 jumpUrl("../../login/html-gulp-www/login.html","0000000",0);
             }else{
                 alert(jsData.retDesc)
@@ -695,7 +700,7 @@
 </div>
 </div>
 <div style="width: 1200px;height: 70px;margin: 0 auto;text-align: center;line-height: 70px;">
-    copyright & 2018 甘肃酒钢集团宏兴钢铁股份有限公司 版权所有
+    copyright ©️ 2018 甘肃酒钢集团宏兴钢铁股份有限公司 版权所有
 </div>
 </div>
 </body>

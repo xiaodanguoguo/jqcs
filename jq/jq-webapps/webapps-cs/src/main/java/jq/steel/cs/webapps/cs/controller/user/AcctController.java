@@ -93,6 +93,7 @@ public class AcctController {
                 CookieUtil.setCookie(response,"sessionId",sessionId);
                 CookieUtil.setCookie(response,"userName", serviceResponse.getRetContent().getAcct().getName());
                 CookieUtil.setCookie(response,"orgId", serviceResponse.getRetContent().getAcct().getOrgId());
+                CookieUtil.setCookie(response,"acctId", serviceResponse.getRetContent().getAcct().getAcctId().toString());
             }else {
                 if (serviceResponse.isHasError()) {
                     jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
@@ -186,6 +187,8 @@ public class AcctController {
             }
             CookieUtil.removeCookie(response,"sessionId");
             CookieUtil.removeCookie(response,"userName");
+            CookieUtil.removeCookie(response,"orgId");
+            CookieUtil.removeCookie(response,"acctId");
         }catch (Exception e){
             LOG.error(e.getMessage());
             e.printStackTrace();

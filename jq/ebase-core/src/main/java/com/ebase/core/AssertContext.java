@@ -2,6 +2,9 @@ package com.ebase.core;
 
 import com.ebase.core.session.UserSession;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @Auther: wangyu
  */
@@ -98,6 +101,42 @@ public class AssertContext {
         UserSession userSession = get();
         if (userSession != null) {
             return userSession.getUser().getOrgName();
+        }
+        return null;
+    }
+
+    /**
+     * 权限路径
+     * @return
+     */
+    public static Map<String, String> getAuthMapPath() {
+        UserSession userSession = get();
+        if (userSession != null) {
+            return userSession.getUser().getAuthMap() ;
+        }
+        return null;
+    }
+
+    /**
+     * 权限code
+     * @return
+     */
+    public static Map<String, String> getAuthMap() {
+        UserSession userSession = get();
+        if (userSession != null) {
+            return userSession.getUser().getAuthMap();
+        }
+        return null;
+    }
+
+    /**
+     * 权限code
+     * @return
+     */
+    public static List<String> getLimitCode() {
+        UserSession userSession = get();
+        if (userSession != null) {
+            return userSession.getUser().getLimitCode();
         }
         return null;
     }

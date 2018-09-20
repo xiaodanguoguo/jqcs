@@ -68,12 +68,12 @@ public class AppObjectionTiBaoController {
         try {
             JsonRequest<ObjectionTiBaoVO> jsonRequest = new JsonRequest<>();
             ObjectionTiBaoVO objectionTiBaoVO = new ObjectionTiBaoVO();
-            objectionTiBaoVO.setCreatedBy(AssertContext.getAcctId());
+            objectionTiBaoVO.setCustomerId(AssertContext.getOrgCode());
             // 判断是否有审核权限
             ServiceResponse<Map<String, String>> authResponse = backMemberAPI.getAcctAuth(AssertContext.getAcctId());
             Map<String, String> map = authResponse.getRetContent();
             if(map.get("50") != null){
-                objectionTiBaoVO.setCreatedBy(null);
+                objectionTiBaoVO.setCustomerId(null);
             }
 
             jsonRequest.setReqBody(objectionTiBaoVO);
@@ -219,17 +219,17 @@ public class AppObjectionTiBaoController {
             // 根据service层返回的编码做不同的操作
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            if(5 == jsonRequest.getReqBody().getOptionStuts()){
+                jsonRequest.getReqBody().setCustomerId(AssertContext.getOrgCode());
+            }
             ServiceResponse<Integer> response = objectionTiBaoAPI.update(jsonRequest);
-            if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
+            if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode())){
                 jsonResponse.setRspBody(response.getRetContent());
-                // 如果需要异常信息
-            else if (response.isHasError())
-                // 系统异常
+            }else if (response.isHasError()) {
                 jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
-                // 如果需要的话, 这个方法可以获取异常信息 response.getErrorMessage()
-            else {
-                // 根据业务的不同确定返回的业务信息是否正常,是否需要执行下一步操作
-                jsonResponse.setRetCode(response.getRetCode());
+            }else {
+                // todo业务异常编码
+                jsonResponse.setRetCode("10010010");
                 jsonResponse.setRetDesc(response.getRetMessage());
             }
         } catch (FeignException e) {
@@ -294,7 +294,7 @@ public class AppObjectionTiBaoController {
         logger.info("分页", JsonUtil.toJson(jsonRequest));
         JsonResponse<List<CrmCustomerInfoVO>> jsonResponse = new JsonResponse<>();
         try {
-            jsonRequest.getReqBody().setCreatedBy(AssertContext.getAcctId());
+            jsonRequest.getReqBody().setCreatedBy(AssertContext.getOrgCode());
             ServiceResponse<List<CrmCustomerInfoVO>> serviceResponse = crmCustomerInfoAPI.findorderUnitList(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
@@ -358,7 +358,7 @@ public class AppObjectionTiBaoController {
         logger.info("分页={}", JsonUtil.toJson(jsonRequest));
         JsonResponse<List<CrmLastuserInfoVO>> jsonResponse = new JsonResponse<>();
         try {
-            jsonRequest.getReqBody().setCreatedBy(AssertContext.getAcctId());
+            jsonRequest.getReqBody().setCustomerId(AssertContext.getOrgCode());
             ServiceResponse<List<CrmLastuserInfoVO>> serviceResponse = crmLastuserInfoAPI.findunitOfUseList(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());

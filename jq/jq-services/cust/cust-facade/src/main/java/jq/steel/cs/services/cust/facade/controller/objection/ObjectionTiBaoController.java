@@ -89,6 +89,13 @@ public class ObjectionTiBaoController {
         try {
             ObjectionTiBaoVO objectionTiBaoVO = jsonRequest.getReqBody();
             Integer integer= objectionTiBaoService.update(objectionTiBaoVO);
+            if(-100 == integer.intValue()){
+                serviceResponse.setRetCode(ServiceResponse.FAIL_CODE);
+                serviceResponse.setRetMessage("质证书编号不存在");
+            }else if(-101 == integer.intValue()){
+                serviceResponse.setRetCode(ServiceResponse.FAIL_CODE);
+                serviceResponse.setRetMessage("质证书管理单位不存在");
+            }
             serviceResponse.setRetContent(integer);
         }catch (BusinessException e){
             logger.error("获取分页出错",e);

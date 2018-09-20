@@ -28,10 +28,9 @@ function clsMethodLee$init(){
     this.parse();
 }
 function clsMethodLee$parse(){
-    $("html").css("height","100%");
     $("body").css("height","100%");
     if(getCookie("isTrue") == 1){//判断是否记住密码
-        $("#isSavePassword").attr("checked",true);
+        //$("#isSavePassword").attr("checked",true);
         $("#js-input--username").val(getCookie("acctTitle"));
         $("#js-input-password").val(getCookie("acctPassword"));
     }
@@ -175,11 +174,13 @@ function submitCallBack(data){
             setCookie("acctTitle",$("#js-input--username").val());
             setCookie("acctPassword",$("#js-input-password").val());
         }
-      /*  if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
+        if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
             window.localStorage.limitCode = JSON.stringify(data.rspBody.acct.limitCode);
         }else{
             setCookie("limitCode",JSON.stringify(data.rspBody.acct.limitCode));
-        }*/
+        }
+        setCookie("acctType",data.rspBody.acct.acctType);
+        /* setCookie("orgId",data.rspBody.acct.orgId);*/
         if(GetQueryString("overtime") == 1){
             jumpUrl(unescape(getCookie("urlPath")),"0000000",0);
         }else{

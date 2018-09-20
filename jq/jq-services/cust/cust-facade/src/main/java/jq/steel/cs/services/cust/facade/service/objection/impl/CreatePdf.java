@@ -14,26 +14,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class CreatePdf {
 
 
-    public String createPdf(String claimNo,String report1,String model) {
+    public String createPdf(String claimNo,String reporturl,String pdfName,String model) {
         try {
             File file;
-            String dirName = createDir(report1);
-            String fileName = createDir(report1)+"/" + claimNo+".pdf";
+            String dirName = createDir(reporturl);
+            String fileName = createDir(reporturl)+"/" + pdfName;
             file = new File(fileName);
             if (file.isFile() && file.exists()) {// 路径为文件且不为空则进行删除
                 file.delete();// 文件删除
             }
-            ReportDefine report;
-            Context cxt = new Context();
-            cxt.setParamValue("claimNo",claimNo);
-            report = (ReportDefine) ReportUtils.read(report1 + model + ".rpx");
-            FileOutputStream fos = new FileOutputStream(fileName);
-            Engine engine = new Engine(report, cxt);
-            IReport iReport = engine.calc();
-            ReportUtils.exportToPDF(fos, iReport,true,false);
+                ReportDefine report;
+                Context cxt = new Context();
+                cxt.setParamValue("claim_no",claimNo);
+                report = (ReportDefine) ReportUtils.read(reporturl + model + ".rpx");
+                FileOutputStream fos = new FileOutputStream(fileName);
+                Engine engine = new Engine(report, cxt);
+                IReport iReport = engine.calc();
+                ReportUtils.exportToPDF(fos, iReport);
             fos.flush();
             fos.close();
-            file.setWritable(true, false);    //设置写权限，windows下不用此语句
+            //file.setWritable(true, false);    //设置写权限，windows下不用此语句
+            return fileName;
         } catch (Exception e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -41,15 +42,15 @@ public class CreatePdf {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return null;
 
-        return "";
     }
 
     // 创建目录
-    public String createDir(String report1) {
+    public String createDir(String reporturl) {
         SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
         String dirT = sdf.format(new Date());
-        String dirName = report1 + dirT;// 创建目录名称
+        String dirName = reporturl + dirT;// 创建目录名称
         File dir = new File(dirName);
         dir.setWritable(true, false);    //设置写权限，windows下不用此语句
         if (dir.exists()) {// 判断目录是否存在
