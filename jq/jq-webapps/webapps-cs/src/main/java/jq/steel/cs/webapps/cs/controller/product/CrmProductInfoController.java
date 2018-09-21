@@ -135,6 +135,8 @@ public class CrmProductInfoController {
         logger.info("产品信息删除 = {}", JsonUtil.toJson(jsonRequest));
 
         try {
+            jsonRequest.getReqBody().setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
+            jsonRequest.getReqBody().setUpdateBy(AssertContext.getAcctName());
             ServiceResponse<Boolean> serviceResponse = crmProductInfoApi
                     .deletePruduct(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
@@ -171,6 +173,8 @@ public class CrmProductInfoController {
         logger.info("产品信息发布 = {}", JsonUtil.toJson(jsonRequest));
 
         try {
+            jsonRequest.getReqBody().setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
+            jsonRequest.getReqBody().setUpdateBy(AssertContext.getAcctName());
             ServiceResponse<Boolean> serviceResponse = crmProductInfoApi
                     .issuePruduct(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
@@ -254,6 +258,8 @@ public class CrmProductInfoController {
 
         try {
             CrmProductInfoVO vo = jsonRequest.getReqBody();
+            vo.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
+            vo.setUpdateBy(AssertContext.getAcctName());
             List<String> thumbnailList = vo.getThumbnailList();
             List<String> thumbnails = new ArrayList<>();
             for (String s : thumbnailList) {

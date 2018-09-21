@@ -131,6 +131,7 @@ function clsMethodLee$parse(){
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
             $("#proProblem").removeAttr("disabled").removeClass("changeGary");
             $("#claimTypeA input").removeAttr("disabled").removeClass("changeGary");
+            $("#rejectReason").removeAttr("disabled").removeClass("changeGary");
            // this.selectedMark.selMark1 = false;
             this.selectedMark.selMark2 = false;
             getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":this.claimNo,"optionType":4},"htmlInit(data)");//数据回显操作
@@ -182,6 +183,7 @@ function clsMethodLee$parse(){
             $(".box4:last").remove();
             $("#submitBox input").attr("disabled",true).addClass("changeGary");
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
+            $("#rejectReason").removeAttr("disabled").removeClass("changeGary");
             getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"claimNo":this.claimNo,"optionType":3},"htmlInit2(data)");//数据回显操作
             break;
         case 7://销售审核详情
@@ -212,19 +214,19 @@ function clsMethodLee$operate(){
         $("#dinghuoListPopup").show();
         $("#shiyongListPopup").hide();
         $("#listPopupTitle").html("订货单位列表");
-        initplugPath($("#dinghuoListPopupBox")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path2,null,"POST");
+        initplugPath($("#dinghuoListPopupBox")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path2,{"customerId":$("#customerId").val()},"POST");
     });
     this.shiyongCreate.on("click",function () {//使用单位添加操作
         openWin('650', '500', 'listPopup', true);
         $("#dinghuoListPopup").hide();
         $("#shiyongListPopup").show();
         $("#listPopupTitle").html("使用单位列表");
-        initplugPath($("#shiyongListPopupBox")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path3,null,"POST");
+        initplugPath($("#shiyongListPopupBox")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path3,{"customerId":$("#customerId").val()},"POST");
 
     });
     //质证书编号改变，进行接口后台判断
     this.millSheetNo.on("change",function () {
-        getAjaxResult(document.body.jsLee.requestUrl.path5,"POST",{"millSheetNo":$(this).val()},"millSheetNoCheckCallBack(data)");
+        getAjaxResult(document.body.jsLee.requestUrl.path5,"POST",{"millSheetNo":$(this).val()}," millSheetNoCheckCallBack(data)");
     });
 
     //批板卷号改编，对应质证书号进行校验
