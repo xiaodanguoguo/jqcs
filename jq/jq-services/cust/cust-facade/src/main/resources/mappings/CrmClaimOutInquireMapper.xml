@@ -335,7 +335,7 @@ LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
       <if test="fieldConclusionText != null and fieldConclusionText != ''" >
         FIELD_CONCLUSION_TEXT,
       </if>
-      <if test="fieldConclusionText != null and fieldConclusionText != ''" >
+      <if test="fieldConclusionPhoto != null and fieldConclusionPhoto != ''" >
         FIELD_CONCLUSION_PHOTO,
       </if>
     </trim>
