@@ -223,6 +223,7 @@
         var orgId = GetQueryString("orgId");//组织id
         var orgName = decodeURI(GetQueryString("orgName"));//组织名称====中文转义
         $(function(){
+            limitCodeDeal($("*[limitCode]"),"limitCode");
 
             /***************************选择组织开始*************************/
             if(orgId){

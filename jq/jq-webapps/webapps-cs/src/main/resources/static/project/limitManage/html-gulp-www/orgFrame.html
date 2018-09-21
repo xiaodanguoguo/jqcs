@@ -461,6 +461,7 @@
         }
     }
     $(document).ready(function () {
+        limitCodeDeal($("*[limitCode]"),"limitCode");
         var docTiss=new tissueAdmin();
         docTiss.init();
         document.body.docT=docTiss;
