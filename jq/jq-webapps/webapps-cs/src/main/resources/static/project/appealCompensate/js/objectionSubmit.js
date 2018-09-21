@@ -206,6 +206,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         switch (jsonItem.claimState){
             case "NEW":
                 $(cloneRow).find("#claimStateA").html("新建");
+                $(cloneRow).find("#editOpe").show();
                 break;
             case "PRESENT":
                 $(cloneRow).find("#claimStateA").html("已提报");
