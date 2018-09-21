@@ -272,12 +272,7 @@
     select
     f.*,o.org_name as orgName
     from function_manage f
-    LEFT JOIN org_info o on o.id=f.ORG_ID  <if test="orgIdAlls != null">
-    AND o.id in
-    <foreach collection="orgIdAlls" close=")" open="(" item="all" separator=",">
-      #{all}
-    </foreach>
-  </if>
+    LEFT JOIN org_info o on o.id=f.ORG_ID
     where
     f.PARENT_APPLICATION_ID is null
     and f.IS_DELETE = 0
@@ -292,21 +287,7 @@
     <!--<if test="orgId == null " >-->
       <!--AND f.ORG_ID is null-->
     <!--</if>-->
-    <if test="allIds != null">
 
-      AND f.FUNCTION_ID in
-      <foreach collection="allIds" close=")" open="(" item="all" separator=",">
-        #{all}
-      </foreach>
-    </if>
-
-    <if test="orgIdAlls != null">
-
-      AND f.org_id in
-      <foreach collection="orgIdAlls" close=")" open="(" item="all" separator=",">
-        #{all}
-      </foreach>
-    </if>
 
     <if test="status != null and status != '' " >
       AND f.STATUS = #{status}
@@ -317,13 +298,7 @@
     select
     f.*,o.org_name as orgName
     from function_manage f
-    LEFT JOIN org_info o on o.id=f.ORG_ID <if test="orgIdAlls != null">
-
-    AND o.id in
-    <foreach collection="orgIdAlls" close=")" open="(" item="all" separator=",">
-      #{all}
-    </foreach>
-  </if>
+    LEFT JOIN org_info o on o.id=f.ORG_ID
     where
      1=1
     and f.IS_DELETE = 0
@@ -345,21 +320,6 @@
          AND f.STATUS = #{status}
       </if>
 
-    <if test="orgIdAlls != null">
-
-      AND f.org_id in
-      <foreach collection="orgIdAlls" close=")" open="(" item="all" separator=",">
-        #{all}
-      </foreach>
-    </if>
-
-    <if test="allIds != null">
-
-      AND f.FUNCTION_ID in
-      <foreach collection="allIds" close=")" open="(" item="all" separator=",">
-        #{all}
-      </foreach>
-    </if>
   </select>
 
 
@@ -474,9 +434,6 @@
     <if test="functionTitle != null and functionTitle != '' ">
       AND f.FUNCTION_TITLE = #{functionTitle}
     </if>
-    <if test="orgId != null and orgId != '' " >
-      AND f.ORG_ID = #{orgId}
-    </if>
   </select>
 
   <select id="getList"  resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.FunctionManage">
@@ -484,9 +441,6 @@
     where 1=1 and f.IS_DELETE=0
     <if test="functionTitle != null and functionTitle != '' ">
       AND f.FUNCTION_TITLE = #{functionTitle}
-    </if>
-    <if test="orgId != null and orgId != '' " >
-      AND f.ORG_ID = #{orgId}
     </if>
   </select>
   <select id="getUserFunctionList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.FunctionManage">
@@ -503,9 +457,6 @@
   where 1=1 and d.IS_DELETE=0
   <if test="functionTitle != null and functionTitle != '' ">
     AND d.FUNCTION_TITLE = #{functionTitle}
-  </if>
-  <if test="orgId != null and orgId != '' " >
-    AND d.ORG_ID = #{orgId}
   </if>
   <if test="acctId != null and acctId != '' " >
     AND a.ACCT_ID = #{acctId}

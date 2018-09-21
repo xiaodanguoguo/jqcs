@@ -43,7 +43,7 @@ function clsMethodLee$operate(){
         }else{
             var millSheetNoArr = [];
             for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
-                millSheetNoArr.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo});
+                millSheetNoArr.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":1});
             }
             getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",millSheetNoArr,"previewCallBack(data)")
         }
@@ -67,6 +67,21 @@ function clsMethodLee$operate(){
             }
             var importParam = "name=" + JSON.stringify(millSheetNoArr);
             $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
+            initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+
+        }
+    });
+
+    this.printOpe.on("click",function(){//打印
+        if($("#tableList")[0].cacheArr.length == 0){
+            var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert("请勾选将要打印的质证书","失败提示");
+        }else{
+            var millSheetNoArr = [];
+            for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
+                millSheetNoArr.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":1});
+            }
+            etAjaxResult(document.body.jsLee.requestUrl.path2,"POST",millSheetNoArr,"printOpeCallBack(data)")
             initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
 
         }
@@ -269,6 +284,13 @@ function getContentCallBack(data){
         }
 
 
+    }
+}
+
+function printOpeCallBack(data){
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        jumpUrl("../../")
     }
 }
 

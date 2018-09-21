@@ -86,7 +86,7 @@ public interface AppCrmAnnouncementService {
     
     /**
      * 批量 保存、修改、删除
-     * @param meMaterielTypeVOs
+     * @param crmAnnouncementVOs
      * @return
      */
     public Integer keep(List<CrmAnnouncementVO> crmAnnouncementVOs);

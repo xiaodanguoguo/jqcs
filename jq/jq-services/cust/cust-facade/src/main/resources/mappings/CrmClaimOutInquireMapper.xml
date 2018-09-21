@@ -157,6 +157,9 @@ WHERE
       <if test="designation != null and designation != ''" >
         AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}
       </if>
+      <if test="inquireState != null and inquireState != ''" >
+        AND A.INQUIRE_STATE = #{inquireState,jdbcType=VARCHAR}
+      </if>
     </trim>
   </select>
 
