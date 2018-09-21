@@ -290,10 +290,9 @@
             {
                 var jsonCItem = jsonItem.crmQuestionTeamAnswerVOList[nI];
                 $(cloneRow).find("li").each(function(){
-                    if($(this).find("input").attr("val") == jsonCItem.answerValue)
+                    if($(this).find("input").attr("val") == jsonCItem.answerValue){
                         $(this).find("input").prop("checked",true);
-                    else
-                        $(this).find("input").prop("checked",false);
+                    }
                 })
             }
         }
