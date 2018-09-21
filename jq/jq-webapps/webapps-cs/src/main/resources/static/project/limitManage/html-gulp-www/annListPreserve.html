@@ -214,7 +214,7 @@
         <span style="margin-right: 10px;">标题：</span>
         <input type="text" class="inputBase" id="condannTitle">
         <div class="btnLowNew" id="establish-Home-page" comtype="searchBtnCtrl" rule="cond" cond="condannTitle" uniontableid="announcementList" parentId="searchBox">查询</div>
-        <div class="btnLowNew" id="newAnn">新建</div>
+        <div class="btnLowNew" id="newAnn" limitCode="M10401">新建</div>
     </div>
     <table class="table-list" id="announcementList" style="table-layout: fixed" comType="" templateId="templateRow" page="tcdPageCode" reqPath="" reqParam="{}" method="POST" noData="nonData">
         <tr class="table-list-currentrow">
@@ -242,8 +242,8 @@
                 <span style="padding: 0 10px;" id="createDt">1</span>
             </td>
             <td class="table-list-currentrow-tdetail" style="text-align: center">
-                <span class="btnLowImgCom" id="editAnn">修改</span>
-                <span class="btnLowImgCom" id="deleteAnn">删除</span>
+                <span class="btnLowImgCom" id="editAnn"  limitCode="M10402">修改</span>
+                <span class="btnLowImgCom" id="deleteAnn"  limitCode="M10404">删除</span>
             </td>
         </tr>
     </table>
@@ -255,6 +255,7 @@
 </div>
 <script>
     $(function(){
+        limitCodeDeal($("*[limitCode]"),"limitCode");
         $("#announcementList")[0].data = {"rspBody":{"resultData":[{"annTitle":"123","createDt":"1992-01-01","createName":"发布人"},{"annTitle":"234","createDt":"1992-01-05"}]}};
         initplugPath($("#announcementList")[0],"standardTableCtrl","runze",null,"POST");
 

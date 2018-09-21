@@ -240,12 +240,13 @@
             </li>
         </ul>
         <div>
-            <div class="btnLowNew" id="saveAnn" style="margin-left: 635px">保存</div>
+            <div class="btnLowNew" id="saveAnn" style="margin-left: 635px" limitCode="M10403">保存</div>
             <div class="btnLowNew" id="cancelAnn">取消</div>
         </div>
     </div>
 <script>
     $(function(){
+        limitCodeDeal($("*[limitCode]"),"limitCode");
         setValue4Desc({"createDt":"1992-01-01","createName":"作者哈","annName":"这是发布内容","annTitle":"这是发布标题"},$(".annUl")[0])//赋值
 
 
