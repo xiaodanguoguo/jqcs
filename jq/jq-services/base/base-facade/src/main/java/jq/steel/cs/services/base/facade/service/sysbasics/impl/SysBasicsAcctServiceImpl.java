@@ -835,14 +835,10 @@ public PageDTO<AcctInfoVO> listSysAcct(JsonRequest<AcctInfoVO> jsonRequest)throw
 
     //客户类型获取
     @Override
-    public AcctInfoVO customerType(AcctInfoVO acctInfo) {
-        OrgInfo orgInfo = new OrgInfo();
-        orgInfo.setId(acctInfo.getOrgId());
-
-        OrgInfo result = orgInfoMapper.selectOrgInfo(orgInfo);
-
-        AcctInfoVO acctInfoVO = new AcctInfoVO();
-        acctInfoVO.setAcctType(Long.parseLong(result.getOrgType()));
-        return acctInfoVO;
+    public AcctInfoVO customerType(AcctInfoVO record) {
+        AcctInfo acctInfo = new AcctInfo();
+        acctInfo.setOrgId(record.getOrgId());
+        AcctInfo result = acctInfoMapper.customerType(acctInfo);
+        return BeanCopyUtil.copy(result, AcctInfoVO.class);
     }
 }

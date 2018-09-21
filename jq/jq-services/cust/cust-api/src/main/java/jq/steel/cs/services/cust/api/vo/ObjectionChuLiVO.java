@@ -201,6 +201,7 @@ public class ObjectionChuLiVO {
     private String endProcessingTech;
     private String defectName;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date productDt;
     private String shift;
 
