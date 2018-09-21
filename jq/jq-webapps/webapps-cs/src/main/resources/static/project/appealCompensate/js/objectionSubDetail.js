@@ -226,7 +226,7 @@ function clsMethodLee$operate(){
     });
     //质证书编号改变，进行接口后台判断
     this.millSheetNo.on("change",function () {
-        getAjaxResult(document.body.jsLee.requestUrl.path5,"POST",{"millSheetNo":$(this).val()},"millSheetNoCheckCallBack(data)");
+        getAjaxResult(document.body.jsLee.requestUrl.path5,"POST",{"millSheetNo":$(this).val()}," millSheetNoCheckCallBack(data)");
     });
 
     //批板卷号改编，对应质证书号进行校验
