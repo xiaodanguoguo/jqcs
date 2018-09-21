@@ -7,6 +7,15 @@ import java.util.Date;
 
 public class CrmClaimOutInquire {
 
+    private String claimState1;
+
+    public String getClaimState1() {
+        return claimState1;
+    }
+
+    public void setClaimState1(String claimState1) {
+        this.claimState1 = claimState1;
+    }
 
     //生产工艺过程调查
     private  String productionProcessInvestigati;

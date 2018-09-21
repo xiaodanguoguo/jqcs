@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class ObjectionDiaoChaVO {
 
+    private String claimState1;
+
     private String inquireInfo;
 
     private String fieldConclusionText;
@@ -235,6 +237,14 @@ public class ObjectionDiaoChaVO {
     private  String reportPictures;
 
     private  String objectionConfirmation;
+
+    public String getClaimState1() {
+        return claimState1;
+    }
+
+    public void setClaimState1(String claimState1) {
+        this.claimState1 = claimState1;
+    }
 
     public String getInquireInfo() {
         return inquireInfo;

@@ -1,6 +1,15 @@
 package jq.steel.cs.services.cust.api.vo;
 
 public class ObjectionJieAnVO {
+    private String claimState1;
+
+    public String getClaimState1() {
+        return claimState1;
+    }
+
+    public void setClaimState1(String claimState1) {
+        this.claimState1 = claimState1;
+    }
 
     //上传文件图片字段
     private String viewUrl;

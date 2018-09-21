@@ -307,9 +307,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimApply.setClaimState("ACCEPTANCE");
             crmClaimApplyMapper.update(crmClaimApply);
 
-            CrmClaimInfo crmClaimInfo1  = new CrmClaimInfo();
-            crmClaimInfo1.setClaimNo(crmClaimOutInquire.getClaimNo());
-            crmClaimInfo1.setClaimState("ACCEPTANCE");
+            crmClaimInfo.setClaimState("ACCEPTANCE");
         }
 
         int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);

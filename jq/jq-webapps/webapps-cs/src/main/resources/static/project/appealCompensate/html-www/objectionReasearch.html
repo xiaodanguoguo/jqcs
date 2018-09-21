@@ -40,8 +40,10 @@
                     </li>
                     <li class="submission-box-list__Every">
                         <span class="submission-box-list__Name">异议状态:</span>
-                        <select id="condclaimState" name="" class="inputBase submission-box-list__Select">
+                        <select id="condclaimState1" name="" class="inputBase submission-box-list__Select">
                             <option value="">请选择</option>
+                            <option value="ADOPT">销售审核通过</option>
+                            <option value="ACCEPTANCE">已受理</option>
                             <option value="INVESTIGATION">调查中</option>
                             <option value="HANDLE">处理中</option>
                             <option value="END">已结案</option>
@@ -73,7 +75,7 @@
                 </ul>
             </div>
             <div class="submission-box-button">
-                <div class="btnLowNew submission-box-search" comType="searchBtnCtrl" cond="condclaimNo,condcustomerId,conddeptCode,condstartDt,condendDt,condclaimType,condclaimState,condsid,condbattenPlateNo" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
+                <div class="btnLowNew submission-box-search" comType="searchBtnCtrl" cond="condclaimNo,condcustomerId,conddeptCode,condstartDt,condendDt,condclaimType,condclaimState1,condsid,condbattenPlateNo" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
                 <div class="btnLowNew submission-box-export" id="exportOpe" limitCode="M30301">导出</div>
                 <!--  <div class="btnLowNew submission-box-print">确认书审核</div>
                 <div class="btnLowNew submission-box-detail" id="printOpe">打印受理单</div>

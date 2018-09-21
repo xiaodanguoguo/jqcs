@@ -148,9 +148,17 @@ WHERE
       <if test="battenPlateNo != null and battenPlateNo != ''" >
         AND A.BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR}
       </if>
-      <if test="claimState != null and claimState != ''" >
+    <!--  <if test="claimState != null and claimState != ''" >
         AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
-      </if>
+      </if>-->
+      <choose>
+        <when test="claimState1 !=null and claimState1 != ''">
+          and A.CLAIM_STATE  = #{claimState1,jdbcType=VARCHAR}
+        </when>
+        <otherwise>
+          AND A.CLAIM_STATE IN ('INVESTIGATION', 'HANDLE', 'END', 'EVALUATE','ADOPT')
+        </otherwise>
+      </choose>
       <if test="deptCode != null and deptCode != ''" >
         AND  B.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
       </if>
@@ -335,7 +343,7 @@ LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
       <if test="fieldConclusionText != null and fieldConclusionText != ''" >
         FIELD_CONCLUSION_TEXT,
       </if>
-      <if test="fieldConclusionPhoto != null and fieldConclusionPhoto != ''" >
+      <if test="fieldConclusionPhoto != null and fieldConclusionText != ''" >
         FIELD_CONCLUSION_PHOTO,
       </if>
     </trim>

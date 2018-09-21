@@ -8,6 +8,16 @@ import java.util.List;
 
 public class ObjectionChuLiVO {
 
+    private String claimState1;
+
+    public String getClaimState1() {
+        return claimState1;
+    }
+
+    public void setClaimState1(String claimState1) {
+        this.claimState1 = claimState1;
+    }
+
     private List claimNos;
 
     public List getClaimNos() {
