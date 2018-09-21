@@ -66,7 +66,7 @@ function clsMethodLee$operate(){
             var paramJson = JSON.parse($("#tableList2").attr("reqParam"));
             paramJson.customerId = document.body.jsLee.loginerNews.customerId;
             paramJson.customerName = document.body.jsLee.loginerNews.customerName;
-            $("#tableList2").attr("reqParam",JSON.stringify(paramJson));
+            $("#tableList2").attr({"reqParam":JSON.stringify(paramJson),"reqPath":document.body.jsLee.requestUrl.path2});
             document.body.jsCtrl.ctrl = $("#tableList2")[0];
             document.body.jsCtrl.init();
             //initplugPath($("#tableList2")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path2,null,"POST");
