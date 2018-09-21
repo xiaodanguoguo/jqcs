@@ -163,11 +163,11 @@
 	    			<li class="og-head-mainlt__sidebar--menu">
 	    				<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">系统管理</span></a>
 						<ul class="menu-ul">
-							<li class="og-head-mainlt__sasety" limitCode="" value="0"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/accountAudit.html">账号审核</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="" value="1"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/orgFrame.html">组织管理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="" value="2"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/roleManage.html">角色管理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="" value="3"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/resourceManage.html">资源管理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="" value="4"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/userManage.html">人员管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M505" value="0"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/accountAudit.html">账号审核</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M501" value="1"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/orgFrame.html">组织管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M503" value="2"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/roleManage.html">角色管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M504" value="3"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/resourceManage.html">资源管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M502" value="4"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/userManage.html">人员管理</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M104" value="5"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/annListPreserve.html">发布公告</a></li>
 						</ul>
 	    			</li>
@@ -215,7 +215,7 @@
     <div class="useMange-content">
         <div class="useMange-content-search" id="searchBox">
             <input class="fl useMange-content-search__input" id="condacctTitle" placeholder="用户名查询">
-            <div class="fl useMange-content-search__btn" comType="searchBtnCtrl" cond="condacctTitle" rule="cond" unionTableId="tableList" parentId="searchBox">搜索</div>
+            <div class="fl useMange-content-search__btn" comType="searchBtnCtrl" cond="condacctTitle" rule="cond" unionTableId="tableList" parentId="searchBox" limitCode="M50201">搜索</div>
             <div class="useMange-content-search__btn fl" id="userNew" style="margin-left: 10px;">新建</div>
         </div>
         <table class="useMange-content-table" id="tableList" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="" method="POST" noData="nonData">
@@ -244,9 +244,9 @@
                     <span id="viewContent" class="useMange-contentTableContent-operate" style="width: 100%">查看</span>
                 </td>-->
                 <td class="useMange-content-table-content">
-                    <span id="disableOperate" class="useMange-contentTableContent-operate">停用</span>
-                    <span id="editOperate" class="useMange-contentTableContent-operate">编辑</span>
-                    <span id="deleteOperate" class="useMange-contentTableContent-operate">删除</span>
+                    <span id="disableOperate" class="useMange-contentTableContent-operate" limitCode="M50202">停用</span>
+                    <span id="editOperate" class="useMange-contentTableContent-operate" limitCode="M50203">编辑</span>
+                    <span id="deleteOperate" class="useMange-contentTableContent-operate" limitCode="M50204">删除</span>
                 </td>
                 <td class="useMange-content-table-content" id="orgTitle"></td>
             </tr>
