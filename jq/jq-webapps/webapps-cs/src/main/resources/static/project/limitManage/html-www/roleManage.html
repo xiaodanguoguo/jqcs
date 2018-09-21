@@ -34,7 +34,7 @@
                 getAjaxResult("/orgInfo/getChildTreeOrgInfo","POST",{"parentId":orgId},"initZz(data)")
             }else{
                 orgId = $.cookie("orgId")
-                if(orgId.length == 11)$("#chooseZzBtn").hide();
+                //if(orgId.length == 11)$("#chooseZzBtn").hide();
                 getAjaxResult("/orgInfo/getChildTreeOrgInfo","POST",{"parentId":orgId},"initZz(data)")
             }
 
