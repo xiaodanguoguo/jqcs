@@ -213,7 +213,7 @@ public class AppCrmAnnouncementController {
 	/**
 	 * 或取最新的公告
 	 * 参数：opt insert、update、delete
-	 * @param jsonRequest
+	 * @param
 	 * @return
 	 */
 	@RequestMapping(value = "/getNewAnnouncement" , method = RequestMethod.GET)

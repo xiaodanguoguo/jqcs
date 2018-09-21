@@ -86,7 +86,7 @@ public interface AppCrmVersionUpdateService {
     
     /**
      * 批量 保存、修改、删除
-     * @param meMaterielTypeVOs
+     * @param crmVersionUpdateVOs
      * @return
      */
     public Integer keep(List<CrmVersionUpdateVO> crmVersionUpdateVOs);
