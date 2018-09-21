@@ -1,4 +1,12 @@
 @@include('../../commonNav/html/commonHeaderBlue.html')
+<style>
+    input::-webkit-input-placeholder {
+        text-align: left;color: #aab2bd;font-size: 12px;
+    }
+    textarea::-webkit-input-placeholder {
+        text-align: left;color: #aab2bd;font-size: 12px;
+    }
+</style>
     <link rel="stylesheet" href="../css/fake_Verification.css">
     <script src="../js/checkTrue.js"></script>
     <div class="verification">
@@ -38,7 +46,7 @@
                 </div>
                 <div class="tabCon verification-TabCon-Every" style="display: none;">
                     <div class="verification-TabCon-uploading">
-                        <input type="text" class="verification-TabCon-Input" id="fileUrl" disabled="true">
+                        <input type="text" class="verification-TabCon-Input" id="fileUrl" disabled="true" placeholder="请上传质证书pdf原件">
                         <a class="fl" href="javascript:;" comType="uploadCtrl" uploadType="button" uploadTypeVal="上传" reqPath="/file/upload" uploadSize='{"w":"100","h":"28"}' filetype="custom" fileExt="pdf"></a>
                         <div style="width: 100%;float: left;">
                             <div class="btnBaseCommon verification-TabCon-up" id="uploadCheck">上传验证</div>
