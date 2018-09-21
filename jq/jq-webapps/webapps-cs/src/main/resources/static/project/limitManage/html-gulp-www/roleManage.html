@@ -244,7 +244,7 @@
                 getAjaxResult("/orgInfo/getChildTreeOrgInfo","POST",{"parentId":orgId},"initZz(data)")
             }else{
                 orgId = $.cookie("orgId")
-                if(orgId.length == 11)$("#chooseZzBtn").hide();
+                //if(orgId.length == 11)$("#chooseZzBtn").hide();
                 getAjaxResult("/orgInfo/getChildTreeOrgInfo","POST",{"parentId":orgId},"initZz(data)")
             }
 
@@ -294,7 +294,7 @@
                 openWin(400, 300, "resourchSe", true);
                 $("#resourchSe h2").html("新建角色");
                 //setValue4Desc($("#detailRow")[0].data, $("#resourchSe")[0]);
-                setValueGlobal($("#detailRow")[0].data, $("#resourchSe")[0])
+                setValueGlobal($("#detailRow1")[0].data, $("#resourchSe")[0])
                 $("#resourchSe #roleTitle").val("");
 
                 //复现初始化组织信息

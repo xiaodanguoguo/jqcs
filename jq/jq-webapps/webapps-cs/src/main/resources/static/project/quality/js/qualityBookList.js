@@ -61,14 +61,24 @@ function clsMethodLee$operate(){
             var alertBox=new clsAlertBoxCtrl();
             alertBox.Alert("请勾选将要下载的质证书","失败提示");
         }else{
-            var millSheetNoArr = [];
-            for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
-                millSheetNoArr.push($("#tableList")[0].cacheArr[nI].millSheetNo);
+            var num = 0;
+            for(var nI = 0; nI < $("#tableList")[0].cacheArr.length; nI++){
+                if($("#tableList")[0].cacheArr[nI].printableNum != 0){
+                    num++;
+                }
             }
-            var importParam = "name=" + JSON.stringify(millSheetNoArr);
-            $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
-            initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
-
+            if(num == $("#tableList")[0].cacheArr.length){
+                var millSheetNoArr = [];
+                for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
+                    millSheetNoArr.push($("#tableList")[0].cacheArr[nI].millSheetNo);
+                }
+                var importParam = "name=" + JSON.stringify(millSheetNoArr);
+                $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
+                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+            }else{
+                var alertBox = new clsAlertBoxCtrl();
+                alertBox.Alert("存在下载次数已为0的质证书，请取消勾选！","错误提示");
+            }
         }
     });
 
@@ -77,12 +87,19 @@ function clsMethodLee$operate(){
             var alertBox=new clsAlertBoxCtrl();
             alertBox.Alert("请勾选将要打印的质证书","失败提示");
         }else{
-            var millSheetNoArr = [];
-            for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
-                millSheetNoArr.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":1});
+            var num = 0;
+            for(var nI = 0; nI < $("#tableList")[0].cacheArr.length; nI++){
+                if($("#tableList")[0].cacheArr[nI].printableNum != 0){
+                    num++;
+                }
             }
-            etAjaxResult(document.body.jsLee.requestUrl.path2,"POST",millSheetNoArr,"printOpeCallBack(data)")
-            initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+            if(num == $("#tableList")[0].cacheArr.length){
+                var alertBox = new clsAlertBoxCtrl();
+                alertBox.Alert("确认打印？打印次数减一","警告提示",1,"","printOpeTip");
+            }else{
+                var alertBox = new clsAlertBoxCtrl();
+                alertBox.Alert("存在打印次数已为0的质证书，请取消勾选！","错误提示");
+            }
 
         }
     });
@@ -287,10 +304,22 @@ function getContentCallBack(data){
     }
 }
 
+function clsAlertBoxCtrl$sure() {//成功弹框确定
+    if (this.id == "printOpeTip") {
+        var millSheetNoArr = [];
+        for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
+            millSheetNoArr.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":2});
+        }
+        getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",millSheetNoArr,"printOpeCallBack(data)");
+        closePopupWin();
+    }
+}
+
+//打印回调
 function printOpeCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        jumpUrl("../../")
+        jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody.report,"0000000","1");
     }
 }
 
