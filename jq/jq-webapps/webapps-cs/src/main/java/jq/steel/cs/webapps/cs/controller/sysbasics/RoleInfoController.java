@@ -82,9 +82,6 @@ public class RoleInfoController {
         try {
             //根据service层返回的编码做不同的操作
 //            jsonRequest.getReqBody().setOrgIdAll(AssertContext.getOrgId());
-            if (jsonRequest.getReqBody().getOrgIdAll().equals("1")){
-                jsonRequest.getReqBody().setOrgIdAll("101");
-            }
             ServiceResponse<Map> response=roleInfoAPI.roleInfoTree(jsonRequest.getReqBody());
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode())) {
                 result.setRspBody(response.getRetContent());
