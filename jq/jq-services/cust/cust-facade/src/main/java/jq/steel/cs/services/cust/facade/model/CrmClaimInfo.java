@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class CrmClaimInfo {
 
+    private String claimState1;
+
     //牌号
     private  String zph;
 
@@ -153,6 +155,14 @@ public class CrmClaimInfo {
 
     //异议确认量
     private  String objectionConfirmation;
+
+    public String getClaimState1() {
+        return claimState1;
+    }
+
+    public void setClaimState1(String claimState1) {
+        this.claimState1 = claimState1;
+    }
 
     public String getReportPictures() {
         return reportPictures;

@@ -666,11 +666,17 @@
       <if test="designation != null and designation != ''" >
         AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}
       </if>
-
-      <if test="claimState != null and claimState != ''" >
-        AND A.CLAIM_STATE = #{claimState}
-      </if>
-
+      <choose>
+        <when test="claimState1 !=null and claimState1 != ''">
+          and A.CLAIM_STATE  = #{claimState1,jdbcType=VARCHAR}
+        </when>
+        <otherwise>
+          AND A.CLAIM_STATE IN ('INVESTIGATION', 'HANDLE', 'END', 'EVALUATE','ADOPT')
+        </otherwise>
+      </choose>
+     <!-- <if test="claimState != null and claimState != ''" >
+        AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
+      </if>-->
       <if test="inquireState != null and inquireState != ''" >
         AND A.INQUIRE_STATE = #{inquireState}
       </if>
