@@ -290,13 +290,7 @@ function getContentCallBack(data){
 function printOpeCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        //var millSheetUrlName = data.data[0].millSheetUrl+"/"+data.data[0].millSheetName
-        var millSheetUrlName = data.rspBody;
-        //这里是使用iframe显示的，因为需求要嵌入页面而不是直接打开新页面，总之只要把我们服务器上的路径作为参数给viewer.html?file=
-        //就可以显示了
-        var jspURL = encodeURIComponent("printPdf.jsp?pdfPath="+millSheetUrlName);
-        var tmpURL = "../../pdfPrint/pdfwebsign.html?p1=none&p2=none&p3=none&p4=none&p5=none&file="+jspURL;
-        newOpen.location.href = "preview.action?p="+tmpURL+"arraySheetNoLs="+arraySheetNoLs;
+        jumpUrl("../../")
     }
 }
 
