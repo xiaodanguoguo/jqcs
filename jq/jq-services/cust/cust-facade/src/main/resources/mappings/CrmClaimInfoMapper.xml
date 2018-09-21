@@ -523,7 +523,7 @@
         INQUIRE_STATE = #{inquireState,jdbcType=VARCHAR},
       </if>
       <if test="reportPictures != null and reportPictures != ''" >
-        REPORT_PICTURE = #{reportPicture,jdbcType=VARCHAR},
+        REPORT_PICTURE = #{reportPictures,jdbcType=VARCHAR},
       </if>
       <if test="objectionConfirmation != null" >
         OBJECTION_CONFIRMATION = #{objectionConfirmation ,jdbcType=NUMERIC},
