@@ -76,6 +76,17 @@ public class MillSheetHostsController {
         JsonResponse<List<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
         try {
             ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findUrl(jsonRequest);
+            //1是预览  2是打印
+            if (jsonRequest.getReqBody().get(0).getOperationType()==1){
+                if (jsonRequest.getReqBody().size()>1){
+                    //从质证书服务器获取文件到本地   重新生成文件
+
+                }else {
+                    //从质证书服务器获取文件到本地 返回url
+                }
+            }else {
+
+            }
             jsonResponse.setRspBody(serviceResponse.getRetContent());
         } catch (BusinessException e) {
             logger.error("获取分页列表错误 = {}", e);

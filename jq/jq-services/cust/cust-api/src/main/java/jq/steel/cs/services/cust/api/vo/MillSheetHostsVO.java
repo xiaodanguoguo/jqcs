@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 public class MillSheetHostsVO implements Serializable {
+
+    private Integer operationType;
     //是否回退
     private String isReback;
 
@@ -120,6 +122,14 @@ public class MillSheetHostsVO implements Serializable {
     private  String spiltCustomer;
 
     private  String productName;
+
+    public Integer getOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(Integer operationType) {
+        this.operationType = operationType;
+    }
 
     public String getIsReback() {
         return isReback;

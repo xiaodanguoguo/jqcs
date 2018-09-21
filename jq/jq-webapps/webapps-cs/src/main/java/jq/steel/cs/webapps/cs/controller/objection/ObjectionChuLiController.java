@@ -225,7 +225,7 @@ public class ObjectionChuLiController {
         logger.info("参数", JsonUtil.toJson(jsonRequest));
         CreatePdf createPdf = new CreatePdf();
         JsonResponse<ObjectionChuLiVO>  jsonResponse = new JsonResponse<>();
-        String createPdfPath = uploadConfig.getUploadPath();
+        String createPdfPath = uploadConfig.getReportUrl();
         jsonRequest.getReqBody().setReport(createPdfPath);
         try {
             ServiceResponse<ObjectionChuLiVO> serviceResponse = objectionChuLiAPI.preview(jsonRequest);
@@ -265,7 +265,7 @@ public class ObjectionChuLiController {
             CreatePdf createPdf = new CreatePdf();
             ObjectionChuLiVO objectionChuLiVO = (ObjectionChuLiVO)JsonUtil.parseObject(jsonRequest,ObjectionChuLiVO.class);
             //下载地址
-            String createPdfPath = uploadConfig.getUploadPath();
+            String createPdfPath = uploadConfig.getReportUrl();
             objectionChuLiVO.setReport(createPdfPath);
             JsonRequest<ObjectionChuLiVO> jsonRequest1 = new JsonRequest();
             jsonRequest1.setReqBody(objectionChuLiVO);
@@ -304,12 +304,18 @@ public class ObjectionChuLiController {
                     response.setHeader("Content-Disposition", "attachment;fileName="+fileName);*/
                     String  pdfName = claimNo + "Y.pdf";
                     report = createPdf.createPdf(claimNo,createPdfPath,pdfName,"yiyibaogao");
-                }else if (templateType ==5){
+                    String  fileName = report.substring(report.lastIndexOf("/")+1);
+                    response.setHeader("Content-Disposition", "attachment;fileName="+fileName);
+                }else if (templateType ==4){
                     String  pdfName = claimNo + "N.pdf";
                     report = createPdf.createPdf(claimNo,createPdfPath,pdfName,"neibudiaocha");
-                }else if(templateType ==6){
+                    String  fileName = report.substring(report.lastIndexOf("/")+1);
+                    response.setHeader("Content-Disposition", "attachment;fileName="+fileName);
+                }else if(templateType ==5){
                     String  pdfName = claimNo + "W.pdf";
                     report = createPdf.createPdf(claimNo,createPdfPath,pdfName,"waibudiaocha");
+                    String  fileName = report.substring(report.lastIndexOf("/")+1);
+                    response.setHeader("Content-Disposition", "attachment;fileName="+fileName);
                 }
 
             }
