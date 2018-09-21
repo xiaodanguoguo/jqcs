@@ -131,6 +131,7 @@ function clsMethodLee$parse(){
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
             $("#proProblem").removeAttr("disabled").removeClass("changeGary");
             $("#claimTypeA input").removeAttr("disabled").removeClass("changeGary");
+            $("#rejectReason").removeAttr("disabled").removeClass("changeGary");
            // this.selectedMark.selMark1 = false;
             this.selectedMark.selMark2 = false;
             getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":this.claimNo,"optionType":4},"htmlInit(data)");//数据回显操作
@@ -182,6 +183,7 @@ function clsMethodLee$parse(){
             $(".box4:last").remove();
             $("#submitBox input").attr("disabled",true).addClass("changeGary");
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
+            $("#rejectReason").removeAttr("disabled").removeClass("changeGary");
             getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"claimNo":this.claimNo,"optionType":3},"htmlInit2(data)");//数据回显操作
             break;
         case 7://销售审核详情
