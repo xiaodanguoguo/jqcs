@@ -355,9 +355,13 @@ public class AcctServiceImpl implements AcctService {
             for(FunctionManageVO manageVO : authList){
                 if (!StringUtil.isEmpty(manageVO.getFunctionCode())) {
                     authMap.put(manageVO.getFunctionCode(), manageVO.getFunctionCode());
+                    limitCode.add(manageVO.getFunctionCode());
                 }
-                authMapPath.put(manageVO.getFunctionPath(), manageVO.getFunctionPath());
-                limitCode.add(manageVO.getFunctionCode());
+
+                if (!StringUtil.isEmpty(manageVO.getFunctionPath())) {
+                    authMapPath.put(manageVO.getFunctionPath(), manageVO.getFunctionPath());
+                }
+
             }
 
             acctSession.getAcct().setLimitCode(limitCode);
