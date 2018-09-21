@@ -385,21 +385,38 @@
             //var obj = new clsValidateCtrl();
             //if(obj.validateAll())
             //{
-            var jsonData = [];
-            $("tr[id='cloneRow']").each(function(){
-                jsonData.push(this.jsonData);
-            });
+            initValidate($("#questionList")[0]);
+            var valiClass=new clsValidateCtrl();
+            if(valiClass.validateAll4Ctrl($("#questionList")[0])){
+                var jsonData = [];
+                $("tr[id='cloneRow']").each(function(){
+                    jsonData.push(this.jsonData);
+                });
 
-            getAjaxResult("/question/save","POST",jsonData,"saveCallBack(data)")
+                getAjaxResult("/question/save","POST",jsonData,"saveCallBack(data)")
+            }
+
             //}
 
         });
         //子表保存
         $("#btnCSave").click(function(){
             //initValidateNoBind();
-            var obj = new clsValidateCtrl();
-            if(obj.validateAll())
-            {
+            $("*[id=manyCheck]").each(function () {
+                var manyCheckRow = $(this).find("input");
+                var idxSum = 0;
+                manyCheckRow.each(function () {
+                    if(!$(this).is(":checked")){
+                        idxSum++;
+                    }
+                });
+                if(idxSum == $(this).find("input").length){
+                    showErrInfoByCustomDiv($(this)[0],"请至少勾选一项答题选项！")
+                }
+            });
+            initValidate($("#questionCList")[0]);
+            var valiClass=new clsValidateCtrl();
+            if(valiClass.validateAll4Ctrl($("#questionCList")[0])){
                 var jsonData = [];
                 $("tr[id='cloneRowC']").each(function(){
                     var crmQuestionTeamAnswerVOList = [];
@@ -537,6 +554,24 @@
         $("#zw").text(response.rspBody.originalName);
     }
 
+    //按照组件重新编写div校验
+    function showErrInfoByCustomDiv(elem,error)
+    {
+        $(elem).poshytip({
+            className: 'tip-twitter',
+            showOn: 'none',
+            alignTo: 'target',
+            alignX: 'right',
+            alignY: 'inner-right',
+            content:error,
+            offsetX: 5,
+            offsetY: -30,
+            autoHide:true,
+            hideTimeout:5000
+        });
+        $(elem).poshytip('hide');
+        $(elem).poshytip('show');
+    }
 </script>
 	<div class="establish">
        <!-- <div class="establish-title">
@@ -575,7 +610,7 @@
                             <td class="table-list-currentrow-tdetail" id="createDt" style="text-align: center"></td>
                             <td class="table-list-currentrow-tdetail" id="questionStatusText" style="text-align: center"></td>
                             <td class="table-list-currentrow-tdetail"><input type="text" id="questionTitle" class="required"></td>
-                            <td class="table-list-currentrow-tdetail"><input type="text" name="endDt" id="endDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"  style="text-align: center" /></td>
+                            <td class="table-list-currentrow-tdetail"><input type="text" name="endDt" class="required" id="endDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"  style="text-align: center" /></td>
                         </tr>
                         
                     </table>
@@ -601,8 +636,8 @@
                     <tr class="table-list-currentrow" id="templateRowC" style="display:none">
                         <td class="table-list-currentrow-tdetail"><input type="checkbox" id="questionCheck" class="clsChk" style="margin-left: 5px;"></td>
                         <td class="table-list-currentrow-tdetail" id="rowNum"  style="text-align: center">1</td>
-                        <td class="table-list-currentrow-tdetail"><input type="text" id="itemTitle" style="width: 178px;"></td>
-                        <td class="table-list-currentrow-tdetail" width="14%">
+                        <td class="table-list-currentrow-tdetail"><input type="text" class="required" id="itemTitle" style="width: 178px;"></td>
+                        <td class="table-list-currentrow-tdetail"  id="manyCheck" width="14%">
                             <ul>
                                 <li style="margin-right: 4px;float: left;">
                                     <input val="1" type="checkbox" style="cursor:pointer">
