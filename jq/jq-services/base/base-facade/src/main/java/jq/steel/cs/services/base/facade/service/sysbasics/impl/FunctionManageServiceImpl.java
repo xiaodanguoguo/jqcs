@@ -277,7 +277,7 @@ public class FunctionManageServiceImpl implements FunctionManageService {
                 functionManageMapper.updateFunctionIdAll(functionManage);
             }
         }else if(SysPramType.UPDATE.getMsg().equals(opt)){
-            reqBody.setUpdatedBy("修改人");
+            reqBody.setCreatedBy(null);
             reqBody.setUpdatedTime(new Date());
             //修改
             FunctionManage parId=functionManageMapper.findParentApplicationId(reqBody);
@@ -285,7 +285,7 @@ public class FunctionManageServiceImpl implements FunctionManageService {
 
             reqBody.setParentApplicationId(parId.getParentApplicationId());
         }else if(SysPramType.INSERT.getMsg().equals(opt)){
-            reqBody.setCreatedBy("创建人");
+            reqBody.setUpdatedBy(null);
             reqBody.setCreatedTime(new Date());
             reqBody.setFunctionId(null);
             if(StringUtils.isEmpty(reqBody.getIsDelete())){
