@@ -539,8 +539,11 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
     </if>
     <if test="updatedDt != null" >
-      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP}
+      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
     </if>
+      <if test="state != null and state != ''" >
+      STATE = #{state,jdbcType=VARCHAR}
+     </if>
     where MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -79,7 +79,7 @@ public class MillSheetHostsController {
         try {
             ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findUrl(jsonRequest);
             //1是预览  2是打印
-            if (jsonRequest.getReqBody().get(0).getOperationType()==1){
+            if (jsonRequest.getReqBody().get(0).getOperationType().equals(1)){
                 if (jsonRequest.getReqBody().size()>1){
                     //从质证书服务器获取文件到本地   重新生成文件
                     for(MillSheetHostsVO millSheetHostsVO :serviceResponse.getRetContent()){
@@ -207,6 +207,12 @@ public class MillSheetHostsController {
                     jsonResponse.setRetCode("1111111");
                     jsonResponse.setRetDesc("此质证书已回退过，不可再次回退");
                 }else {
+                    //从质证书服务器获取文件到本地 返回url
+                    String createPdfPath = uploadConfig.getDomain();
+                    String millSheetPath =  serviceResponse.getRetContent().getMillSheetPath();
+                    String url = createPdfPath + millSheetPath;
+                    this.saveUrlAs(url,millSheetPath,"GET");
+                    serviceResponse.getRetContent().setMillSheetPath(url);
                     jsonResponse.setRspBody(serviceResponse.getRetContent());
                 }
             }else {

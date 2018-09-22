@@ -4,16 +4,11 @@ import com.ebase.core.page.PageDTO;
 import com.ebase.core.page.PageDTOUtil;
 import com.ebase.utils.BeanCopyUtil;
 import com.ebase.utils.DateFormatUtil;
+import com.raqsoft.dm.IFile;
 import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
-import jq.steel.cs.services.cust.facade.dao.CrmMillSheetRebackApplyMapper;
-import jq.steel.cs.services.cust.facade.dao.CrmMillSheetSplitApplyMapper;
-import jq.steel.cs.services.cust.facade.dao.MillCoilInfoMapper;
-import jq.steel.cs.services.cust.facade.dao.MillSheetHostsMapper;
-import jq.steel.cs.services.cust.facade.model.CrmMillSheetRebackApply;
-import jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitApply;
-import jq.steel.cs.services.cust.facade.model.MillCoilInfo;
-import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
+import jq.steel.cs.services.cust.facade.dao.*;
+import jq.steel.cs.services.cust.facade.model.*;
 import jq.steel.cs.services.cust.facade.service.millsheet.MillSheetHostsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +28,8 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     private MillCoilInfoMapper millCoilInfoMapper;
     @Autowired
     private CrmMillSheetRebackApplyMapper crmMillSheetRebackApplyMapper;
+    @Autowired
+    private MillOperationHisMapper millOperationHisMapper;
 
 
     @Override
@@ -86,6 +83,21 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             MillSheetHosts millSheetByPage = millSheetHostsMapper.findUrl(millSheetHosts);
             millSheetByPage.setMillSheetPath(millSheetByPage.getMillSheetUrl() +"/"+millSheetByPage.getMillSheetName());
             BeanCopyUtil.copy(millSheetByPage,millSheetHostsVO);
+            //
+            //日志表
+            MillOperationHis millOperationHis = new MillOperationHis();
+            millOperationHis.setMillSheetNo(millSheetHostsVO.getMillSheetNo());
+            if(millSheetHosts.getOperationType().equals(1)){
+                //1是预览  2是打印
+                millOperationHis.setOperationType("PRIVIEWED");
+                millSheetHosts.setState("PRIVIEWED");
+            }else {
+                millOperationHis.setOperationType("PRINTED");
+                millSheetHosts.setState("PRINTED");
+            }
+            millOperationHis.setOperationTime(new Date());
+            millOperationHisMapper.insertSelective(millOperationHis);
+            millSheetHostsMapper.updateNum(millSheetHosts);
         }
         return millSheetHostsVOS;
     }
@@ -102,13 +114,20 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             MillSheetHosts url = millSheetHostsMapper.findUrl(millSheetHosts1);
             millSheetHosts1.setMillSheetPath(url.getMillSheetUrl()+"/"+url.getMillSheetName());
 
-            //修改下载次数
+            //修改下载次数 + 状态
             millSheetHosts1.setDownableNum(url.getDownableNum()-1);
             millSheetHosts1.setDownNum(url.getDownNum()+1);
             //millSheetHosts1.setUpdatedBy(orgName);
             millSheetHosts1.setUpdatedDt(new Date());
+            millSheetHosts1.setState("DOWNLOADED");
             millSheetHostsMapper.updateNum(millSheetHosts1);
             millSheetHosts1.setMillSheetName(url.getMillSheetName());
+            //日志表
+            MillOperationHis millOperationHis = new MillOperationHis();
+            millOperationHis.setMillSheetNo(millSheetHosts1.getMillSheetNo());
+            millOperationHis.setOperationType("DOWNLOADED");
+            millOperationHis.setOperationTime(new Date());
+            millOperationHisMapper.insertSelective(millOperationHis);
         }
         //转换返回对象
         List<MillSheetHostsVO> millSheetHostsVOS = BeanCopyUtil.copyList(millSheetHosts, MillSheetHostsVO.class);

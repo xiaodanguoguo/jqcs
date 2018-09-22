@@ -409,7 +409,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
         CrmClaimApply crmClaimApply = new CrmClaimApply();
         crmClaimApply.setClaimNo(objectionTiBaoVO.getClaimNo());
         CrmClaimApply crmClaimApplies = crmClaimApplyMapper.findByParams(crmClaimApply);
-        objectionTiBaoVO.setUrl(crmClaimApplies.getFilePath());
+        objectionTiBaoVO.setUrl(crmClaimApplies.getReportPictures());
 
         return objectionTiBaoVO;
     }
