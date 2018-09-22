@@ -251,7 +251,7 @@ function previewPage(type){//type——0上一页  1下一页
                 }
             }
             $("#previewOpeBoxPdf").attr("href",document.body.jsLee.previewArrCurrent);
-            $("#previewOpeBoxPdf").media({width:740, height:450});
+            $("#previewOpeBoxPdf").media({width:1150, height:450});
             break;
         }
     }
