@@ -469,8 +469,7 @@ public class SysBasicsAcctServiceImpl implements SysBasicsAcctService {
         acctInfo.setAcctTitle(reqBody.getAcctTitle());
 
         BeanCopyUtil.copy(reqBody,acctInfo);
-        if(acctInfo.getAcctId()==null||acctInfo.getAcctId()==' ')
-        {
+        if(acctInfo.getAcctId()==null||acctInfo.getAcctId()==' ') {
             List<AcctInfo> list = acctInfoMapper.selectAll(acctInfo);
             for (AcctInfo acctInfo1 : list) {
                 if (reqBody.getAcctTitle().equals(acctInfo1.getAcctTitle())) {
