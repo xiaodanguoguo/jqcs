@@ -56,7 +56,7 @@
             if(data.rspBody.count > 0){
                 var alertBox=new clsAlertBoxCtrl();
                 qid = data.rspBody.qid;
-                alertBox.Alert("您好，"+ getCookie("userName") +"！有"+ data.rspBody.count +"份问卷调查，期待您的参与！","温馨提示",1,"","questionSure");
+                alertBox.Alert("您好，"+ unescape(getCookie("userName")) +"！有"+ data.rspBody.count +"份问卷调查，期待您的参与！","温馨提示",1,"","questionSure");
             }
         }
     }

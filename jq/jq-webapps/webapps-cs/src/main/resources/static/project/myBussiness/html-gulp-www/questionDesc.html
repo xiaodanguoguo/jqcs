@@ -41,10 +41,10 @@
         var date_start;
         var i=0;
 		$(function(){
-            $("#userName").html(getCookie("userName"));
+            $("#userName").html(unescape(getCookie("userName")));
             $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
-            if(getCookie("navListIdx")){
-                $(".og-head-mainlt__sasety").eq(getCookie("navListIdx")).addClass("og-head-mainlt__sidebar--shrinkActive");
+            if(unescape(getCookie("navListIdx"))){
+                $(".og-head-mainlt__sasety").eq(unescape(getCookie("navListIdx"))).addClass("og-head-mainlt__sidebar--shrinkActive");
             }
 		    //导航的点击
 		    $(".og-head-navlist li a").on("click",function(){
@@ -58,7 +58,7 @@
 			$("#js-leftNavBar .og-head-mainlt__sasety").on("click",function(){
                 $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
 			    $(this).addClass("og-head-mainlt__sidebar--shrinkActive");
-			    setCookie("navListIdx",$(this).val());
+			    setCookie("navListIdx",escape($(this).val()));
 			    window.location.href=$(this).find("a").attr("acSrc")
 				//$(this).parents(".og-head-mainlt__sidebar--menu").find("ul").css("display","");
 			})
@@ -85,7 +85,7 @@
                 if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
                     window.localStorage.limitCode = [];
                 }else{
-                    setCookie("limitCode",JSON.stringify([]));
+                    setCookie("limitCode",escape(JSON.stringify([])));
                 }
                 jumpUrl("../../login/html-gulp-www/login.html","0000000",0);
             }else{
@@ -297,10 +297,10 @@
             if(data.rspBody.count > 0){
                 var alertBox=new clsAlertBoxCtrl();
                 qidJump = data.rspBody.qid;
-                alertBox.Alert("您好，"+ getCookie("userName") +"！有"+ data.rspBody.count +"份问卷调查，期待您的参与！","温馨提示",1,"","questionSure");
+                alertBox.Alert("您好，"+ unescape(getCookie("userName")) +"！有"+ data.rspBody.count +"份问卷调查，期待您的参与！","温馨提示",1,"","questionSure");
             }else{
                 var alertBox=new clsAlertBoxCtrl();
-                alertBox.Alert("您好，"+ getCookie("userName") +"！您已经完成所有问卷调查，谢谢合作！");
+                alertBox.Alert("您好，"+ unescape(getCookie("userName")) +"！您已经完成所有问卷调查，谢谢合作！");
 			}
         }
     }
