@@ -836,12 +836,7 @@ public PageDTO<AcctInfoVO> listSysAcct(JsonRequest<AcctInfoVO> jsonRequest)throw
     //客户类型获取
     @Override
     public AcctInfoVO customerType(AcctInfoVO record) {
-        OrgInfo orgInfo = new OrgInfo();
-        orgInfo.setId(record.getOrgId());
-        OrgInfo result = orgInfoMapper.selectOrgInfo(orgInfo);
-        AcctInfoVO acctInfoVO = new AcctInfoVO();
-        acctInfoVO.setAcctType(Long.parseLong(result.getOrgType()));
-        acctInfoVO.setOrgName(result.getOrgName());
-        return acctInfoVO;
+        record.setAcctType(Long.valueOf(record.getAcctType()));
+        return record;
     }
 }

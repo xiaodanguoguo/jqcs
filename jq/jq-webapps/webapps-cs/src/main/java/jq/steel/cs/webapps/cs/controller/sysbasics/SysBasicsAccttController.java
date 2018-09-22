@@ -463,9 +463,13 @@ public class SysBasicsAccttController {
     public JsonResponse<AcctInfoVO>  customerType(@RequestBody JsonRequest<AcctInfoVO> jsonRequest){
         JsonResponse<AcctInfoVO>  jsonResponse = new JsonResponse();
         try{
-            jsonRequest.getReqBody().setOrgId(AssertContext.getOrgId());
-            ServiceResponse<AcctInfoVO> serviceResponse =sysAccInfoAPI.customerType(jsonRequest);
-            jsonResponse.setRspBody(serviceResponse.getRetContent());
+            AcctInfoVO acctInfoVO = new AcctInfoVO();
+            acctInfoVO.setAcctType(Long.valueOf(AssertContext.getAcctType()));
+            if (AssertContext.getAcctType().equals("2")) {
+                acctInfoVO.setOrgName(AssertContext.getOrgName());
+            }
+            acctInfoVO.setOrgCode(AssertContext.getOrgCode());
+            jsonResponse.setRspBody(acctInfoVO);
         }catch (BusinessException e){
             jsonResponse.setRetCode(e.getErrorCode());
             jsonResponse.setRetDesc(e.getMessage());
