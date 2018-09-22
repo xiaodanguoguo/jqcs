@@ -26,7 +26,8 @@ public class CrmMillSheetRebackApplyRebackServiceImpl implements CrmMillSheetReb
         Integer i = crmMillSheetRebackApplyMapper.insertSelective(crmMillSheetRebackApply);*/
         MillFallbackInfo millFallbackInfo = new MillFallbackInfo();
         millFallbackInfo.setMillSheetNo(crmMillSheetRebackApply.getMillSheetNo());
-        millFallbackInfo.setCreatedBy(crmMillSheetRebackApply.getOrgName());
+        millFallbackInfo.setCreatedBy(crmMillSheetRebackApply.getOrgCode());
+        millFallbackInfo.setFallbackReason(crmMillSheetRebackApply.getRegresses());
         millFallbackInfo.setCreatedDt(new Date());
         Integer i  = millFallbackInfoMapper.insertSelective(millFallbackInfo);
         return  i;
