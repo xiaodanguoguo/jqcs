@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -91,9 +94,9 @@ public class AcctController {
 
                 String sessionId = serviceResponse.getRetContent().getSessionId();
                 CookieUtil.setCookie(response,"sessionId",sessionId);
-                CookieUtil.setCookie(response,"userName", serviceResponse.getRetContent().getAcct().getName());
-                CookieUtil.setCookie(response,"orgId", serviceResponse.getRetContent().getAcct().getOrgId());
-                CookieUtil.setCookie(response,"acctId", serviceResponse.getRetContent().getAcct().getAcctId().toString());
+                CookieUtil.setCookie(response,"userName", escapeCookie(serviceResponse.getRetContent().getAcct().getName()));
+                CookieUtil.setCookie(response,"orgId", escapeCookie(serviceResponse.getRetContent().getAcct().getOrgId()));
+                CookieUtil.setCookie(response,"acctId", escapeCookie(serviceResponse.getRetContent().getAcct().getAcctId().toString()));
             }else {
                 if (serviceResponse.isHasError()) {
                     jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
@@ -197,5 +200,11 @@ public class AcctController {
         return jsonResponse;
     }
 
+    private String escapeCookie(String value) throws ScriptException {
+        ScriptEngineManager sem = new ScriptEngineManager();
+        ScriptEngine engine = sem.getEngineByExtension("js");
+        String result = (String)engine.eval("escape('"+ value +"')");
 
+        return result;
+    }
 }
