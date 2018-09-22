@@ -85,13 +85,13 @@ public class MillSheetHostsController {
 
                 }else {
                     //从质证书服务器获取文件到本地 返回url
-                    String createPdfPath = uploadConfig.getMillsheet();
+                    String createPdfPath = uploadConfig.getDomain();
                     String path = serviceResponse.getRetContent().get(0).getMillSheetUrl();
                     String millSheetName = serviceResponse.getRetContent().get(0).getMillSheetName();
                     String millSheetPath =  serviceResponse.getRetContent().get(0).getMillSheetPath();
                     String url = createPdfPath + millSheetPath;
                     this.saveUrlAs(url,millSheetPath,"GET");
-
+                    serviceResponse.getRetContent().get(0).setMillSheetPath(url);
                 }
             }else {
 
