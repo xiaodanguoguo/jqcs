@@ -192,7 +192,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 h.setUpdatedDt(new Date());
                 h.setUpdatedBy(orgCode);
                 h.setClaimNo(crmClaimApply.getClaimNo());
-                h.setClaimState("ACCEPTANCE");
+                h.setClaimState("ADOPT");
                 h.setAdmissibilityTime(new Date());
                 h.setAdmissibilityUser(orgCode);
                 h.setProProblem(crmClaimApply.getProProblem());
@@ -201,7 +201,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 g.setUpdatedDt(new Date());
                 g.setUpdatedBy(orgCode);
                 g.setClaimNo(crmClaimApply.getClaimNo());
-                g.setClaimState("ACCEPTANCE");
+                g.setClaimState("ADOPT");
                 g.setProProblem(crmClaimInfo.getProProblem());
                 g.setClaimType(crmClaimInfo.getClaimType());
                 Integer integer = crmClaimInfoMapper.updateByPrimaryKeySelective(g);
