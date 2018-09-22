@@ -82,12 +82,16 @@ public class MillSheetHostsController {
             if (jsonRequest.getReqBody().get(0).getOperationType()==1){
                 if (jsonRequest.getReqBody().size()>1){
                     //从质证书服务器获取文件到本地   重新生成文件
-
+                    for(MillSheetHostsVO millSheetHostsVO :serviceResponse.getRetContent()){
+                        String createPdfPath = uploadConfig.getDomain();
+                        String millSheetPath =  millSheetHostsVO.getMillSheetPath();
+                        String url = createPdfPath + millSheetPath;
+                        this.saveUrlAs(url,millSheetPath,"GET");
+                        millSheetHostsVO.setMillSheetPath(url);
+                    }
                 }else {
                     //从质证书服务器获取文件到本地 返回url
                     String createPdfPath = uploadConfig.getDomain();
-                    String path = serviceResponse.getRetContent().get(0).getMillSheetUrl();
-                    String millSheetName = serviceResponse.getRetContent().get(0).getMillSheetName();
                     String millSheetPath =  serviceResponse.getRetContent().get(0).getMillSheetPath();
                     String url = createPdfPath + millSheetPath;
                     this.saveUrlAs(url,millSheetPath,"GET");
@@ -236,6 +240,13 @@ public class MillSheetHostsController {
             ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.downFile(jsonRequest1);
             String millSheetPath ="";
             if (serviceResponse.getRetContent().size()>1){
+
+                for(MillSheetHostsVO millSheetHostsVO :serviceResponse.getRetContent()){
+                    String createPdfPath = uploadConfig.getDomain();
+                    String millSheetPathB =  millSheetHostsVO.getMillSheetPath();
+                    String url = createPdfPath + millSheetPathB;
+                    this.saveUrlAs(url,millSheetPath,"GET");
+                }
                 List<File> fileList = new ArrayList<>();
                 for (int i=0;i<serviceResponse.getRetContent().size();i++){
                     fileList.add(new File(serviceResponse.getRetContent().get(i).getMillSheetPath()));
@@ -250,6 +261,12 @@ public class MillSheetHostsController {
                 millSheetPath = "zhibaoshu.zip";
 
             }else {
+                //单个文件下载
+                String createPdfPath = uploadConfig.getDomain();
+                String millSheetPathA =  serviceResponse.getRetContent().get(0).getMillSheetPath();
+                String url = createPdfPath + millSheetPathA;
+                this.saveUrlAs(url,millSheetPathA,"GET");
+                //配置请求头
                 millSheetPath = serviceResponse.getRetContent().get(0).getMillSheetPath();
                 String  millSheetName = serviceResponse.getRetContent().get(0).getMillSheetName();
                 response.setHeader("Content-Disposition", "attachment;fileName="+millSheetName);
