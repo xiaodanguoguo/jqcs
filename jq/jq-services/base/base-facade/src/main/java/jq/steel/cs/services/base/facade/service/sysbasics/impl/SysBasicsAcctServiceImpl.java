@@ -466,10 +466,12 @@ public class SysBasicsAcctServiceImpl implements SysBasicsAcctService {
         JsonResponse jsonResponse = new JsonResponse();
         AcctToRoleInfoVO reqBody = jsonRequest.getReqBody();
         AcctInfo acctInfo = new AcctInfo();
+        acctInfo.setAcctTitle(reqBody.getAcctTitle());
         List<AcctInfo> list = acctInfoMapper.selectAll(acctInfo);
         for (AcctInfo acctInfo1 : list) {
             if (reqBody.getAcctTitle().equals(acctInfo1.getAcctTitle())) {
                 jsonResponse.setRetCode("0701006");
+                return jsonResponse;
             }
         }
         BeanCopyUtil.copy(reqBody,acctInfo);
