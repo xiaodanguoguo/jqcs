@@ -40,6 +40,19 @@ public class ObjectionJieAnServiceImpl implements ObjectionJieAnService{
         crmAgreementInfo1.setClaimNo(record.getClaimNo());
         crmAgreementInfo1.setAgreementUrl(record.getFilePath());
         crmAgreementInfoMapper.updateByPrimaryKeySelective(crmAgreementInfo1);
+        //修改为已结案
+        CrmClaimApply crmClaimApply = new CrmClaimApply();
+        crmClaimApply.setClaimNo(record.getClaimNo());
+        crmClaimApply.setUpdatedBy(AssertContext.getAcctName());
+        crmClaimApply.setUpdatedDt(new Date());
+        crmClaimApply.setClaimState("HANDLE");
+        crmClaimApplyMapper.update(crmClaimApply);
+        CrmClaimInfo crmClaimInfo = new CrmClaimInfo();
+        crmClaimInfo.setClaimNo(record.getClaimNo());
+        crmClaimInfo.setUpdatedDt(new Date());
+        crmClaimInfo.setUpdatedBy(AssertContext.getAcctName());
+        crmClaimInfo.setClaimState("HANDLE");
+        crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
         //查询是否有文件
         List<CrmAgreementInfo> crmAgreementInfos = crmAgreementInfoMapper.findList(crmAgreementInfo);
         if (crmAgreementInfos.get(0).getAgreementUrlName() !=null){

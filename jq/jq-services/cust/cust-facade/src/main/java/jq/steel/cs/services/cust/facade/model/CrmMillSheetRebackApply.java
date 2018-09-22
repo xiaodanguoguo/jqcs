@@ -3,6 +3,11 @@ package jq.steel.cs.services.cust.facade.model;
 import java.util.Date;
 
 public class CrmMillSheetRebackApply {
+
+    private  String orgCode;
+
+    private  String orgName;
+
     private Long sid;
 
     private String createdBy;
@@ -18,6 +23,22 @@ public class CrmMillSheetRebackApply {
     private String millSheetNo;
 
     private String regresses;
+
+    public String getOrgCode() {
+        return orgCode;
+    }
+
+    public void setOrgCode(String orgCode) {
+        this.orgCode = orgCode;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
 
     public Long getSid() {
         return sid;
