@@ -37,7 +37,6 @@ function clsMethodLee$operate(){
     this.saveOpe.on("click",function(){
         if(checkedIsTrue()){
             var jsonParam = paramJson();
-            console.log(jsonParam)
             if(document.body.jsLee.htmlType == 1){
                 getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",jsonParam,"saveCallBack(data)");
             }else{

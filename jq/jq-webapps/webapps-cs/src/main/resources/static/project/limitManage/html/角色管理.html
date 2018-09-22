@@ -342,7 +342,6 @@
         });
         function initZz(data){
             data = JSON.parse(data).rspBody.children;
-            console.log(data)
             if((data.length>0 && data[0].children.length>0)||(data.length>1)){
                 var a = new treeCheck();
                 a.loopLoad({"data":data, "parentDom":$("#looptree2"),"parentId":"looptree2","showName":"orgName"});
@@ -411,7 +410,6 @@
                     $("#resourchSe input").prop("checked",false)
                 }
             }
-            console.log(key)
         }
 
 
@@ -446,7 +444,6 @@
 
         function delOrSavePermission(data){
             data = JSON.parse(data)
-            console.log(data)
             if(data.retCode ==  "0000000"){
                 initTree(orgId);//操作成功之后初始化tree树
 

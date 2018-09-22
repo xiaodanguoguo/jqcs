@@ -183,7 +183,6 @@
         });
         function initZz(data){
             data = JSON.parse(data).rspBody.children;
-            console.log(data)
             if((data.length>0 && data[0].children.length>0)||(data.length>1)){
                 var a = new treeCheck();
                 a.loopLoad({"data":data, "parentDom":$("#looptree2"),"parentId":"looptree2","showName":"orgName"});
@@ -211,7 +210,6 @@
                     $("#resourchSe input").prop("checked",false)
                 }
             }
-            console.log(key)
         }
 
 
@@ -231,7 +229,6 @@
 
         function delOrSavePermission(data){
             data = JSON.parse(data)
-            console.log(data)
             if(data.rspBody.opt == "insert" || data.rspBody.opt == "update"){//新建//编辑
 
                 globalFunctionId = data.rspBody.functionId;

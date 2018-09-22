@@ -154,7 +154,6 @@
         function initZz(data){
             if(JSON.parse(data).retCode == "0000000"){
                 data = JSON.parse(data).rspBody.children;
-                console.log(data)
                 if(data.length == 0){
                     orgId = $.cookie("orgId");
                 }else{
@@ -221,7 +220,6 @@
                     $("#resourchSe input").prop("checked",false)
                 }
             }
-            console.log(key)
         }
 
 
