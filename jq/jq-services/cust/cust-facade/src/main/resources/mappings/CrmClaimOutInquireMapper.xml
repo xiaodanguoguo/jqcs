@@ -20,7 +20,7 @@
     <result column="UPDATE_DT" property="updateDt" jdbcType="TIMESTAMP" />
     <result column="VERSION" property="version" jdbcType="NUMERIC" />
     <result column="AMOUNT_OF_USE" property="amountOfUse" jdbcType="NUMERIC" />
-    <result column="INQUIRE_INFO" property="inquireInfo"/>
+    <result column="CLAIM_DESC" property="inquireInfo"/>
     <result column="ZCPMC" property="zcpmc" jdbcType="VARCHAR" />
     <result column="ZPH" property="zph" jdbcType="VARCHAR" />
     <result column="LAST_USER_TEL" property="lastUserTel" jdbcType="VARCHAR" />
@@ -62,7 +62,7 @@
     <result column="PRO_PROBLEM" property="proProblem" jdbcType="VARCHAR" />
     <result column="FIELD_CONCLUSION_TEXT" property="fieldConclusionText" jdbcType="VARCHAR" />
     <result column="FIELD_CONCLUSION_PHOTO" property="fieldConclusionPhoto" jdbcType="VARCHAR" />
-    <result column="PARENT_SID" property="parentSid" jdbcType="NUMERIC" />
+
 
 
     <!--内部调查-->
@@ -163,7 +163,7 @@ WHERE
         </otherwise>
       </choose>
       <if test="deptCode != null and deptCode != ''" >
-        AND  H.DEPT_CODE like  '%' || #{deptCode} ||'%'
+        AND  H.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
       </if>
       <if test="sid != null and sid != ''" >
         AND H.PARENT_SID = #{sid,jdbcType=VARCHAR}
@@ -205,6 +205,7 @@ A.SIZE_MARK,
 A.REPORT_PICTURE,
 A.DISSENTING_UNIT,
 A.OBJECTION_CONFIRMATION,
+A.CLAIM_DESC,
 B.FIELD_CONCLUSION_TEXT,
 B.FIELD_CONCLUSION_PHOTO,
 B.LOGISTICS_PROCESS,

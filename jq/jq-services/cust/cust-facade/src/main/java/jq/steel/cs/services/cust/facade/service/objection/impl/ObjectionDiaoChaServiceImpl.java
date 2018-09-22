@@ -59,7 +59,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
         }
     }
 
-    //异议调查外部调查内部调查回显数据
+    //异议调查外部调查内部调查回显数据 确认书审核回显数据
     @Override
     public ObjectionDiaoChaVO findDetails(ObjectionDiaoChaVO objectionDiaoChaVO) {
         CrmClaimOutInquire crmClaimOutInquire  = new CrmClaimOutInquire();
@@ -302,6 +302,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
         }else  if(record.getType().equals(2)){
             crmClaimInfo.setInquireState("INSTART");
         }else {
+            //异议状态-----》受理
             CrmClaimApply crmClaimApply = new CrmClaimApply();
             crmClaimApply.setClaimNo(crmClaimOutInquire.getClaimNo());
             crmClaimApply.setClaimState("ACCEPTANCE");

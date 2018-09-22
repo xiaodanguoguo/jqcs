@@ -8,7 +8,18 @@ import java.util.List;
 
 public class ObjectionChuLiVO {
 
+    //现场结论
+    private String fieldConclusion;
+
     private String claimState1;
+
+    public String getFieldConclusion() {
+        return fieldConclusion;
+    }
+
+    public void setFieldConclusion(String fieldConclusion) {
+        this.fieldConclusion = fieldConclusion;
+    }
 
     public String getClaimState1() {
         return claimState1;
