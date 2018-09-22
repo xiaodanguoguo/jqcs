@@ -2,6 +2,7 @@
 <script>
     var qid = "";
     $(function(){
+        limitCodeDeal($("*[limitCode]"),"limitCode");
         //调查问卷提示
         getAjaxResult("/question/have/question","POST",{},"initCallBack(data)");
     })

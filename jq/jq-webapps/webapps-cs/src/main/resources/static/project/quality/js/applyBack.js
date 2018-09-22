@@ -1,5 +1,6 @@
 var millSheetNo = "";
 $(function () {
+    limitCodeDeal($("*[limitCode]"),"limitCode");
     $("#searchBtn").on("click",function(){//质证书编码查询
         var jsonParam = {"millSheetNo":$("#searchBtnText").val()};
         getAjaxResult("/millsheet/rollbackQuery","POST",jsonParam,"searchCallBack(data)");

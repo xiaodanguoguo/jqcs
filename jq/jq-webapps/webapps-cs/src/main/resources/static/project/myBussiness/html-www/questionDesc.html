@@ -6,7 +6,7 @@
     var readTab =  GetQueryString("readTab");
     var qidJump = "";
     $(document).ready(function(){
-
+        limitCodeDeal($("*[limitCode]"),"limitCode");
         var jsonData = {"qid":qid};
         getAjaxResult("/question/preview","POST",jsonData,"descCallBack(data)");
 

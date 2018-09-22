@@ -25,6 +25,7 @@ function clsMethodLee$init(){
     this.parse();
 }
 function clsMethodLee$parse(){
+    limitCodeDeal($("*[limitCode]"),"limitCode");
     initplugPath($("#categoryIdA")[0],"singleSelectCtrl",this.requestUrl.path2,null,"POST");
     if(this.htmlType == 2){
         getAjaxResult(this.requestUrl.path1,"POST",{"pid":this.pid},"htmlInit(data)")

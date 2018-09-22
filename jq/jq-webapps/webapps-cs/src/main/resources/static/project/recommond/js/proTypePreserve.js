@@ -21,6 +21,7 @@ function clsMethodLee$init(){
 
 }
 function clsMethodLee$parse(){
+    limitCodeDeal($("*[limitCode]"),"limitCode");
     initplugPath($("#tableList")[0],"standardEditTableCtrl",this.requestUrl.path1,null,"POST");
     this.operate();
 }

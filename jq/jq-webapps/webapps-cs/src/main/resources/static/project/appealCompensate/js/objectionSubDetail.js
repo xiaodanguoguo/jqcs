@@ -72,6 +72,7 @@ function clsMethodLee$init(){
 
 }
 function clsMethodLee$parse(){
+    limitCodeDeal($("*[limitCode]"),"limitCode");
     //判断页面类型（进行显示隐藏dom节点）0——新建 1修改 2——详情  3——销售审核  4——外部调查  5——内部调查 6-确认书审核（外部调查不可编辑）7-销售审核详情（销售审核不可编辑）
     switch (Number(this.htmlType)){
         //差异class  box01 box2  box3  box23 box4  box5  box013  box237 box6

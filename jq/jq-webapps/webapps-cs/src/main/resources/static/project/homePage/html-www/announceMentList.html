@@ -26,6 +26,7 @@
 </div>
 <script>
     $(function(){
+        limitCodeDeal($("*[limitCode]"),"limitCode");
         $("#announcementList")[0].data = {"rspBody":{"resultData":[{"annTitle":"123","createDt":"1992-01-01"},{"annTitle":"234","createDt":"1992-01-05"}]}};
         initplugPath($("#announcementList")[0],"standardTableCtrl","runze",null,"POST");
     });
