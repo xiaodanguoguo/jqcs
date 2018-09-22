@@ -449,6 +449,10 @@ function htmlInit(data){//数据回显回调
             //$(".disNone").show().parent().next().addClass("required");
             //回显上传图片地址
             filePathShow(data.rspBody.filePath,data.rspBody.reportPictures,2);
+
+            if(data.rspBody.claimType){
+                document.body.jsLee.selectedMark.selMark2 = true;
+            }
         }else if(document.body.jsLee.htmlType == 7){//销售审核详情页面
             //异议类别赋值
             if(data.rspBody.claimType){
@@ -631,16 +635,18 @@ function paramJson(){
 function firstSaveCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        var alertBox=new clsAlertBoxCtrl();
-        alertBox.Alert(data.retDesc,"成功提示",1,"","successJump");
+        /*var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert(data.retDesc,"成功提示",1,"","successJump");*/
+        jumpUrl("objectionSubmit.html","0000000",0);
     }
 }
 
 function secondSaveCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        var alertBox=new clsAlertBoxCtrl();
-        alertBox.Alert(data.retDesc,"成功提示",1,"","successJump2");
+        /*var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert(data.retDesc,"成功提示",1,"","successJump2");*/
+        jumpUrl("objectionReasearch.html","0000000",0);
     }
 }
 function clsUploadCtrl$successAfter(ctrl, response)
