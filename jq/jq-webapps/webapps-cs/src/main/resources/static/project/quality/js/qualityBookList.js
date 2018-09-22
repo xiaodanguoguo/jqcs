@@ -221,11 +221,11 @@ function initplugPath(docm,comType,reqPath,reqParam,reqMethod){
 function previewCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        openWin("800","600","previewOpeBox");
+        openWin("1200","600","previewOpeBox");
         document.body.jsLee.previewArr = data.rspBody;
         document.body.jsLee.previewArrCurrent = document.body.jsLee.previewArr[0].millSheetPath;
         $("#previewOpeBoxPdf").attr("href",document.body.jsLee.previewArrCurrent);
-        $("#previewOpeBoxPdf").media({width:740, height:450});
+        $("#previewOpeBoxPdf").media({width:1150, height:450});
         $("#previewPrev").attr("disabled",true).addClass("changeGary");
         if(document.body.jsLee.previewArr.length == 1){
             $("#previewNext").attr("disabled",true).addClass("changeGary");
