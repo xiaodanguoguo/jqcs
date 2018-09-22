@@ -62,7 +62,7 @@
     <result column="PRO_PROBLEM" property="proProblem" jdbcType="VARCHAR" />
     <result column="FIELD_CONCLUSION_TEXT" property="fieldConclusionText" jdbcType="VARCHAR" />
     <result column="FIELD_CONCLUSION_PHOTO" property="fieldConclusionPhoto" jdbcType="VARCHAR" />
-
+    <result column="PARENT_SID" property="parentSid" jdbcType="NUMERIC" />
 
 
     <!--内部调查-->
@@ -94,7 +94,7 @@ WHERE
 
 <!--异议调查-->
   <select id="findByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
-    SELECT
+    SELECT H.* FROM(SELECT
     A.CLAIM_NO,
     A.CLAIM_STATE,
     A.MILL_SHEET_NO,
@@ -116,6 +116,9 @@ WHERE
     (select T.TYPE_NAME from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
     WHERE T.TYPE_NAME=E.ZCPMC)) AS ZCPMC,
+    (select T.PARENT_SID from sgai_md_common_type t
+    WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
+    WHERE T.TYPE_NAME=E.ZCPMC)) AS PARENT_SID,
     E.ZPH
     FROM
     WARRANTY.CRM_CLAIM_INFO A
@@ -123,50 +126,53 @@ WHERE
     LEFT JOIN WARRANTY.CRM_CLAIM_APPLY C ON A.CLAIM_NO = C.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE D ON A.CLAIM_NO = D.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE E ON A.CLAIM_NO = E.CLAIM_NO
-    LEFT JOIN WARRANTY.MILL_SHEET_HEAD E ON A.MILL_SHEET_NO = E.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD E ON A.MILL_SHEET_NO = E.MILL_SHEET_NO ) H
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
-        AND TO_CHAR (C.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
         <!--AND  #{} &gt;= A.PRESENTATION_DATE-->
       </if>
       <if test="startDtStr != null" >
-        AND TO_CHAR (C.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+        AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
         <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
       </if>
       <if test="customerId != null and customerId != ''" >
-        AND A.CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+        AND H.CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
       </if>
       <if test="claimType != null and claimType != ''" >
-        AND A.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
+        AND H.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
       </if>
       <if test="productName != null and productName != ''" >
-        AND A.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
+        AND H.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
       </if>
       <if test="claimNo != null and claimNo != ''" >
-        AND A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+        AND H.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
       </if>
       <if test="battenPlateNo != null and battenPlateNo != ''" >
-        AND A.BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR}
+        AND H.BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR}
       </if>
     <!--  <if test="claimState != null and claimState != ''" >
         AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
       </if>-->
       <choose>
         <when test="claimState1 !=null and claimState1 != ''">
-          and A.CLAIM_STATE  = #{claimState1,jdbcType=VARCHAR}
+          and H.CLAIM_STATE  = #{claimState1,jdbcType=VARCHAR}
         </when>
         <otherwise>
-          AND A.CLAIM_STATE IN ('INVESTIGATION', 'HANDLE', 'END', 'EVALUATE','ADOPT')
+          AND H.CLAIM_STATE IN ('INVESTIGATION', 'HANDLE', 'END', 'EVALUATE','ADOPT')
         </otherwise>
       </choose>
       <if test="deptCode != null and deptCode != ''" >
-        AND  B.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+        AND  H.DEPT_CODE like  '%' || #{deptCode} ||'%'
+      </if>
+      <if test="sid != null and sid != ''" >
+        AND H.PARENT_SID = #{sid,jdbcType=VARCHAR}
       </if>
       <if test="designation != null and designation != ''" >
-        AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}
+        AND H.DESIGNATION = #{designation,jdbcType=VARCHAR}
       </if>
       <if test="inquireState != null and inquireState != ''" >
-        AND A.INQUIRE_STATE = #{inquireState,jdbcType=VARCHAR}
+        AND H.INQUIRE_STATE = #{inquireState,jdbcType=VARCHAR}
       </if>
     </trim>
   </select>
