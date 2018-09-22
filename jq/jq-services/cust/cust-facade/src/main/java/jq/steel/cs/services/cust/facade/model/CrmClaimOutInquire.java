@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class CrmClaimOutInquire {
 
+    private  String parentSid;
+
     private String claimState1;
 
     public String getClaimState1() {
@@ -225,6 +227,14 @@ public class CrmClaimOutInquire {
     //内部调查时间
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date internalLnvestigationDate;
+
+    public String getParentSid() {
+        return parentSid;
+    }
+
+    public void setParentSid(String parentSid) {
+        this.parentSid = parentSid;
+    }
 
     public String getProductionProcessInvestigati() {
         return productionProcessInvestigati;

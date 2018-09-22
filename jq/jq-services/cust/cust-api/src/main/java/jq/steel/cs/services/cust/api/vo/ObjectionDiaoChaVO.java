@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class ObjectionDiaoChaVO {
 
+    private  String deptCode;
+
     private String claimState1;
 
     private String inquireInfo;
@@ -237,6 +239,14 @@ public class ObjectionDiaoChaVO {
     private  String reportPictures;
 
     private  String objectionConfirmation;
+
+    public String getDeptCode() {
+        return deptCode;
+    }
+
+    public void setDeptCode(String deptCode) {
+        this.deptCode = deptCode;
+    }
 
     public String getClaimState1() {
         return claimState1;

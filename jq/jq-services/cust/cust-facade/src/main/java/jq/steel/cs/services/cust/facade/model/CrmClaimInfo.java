@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class CrmClaimInfo {
 
+    private String parentSid;
+
     private String claimState1;
 
     //牌号
@@ -155,6 +157,14 @@ public class CrmClaimInfo {
 
     //异议确认量
     private  String objectionConfirmation;
+
+    public String getParentSid() {
+        return parentSid;
+    }
+
+    public void setParentSid(String parentSid) {
+        this.parentSid = parentSid;
+    }
 
     public String getClaimState1() {
         return claimState1;
