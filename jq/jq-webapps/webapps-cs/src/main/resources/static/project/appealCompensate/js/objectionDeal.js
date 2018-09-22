@@ -208,10 +208,14 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
             case "EXAMINE":
                 $(cloneRow).find("#agreementStateA").html("已审核");
                 $(cloneRow).find("#viewDownloadOpe");
+                $(cloneRow).find("#agreementEditOpe").hide();
+                $(cloneRow).find("#sureAuditOpe").hide();
                 break;
             case "COMPLETE":
                 $(cloneRow).find("#agreementStateA").html("已完成");
                 $(cloneRow).find("#agreementAuditOpe").show();
+                $(cloneRow).find("#agreementEditOpe").hide();
+
                 break;
             default:
                 $(cloneRow).find("#agreementStateA").html("");

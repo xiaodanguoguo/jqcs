@@ -126,7 +126,7 @@ function initHtmlCallBack(data){
         var ue = UE.getEditor('editor');
         ue.ready(function() {//编辑器初始化完成再赋值
             // data.rspBody.inquireInfo = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
-            ue.setContent(data.rspBody.inquireInfo);  //赋值给UEditor
+            ue.setContent(data.rspBody.fieldConclusion);  //赋值给UEditor
         });
     }
 }
