@@ -1,7 +1,6 @@
 package jq.steel.cs.services.cust.facade.service.category.impl;
 
 import com.alibaba.dubbo.common.utils.CollectionUtils;
-import com.ebase.core.AssertContext;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.utils.BeanCopyUtil;
 import jq.steel.cs.services.cust.api.vo.CrmProductCategoryVO;
@@ -75,8 +74,8 @@ public class CrmProductCategoryServiceImpl implements CrmProductCategoryService 
                 crmProductCategory = crmProductCategoryMapper.selectByPrimaryKey(crmProductCategoryVO.getCid());
                 BeanCopyUtil.copy(crmProductCategoryVO, crmProductCategory);
                 crmProductCategory.setUpdateDt(new Date());
-                crmProductCategory.setUpdateBy(AssertContext.getAcctName());
-//                    crmProductCategory.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
+                crmProductCategory.setCreateBy(null);
+                crmProductCategory.setCreateByid(null);
                 crmProductCategoryMapper.updateByPrimaryKeySelective(crmProductCategory);
 
             }
@@ -93,9 +92,9 @@ public class CrmProductCategoryServiceImpl implements CrmProductCategoryService 
                     crmProductCategory = new CrmProductCategory();
                     BeanCopyUtil.copy(crmProductCategoryVO, crmProductCategory);
                     crmProductCategory.setStatus(status);
-                    crmProductCategory.setCreateBy(AssertContext.getAcctName());
-//                    crmProductCategory.setCreateByid(Long.valueOf(AssertContext.getAcctId()));
                     crmProductCategory.setCreateDt(new Date());
+                    crmProductCategory.setUpdateBy(null);
+                    crmProductCategory.setUpdateByid(null);
                     crmProductCategoryMapper.insertSelective(crmProductCategory);
                 }
             }

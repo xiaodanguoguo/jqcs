@@ -158,7 +158,7 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
                         if (QuestionStatus.NEW_CREATE.getCode().equals(crmQuestion.getQuestionStatus())) {
                             CrmQuestion question = new CrmQuestion();
                             BeanCopyUtil.copy(crmQuestionVO, question);
-                            question.setUpdateBy(AssertContext.getAcctId());
+                            question.setCreateBy(null);
                             question.setUpdateDt(new Date());
                             crmQuestionMapper.updateByPrimaryKeySelective(question);
                         }
@@ -202,7 +202,7 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
                     zeroLength--;
                 }
                 question1.setMessageNumber(date + seq);
-                question1.setCreateBy(AssertContext.getAcctId());
+                question1.setUpdateBy(null);
                 question1.setCreateDt(new Date());
                 crmQuestionMapper.insert(question1);
 
@@ -262,7 +262,7 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
         CrmQuestion crmQuestion = new CrmQuestion();
         BeanCopyUtil.copy(crmQuestionVO, crmQuestion);
         crmQuestion.setPushRegion(JsonUtil.toJson(crmQuestionVO.getPushRegions()));
-        crmQuestion.setUpdateBy(AssertContext.getAcctId());
+        crmQuestion.setCreateBy(null);
         crmQuestion.setCreateDt(new Date());
 
         CrmQuestionItem crmQuestionItem = new CrmQuestionItem();

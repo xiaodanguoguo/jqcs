@@ -304,6 +304,8 @@ public class CrmProductInfoController {
         logger.info("产品信息移动 = {}", JsonUtil.toJson(jsonRequest));
 
         try {
+            jsonRequest.getReqBody().setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
+            jsonRequest.getReqBody().setUpdateBy(AssertContext.getAcctName());
             ServiceResponse<Boolean> serviceResponse = crmProductInfoApi
                     .movePruduct(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
