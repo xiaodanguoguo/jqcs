@@ -1,5 +1,6 @@
 var checkDrag = false;
 $(function(){
+    limitCodeDeal($("*[limitCode]"),"limitCode");
     initValidate($("#checkTrueBox")[0]);//初始化校验组件
     $('#drag').html("");
     $('#drag').drag();

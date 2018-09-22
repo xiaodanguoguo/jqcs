@@ -235,8 +235,6 @@
             //location.reload();
             $(".resourceAd-con-left ul").remove();
             getAjaxResult("/orgInfo/getChildTreeOrgInfo","POST",{"parentId":document.body.docT.orgId},"orgInfo(data)")
-        }else{
-            document.body.docT.alertBox.Alert(jsData.retDesc,"提示");
         }
     }
     //停用启用调用的接口

@@ -16,6 +16,7 @@
     </div>
 <script>
     $(function(){
+        limitCodeDeal($("*[limitCode]"),"limitCode");
         $("#tableList").attr({"comType":"standardTableCtrl","reqParam":JSON.stringify({"categoryId":GetQueryString("categoryId")})});
         document.body.jsCtrl.ctrl = $("#tableList")[0];
         document.body.jsCtrl.init();

@@ -249,6 +249,7 @@
     </div>
 <script>
     $(function(){
+        limitCodeDeal($("*[limitCode]"),"limitCode");
         setValue4Desc({"createDt":"1992-01-01","createName":"作者哈","annName":"这是发布内容","annTitle":"这是发布标题"},$(".annUl")[0])//赋值
         //getAjaxResult("runze","POST",{"aId":GetQueryString("aId")},"initHtmlCallBack(data)")
     })

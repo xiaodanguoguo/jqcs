@@ -17,6 +17,7 @@
     </div>
 <script>
     $(function(){
+        limitCodeDeal($("*[limitCode]"),"limitCode");
         var pid = GetQueryString("pid");
         getAjaxResult("/product/info/introduct/detail","POST",{"pid":pid},"successCallBack(data)");
     })

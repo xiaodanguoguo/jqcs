@@ -18,5 +18,8 @@
             jumpUrl("productShow.html?categoryId="+ jsonItem.cid,"0000000",0);
         })
     }
+    $(function(){
+        limitCodeDeal($("*[limitCode]"),"limitCode");
+    })
 </script>
 @@include('../../commonNav/html/commonFoot.html')

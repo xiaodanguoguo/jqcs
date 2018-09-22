@@ -29,6 +29,7 @@ function clsMethodLee$init(){
 
 }
 function clsMethodLee$parse(){
+    limitCodeDeal($("*[limitCode]"),"limitCode");
     if(this.htmlType == 1){//编辑页面
         $("#box1").show();
         $("#agreementAmountUpper").attr("disabled",true).addClass("changeGary");
