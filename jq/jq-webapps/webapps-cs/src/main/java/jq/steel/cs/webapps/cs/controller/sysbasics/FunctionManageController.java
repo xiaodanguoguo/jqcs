@@ -212,6 +212,8 @@ public class FunctionManageController {
                 return result;
             }
             //根据service层返回的编码做不同的操作
+            jsonRequest.getReqBody().setCreatedBy(AssertContext.getAcctName());
+            jsonRequest.getReqBody().setUpdatedBy(AssertContext.getAcctName());
             ServiceResponse<FunctionManageVO> response=functionManageAPI.keepFunctionManage(jsonRequest.getReqBody());
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode())) {
                 result.setRspBody(response.getRetContent());

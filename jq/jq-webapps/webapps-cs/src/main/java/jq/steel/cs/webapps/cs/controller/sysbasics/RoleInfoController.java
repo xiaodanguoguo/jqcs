@@ -1,5 +1,6 @@
 package jq.steel.cs.webapps.cs.controller.sysbasics;
 
+import com.ebase.core.AssertContext;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
@@ -257,6 +258,7 @@ public class RoleInfoController {
         JsonResponse<RoleInfoVO> result = new JsonResponse<>();
         try {
             //根据service层返回的编码做不同的操作
+            jsonRequest.getReqBody().setUpdatedBy(AssertContext.getAcctName());
             ServiceResponse<RoleInfoVO> response=roleInfoAPI.keepRoleInfo(jsonRequest.getReqBody());
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode())) {
                 result.setRspBody(response.getRetContent());
@@ -290,6 +292,7 @@ public class RoleInfoController {
         JsonResponse<RoleInfoVO> result = new JsonResponse<>();
         try {
             //根据service层返回的编码做不同的操作
+            jsonRequest.getReqBody().setUpdatedBy(AssertContext.getAcctName());
             ServiceResponse<RoleInfoVO> response=roleInfoAPI.keepRoleInfo(jsonRequest.getReqBody());
             RoleInfoVO reqBody=jsonRequest.getReqBody();
             if(!StringUtils.isEmpty(reqBody.getOpt())) {
@@ -334,6 +337,7 @@ public class RoleInfoController {
         JsonResponse<RoleInfoVO> result = new JsonResponse<>();
         try {
             //根据service层返回的编码做不同的操作
+            jsonRequest.getReqBody().setCreatedBy(AssertContext.getAcctName());
             ServiceResponse<RoleInfoVO> response=roleInfoAPI.keepRoleInfo(jsonRequest.getReqBody());
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode())) {
                 result.setRspBody(response.getRetContent());

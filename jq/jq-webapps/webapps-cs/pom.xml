@@ -324,10 +324,15 @@
 			<name>aliyun Repository</name>
 			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
 		</repository>
-		<repository>
+		<!--<repository>
 			<id>nexus</id>
 			<name>releases Repository</name>
 			<url>http://10.5.210.201:8388/nexus/content/repositories/thirdparty/</url>
+		</repository>-->
+		<repository>
+			<id>nexus</id>
+			<name>releases Repository</name>
+			<url>http://10.20.108.4:8081/repository/maven-releases/</url>
 		</repository>
 	</repositories>
 </project>
