@@ -12,13 +12,13 @@
 
 .vindicate-box .vindicate-box-list { width: 990px; }
 
-.vindicate-box .table-list { width: 950px; margin-top: 20px; margin-left: 28px; }
+.vindicate-box .table-list { width: 950px; margin-top: 10px; margin-left: 28px; }
 
 .vindicate-box .table-list .table-list-currentrow-tdetail { text-align: center; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 
 .vindicate-box-list__Content { width: 950px; margin-top: 4px; margin-left: 22px; }
 
-.vindicate-box-list__Content .vindicate-box-list__Every { margin: 16px 0; float: left; width: 267px; margin-right: 26px; }
+.vindicate-box-list__Content .vindicate-box-list__Every { margin: 10px 0; float: left; width: 267px; margin-right: 26px; }
 
 .vindicate-box-list__Content .vindicate-box-list__Every .vindicate-box-list__Name { display: inline-block; text-align: right; margin-right: 8px; width: 55px; }
 
@@ -28,7 +28,7 @@
 
 #vindicate-box-Time { width: 120px; border: 1px solid #dee3e6; }
 
-.vindicate-box .vindicate-box-button { clear: both; margin-top: 25px; margin-left: 28px; width: 950px; }
+.vindicate-box .vindicate-box-button { clear: both; /*margin-top:25px;*/ margin-left: 28px; width: 950px; }
 
 .vindicate-box .vindicate-box-button div { margin-right: 8px; }
 
