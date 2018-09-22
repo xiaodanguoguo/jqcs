@@ -301,7 +301,8 @@
     .fot-ul-span{
       display:inline-block;
       width:60%;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      /*white-space: nowrap; overflow: hidden; text-overflow: ellipsis;*/
+      word-break: break-all;
     }
   }
   .fot-ul-img{
@@ -336,7 +337,7 @@
 }
 #navigation a{
   color:#888888;
-  width:120px;
+  /*width:120px;*/
   overflow: hidden;
   text-overflow:ellipsis;
   display:inline-block;
