@@ -444,6 +444,8 @@
             //location.reload();
             $(".resourceAd-con-left ul").remove();
             getAjaxResult("/orgInfo/getChildTreeOrgInfo","POST",{"parentId":document.body.docT.orgId},"orgInfo(data)")
+        }else{
+            alert(jsData.retDesc);
         }
     }
     //停用启用调用的接口
