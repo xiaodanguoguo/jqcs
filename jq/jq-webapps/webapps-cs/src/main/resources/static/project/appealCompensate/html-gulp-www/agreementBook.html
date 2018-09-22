@@ -50,7 +50,6 @@
 		    $(".og-head-navlist li a").on("click",function(){
                 $(".og-head-navlist li a").removeClass("og-head-navlist____linkActive");
 		        $(this).addClass("og-head-navlist____linkActive")
-				console.log($(this).parents(".og-head-navlist__item").index());
                 $(".og-head-mainlt__sidebar").css("display","none");
 		        $(".og-head-mainlt__sidebar").eq($(this).parents(".og-head-navlist__item").index()).css("display","")
 			})
