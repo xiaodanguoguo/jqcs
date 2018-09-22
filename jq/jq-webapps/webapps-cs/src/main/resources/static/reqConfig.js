@@ -44,8 +44,9 @@ function jumpUrl(strUrl,status,jumpType,data)
                 break;
             default:
                 if(status != 0000000 && data != null)
-                    var alertBox=new clsAlertBoxCtrl();
-                    alertBox.Alert(data.retDesc,"失败提示");
+                    /*var alertBox=new clsAlertBoxCtrl();
+                    alertBox.Alert(data.retDesc,"失败提示");*/
+                    alert(data.retDesc);
                 break;
         }
     }
