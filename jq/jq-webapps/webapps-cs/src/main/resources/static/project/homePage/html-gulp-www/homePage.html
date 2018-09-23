@@ -220,7 +220,7 @@
                 <span style="margin-left: 20px;">系统公告</span>
                 <span id="moreAnnouncement" style="float:right;margin-right: 20px;cursor:  pointer;">&lt;更多</span>
             </div>
-            <div class="Home-announcement-content" id="announcementList" comType="" templateId="templateRow" reqPath="" reqParam="{}" method="POST"> 
+            <div class="Home-announcement-content" id="announcementList" comType="" templateId="templateRow" reqPath="/crmAnnouncement/querypageresult" reqParam="{}" method="POST">
                 <div class="Home-announcement-contentier" id="templateRow" style="display: none;">
                     <span id="annTitle" style="cursor:pointer;"></span>
                 </div>
@@ -254,8 +254,8 @@
         getAjaxResult("/question/have/question","POST",{},"initCallBack(data)");
 
 
-        $("#announcementList")[0].data = {"rspBody":{"resultData":[{"annTitle":"123"},{"annTitle":"234"}]}};
-        initplugPath($("#announcementList")[0],"standardTableCtrl","runze",null,"POST");
+        //$("#announcementList")[0].data = {"rspBody":{"resultData":[{"annTitle":"123"},{"annTitle":"234"}]}};
+        initplugPath($("#announcementList")[0],"standardTableCtrl","/crmAnnouncement/querypageresult",null,"POST");
         $("#moreAnnouncement").on("click",function () {
             jumpUrl("../../homePage/html-gulp-www/announceMentList.html","0000000",0);
         })
@@ -278,7 +278,7 @@
     }
     function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         $(cloneRow).find("#annTitle").on("click",function () {
-            jumpUrl("../../homePage/html-gulp-www/announceMentDetail.html?aId=" + jsonItem.aId,"0000000",0);
+            jumpUrl("../../homePage/html-gulp-www/announceMentDetail.html?aid=" + jsonItem.aid,"0000000",0);
         });
     }
     function clsStandardTableCtrl$after() {

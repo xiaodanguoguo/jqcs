@@ -48,7 +48,13 @@
             if(valiClass.validateAll4Ctrl($(".annUl")[0])){
                 var jsonParam = {"annTitle":"","annName":""};
                 getValue4Desc(jsonParam,$(".annUl")[0]);
-                getAjaxResult("/crmAnnouncement/save","POST",jsonParam,"saveCallBack(data)");
+                if(GetQueryString("aid")){
+                    jsonParam.aid = GetQueryString("aid");
+                    getAjaxResult("/crmAnnouncement/update","POST",jsonParam,"saveCallBack(data)");
+
+                }else{
+                    getAjaxResult("/crmAnnouncement/save","POST",jsonParam,"saveCallBack(data)");
+                }
             }
         });
         //取消

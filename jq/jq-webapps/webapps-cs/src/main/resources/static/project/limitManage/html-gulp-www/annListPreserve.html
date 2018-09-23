@@ -232,13 +232,13 @@
         </tr>
         <tr class="table-list-currentrow" id="templateRow" style="display: none;">
             <td class="table-list-currentrow-tdetail">
-                <span style="padding: 0 10px;" id="annTitle">1</span>
+                <span style="padding: 0 10px;" id="annTitle"></span>
             </td>
             <td class="table-list-currentrow-tdetail" style="text-align: center">
-                <span style="padding: 0 10px;" id="createName">1</span>
+                <span style="padding: 0 10px;" id="createBy"></span>
             </td>
             <td class="table-list-currentrow-tdetail" style="text-align: center">
-                <span style="padding: 0 10px;" id="createDt">1</span>
+                <span style="padding: 0 10px;" id="createDt"></span>
             </td>
             <td class="table-list-currentrow-tdetail" style="text-align: center">
                 <span class="btnLowImgCom" id="editAnn"  limitCode="M10402">修改</span>
@@ -255,8 +255,8 @@
 <script>
     $(function(){
         limitCodeDeal($("*[limitCode]"),"limitCode");
-        $("#announcementList")[0].data = {"rspBody":{"resultData":[{"annTitle":"123","createDt":"1992-01-01","createName":"发布人"},{"annTitle":"234","createDt":"1992-01-05"}]}};
-        initplugPath($("#announcementList")[0],"standardTableCtrl","runze",null,"POST");
+        //$("#announcementList")[0].data = {"rspBody":{"resultData":[{"annTitle":"123","createDt":"1992-01-01","createBy":"发布人"},{"annTitle":"234","createDt":"1992-01-05"}]}};
+        initplugPath($("#announcementList")[0],"standardTableCtrl","/crmAnnouncement/querypageresult",null,"POST");
 
         //  新建公告
         $("#newAnn").on("click",function(){
@@ -269,14 +269,14 @@
             jumpUrl("annDetailPreserve.html?jumpType=1&aid=" + jsonItem.aid,"0000000",0);
         });
         $(cloneRow).find("#deleteAnn").on("click",function () {//删除
-            getAjaxResult("runze","POST",{"aid":jsonItem.aid},"deleteCallBack(data)");
+            getAjaxResult("/crmAnnouncement/delete","POST",{"aid":jsonItem.aid},"deleteCallBack(data)");
         });
     }
 
     function deleteCallBack(data) {
         data = JSON.parse(data);
         if(data.retCode == "0000000"){
-            initplugPath($("#announcementList")[0],"standardTableCtrl","runze",null,"POST");
+            initplugPath($("#announcementList")[0],"standardTableCtrl","/crmAnnouncement/querypageresult",null,"POST");
         }
     }
 

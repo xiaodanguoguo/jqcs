@@ -27,13 +27,13 @@
 <script>
     $(function(){
         limitCodeDeal($("*[limitCode]"),"limitCode");
-        $("#announcementList")[0].data = {"rspBody":{"resultData":[{"annTitle":"123","createDt":"1992-01-01"},{"annTitle":"234","createDt":"1992-01-05"}]}};
-        initplugPath($("#announcementList")[0],"standardTableCtrl","runze",null,"POST");
+        //$("#announcementList")[0].data = {"rspBody":{"resultData":[{"annTitle":"123","createDt":"1992-01-01"},{"annTitle":"234","createDt":"1992-01-05"}]}};
+        initplugPath($("#announcementList")[0],"standardTableCtrl","/crmAnnouncement/querypageresult",null,"POST");
     });
 
     function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         $(cloneRow).find("#annTitle").on("click",function () {
-            jumpUrl("../../homePage/html-gulp-www/announceMentDetail.html?aId=" + jsonItem.aId,"0000000",0);
+            jumpUrl("../../homePage/html-gulp-www/announceMentDetail.html?aid=" + jsonItem.aid,"0000000",0);
         });
     }
 
