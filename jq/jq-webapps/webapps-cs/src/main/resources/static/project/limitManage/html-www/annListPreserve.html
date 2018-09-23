@@ -51,16 +51,16 @@
 
         //  新建公告
         $("#newAnn").on("click",function(){
-            jumpUrl("annDetailPreserve.html","0000000",0);
+            jumpUrl("annDetailPreserve.html?jumpType=0","0000000",0);
         });
     });
 
     function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         $(cloneRow).find("#editAnn").on("click",function () {//编辑
-            jumpUrl("annDetailPreserve.html?aId=" + jsonItem.aId,"0000000",0);
+            jumpUrl("annDetailPreserve.html?jumpType=1&aid=" + jsonItem.aid,"0000000",0);
         });
         $(cloneRow).find("#deleteAnn").on("click",function () {//删除
-            getAjaxResult("runze","POST",{"aId":jsonItem.aId},"deleteCallBack(data)");
+            getAjaxResult("runze","POST",{"aid":jsonItem.aid},"deleteCallBack(data)");
         });
     }
 

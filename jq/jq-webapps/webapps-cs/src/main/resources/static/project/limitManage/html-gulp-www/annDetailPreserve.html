@@ -246,12 +246,8 @@
 <script>
     $(function(){
         limitCodeDeal($("*[limitCode]"),"limitCode");
-        setValue4Desc({"createDt":"1992-01-01","createName":"作者哈","annName":"这是发布内容","annTitle":"这是发布标题"},$(".annUl")[0])//赋值
-
-
-        
-        if(GetQueryString("aId") != null){
-            //getAjaxResult("runze","POST",{"aId":GetQueryString("aId")},"initHtmlCallBack(data)")
+        if(GetQueryString("jumpType") == 1){
+            getAjaxResult("/crmAnnouncement/querydetails","POST",{"aid":GetQueryString("aid")},"initHtmlCallBack(data)")
         }
 
         //保存
@@ -261,7 +257,7 @@
             if(valiClass.validateAll4Ctrl($(".annUl")[0])){
                 var jsonParam = {"annTitle":"","annName":""};
                 getValue4Desc(jsonParam,$(".annUl")[0]);
-                getAjaxResult("runze","POST",jsonParam,"saveCallBack(data)");
+                getAjaxResult("/crmAnnouncement/save","POST",jsonParam,"saveCallBack(data)");
             }
         });
         //取消

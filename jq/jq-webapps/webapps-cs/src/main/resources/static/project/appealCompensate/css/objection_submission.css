@@ -14,7 +14,7 @@
 
 .management-box-list__Content { margin-left: 12px; margin-top: 20px; width: 850px; }
 
-.management-box-list__Content .submission-box-list__Every { float: left; width: 268px; height: 28px; margin-bottom: 20px; margin-right: 14px; }
+.management-box-list__Content .submission-box-list__Every { float: left; width: 268px; height: 28px; margin-bottom: 5px; margin-right: 14px; }
 
 .management-box-list__Content .submission-box-list__Every .submission-box-list__Name { display: inline-block; width: 64px; margin-right: 6px; text-align: right; }
 
@@ -26,11 +26,11 @@
 
 .submission-box-list__Every .submission-box-list__Select { width: 197px; }
 
-.submission-box-button { /* margin-top: 26px;*/ margin-left: 22px; }
+.submission-box-button { margin-top: 5px; margin-left: 22px; }
 
 .submission-box-button div { margin-right: 4px; }
 
-.table-list { table-layout: fixed; width: 950px !important; margin-top: 20px; margin-left: 22px; }
+.table-list { table-layout: fixed; width: 950px !important; margin-top: 10px; margin-left: 22px; }
 
 .table-list .table-list-currentrow-tdetail { width: 45px !important; text-align: center; word-break: break-all; }
 
