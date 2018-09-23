@@ -9,6 +9,9 @@ import java.util.List;
 
 public class MillSheetHostsVO implements Serializable {
 
+    //打印地址
+    private  String  report;
+
     private Integer operationType;
     //是否回退
     private String isReback;
@@ -122,6 +125,14 @@ public class MillSheetHostsVO implements Serializable {
     private  String spiltCustomer;
 
     private  String productName;
+
+    public String getReport() {
+        return report;
+    }
+
+    public void setReport(String report) {
+        this.report = report;
+    }
 
     public Integer getOperationType() {
         return operationType;

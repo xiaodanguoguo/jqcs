@@ -9,6 +9,11 @@ import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
 import com.ebase.utils.file.ZipUtils;
+import com.lowagie2.text.Document;
+import com.lowagie2.text.DocumentException;
+import com.lowagie2.text.pdf.PdfCopy;
+import com.lowagie2.text.pdf.PdfImportedPage;
+import com.lowagie2.text.pdf.PdfReader;
 import jq.steel.cs.services.cust.api.controller.MillSheetHostsAPI;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.webapps.cs.controller.file.UploadConfig;
@@ -19,10 +24,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 /*
 * 质证书管理
 * by wushibin
@@ -78,22 +86,27 @@ public class MillSheetHostsController {
         JsonResponse<List<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
         try {
             ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findUrl(jsonRequest);
+            String millSheetUrlL ="";
+            String createPdfPath = uploadConfig.getDomain();
             //1是预览  2是打印
             if (jsonRequest.getReqBody().get(0).getOperationType().equals(1)){
                 if (jsonRequest.getReqBody().size()>1){
                     //从质证书服务器获取文件到本地   重新生成文件
+                    String millSheetUrlName = "";
                     for(MillSheetHostsVO millSheetHostsVO :serviceResponse.getRetContent()){
-                        String createPdfPath = uploadConfig.getDomain();
                         String millSheetPath =  millSheetHostsVO.getMillSheetPath();
                         String millSheetName =  millSheetHostsVO.getMillSheetName();
                         String url = createPdfPath + millSheetPath;
-                        String millSheetUrl =millSheetHostsVO.getMillSheetUrl();
-                        this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
+                        millSheetUrlL =millSheetHostsVO.getMillSheetUrl();
+                        this.saveUrlAs(url,millSheetUrlL,"GET",millSheetName);
                         millSheetHostsVO.setMillSheetPath(url);
+                        millSheetUrlName += ";" + millSheetHostsVO.getMillSheetPath();
                     }
+                    //合并文件
+                    String savepath =this.sheetNameUrl(millSheetUrlName,millSheetUrlL);
+                    serviceResponse.getRetContent().get(0).setMillSheetPath(createPdfPath + savepath);
                 }else {
                     //从质证书服务器获取文件到本地 返回url
-                    String createPdfPath = uploadConfig.getDomain();
                     String millSheetPath =  serviceResponse.getRetContent().get(0).getMillSheetPath();
                     String millSheetUrl =   serviceResponse.getRetContent().get(0).getMillSheetUrl();
                     String url = createPdfPath + millSheetPath;
@@ -102,6 +115,32 @@ public class MillSheetHostsController {
                     serviceResponse.getRetContent().get(0).setMillSheetPath(url);
                 }
             }else {
+                //打印
+                if (jsonRequest.getReqBody().size()>1){
+                    //从质证书服务器获取文件到本地   重新生成文件
+                    String millSheetUrlName = "";
+                    for(MillSheetHostsVO millSheetHostsVO :serviceResponse.getRetContent()){
+                        String millSheetPath =  millSheetHostsVO.getMillSheetPath();
+                        String millSheetName =  millSheetHostsVO.getMillSheetName();
+                        String url = createPdfPath + millSheetPath;
+                        millSheetUrlL =millSheetHostsVO.getMillSheetUrl();
+                        this.saveUrlAs(url,millSheetUrlL,"GET",millSheetName);
+                        millSheetHostsVO.setMillSheetPath(url);
+                        millSheetUrlName += ";" + millSheetHostsVO.getMillSheetPath();
+                    }
+                    //合并文件
+                    String savepath =this.sheetNameUrl(millSheetUrlName,millSheetUrlL);
+                    serviceResponse.getRetContent().get(0).setReport(savepath);
+                }else {
+                    //从质证书服务器获取文件到本地 返回url
+                    String millSheetPath =  serviceResponse.getRetContent().get(0).getMillSheetPath();
+                    String millSheetUrl =   serviceResponse.getRetContent().get(0).getMillSheetUrl();
+                    String url = createPdfPath + millSheetPath;
+                    String millSheetName =  serviceResponse.getRetContent().get(0).getMillSheetName();
+                    this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
+                    serviceResponse.getRetContent().get(0).setReport(url);
+                }
+
 
             }
             jsonResponse.setRspBody(serviceResponse.getRetContent());
@@ -111,6 +150,51 @@ public class MillSheetHostsController {
             jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
         }
         return jsonResponse;
+    }
+
+    private String sheetNameUrl(String millSheetUrlName,String millSheeturl) {
+        String[] names = millSheetUrlName.split(";");
+        String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toString();
+        // 后续需要优化合成后的pdf文件路径问题
+        String savepath = millSheeturl + now + ".pdf";
+        mergePdfFiles(names, savepath);
+        return savepath;
+    }
+    /**
+     * 将多个pdf文件合并成1个pdf文件
+     *
+     * @param files
+     *            文件路径数组
+     * @param savepath
+     *            新生成的pdf文件路径
+     */
+    private void mergePdfFiles(String[] files, String savepath) {
+        try {
+            Document document = new Document(new PdfReader(files[0]).getPageSize(1));
+
+            PdfCopy copy = new PdfCopy(document, new FileOutputStream(savepath));
+
+            document.open();
+
+            for (int i = 0; i < files.length; i++) {
+                PdfReader reader = new PdfReader(files[i]);
+
+                int n = reader.getNumberOfPages();
+
+                for (int j = 1; j <= n; j++) {
+                    document.newPage();
+                    PdfImportedPage page = copy.getImportedPage(reader, j);
+                    copy.addPage(page);
+                }
+            }
+
+            document.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
     }
 
 
