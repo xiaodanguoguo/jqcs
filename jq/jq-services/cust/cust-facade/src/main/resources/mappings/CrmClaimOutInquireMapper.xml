@@ -159,7 +159,7 @@ WHERE
           and H.CLAIM_STATE  = #{claimState1,jdbcType=VARCHAR}
         </when>
         <otherwise>
-          AND H.CLAIM_STATE IN ('INVESTIGATION', 'HANDLE', 'END', 'EVALUATE','ADOPT')
+          AND H.CLAIM_STATE IN ('ADOPT','ACCEPTANCE','INVESTIGATION', 'HANDLE', 'END', 'EVALUATE','ADOPT')
         </otherwise>
       </choose>
       <if test="deptCode != null and deptCode != ''" >
@@ -504,9 +504,9 @@ LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
   </update>
 
 
-
+<!--导出查询-->
   <select id="find" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
-    SELECT
+    SELECT H.* FROM(SELECT
     A.CLAIM_NO,
     A.CLAIM_STATE,
     A.MILL_SHEET_NO,
@@ -515,54 +515,77 @@ LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
     A.PRODUCT_NAME,
     A.DESIGNATION,
     A.SIZE_MARK,
-    C.CLAIM_TYPE,
+    A.CLAIM_TYPE,
     A.OBJECTION_NUM,
-    A.PRESENTATION_DATE,
-    A.ADMISSIBILITY_TIME,
-    D.INQUIRE_STATE,
+    C.PRESENTATION_DATE,
+    C.ADMISSIBILITY_TIME,
+    A.INQUIRE_STATE,
     D.CREATE_BY AS EXTERNAL_LNVESTIGATOR,
     D.CREATE_DT AS EXTERNAL_LNVESTIGATION_DATE,
     D.FOLLOW_REASON,
     E.CREATE_BY AS INTERNAL_LNVESTIGATOR,
-    E.CREATE_DT	AS INTERNAL_LNVESTIGATION_DATE
+    E.CREATE_DT	AS INTERNAL_LNVESTIGATION_DATE,
+    (select T.TYPE_NAME from sgai_md_common_type t
+    WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
+    WHERE T.TYPE_NAME=E.ZCPMC)) AS ZCPMC,
+    (select T.PARENT_SID from sgai_md_common_type t
+    WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
+    WHERE T.TYPE_NAME=E.ZCPMC)) AS PARENT_SID,
+    E.ZPH
     FROM
-    WARRANTY.CRM_CLAIM_APPLY A
-    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.CLAIM_NO = B.MILL_SHEET_NO
-    LEFT JOIN WARRANTY.CRM_CLAIM_INFO C ON A.CLAIM_NO = C.CLAIM_NO
+    WARRANTY.CRM_CLAIM_INFO A
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_APPLY C ON A.CLAIM_NO = C.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE D ON A.CLAIM_NO = D.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE E ON A.CLAIM_NO = E.CLAIM_NO
-
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD E ON A.MILL_SHEET_NO = E.MILL_SHEET_NO ) H
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
-        AND TO_CHAR (A.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
         <!--AND  #{} &gt;= A.PRESENTATION_DATE-->
       </if>
-      <if test="customerId != null and customerId != ''" >
-        AND A.CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
-      </if>
       <if test="startDtStr != null" >
-        AND TO_CHAR (A.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+        AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
         <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
       </if>
-      <if test="designation != null and designation != ''" >
-        AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}
+      <if test="customerId != null and customerId != ''" >
+        AND H.CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+      </if>
+      <if test="claimType != null and claimType != ''" >
+        AND H.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
       </if>
       <if test="productName != null and productName != ''" >
-        AND A.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
+        AND H.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
       </if>
       <if test="claimNo != null and claimNo != ''" >
-        AND A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+        AND H.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
       </if>
       <if test="battenPlateNo != null and battenPlateNo != ''" >
-        AND A.BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR}
+        AND H.BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR}
       </if>
-      <if test="claimState != null and claimState != ''" >
-        AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
+      <!--  <if test="claimState != null and claimState != ''" >
+          AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
+        </if>-->
+      <choose>
+        <when test="claimState1 !=null and claimState1 != ''">
+          and H.CLAIM_STATE  = #{claimState1,jdbcType=VARCHAR}
+        </when>
+        <otherwise>
+          AND H.CLAIM_STATE IN ('ADOPT','ACCEPTANCE','INVESTIGATION', 'HANDLE', 'END', 'EVALUATE','ADOPT')
+        </otherwise>
+      </choose>
+      <if test="deptCode != null and deptCode != ''" >
+        AND  H.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
       </if>
-
-      <!-- <if test="zph != null" >
-         AND A.ZPH = #{zph,jdbcType=VARCHAR}
-       </if>-->
+      <if test="sid != null and sid != ''" >
+        AND H.PARENT_SID = #{sid,jdbcType=VARCHAR}
+      </if>
+      <if test="designation != null and designation != ''" >
+        AND H.DESIGNATION = #{designation,jdbcType=VARCHAR}
+      </if>
+      <if test="inquireState != null and inquireState != ''" >
+        AND H.INQUIRE_STATE = #{inquireState,jdbcType=VARCHAR}
+      </if>
     </trim>
   </select>
 </mapper>
