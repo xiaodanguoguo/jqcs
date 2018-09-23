@@ -83,8 +83,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             MillSheetHosts millSheetByPage = millSheetHostsMapper.findUrl(millSheetHosts);
             millSheetByPage.setMillSheetPath(millSheetByPage.getMillSheetUrl() +"/"+millSheetByPage.getMillSheetName());
             BeanCopyUtil.copy(millSheetByPage,millSheetHostsVO);
-            //
-            //日志表
+            //添加日志操作记录
             MillOperationHis millOperationHis = new MillOperationHis();
             millOperationHis.setMillSheetNo(millSheetHostsVO.getMillSheetNo());
             if(millSheetHosts.getOperationType().equals(1)){
@@ -92,8 +91,11 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 millOperationHis.setOperationType("PRIVIEWED");
                 millSheetHosts.setState("PRIVIEWED");
             }else {
+                //减少打印次数
                 millOperationHis.setOperationType("PRINTED");
                 millSheetHosts.setState("PRINTED");
+                millSheetHosts.setPrintableNum(millSheetByPage.getPrintableNum()-1);
+                millSheetHosts.setPrintedNum(millSheetByPage.getPrintedNum()+1);
             }
             millOperationHis.setOperationTime(new Date());
             millOperationHisMapper.insertSelective(millOperationHis);
