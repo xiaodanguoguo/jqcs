@@ -85,16 +85,20 @@ public class MillSheetHostsController {
                     for(MillSheetHostsVO millSheetHostsVO :serviceResponse.getRetContent()){
                         String createPdfPath = uploadConfig.getDomain();
                         String millSheetPath =  millSheetHostsVO.getMillSheetPath();
+                        String millSheetName =  millSheetHostsVO.getMillSheetName();
                         String url = createPdfPath + millSheetPath;
-                        this.saveUrlAs(url,millSheetPath,"GET");
+                        String millSheetUrl =millSheetHostsVO.getMillSheetUrl();
+                        this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
                         millSheetHostsVO.setMillSheetPath(url);
                     }
                 }else {
                     //从质证书服务器获取文件到本地 返回url
                     String createPdfPath = uploadConfig.getDomain();
                     String millSheetPath =  serviceResponse.getRetContent().get(0).getMillSheetPath();
+                    String millSheetUrl =   serviceResponse.getRetContent().get(0).getMillSheetUrl();
                     String url = createPdfPath + millSheetPath;
-                    this.saveUrlAs(url,millSheetPath,"GET");
+                    String millSheetName =  serviceResponse.getRetContent().get(0).getMillSheetName();
+                    this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
                     serviceResponse.getRetContent().get(0).setMillSheetPath(url);
                 }
             }else {
@@ -118,7 +122,7 @@ public class MillSheetHostsController {
      * @return
      */
 
-    public static File saveUrlAs(String url,String filePath,String method){
+    public static File saveUrlAs(String url,String filePath,String method,String fileName){
         System.out.println("filePath---->"+filePath);
         //创建不同的文件夹目录
         File file=new File(filePath);
@@ -154,7 +158,7 @@ public class MillSheetHostsController {
 
             }
             //写入到文件（注意文件保存路径的后面一定要加上文件的名称）
-            fileOut = new FileOutputStream(filePath+"Y1809050201.pdf");
+            fileOut = new FileOutputStream(filePath+"/"+fileName);
             BufferedOutputStream bos = new BufferedOutputStream(fileOut);
 
             byte[] buf = new byte[4096];
@@ -211,7 +215,9 @@ public class MillSheetHostsController {
                     String createPdfPath = uploadConfig.getDomain();
                     String millSheetPath =  serviceResponse.getRetContent().getMillSheetPath();
                     String url = createPdfPath + millSheetPath;
-                    this.saveUrlAs(url,millSheetPath,"GET");
+                    String millSheetName =  serviceResponse.getRetContent().getMillSheetName();
+                    String millSheetUrl = serviceResponse.getRetContent().getMillSheetUrl();
+                    this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
                     serviceResponse.getRetContent().setMillSheetPath(url);
                     jsonResponse.setRspBody(serviceResponse.getRetContent());
                 }
@@ -251,7 +257,9 @@ public class MillSheetHostsController {
                     String createPdfPath = uploadConfig.getDomain();
                     String millSheetPathB =  millSheetHostsVO.getMillSheetPath();
                     String url = createPdfPath + millSheetPathB;
-                    this.saveUrlAs(url,millSheetPathB,"GET");
+                    String millSheetName =  millSheetHostsVO.getMillSheetName();
+                    String millSheetUrl = serviceResponse.getRetContent().get(0).getMillSheetUrl();
+                    this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
                 }
                 List<File> fileList = new ArrayList<>();
                 for (int i=0;i<serviceResponse.getRetContent().size();i++){
@@ -271,7 +279,9 @@ public class MillSheetHostsController {
                 String createPdfPath = uploadConfig.getDomain();
                 String millSheetPathA =  serviceResponse.getRetContent().get(0).getMillSheetPath();
                 String url = createPdfPath + millSheetPathA;
-                this.saveUrlAs(url,millSheetPathA,"GET");
+                String millSheetUrl = serviceResponse.getRetContent().get(0).getMillSheetUrl();
+                String fileName =  serviceResponse.getRetContent().get(0).getMillSheetName();
+                this.saveUrlAs(url,millSheetUrl,"GET",fileName);
                 //配置请求头
                 millSheetPath = serviceResponse.getRetContent().get(0).getMillSheetPath();
                 String  millSheetName = serviceResponse.getRetContent().get(0).getMillSheetName();

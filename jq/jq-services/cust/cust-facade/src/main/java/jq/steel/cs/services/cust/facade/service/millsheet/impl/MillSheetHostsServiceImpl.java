@@ -113,7 +113,8 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
         for (MillSheetHosts millSheetHosts1:millSheetHosts){
             MillSheetHosts url = millSheetHostsMapper.findUrl(millSheetHosts1);
             millSheetHosts1.setMillSheetPath(url.getMillSheetUrl()+"/"+url.getMillSheetName());
-
+            millSheetHosts1.setMillSheetUrl(url.getMillSheetUrl());
+            millSheetHosts1.setMillSheetName(url.getMillSheetName());
             //修改下载次数 + 状态
             millSheetHosts1.setDownableNum(url.getDownableNum()-1);
             millSheetHosts1.setDownNum(url.getDownNum()+1);
@@ -121,7 +122,6 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             millSheetHosts1.setUpdatedDt(new Date());
             millSheetHosts1.setState("DOWNLOADED");
             millSheetHostsMapper.updateNum(millSheetHosts1);
-            millSheetHosts1.setMillSheetName(url.getMillSheetName());
             //日志表
             MillOperationHis millOperationHis = new MillOperationHis();
             millOperationHis.setMillSheetNo(millSheetHosts1.getMillSheetNo());
