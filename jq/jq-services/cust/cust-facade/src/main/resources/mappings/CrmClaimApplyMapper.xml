@@ -175,22 +175,9 @@
 <!--导出查询-->
   <select id="findByParams" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
     SELECT h.* from(SELECT
-    A.CLAIM_NO,
-    A.CLAIM_STATE,
-    A.MILL_SHEET_NO,
-    A.PRODUCT_ID,
-    A.CUSTOMER_ID,
-    A.PRODUCT_NAME,
-    A.DESIGNATION,
-    A.SIZE_MARK,
+    A.*,
     C.CLAIM_TYPE,
-    A.OBJECTION_NUM,
     C.INQUIRE_STATE,
-    A.LAST_USER,
-    A.CUSTOMER_NAME,
-    A.PRESENTATION_DATE,
-    A.REJECT_REASON,
-    A.REASONS_FOR_COMPULSORY_CLOSURE,
     case when B.DEPT_CODE = '1000' then '不锈钢厂'
     when B.DEPT_CODE = '2000' then '炼轧厂'
     when B.DEPT_CODE = '2200' then '碳钢薄板厂'

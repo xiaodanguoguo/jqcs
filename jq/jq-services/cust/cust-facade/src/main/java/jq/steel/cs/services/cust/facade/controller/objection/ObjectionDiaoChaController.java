@@ -1,5 +1,6 @@
 package jq.steel.cs.services.cust.facade.controller.objection;
 
+import com.ebase.core.AssertContext;
 import com.ebase.core.exception.BusinessException;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
@@ -38,6 +39,7 @@ public class ObjectionDiaoChaController {
         ServiceResponse<PageDTO<ObjectionDiaoChaVO>> serviceResponse = new ServiceResponse<>();
         try {
             ObjectionDiaoChaVO objectionDiaoChaVO = jsonRequest.getReqBody();
+            jsonRequest.getReqBody().setAcctId(AssertContext.getAcctId());
             PageDTO<ObjectionDiaoChaVO> pageDTO = objectionDiaoChaService.findByPage(objectionDiaoChaVO);
             serviceResponse.setRetContent(pageDTO);
         }catch (BusinessException e){
