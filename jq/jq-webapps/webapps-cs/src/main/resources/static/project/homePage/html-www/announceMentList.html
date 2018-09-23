@@ -1,5 +1,10 @@
 @@include('../../commonNav/html/commonHeaderBlue.html')
 <div style="padding: 20px;">
+    <div id="searchBox" style="height: 40px;">
+        <span style="margin-right: 10px;">标题：</span>
+        <input type="text" class="inputBase" id="condannTitle">
+        <div class="btnLowNew" id="establish-Home-page" comtype="searchBtnCtrl" rule="cond" cond="condannTitle" uniontableid="announcementList" parentid="searchBox">查询</div>
+    </div>
     <table class="table-list" id="announcementList" style="table-layout: fixed" comType="" templateId="templateRow" page="tcdPageCode" reqPath="" reqParam="{}" method="POST" noData="nonData">
         <tr class="table-list-currentrow">
             <th class="table-list-currentrow-theader" style="width: 60%">
