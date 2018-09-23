@@ -135,6 +135,7 @@
             $("#inputAnswer #addr").val("");
             $("#stateInp").attr("checked",false);
             $("#inputAnswer h2").text("新增客户");
+            $("#orgType").attr("initValue","").trigger('chosen:updated');
             if(_this.rank){
                 openWin('350', '600', 'inputAnswer', true);
             }else{

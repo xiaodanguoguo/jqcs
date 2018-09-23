@@ -73,6 +73,10 @@
                 clearCookie("navListIdx");
                 jumpUrl("../../homePage/html-gulp-www/homePage.html","0000000",0)
             });
+            /*$("#downLoadShouCe").on("click",function(){
+                var importParam = "name=" + JSON.stringify({});
+                $.download(requestUrl + "/", importParam, "POST");
+			});*/
             start();
 		})
         //退出接口
@@ -138,12 +142,16 @@
 						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/3.png')"></div>
 						<span class="fl">代办</span>
 					</span>-->
+					<span class="og-head-navwrap-opeBoxList" id="downLoadShouCe" style="cursor: pointer">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/xiazia.png')"></div>
+						<span class="fl">下载手册</span>
+					</span>
 					<span class="og-head-navwrap-opeBoxList" id="quitBtn" style="cursor: pointer">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/2.png')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/tc.png')"></div>
 						<span  class="fl">退出</span>
 					</span>
 					<span class="og-head-navwrap-opeBoxList" id="editPassword" style="cursor: pointer">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/1.png')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/xgmm.png')"></div>
 						<span class="fl">修改密码</span>
 					</span>
 				</div>
@@ -231,27 +239,27 @@
         <ul class="annUl clearfix">
             <li class="annLi">
                 <div class="annTitle fl">标题:</div>
-                <div class="annContent fl" id="annTitle"> 哈哈哈</div>
+                <div class="annContent fl" id="annTitle"></div>
             </li>
             <li class="annLi">
                 <div class="annTitle fl">内容:</div>
-                <div class="annContent fl" id="annName" style="word-break: break-all;">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</div>
+                <div class="annContent fl" id="annName" style="word-break: break-all;"></div>
             </li>
             <li class="annLi">
                 <div class="annTitle fl">发布人:</div>
-                <div class="annContent fl" id="createName">哈哈哈</div>
+                <div class="annContent fl" id="createBy"></div>
             </li>
             <li class="annLi">
                 <div class="annTitle fl" id="">发布时间:</div>
-                <div class="annContent fl" id="createDt">哈哈哈</div>
+                <div class="annContent fl" id="createDt"></div>
             </li>
         </ul>
     </div>
 <script>
     $(function(){
         limitCodeDeal($("*[limitCode]"),"limitCode");
-        setValue4Desc({"createDt":"1992-01-01","createName":"作者哈","annName":"这是发布内容","annTitle":"这是发布标题"},$(".annUl")[0])//赋值
-        //getAjaxResult("runze","POST",{"aId":GetQueryString("aId")},"initHtmlCallBack(data)")
+        //setValue4Desc({"createDt":"1992-01-01","createBy":"作者哈","annName":"这是发布内容","annTitle":"这是发布标题"},$(".annUl")[0])//赋值
+        getAjaxResult("/crmAnnouncement/querydetails","POST",{"aid":GetQueryString("aid")},"initHtmlCallBack(data)")
     })
 
     function initHtmlCallBack(data){

@@ -26,11 +26,11 @@
 
 .submission-box-list__Every .submission-box-list__Select { width: 197px; }
 
-.submission-box-button { /*margin-top:26px;*/ margin-left: 22px; }
+.submission-box-button { margin-top: 5px; margin-left: 22px; }
 
 .submission-box-button div { margin-right: 4px; }
 
-.submission-table { width: 950px; height: auto; margin-top: 20px; margin-left: 22px; overflow-x: scroll; overflow-y: scroll; }
+.submission-table { width: 950px; height: auto; margin-top: 10px; margin-left: 22px; overflow-x: scroll; overflow-y: scroll; }
 
 .table-list { table-layout: fixed; width: 1600px !important; }
 

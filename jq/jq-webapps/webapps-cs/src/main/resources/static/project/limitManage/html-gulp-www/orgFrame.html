@@ -73,6 +73,10 @@
                 clearCookie("navListIdx");
                 jumpUrl("../../homePage/html-gulp-www/homePage.html","0000000",0)
             });
+            /*$("#downLoadShouCe").on("click",function(){
+                var importParam = "name=" + JSON.stringify({});
+                $.download(requestUrl + "/", importParam, "POST");
+			});*/
             start();
 		})
         //退出接口
@@ -138,12 +142,16 @@
 						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/3.png')"></div>
 						<span class="fl">代办</span>
 					</span>-->
+					<span class="og-head-navwrap-opeBoxList" id="downLoadShouCe" style="cursor: pointer">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/xiazia.png')"></div>
+						<span class="fl">下载手册</span>
+					</span>
 					<span class="og-head-navwrap-opeBoxList" id="quitBtn" style="cursor: pointer">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/2.png')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/tc.png')"></div>
 						<span  class="fl">退出</span>
 					</span>
 					<span class="og-head-navwrap-opeBoxList" id="editPassword" style="cursor: pointer">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/1.png')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/xgmm.png')"></div>
 						<span class="fl">修改密码</span>
 					</span>
 				</div>
@@ -344,6 +352,7 @@
             $("#inputAnswer #addr").val("");
             $("#stateInp").attr("checked",false);
             $("#inputAnswer h2").text("新增客户");
+            $("#orgType").attr("initValue","").trigger('chosen:updated');
             if(_this.rank){
                 openWin('350', '600', 'inputAnswer', true);
             }else{

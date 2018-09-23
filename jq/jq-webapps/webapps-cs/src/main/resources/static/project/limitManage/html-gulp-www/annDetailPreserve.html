@@ -73,6 +73,10 @@
                 clearCookie("navListIdx");
                 jumpUrl("../../homePage/html-gulp-www/homePage.html","0000000",0)
             });
+            /*$("#downLoadShouCe").on("click",function(){
+                var importParam = "name=" + JSON.stringify({});
+                $.download(requestUrl + "/", importParam, "POST");
+			});*/
             start();
 		})
         //退出接口
@@ -138,12 +142,16 @@
 						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/3.png')"></div>
 						<span class="fl">代办</span>
 					</span>-->
+					<span class="og-head-navwrap-opeBoxList" id="downLoadShouCe" style="cursor: pointer">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/xiazia.png')"></div>
+						<span class="fl">下载手册</span>
+					</span>
 					<span class="og-head-navwrap-opeBoxList" id="quitBtn" style="cursor: pointer">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/2.png')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/tc.png')"></div>
 						<span  class="fl">退出</span>
 					</span>
 					<span class="og-head-navwrap-opeBoxList" id="editPassword" style="cursor: pointer">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/1.png')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/xgmm.png')"></div>
 						<span class="fl">修改密码</span>
 					</span>
 				</div>
@@ -246,12 +254,8 @@
 <script>
     $(function(){
         limitCodeDeal($("*[limitCode]"),"limitCode");
-        setValue4Desc({"createDt":"1992-01-01","createName":"作者哈","annName":"这是发布内容","annTitle":"这是发布标题"},$(".annUl")[0])//赋值
-
-
-        
-        if(GetQueryString("aId") != null){
-            //getAjaxResult("runze","POST",{"aId":GetQueryString("aId")},"initHtmlCallBack(data)")
+        if(GetQueryString("jumpType") == 1){
+            getAjaxResult("/crmAnnouncement/querydetails","POST",{"aid":GetQueryString("aid")},"initHtmlCallBack(data)")
         }
 
         //保存
@@ -261,7 +265,13 @@
             if(valiClass.validateAll4Ctrl($(".annUl")[0])){
                 var jsonParam = {"annTitle":"","annName":""};
                 getValue4Desc(jsonParam,$(".annUl")[0]);
-                getAjaxResult("runze","POST",jsonParam,"saveCallBack(data)");
+                if(GetQueryString("aid")){
+                    jsonParam.aid = GetQueryString("aid");
+                    getAjaxResult("/crmAnnouncement/update","POST",jsonParam,"saveCallBack(data)");
+
+                }else{
+                    getAjaxResult("/crmAnnouncement/save","POST",jsonParam,"saveCallBack(data)");
+                }
             }
         });
         //取消

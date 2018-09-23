@@ -194,7 +194,6 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
             case "CONFIRM":
                 $(cloneRow).find("#inquireStateA").html("已确认");
                 if(jsonItem.agreementState != "COMPLETE")
-                    $(cloneRow).find("#agreementEditOpe").show();
                 break;
             default:
                 $(cloneRow).find("#inquireStateA").html("");
@@ -207,7 +206,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 break;
             case "EXAMINE":
                 $(cloneRow).find("#agreementStateA").html("已审核");
-                $(cloneRow).find("#viewDownloadOpe");
+                $(cloneRow).find("#viewDownloadOpe").show();
                 $(cloneRow).find("#agreementEditOpe").hide();
                 $(cloneRow).find("#sureAuditOpe").hide();
                 break;

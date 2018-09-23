@@ -73,6 +73,10 @@
                 clearCookie("navListIdx");
                 jumpUrl("../../homePage/html-gulp-www/homePage.html","0000000",0)
             });
+            /*$("#downLoadShouCe").on("click",function(){
+                var importParam = "name=" + JSON.stringify({});
+                $.download(requestUrl + "/", importParam, "POST");
+			});*/
             start();
 		})
         //退出接口
@@ -138,12 +142,16 @@
 						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/3.png')"></div>
 						<span class="fl">代办</span>
 					</span>-->
+					<span class="og-head-navwrap-opeBoxList" id="downLoadShouCe" style="cursor: pointer">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/xiazia.png')"></div>
+						<span class="fl">下载手册</span>
+					</span>
 					<span class="og-head-navwrap-opeBoxList" id="quitBtn" style="cursor: pointer">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/2.png')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/tc.png')"></div>
 						<span  class="fl">退出</span>
 					</span>
 					<span class="og-head-navwrap-opeBoxList" id="editPassword" style="cursor: pointer">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/1.png')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/xgmm.png')"></div>
 						<span class="fl">修改密码</span>
 					</span>
 				</div>
@@ -596,7 +604,7 @@
                         <span class="newsList-content-mainList-title fl">加工工艺及用途:</span>
                         <textarea id="endProcessingTech" class="inputBase newsList-content-mainList-text fl required"  style="resize:none" ></textarea>
                     </li>
-                    <li class="newsList-content-main-listRows clearfix">
+                    <li class="newsList-content-main-listRows clearfix" style="padding-bottom: 50px;">
                         <span class="newsList-content-mainList-title fl">调查事实阐述:</span>
                         <div id="parentBox" class="inputBase newsList-content-mainList-main fl clearfix" id="inSearchBox" style="height: 437px;">
                             <ul class="newsList-content-mainListRows-ul clearfix fl" id="inSearchBox">
@@ -634,7 +642,7 @@
                     <div class="box4">
                         <li class="newsList-content-main-listRow">
                             <span class="newsList-content-mainList-title fl">现场结论:</span>
-                            <div id="fieldConclusionA" class="newsList-content-mainList-textEdit fl" style="height: 350px;">
+                            <div id="fieldConclusionA" class="newsList-content-mainList-textEdit fl" style="overflow:scroll;height: 350px;">
                                 <script id="editor2" type="text/plain"></script>
                             </div>
                         </li>
@@ -696,35 +704,35 @@
             </div>
         </div>
         <div class="newsList-operater clearfix box01">
-            <div class="btnLowNew fr" id="firstReset">清空</div>
-            <div class="btnLowNew fr" id="firstSave" style="margin-right: 10px;">保存</div>
+            <button class="btnLowNew fr" id="firstReset">清空</button>
+            <button class="btnLowNew fr" id="firstSave" style="margin-right: 10px;">保存</button>
         </div>
         <div class="newsList-operater clearfix box2">
            <!-- <div class="btnLowNew fr" id="secondPrint">打印</div>-->
-            <div class="btnLowNew fr" style="margin-right: 10px;" id="secondDownload">下载</div>
+            <button class="btnLowNew fr" style="margin-right: 10px;" id="secondDownload">下载</button>
         </div>
         <div class="newsList-operater clearfix box3">
-            <div class="btnLowNew fl" id="thirdSave">保存</div>
-            <div class="btnLowNew fr" id="thirdPromise">通过</div>
+            <button class="btnLowNew fl" id="thirdSave">保存</button>
+            <button class="btnLowNew fr" id="thirdPromise">通过</button>
             <span class="clearfix fr" style="margin-right: 10px">
                 <input id="rejectReason" type="text" class="inputBase fl required" style="width: 200px">
-                <div class="btnLowNew fl" id="thirdReject">驳回</div>
+                <button class="btnLowNew fl" id="thirdReject">驳回</button>
             </span>
         </div>
         <div class="newsList-operater clearfix box4">
-            <div id="forthsubmit" class="btnLowNew fr">调查结束</div>
-            <div id="forthFoolow" class="btnLowNew fr" style="margin-right: 10px;">跟踪</div>
-            <div id="forthSave" class="btnLowNew fr" style="margin-right: 10px;">保存</div>
+            <button id="forthsubmit" class="btnLowNew fr">调查结束</button>
+            <button id="forthFoolow" class="btnLowNew fr" style="margin-right: 10px;">跟踪</button>
+            <button id="forthSave" class="btnLowNew fr" style="margin-right: 10px;">保存</button>
         </div>
         <div class="newsList-operater clearfix box5">
-            <div id="fifthSubmit" class="btnLowNew fr">提交</div>
-            <div id="fifthSave" class="btnLowNew fr" style="margin-right: 10px;">保存</div>
+            <button id="fifthSubmit" class="btnLowNew fr">提交</button>
+            <button id="fifthSave" class="btnLowNew fr" style="margin-right: 10px;">保存</button>
         </div>
         <div class="newsList-operater clearfix box6">
-            <div class="btnLowNew fr" id="sixthPromise">通过</div>
+            <button class="btnLowNew fr" id="sixthPromise">通过</button>
             <span class="clearfix fr" style="margin-right: 10px">
                     <input id="rejectReason" type="text" class="inputBase fl required" style="width: 200px">
-                    <div class="btnLowNew fl" id="sixthReject">驳回</div>
+                    <button class="btnLowNew fl" id="sixthReject">驳回</button>
                 </span>
         </div>
     </div>

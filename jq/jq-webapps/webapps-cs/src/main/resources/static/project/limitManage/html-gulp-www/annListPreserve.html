@@ -73,6 +73,10 @@
                 clearCookie("navListIdx");
                 jumpUrl("../../homePage/html-gulp-www/homePage.html","0000000",0)
             });
+            /*$("#downLoadShouCe").on("click",function(){
+                var importParam = "name=" + JSON.stringify({});
+                $.download(requestUrl + "/", importParam, "POST");
+			});*/
             start();
 		})
         //退出接口
@@ -138,12 +142,16 @@
 						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/3.png')"></div>
 						<span class="fl">代办</span>
 					</span>-->
+					<span class="og-head-navwrap-opeBoxList" id="downLoadShouCe" style="cursor: pointer">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/xiazia.png')"></div>
+						<span class="fl">下载手册</span>
+					</span>
 					<span class="og-head-navwrap-opeBoxList" id="quitBtn" style="cursor: pointer">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/2.png')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/tc.png')"></div>
 						<span  class="fl">退出</span>
 					</span>
 					<span class="og-head-navwrap-opeBoxList" id="editPassword" style="cursor: pointer">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/1.png')"></div>
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/xgmm.png')"></div>
 						<span class="fl">修改密码</span>
 					</span>
 				</div>
@@ -232,13 +240,13 @@
         </tr>
         <tr class="table-list-currentrow" id="templateRow" style="display: none;">
             <td class="table-list-currentrow-tdetail">
-                <span style="padding: 0 10px;" id="annTitle">1</span>
+                <span style="padding: 0 10px;" id="annTitle"></span>
             </td>
             <td class="table-list-currentrow-tdetail" style="text-align: center">
-                <span style="padding: 0 10px;" id="createName">1</span>
+                <span style="padding: 0 10px;" id="createBy"></span>
             </td>
             <td class="table-list-currentrow-tdetail" style="text-align: center">
-                <span style="padding: 0 10px;" id="createDt">1</span>
+                <span style="padding: 0 10px;" id="createDt"></span>
             </td>
             <td class="table-list-currentrow-tdetail" style="text-align: center">
                 <span class="btnLowImgCom" id="editAnn"  limitCode="M10402">修改</span>
@@ -255,28 +263,28 @@
 <script>
     $(function(){
         limitCodeDeal($("*[limitCode]"),"limitCode");
-        $("#announcementList")[0].data = {"rspBody":{"resultData":[{"annTitle":"123","createDt":"1992-01-01","createName":"发布人"},{"annTitle":"234","createDt":"1992-01-05"}]}};
-        initplugPath($("#announcementList")[0],"standardTableCtrl","runze",null,"POST");
+        //$("#announcementList")[0].data = {"rspBody":{"resultData":[{"annTitle":"123","createDt":"1992-01-01","createBy":"发布人"},{"annTitle":"234","createDt":"1992-01-05"}]}};
+        initplugPath($("#announcementList")[0],"standardTableCtrl","/crmAnnouncement/querypageresult",null,"POST");
 
         //  新建公告
         $("#newAnn").on("click",function(){
-            jumpUrl("annDetailPreserve.html","0000000",0);
+            jumpUrl("annDetailPreserve.html?jumpType=0","0000000",0);
         });
     });
 
     function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         $(cloneRow).find("#editAnn").on("click",function () {//编辑
-            jumpUrl("annDetailPreserve.html?aId=" + jsonItem.aId,"0000000",0);
+            jumpUrl("annDetailPreserve.html?jumpType=1&aid=" + jsonItem.aid,"0000000",0);
         });
         $(cloneRow).find("#deleteAnn").on("click",function () {//删除
-            getAjaxResult("runze","POST",{"aId":jsonItem.aId},"deleteCallBack(data)");
+            getAjaxResult("/crmAnnouncement/delete","POST",{"aid":jsonItem.aid},"deleteCallBack(data)");
         });
     }
 
     function deleteCallBack(data) {
         data = JSON.parse(data);
         if(data.retCode == "0000000"){
-            initplugPath($("#announcementList")[0],"standardTableCtrl","runze",null,"POST");
+            initplugPath($("#announcementList")[0],"standardTableCtrl","/crmAnnouncement/querypageresult",null,"POST");
         }
     }
 
