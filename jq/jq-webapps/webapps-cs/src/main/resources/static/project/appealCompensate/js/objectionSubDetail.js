@@ -713,10 +713,13 @@ function filePathShow(arrStr,str2,type){//type 1是复现数据   2是不可编�
             $("#filePathA *[id=uploadBox]").eq(nI).addClass("comUploadAfter");
         }
         //质量异议报告图片:
-        $("#reportPicturesA #uploadBox").attr("uploadbgsrc",str2);
-        document.body.jsCtrl.ctrl = $("#reportPicturesA #uploadBox")[0];
-        document.body.jsCtrl.init();
-        $("#reportPicturesA #uploadBox").addClass("comUploadAfter");
+        if(str2){
+            $("#reportPicturesA #uploadBox").attr("uploadbgsrc",str2);
+            document.body.jsCtrl.ctrl = $("#reportPicturesA #uploadBox")[0];
+            document.body.jsCtrl.init();
+            $("#reportPicturesA #uploadBox").addClass("comUploadAfter");
+        }
+
     }else{
         //异议产品图片:
         for(var nI = 0 ; nI < document.body.jsLee.filePath.length; nI++ ){
