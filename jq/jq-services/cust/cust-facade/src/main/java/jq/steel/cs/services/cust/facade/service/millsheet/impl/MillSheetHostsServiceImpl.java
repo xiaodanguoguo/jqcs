@@ -152,6 +152,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 millSheetHostsVO.setMillSheetPath(list.get(0).getMillSheetUrl()+"/"+list.get(0).getMillSheetName());
             }else {
                 millSheetHostsVO.setIsReback("N");
+                millSheetHostsVO.setMillSheetPath(list.get(0).getMillSheetUrl()+"/"+list.get(0).getMillSheetName());
             }
         }else {
             //校验质证书编号

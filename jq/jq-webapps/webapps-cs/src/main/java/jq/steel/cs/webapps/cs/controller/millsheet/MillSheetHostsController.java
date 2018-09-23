@@ -119,7 +119,7 @@ public class MillSheetHostsController {
      */
 
     public static File saveUrlAs(String url,String filePath,String method){
-        System.out.println("fileName---->"+filePath);
+        System.out.println("filePath---->"+filePath);
         //创建不同的文件夹目录
         File file=new File(filePath);
         //判断文件夹是否存在
@@ -251,7 +251,7 @@ public class MillSheetHostsController {
                     String createPdfPath = uploadConfig.getDomain();
                     String millSheetPathB =  millSheetHostsVO.getMillSheetPath();
                     String url = createPdfPath + millSheetPathB;
-                    this.saveUrlAs(url,millSheetPath,"GET");
+                    this.saveUrlAs(url,millSheetPathB,"GET");
                 }
                 List<File> fileList = new ArrayList<>();
                 for (int i=0;i<serviceResponse.getRetContent().size();i++){
