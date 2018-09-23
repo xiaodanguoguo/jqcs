@@ -433,7 +433,7 @@ function getContentCallBack(data){
                 initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"condcustomerId":data.rspBody.orgCode},"POST");
             }else{
                 $("#tableList")[0].cacheArr = [];
-                initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
+                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
             }
 
         }
