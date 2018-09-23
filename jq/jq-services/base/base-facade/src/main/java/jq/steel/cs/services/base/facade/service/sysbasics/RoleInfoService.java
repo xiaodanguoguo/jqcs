@@ -3,6 +3,7 @@ package jq.steel.cs.services.base.facade.service.sysbasics;
 
 import com.ebase.core.page.PageDTO;
 import jq.steel.cs.services.base.api.vo.RoleInfoVO;
+import jq.steel.cs.services.base.facade.model.RoleInfo;
 
 import java.util.List;
 
@@ -26,4 +27,7 @@ public interface RoleInfoService {
     RoleInfoVO keepRoleInfo(RoleInfoVO jsonRequest);
 
     String verificationDeleteRoelInfo(RoleInfoVO jsonRequest);
+
+    //查询当前用户的rolecode
+    List<RoleInfoVO> getRoleCodeByAcctId(String acctId);
 }

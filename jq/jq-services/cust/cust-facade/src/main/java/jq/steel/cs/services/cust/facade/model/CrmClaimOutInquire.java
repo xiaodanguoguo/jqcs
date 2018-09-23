@@ -4,8 +4,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class CrmClaimOutInquire {
+
+    //厂家code
+    private List<String> deptCodes;
 
     private  String parentSid;
 
@@ -227,6 +231,9 @@ public class CrmClaimOutInquire {
     //内部调查时间
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date internalLnvestigationDate;
+
+
+
 
     public String getParentSid() {
         return parentSid;

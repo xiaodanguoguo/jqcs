@@ -4,8 +4,20 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class ObjectionDiaoChaVO {
+
+    //厂家code
+    private List<String> deptCodes;
+
+    public List<String> getDeptCodes() {
+        return deptCodes;
+    }
+
+    public void setDeptCodes(List<String> deptCodes) {
+        this.deptCodes = deptCodes;
+    }
 
     //acctid
     private String acctId;
@@ -242,6 +254,8 @@ public class ObjectionDiaoChaVO {
     private  String reportPictures;
 
     private  String objectionConfirmation;
+
+
 
     public String getAcctId() {
         return acctId;

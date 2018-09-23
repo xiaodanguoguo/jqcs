@@ -98,7 +98,10 @@ WHERE
     A.CLAIM_NO,
     A.CLAIM_STATE,
     A.MILL_SHEET_NO,
-    B.DEPT_CODE,
+    case when B.DEPT_CODE = '1000' then '不锈钢厂'
+    when B.DEPT_CODE = '2000' then '炼轧厂'
+    when B.DEPT_CODE = '2200' then '碳钢薄板厂'
+    when B.DEPT_CODE='3000' then '榆钢工厂' else B.DEPT_CODE end as DEPT_CODE,
     A.PRODUCT_ID,
     A.PRODUCT_NAME,
     A.DESIGNATION,
@@ -126,7 +129,8 @@ WHERE
     LEFT JOIN WARRANTY.CRM_CLAIM_APPLY C ON A.CLAIM_NO = C.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE D ON A.CLAIM_NO = D.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE E ON A.CLAIM_NO = E.CLAIM_NO
-    LEFT JOIN WARRANTY.MILL_SHEET_HEAD E ON A.MILL_SHEET_NO = E.MILL_SHEET_NO ) H
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD E ON A.MILL_SHEET_NO = E.MILL_SHEET_NO
+    ) H
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
         AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
@@ -162,9 +166,20 @@ WHERE
           AND H.CLAIM_STATE IN ('ADOPT','ACCEPTANCE','INVESTIGATION', 'HANDLE', 'END', 'EVALUATE','ADOPT')
         </otherwise>
       </choose>
-      <if test="deptCode != null and deptCode != ''" >
-        AND  H.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
-      </if>
+    <!-- <if test="deptCode != null and deptCode != ''" >
+        AND   H.DEPT_CODE like  '%' || #{deptCode} ||'%'
+      </if>-->
+      <choose>
+        <when test="deptCodes != null and deptCodes != ''">
+          AND H.DEPT_CODE  in
+          <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
+            #{deptCodes[${index}]}
+          </foreach>
+        </when>
+        <otherwise>
+          AND   H.DEPT_CODE like  '%' || #{deptCode} ||'%'
+        </otherwise>
+      </choose>
       <if test="sid != null and sid != ''" >
         AND H.PARENT_SID = #{sid,jdbcType=VARCHAR}
       </if>

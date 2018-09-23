@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import sun.java2d.pipe.AAShapePipe;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -295,4 +296,10 @@ public class RoleInfoServiceImpl implements RoleInfoService {
         return result;
     }
 
+    @Override
+    public List<RoleInfoVO> getRoleCodeByAcctId(String acctId) {
+        List<RoleInfo>  list = roleInfoMapper.getRoleCodeByAcctId(acctId);
+        List<RoleInfoVO> result = BeanCopyUtil.copyList(list, RoleInfoVO.class);
+        return result;
+    }
 }

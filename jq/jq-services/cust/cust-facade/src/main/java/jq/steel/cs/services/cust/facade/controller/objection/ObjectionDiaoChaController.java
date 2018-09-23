@@ -40,6 +40,7 @@ public class ObjectionDiaoChaController {
         try {
             ObjectionDiaoChaVO objectionDiaoChaVO = jsonRequest.getReqBody();
             jsonRequest.getReqBody().setAcctId(AssertContext.getAcctId());
+
             PageDTO<ObjectionDiaoChaVO> pageDTO = objectionDiaoChaService.findByPage(objectionDiaoChaVO);
             serviceResponse.setRetContent(pageDTO);
         }catch (BusinessException e){

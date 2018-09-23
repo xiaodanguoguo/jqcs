@@ -83,4 +83,13 @@ public interface RoleInfoAPI {
      */
     @RequestMapping(value = "/keepRoleInfo",method = RequestMethod.POST)
     ServiceResponse<RoleInfoVO> keepRoleInfo(@RequestBody RoleInfoVO jsonRequest);
+
+
+    /**
+     * 登录人
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/getRoleCodeByAcctId",method = RequestMethod.POST)
+    ServiceResponse<List<RoleInfoVO>> getRoleCodeByAcctId(@RequestBody String acctId);
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -214,4 +215,19 @@ public class RoleInfoController {
 //        }
         return jsonResponse;
     }
+
+
+    @RequestMapping("/getRoleCodeByAcctId")
+    public ServiceResponse<List<RoleInfoVO>> getRoleCodeByAcctId(@RequestBody String acctId){
+        ServiceResponse <List<RoleInfoVO>> jsonResponse = new ServiceResponse();
+        try {
+             List<RoleInfoVO> list = roleInfoService.getRoleCodeByAcctId(acctId);
+            jsonResponse.setRetContent(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BusinessException("0103001");
+        }
+        return jsonResponse;
+    }
+
 }

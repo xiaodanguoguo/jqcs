@@ -9,6 +9,8 @@ import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
 import com.ebase.utils.excel.ExportExcelUtils;
 import feign.FeignException;
+import jq.steel.cs.services.base.api.controller.RoleInfoAPI;
+import jq.steel.cs.services.base.api.vo.RoleInfoVO;
 import jq.steel.cs.services.cust.api.controller.ObjectionDiaoChaAPI;
 import jq.steel.cs.services.cust.api.vo.ObjectionDiaoChaVO;
 import jq.steel.cs.webapps.cs.controller.file.UploadConfig;
@@ -30,7 +32,12 @@ public class ObjectionDiaoChaController {
     private ObjectionDiaoChaAPI objectionDiaoChaAPI;
 
     @Autowired
+    private RoleInfoAPI roleInfoAPI;
+
+    @Autowired
     UploadConfig uploadConfig;
+
+
 
     /**
      *  条件分页查询
@@ -42,6 +49,14 @@ public class ObjectionDiaoChaController {
     public JsonResponse<PageDTO<ObjectionDiaoChaVO>> findByPage(@RequestBody JsonRequest<ObjectionDiaoChaVO> jsonRequest){
 //        logger.info("分页",JsonUtil.toJson(jsonRequest));
         JsonResponse<PageDTO<ObjectionDiaoChaVO>> jsonResponse = new JsonResponse<>();
+
+        String acctId = AssertContext.getAcctId();
+        ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+        List<String> list = new ArrayList<>();
+        for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+            list.add(roleInfoVO.getRoleCode());
+        }
+        jsonRequest.getReqBody().setDeptCodes(list);
         try {
             ServiceResponse<PageDTO<ObjectionDiaoChaVO>> serviceResponse = objectionDiaoChaAPI.findByPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {

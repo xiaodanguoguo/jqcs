@@ -35,6 +35,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
     @Autowired
     private CrmAgreementInfoMapper crmAgreementInfoMapper;
 
+
     //条件查询
     @Override
     public PageDTO<ObjectionDiaoChaVO> findByPage(ObjectionDiaoChaVO objectionDiaoChaVO) {
@@ -47,8 +48,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimOutInquire.setStartDtStr(startDtStr);
             String endDtStr = DateFormatUtil.getEndDateStr(crmClaimOutInquire.getEndDt());
             crmClaimOutInquire.setEndDtStr(endDtStr);
-            //判断角色code是否为空然后获取登录角色是否为厂及人员   '1000/不锈钢厂' '2000/炼轧厂''2200/碳钢薄板厂''3000/榆钢工厂'
-
+            //当前登录人的deptCodes  '1000/不锈钢厂' '2000/炼轧厂''2200/碳钢薄板厂''3000/榆钢工厂'
             List<CrmClaimOutInquire> list = crmClaimOutInquireMapper.findByPage(crmClaimOutInquire);
             //转换返回对象
             List<ObjectionDiaoChaVO> objectionDiaoChaVOS = BeanCopyUtil.copyList(list, ObjectionDiaoChaVO.class);
