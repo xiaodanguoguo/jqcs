@@ -131,7 +131,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     WHERE
     A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR} AND  A.STATE IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED')
   </select>
-
+  <!--分页查询-->
   <select id="findMillSheetByPage" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
     SELECT
     MSO.STATE,
@@ -151,16 +151,17 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     MSO.SPLIT_STATE,
     MSO.MILL_SHEET_TYPE,
     MSO.SURPLUS_BATCH,
-    MSO.ZKUNNR,
     MSO.ZKUNWE,
     MSH.ZCHEHAO,
     MSH.ZHTH,
     MSH.ZCPMC,
     MSH.ZPH,
-    MSO.SID
+    MSO.SID,
+    MC.NAME1 AS ZKUNNR
     FROM
     WARRANTY.MILL_SHEET_HOSTS MSO
     LEFT JOIN WARRANTY.MILL_SHEET_HEAD MSH ON MSO.MILL_SHEET_NO = MSH.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.MILL_CUSTOMER MC ON MSO.DEPT_CODE = MC.BUKRS AND MSO.ZKUNNR = MC.KUNNR
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
         AND TO_CHAR (MSO.CREATED_DT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
