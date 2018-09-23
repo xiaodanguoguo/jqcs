@@ -193,6 +193,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 $(cloneRow).find("#inquireStateA").html("外部调查结束");
                 $(cloneRow).find("#researchInOpe").show();
                 $(cloneRow).find("#rejectOpe").show();
+                $(cloneRow).find("#downloadOutOpe").show();
                 break;
             case "INSTART":
                 $(cloneRow).find("#inquireStateA").html("内部调查开始");
@@ -202,6 +203,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 $(cloneRow).find("#inquireStateA").html("内部调查结束");
                 $(cloneRow).find("#rejectOpe").show();
                 $(cloneRow).find("#bookAuditOpe").show();
+                $(cloneRow).find("#downloadInOpe").show();
                 break;
             case "CONFIRM":
                 $(cloneRow).find("#inquireStateA").html("已确认");

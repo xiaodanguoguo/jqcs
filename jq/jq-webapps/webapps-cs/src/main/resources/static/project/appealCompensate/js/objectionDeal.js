@@ -194,7 +194,6 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
             case "CONFIRM":
                 $(cloneRow).find("#inquireStateA").html("已确认");
                 if(jsonItem.agreementState != "COMPLETE")
-                    $(cloneRow).find("#agreementEditOpe").show();
                 break;
             default:
                 $(cloneRow).find("#inquireStateA").html("");
