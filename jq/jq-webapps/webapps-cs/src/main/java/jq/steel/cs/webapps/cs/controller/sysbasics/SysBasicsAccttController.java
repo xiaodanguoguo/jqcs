@@ -445,6 +445,13 @@ public class SysBasicsAccttController {
 
         JsonResponse jsonResponse = new JsonResponse();
         try{
+            if (AssertContext.getAcctType().equals("0")) {
+                jsonRequest.getReqBody().setAcctType(1L);
+            } else if (AssertContext.getAcctType().equals("1")) {
+                jsonRequest.getReqBody().setAcctType(2L);
+            } else {
+                jsonRequest.getReqBody().setAcctType(2L);
+            }
             jsonResponse = sysAccInfoAPI.sysAcctAddUser(jsonRequest);
         }catch (BusinessException e){
             jsonResponse.setRetCode(e.getErrorCode());
