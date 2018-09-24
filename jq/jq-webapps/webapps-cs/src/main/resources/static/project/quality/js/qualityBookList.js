@@ -74,7 +74,10 @@ function clsMethodLee$operate(){
                 }
                 var importParam = "name=" + JSON.stringify(millSheetNoArr);
                 $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
-                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+
+                setTimeout(function(){
+                    initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+                },2000);
             }else{
                 var alertBox = new clsAlertBoxCtrl();
                 alertBox.Alert("存在下载次数已为0的质证书，请取消勾选！","错误提示");
@@ -230,6 +233,8 @@ function previewCallBack(data){
         if(document.body.jsLee.previewArr.length == 1){
             $("#previewNext").attr("disabled",true).addClass("changeGary");
         }
+
+        initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
     }
 }
 
@@ -319,6 +324,7 @@ function clsAlertBoxCtrl$sure() {//成功弹框确定
 function printOpeCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
+        initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
         jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody.report,"0000000","1");
     }
 }
