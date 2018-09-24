@@ -224,6 +224,7 @@ public class ObjectionChuLiController {
     public JsonResponse<ObjectionChuLiVO> preview(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
         logger.info("参数", JsonUtil.toJson(jsonRequest));
         CreatePdf createPdf = new CreatePdf();
+        String domain = uploadConfig.getDomain();
         JsonResponse<ObjectionChuLiVO>  jsonResponse = new JsonResponse<>();
         String createPdfPath = uploadConfig.getReportUrl();
         jsonRequest.getReqBody().setReport(createPdfPath);
@@ -235,7 +236,8 @@ public class ObjectionChuLiController {
             }else if(jsonRequest.getReqBody().getTemplateType()==3) {
                 //report = uploadConfig.getDomain() +"/"+serviceResponse.getRetContent().getReport();
                 String  pdfName = jsonRequest.getReqBody().getClaimNo() + "S.pdf";
-                report = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,jsonRequest.getReqBody().getReport(),pdfName,"shoulidan");
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,jsonRequest.getReqBody().getReport(),pdfName,"shoulidan");
+                report =domain+ report1;
             }else if(jsonRequest.getReqBody().getTemplateType()==6){
                 String  pdfName = jsonRequest.getReqBody().getClaimNo() + "X.pdf";
                 report = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,jsonRequest.getReqBody().getReport(),pdfName,"xieyishu");
