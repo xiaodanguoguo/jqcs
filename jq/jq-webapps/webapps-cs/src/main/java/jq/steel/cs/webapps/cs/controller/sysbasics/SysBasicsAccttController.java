@@ -485,4 +485,39 @@ public class SysBasicsAccttController {
         return jsonResponse;
     }
 
+    /**
+     * @param:
+     * @return:
+     * @description: 编辑个人信息
+     * @author: lirunze
+     * @Date: 2018/9/24
+     */
+    @RequestMapping("/update/acctInfo")
+    public JsonResponse<Integer>  updateAcctInfo(@RequestBody JsonRequest<AcctInfoVO> jsonRequest) {
+        LOG.info("编辑个人信息 = {}", JsonUtil.toJson(jsonRequest));
+        JsonResponse<Integer> jsonResponse = new JsonResponse<>();
+
+        try {
+            ServiceResponse<Integer> serviceResponse = sysAccInfoAPI.updateAcctInfo(jsonRequest);
+            if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            } else {
+                if (serviceResponse.isHasError()) {
+                    jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                } else {
+                    jsonResponse.setRetCode(serviceResponse.getRetCode());
+                    jsonResponse.setRetDesc(serviceResponse.getRetMessage());
+                }
+            }
+        } catch (BusinessException e) {
+            LOG.error("编辑个人信息错误 = {}", e);
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        } catch (Exception e) {
+            LOG.error("编辑个人信息错误 = {}", e);
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+
+        return jsonResponse;
+    }
+
 }

@@ -6,7 +6,11 @@ import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
-import jq.steel.cs.services.base.api.vo.*;
+import jq.steel.cs.services.base.api.vo.AcctInfoExcel;
+import jq.steel.cs.services.base.api.vo.AcctInfoRoleVO;
+import jq.steel.cs.services.base.api.vo.AcctInfoVO;
+import jq.steel.cs.services.base.api.vo.AcctRoleRealVO;
+import jq.steel.cs.services.base.api.vo.AcctToRoleInfoVO;
 import jq.steel.cs.services.base.facade.service.sysbasics.SysBasicsAcctService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -420,6 +424,29 @@ public class SysBasicsAcctController {
         AcctInfoVO acctInfoVO = sysBasicsAcctService.customerType(jsonRequest.getReqBody());
         serviceResponse.setRetContent(acctInfoVO);
         return  serviceResponse;
+    }
+
+    /**
+     * @param:
+     * @return:
+     * @description: 编辑个人信息
+     * @author: lirunze
+     * @Date: 2018/9/24
+     */
+    @RequestMapping("/update/acctInfo")
+    ServiceResponse<Integer> updateAcctInfo(@RequestBody JsonRequest<AcctInfoVO> jsonRequest) {
+        LOG.info("编辑个人信息 = {}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
+
+        try {
+            AcctInfoVO acctInfoVO = jsonRequest.getReqBody();
+            serviceResponse = sysBasicsAcctService.updateAcctInfo(acctInfoVO);
+        } catch (Exception e) {
+            LOG.error("编辑个人信息错误 = {}", e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+
+        return serviceResponse;
     }
 
 }

@@ -1,6 +1,7 @@
 package jq.steel.cs.services.base.facade.service.sysbasics;
 
 import com.ebase.core.page.PageDTO;
+import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import jq.steel.cs.services.base.api.vo.AcctInfoExcel;
@@ -8,7 +9,6 @@ import jq.steel.cs.services.base.api.vo.AcctInfoRoleVO;
 import jq.steel.cs.services.base.api.vo.AcctInfoVO;
 import jq.steel.cs.services.base.api.vo.AcctRoleRealVO;
 import jq.steel.cs.services.base.api.vo.AcctToRoleInfoVO;
-import jq.steel.cs.services.base.facade.model.AcctInfo;
 
 import java.util.List;
 
@@ -66,4 +66,15 @@ public interface SysBasicsAcctService {
 
     //客户类型获取
     AcctInfoVO customerType(AcctInfoVO record);
+
+    /**
+     * @param:
+     * @return:
+     * @description: 编辑个人信息
+     * @author: lirunze
+     * @Date: 2018/9/24
+     */
+    ServiceResponse<Integer> updateAcctInfo(AcctInfoVO acctInfoVO);
+
+
 }
