@@ -193,7 +193,6 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 break;
             case "CONFIRM":
                 $(cloneRow).find("#inquireStateA").html("已确认");
-                if(jsonItem.agreementState != "COMPLETE")
                 break;
             default:
                 $(cloneRow).find("#inquireStateA").html("");
@@ -207,19 +206,19 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
             case "EXAMINE":
                 $(cloneRow).find("#agreementStateA").html("已审核");
                 $(cloneRow).find("#viewDownloadOpe").show();
-                $(cloneRow).find("#agreementEditOpe").hide();
-                $(cloneRow).find("#sureAuditOpe").hide();
                 break;
             case "COMPLETE":
                 $(cloneRow).find("#agreementStateA").html("已完成");
                 $(cloneRow).find("#agreementAuditOpe").show();
-                $(cloneRow).find("#agreementEditOpe").hide();
-
                 break;
             default:
                 $(cloneRow).find("#agreementStateA").html("");
                 break;
         }
+        if(jsonItem.inquireState == "CONFIRM" && jsonItem.claimState == "HANDLE" && jsonItem.agreementState != "EXAMINE" && jsonItem.agreementState != "COMPLETE"){
+            $(cloneRow).find("#agreementEditOpe").show();
+        }
+
         //查看并下载
         $(cloneRow).find("#viewDownloadOpe").on("click",function(){
             document.body.jsLee.claimNo = jsonItem.claimNo;

@@ -117,6 +117,7 @@ public class MillSheetHostsController {
                     String millSheetName =  serviceResponse.getRetContent().get(0).getMillSheetName();
                     this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
                     serviceResponse.getRetContent().get(0).setMillSheetPath(url);
+                    serviceResponse.getRetContent().get(0).setReport(millSheetUrl);
                 }
             }else {
                 //打印
@@ -134,7 +135,8 @@ public class MillSheetHostsController {
                     }
                     //合并文件
                     String savepath =this.sheetNameUrl(millSheetUrlName,millSheetUrlL);
-                    serviceResponse.getRetContent().get(0).setReport(savepath);
+                    String mPath = createPdfPath+savepath;
+                    serviceResponse.getRetContent().get(0).setReport(mPath);
                 }else {
                     //从质证书服务器获取文件到本地 返回url
                     String millSheetPath =  serviceResponse.getRetContent().get(0).getMillSheetPath();
