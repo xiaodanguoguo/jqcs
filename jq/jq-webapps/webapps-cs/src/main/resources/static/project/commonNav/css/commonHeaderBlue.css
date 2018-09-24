@@ -80,9 +80,9 @@
 
 .og-head-mainlt .og-head-mainlt__homepa { width: 170px; height: 46px; background: #fff; color: #333; font-size: 14px; font-weight: bold; line-height: 46px; padding-left: 20px; margin-bottom: 2px; }
 
-.og-head-mainlt .og-head-mainlt__sidebar { height: auto; width: 190px; }
+.og-head-mainlt .og-head-mainlt__sidebar { height: auto; width: 190px; min-height: 701px; background: #fff; }
 
-.og-head-mainlt .og-head-mainlt__sidebar .og-head-mainlt__sidebar--menu { width: 100%; overflow: hidden; cursor: pointer; height: auto; background-color: #fff; margin-bottom: 2px; color: #666; }
+.og-head-mainlt .og-head-mainlt__sidebar .og-head-mainlt__sidebar--menu { width: 100%; overflow: hidden; cursor: pointer; height: auto; background-color: #fff; margin-bottom: 2px; color: #666; border-bottom: 1px solid #e5e5e5; }
 
 .og-head-mainlt .og-head-mainlt__sidebar .og-head-mainlt__sidebar--menu .og-head-mainlt__sidebar--shrinkActive { color: #6390f3 !important; }
 
@@ -106,7 +106,7 @@
 
 .arrow-span { font-size: 14px; }
 
-.og-head-maincontent { width: 990px; position: absolute; right: 0; top: 0px; min-height: 701px; background-color: #fff; }
+.og-head-maincontent { width: 990px; position: absolute; right: 0; top: 0px; min-height: 706px; background-color: #fff; }
 
 .navwrap-arr-div { float: left; margin-top: 12px; }
 
