@@ -174,21 +174,22 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmAgreementInfo.setCreatedBy(AssertContext.getAcctId());
             crmAgreementInfoMapper.insertSelective(crmAgreementInfo);
         }else {
-            //确认书驳回
-            CrmClaimApply crmClaimApply = new CrmClaimApply();
+            //确认书驳回  审核原因
+           /* CrmClaimApply crmClaimApply = new CrmClaimApply();
             crmClaimApply.setClaimNo(crmClaimOutInquire.getClaimNo());
             crmClaimApply.setUpdatedBy(AssertContext.getAcctName());
             crmClaimApply.setUpdatedDt(new Date());
             crmClaimApply.setClaimState("REJECT");
             crmClaimApply.setRejectReason(crmClaimOutInquire.getRejectReason());
-            crmClaimApplyMapper.update(crmClaimApply);
+            crmClaimApplyMapper.update(crmClaimApply);*/
 
             CrmClaimInfo crmClaimInfo  = new CrmClaimInfo();
             crmClaimInfo.setClaimNo(crmClaimOutInquire.getClaimNo());
             crmClaimInfo.setUpdatedDt(new Date());
             crmClaimInfo.setUpdatedBy(AssertContext.getAcctName());
-           // crmClaimInfo.setInquireState("");
-            crmClaimInfo.setClaimState("REJECT");
+            crmClaimInfo.setInquireState("OUTSTART");
+            crmClaimInfo.setRejectReason(crmClaimOutInquire.getRejectReason());
+            //crmClaimInfo.setClaimState("REJECT");
             int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
             return i;
 
@@ -283,14 +284,12 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
     @Override
     public Integer reject(ObjectionDiaoChaVO record) {
         //进行驳回操作，需要录入驳回原因，后状态变为“已驳回”。
-        //CrmClaimOutInquire crmClaimOutInquire  = new CrmClaimOutInquire();
-       // BeanCopyUtil.copy(record,crmClaimOutInquire);
         CrmClaimApply crmClaimApply = new CrmClaimApply();
         crmClaimApply.setClaimNo(record.getClaimNo());
         crmClaimApply.setUpdatedBy(AssertContext.getAcctName());
         crmClaimApply.setUpdatedDt(new Date());
         crmClaimApply.setClaimState("REJECT");
-        crmClaimApply.setRejectReason(record.getRejectReason());
+        crmClaimApply.setRejectReason(record.getReasonsForCompulsoryClosure());
         crmClaimApplyMapper.update(crmClaimApply);
 
         CrmClaimInfo crmClaimInfo  = new CrmClaimInfo();
