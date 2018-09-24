@@ -377,12 +377,12 @@
            <div class="establish-content-table">
                <div class="establish-content-tableLeft">
                     <div class="establish-content-tableLeftbutton">
-                        <div class="btnLowNew" id="establish-Home-page" comType="searchBtnCtrl" rule="cond" cond="condquestionTitle,condcreateDt,condendDt" unionTableId="questionList">查询</div>
-                        <div class="btnLowNew" id="btnInsert" unionTableId="questionList">新建</div>
-                        <div class="btnLowDel" id="btnDelete" unionTableId="questionList">清除</div>
-                        <div class="btnBaseSave" id="btnSave">保存</div>
-                        <div class="btnLowNew" id="btnPreview">预览</div>
-                        <button type="button" class="btnLowNew" id="btnSend" style="line-height: 28px;height: 28px;position: relative;top: 2px;">下发</button>
+                        <div class="btnLowNew" id="establish-Home-page" comType="searchBtnCtrl" rule="cond" cond="condquestionTitle,condcreateDt,condendDt" unionTableId="questionList" limitCode="M10101">查询</div>
+                        <div class="btnLowNew" id="btnInsert" unionTableId="questionList"  limitCode="M10102">新建</div>
+                        <div class="btnLowDel" id="btnDelete" unionTableId="questionList" limitCode="M10103">清除</div>
+                        <div class="btnBaseSave" id="btnSave"  limitCode="M10104">保存</div>
+                        <div class="btnLowNew" id="btnPreview"  limitCode="M10105">预览</div>
+                        <button type="button" class="btnLowNew" id="btnSend" style="line-height: 28px;height: 28px;position: relative;top: 2px;"  limitCode="M10106">下发</button>
                     </div>
                     <table class="table-list" chkId="questionRadio" insertid="btnInsert" deleteid="btnDelete" id="questionList" comtype="standardEditTableCtrl" page="tcdPageCode" templateid="templateRow" reqpath="/question/list" reqparam="{}" method="POST" nodata="noDataCon" style="table-layout: fixed">
                         <tr class="table-list-currentrow">
@@ -411,9 +411,9 @@
                </div>
                <div class="establish-content-tableRight">
                 <div class="establish-content-tableRightbutton" style="padding: 5px 0;">
-                        <button type="button" disabled="disabled" class="btnLowNew changeGary" id="btnCInsert"  unionTableId="questionCList" style="line-height: 28px;height: 28px;position: relative;top: 2px;">新增</button>
-                        <button type="button" class="btnLowDel changeGary" id="btnCDelete" disabled="disabled"  unionTableId="questionCList" style="line-height: 28px;height: 28px;position: relative;top: 2px;">清除</button>
-                        <button type="button" class="btnBaseSave changeGary" disabled="disabled" id="btnCSave">保存</button>
+                        <button type="button" disabled="disabled" class="btnLowNew changeGary" id="btnCInsert"  unionTableId="questionCList" style="line-height: 28px;height: 28px;position: relative;top: 2px;" limitCode="M10107">新增</button>
+                        <button type="button" class="btnLowDel changeGary" id="btnCDelete" disabled="disabled"  unionTableId="questionCList" style="line-height: 28px;height: 28px;position: relative;top: 2px;"  limitCode="M10109">清除</button>
+                        <button type="button" class="btnBaseSave changeGary" disabled="disabled" id="btnCSave" limitCode="M10108">保存</button>
                 </div>
                 <table class="table-list" chkId="questionCheck" insertid="btnCInsert" deleteid="btnCDelete" id="questionCList" comtype="" idx="rowNum" templateid="templateRowC" reqpath="" reqparam="{}" method="POST" style="table-layout: fixed" chkId="questionCheck" >
                     <tr  class="table-list-currentrow">
