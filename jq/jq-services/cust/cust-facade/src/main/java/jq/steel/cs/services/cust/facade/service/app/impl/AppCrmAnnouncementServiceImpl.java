@@ -1,5 +1,6 @@
 package jq.steel.cs.services.cust.facade.service.app.impl;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.ebase.utils.BeanCopyUtil;
 import jq.steel.cs.services.cust.api.vo.CrmAnnouncementVO;
 import jq.steel.cs.services.cust.facade.dao.CrmAnnouncementMapper;
@@ -52,6 +53,11 @@ public class AppCrmAnnouncementServiceImpl implements AppCrmAnnouncementService 
     }
 
     public Integer insertSelective(CrmAnnouncementVO record) {
+        List<CrmAnnouncement> list = crmAnnouncementMapper.selectByTitle(BeanCopyUtil.copy(record, CrmAnnouncement.class));
+
+        if(CollectionUtils.isNotEmpty(list)) {
+            return 0;
+        }
         CrmAnnouncement crmAnnouncement = BeanCopyUtil.copy(record, CrmAnnouncement.class);
         return crmAnnouncementMapper.insertSelective(crmAnnouncement);
     }

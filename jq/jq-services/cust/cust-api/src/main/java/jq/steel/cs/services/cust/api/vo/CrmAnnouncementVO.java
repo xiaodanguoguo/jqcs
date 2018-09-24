@@ -2,7 +2,6 @@ package jq.steel.cs.services.cust.api.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -16,14 +15,17 @@ public class CrmAnnouncementVO {
 
     private String annName;
 
-    private BigDecimal annType;
+    private Long annType;
 
-    private BigDecimal createByid;
+    private String annTitle;
 
+    private Long createByid;
+
+    private String createBy;
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date createDt;
 
-    private BigDecimal updateByid;
+    private Long updateByid;
 
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date updateDt;
@@ -76,19 +78,19 @@ public class CrmAnnouncementVO {
         this.annName = annName == null ? null : annName.trim();
     }
 
-    public BigDecimal getAnnType() {
+    public Long getAnnType() {
         return annType;
     }
 
-    public void setAnnType(BigDecimal annType) {
+    public void setAnnType(Long annType) {
         this.annType = annType;
     }
 
-    public BigDecimal getCreateByid() {
+    public Long getCreateByid() {
         return createByid;
     }
 
-    public void setCreateByid(BigDecimal createByid) {
+    public void setCreateByid(Long createByid) {
         this.createByid = createByid;
     }
 
@@ -100,11 +102,11 @@ public class CrmAnnouncementVO {
         this.createDt = createDt;
     }
 
-    public BigDecimal getUpdateByid() {
+    public Long getUpdateByid() {
         return updateByid;
     }
 
-    public void setUpdateByid(BigDecimal updateByid) {
+    public void setUpdateByid(Long updateByid) {
         this.updateByid = updateByid;
     }
 
@@ -114,6 +116,26 @@ public class CrmAnnouncementVO {
 
     public void setUpdateDt(Date updateDt) {
         this.updateDt = updateDt;
+    }
+
+    public String getAnnTitle() {
+        return annTitle;
+    }
+
+    public void setAnnTitle(String annTitle) {
+        this.annTitle = annTitle;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     @Override

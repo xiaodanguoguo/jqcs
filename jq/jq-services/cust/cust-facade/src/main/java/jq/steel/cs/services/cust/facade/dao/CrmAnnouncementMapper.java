@@ -20,4 +20,6 @@ public interface CrmAnnouncementMapper {
     List<CrmAnnouncement> select(CrmAnnouncement record);
 
     CrmAnnouncement getNewAnnouncement();
+
+    List<CrmAnnouncement> selectByTitle(CrmAnnouncement record);
 }
