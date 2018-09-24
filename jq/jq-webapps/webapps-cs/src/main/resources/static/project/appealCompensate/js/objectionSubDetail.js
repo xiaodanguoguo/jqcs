@@ -661,7 +661,11 @@ function secondSaveCallBack(data){
         garyDom(document.body.jsLee.opeDom)
         /*var alertBox=new clsAlertBoxCtrl();
         alertBox.Alert(data.retDesc,"成功提示",1,"","successJump2");*/
-        jumpUrl("objectionReasearch.html","0000000",0);
+        if(document.body.jsLee.opeDom == "sixthReject" || document.body.jsLee.opeDom == "sixthPromise"){
+            jumpUrl("objectionDeal.html","0000000",0);
+        }else{
+            jumpUrl("objectionReasearch.html","0000000",0);
+        }
     }
 }
 function clsUploadCtrl$successAfter(ctrl, response)
