@@ -151,9 +151,13 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             List<CrmMillSheetRebackApply> crmMillSheetRebackApplies = crmMillSheetRebackApplyMapper.find(millSheetRebackApply);
             if (crmMillSheetRebackApplies.size()>0){
                 millSheetHostsVO.setIsReback("Y");
+                millSheetHostsVO.setMillSheetUrl(list.get(0).getMillSheetUrl());
+                millSheetHostsVO.setMillSheetName(list.get(0).getMillSheetName());
                 millSheetHostsVO.setMillSheetPath(list.get(0).getMillSheetUrl()+"/"+list.get(0).getMillSheetName());
             }else {
                 millSheetHostsVO.setIsReback("N");
+                millSheetHostsVO.setMillSheetUrl(list.get(0).getMillSheetUrl());
+                millSheetHostsVO.setMillSheetName(list.get(0).getMillSheetName());
                 millSheetHostsVO.setMillSheetPath(list.get(0).getMillSheetUrl()+"/"+list.get(0).getMillSheetName());
             }
         }else {
