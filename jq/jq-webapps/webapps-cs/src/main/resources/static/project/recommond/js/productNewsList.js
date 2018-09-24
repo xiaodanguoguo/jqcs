@@ -114,7 +114,7 @@ function clsStandardTableCtrl$after() {
 function checkboxIsTrue(jsonItem,cloneRow){
     var arrCache = $("#tableList")[0].cacheArr;
     for(var nI = 0; nI < arrCache.length; nI++ ){
-        if(jsonItem.sid == arrCache[nI].sid){
+        if(jsonItem.pid == arrCache[nI].pid){
             $(cloneRow).find("#chkCoding").attr("checked",true);
         }
     }
