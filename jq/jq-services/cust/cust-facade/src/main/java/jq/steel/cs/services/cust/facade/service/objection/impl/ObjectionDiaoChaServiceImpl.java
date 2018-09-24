@@ -122,9 +122,16 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             return  i;
         }else if (crmClaimOutInquire.getOptionType()==3){
             //外部调查报告状态变为“外部调查结束”；异议状态变为或者保持“调查中”，记录外部调查报告提交时间和提交人。
-            crmClaimOutInquire.setUpdateBy(AssertContext.getAcctName());
-            crmClaimOutInquire.setUpdateDt(new Date());
-            crmClaimOutInquireMapper.update(crmClaimOutInquire);
+            //判断是否有数据 有修改，没有删除
+            List<CrmClaimOutInquire> crmClaimOutInquires =crmClaimOutInquireMapper.findByParams(crmClaimOutInquire);
+            if(crmClaimOutInquires.size()>0){
+                crmClaimOutInquire.setUpdateBy(AssertContext.getAcctName());
+                crmClaimOutInquire.setUpdateDt(new Date());
+                crmClaimOutInquireMapper.update(crmClaimOutInquire);
+            }else {
+                crmClaimOutInquireMapper.insertSelective(crmClaimOutInquire);
+            }
+
 
             CrmClaimInfo crmClaimInfo  = new CrmClaimInfo();
             crmClaimInfo.setClaimNo(crmClaimOutInquire.getClaimNo());
