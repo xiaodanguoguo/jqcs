@@ -170,6 +170,7 @@ WHERE
       <if test="deptCode != null and deptCode != ''" >
         AND   H.DEPT_CODE like  '%' || #{deptCode} ||'%'
       </if>
+      AND   H.INQUIRE_STATE NOT IN  ('INEND')
       <!--<choose>
         <when test="deptCodes != null and deptCodes != ''">
           AND H.DEPT_CODE  in
