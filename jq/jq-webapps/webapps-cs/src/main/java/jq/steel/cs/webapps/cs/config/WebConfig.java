@@ -23,11 +23,8 @@ public class WebConfig {
         ServletRegistrationBean registration = new ServletRegistrationBean(new ReportServlet());
 
         registration.setLoadOnStartup(1);
-//        logger.info("配置 = {}", WebConfig.class.getClassLoader().getSystemResource("raqsoftConfig.xml"));
-//        logger.info("配置路径 = {}", WebConfig.class.getClassLoader().getSystemResource("raqsoftConfig.xml").getPath());
-//        System.err.println(ClassLoader.getSystemResource("raqsoftConfig.xml").getPath());
-        registration.addInitParameter("configFile", WebConfig.class.getClassLoader().getSystemResource("raqsoftConfig.xml").getPath());
-//        registration.addInitParameter("configFile", "/app/templatePath/raqsoftConfig.xml");
+//        registration.addInitParameter("configFile", WebConfig.class.getClassLoader().getSystemResource("raqsoftConfig.xml").getPath());
+        registration.addInitParameter("configFile", "/app/templatePath/raqsoftConfig.xml");
 //        registration.addInitParameter("configFile", "/Users/xuyongming/dev/raqsoftConfig.xml");
         registration.addInitParameter("headless", "none");
         registration.setName("reportServlet");
