@@ -175,6 +175,8 @@
   .og-head-mainlt__sidebar{
     height:auto;
     width:190px;
+    min-height: 701px;
+    background: #fff;
     .og-head-mainlt__sidebar--menu{
       width:100%;
       overflow:hidden;
@@ -183,6 +185,7 @@
       background-color: $bg_ff;
       margin-bottom:2px;
       color: $fc_66;
+      border-bottom: 1px solid #e5e5e5;
       .og-head-mainlt__sidebar--shrinkActive{
         color: $fc_main !important;
         a{
@@ -248,7 +251,7 @@
   position: absolute;
   right: 0;
   top: 0px;
-  min-height: 701px;
+  min-height: 706px;
   background-color: $bg_ff;
 }
 .navwrap-arr-div{
