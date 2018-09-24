@@ -138,7 +138,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimInfo.setUpdatedDt(new Date());
             crmClaimInfo.setUpdatedBy(AssertContext.getAcctName());
             crmClaimInfo.setInquireState("OUTEND");
-            crmClaimInfo.setClaimState("INVESTIGATION");
+            //crmClaimInfo.setClaimState("INVESTIGATION");
             int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
 
             //修改  货物所在地 lastUserAddr  缺陷名称 proProblem 异议确认量（吨）OBJECTION_CONFIRMATION
@@ -157,6 +157,10 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimInfo.setUpdatedBy(AssertContext.getAcctName());
             crmClaimInfo.setInquireState("CONFIRM");
             int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
+
+            // 修改异议状态数据
+
+
 
             //添加协议书数据
             CrmAgreementInfo crmAgreementInfo = new CrmAgreementInfo();
@@ -308,6 +312,8 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
         // crmClaimInfo.setInquireState("");
         if(record.getType().equals(1)){
             crmClaimInfo.setInquireState("OUTSTART");
+            //异议状态-----》调查中
+
         }else  if(record.getType().equals(2)){
             crmClaimInfo.setInquireState("INSTART");
         }else {

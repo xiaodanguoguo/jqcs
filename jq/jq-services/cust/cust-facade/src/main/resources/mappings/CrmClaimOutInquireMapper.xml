@@ -170,18 +170,18 @@ WHERE
       <if test="deptCode != null and deptCode != ''" >
         AND   H.DEPT_CODE like  '%' || #{deptCode} ||'%'
       </if>
-      AND   H.INQUIRE_STATE NOT IN  ('INEND')
-      <!--<choose>
-        <when test="deptCodes != null and deptCodes != ''">
-          AND H.DEPT_CODE  in
-          <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
-            #{deptCodes[${index}]}
-          </foreach>
-        </when>
-        <otherwise>
-         AND   H.DEPT_CODE like  '%' || #{deptCode} ||'%'
-        </otherwise>
-      </choose>-->
+        <!--AND   H.INQUIRE_STATE NOT IN  ('INEND')-->
+         <!--<choose>
+           <when test="deptCodes != null and deptCodes != ''">
+             AND H.DEPT_CODE  in
+             <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
+               #{deptCodes[${index}]}
+             </foreach>
+           </when>
+           <otherwise>
+            AND   H.DEPT_CODE like  '%' || #{deptCode} ||'%'
+           </otherwise>
+         </choose>-->
       <if test="sid != null and sid != ''" >
         AND H.PARENT_SID = #{sid,jdbcType=VARCHAR}
       </if>
