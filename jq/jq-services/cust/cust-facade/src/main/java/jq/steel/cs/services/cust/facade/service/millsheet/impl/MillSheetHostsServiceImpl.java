@@ -13,6 +13,8 @@ import jq.steel.cs.services.cust.facade.service.millsheet.MillSheetHostsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -75,7 +77,8 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     }
 
     @Override
-    public List<MillSheetHostsVO> findUrl(List<MillSheetHostsVO> millSheetHostsVOS) {
+    public List<MillSheetHostsVO> findUrl(List<MillSheetHostsVO> millSheetHostsVOS,HttpServletRequest request) {
+        String ip=request.getRemoteAddr();
         for(MillSheetHostsVO millSheetHostsVO:millSheetHostsVOS){
             //转换mdel
             MillSheetHosts millSheetHosts = new MillSheetHosts();
@@ -88,11 +91,15 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             millOperationHis.setMillSheetNo(millSheetHostsVO.getMillSheetNo());
             if(millSheetHosts.getOperationType().equals(1)){
                 //1是预览  2是打印
+                millOperationHis.setOperator(millSheetHostsVO.getOrgCode());
                 millOperationHis.setOperationType("PRIVIEWED");
+                millOperationHis.setOperationIp(ip);
                 millSheetHosts.setState("PRIVIEWED");
             }else {
                 //减少打印次数
                 millOperationHis.setOperationType("PRINTED");
+                millOperationHis.setOperator(millSheetHostsVO.getOrgCode());
+                millOperationHis.setOperationIp(ip);
                 millSheetHosts.setState("PRINTED");
                 millSheetHosts.setPrintableNum(millSheetByPage.getPrintableNum()-1);
                 millSheetHosts.setPrintedNum(millSheetByPage.getPrintedNum()+1);

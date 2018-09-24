@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -44,12 +45,12 @@ public class MillSheetHostsController {
 
     //查询文件地址
     @RequestMapping(value = "/preview",method = RequestMethod.POST)
-    public ServiceResponse<List<MillSheetHostsVO>> findUrl(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest){
+    public ServiceResponse<List<MillSheetHostsVO>> findUrl(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest,HttpServletRequest request){
         logger.info("参数 = {}", JsonUtil.toJson(jsonRequest));
         ServiceResponse<List<MillSheetHostsVO>> serviceResponse = new ServiceResponse<>();
         try {
             List<MillSheetHostsVO> millSheetHostsVO = jsonRequest.getReqBody();
-            List<MillSheetHostsVO> list = millSheetHostsService.findUrl(millSheetHostsVO);
+            List<MillSheetHostsVO> list = millSheetHostsService.findUrl(millSheetHostsVO,request);
             serviceResponse.setRetContent(list);
         }catch (BusinessException e){
             logger.error("出错",e);

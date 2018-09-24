@@ -84,6 +84,10 @@ public class MillSheetHostsController {
     @RequestMapping(value = "/preview",method = RequestMethod.POST)
     public JsonResponse<List<MillSheetHostsVO>>  preview(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest){
         JsonResponse<List<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
+        for (MillSheetHostsVO millSheetHostsVO: jsonRequest.getReqBody()){
+            millSheetHostsVO.setOrgCode(AssertContext.getOrgCode());
+            millSheetHostsVO.setOrgName(AssertContext.getOrgName());
+        }
         try {
             ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findUrl(jsonRequest);
             String millSheetUrlL ="";
