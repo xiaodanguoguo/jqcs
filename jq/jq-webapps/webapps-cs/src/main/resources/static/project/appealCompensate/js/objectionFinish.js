@@ -229,7 +229,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         //查看协议书操作
         $(cloneRow).find("#viewUploadOpe").on("click",function(){
             document.body.jsLee.claimNo = jsonItem.claimNo;
-            getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"templateType":8,"claimNo":jsonItem.claimNo},"pdfViewCallBack2(data)");
+            getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"templateType":1,"claimNo":jsonItem.claimNo},"pdfViewCallBack2(data)");
         });
         //撤销操作
         $(cloneRow).find("#cancelOpe").on("click",function(){

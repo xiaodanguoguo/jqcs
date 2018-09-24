@@ -217,6 +217,9 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 $(cloneRow).find("#researchOutOpe").show();
                 break;
         }
+        if(jsonItem.claimState == "END"){
+            $(cloneRow).find("#rejectOpe").hide();
+        }
         //打印受理单
         $(cloneRow).find("#printOpe").on("click",function () {//打印受理单操作
             getAjaxResult(document.body.jsLee.requestUrl.path8,"POST",{"templateType":3,"claimNo":jsonItem.claimNo},"pdfViewCallBack(data)");
