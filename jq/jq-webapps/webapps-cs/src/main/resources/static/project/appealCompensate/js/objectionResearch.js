@@ -25,7 +25,7 @@ function clsMethodLee$init(){
     //驳回取消按钮
     this.rejectCancelOpe = $("#rejectCancelOpe");
     //确认书审核按钮
-    this.bookAuditOpe = $("#bookAuditOpe");
+    //this.bookAuditOpe = $("#bookAuditOpe");
     this.parse();
 
 }
@@ -202,13 +202,11 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
             case "INEND":
                 $(cloneRow).find("#inquireStateA").html("内部调查结束");
                 $(cloneRow).find("#rejectOpe").show();
-                $(cloneRow).find("#bookAuditOpe").show();
                 $(cloneRow).find("#downloadInOpe").show();
                 break;
             case "CONFIRM":
                 $(cloneRow).find("#inquireStateA").html("已确认");
                 $(cloneRow).find("#rejectOpe").show();
-                $(cloneRow).find("#bookAuditOpe").show();
                 break;
             default:
                 $(cloneRow).find("#inquireStateA").html("");
@@ -252,10 +250,10 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
             document.body.jsLee.claimNo = jsonItem.claimNo;
         });
         //确认书审核操作
-        $(cloneRow).find("#bookAuditOpe").on("click",function () {
+        /*$(cloneRow).find("#bookAuditOpe").on("click",function () {
             //跳转确认书审核页面
             jumpUrl("objectionSubDetail.html?htmlType=6&claimNo="+jsonItem.claimNo,"0000000",0);
-        });
+        });*/
         //受理操作
         $(cloneRow).find("#acceptOpe").on("click",function(){
             document.body.jsLee.claimNo = jsonItem.claimNo;

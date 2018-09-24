@@ -216,12 +216,64 @@
 	    	</div>
 	    	<div id="js-loader" class="og-head-maincontent">
 
+<script src="../../../plugin/highcharts/highcharts.js"></script>
 <div id="searchBox" style="height: 50px;">
     <span style="margin-right: 10px;">信息标题：</span>
     <input type="text" class="inputBase" id="condannTitle">
     <div class="btnLowNew" id="establish-Home-page" comtype="searchBtnCtrl" rule="cond" cond="condannTitle" uniontableid="announcementList" parentId="searchBox">查询</div>
 </div>
-<div></div>
+<div>
+    <div id="container" style="min-width:400px;height:400px"></div>
+</div>
+<script>
+    var jsonA = {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: '图表标题'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: [{
+                name: '满意',
+                y: 61,
+                sliced: false,
+                selected: false
+            }, {
+                name: '基本满意',
+                y: 29
+            }, {
+                name: '不满意',
+                y: 10
+            }]
+        }]
+    };
+    jsonA.series[0].data[0].y = 10;
+    jsonA.series[0].data[1].y = 80;
+    jsonA.series[0].data[2].y = 10;
+    Highcharts.chart('container', jsonA);
+</script>
 
 </div>
 </div>
