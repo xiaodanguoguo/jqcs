@@ -1,7 +1,6 @@
 package jq.steel.cs.services.cust.facade.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class CrmAnnouncement implements Serializable {
@@ -9,13 +8,17 @@ public class CrmAnnouncement implements Serializable {
 
     private String annName;
 
-    private BigDecimal annType;
+    private Long annType;
 
-    private BigDecimal createByid;
+    private String annTitle;
+
+    private Long createByid;
+
+    private String createBy;
 
     private Date createDt;
 
-    private BigDecimal updateByid;
+    private Long updateByid;
 
     private Date updateDt;
 
@@ -34,23 +37,39 @@ public class CrmAnnouncement implements Serializable {
     }
 
     public void setAnnName(String annName) {
-        this.annName = annName == null ? null : annName.trim();
+        this.annName = annName;
     }
 
-    public BigDecimal getAnnType() {
+    public Long getAnnType() {
         return annType;
     }
 
-    public void setAnnType(BigDecimal annType) {
+    public void setAnnType(Long annType) {
         this.annType = annType;
     }
 
-    public BigDecimal getCreateByid() {
+    public String getAnnTitle() {
+        return annTitle;
+    }
+
+    public void setAnnTitle(String annTitle) {
+        this.annTitle = annTitle;
+    }
+
+    public Long getCreateByid() {
         return createByid;
     }
 
-    public void setCreateByid(BigDecimal createByid) {
+    public void setCreateByid(Long createByid) {
         this.createByid = createByid;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
     }
 
     public Date getCreateDt() {
@@ -61,11 +80,11 @@ public class CrmAnnouncement implements Serializable {
         this.createDt = createDt;
     }
 
-    public BigDecimal getUpdateByid() {
+    public Long getUpdateByid() {
         return updateByid;
     }
 
-    public void setUpdateByid(BigDecimal updateByid) {
+    public void setUpdateByid(Long updateByid) {
         this.updateByid = updateByid;
     }
 

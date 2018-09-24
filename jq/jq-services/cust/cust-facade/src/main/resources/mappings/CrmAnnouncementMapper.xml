@@ -1,121 +1,152 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="jq.steel.cs.services.cust.facade.dao.CrmAnnouncementMapper">
-    <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.CrmAnnouncement">
-        <id column="AID" jdbcType="DECIMAL" property="aid" />
-        <result column="ANN_NAME" jdbcType="VARCHAR" property="annName" />
-        <result column="ANN_TYPE" jdbcType="DECIMAL" property="annType" />
-        <result column="CREATE_BYID" jdbcType="DECIMAL" property="createByid" />
-        <result column="CREATE_DT" jdbcType="TIMESTAMP" property="createDt" />
-        <result column="UPDATE_BYID" jdbcType="DECIMAL" property="updateByid" />
-        <result column="UPDATE_DT" jdbcType="TIMESTAMP" property="updateDt" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.CrmAnnouncementMapper" >
+    <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.CrmAnnouncement" >
+        <id column="AID" property="aid" jdbcType="NUMERIC" />
+        <result column="ANN_NAME" property="annName" jdbcType="VARCHAR" />
+        <result column="ANN_TYPE" property="annType" jdbcType="NUMERIC" />
+        <result column="ANN_TITLE" property="annTitle" jdbcType="VARCHAR" />
+        <result column="CREATE_BYID" property="createByid" jdbcType="NUMERIC" />
+        <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+        <result column="CREATE_DT" property="createDt" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_BYID" property="updateByid" jdbcType="NUMERIC" />
+        <result column="UPDATE_DT" property="updateDt" jdbcType="TIMESTAMP" />
     </resultMap>
-    <sql id="Base_Column_List">
-        AID, ANN_NAME, ANN_TYPE, CREATE_BYID, CREATE_DT, UPDATE_BYID, UPDATE_DT
-    </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-        select 
+    <sql id="Base_Column_List" >
+    AID, ANN_NAME, ANN_TYPE, ANN_TITLE, CREATE_BYID, CREATE_BY, CREATE_DT, UPDATE_BYID,
+    UPDATE_DT
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
         <include refid="Base_Column_List" />
         from CRM_ANNOUNCEMENT
         where AID = #{aid,jdbcType=NUMERIC}
     </select>
-    <delete id="deleteByPrimaryKey">
-        delete from CRM_ANNOUNCEMENT
-        where AID = #{aid,jdbcType=NUMERIC}
-    </delete>
-    <insert id="insert">
-        insert into CRM_ANNOUNCEMENT (AID, ANN_NAME, ANN_TYPE, 
-            CREATE_BYID, CREATE_DT, UPDATE_BYID, 
-            UPDATE_DT)
-        values (#{aid,jdbcType=NUMERIC}, #{annName,jdbcType=VARCHAR}, #{annType,jdbcType=DECIMAL},
-            #{createByid,jdbcType=DECIMAL}, #{createDt,jdbcType=TIMESTAMP}, #{updateByid,jdbcType=DECIMAL}, 
-            #{updateDt,jdbcType=TIMESTAMP})
-    </insert>
-    <insert id="insertSelective">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_ANNOUNCEMENT
+    where AID = #{aid,jdbcType=NUMERIC}
+  </delete>
+    <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmAnnouncement" >
+        <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="aid">
+            SELECT SEQ_CRM_ANNOUNCEMENT.nextval FROM dual
+        </selectKey>
+    insert into CRM_ANNOUNCEMENT (AID, ANN_NAME, ANN_TYPE,
+      ANN_TITLE, CREATE_BYID, CREATE_BY,
+      CREATE_DT, UPDATE_BYID, UPDATE_DT
+      )
+    values (#{aid,jdbcType=NUMERIC}, #{annName,jdbcType=VARCHAR}, #{annType,jdbcType=NUMERIC},
+      #{annTitle,jdbcType=VARCHAR}, #{createByid,jdbcType=NUMERIC}, #{createBy,jdbcType=VARCHAR},
+      #{createDt,jdbcType=TIMESTAMP}, #{updateByid,jdbcType=NUMERIC}, #{updateDt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmAnnouncement" >
+        <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="aid">
+            SELECT SEQ_CRM_ANNOUNCEMENT.nextval FROM dual
+        </selectKey>
         insert into CRM_ANNOUNCEMENT
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="aid != null">
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="aid != null" >
                 AID,
             </if>
-            <if test="annName != null">
+            <if test="annName != null" >
                 ANN_NAME,
             </if>
-            <if test="annType != null">
+            <if test="annType != null" >
                 ANN_TYPE,
             </if>
-            <if test="createByid != null">
+            <if test="annTitle != null" >
+                ANN_TITLE,
+            </if>
+            <if test="createByid != null" >
                 CREATE_BYID,
             </if>
-            <if test="createDt != null">
+            <if test="createBy != null" >
+                CREATE_BY,
+            </if>
+            <if test="createDt != null" >
                 CREATE_DT,
             </if>
-            <if test="updateByid != null">
+            <if test="updateByid != null" >
                 UPDATE_BYID,
             </if>
-            <if test="updateDt != null">
+            <if test="updateDt != null" >
                 UPDATE_DT,
             </if>
         </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="aid != null">
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="aid != null" >
                 #{aid,jdbcType=NUMERIC},
             </if>
-            <if test="annName != null">
+            <if test="annName != null" >
                 #{annName,jdbcType=VARCHAR},
             </if>
-            <if test="annType != null">
-                #{annType,jdbcType=DECIMAL},
+            <if test="annType != null" >
+                #{annType,jdbcType=NUMERIC},
             </if>
-            <if test="createByid != null">
-                #{createByid,jdbcType=DECIMAL},
+            <if test="annTitle != null" >
+                #{annTitle,jdbcType=VARCHAR},
             </if>
-            <if test="createDt != null">
+            <if test="createByid != null" >
+                #{createByid,jdbcType=NUMERIC},
+            </if>
+            <if test="createBy != null" >
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createDt != null" >
                 #{createDt,jdbcType=TIMESTAMP},
             </if>
-            <if test="updateByid != null">
-                #{updateByid,jdbcType=DECIMAL},
+            <if test="updateByid != null" >
+                #{updateByid,jdbcType=NUMERIC},
             </if>
-            <if test="updateDt != null">
+            <if test="updateDt != null" >
                 #{updateDt,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective">
+    <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmAnnouncement" >
         update CRM_ANNOUNCEMENT
-        <set>
-            <if test="annName != null">
+        <set >
+            <if test="annName != null" >
                 ANN_NAME = #{annName,jdbcType=VARCHAR},
             </if>
-            <if test="annType != null">
-                ANN_TYPE = #{annType,jdbcType=DECIMAL},
+            <if test="annType != null" >
+                ANN_TYPE = #{annType,jdbcType=NUMERIC},
             </if>
-            <if test="createByid != null">
-                CREATE_BYID = #{createByid,jdbcType=DECIMAL},
+            <if test="annTitle != null" >
+                ANN_TITLE = #{annTitle,jdbcType=VARCHAR},
             </if>
-            <if test="createDt != null">
+            <if test="createByid != null" >
+                CREATE_BYID = #{createByid,jdbcType=NUMERIC},
+            </if>
+            <if test="createBy != null" >
+                CREATE_BY = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createDt != null" >
                 CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
             </if>
-            <if test="updateByid != null">
-                UPDATE_BYID = #{updateByid,jdbcType=DECIMAL},
+            <if test="updateByid != null" >
+                UPDATE_BYID = #{updateByid,jdbcType=NUMERIC},
             </if>
-            <if test="updateDt != null">
+            <if test="updateDt != null" >
                 UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP},
             </if>
         </set>
         where AID = #{aid,jdbcType=NUMERIC}
     </update>
-    <update id="updateByPrimaryKey">
-        update CRM_ANNOUNCEMENT
-        set ANN_NAME = #{annName,jdbcType=VARCHAR},
-            ANN_TYPE = #{annType,jdbcType=DECIMAL},
-            CREATE_BYID = #{createByid,jdbcType=DECIMAL},
-            CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
-            UPDATE_BYID = #{updateByid,jdbcType=DECIMAL},
-            UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP}
-        where AID = #{aid,jdbcType=NUMERIC}
-    </update>
+    <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.CrmAnnouncement" >
+    update CRM_ANNOUNCEMENT
+    set ANN_NAME = #{annName,jdbcType=VARCHAR},
+      ANN_TYPE = #{annType,jdbcType=NUMERIC},
+      ANN_TITLE = #{annTitle,jdbcType=VARCHAR},
+      CREATE_BYID = #{createByid,jdbcType=NUMERIC},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
+      UPDATE_BYID = #{updateByid,jdbcType=NUMERIC},
+      UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP}
+    where AID = #{aid,jdbcType=NUMERIC}
+  </update>
     <select id="select" resultMap="BaseResultMap">
-        select 
+        select
         <include refid="Base_Column_List" />
         from CRM_ANNOUNCEMENT
         <include refid="Base_Where_Column_List" />
@@ -124,6 +155,9 @@
         <trim prefix="where" prefixOverrides="and | or">
             <if test="aid != null">
                 and AID = #{aid,jdbcType=NUMERIC}
+            </if>
+            <if test="annTitle != null">
+                and ANN_TITLE LIKE '%' || #{annTitle} ||'%'
             </if>
             <if test="annName != null">
                 and ANN_NAME = #{annName,jdbcType=VARCHAR}
@@ -152,5 +186,16 @@
         <include refid="Base_Column_List" />
         FROM CRM_ANNOUNCEMENT
         WHERE CREATE_DT = (SELECT max(CREATE_DT) FROM CRM_ANNOUNCEMENT)
+    </select>
+
+    <select id="selectByTitle" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from CRM_ANNOUNCEMENT
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="annTitle != null">
+                and ANN_TITLE = #{annTitle}
+            </if>
+        </trim>
     </select>
 </mapper>
