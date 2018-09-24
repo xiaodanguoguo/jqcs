@@ -151,16 +151,20 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             return i;
         }else if(crmClaimOutInquire.getOptionType()==4){
             //确认书（外部调查报告）状态变由“待确认”变为为“已确认” ,记录审核通过时间和审核人员信息。
+            // 修改异议状态数据  异议状态变为处理中
             CrmClaimInfo crmClaimInfo  = new CrmClaimInfo();
             crmClaimInfo.setClaimNo(crmClaimOutInquire.getClaimNo());
             crmClaimInfo.setUpdatedDt(new Date());
             crmClaimInfo.setUpdatedBy(AssertContext.getAcctName());
             crmClaimInfo.setInquireState("CONFIRM");
+            crmClaimInfo.setClaimState("HANDLE");
             int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
-
-            // 修改异议状态数据
-
-
+            CrmClaimApply crmClaimApply = new CrmClaimApply();
+            crmClaimApply.setClaimNo(crmClaimOutInquire.getClaimNo());
+            crmClaimApply.setUpdatedDt(new Date());
+            crmClaimApply.setUpdatedBy(AssertContext.getAcctName());
+            crmClaimApply.setClaimState("HANDLE");
+            crmClaimApplyMapper.update(crmClaimApply);
 
             //添加协议书数据
             CrmAgreementInfo crmAgreementInfo = new CrmAgreementInfo();
@@ -313,7 +317,19 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
         if(record.getType().equals(1)){
             crmClaimInfo.setInquireState("OUTSTART");
             //异议状态-----》调查中
+            CrmClaimInfo crmClaimInfoa  = new CrmClaimInfo();
+            crmClaimInfoa.setClaimNo(crmClaimOutInquire.getClaimNo());
+            crmClaimInfoa.setUpdatedDt(new Date());
+            crmClaimInfoa.setUpdatedBy(AssertContext.getAcctName());
+            crmClaimInfo.setClaimState("INVESTIGATION");
+            int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfoa);
 
+            CrmClaimApply crmClaimApply = new CrmClaimApply();
+            crmClaimApply.setClaimNo(crmClaimOutInquire.getClaimNo());
+            crmClaimApply.setUpdatedDt(new Date());
+            crmClaimApply.setUpdatedBy(AssertContext.getAcctName());
+            crmClaimApply.setClaimState("INVESTIGATION");
+            crmClaimApplyMapper.update(crmClaimApply);
         }else  if(record.getType().equals(2)){
             crmClaimInfo.setInquireState("INSTART");
         }else {
