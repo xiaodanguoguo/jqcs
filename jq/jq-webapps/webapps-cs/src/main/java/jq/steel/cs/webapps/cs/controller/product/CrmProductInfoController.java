@@ -98,9 +98,12 @@ public class CrmProductInfoController {
                 CrmProductInfoVO crmProductInfoVO = serviceResponse.getRetContent();
                 List<String> thumbnailList = JsonUtil.parseObject(crmProductInfoVO.getThumbnail(), List.class);
                 List<String> thumbnails = new ArrayList<>();
-                for (String s : thumbnailList) {
-                    thumbnails.add(FileUploadSringUtil.addPath(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), s));
+                if (CollectionUtils.isNotEmpty(thumbnailList)) {
+                    for (String s : thumbnailList) {
+                        thumbnails.add(FileUploadSringUtil.addPath(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), s));
+                    }
                 }
+
                 crmProductInfoVO.setThumbnailList(thumbnails);
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {
@@ -349,8 +352,10 @@ public class CrmProductInfoController {
                 List<CrmProductInfoVO> list = serviceResponse.getRetContent().getResultData();
                 if (CollectionUtils.isNotEmpty(list)) {
                     for (CrmProductInfoVO crmProductInfoVO : list) {
-                        List<String> thumbnailList = JsonUtil.parseObject(crmProductInfoVO.getProductManual(), List.class);
-                        crmProductInfoVO.setThumbnail(FileUploadSringUtil.addPath(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), thumbnailList.get(0)));
+                        List<String> thumbnailList = JsonUtil.parseObject(crmProductInfoVO.getThumbnail(), List.class);
+                        if (CollectionUtils.isNotEmpty(thumbnailList)) {
+                            crmProductInfoVO.setThumbnail(FileUploadSringUtil.addPath(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), thumbnailList.get(0)));
+                        }
                     }
                 }
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
@@ -398,8 +403,10 @@ public class CrmProductInfoController {
                 List<String> result = new ArrayList<>();
                 if (CollectionUtils.isNotEmpty(list)) {
                     for (CrmProductInfoVO crmProductInfoVO : list) {
-                        List<String> thumbnailList = JsonUtil.parseObject(crmProductInfoVO.getProductManual(), List.class);
-                        result.add(FileUploadSringUtil.addPath(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), thumbnailList.get(0)));
+                        List<String> thumbnailList = JsonUtil.parseObject(crmProductInfoVO.getThumbnail(), List.class);
+                        if (CollectionUtils.isNotEmpty(thumbnailList)) {
+                            result.add(FileUploadSringUtil.addPath(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), thumbnailList.get(0)));
+                        }
                     }
                 }
                 Map<String, List<String>> map = new HashMap<>();
@@ -441,8 +448,11 @@ public class CrmProductInfoController {
                     .getDetail(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 CrmProductInfoVO crmProductInfoVO = serviceResponse.getRetContent();
-                List<String> thumbnailList = JsonUtil.parseObject(crmProductInfoVO.getProductManual(), List.class);
-                crmProductInfoVO.setThumbnail(FileUploadSringUtil.addPath(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), thumbnailList.get(0)));
+                List<String> thumbnailList = JsonUtil.parseObject(crmProductInfoVO.getThumbnail(), List.class);
+                if (CollectionUtils.isNotEmpty(thumbnailList)) {
+                    crmProductInfoVO.setThumbnail(FileUploadSringUtil.addPath(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), thumbnailList.get(0)));
+                }
+
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {
                 if (serviceResponse.isHasError()) {
