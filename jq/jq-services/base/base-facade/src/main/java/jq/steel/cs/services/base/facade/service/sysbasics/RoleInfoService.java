@@ -3,7 +3,6 @@ package jq.steel.cs.services.base.facade.service.sysbasics;
 
 import com.ebase.core.page.PageDTO;
 import jq.steel.cs.services.base.api.vo.RoleInfoVO;
-import jq.steel.cs.services.base.facade.model.RoleInfo;
 
 import java.util.List;
 
