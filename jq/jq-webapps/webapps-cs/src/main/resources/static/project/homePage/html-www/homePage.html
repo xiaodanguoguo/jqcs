@@ -87,15 +87,19 @@
         //用户信息维护
         $("#useMangeNews").on("click",function(){
             openWin("600","300","userNewPopup",true);
-            getAjaxResult("/sysAcct/getAcctInfo","POST",{"acctId":unescape(GetQueryString("acctId"))},"useNewsCallBak(data)")
+            getAjaxResult("/sysAcct/getAcctInfo","POST",{"acctId":unescape(getCookie("acctId"))},"useNewsCallBak(data)")
         });
 
         //用户信息维护确定
         $("#userNewSure").on("click",function(){
-            var jsonParam = {"acctTitle":"","name":"","email":"","mobilePhone":""};
-            getValue4Desc(jsonParam,$("#userNewPopup")[0]);
-            jsonParam.acctId = getCookie("acctId");
-            getAjaxResult("/sysAcct/update/acctInfo","POST",jsonParam,"useNewsEditCallBak(data)")
+            initValidate($("#userNewPopup")[0]);
+            var valiClass=new clsValidateCtrl();
+            if(valiClass.validateAll4Ctrl($("#userNewPopup")[0])){
+                var jsonParam = {"acctTitle":"","name":"","email":"","mobilePhone":""};
+                getValue4Desc(jsonParam,$("#userNewPopup")[0]);
+                jsonParam.acctId = unescape(getCookie("acctId"));
+                getAjaxResult("/sysAcct/update/acctInfo","POST",jsonParam,"useNewsEditCallBak(data)")
+            }
         });
     });
 
