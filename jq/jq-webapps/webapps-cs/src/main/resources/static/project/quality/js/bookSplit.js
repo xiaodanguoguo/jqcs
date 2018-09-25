@@ -262,7 +262,7 @@ function splitSubmit(splitTableClone){
         document.body.jsLee.submitBox = splitTableClone;
         var arrParam = [];
         splitTableClone.find("tr[id=cloneRow]").each(function(){
-            var jsonParam = {"millsheetType":"","specs":"","zchehao":"","zcpmc":"","zjishu":"","zkunnr":"","zlosmenge":"","zcharg":""};
+            var jsonParam = {"millsheetType":"","specs":"","zchehao":"","zcpmc":"","zjishu":"","zkunnr":"","zlosmenge":"","zcharg":"","createdDt":""};
             getValue4Desc(jsonParam,$(this)[0]);
             jsonParam.millsheetNo = this.jsonData.millsheetNo;
             jsonParam.spiltCustomer = splitTableClone.find("#spiltCustomerTextA").val();
