@@ -79,6 +79,6 @@ public interface AppCrmVersionUpdateAPI {
 	 * @return
 	 */
 	@RequestMapping("/app/crmVersionUpdate/getNewVersion")
-	public ServiceResponse<CrmVersionUpdateVO> newVersion();
+	public ServiceResponse<CrmVersionUpdateVO> newVersion(@RequestBody JsonRequest<CrmVersionUpdateVO> jsonRequest);
 
 }

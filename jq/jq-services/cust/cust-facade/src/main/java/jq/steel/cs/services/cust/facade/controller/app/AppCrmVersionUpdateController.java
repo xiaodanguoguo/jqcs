@@ -214,8 +214,8 @@ public class AppCrmVersionUpdateController {
 	 * 返回最新的版本信息
 	 * @return
 	 */
-	@RequestMapping(value = "/getNewVersion" , method = RequestMethod.GET)
-	public ServiceResponse<CrmVersionUpdateVO> newVersion() {
+	@RequestMapping(value = "/getNewVersion" , method = RequestMethod.POST)
+	public ServiceResponse<CrmVersionUpdateVO> newVersion(@RequestBody JsonRequest<CrmVersionUpdateVO> jsonRequest) {
 		ServiceResponse<CrmVersionUpdateVO> serviceResponse = new ServiceResponse<>();
 		try {
 			CrmVersionUpdateVO vo = crmVersionUpdateService.getNewVerson();

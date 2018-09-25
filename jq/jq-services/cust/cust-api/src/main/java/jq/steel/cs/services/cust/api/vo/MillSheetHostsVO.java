@@ -86,6 +86,8 @@ public class MillSheetHostsVO implements Serializable {
 
     private Short surplusBatch;
 
+    private String zkdauf;//销售订单编号
+
     //客户名称/客户编码
     private String zkunnr;
 
@@ -125,6 +127,10 @@ public class MillSheetHostsVO implements Serializable {
     private  String spiltCustomer;
 
     private  String productName;
+
+    public String getzkdauf() {  return zkdauf; }
+
+    public void setzkdauf(String zkdauf) {  this.zkdauf = zkdauf; }
 
     public String getReport() {
         return report;

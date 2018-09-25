@@ -81,6 +81,6 @@ public interface AppCrmAnnouncementAPI {
 	 * @return
 	 */
 	@RequestMapping("/app/crmAnnouncement/getNewAnnouncement")
-	public ServiceResponse<CrmAnnouncementVO> getNewAnnouncement() ;
+	public ServiceResponse<CrmAnnouncementVO> getNewAnnouncement(@RequestBody JsonRequest<CrmAnnouncementVO> jsonRequest) ;
     
 }

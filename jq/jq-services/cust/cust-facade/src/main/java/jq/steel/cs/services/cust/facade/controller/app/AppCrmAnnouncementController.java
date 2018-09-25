@@ -217,7 +217,7 @@ public class AppCrmAnnouncementController {
 	 * @return
 	 */
 	@RequestMapping(value = "/getNewAnnouncement" , method = RequestMethod.POST)
-	public ServiceResponse<CrmAnnouncementVO> getNewAnnouncement() {
+	public ServiceResponse<CrmAnnouncementVO> getNewAnnouncement(@RequestBody JsonRequest<CrmAnnouncementVO> jsonRequest) {
 		ServiceResponse<CrmAnnouncementVO> serviceResponse = new ServiceResponse<>();
 
 		try {

@@ -139,6 +139,7 @@
   ZCHARG
   FROM
   MILL_COIL_INFO
+  LEFT
   WHERE ZCHARG =  #{zcharg,jdbcType=VARCHAR}
   </select>
   <sql id="Base_Column_List" >

@@ -78,6 +78,7 @@
     <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
     <result column="VERSION" property="version" jdbcType="DECIMAL" />
     <result column="SPILT_CUSTOMER" property="spiltCustomer" jdbcType="VARCHAR" />
+    <result column="ZKDAUF" property="zkdauf"/>
   </resultMap>
 
 
@@ -156,6 +157,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     MSH.ZHTH,
     MSH.ZCPMC,
     MSH.ZPH,
+    MSH.ZKDAUF as ZKDAUF,
     MSO.SID,
     (select distinct name1 from MILL_CUSTOMER where KUNNR = MSO.ZKUNNR) ZKUNNR
     FROM

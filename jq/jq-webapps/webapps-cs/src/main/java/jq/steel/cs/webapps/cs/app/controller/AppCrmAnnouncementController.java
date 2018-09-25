@@ -1,12 +1,14 @@
 package jq.steel.cs.webapps.cs.app.controller;
 
 import com.ebase.core.service.ServiceResponse;
+import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import jq.steel.cs.services.cust.api.controller.app.AppCrmAnnouncementAPI;
 import jq.steel.cs.services.cust.api.vo.CrmAnnouncementVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,11 +37,11 @@ public class AppCrmAnnouncementController {
      * @return
      */
     @RequestMapping(value = "/getNewAnnouncement", method = RequestMethod.POST)
-    public JsonResponse<CrmAnnouncementVO> getNewAnnouncement() {
+    public JsonResponse<CrmAnnouncementVO> getNewAnnouncement(@RequestBody JsonRequest<CrmAnnouncementVO> jsonRequest) {
         JsonResponse<CrmAnnouncementVO> jsonResponse = new JsonResponse<>();
 
         try {
-            ServiceResponse<CrmAnnouncementVO> vo = appCrmAnnouncementAPI.getNewAnnouncement();
+            ServiceResponse<CrmAnnouncementVO> vo = appCrmAnnouncementAPI.getNewAnnouncement(jsonRequest);
             CrmAnnouncementVO retContent = vo.getRetContent();
             jsonResponse.setRspBody(retContent);
         } catch (Exception e) {

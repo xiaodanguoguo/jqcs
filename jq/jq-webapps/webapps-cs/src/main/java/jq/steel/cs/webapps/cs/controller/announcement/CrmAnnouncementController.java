@@ -34,18 +34,18 @@ public class CrmAnnouncementController {
 
 
     /**
-     * 或取最新的公告
+     * 获取最新的公告
      * 参数：opt insert、update、delete
      *
      * @param jsonRequest
      * @return
      */
     @RequestMapping(value = "/getNewAnnouncement", method = RequestMethod.POST)
-    public JsonResponse<CrmAnnouncementVO> getNewAnnouncement() {
+    public JsonResponse<CrmAnnouncementVO> getNewAnnouncement(@RequestBody JsonRequest<CrmAnnouncementVO> jsonRequest) {
         JsonResponse<CrmAnnouncementVO> jsonResponse = new JsonResponse<>();
 
         try {
-            ServiceResponse<CrmAnnouncementVO> vo = appCrmAnnouncementAPI.getNewAnnouncement();
+            ServiceResponse<CrmAnnouncementVO> vo = appCrmAnnouncementAPI.getNewAnnouncement(jsonRequest);
             CrmAnnouncementVO retContent = vo.getRetContent();
             jsonResponse.setRspBody(retContent);
         } catch (Exception e) {
