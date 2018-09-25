@@ -30,7 +30,7 @@ public class AppObjectionDiaoChaController {
     @Autowired
     private ObjectionDiaoChaAPI objectionDiaoChaAPI;
 
-    @RequestMapping(value = "/findByPageAndState",method = RequestMethod.POST)
+    @RequestMapping(value = "/findByPage",method = RequestMethod.POST)
     public JsonResponse<PageDTO<ObjectionDiaoChaVO>> findByPage(@RequestBody JsonRequest<ObjectionDiaoChaVO> jsonRequest){
         JsonResponse<PageDTO<ObjectionDiaoChaVO>> jsonResponse = new JsonResponse<>();
         logger.info("确认书审核列表", JsonUtil.toJson(jsonRequest));

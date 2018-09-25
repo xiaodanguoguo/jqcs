@@ -167,7 +167,7 @@ public class AppObjectionTiBaoController {
      * @return
      *
      * */
-    @RequestMapping(value = "/findDetails",method = RequestMethod.POST)
+    @RequestMapping(value = "/tailafter/findDetails",method = RequestMethod.POST)
     public JsonResponse<ObjectionTiBaoVO> findDetails(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
         logger.info("参数={}",JsonUtil.toJson(jsonRequest));
         JsonResponse<ObjectionTiBaoVO> jsonResponse = new JsonResponse<>();

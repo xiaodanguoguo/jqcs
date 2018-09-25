@@ -25,7 +25,7 @@ public class AppObjectionChuLiController {
     @Autowired
     private ObjectionChuLiAPI objectionChuLiAPI;
 
-    @RequestMapping(value = "/findByPageAndState",method = RequestMethod.POST)
+    @RequestMapping(value = "/findByPage",method = RequestMethod.POST)
     public JsonResponse<PageDTO<ObjectionChuLiVO>> findByPage(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
         JsonResponse<PageDTO<ObjectionChuLiVO>> jsonResponse = new JsonResponse<>();
         logger.info("异议处理列表", JsonUtil.toJson(jsonRequest));
@@ -58,7 +58,7 @@ public class AppObjectionChuLiController {
              <
              编辑中:EDIT,
              已完成:COMPLETE,
-             已审核:EXMINE
+             已审核:EXAMINE
              >
              */
             jsonRequest.getReqBody().setAgreementState("COMPLETE");
