@@ -311,6 +311,7 @@
         $("#userNewSure").on("click",function(){
             var jsonParam = {"acctTitle":"","name":"","email":"","mobilePhone":""};
             getValue4Desc(jsonParam,$("#userNewPopup")[0]);
+            jsonParam.acctId = getCookie("acctId");
             getAjaxResult("/sysAcct/update/acctInfo","POST",jsonParam,"useNewsEditCallBak(data)")
         });
     });
