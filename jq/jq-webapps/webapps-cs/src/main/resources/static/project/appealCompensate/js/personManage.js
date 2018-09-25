@@ -220,7 +220,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
             document.body.jsLee.lastUserId = jsonItem.sid;
             setValue4Desc(jsonItem,$("#userUnitPopup")[0])//赋值
             if(jsonItem.defaultFlag == "Y"){//默认联系人
-                $("#orderUnitPopup #defaultFlag").attr("checked",true);
+                $("#userUnitPopup #defaultFlag").attr("checked",true);
             }
         });
         $(cloneRow).find("#deleteOpe").on("click",function(){//删除操作
@@ -298,6 +298,14 @@ function clsAlertBoxCtrl$sure() {
         closePopupWin();
         getAjaxResult(document.body.jsLee.requestUrl.path6,"POST",{"sid":document.body.jsLee.lastUserId},"delete2CallBack(data)");
     }
+}
+
+//搜索回调函数
+function clsSearchBtnCtrl$after(jsonCond) {
+    if(this.ctrl.id == "searchBtn2"){
+        jsonCond.customerId = document.body.jsLee.loginerNews.customerId;
+    }
+    return jsonCond;
 }
 
 $(function(){
