@@ -8,8 +8,15 @@
     <script src="../../../plugin/treeview/lib/jquery.cookie.js" type="text/javascript"></script>
     <script src="../../../plugin/treeview/jquery.treeview.js" type="text/javascript"></script>
     <script src="../js/permissionManage.js"></script>
+    <style>
+        #creatRule1{
+            color: #6390f3!important;
+        }
+        #creatRules1{
+            color: #6390f3!important;
+        }
+    </style>
     <script>
-        console.log(1)
         //var globalFunctionId = "";
         var globalRuleOrRulesId = {}
         var orgId = GetQueryString("orgId");//组织id
@@ -17,7 +24,7 @@
         $(function(){
 
 
-
+            limitCodeDeal($("*[limitCode]"),"limitCode");
             
             /***************************选择组织开始*************************/
             // $("#chooseZzBtn").click(function(){
@@ -34,7 +41,7 @@
                 getAjaxResult("/orgInfo/getChildTreeOrgInfo","POST",{"parentId":orgId},"initZz(data)")
             }else{
                 orgId = $.cookie("orgId")
-                if(orgId.length == 11)$("#chooseZzBtn").hide();
+                //if(orgId.length == 11)$("#chooseZzBtn").hide();
                 getAjaxResult("/orgInfo/getChildTreeOrgInfo","POST",{"parentId":orgId},"initZz(data)")
             }
 
@@ -84,7 +91,7 @@
                 openWin(400, 300, "resourchSe", true);
                 $("#resourchSe h2").html("新建角色");
                 //setValue4Desc($("#detailRow")[0].data, $("#resourchSe")[0]);
-                setValueGlobal($("#detailRow")[0].data, $("#resourchSe")[0])
+                setValueGlobal($("#detailRow1")[0].data, $("#resourchSe")[0])
                 $("#resourchSe #roleTitle").val("");
 
                 //复现初始化组织信息
@@ -325,7 +332,6 @@
         function initZz(data){
             if(JSON.parse(data).retCode == "0000000"){
                 data = JSON.parse(data).rspBody.children;
-                console.log(data)
                 if(data.length == 0){
                     orgId = $.cookie("orgId");
                 }else{
@@ -435,7 +441,6 @@
                     $("#resourchSe input").prop("checked",false)
                 }
             }
-            console.log(key)
         }
 
         function setValueGlobal(jsonItem,dom){
@@ -659,7 +664,7 @@
                 <div class="left-div">
                     <span class="left-div-fir">
                         <span class="fir-span">角色分类</span>
-                        <a href="javascript:;" id="chooseZzBtn">组织</a>
+                        <a href="javascript:;" id="chooseZzBtn" limitCode="M50301">组织</a>
                     </span>
                     <a href="javascript:;" class="left-div-two" id="root">根目录</a>
                 </div>
@@ -677,10 +682,10 @@
                         <a href="javascript:;" class="div-a-add" id="editRuleOrRules" style="display:none"><i class="add-i com-i"></i><span>编辑</span></a> -->
 
 
-                        <li id="createNewRule" style="display:none"><i class="ul-iFir"></i><a href="javascript:;" class="ul-fir">新建角色</a></li>
-                        <li id="createNewRules" style="display:none"><i class="ul-iFir"></i><a href="javascript:;" class="ul-fir">新建分类</a></li>
-                        <li id="editRuleOrRules" style="display:none"><i class="ul-iTwo"></i><a href="javascript:;" class="ul-two">编辑</a></li>
-                        <li id="deleteRuleOrRules" style="display:none"><i class="ul-iThr"></i><a href="javascript:;" class="ul-tree">删除</a></li>
+                        <li id="createNewRule" style="display:none" limitCode="M50302"><i class="ul-iFir"></i><a href="javascript:;" class="ul-fir">新建角色</a></li>
+                        <li id="createNewRules" style="display:none" limitCode="M50303"><i class="ul-iFir"></i><a href="javascript:;" class="ul-fir">新建分类</a></li>
+                        <li id="editRuleOrRules" style="display:none" limitCode="M50304"><i class="ul-iTwo"></i><a href="javascript:;" class="ul-two">编辑</a></li>
+                        <li id="deleteRuleOrRules" style="display:none" limitCode="M50305"><i class="ul-iThr"></i><a href="javascript:;" class="ul-tree">删除</a></li>
                     </ul>
                 </div>
                 <div class="right-con">

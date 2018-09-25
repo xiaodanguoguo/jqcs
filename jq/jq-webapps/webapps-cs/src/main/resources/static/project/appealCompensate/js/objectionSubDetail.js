@@ -15,6 +15,7 @@ function clsMethodLee(){
         "path12":"/coilinfo/findIsTrue",//批板卷号填写校验操作，校验成功带出数据
         "path13":"/objectionDiaoCha/updateInside"//1内部保存2内部提交
     };
+    this.opeDom = "";
     this.documentLee = null;
     this.htmlType = GetQueryString("htmlType");//判断页面类型0——新建 1修改 2——详情  3——销售审核  4——外部调查  5——内部调查 6-确认书审核  7-销售审核详情页面
     this.claimNo = GetQueryString("claimNo") == null ? "":GetQueryString("claimNo");//异议编号
@@ -72,6 +73,7 @@ function clsMethodLee$init(){
 
 }
 function clsMethodLee$parse(){
+    limitCodeDeal($("*[limitCode]"),"limitCode");
     //判断页面类型（进行显示隐藏dom节点）0——新建 1修改 2——详情  3——销售审核  4——外部调查  5——内部调查 6-确认书审核（外部调查不可编辑）7-销售审核详情（销售审核不可编辑）
     switch (Number(this.htmlType)){
         //差异class  box01 box2  box3  box23 box4  box5  box013  box237 box6
@@ -131,6 +133,7 @@ function clsMethodLee$parse(){
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
             $("#proProblem").removeAttr("disabled").removeClass("changeGary");
             $("#claimTypeA input").removeAttr("disabled").removeClass("changeGary");
+            $("#rejectReason").removeAttr("disabled").removeClass("changeGary");
            // this.selectedMark.selMark1 = false;
             this.selectedMark.selMark2 = false;
             getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":this.claimNo,"optionType":4},"htmlInit(data)");//数据回显操作
@@ -182,6 +185,7 @@ function clsMethodLee$parse(){
             $(".box4:last").remove();
             $("#submitBox input").attr("disabled",true).addClass("changeGary");
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
+            $("#rejectReason").removeAttr("disabled").removeClass("changeGary");
             getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"claimNo":this.claimNo,"optionType":3},"htmlInit2(data)");//数据回显操作
             break;
         case 7://销售审核详情
@@ -212,19 +216,19 @@ function clsMethodLee$operate(){
         $("#dinghuoListPopup").show();
         $("#shiyongListPopup").hide();
         $("#listPopupTitle").html("订货单位列表");
-        initplugPath($("#dinghuoListPopupBox")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path2,null,"POST");
+        initplugPath($("#dinghuoListPopupBox")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path2,{"customerId":$("#customerId").val()},"POST");
     });
     this.shiyongCreate.on("click",function () {//使用单位添加操作
         openWin('650', '500', 'listPopup', true);
         $("#dinghuoListPopup").hide();
         $("#shiyongListPopup").show();
         $("#listPopupTitle").html("使用单位列表");
-        initplugPath($("#shiyongListPopupBox")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path3,null,"POST");
+        initplugPath($("#shiyongListPopupBox")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path3,{"customerId":$("#customerId").val()},"POST");
 
     });
     //质证书编号改变，进行接口后台判断
     this.millSheetNo.on("change",function () {
-        getAjaxResult(document.body.jsLee.requestUrl.path5,"POST",{"millSheetNo":$(this).val()},"millSheetNoCheckCallBack(data)");
+        getAjaxResult(document.body.jsLee.requestUrl.path5,"POST",{"millSheetNo":$(this).val()}," millSheetNoCheckCallBack(data)");
     });
 
     //批板卷号改编，对应质证书号进行校验
@@ -244,6 +248,7 @@ function clsMethodLee$operate(){
     });
     //新建 || 修改页面保存操作
     this.firstSave.on("click",function () {
+        document.body.jsLee.opeDom = "firstSave";
         if(boxChecked()){
             var jsonParam = paramJson();
             if(document.body.jsLee.htmlType == 0){//新建
@@ -268,6 +273,7 @@ function clsMethodLee$operate(){
     });
     //销售管理保存操作
     this.thirdSave.on("click",function(){
+        document.body.jsLee.opeDom = "thirdSave";
         $("#rejectReason").removeClass("required");
         if(boxChecked()){
             var jsonParam = paramJson();
@@ -277,6 +283,7 @@ function clsMethodLee$operate(){
     });
     //销售管理通过操作
     this.thirdPromise.on("click",function(){
+        document.body.jsLee.opeDom = "thirdPromise";
         $("#rejectReason").removeClass("required");
         if(boxChecked()){
             var jsonParam = paramJson();
@@ -287,6 +294,7 @@ function clsMethodLee$operate(){
     });
     //销售管理驳回操作
     this.thirdReject.on("click",function(){
+        document.body.jsLee.opeDom = "thirdReject";
         $("#rejectReason").addClass("required");
         if(boxChecked()){
             var jsonParam = paramJson();
@@ -297,6 +305,7 @@ function clsMethodLee$operate(){
 
     //外部调查调查结束按钮
     this.forthsubmit.on("click",function () {
+        document.body.jsLee.opeDom = "forthsubmit";
         if(boxChecked()){
             var jsonParam = paramJson();
             jsonParam.optionType = 3;
@@ -305,6 +314,7 @@ function clsMethodLee$operate(){
     });
     //外部调查跟踪按钮
     this.forthFoolow.on("click",function () {
+        document.body.jsLee.opeDom = "forthFoolow";
         if(boxChecked()){
             var jsonParam = paramJson();
             jsonParam.optionType = 2;
@@ -313,6 +323,7 @@ function clsMethodLee$operate(){
     });
     //外部调查保存按钮
     this.forthSave.on("click",function () {
+        document.body.jsLee.opeDom = "forthSave";
         if(boxChecked()){
             var jsonParam = paramJson();
             jsonParam.optionType = 1;
@@ -321,6 +332,7 @@ function clsMethodLee$operate(){
     });
     //内部调查保存按钮
     this.fifthSave.on("click",function () {
+        document.body.jsLee.opeDom = "fifthSave";
         if(boxChecked()){
             var jsonParam = paramJson();
             jsonParam.optionType = 1;
@@ -329,6 +341,7 @@ function clsMethodLee$operate(){
     });
     //内部调查提交按钮
     this.fifthSubmit.on("click",function () {
+        document.body.jsLee.opeDom = "fifthSubmit";
         if(boxChecked()){
             var jsonParam = paramJson();
             jsonParam.optionType = 2;
@@ -337,6 +350,7 @@ function clsMethodLee$operate(){
     });
     //确认书审核通过操作
     this.sixthPromise.on("click",function(){
+        document.body.jsLee.opeDom = "sixthPromise";
         $("#rejectReason").removeClass("required");
         if(boxChecked()){
             var jsonParam = paramJson();
@@ -347,6 +361,7 @@ function clsMethodLee$operate(){
     });
     //确认书审核驳回操作
     this.sixthReject.on("click",function(){
+        document.body.jsLee.opeDom = "sixthReject";
         $("#rejectReason").addClass("required");
         if(boxChecked()){
             var jsonParam = paramJson();
@@ -447,6 +462,10 @@ function htmlInit(data){//数据回显回调
             //$(".disNone").show().parent().next().addClass("required");
             //回显上传图片地址
             filePathShow(data.rspBody.filePath,data.rspBody.reportPictures,2);
+
+            if(data.rspBody.claimType){
+                document.body.jsLee.selectedMark.selMark2 = true;
+            }
         }else if(document.body.jsLee.htmlType == 7){//销售审核详情页面
             //异议类别赋值
             if(data.rspBody.claimType){
@@ -629,16 +648,24 @@ function paramJson(){
 function firstSaveCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        var alertBox=new clsAlertBoxCtrl();
-        alertBox.Alert(data.retDesc,"成功提示",1,"","successJump");
+        garyDom(document.body.jsLee.opeDom)
+        /*var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert(data.retDesc,"成功提示",1,"","successJump");*/
+        jumpUrl("objectionSubmit.html","0000000",0);
     }
 }
 
 function secondSaveCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        var alertBox=new clsAlertBoxCtrl();
-        alertBox.Alert(data.retDesc,"成功提示",1,"","successJump2");
+        garyDom(document.body.jsLee.opeDom)
+        /*var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert(data.retDesc,"成功提示",1,"","successJump2");*/
+        if(document.body.jsLee.opeDom == "sixthReject" || document.body.jsLee.opeDom == "sixthPromise"){
+            jumpUrl("objectionDeal.html","0000000",0);
+        }else{
+            jumpUrl("objectionReasearch.html","0000000",0);
+        }
     }
 }
 function clsUploadCtrl$successAfter(ctrl, response)
@@ -690,10 +717,13 @@ function filePathShow(arrStr,str2,type){//type 1是复现数据   2是不可编�
             $("#filePathA *[id=uploadBox]").eq(nI).addClass("comUploadAfter");
         }
         //质量异议报告图片:
-        $("#reportPicturesA #uploadBox").attr("uploadbgsrc",str2);
-        document.body.jsCtrl.ctrl = $("#reportPicturesA #uploadBox")[0];
-        document.body.jsCtrl.init();
-        $("#reportPicturesA #uploadBox").addClass("comUploadAfter");
+        if(str2){
+            $("#reportPicturesA #uploadBox").attr("uploadbgsrc",str2);
+            document.body.jsCtrl.ctrl = $("#reportPicturesA #uploadBox")[0];
+            document.body.jsCtrl.init();
+            $("#reportPicturesA #uploadBox").addClass("comUploadAfter");
+        }
+
     }else{
         //异议产品图片:
         for(var nI = 0 ; nI < document.body.jsLee.filePath.length; nI++ ){
@@ -712,6 +742,10 @@ function clsAlertBoxCtrl$sure() {//成功弹框确定
     }else if(this.id == "successJump2"){
         jumpUrl("objectionReasearch.html","0000000",0);
     }
+}
+
+function garyDom(src){//按钮操作后置灰
+    document.body.jsLee[src].attr("disabled",true).addClass("changeGary");
 }
 
 //富文本提取src

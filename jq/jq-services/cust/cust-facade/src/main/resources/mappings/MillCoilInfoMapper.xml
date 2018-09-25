@@ -107,7 +107,7 @@
     C.ZCPMC,
     A.ZJISHU,
     A.ZJISHU_UNIT,
-    B.ZKUNNR,
+    (select distinct name1 from MILL_CUSTOMER where KUNNR = B.ZKUNNR) ZKUNNR,
     B.ZKUNWE,
     A.ZLOSMENGE,
     A.ZLPH,

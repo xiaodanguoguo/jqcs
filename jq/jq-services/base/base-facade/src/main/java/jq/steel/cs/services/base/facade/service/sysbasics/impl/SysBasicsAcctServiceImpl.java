@@ -2,6 +2,7 @@ package jq.steel.cs.services.base.facade.service.sysbasics.impl;
 
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.page.PageDTOUtil;
+import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.BeanCopyUtil;
@@ -466,15 +467,31 @@ public class SysBasicsAcctServiceImpl implements SysBasicsAcctService {
         JsonResponse jsonResponse = new JsonResponse();
         AcctToRoleInfoVO reqBody = jsonRequest.getReqBody();
         AcctInfo acctInfo = new AcctInfo();
-        List<AcctInfo> list = acctInfoMapper.selectAll(acctInfo);
-        for (AcctInfo acctInfo1 : list) {
-            if (reqBody.getAcctTitle().equals(acctInfo1.getAcctTitle())) {
-                jsonResponse.setRetCode("0701006");
-            }
-        }
+        acctInfo.setAcctTitle(reqBody.getAcctTitle());
+
         BeanCopyUtil.copy(reqBody,acctInfo);
-        if(acctInfo.getAcctId()==null||acctInfo.getAcctId()==' ')
-        {
+        List<AcctInfo> list = acctInfoMapper.selectAll(acctInfo);
+        if(acctInfo.getAcctId()==null||acctInfo.getAcctId()==' ') {
+
+            if (CollectionUtils.isNotEmpty(list)) {
+                for (AcctInfo acctInfo1 : list) {
+                    if (reqBody.getAcctTitle().equals(acctInfo1.getAcctTitle())) {
+                        jsonResponse.setRetCode("0701006");
+                        return jsonResponse;
+                    }
+
+                    if (reqBody.getEmail().equals(acctInfo1.getEmail())) {
+                        jsonResponse.setRetCode("0401004");
+                        return jsonResponse;
+                    }
+
+                    if (reqBody.getMobilePhone().equals(acctInfo1.getMobilePhone())) {
+                        jsonResponse.setRetCode("0401005");
+                        return jsonResponse;
+                    }
+                }
+            }
+
             acctInfo.setStatus((byte)1);
             acctInfo.setIsDelete((byte)0);
             acctInfo.setAcctPassword(Md5Util.encrpt(acctInfo.getAcctPassword()));
@@ -517,6 +534,24 @@ public class SysBasicsAcctServiceImpl implements SysBasicsAcctService {
                 acctRoleRealMapper.insertSelective(acctRoleReal);
             }
         }else if(acctInfo.getAcctId()!=null){
+            if (CollectionUtils.isNotEmpty(list)) {
+                for (AcctInfo acctInfo1 : list) {
+                    if (!acctInfo1.getAcctId().equals(reqBody.getAcctId()) && reqBody.getAcctTitle().equals(acctInfo1.getAcctTitle())) {
+                        jsonResponse.setRetCode("0701006");
+                        return jsonResponse;
+                    }
+
+                    if (!acctInfo1.getAcctId().equals(reqBody.getAcctId()) && reqBody.getEmail().equals(acctInfo1.getEmail())) {
+                        jsonResponse.setRetCode("0401004");
+                        return jsonResponse;
+                    }
+
+                    if (!acctInfo1.getAcctId().equals(reqBody.getAcctId()) && reqBody.getMobilePhone().equals(acctInfo1.getMobilePhone())) {
+                        jsonResponse.setRetCode("0401005");
+                        return jsonResponse;
+                    }
+                }
+            }
             //用户表修改
             this.acctInfoMapper.updateByPrimaryKeySelective(acctInfo);
             List<Long> roleIds = reqBody.getRoleIds();
@@ -835,14 +870,37 @@ public PageDTO<AcctInfoVO> listSysAcct(JsonRequest<AcctInfoVO> jsonRequest)throw
 
     //客户类型获取
     @Override
-    public AcctInfoVO customerType(AcctInfoVO acctInfo) {
-        OrgInfo orgInfo = new OrgInfo();
-        orgInfo.setId(acctInfo.getOrgId());
+    public AcctInfoVO customerType(AcctInfoVO record) {
+        record.setAcctType(Long.valueOf(record.getAcctType()));
+        return record;
+    }
 
-        OrgInfo result = orgInfoMapper.selectOrgInfo(orgInfo);
+    @Override
+    public ServiceResponse<Integer> updateAcctInfo(AcctInfoVO acctInfoVO) {
+        ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
+        AcctInfo acctInfo = new AcctInfo();
+        BeanCopyUtil.copy(acctInfoVO, acctInfo);
+        List<AcctInfo> list = acctInfoMapper.selectAll(acctInfo);
+        if (CollectionUtils.isNotEmpty(list)) {
+            for (AcctInfo acctInfo1 : list) {
+                if (!acctInfo1.getAcctId().equals(acctInfoVO.getAcctId()) && acctInfoVO.getAcctTitle().equals(acctInfo1.getAcctTitle())) {
+                    serviceResponse.setRetCode("0701006");
+                    return serviceResponse;
+                }
 
-        AcctInfoVO acctInfoVO = new AcctInfoVO();
-        acctInfoVO.setAcctType(Long.parseLong(result.getOrgType()));
-        return acctInfoVO;
+                if (!acctInfo1.getAcctId().equals(acctInfoVO.getAcctId()) && acctInfoVO.getEmail().equals(acctInfo1.getEmail())) {
+                    serviceResponse.setRetCode("0401004");
+                    return serviceResponse;
+                }
+
+                if (!acctInfo1.getAcctId().equals(acctInfoVO.getAcctId()) && acctInfoVO.getMobilePhone().equals(acctInfo1.getMobilePhone())) {
+                    serviceResponse.setRetCode("0401005");
+                    return serviceResponse;
+                }
+            }
+        }
+        int i = acctInfoMapper.updateByPrimaryKeySelective(acctInfo);
+        serviceResponse.setRetContent(i);
+        return serviceResponse;
     }
 }

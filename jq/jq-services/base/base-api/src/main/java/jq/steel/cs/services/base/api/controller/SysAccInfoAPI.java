@@ -171,5 +171,15 @@ public interface SysAccInfoAPI {
      */
     @RequestMapping(value = "/customerType",method = RequestMethod.POST)
     ServiceResponse<AcctInfoVO> customerType(JsonRequest<AcctInfoVO> jsonRequest);
+
+    /**
+     * @param:
+     * @return:
+     * @description: 编辑个人信息
+     * @author: lirunze
+     * @Date: 2018/9/24
+     */
+    @RequestMapping(value = "/update/acctInfo",method = RequestMethod.POST)
+    ServiceResponse<Integer> updateAcctInfo(@RequestBody JsonRequest<AcctInfoVO> jsonRequest);
 }
 

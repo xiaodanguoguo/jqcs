@@ -8,7 +8,8 @@ function clsMethodLee(){
         "path6":"/objectionTiBao/lookPhoto",//协议书查看接口
         "path7":"/md/findItemsByTypeId",//产品大类下拉接口
         "path8":"/objectionChuLi/preview",//查看pdf接口
-        "path9":"/objectionChuLi/download"//下载pdf接口
+        "path9":"/objectionChuLi/download",//下载pdf接口
+        "path10":"/sysAcct/customerType"//下载pdf接口
     };
     this.documentLee = null;
     this.claimNo = "";//异议处理评价的异议编号
@@ -38,9 +39,7 @@ function clsMethodLee$init(){
 }
 function clsMethodLee$parse(){
     limitCodeDeal($("*[limitCode]"),"limitCode");
-    $("#tableList")[0].cacheArr = [];
     initplugPath($("#condsid")[0],"singleSelectCtrl",this.requestUrl.path7,{"typeId": "MILL_BIG_TYPE"},"POST");
-    initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
     // 初始化搜索框下拉
     $("#condclaimState").chosen({
         no_results_text: "暂无结果",
@@ -54,6 +53,7 @@ function clsMethodLee$parse(){
         enable_split_word_search: false,
         placeholder_text_single: ""
     });
+    getAjaxResult(this.requestUrl.path10,"POST",{},"getContentCallBack(data)");
     this.operate();
 }
 
@@ -206,6 +206,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         switch (jsonItem.claimState){
             case "NEW":
                 $(cloneRow).find("#claimStateA").html("新建");
+                $(cloneRow).find("#editOpe").show();
                 break;
             case "PRESENT":
                 $(cloneRow).find("#claimStateA").html("已提报");
@@ -418,6 +419,24 @@ function pdfViewCallBack(data){
         $("#previewOpeBoxPdf2").attr("href",data.rspBody.report);
         $("#previewOpeBoxPdf2").media({width:740, height:450});
         //jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody.report,"0000000","1");
+    }
+}
+
+//返回联系人信息
+function getContentCallBack(data){
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        if(data.rspBody){
+            if(data.rspBody.acctType != 1 && data.rspBody.acctType != 0){
+                $("#condcustomerId").val(data.rspBody.orgCode).attr("disabled",true).addClass("changeGary");
+                 $("#tableList")[0].cacheArr = [];
+                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"condcustomerId":data.rspBody.orgCode},"POST");
+            }else{
+                $("#tableList")[0].cacheArr = [];
+                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+            }
+
+        }
     }
 }
 

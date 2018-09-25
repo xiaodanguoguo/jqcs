@@ -44,4 +44,6 @@ public interface RoleInfoMapper {
 
     List<RoleInfo> verificationDeleteRoelInfo(RoleInfo roleInfo);
 
+    //查询当前用户的rolecode
+    List<RoleInfo> getRoleCodeByAcctId(String acctId);
 }

@@ -46,13 +46,13 @@ public class AssertContext {
     }
 
     /**
-     * 账号名称
+     * 账号类型
      * @return
      */
     public static String getAcctType() {
         UserSession userSession = get();
         if (userSession != null) {
-            return userSession.getUser().getAcctName();
+            return userSession.getUser().getAcctType();
         }
         return null;
     }

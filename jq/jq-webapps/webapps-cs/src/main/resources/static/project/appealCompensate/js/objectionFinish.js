@@ -38,7 +38,7 @@ function clsMethodLee$parse(){
     initplugPath($("#condsid")[0],"singleSelectCtrl",this.requestUrl.path7,{"typeId": "MILL_BIG_TYPE"},"POST");
     initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
     // 初始化搜索框下拉
-    $("#condclaimState").chosen({
+    $("#condclaimState1").chosen({
         no_results_text: "暂无结果",
         width: "192PX",
         enable_split_word_search: false,
@@ -229,7 +229,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         //查看协议书操作
         $(cloneRow).find("#viewUploadOpe").on("click",function(){
             document.body.jsLee.claimNo = jsonItem.claimNo;
-            getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"templateType":8,"claimNo":jsonItem.claimNo},"pdfViewCallBack2(data)");
+            getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"templateType":1,"claimNo":jsonItem.claimNo},"pdfViewCallBack2(data)");
         });
         //撤销操作
         $(cloneRow).find("#cancelOpe").on("click",function(){

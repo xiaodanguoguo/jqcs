@@ -49,7 +49,7 @@ public class AppCrmAnnouncementController {
 			if (result > 0) {
 				serviceResponse.setRetContent(result);
 			}else{
-				serviceResponse.setRetCode("");
+				serviceResponse.setResponseCode("0800001");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,7 +69,7 @@ public class AppCrmAnnouncementController {
 	 * @param jsonRequest
 	 * @return
 	 */
-	@RequestMapping(value = "/update" , method = RequestMethod.PUT)
+	@RequestMapping(value = "/update" , method = RequestMethod.POST)
 	public ServiceResponse<Integer> update(@RequestBody JsonRequest<CrmAnnouncementVO> jsonRequest) {
 		ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
 		try {
@@ -99,7 +99,7 @@ public class AppCrmAnnouncementController {
 	 * @param jsonRequest
 	 * @return
 	 */
-	@RequestMapping(value = "/delete" , method = RequestMethod.DELETE)
+	@RequestMapping(value = "/delete" , method = RequestMethod.POST)
 	public ServiceResponse<Integer> delete(@RequestBody JsonRequest<CrmAnnouncementVO> jsonRequest) {
 		ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
 		try {
@@ -129,7 +129,7 @@ public class AppCrmAnnouncementController {
 	 * @param jsonRequest
 	 * @return
 	 */
-	@RequestMapping(value = "/querydetails" , method = RequestMethod.GET)
+	@RequestMapping(value = "/querydetails" , method = RequestMethod.POST)
 	public ServiceResponse<CrmAnnouncementVO> queryDetails(@RequestBody JsonRequest<CrmAnnouncementVO> jsonRequest) {
 		ServiceResponse<CrmAnnouncementVO> serviceResponse = new ServiceResponse<>();
 		try {
@@ -216,7 +216,7 @@ public class AppCrmAnnouncementController {
 	 * @param
 	 * @return
 	 */
-	@RequestMapping(value = "/getNewAnnouncement" , method = RequestMethod.GET)
+	@RequestMapping(value = "/getNewAnnouncement" , method = RequestMethod.POST)
 	public ServiceResponse<CrmAnnouncementVO> getNewAnnouncement() {
 		ServiceResponse<CrmAnnouncementVO> serviceResponse = new ServiceResponse<>();
 

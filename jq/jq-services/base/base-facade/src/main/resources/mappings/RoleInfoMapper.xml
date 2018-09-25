@@ -524,4 +524,15 @@
 
 
   </select>
+
+  <!--查询当前用户的rolecode-->
+  <select id="getRoleCodeByAcctId" resultMap="BaseResultMap" parameterType="java.lang.String">
+  SELECT
+  C.ROLE_CODE
+  FROM
+  WARRANTY.ACCT_INFO A
+  LEFT JOIN WARRANTY.ACCT_ROLE_REAL B ON A.ACCT_ID = B.ACCT_ID
+  LEFT JOIN WARRANTY.ROLE_INFO C ON B.ROLE_ID = C.ROLE_ID
+  WHERE  A.ACCT_ID = #{acctId} AND C.ROLE_CODE is not null
+  </select>
 </mapper>

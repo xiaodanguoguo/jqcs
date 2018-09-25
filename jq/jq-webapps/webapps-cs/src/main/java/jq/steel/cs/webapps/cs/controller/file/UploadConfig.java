@@ -21,8 +21,19 @@ public class UploadConfig {
 
     private String pathPattern;
 
-    //润乾报表地址
+    //润乾模板地址
     private String reportUrl;
+
+    //质证书ip
+    private String millsheet;
+
+    public String getMillsheet() {
+        return millsheet;
+    }
+
+    public void setMillsheet(String millsheet) {
+        this.millsheet = millsheet;
+    }
 
     public String getReportUrl() {
         return reportUrl;

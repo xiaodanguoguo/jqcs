@@ -132,9 +132,11 @@ public class ObjectionTiBaoVO {
     private  String url;
 
     //受理时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date admissibilityTime;
 
     //提报时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date presentationDate;
 
     //受理人

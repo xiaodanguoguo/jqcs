@@ -10,6 +10,8 @@ import java.util.List;
  */
 public class AcctInfoVO {
 
+    private String orgCode;
+
     //id
     private Long acctId;
     private List<Long> acctIds;
@@ -113,6 +115,14 @@ public class AcctInfoVO {
     private Long purchaseType;          //1执行采购员2寻源采购员
 
     private String address;
+
+    public String getOrgCode() {
+        return orgCode;
+    }
+
+    public void setOrgCode(String orgCode) {
+        this.orgCode = orgCode;
+    }
 
     public String getOrgName() {
         return orgName;

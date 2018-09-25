@@ -22,4 +22,6 @@ public interface CrmQuestionMapper {
     CrmQuestion selectOne(CrmQuestion record);
 
     List<CrmQuestion> getQuestionList(CrmQuestion crmQuestion);
+
+    int getCount(CrmQuestion crmQuestion);
 }

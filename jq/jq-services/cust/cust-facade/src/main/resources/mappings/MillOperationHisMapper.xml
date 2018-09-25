@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.MillOperationHisMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.MillOperationHis" >
+    <id column="SID" property="sid" jdbcType="DECIMAL" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="OPERATION_TYPE" property="operationType" jdbcType="VARCHAR" />
+    <result column="OPERATION_TIME" property="operationTime" jdbcType="TIMESTAMP" />
+    <result column="OPERATION_IP" property="operationIp" jdbcType="VARCHAR" />
+    <result column="COPIES_NUM" property="copiesNum" jdbcType="DECIMAL" />
+    <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SID, OPERATOR, OPERATION_TYPE, OPERATION_TIME, OPERATION_IP, COPIES_NUM, MILL_SHEET_NO, 
+    CREATED_BY, CREATED_DT, UPDATED_BY, UPDATED_DT, VERSION, CONTENT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from MILL_OPERATION_HIS
+    where SID = #{sid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from MILL_OPERATION_HIS
+    where SID = #{sid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.MillOperationHis" >
+    insert into MILL_OPERATION_HIS (SID, OPERATOR, OPERATION_TYPE, 
+      OPERATION_TIME, OPERATION_IP, COPIES_NUM, 
+      MILL_SHEET_NO, CREATED_BY, CREATED_DT, 
+      UPDATED_BY, UPDATED_DT, VERSION, 
+      CONTENT)
+    values (#{sid,jdbcType=DECIMAL}, #{operator,jdbcType=VARCHAR}, #{operationType,jdbcType=VARCHAR}, 
+      #{operationTime,jdbcType=TIMESTAMP}, #{operationIp,jdbcType=VARCHAR}, #{copiesNum,jdbcType=DECIMAL}, 
+      #{millSheetNo,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL}, 
+      #{content,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.MillOperationHis" >
+    <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
+      SELECT SEQ_MILL_OPERATION_HIS.nextval  FROM DUAL
+    </selectKey>
+    insert into MILL_OPERATION_HIS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        SID,
+      </if>
+      <if test="operator != null" >
+        OPERATOR,
+      </if>
+      <if test="operationType != null" >
+        OPERATION_TYPE,
+      </if>
+      <if test="operationTime != null" >
+        OPERATION_TIME,
+      </if>
+      <if test="operationIp != null" >
+        OPERATION_IP,
+      </if>
+      <if test="copiesNum != null" >
+        COPIES_NUM,
+      </if>
+      <if test="millSheetNo != null" >
+        MILL_SHEET_NO,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=DECIMAL},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operationType != null" >
+        #{operationType,jdbcType=VARCHAR},
+      </if>
+      <if test="operationTime != null" >
+        #{operationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operationIp != null" >
+        #{operationIp,jdbcType=VARCHAR},
+      </if>
+      <if test="copiesNum != null" >
+        #{copiesNum,jdbcType=DECIMAL},
+      </if>
+      <if test="millSheetNo != null" >
+        #{millSheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.MillOperationHis" >
+    update MILL_OPERATION_HIS
+    <set >
+      <if test="operator != null" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="operationType != null" >
+        OPERATION_TYPE = #{operationType,jdbcType=VARCHAR},
+      </if>
+      <if test="operationTime != null" >
+        OPERATION_TIME = #{operationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operationIp != null" >
+        OPERATION_IP = #{operationIp,jdbcType=VARCHAR},
+      </if>
+      <if test="copiesNum != null" >
+        COPIES_NUM = #{copiesNum,jdbcType=DECIMAL},
+      </if>
+      <if test="millSheetNo != null" >
+        MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SID = #{sid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.MillOperationHis" >
+    update MILL_OPERATION_HIS
+    set OPERATOR = #{operator,jdbcType=VARCHAR},
+      OPERATION_TYPE = #{operationType,jdbcType=VARCHAR},
+      OPERATION_TIME = #{operationTime,jdbcType=TIMESTAMP},
+      OPERATION_IP = #{operationIp,jdbcType=VARCHAR},
+      COPIES_NUM = #{copiesNum,jdbcType=DECIMAL},
+      MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=DECIMAL},
+      CONTENT = #{content,jdbcType=VARCHAR}
+    where SID = #{sid,jdbcType=DECIMAL}
+  </update>
+</mapper>

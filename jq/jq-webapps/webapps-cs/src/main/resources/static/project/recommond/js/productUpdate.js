@@ -25,6 +25,7 @@ function clsMethodLee$init(){
     this.parse();
 }
 function clsMethodLee$parse(){
+    limitCodeDeal($("*[limitCode]"),"limitCode");
     initplugPath($("#categoryIdA")[0],"singleSelectCtrl",this.requestUrl.path2,null,"POST");
     if(this.htmlType == 2){
         getAjaxResult(this.requestUrl.path1,"POST",{"pid":this.pid},"htmlInit(data)")
@@ -37,7 +38,6 @@ function clsMethodLee$operate(){
     this.saveOpe.on("click",function(){
         if(checkedIsTrue()){
             var jsonParam = paramJson();
-            console.log(jsonParam)
             if(document.body.jsLee.htmlType == 1){
                 getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",jsonParam,"saveCallBack(data)");
             }else{

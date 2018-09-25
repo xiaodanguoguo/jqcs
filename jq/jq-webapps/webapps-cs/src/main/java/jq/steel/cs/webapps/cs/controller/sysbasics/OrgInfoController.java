@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +49,8 @@ public class OrgInfoController {
 		 logger.info(" www 系统编码list 参数 = {}", JsonUtil.toJson(jsonRequest));
 		JsonResponse<String> jsonResponse = new JsonResponse<String>();
 		try {
-			jsonRequest.getReqBody().setCreatedBy(AssertContext.getAcctId());
+			jsonRequest.getReqBody().setCreatedBy(AssertContext.getAcctName());
+			jsonRequest.getReqBody().setCreatedTime(new Date());
 			ServiceResponse<String> addOrgInfo = orgInfoServiceAPI.addOrgInfo(jsonRequest);
 			String retContent = addOrgInfo.getRetContent();
 			jsonResponse.setRspBody(retContent);
@@ -70,7 +72,7 @@ public class OrgInfoController {
 		logger.info(" www 系统编码list 参数 = {}", JsonUtil.toJson(jsonRequest));
 		JsonResponse<Integer> jsonResponse = new JsonResponse<Integer>();;
 		try {
-			jsonRequest.getReqBody().setUpdatedBy(AssertContext.getAcctId());
+			jsonRequest.getReqBody().setUpdatedBy(AssertContext.getAcctName());
 			ServiceResponse<Integer> removeOrgInfo = orgInfoServiceAPI.removeOrgInfo(jsonRequest);
 			Integer retContent = removeOrgInfo.getRetContent();
 			if(retContent != 0) {
@@ -97,7 +99,7 @@ public class OrgInfoController {
 		 logger.info(" www 系统编码list 参数 = {}", JsonUtil.toJson(jsonRequest));
 		 JsonResponse<Integer> jsonResponse = new JsonResponse<Integer>();
 		 try {
-			 jsonRequest.getReqBody().setUpdatedBy(AssertContext.getAcctId());
+			 jsonRequest.getReqBody().setUpdatedBy(AssertContext.getAcctName());
 			ServiceResponse<Integer> saveOrgInfo = orgInfoServiceAPI.saveOrgInfo(jsonRequest);
 			Integer retContent = saveOrgInfo.getRetContent();
 			jsonResponse.setRspBody(retContent);

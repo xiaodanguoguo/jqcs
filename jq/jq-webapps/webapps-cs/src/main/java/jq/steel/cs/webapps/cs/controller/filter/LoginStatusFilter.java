@@ -165,6 +165,7 @@ public class LoginStatusFilter implements Filter {
         user.setOrgType(acctSession.getAcct().getOrgType());
         user.setLimitCode(acctSession.getAcct().getLimitCode());
         user.setAuthMap(acctSession.getAcct().getAuthMap());
+        user.setAcctType(acctSession.getAcct().getAcctType().toString());
         user.setAuthMapPath(acctSession.getAcct().getAuthMapPath());
         userSession.setUser(user);
         return userSession;

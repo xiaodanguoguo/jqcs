@@ -112,5 +112,6 @@
         AND A.QID = #{qid}
       </if>
     </trim>
+    order by B.QUESTION_ITEM_ANSWER_ID
   </select>
 </mapper>

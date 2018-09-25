@@ -1877,7 +1877,7 @@ function limitCodeDeal(domArr,attrName){//codeArr：请求后台，返回code集
             }
         }
         if(!isTrue){//说明domArr集合中没有匹配到后台返回的codeArr集合中的权限整理，则此dom节点没有权限，进行remove操作
-            //domArr.eq(nI).remove();
+            domArr.eq(nI).remove();
         }
     }
 }

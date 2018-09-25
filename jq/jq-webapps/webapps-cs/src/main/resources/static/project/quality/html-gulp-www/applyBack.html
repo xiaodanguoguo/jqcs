@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>酒钢客户服务平台</title>
-	<link rel="icon" href="../../../base/images/symbol.png" type="../../base/images/x-icon">
+	<link rel="icon" href   ="../../../logocon.png">
 	<link rel="stylesheet" href="../../../base/css/baseBlue.css">
 	<link rel="stylesheet" href="../../../base/iconfont/iconfont.css">
 	<link rel="stylesheet" href="../../commonNav/css/commonHeaderBlue.css">
@@ -41,16 +41,15 @@
         var date_start;
         var i=0;
 		$(function(){
-            $("#userName").html(getCookie("userName"));
+            $("#userName").html(unescape(getCookie("userName")));
             $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
-            if(getCookie("navListIdx")){
-                $(".og-head-mainlt__sasety").eq(getCookie("navListIdx")).addClass("og-head-mainlt__sidebar--shrinkActive");
+            if(unescape(getCookie("navListIdx"))){
+                $(".og-head-mainlt__sasety").eq(unescape(getCookie("navListIdx"))).addClass("og-head-mainlt__sidebar--shrinkActive");
             }
 		    //导航的点击
 		    $(".og-head-navlist li a").on("click",function(){
                 $(".og-head-navlist li a").removeClass("og-head-navlist____linkActive");
 		        $(this).addClass("og-head-navlist____linkActive")
-				console.log($(this).parents(".og-head-navlist__item").index());
                 $(".og-head-mainlt__sidebar").css("display","none");
 		        $(".og-head-mainlt__sidebar").eq($(this).parents(".og-head-navlist__item").index()).css("display","")
 			})
@@ -58,7 +57,7 @@
 			$("#js-leftNavBar .og-head-mainlt__sasety").on("click",function(){
                 $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
 			    $(this).addClass("og-head-mainlt__sidebar--shrinkActive");
-			    setCookie("navListIdx",$(this).val());
+			    setCookie("navListIdx",escape($(this).val()));
 			    window.location.href=$(this).find("a").attr("acSrc")
 				//$(this).parents(".og-head-mainlt__sidebar--menu").find("ul").css("display","");
 			})
@@ -74,6 +73,10 @@
                 clearCookie("navListIdx");
                 jumpUrl("../../homePage/html-gulp-www/homePage.html","0000000",0)
             });
+            /*$("#downLoadShouCe").on("click",function(){
+                var importParam = "name=" + JSON.stringify({});
+                $.download(requestUrl + "/", importParam, "POST");
+			});*/
             start();
 		})
         //退出接口
@@ -85,7 +88,7 @@
                 if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
                     window.localStorage.limitCode = [];
                 }else{
-                    setCookie("limitCode",JSON.stringify([]));
+                    setCookie("limitCode",escape(JSON.stringify([])));
                 }
                 jumpUrl("../../login/html-gulp-www/login.html","0000000",0);
             }else{
@@ -139,18 +142,22 @@
 						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/3.png')"></div>
 						<span class="fl">代办</span>
 					</span>-->
-					<span class="og-head-navwrap-opeBoxList">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/2.png')"></div>
-						<span  class="fl" style="cursor: pointer" id="quitBtn">退出</span>
+					<span class="og-head-navwrap-opeBoxList" id="downLoadShouCe" style="cursor: pointer">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/xiazia.png')"></div>
+						<span class="fl">下载手册</span>
 					</span>
-					<span class="og-head-navwrap-opeBoxList">
-						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/1.png')"></div>
-						<span class="fl" id="editPassword" style="cursor: pointer">修改密码</span>
+					<span class="og-head-navwrap-opeBoxList" id="quitBtn" style="cursor: pointer">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/tc.png')"></div>
+						<span  class="fl">退出</span>
+					</span>
+					<span class="og-head-navwrap-opeBoxList" id="editPassword" style="cursor: pointer">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/xgmm.png')"></div>
+						<span class="fl">修改密码</span>
 					</span>
 				</div>
 	            <div class="og-head-navwrap-box clearfix fr">
 					<span class="og-head-navwrap-boxList">您好，<span id="userName"></span></span>
-					<p id="now_time" class="og-head-navwrap-boxList" style="width: 200px;"></p>
+					<p id="now_time" class="og-head-navwrap-boxList" style="width: 220px;"></p>
 				</div>
 	        </div>
 	    </div>
@@ -160,18 +167,18 @@
 	    			权限管理
 	    		</div>-->
 	    		<ul class="og-head-mainlt__sidebar">
-	    			<li class="og-head-mainlt__sidebar--menu">
+	    			<li class="og-head-mainlt__sidebar--menu" limitCode="M5">
 	    				<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">系统管理</span></a>
 						<ul class="menu-ul">
-							<li class="og-head-mainlt__sasety" limitCode="" value="0"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/accountAudit.html">账号审核</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="" value="1"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/orgFrame.html">组织管理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="" value="2"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/roleManage.html">角色管理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="" value="3"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/resourceManage.html">资源管理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="" value="4"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/userManage.html">人员管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M505" value="0"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/accountAudit.html">账号审核</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M501" value="1"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/orgFrame.html">组织管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M503" value="2"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/roleManage.html">角色管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M504" value="3"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/resourceManage.html">资源管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M502" value="4"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/userManage.html">人员管理</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M104" value="5"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/annListPreserve.html">发布公告</a></li>
 						</ul>
 	    			</li>
-					<li class="og-head-mainlt__sidebar--menu">
+					<li class="og-head-mainlt__sidebar--menu" limitCode="M2">
 						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">质量证明书</span></a>
 						<ul class="menu-ul">
 							<li class="og-head-mainlt__sasety" limitCode="M201" value="6"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/checkTrue.html">防伪验证</a></li>
@@ -179,7 +186,7 @@
 							<li class="og-head-mainlt__sasety" limitCode="M203" value="8"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>
 						</ul>
 					</li>
-					<li class="og-head-mainlt__sidebar--menu">
+					<li class="og-head-mainlt__sidebar--menu"  limitCode="M3">
 						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">产品诉赔</span></a>
 						<ul class="menu-ul">
 							<li class="og-head-mainlt__sasety" limitCode="M301" value="9"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/personManage.html">管理联系信息</a></li>
@@ -189,7 +196,7 @@
 							<li class="og-head-mainlt__sasety" limitCode="M305" value="13"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionFinish.html">异议结案</a></li>
 						</ul>
 					</li>
-					<li class="og-head-mainlt__sidebar--menu">
+					<li class="og-head-mainlt__sidebar--menu" limitCode="M1">
 						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">问卷调查</span></a>
 						<ul class="menu-ul">
 							<li class="og-head-mainlt__sasety" limitCode="M101" value="14"><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/questionList.html">创建调查问卷</a></li>
@@ -197,7 +204,7 @@
 							<li class="og-head-mainlt__sasety" limitCode="M102" value="16"><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/questionWrite.html">请填写调查问卷</a></li>
 						</ul>
 					</li>
-					<li class="og-head-mainlt__sidebar--menu">
+					<li class="og-head-mainlt__sidebar--menu"  limitCode="M4">
 						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">产品推荐</span></a>
 						<ul class="menu-ul">
 							<li class="og-head-mainlt__sasety" limitCode="M401" value="17"><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/productNewsList.html">产品推荐信息维护</a></li>
@@ -221,7 +228,7 @@
         <div class="apply-Table-nav">
             <span>质证书编码:&nbsp;&nbsp;</span>
             <input type="text" class="apply-Table-nav__Input" id="searchBtnText">
-            <div class="btnBaseCommon" id="searchBtn">查询</div>
+            <div class="btnBaseCommon" id="searchBtn" limitCode="M20301">查询</div>
         </div>
         <div id="searchSuccess" style="display: none;">
             <div class="apply-box" id="pdfBox">
@@ -230,7 +237,7 @@
             <p class="apply-list-title">退回原因</p>
             <textarea id="backSureText" class="apply-list-text required isLengthOf" v_minlength="5" isLengthOfmsg="最少输入5个字" style="resize:none"></textarea>
             <div>
-                <div class="btnBaseCommon apply-list-back" id="backSure">确认退回</div>
+                <div class="btnBaseCommon apply-list-back" id="backSure"  limitCode="M20302">确认退回</div>
             </div>
         </div>
     </div>

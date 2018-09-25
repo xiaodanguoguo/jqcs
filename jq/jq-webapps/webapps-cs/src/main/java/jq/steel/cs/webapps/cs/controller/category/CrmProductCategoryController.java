@@ -1,5 +1,7 @@
 package jq.steel.cs.webapps.cs.controller.category;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
+import com.ebase.core.AssertContext;
 import com.ebase.core.exception.BusinessException;
 import com.ebase.core.log.SearchableLoggerFactory;
 import com.ebase.core.service.ServiceResponse;
@@ -85,6 +87,16 @@ public class CrmProductCategoryController {
         JsonResponse<Boolean> jsonResponse = new JsonResponse<>();
 
         try {
+            List<CrmProductCategoryVO> list = jsonRequest.getReqBody();
+            if (CollectionUtils.isNotEmpty(list)) {
+                for (CrmProductCategoryVO crmProductCategoryVO : list) {
+                    crmProductCategoryVO.setCreateByid(Long.valueOf(AssertContext.getAcctId()));
+                    crmProductCategoryVO.setCreateBy(AssertContext.getAcctName());
+                    crmProductCategoryVO.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
+                    crmProductCategoryVO.setUpdateBy(AssertContext.getAcctName());
+                }
+            }
+
             ServiceResponse<Boolean> serviceResponse = crmProductCategoryApi
                     .insertCrmProductCategory(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
@@ -121,6 +133,15 @@ public class CrmProductCategoryController {
         JsonResponse<Boolean> jsonResponse = new JsonResponse<>();
 
         try {
+            List<CrmProductCategoryVO> list = jsonRequest.getReqBody();
+            if (CollectionUtils.isNotEmpty(list)) {
+                for (CrmProductCategoryVO crmProductCategoryVO : list) {
+                    crmProductCategoryVO.setCreateByid(Long.valueOf(AssertContext.getAcctId()));
+                    crmProductCategoryVO.setCreateBy(AssertContext.getAcctName());
+                    crmProductCategoryVO.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
+                    crmProductCategoryVO.setUpdateBy(AssertContext.getAcctName());
+                }
+            }
             ServiceResponse<Boolean> serviceResponse = crmProductCategoryApi
                     .submitCrmProductCategory(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {

@@ -85,6 +85,8 @@ public class User {
 
     private String orgType;
 
+    private String acctType;
+
     private List<String> limitCode;     // code集合
 
     private Map<String, String> authMap;        // code键值对
@@ -321,5 +323,13 @@ public class User {
 
     public void setAuthMapPath(Map<String, String> authMapPath) {
         this.authMapPath = authMapPath;
+    }
+
+    public String getAcctType() {
+        return acctType;
+    }
+
+    public void setAcctType(String acctType) {
+        this.acctType = acctType;
     }
 }

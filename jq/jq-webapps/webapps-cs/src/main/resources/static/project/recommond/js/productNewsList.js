@@ -24,6 +24,7 @@ function clsMethodLee$init(){
 
 }
 function clsMethodLee$parse(){
+    limitCodeDeal($("*[limitCode]"),"limitCode");
     $("#tableList")[0].cacheArr = [];
     initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
     this.operate();
@@ -113,7 +114,7 @@ function clsStandardTableCtrl$after() {
 function checkboxIsTrue(jsonItem,cloneRow){
     var arrCache = $("#tableList")[0].cacheArr;
     for(var nI = 0; nI < arrCache.length; nI++ ){
-        if(jsonItem.sid == arrCache[nI].sid){
+        if(jsonItem.pid == arrCache[nI].pid){
             $(cloneRow).find("#chkCoding").attr("checked",true);
         }
     }

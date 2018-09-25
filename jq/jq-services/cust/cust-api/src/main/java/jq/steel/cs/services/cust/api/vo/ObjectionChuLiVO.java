@@ -8,6 +8,27 @@ import java.util.List;
 
 public class ObjectionChuLiVO {
 
+    //现场结论
+    private String fieldConclusion;
+
+    private String claimState1;
+
+    public String getFieldConclusion() {
+        return fieldConclusion;
+    }
+
+    public void setFieldConclusion(String fieldConclusion) {
+        this.fieldConclusion = fieldConclusion;
+    }
+
+    public String getClaimState1() {
+        return claimState1;
+    }
+
+    public void setClaimState1(String claimState1) {
+        this.claimState1 = claimState1;
+    }
+
     private List claimNos;
 
     public List getClaimNos() {
@@ -191,6 +212,7 @@ public class ObjectionChuLiVO {
     private String endProcessingTech;
     private String defectName;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date productDt;
     private String shift;
 

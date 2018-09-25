@@ -30,18 +30,15 @@
             </li>
         </ul>
         <div>
-            <div class="btnLowNew" id="saveAnn" style="margin-left: 635px">保存</div>
+            <div class="btnLowNew" id="saveAnn" style="margin-left: 635px" limitCode="M10403">保存</div>
             <div class="btnLowNew" id="cancelAnn">取消</div>
         </div>
     </div>
 <script>
     $(function(){
-        setValue4Desc({"createDt":"1992-01-01","createName":"作者哈","annName":"这是发布内容","annTitle":"这是发布标题"},$(".annUl")[0])//赋值
-
-
-        
-        if(GetQueryString("aId") != null){
-            //getAjaxResult("runze","POST",{"aId":GetQueryString("aId")},"initHtmlCallBack(data)")
+        limitCodeDeal($("*[limitCode]"),"limitCode");
+        if(GetQueryString("jumpType") == 1){
+            getAjaxResult("/crmAnnouncement/querydetails","POST",{"aid":GetQueryString("aid")},"initHtmlCallBack(data)")
         }
 
         //保存
@@ -51,7 +48,13 @@
             if(valiClass.validateAll4Ctrl($(".annUl")[0])){
                 var jsonParam = {"annTitle":"","annName":""};
                 getValue4Desc(jsonParam,$(".annUl")[0]);
-                getAjaxResult("runze","POST",jsonParam,"saveCallBack(data)");
+                if(GetQueryString("aid")){
+                    jsonParam.aid = GetQueryString("aid");
+                    getAjaxResult("/crmAnnouncement/update","POST",jsonParam,"saveCallBack(data)");
+
+                }else{
+                    getAjaxResult("/crmAnnouncement/save","POST",jsonParam,"saveCallBack(data)");
+                }
             }
         });
         //取消

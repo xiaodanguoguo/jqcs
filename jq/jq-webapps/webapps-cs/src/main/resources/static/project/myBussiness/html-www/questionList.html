@@ -80,10 +80,9 @@
             {
                 var jsonCItem = jsonItem.crmQuestionTeamAnswerVOList[nI];
                 $(cloneRow).find("li").each(function(){
-                    if($(this).find("input").attr("val") == jsonCItem.answerValue)
+                    if($(this).find("input").attr("val") == jsonCItem.answerValue){
                         $(this).find("input").prop("checked",true);
-                    else
-                        $(this).find("input").prop("checked",false);
+                    }
                 })
             }
         }
@@ -168,7 +167,7 @@
     }
 
     $(document).ready(function(){
-
+        limitCodeDeal($("*[limitCode]"),"limitCode");
         //主表保存
         $("#btnSave").click(function(){
             //initValidateNoBind();
@@ -378,29 +377,29 @@
            <div class="establish-content-table">
                <div class="establish-content-tableLeft">
                     <div class="establish-content-tableLeftbutton">
-                        <div class="btnLowNew" id="establish-Home-page" comType="searchBtnCtrl" rule="cond" cond="condquestionTitle,condcreateDt,condendDt" unionTableId="questionList">查询</div>
-                        <div class="btnLowNew" id="btnInsert" unionTableId="questionList">新建</div>
-                        <div class="btnLowDel" id="btnDelete" unionTableId="questionList">清除</div>
-                        <div class="btnBaseSave" id="btnSave">保存</div>
-                        <div class="btnLowNew" id="btnPreview">预览</div>
-                        <button type="button" class="btnLowNew" id="btnSend" style="line-height: 28px;height: 28px;position: relative;top: 2px;">下发</button>
+                        <div class="btnLowNew" id="establish-Home-page" comType="searchBtnCtrl" rule="cond" cond="condquestionTitle,condcreateDt,condendDt" unionTableId="questionList" limitCode="M10101">查询</div>
+                        <div class="btnLowNew" id="btnInsert" unionTableId="questionList"  limitCode="M10102">新建</div>
+                        <div class="btnLowDel" id="btnDelete" unionTableId="questionList" limitCode="M10103">清除</div>
+                        <div class="btnBaseSave" id="btnSave"  limitCode="M10104">保存</div>
+                        <div class="btnLowNew" id="btnPreview"  limitCode="M10105">预览</div>
+                        <button type="button" class="btnLowNew" id="btnSend" style="line-height: 28px;height: 28px;position: relative;top: 2px;"  limitCode="M10106">下发</button>
                     </div>
-                    <table class="table-list" chkId="questionRadio" insertid="btnInsert" deleteid="btnDelete" id="questionList" comtype="standardEditTableCtrl" page="tcdPageCode" templateid="templateRow" reqpath="/question/list" reqparam="{}" method="POST" nodata="noDataCon">
+                    <table class="table-list" chkId="questionRadio" insertid="btnInsert" deleteid="btnDelete" id="questionList" comtype="standardEditTableCtrl" page="tcdPageCode" templateid="templateRow" reqpath="/question/list" reqparam="{}" method="POST" nodata="noDataCon" style="table-layout: fixed">
                         <tr class="table-list-currentrow">
-                            <th class="table-list-currentrow-theader"></th>
-                            <th class="table-list-currentrow-theader">信息编号</th>
-                            <th class="table-list-currentrow-theader">创建时间</th>
-                            <th class="table-list-currentrow-theader">状态</th>
-                            <th class="table-list-currentrow-theader">标题</th>
-                            <th class="table-list-currentrow-theader">结束时间</th>
+                            <th class="table-list-currentrow-theader" style="width: 5%;"></th>
+                            <th class="table-list-currentrow-theader" style="width: 12%;">信息编号</th>
+                            <th class="table-list-currentrow-theader" style="width: 15%;">创建时间</th>
+                            <th class="table-list-currentrow-theader" style="width: 8%;">状态</th>
+                            <th class="table-list-currentrow-theader" style="width: 40%;">标题</th>
+                            <th class="table-list-currentrow-theader" style="width: 15%;">结束时间</th>
                         </tr>
                         <tr id="templateRow" style="display:none;" class="table-list-currentrow">
-                            <td class="table-list-currentrow-tdetail"><input type="radio" name="questionRadio" id="questionRadio"></td>
+                            <td class="table-list-currentrow-tdetail" style="text-align: center"><input type="radio" name="questionRadio" id="questionRadio"></td>
                             <td class="table-list-currentrow-tdetail" id="messageNumber" style="text-align: center"></td>
                             <td class="table-list-currentrow-tdetail" id="createDt" style="text-align: center"></td>
                             <td class="table-list-currentrow-tdetail" id="questionStatusText" style="text-align: center"></td>
-                            <td class="table-list-currentrow-tdetail"><input type="text" id="questionTitle" class="required"></td>
-                            <td class="table-list-currentrow-tdetail"><input type="text" name="endDt" class="required" id="endDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"  style="text-align: center" /></td>
+                            <td class="table-list-currentrow-tdetail"><input type="text" id="questionTitle" class="required" style="width: 99%;"></td>
+                            <td class="table-list-currentrow-tdetail"><input type="text" name="endDt" class="required" id="endDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"  style="text-align: center;width: 98%" /></td>
                         </tr>
                         
                     </table>
@@ -411,10 +410,10 @@
                    <div class="tcdPageCode"></div>
                </div>
                <div class="establish-content-tableRight">
-                <div class="establish-content-tableRightbutton" style="padding: 26px 0;">
-                        <button type="button" disabled="disabled" class="btnLowNew changeGary" id="btnCInsert"  unionTableId="questionCList" style="line-height: 28px;height: 28px;position: relative;top: 2px;">新增</button>
-                        <button type="button" class="btnLowDel changeGary" id="btnCDelete" disabled="disabled"  unionTableId="questionCList" style="line-height: 28px;height: 28px;position: relative;top: 2px;">清除</button>
-                        <button type="button" class="btnBaseSave changeGary" disabled="disabled" id="btnCSave">保存</button>
+                <div class="establish-content-tableRightbutton" style="padding: 5px 0;">
+                        <button type="button" disabled="disabled" class="btnLowNew changeGary" id="btnCInsert"  unionTableId="questionCList" style="line-height: 28px;height: 28px;position: relative;top: 2px;" limitCode="M10107">新增</button>
+                        <button type="button" class="btnLowDel changeGary" id="btnCDelete" disabled="disabled"  unionTableId="questionCList" style="line-height: 28px;height: 28px;position: relative;top: 2px;"  limitCode="M10109">清除</button>
+                        <button type="button" class="btnBaseSave changeGary" disabled="disabled" id="btnCSave" limitCode="M10108">保存</button>
                 </div>
                 <table class="table-list" chkId="questionCheck" insertid="btnCInsert" deleteid="btnCDelete" id="questionCList" comtype="" idx="rowNum" templateid="templateRowC" reqpath="" reqparam="{}" method="POST" style="table-layout: fixed" chkId="questionCheck" >
                     <tr  class="table-list-currentrow">

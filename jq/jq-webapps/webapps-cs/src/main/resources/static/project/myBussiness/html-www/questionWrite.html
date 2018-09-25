@@ -2,6 +2,7 @@
 <script>
     var qid = "";
     $(function(){
+        limitCodeDeal($("*[limitCode]"),"limitCode");
         //调查问卷提示
         getAjaxResult("/question/have/question","POST",{},"initCallBack(data)");
     })
@@ -11,10 +12,10 @@
             if(data.rspBody.count > 0){
                 var alertBox=new clsAlertBoxCtrl();
                 qid = data.rspBody.qid;
-                alertBox.Alert("您好，"+ getCookie("userName") +"！有"+ data.rspBody.count +"份问卷调查，期待您的参与！","温馨提示",1,"","questionSure");
+                alertBox.Alert("您好，"+ unescape(getCookie("userName")) +"！有"+ data.rspBody.count +"份问卷调查，期待您的参与！","温馨提示",1,"","questionSure");
             }else{
                 var alertBox=new clsAlertBoxCtrl();
-                alertBox.Alert("您好，"+ getCookie("userName") +"！您暂无需要填写的问卷调查！","温馨提示");
+                alertBox.Alert("您好，"+ unescape(getCookie("userName")) +"！您暂无需要填写的问卷调查！","温馨提示");
             }
         }
     }

@@ -13,6 +13,7 @@
         var orgId = GetQueryString("orgId");//组织id
         var orgName = decodeURI(GetQueryString("orgName"));//组织名称====中文转义
         $(function(){
+            limitCodeDeal($("*[limitCode]"),"limitCode");
 
             /***************************选择组织开始*************************/
             if(orgId){
@@ -109,7 +110,7 @@
             /***********************编辑权限开始****************************/
             $("#editPermission").click(function(){//编辑当前权限
                 openWin(400, 300, "resourchSe", true);
-                $("#resourchSe #functionCode").attr("disabled",true);
+                //$("#resourchSe #functionCode").attr("disabled",true);
                 $("#resourchSe h2").html("编辑权限");
                 //setValue4Desc($("#detailRow")[0].data, $("#resourchSe")[0]);
                 setValueGlobal($("#detailRow")[0].data, $("#resourchSe")[0]);
@@ -153,7 +154,6 @@
         function initZz(data){
             if(JSON.parse(data).retCode == "0000000"){
                 data = JSON.parse(data).rspBody.children;
-                console.log(data)
                 if(data.length == 0){
                     orgId = $.cookie("orgId");
                 }else{
@@ -220,7 +220,6 @@
                     $("#resourchSe input").prop("checked",false)
                 }
             }
-            console.log(key)
         }
 
 
@@ -415,9 +414,9 @@
                     <ul class="right-head-ul" id="btnGather">
                         
 
-                        <li id="createNewPermission" style="display:none"><i class="ul-iFir"></i><a href="javascript:;" class="ul-fir">新建</a></li>
-                        <li id="editPermission" style="display:none"><i class="ul-iTwo"></i><a href="javascript:;" class="ul-two">编辑</a></li>
-                        <li id="deletePermission" style="display:none"><i class="ul-iThr"></i><a href="javascript:;" class="ul-tree">删除</a></li>
+                        <li id="createNewPermission" style="display:none" limitCode="M50402"><i class="ul-iFir"></i><a href="javascript:;" class="ul-fir">新建</a></li>
+                        <li id="editPermission" style="display:none" limitCode="M50403"><i class="ul-iTwo"></i><a href="javascript:;" class="ul-two">编辑</a></li>
+                        <li id="deletePermission" style="display:none" limitCode="M50404"><i class="ul-iThr"></i><a href="javascript:;" class="ul-tree">删除</a></li>
                     </ul>
                 </div>
                 <div class="right-con">

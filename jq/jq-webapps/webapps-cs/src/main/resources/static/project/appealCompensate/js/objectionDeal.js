@@ -31,7 +31,7 @@ function clsMethodLee$parse(){
     initplugPath($("#condsid")[0],"singleSelectCtrl",this.requestUrl.path7,{"typeId": "MILL_BIG_TYPE"},"POST");
     initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
     // 初始化搜索框下拉
-    $("#condclaimState").chosen({
+    $("#condclaimState1").chosen({
         no_results_text: "暂无结果",
         width: "192PX",
         enable_split_word_search: false,
@@ -193,8 +193,6 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 break;
             case "CONFIRM":
                 $(cloneRow).find("#inquireStateA").html("已确认");
-                if(jsonItem.agreementState != "COMPLETE")
-                    $(cloneRow).find("#agreementEditOpe").show();
                 break;
             default:
                 $(cloneRow).find("#inquireStateA").html("");
@@ -207,7 +205,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 break;
             case "EXAMINE":
                 $(cloneRow).find("#agreementStateA").html("已审核");
-                $(cloneRow).find("#viewDownloadOpe");
+                $(cloneRow).find("#viewDownloadOpe").show();
                 break;
             case "COMPLETE":
                 $(cloneRow).find("#agreementStateA").html("已完成");
@@ -217,6 +215,10 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 $(cloneRow).find("#agreementStateA").html("");
                 break;
         }
+        if(jsonItem.inquireState == "CONFIRM" && jsonItem.claimState == "HANDLE" && jsonItem.agreementState != "EXAMINE" && jsonItem.agreementState != "COMPLETE"){
+            $(cloneRow).find("#agreementEditOpe").show();
+        }
+
         //查看并下载
         $(cloneRow).find("#viewDownloadOpe").on("click",function(){
             document.body.jsLee.claimNo = jsonItem.claimNo;

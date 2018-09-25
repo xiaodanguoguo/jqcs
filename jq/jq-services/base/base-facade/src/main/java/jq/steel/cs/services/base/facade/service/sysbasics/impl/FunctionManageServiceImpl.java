@@ -10,6 +10,7 @@ import jq.steel.cs.services.base.facade.dao.AcctOperPrivRelaMapper;
 import jq.steel.cs.services.base.facade.dao.AcctRoleRealMapper;
 import jq.steel.cs.services.base.facade.dao.FunctionManageMapper;
 import jq.steel.cs.services.base.facade.dao.OrgInfoMapper;
+import jq.steel.cs.services.base.facade.model.AcctOperPrivRela;
 import jq.steel.cs.services.base.facade.model.FunctionManage;
 import jq.steel.cs.services.base.facade.service.sysbasics.FunctionManageService;
 import org.slf4j.Logger;
@@ -276,7 +277,7 @@ public class FunctionManageServiceImpl implements FunctionManageService {
                 functionManageMapper.updateFunctionIdAll(functionManage);
             }
         }else if(SysPramType.UPDATE.getMsg().equals(opt)){
-            reqBody.setUpdatedBy("修改人");
+            reqBody.setCreatedBy(null);
             reqBody.setUpdatedTime(new Date());
             //修改
             FunctionManage parId=functionManageMapper.findParentApplicationId(reqBody);
@@ -284,7 +285,7 @@ public class FunctionManageServiceImpl implements FunctionManageService {
 
             reqBody.setParentApplicationId(parId.getParentApplicationId());
         }else if(SysPramType.INSERT.getMsg().equals(opt)){
-            reqBody.setCreatedBy("创建人");
+            reqBody.setUpdatedBy(null);
             reqBody.setCreatedTime(new Date());
             reqBody.setFunctionId(null);
             if(StringUtils.isEmpty(reqBody.getIsDelete())){
@@ -305,6 +306,13 @@ public class FunctionManageServiceImpl implements FunctionManageService {
             functionManageIdFull.setFunctionId(reqBody.getFunctionId());
             functionManageIdFull.setIdFullPath(idFullPath + reqBody.getFunctionId());
             functionManageMapper.updateByPrimaryKeySelective(functionManageIdFull);
+
+            //添加角色关系
+            AcctOperPrivRela acctOperPrivRela = new AcctOperPrivRela();
+            acctOperPrivRela.setFunctionId(reqBody.getFunctionId());
+            acctOperPrivRela.setRoleId(1L);
+            acctOperPrivRela.setCreatedTime(new Date());
+            acctOperPrivRelaMapper.insertSelective(acctOperPrivRela);
         }
         FunctionManageVO functionManageVO1= BeanCopyUtil.copy(reqBody,FunctionManageVO.class);
         return functionManageVO1;

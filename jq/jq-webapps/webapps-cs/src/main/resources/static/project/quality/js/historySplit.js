@@ -1,4 +1,5 @@
 $(function(){
+    limitCodeDeal($("*[limitCode]"),"limitCode");
     $("#returnBookList").on("click",function(){//返回质证书管理操作
         jumpUrl("qualityBookList.html","0000000",0);
     });

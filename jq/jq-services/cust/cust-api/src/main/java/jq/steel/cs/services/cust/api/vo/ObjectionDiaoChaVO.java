@@ -4,8 +4,27 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class ObjectionDiaoChaVO {
+
+    //厂家code
+    private List<String> deptCodes;
+
+    public List<String> getDeptCodes() {
+        return deptCodes;
+    }
+
+    public void setDeptCodes(List<String> deptCodes) {
+        this.deptCodes = deptCodes;
+    }
+
+    //acctid
+    private String acctId;
+
+    private  String deptCode;
+
+    private String claimState1;
 
     private String inquireInfo;
 
@@ -235,6 +254,32 @@ public class ObjectionDiaoChaVO {
     private  String reportPictures;
 
     private  String objectionConfirmation;
+
+
+
+    public String getAcctId() {
+        return acctId;
+    }
+
+    public void setAcctId(String acctId) {
+        this.acctId = acctId;
+    }
+
+    public String getDeptCode() {
+        return deptCode;
+    }
+
+    public void setDeptCode(String deptCode) {
+        this.deptCode = deptCode;
+    }
+
+    public String getClaimState1() {
+        return claimState1;
+    }
+
+    public void setClaimState1(String claimState1) {
+        this.claimState1 = claimState1;
+    }
 
     public String getInquireInfo() {
         return inquireInfo;

@@ -93,6 +93,11 @@ public class CrmQuestionController {
         JsonResponse<Boolean> jsonResponse = new JsonResponse<>();
 
         try {
+            List<CrmQuestionVO> list = jsonRequest.getReqBody();
+            for (CrmQuestionVO vo : list) {
+                vo.setCreateBy(AssertContext.getAcctId());
+                vo.setUpdateBy(AssertContext.getAcctId());
+            }
             ServiceResponse<Boolean> serviceResponse = crmQuestionApi
                     .saveQuestion(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
@@ -165,6 +170,7 @@ public class CrmQuestionController {
         JsonResponse<Boolean> jsonResponse = new JsonResponse<>();
 
         try {
+            jsonRequest.getReqBody().setUpdateBy(AssertContext.getAcctId());
             ServiceResponse<Boolean> serviceResponse = crmQuestionApi
                     .sentDownQuestion(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {

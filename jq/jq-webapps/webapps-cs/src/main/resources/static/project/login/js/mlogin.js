@@ -31,8 +31,8 @@ function clsMethodLee$parse(){
     $("body").css("height","100%");
     if(getCookie("isTrue") == 1){//判断是否记住密码
         //$("#isSavePassword").attr("checked",true);
-        $("#js-input--username").val(getCookie("acctTitle"));
-        $("#js-input-password").val(getCookie("acctPassword"));
+        $("#js-input--username").val(unescape(getCookie("acctTitle")));
+        $("#js-input-password").val(unescape(getCookie("acctPassword")));
     }
     initplugPath($("#imgListLun")[0],"standardTableCtrl",this.requestUrl.path2,{},"POST");
     $("#titleNameHead").html("| 客户登录")
@@ -171,19 +171,19 @@ function submitCallBack(data){
         alertBox.Alert("登陆成功","成功提示",1,"","loginTip");*/
         if($("#isSavePassword").is(":checked")){
             setCookie("isTrue",1);
-            setCookie("acctTitle",$("#js-input--username").val());
-            setCookie("acctPassword",$("#js-input-password").val());
+            setCookie("acctTitle",escape($("#js-input--username").val()));
+            setCookie("acctPassword",escape($("#js-input-password").val()));
         }else{
             setCookie("isTrue",0);
-            setCookie("acctTitle",$("#js-input--username").val());
-            setCookie("acctPassword",$("#js-input-password").val());
+            setCookie("acctTitle",escape($("#js-input--username").val()));
+            setCookie("acctPassword",escape($("#js-input-password").val()));
         }
         if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
             window.localStorage.limitCode = JSON.stringify(data.rspBody.acct.limitCode);
         }else{
-            setCookie("limitCode",JSON.stringify(data.rspBody.acct.limitCode));
+            setCookie("limitCode",escape(JSON.stringify(data.rspBody.acct.limitCode)));
         }
-        setCookie("acctType",data.rspBody.acct.acctType);
+        setCookie("acctType",escape(data.rspBody.acct.acctType));
         /* setCookie("orgId",data.rspBody.acct.orgId);*/
         if(GetQueryString("overtime") == 1){
             jumpUrl(unescape(getCookie("urlPath")),"0000000",0);

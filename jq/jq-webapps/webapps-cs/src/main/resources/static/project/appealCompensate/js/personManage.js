@@ -195,6 +195,11 @@ function openWinShow(type,sidStr){//type操作类型 0-订货单位新增 1-订�
 
 //插件渲染操作
 function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
+    if(jsonItem.defaultFlag == "Y"){
+        $(cloneRow).find("#isDefault").html("是");
+    }else if(jsonItem.defaultFlag == "N"){
+        $(cloneRow).find("#isDefault").html("否");
+    }
     if(this.ctrl.id == "tableList1"){//订货单位
         $(cloneRow).find("#editOpe").on("click",function(){//编辑操作
             openWinShow(1,jsonItem.sid);

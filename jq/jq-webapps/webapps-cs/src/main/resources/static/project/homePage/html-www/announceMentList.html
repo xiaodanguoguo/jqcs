@@ -1,5 +1,10 @@
 @@include('../../commonNav/html/commonHeaderBlue.html')
 <div style="padding: 20px;">
+    <div id="searchBox" style="height: 40px;">
+        <span style="margin-right: 10px;">标题：</span>
+        <input type="text" class="inputBase" id="condannTitle">
+        <div class="btnLowNew" id="establish-Home-page" comtype="searchBtnCtrl" rule="cond" cond="condannTitle" uniontableid="announcementList" parentid="searchBox">查询</div>
+    </div>
     <table class="table-list" id="announcementList" style="table-layout: fixed" comType="" templateId="templateRow" page="tcdPageCode" reqPath="" reqParam="{}" method="POST" noData="nonData">
         <tr class="table-list-currentrow">
             <th class="table-list-currentrow-theader" style="width: 60%">
@@ -26,13 +31,14 @@
 </div>
 <script>
     $(function(){
-        $("#announcementList")[0].data = {"rspBody":{"resultData":[{"annTitle":"123","createDt":"1992-01-01"},{"annTitle":"234","createDt":"1992-01-05"}]}};
-        initplugPath($("#announcementList")[0],"standardTableCtrl","runze",null,"POST");
+        limitCodeDeal($("*[limitCode]"),"limitCode");
+        //$("#announcementList")[0].data = {"rspBody":{"resultData":[{"annTitle":"123","createDt":"1992-01-01"},{"annTitle":"234","createDt":"1992-01-05"}]}};
+        initplugPath($("#announcementList")[0],"standardTableCtrl","/crmAnnouncement/querypageresult",null,"POST");
     });
 
     function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         $(cloneRow).find("#annTitle").on("click",function () {
-            jumpUrl("../../homePage/html-gulp-www/announceMentDetail.html?aId=" + jsonItem.aId,"0000000",0);
+            jumpUrl("../../homePage/html-gulp-www/announceMentDetail.html?aid=" + jsonItem.aid,"0000000",0);
         });
     }
 

@@ -131,7 +131,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     WHERE
     A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR} AND  A.STATE IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED')
   </select>
-
+  <!--分页查询-->
   <select id="findMillSheetByPage" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
     SELECT
     MSO.STATE,
@@ -151,13 +151,13 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     MSO.SPLIT_STATE,
     MSO.MILL_SHEET_TYPE,
     MSO.SURPLUS_BATCH,
-    MSO.ZKUNNR,
     MSO.ZKUNWE,
     MSH.ZCHEHAO,
     MSH.ZHTH,
     MSH.ZCPMC,
     MSH.ZPH,
-    MSO.SID
+    MSO.SID,
+    (select distinct name1 from MILL_CUSTOMER where KUNNR = MSO.ZKUNNR) ZKUNNR
     FROM
     WARRANTY.MILL_SHEET_HOSTS MSO
     LEFT JOIN WARRANTY.MILL_SHEET_HEAD MSH ON MSO.MILL_SHEET_NO = MSH.MILL_SHEET_NO
@@ -539,8 +539,11 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
     </if>
     <if test="updatedDt != null" >
-      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP}
+      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
     </if>
+      <if test="state != null and state != ''" >
+      STATE = #{state,jdbcType=VARCHAR}
+     </if>
     where MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -4,7 +4,12 @@
         <!--<div class="message-title">
         </div>-->
         <div class="message-content">
-            <h1 class="message-content-title">产品信息</h1>
+            <!--<h1 class="message-content-title">产品信息</h1>-->
+            <div id="searchBox">
+                <span style="margin-right: 10px;">产品名称：</span>
+                <input type="text" class="inputBase" id="condproductName">
+                <div class="btnLowNew" id="establish-Home-page" comtype="searchBtnCtrl" rule="cond" cond="condproductName" uniontableid="tableList" parentId="searchBox" limitCode="M40201">查询</div>
+            </div>
             <div class="message-content-box clearfix " id="tableList" comtype="" templateid="templateRow" reqpath="/product/info/introduct/list" reqparam="{}" method="POST" page="tcdPageCode">
                 <dl class="message-content-box__Every" id="templateRow" style="display: none;cursor: pointer;">
                     <dt class="message-content-box__picture" id="imgShow"></dt>
@@ -16,6 +21,7 @@
     </div>
 <script>
     $(function(){
+        limitCodeDeal($("*[limitCode]"),"limitCode");
         $("#tableList").attr({"comType":"standardTableCtrl","reqParam":JSON.stringify({"categoryId":GetQueryString("categoryId")})});
         document.body.jsCtrl.ctrl = $("#tableList")[0];
         document.body.jsCtrl.init();

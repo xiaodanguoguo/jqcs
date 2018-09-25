@@ -4,9 +4,24 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class CrmClaimOutInquire {
 
+    //厂家code
+    private List<String> deptCodes;
+
+    private  String parentSid;
+
+    private String claimState1;
+
+    public String getClaimState1() {
+        return claimState1;
+    }
+
+    public void setClaimState1(String claimState1) {
+        this.claimState1 = claimState1;
+    }
 
     //生产工艺过程调查
     private  String productionProcessInvestigati;
@@ -216,6 +231,17 @@ public class CrmClaimOutInquire {
     //内部调查时间
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date internalLnvestigationDate;
+
+
+
+
+    public String getParentSid() {
+        return parentSid;
+    }
+
+    public void setParentSid(String parentSid) {
+        this.parentSid = parentSid;
+    }
 
     public String getProductionProcessInvestigati() {
         return productionProcessInvestigati;

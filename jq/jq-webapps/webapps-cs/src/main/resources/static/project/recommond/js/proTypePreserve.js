@@ -21,6 +21,7 @@ function clsMethodLee$init(){
 
 }
 function clsMethodLee$parse(){
+    limitCodeDeal($("*[limitCode]"),"limitCode");
     initplugPath($("#tableList")[0],"standardEditTableCtrl",this.requestUrl.path1,null,"POST");
     this.operate();
 }
@@ -36,7 +37,6 @@ function clsMethodLee$operate(){
             $("tr[id='cloneRow']").each(function(){
                 jsonData.push(this.jsonData);
             });
-            console.log(jsonData)
             document.body.jsLee.opeType = 1;
             getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",jsonData,"saveCallBack(data)")
         }
@@ -51,7 +51,6 @@ function clsMethodLee$operate(){
             $("tr[id='cloneRow']").each(function(){
                 jsonData.push(this.jsonData);
             });
-            console.log(jsonData)
             document.body.jsLee.opeType = 2;
             getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",jsonData,"saveCallBack(data)")
         }

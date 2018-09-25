@@ -1,10 +1,10 @@
 @@include('../../commonNav/html/commonHeaderBlue.html')
 <div style="padding: 20px;">
-    <div id="searchBox" style="height: 50px;">
+    <div id="searchBox" style="height: 40px;">
         <span style="margin-right: 10px;">标题：</span>
         <input type="text" class="inputBase" id="condannTitle">
         <div class="btnLowNew" id="establish-Home-page" comtype="searchBtnCtrl" rule="cond" cond="condannTitle" uniontableid="announcementList" parentId="searchBox">查询</div>
-        <div class="btnLowNew" id="newAnn">新建</div>
+        <div class="btnLowNew" id="newAnn" limitCode="M10401">新建</div>
     </div>
     <table class="table-list" id="announcementList" style="table-layout: fixed" comType="" templateId="templateRow" page="tcdPageCode" reqPath="" reqParam="{}" method="POST" noData="nonData">
         <tr class="table-list-currentrow">
@@ -23,17 +23,17 @@
         </tr>
         <tr class="table-list-currentrow" id="templateRow" style="display: none;">
             <td class="table-list-currentrow-tdetail">
-                <span style="padding: 0 10px;" id="annTitle">1</span>
+                <span style="padding: 0 10px;" id="annTitle"></span>
             </td>
             <td class="table-list-currentrow-tdetail" style="text-align: center">
-                <span style="padding: 0 10px;" id="createName">1</span>
+                <span style="padding: 0 10px;" id="createBy"></span>
             </td>
             <td class="table-list-currentrow-tdetail" style="text-align: center">
-                <span style="padding: 0 10px;" id="createDt">1</span>
+                <span style="padding: 0 10px;" id="createDt"></span>
             </td>
             <td class="table-list-currentrow-tdetail" style="text-align: center">
-                <span class="btnLowImgCom" id="editAnn">修改</span>
-                <span class="btnLowImgCom" id="deleteAnn">删除</span>
+                <span class="btnLowImgCom" id="editAnn"  limitCode="M10402">修改</span>
+                <span class="btnLowImgCom" id="deleteAnn"  limitCode="M10404">删除</span>
             </td>
         </tr>
     </table>
@@ -45,28 +45,29 @@
 </div>
 <script>
     $(function(){
-        $("#announcementList")[0].data = {"rspBody":{"resultData":[{"annTitle":"123","createDt":"1992-01-01","createName":"发布人"},{"annTitle":"234","createDt":"1992-01-05"}]}};
-        initplugPath($("#announcementList")[0],"standardTableCtrl","runze",null,"POST");
+        limitCodeDeal($("*[limitCode]"),"limitCode");
+        //$("#announcementList")[0].data = {"rspBody":{"resultData":[{"annTitle":"123","createDt":"1992-01-01","createBy":"发布人"},{"annTitle":"234","createDt":"1992-01-05"}]}};
+        initplugPath($("#announcementList")[0],"standardTableCtrl","/crmAnnouncement/querypageresult",null,"POST");
 
         //  新建公告
         $("#newAnn").on("click",function(){
-            jumpUrl("annDetailPreserve.html","0000000",0);
+            jumpUrl("annDetailPreserve.html?jumpType=0","0000000",0);
         });
     });
 
     function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         $(cloneRow).find("#editAnn").on("click",function () {//编辑
-            jumpUrl("annDetailPreserve.html?aId=" + jsonItem.aId,"0000000",0);
+            jumpUrl("annDetailPreserve.html?jumpType=1&aid=" + jsonItem.aid,"0000000",0);
         });
         $(cloneRow).find("#deleteAnn").on("click",function () {//删除
-            getAjaxResult("runze","POST",{"aId":jsonItem.aId},"deleteCallBack(data)");
+            getAjaxResult("/crmAnnouncement/delete","POST",{"aid":jsonItem.aid},"deleteCallBack(data)");
         });
     }
 
     function deleteCallBack(data) {
         data = JSON.parse(data);
         if(data.retCode == "0000000"){
-            initplugPath($("#announcementList")[0],"standardTableCtrl","runze",null,"POST");
+            initplugPath($("#announcementList")[0],"standardTableCtrl","/crmAnnouncement/querypageresult",null,"POST");
         }
     }
 

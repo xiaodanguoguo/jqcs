@@ -720,12 +720,13 @@
 
     <if test="aCompanyId != null"> AND A_COMPANY_ID = #{aCompanyId} </if>
 
-    <!--<if test="oInfoId != null"> AND O_INFO_ID like CONCAT(#{oInfoId},'%') </if>-->
-    <if test="oInfoId != null"> AND O_INFO_ID = #{oInfoId} </if>
+    <if test="oInfoId != null"> AND O_INFO_ID like CONCAT(#{oInfoId},'%') </if>
+    <!--<if test="oInfoId != null"> AND O_INFO_ID = #{oInfoId} </if>-->
 
     <if test="oInfoName != null"> AND O_INFO_NAME = #{oInfoName} </if>
 
     <if test="acctType != null"> AND acct.ACCT_TYPE = #{acctType} </if>
+    order by acct.acct_id desc
   </select>
   
   	<select id="getAcctOrgid" parameterType="java.lang.String" resultType="java.lang.Integer">
@@ -827,6 +828,9 @@ and arp.role_id is not null )
     <include refid="Base_Column_List" />
     from acct_info
     where is_delete = 0 and status = 1
+    <if test="acctTitle != null"> AND ACCT_TITLE = #{acctTitle}</if>
+    <if test="mobilePhone != null"> AND MOBILE_PHONE = #{mobilePhone} </if>
+    <if test="email != null"> AND EMAIL = #{email} </if>
   </select>
 
 </mapper>

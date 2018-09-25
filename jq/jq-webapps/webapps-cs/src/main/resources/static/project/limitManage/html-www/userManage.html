@@ -5,8 +5,8 @@
     <div class="useMange-content">
         <div class="useMange-content-search" id="searchBox">
             <input class="fl useMange-content-search__input" id="condacctTitle" placeholder="用户名查询">
-            <div class="fl useMange-content-search__btn" comType="searchBtnCtrl" cond="condacctTitle" rule="cond" unionTableId="tableList" parentId="searchBox">搜索</div>
-            <div class="useMange-content-search__btn fl" id="userNew" style="margin-left: 10px;">新建</div>
+            <div class="fl useMange-content-search__btn" comType="searchBtnCtrl" cond="condacctTitle" rule="cond" unionTableId="tableList" parentId="searchBox" limitCode="M50201">搜索</div>
+            <div class="useMange-content-search__btn fl" id="userNew" style="margin-left: 10px;" limitCode="M50205">新建</div>
         </div>
         <table class="useMange-content-table" id="tableList" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="" method="POST" noData="nonData">
             <tr class="useMange-content-table-trow">
@@ -34,9 +34,9 @@
                     <span id="viewContent" class="useMange-contentTableContent-operate" style="width: 100%">查看</span>
                 </td>-->
                 <td class="useMange-content-table-content">
-                    <span id="disableOperate" class="useMange-contentTableContent-operate">停用</span>
-                    <span id="editOperate" class="useMange-contentTableContent-operate">编辑</span>
-                    <span id="deleteOperate" class="useMange-contentTableContent-operate">删除</span>
+                    <span id="disableOperate" class="useMange-contentTableContent-operate" limitCode="M50202">停用</span>
+                    <span id="editOperate" class="useMange-contentTableContent-operate" limitCode="M50203">编辑</span>
+                    <span id="deleteOperate" class="useMange-contentTableContent-operate" limitCode="M50204">删除</span>
                 </td>
                 <td class="useMange-content-table-content" id="orgTitle"></td>
             </tr>
@@ -65,7 +65,7 @@
                             </select>
                         </li>-->
                         <li class="userNewPopup-ulist-list">
-                            <span class="userNewPopup-ulist-list-name fl">名称</span>
+                            <span class="userNewPopup-ulist-list-name fl">用户名</span>
                             <input id="acctTitle" type="text" class="userNewPopup-ulist-list-input required isLengthOf" v_maxlength="12">
                             <span style="color: #e72d3a;">名称长度不能超过12位</span>
                         </li>
@@ -77,8 +77,8 @@
                         </li>
                         <li class="userNewPopup-ulist-list">
                             <span class="userNewPopup-ulist-list-name fl">姓名</span>
-                            <input id="name" type="text" class="userNewPopup-ulist-list-input required isLengthOf" v_maxlength="12" v_minlength="0">
-                            <span style="color: #e72d3a;">姓名长度不能超过12位</span>
+                            <input id="name" type="text" class="userNewPopup-ulist-list-input required isLengthOf" v_maxlength="50" v_minlength="0">
+                            <span style="color: #e72d3a;">姓名长度不能超过50位</span>
                         </li>
                         <li class="userNewPopup-ulist-list">
                             <span class="userNewPopup-ulist-list-name fl">手机号</span>

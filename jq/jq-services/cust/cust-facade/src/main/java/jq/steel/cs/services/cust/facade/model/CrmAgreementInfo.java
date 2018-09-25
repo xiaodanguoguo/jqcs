@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class CrmAgreementInfo {
+    //投诉内容描述
+    private String claimDesc;
 
     private String millSheetNo;
 
@@ -99,6 +101,14 @@ public class CrmAgreementInfo {
     //协议书图片地址
     private  String  claimNoUrl;
 
+
+    public String getClaimDesc() {
+        return claimDesc;
+    }
+
+    public void setClaimDesc(String claimDesc) {
+        this.claimDesc = claimDesc;
+    }
 
     public String getMillSheetNo() {
         return millSheetNo;

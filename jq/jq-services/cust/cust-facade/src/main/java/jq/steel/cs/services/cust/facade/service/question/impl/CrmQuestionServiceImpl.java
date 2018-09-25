@@ -4,7 +4,6 @@ import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.ebase.core.AssertContext;
 import com.ebase.core.cache.CacheService;
 import com.ebase.core.page.PageDTO;
-import com.ebase.core.page.PageDTOUtil;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.utils.BeanCopyUtil;
 import com.ebase.utils.DateFormatUtil;
@@ -69,50 +68,46 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
 
     @Override
     public PageDTO<CrmQuestionVO> getPage(CrmQuestionVO crmQuestionVO) {
-        try {
-            CrmQuestion crmQuestion = new CrmQuestion();
-            BeanCopyUtil.copy(crmQuestionVO, crmQuestion);
+        CrmQuestion crmQuestion = new CrmQuestion();
+        BeanCopyUtil.copy(crmQuestionVO, crmQuestion);
 
-            PageDTOUtil.startPage(crmQuestionVO);
-            crmQuestion.setCreateDtStr(DateFormatUtil.getStartDateStr(crmQuestion.getCreateDt()));
-            crmQuestion.setEndDtStr(DateFormatUtil.getEndDateStr(crmQuestion.getEndDt()));
-            List<CrmQuestion> crmQuestions = crmQuestionMapper.getList(crmQuestion);
-            PageDTO<CrmQuestion> page = PageDTOUtil.transform(crmQuestions);
-            crmQuestions = page.getResultData();
+        int count = crmQuestionMapper.getCount(crmQuestion);
+        crmQuestion.setCreateDtStr(DateFormatUtil.getStartDateStr(crmQuestion.getCreateDt()));
+        crmQuestion.setEndDtStr(DateFormatUtil.getEndDateStr(crmQuestion.getEndDt()));
+        List<CrmQuestion> crmQuestions = crmQuestionMapper.getList(crmQuestion);
 
-            if (CollectionUtils.isEmpty(crmQuestions)) {
-                PageDTO returnPage = new PageDTO<>();
-                returnPage.setResultData(new ArrayList());
-                return returnPage;
-            }
+        PageDTO<CrmQuestionVO> pageVO = new PageDTO<>(crmQuestionVO.getPageNum(), crmQuestionVO.getPageSize());
+        pageVO.setTotal(count);
 
-            List<CrmQuestionVO> result = new ArrayList<>();
-            for (CrmQuestion question : crmQuestions) {
-                CrmQuestionVO questionVO = new CrmQuestionVO();
-                BeanCopyUtil.copy(question, questionVO);
-                CrmQuestionItem crmQuestionItem = new CrmQuestionItem();
-                crmQuestionItem.setQid(question.getQid());
-                List<CrmQuestionItemVO> questionItems = crmQuestionItemMapper.getList(crmQuestionItem);
-
-                for (CrmQuestionItemVO questionItemVO : questionItems) {
-
-                    for (CrmQuestionTeamAnswerVO questionTeamAnswerVO : questionItemVO.getCrmQuestionTeamAnswerVOList()) {
-                        questionTeamAnswerVO.setQid(questionItemVO.getQid());
-                        questionTeamAnswerVO.setQuestionItemId(questionItemVO.getQuestionItemId());
-                    }
-                }
-
-                questionVO.setCrmQuestionItemVOList(questionItems);
-                result.add(questionVO);
-            }
-
-            PageDTO<CrmQuestionVO> pageVO = new PageDTO<>(page.getPageNum(), page.getPageSize());
-            pageVO.setTotal(page.getTotal());
-            pageVO.setResultData(result);
-            return pageVO;
-        } finally {
-            PageDTOUtil.endPage();
+        if (CollectionUtils.isEmpty(crmQuestions)) {
+            PageDTO returnPage = new PageDTO<>();
+            returnPage.setResultData(new ArrayList());
+            return returnPage;
         }
+
+        List<CrmQuestionVO> result = new ArrayList<>();
+        for (CrmQuestion question : crmQuestions) {
+            CrmQuestionVO questionVO = new CrmQuestionVO();
+            BeanCopyUtil.copy(question, questionVO);
+            CrmQuestionItem crmQuestionItem = new CrmQuestionItem();
+            crmQuestionItem.setQid(question.getQid());
+            List<CrmQuestionItemVO> questionItems = crmQuestionItemMapper.getList(crmQuestionItem);
+
+            for (CrmQuestionItemVO questionItemVO : questionItems) {
+
+                for (CrmQuestionTeamAnswerVO questionTeamAnswerVO : questionItemVO.getCrmQuestionTeamAnswerVOList()) {
+                    questionTeamAnswerVO.setQid(questionItemVO.getQid());
+                    questionTeamAnswerVO.setQuestionItemId(questionItemVO.getQuestionItemId());
+                }
+            }
+
+            questionVO.setCrmQuestionItemVOList(questionItems);
+            result.add(questionVO);
+        }
+
+
+        pageVO.setResultData(result);
+        return pageVO;
     }
 
     @Override
@@ -163,7 +158,7 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
                         if (QuestionStatus.NEW_CREATE.getCode().equals(crmQuestion.getQuestionStatus())) {
                             CrmQuestion question = new CrmQuestion();
                             BeanCopyUtil.copy(crmQuestionVO, question);
-                            question.setUpdateBy(AssertContext.getAcctId());
+                            question.setCreateBy(null);
                             question.setUpdateDt(new Date());
                             crmQuestionMapper.updateByPrimaryKeySelective(question);
                         }
@@ -207,7 +202,7 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
                     zeroLength--;
                 }
                 question1.setMessageNumber(date + seq);
-                question1.setCreateBy(AssertContext.getAcctId());
+                question1.setUpdateBy(null);
                 question1.setCreateDt(new Date());
                 crmQuestionMapper.insert(question1);
 
@@ -267,7 +262,7 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
         CrmQuestion crmQuestion = new CrmQuestion();
         BeanCopyUtil.copy(crmQuestionVO, crmQuestion);
         crmQuestion.setPushRegion(JsonUtil.toJson(crmQuestionVO.getPushRegions()));
-        crmQuestion.setUpdateBy(AssertContext.getAcctId());
+        crmQuestion.setCreateBy(null);
         crmQuestion.setCreateDt(new Date());
 
         CrmQuestionItem crmQuestionItem = new CrmQuestionItem();

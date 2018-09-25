@@ -213,4 +213,28 @@
     </trim>
     order by qid desc
   </select>
+
+  <select id="getCount" resultType="java.lang.Integer" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestion" >
+    select
+    count(*)
+    from CRM_QUESTION
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="questionTitle != null and questionTitle != '' " >
+        AND QUESTION_TITLE  LIKE '%' || #{questionTitle} ||'%'
+      </if>
+      <if test="pushRegion != null and pushRegion != '' " >
+        AND PUSH_REGION  LIKE '%' || #{pushRegion} ||'%'
+      </if>
+      <if test="questionStatus != null and questionStatus != '' " >
+        AND QUESTION_STATUS = #{questionStatus}
+      </if>
+      <if test="createDt != null" >
+        AND TO_CHAR (CREATE_DT, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{createDtStr}
+      </if>
+      <if test="endDt != null " >
+        AND TO_CHAR (CREATE_DT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+      </if>
+    </trim>
+    order by qid desc
+  </select>
 </mapper>

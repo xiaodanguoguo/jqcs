@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class CrmClaimApply {
+
+    private  String parentSid;
     //调查状态
     private  String inquireState;
 
@@ -149,6 +151,15 @@ public class CrmClaimApply {
 
     //异议确认量
     private  String objectionConfirmation;
+
+
+    public String getParentSid() {
+        return parentSid;
+    }
+
+    public void setParentSid(String parentSid) {
+        this.parentSid = parentSid;
+    }
 
     public String getReportPictures() {
         return reportPictures;

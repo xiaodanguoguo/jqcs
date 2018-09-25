@@ -241,7 +241,6 @@ public class RoleInfoServiceImpl implements RoleInfoService {
             acctRoleRealMapper.deleteByPrimaryKey2(roleInfo.getRoleId());
             acctOperPrivRelaMapper.deleteRoleId(roleInfo.getRoleId());
         }else if(SysPramType.UPDATE.getMsg().equals(opt)){
-            roleInfo.setUpdatedBy("修改人");
             roleInfo.setUpdatedTime(new Date());
             //修改
             AcctRoleGroupRole acctRoleGroupRole = new AcctRoleGroupRole();
@@ -264,7 +263,6 @@ public class RoleInfoServiceImpl implements RoleInfoService {
             roleInfo.setRoleId(null);
 
             roleInfo.setIsDelete(IsDelete.NO.getCode());
-            roleInfo.setCreatedBy("创建人");
             roleInfo.setCreatedTime(new Date());
             roleInfoMapper.insertSelective(roleInfo);
             //添加
@@ -297,4 +295,10 @@ public class RoleInfoServiceImpl implements RoleInfoService {
         return result;
     }
 
+    @Override
+    public List<RoleInfoVO> getRoleCodeByAcctId(String acctId) {
+        List<RoleInfo>  list = roleInfoMapper.getRoleCodeByAcctId(acctId);
+        List<RoleInfoVO> result = BeanCopyUtil.copyList(list, RoleInfoVO.class);
+        return result;
+    }
 }

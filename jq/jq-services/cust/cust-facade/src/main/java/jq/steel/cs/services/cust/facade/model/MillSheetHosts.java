@@ -9,6 +9,8 @@ import java.util.List;
 
 public class MillSheetHosts {
 
+    private Integer operationType;
+
     private  String originalCarNo;
 
     private  String contractNo;
@@ -110,6 +112,14 @@ public class MillSheetHosts {
 
     //客户名称
     private  String spiltCustomer;
+
+    public Integer getOperationType() {
+        return operationType;
+    }
+
+    public void setOperationType(Integer operationType) {
+        this.operationType = operationType;
+    }
 
     public String getProductName() {
         return productName;

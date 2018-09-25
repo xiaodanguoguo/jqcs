@@ -26,4 +26,7 @@ public interface RoleInfoService {
     RoleInfoVO keepRoleInfo(RoleInfoVO jsonRequest);
 
     String verificationDeleteRoelInfo(RoleInfoVO jsonRequest);
+
+    //查询当前用户的rolecode
+    List<RoleInfoVO> getRoleCodeByAcctId(String acctId);
 }
