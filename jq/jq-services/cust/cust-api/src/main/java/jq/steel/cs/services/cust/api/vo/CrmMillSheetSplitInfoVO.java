@@ -1,5 +1,7 @@
 package jq.steel.cs.services.cust.api.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -39,6 +41,7 @@ public class CrmMillSheetSplitInfoVO implements Serializable {
 
     private String createdBy;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date createdDt;
 
     private String updatedBy;

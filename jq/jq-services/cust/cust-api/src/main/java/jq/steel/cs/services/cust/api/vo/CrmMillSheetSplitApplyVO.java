@@ -7,8 +7,16 @@ import java.util.List;
 
 public class CrmMillSheetSplitApplyVO implements Serializable {
 
+    //规格
+    private  String specs;
+    //车号
+    private String zchehao;
+
     //
     private String millsheetType;
+
+    //产品名称
+    private String zcpmc;
 
     //送达方
     private String shipToParty;
@@ -40,7 +48,10 @@ public class CrmMillSheetSplitApplyVO implements Serializable {
 
     private String qualityCertificateType;
 
-    private String saleParty;
+    //售达方
+    //private String saleParty;
+    private String zkunnr;
+
 
     private Date creationTime;
 
@@ -68,6 +79,30 @@ public class CrmMillSheetSplitApplyVO implements Serializable {
 
     //订货单位
     private  String spiltCustomer;
+
+    public String getSpecs() {
+        return specs;
+    }
+
+    public void setSpecs(String specs) {
+        this.specs = specs;
+    }
+
+    public String getZchehao() {
+        return zchehao;
+    }
+
+    public void setZchehao(String zchehao) {
+        this.zchehao = zchehao;
+    }
+
+    public String getZcpmc() {
+        return zcpmc;
+    }
+
+    public void setZcpmc(String zcpmc) {
+        this.zcpmc = zcpmc;
+    }
 
     public String getMillsheetType() {
         return millsheetType;
@@ -221,12 +256,12 @@ public class CrmMillSheetSplitApplyVO implements Serializable {
         this.qualityCertificateType = qualityCertificateType;
     }
 
-    public String getSaleParty() {
-        return saleParty;
+    public String getZkunnr() {
+        return zkunnr;
     }
 
-    public void setSaleParty(String saleParty) {
-        this.saleParty = saleParty;
+    public void setZkunnr(String zkunnr) {
+        this.zkunnr = zkunnr;
     }
 
     public Date getCreationTime() {

@@ -95,7 +95,7 @@ SPLIT_APPLY_ID = #{splitApplyId,jdbcType=NUMERIC}
       <if test="fatherMillsheetNo != null" >
         FATHER_MILLSHEET_NO,
       </if>
-      <if test="millSheetType != null" >
+      <if test="millsheetType != null" >
         QUALITY_CERTIFICATE_TYPE,
       </if>
       <if test="zkunnr != null" >
@@ -104,7 +104,7 @@ SPLIT_APPLY_ID = #{splitApplyId,jdbcType=NUMERIC}
       <if test="creationTime != null" >
         CREATION_TIME,
       </if>
-      <if test="zlph != null" >
+      <if test="zcharg != null" >
         FURNACE_NUMBER,
       </if>
       <if test="zjishu != null" >
@@ -151,8 +151,8 @@ SPLIT_APPLY_ID = #{splitApplyId,jdbcType=NUMERIC}
       <if test="fatherMillsheetNo != null" >
         #{fatherMillsheetNo,jdbcType=VARCHAR},
       </if>
-      <if test="millSheetType != null" >
-        #{millSheetType,jdbcType=VARCHAR},
+      <if test="millsheetType != null" >
+        #{millsheetType,jdbcType=VARCHAR},
       </if>
       <if test="zkunnr != null" >
         #{zkunnr,jdbcType=VARCHAR},
@@ -160,8 +160,8 @@ SPLIT_APPLY_ID = #{splitApplyId,jdbcType=NUMERIC}
       <if test="creationTime != null" >
         #{creationTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="zlph != null" >
-        #{zlph,jdbcType=VARCHAR},
+      <if test="zcharg != null" >
+        #{zcharg,jdbcType=VARCHAR},
       </if>
       <if test="zjishu != null" >
         #{zjishu,jdbcType=NUMERIC},
