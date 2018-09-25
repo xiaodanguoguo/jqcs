@@ -24,4 +24,6 @@ public interface CrmQuestionMapper {
     List<CrmQuestion> getQuestionList(CrmQuestion crmQuestion);
 
     int getCount(CrmQuestion crmQuestion);
+
+    int updateStatusBySchedu(CrmQuestion crmQuestion);
 }

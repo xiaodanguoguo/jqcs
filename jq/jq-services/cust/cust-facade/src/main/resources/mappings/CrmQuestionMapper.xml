@@ -237,4 +237,10 @@
     </trim>
     order by qid desc
   </select>
+  <update id="updateStatusBySchedu" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestion" >
+    update CRM_QUESTION
+    set
+      QUESTION_STATUS = '3'
+    where TO_CHAR (END_DT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+  </update>
 </mapper>

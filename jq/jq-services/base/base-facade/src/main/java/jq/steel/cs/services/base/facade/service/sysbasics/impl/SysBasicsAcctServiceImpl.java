@@ -878,23 +878,27 @@ public PageDTO<AcctInfoVO> listSysAcct(JsonRequest<AcctInfoVO> jsonRequest)throw
     @Override
     public ServiceResponse<Integer> updateAcctInfo(AcctInfoVO acctInfoVO) {
         ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
+        if (null == acctInfoVO.getAcctId()) {
+            serviceResponse.setResponseCode("0000001");
+            return serviceResponse;
+        }
         AcctInfo acctInfo = new AcctInfo();
         BeanCopyUtil.copy(acctInfoVO, acctInfo);
         List<AcctInfo> list = acctInfoMapper.selectAll(acctInfo);
         if (CollectionUtils.isNotEmpty(list)) {
             for (AcctInfo acctInfo1 : list) {
-                if (!acctInfo1.getAcctId().equals(acctInfoVO.getAcctId()) && acctInfoVO.getAcctTitle().equals(acctInfo1.getAcctTitle())) {
-                    serviceResponse.setRetCode("0701006");
+                if ((!acctInfo1.getAcctId().equals(acctInfoVO.getAcctId())) && acctInfoVO.getAcctTitle().equals(acctInfo1.getAcctTitle())) {
+                    serviceResponse.setResponseCode("0701006");
                     return serviceResponse;
                 }
 
-                if (!acctInfo1.getAcctId().equals(acctInfoVO.getAcctId()) && acctInfoVO.getEmail().equals(acctInfo1.getEmail())) {
-                    serviceResponse.setRetCode("0401004");
+                if ((!acctInfo1.getAcctId().equals(acctInfoVO.getAcctId())) && acctInfoVO.getEmail().equals(acctInfo1.getEmail())) {
+                    serviceResponse.setResponseCode("0401004");
                     return serviceResponse;
                 }
 
-                if (!acctInfo1.getAcctId().equals(acctInfoVO.getAcctId()) && acctInfoVO.getMobilePhone().equals(acctInfo1.getMobilePhone())) {
-                    serviceResponse.setRetCode("0401005");
+                if ((!acctInfo1.getAcctId().equals(acctInfoVO.getAcctId())) && acctInfoVO.getMobilePhone().equals(acctInfo1.getMobilePhone())) {
+                    serviceResponse.setResponseCode("0401005");
                     return serviceResponse;
                 }
             }
