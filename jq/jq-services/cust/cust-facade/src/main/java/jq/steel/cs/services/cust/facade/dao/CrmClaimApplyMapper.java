@@ -35,4 +35,7 @@ public interface CrmClaimApplyMapper {
     List<CrmClaimApply> findTiBaoByPage(CrmClaimApply crmClaimApply);
 
     List<CrmClaimApply> findgenzongByPage(CrmClaimApply crmClaimApply);
+
+    // 判断此条异议是否为已评价状态
+    CrmClaimApply getByClaimNo(String claimNo);
 }

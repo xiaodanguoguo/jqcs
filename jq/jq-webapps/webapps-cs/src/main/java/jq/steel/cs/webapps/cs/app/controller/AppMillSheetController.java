@@ -7,6 +7,7 @@ import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
 import jq.steel.cs.services.cust.api.controller.MillSheetHostsAPI;
+import jq.steel.cs.services.cust.api.vo.MillSheetDownloadVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.webapps.cs.controller.file.UploadConfig;
 import net.bytebuddy.agent.builder.AgentBuilder;
@@ -34,57 +35,36 @@ public class AppMillSheetController {
      * @return
      */
     @RequestMapping(value = "/downFile", method = RequestMethod.POST)
-    public JsonResponse<List<MillSheetHostsVO>> downFile(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest) {
+    public JsonResponse<MillSheetDownloadVO> downFile(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest) {
 
-        JsonResponse<List<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
-        JsonRequest<List<String>> jsonRequestListStr = new JsonRequest<>();
-       List<String> listStr= new ArrayList<>();
-        jsonRequestListStr.setReqBody(listStr);
+        JsonResponse<MillSheetDownloadVO> jsrp = new JsonResponse<>();
+        if(jsonRequest == null
+                || jsonRequest.getReqBody().getMillSheetNo() == null
+                || "".equals(jsonRequest.getReqBody().getMillSheetNo())){
+            jsrp.setRetCode("非法操作");
+            return jsrp;
+        }
         try {
-            String orgName = AssertContext.getOrgName();
-            String orgCode = AssertContext.getOrgCode();
-
-            String millSheetNo = jsonRequest.getReqBody().getMillSheetNo();
-            List<String> strs = new ArrayList<>();
-            strs.add(millSheetNo);
-            jsonRequestListStr.setReqBody(strs);
-            ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.downFile(jsonRequestListStr);
-
-            List<MillSheetHostsVO> list2 = new ArrayList<>();
-            jsonResponse.setRspBody(list2);
-
-            if (serviceResponse.getRetContent().size() > 1) {
-
-                for (MillSheetHostsVO millSheetHostsVO : serviceResponse.getRetContent()) {
-                    String createPdfPath = uploadConfig.getDomain();
-                    String millSheetPathB = millSheetHostsVO.getMillSheetPath();
-                    String url = createPdfPath + millSheetPathB;
-                    millSheetHostsVO.setMillSheetUrl(url);
-                    list2.add(millSheetHostsVO);
-                    /*String millSheetName =  millSheetHostsVO.getMillSheetName();
-                String millSheetUrl = serviceResponse.getRetContent().get(0).getMillSheetUrl();*/
+            ServiceResponse<MillSheetHostsVO> srpVO = millSheetHostsAPI.downloadForApp(jsonRequest);
+            MillSheetHostsVO vo = srpVO.getRetContent();
+            String millSheetUrl = vo.getMillSheetUrl();
+            String millSheetName = vo.getMillSheetName();
+            MillSheetDownloadVO downloadVO = new MillSheetDownloadVO();
+            if(millSheetUrl == null){
+                downloadVO.setMillSheetPath(uploadConfig.getDomain()+"/"+uploadConfig.getPathPattern()+"/"+millSheetName);
+            }else {
+                downloadVO.setMillSheetPath(uploadConfig.getDomain()+"/"+uploadConfig.getPathPattern()+millSheetUrl+"/"+millSheetName);
             }
-                return jsonResponse;
-            } else {
-                //单个文件下载
-                List<MillSheetHostsVO> list1 = serviceResponse.getRetContent();
-                String createPdfPath = uploadConfig.getDomain();
-                MillSheetHostsVO vo = list1.get(0);
-                String millSheetPathA = vo.getMillSheetPath();
-                String url = createPdfPath + millSheetPathA;
-                vo.setMillSheetUrl(url);
-                jsonResponse.setRspBody(list1);
-
-                String millSheetUrl = serviceResponse.getRetContent().get(0).getMillSheetUrl();
-
-                return jsonResponse;
-            }
+            jsrp.setRspBody(downloadVO);
+            jsrp.setRetCode(JsonResponse.SUCCESS);
+            return jsrp;
         } catch (BusinessException e) {
             logger.error("下载报错", e);
-            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+            jsrp.setRetCode(JsonResponse.SYS_EXCEPTION);
             e.printStackTrace();
+            return jsrp;
         }
-        return jsonResponse;
+        /*sheetHostsVO.setMillSheetPath(uploadConfig.getDomain()+"/"+uploadConfig.getPathPattern()+"/xxx.pdf");
+        sheetHostsVO.setMillSheetPath("http://192.168.1.109:20183/res/xxx.pdf");*/
     }
-
 }

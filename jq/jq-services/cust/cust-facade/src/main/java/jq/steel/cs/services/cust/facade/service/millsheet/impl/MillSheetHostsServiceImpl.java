@@ -2,6 +2,7 @@ package jq.steel.cs.services.cust.facade.service.millsheet.impl;
 
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.page.PageDTOUtil;
+import com.ebase.core.web.json.JsonRequest;
 import com.ebase.utils.BeanCopyUtil;
 import com.ebase.utils.DateFormatUtil;
 import com.raqsoft.dm.IFile;
@@ -191,5 +192,15 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             BeanCopyUtil.copy(millSheetHosts,millSheetHostsVO);
         }
         return millSheetHostsVO;
+    }
+
+
+    //返回app端质证书下载路径
+    public MillSheetHostsVO getUrlForApp(JsonRequest<MillSheetHostsVO> jsonRequest) {
+        String millSheetNo = jsonRequest.getReqBody().getMillSheetNo();
+       MillSheetHosts millSheetHosts = millSheetHostsMapper.getUrlForApp(millSheetNo);
+        MillSheetHostsVO vo = new MillSheetHostsVO();
+        BeanCopyUtil.copy(millSheetHosts,vo);
+        return vo;
     }
 }

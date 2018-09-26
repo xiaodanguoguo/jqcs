@@ -769,5 +769,15 @@
     </trim>
   </select>
 
+  <!--根据ClaimNo查询-->
+  <select id="getByCaimNo">
+    select CLAIM_STATE
+    from CRM_CLAIM_INFO
+    <trim prefix="where" prefixOverrides="AND | OR">
+      <if test="claimState != null and claimState != ''">
+        and CLAIM_STATE = #{claimState}
+      </if>
+    </trim>
+  </select>
 
 </mapper>

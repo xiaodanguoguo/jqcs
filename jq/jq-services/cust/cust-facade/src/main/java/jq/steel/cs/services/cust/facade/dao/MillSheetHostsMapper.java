@@ -26,4 +26,6 @@ public interface MillSheetHostsMapper {
 
     List<MillSheetHosts> findDeptCode(MillSheetHosts record);
 
+    //返回app端质证书下载路径
+    MillSheetHosts getUrlForApp(String millSheetNo);
 }

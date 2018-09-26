@@ -58,4 +58,11 @@ public interface MillSheetHostsAPI {
     @RequestMapping(value = "/millsheet/findIsTrue",method = RequestMethod.POST)
     ServiceResponse<MillSheetHostsVO> findIsTrue(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest);
 
+    /**
+     *
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/millsheet/downloadForApp")
+    public ServiceResponse<MillSheetHostsVO> downloadForApp(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest);
 }

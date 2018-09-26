@@ -937,4 +937,15 @@
       </choose>
     </trim>
   </select>
+
+  <!--根据claimNo查询-->
+  <select id="getByClaimNo">
+    select CLAIM_STATE
+    from CRM_CLAIM_APPLY
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="claimNo != null and claimNo != ''" >
+        AND CLAIM_NO = #{claimNo}
+      </if>
+    </trim>
+  </select>
 </mapper>

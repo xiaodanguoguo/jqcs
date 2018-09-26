@@ -29,4 +29,6 @@ public interface CrmClaimInfoMapper {
 
     CrmClaimInfo  findByParams(CrmClaimInfo record);
 
+    //判断此条异议是否为已评价状态
+    CrmClaimInfo getByCaimNo(String claimNo);
 }

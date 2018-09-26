@@ -1,6 +1,7 @@
 package jq.steel.cs.services.cust.facade.service.millsheet;
 
 import com.ebase.core.page.PageDTO;
+import com.ebase.core.web.json.JsonRequest;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,4 +20,6 @@ public interface MillSheetHostsService {
     //查询是否有质证书编号
     MillSheetHostsVO findIsTrue(MillSheetHostsVO millSheetHostsVO);
 
+    //返回app端质证书下载路径
+    MillSheetHostsVO getUrlForApp(JsonRequest<MillSheetHostsVO> jsonRequest);
 }

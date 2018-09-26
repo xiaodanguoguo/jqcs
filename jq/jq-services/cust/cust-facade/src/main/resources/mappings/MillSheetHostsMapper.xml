@@ -548,4 +548,11 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
      </if>
     where MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
   </update>
+
+  <!---->
+  <select id="getUrlForApp" resultMap="BaseResultMap">
+    select MILL_SHEET_URL , MILL_SHEET_NAME
+    from MILL_SHEET_HOSTS
+    where MILL_SHEET_NO = #{millSheetNo}
+  </select>
 </mapper>

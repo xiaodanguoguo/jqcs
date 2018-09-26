@@ -1,6 +1,5 @@
 package jq.steel.cs.services.cust.facade.service.objection.impl;
 
-import com.ebase.core.AssertContext;
 import com.ebase.utils.BeanCopyUtil;
 import jq.steel.cs.services.cust.api.vo.CrmClaimCommentsVO;
 import jq.steel.cs.services.cust.facade.dao.CrmClaimApplyMapper;
@@ -30,6 +29,16 @@ public class CrmClaimCommentsServiceImpl implements CrmClaimCommentsService {
 
     @Override
     public Integer evaluate(CrmClaimCommentsVO crmClaimCommentsVO) {
+        //如果这条数据是已评价的状态就不能再评价了
+        CrmClaimApply apply = crmClaimApplyMapper.getByClaimNo(crmClaimCommentsVO.getClaimNo());
+        CrmClaimInfo info  = crmClaimInfoMapper.getByCaimNo(crmClaimCommentsVO.getClaimNo());
+        if(apply != null && info != null ){
+            if(!("EVALUATE".equals(apply.getClaimState())) || !("EVALUATE".equals(info.getClaimState()))){
+                return 0;
+            }
+        }
+
+        //否则新增评价状态
         CrmClaimComments crmClaimComments = BeanCopyUtil.copy(crmClaimCommentsVO, CrmClaimComments.class);
         crmClaimComments.setCreateBy(crmClaimCommentsVO.getOrgCode());
         crmClaimComments.setCreateDt(new Date());

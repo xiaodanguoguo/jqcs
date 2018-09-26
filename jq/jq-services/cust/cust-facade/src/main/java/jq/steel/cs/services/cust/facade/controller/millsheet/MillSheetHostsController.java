@@ -5,8 +5,11 @@ import com.ebase.core.exception.BusinessException;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
+import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
+import jq.steel.cs.services.cust.api.vo.MillSheetDownloadVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
+import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
 import jq.steel.cs.services.cust.facade.service.millsheet.MillSheetHostsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -123,4 +126,15 @@ public class MillSheetHostsController {
         }
         return  serviceResponse;
     }
+
+
+    //返回app端质证书下载路径
+    @RequestMapping(value = "/downloadForApp" , method = RequestMethod.POST)
+    public ServiceResponse<MillSheetHostsVO> downloadForApp(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest){
+        MillSheetHostsVO vo = millSheetHostsService.getUrlForApp(jsonRequest);
+        ServiceResponse<MillSheetHostsVO> srp = new ServiceResponse<>();
+        srp.setRetContent(vo);
+        return srp;
+    }
+
 }
