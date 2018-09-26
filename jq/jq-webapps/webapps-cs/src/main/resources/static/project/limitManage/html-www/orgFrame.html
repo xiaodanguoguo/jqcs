@@ -10,6 +10,9 @@
         width:157px !important;
         margin-left:0px !important;
     }
+    #addReInpDiv .chosen-container{
+        margin-top: 2px;
+    }
 </style>
 <script>
     function tissueAdmin(){
@@ -52,7 +55,7 @@
         var _this=this;
         //点击添加客户调用的接口
         $("#addTissue").on("click",function(){
-            openWin('350', '600', 'inputAnswer', true);
+            openWin('350', '450', 'inputAnswer', true);
             $("#addReInp").val("");
             initValidate($("#addReInpDiv")[0]);
             _this.newCom=0;
@@ -134,10 +137,10 @@
             $("#inputAnswer #tel").val("");
             $("#inputAnswer #addr").val("");
             $("#stateInp").attr("checked",false);
-            $("#inputAnswer h2").text("新增客户");
+            $("#inputAnswer h2").text("新增组织");
             $("#orgType").attr("initValue","").trigger('chosen:updated');
             if(_this.rank){
-                openWin('350', '600', 'inputAnswer', true);
+                openWin('350', '450', 'inputAnswer', true);
             }else{
                 document.body.docT.alertBox.Alert("请先选择客户","提示")
             }
@@ -163,7 +166,7 @@
             if(_this.rank==1){
                 document.body.docT.alertBox.Alert("不可以修改根目录","提示")
             }else if(_this.rank==2){
-                openWin('350', '600', 'inputAnswer', true);
+                openWin('350', '450', 'inputAnswer', true);
             }else{
                 document.body.docT.alertBox.Alert("请先选择客户","提示")
             }
@@ -523,7 +526,7 @@
 </div>
 <div id="inputAnswer" class="popup gc_box" style="display:none">
     <div class="title" style="">
-        <h2>新增客户</h2>
+        <h2>新增组织</h2>
         <div>
             <a class="min" href="javascript:;" title="最小化" style="display:none;"></a>
             <a class="max" href="javascript:;" title="最大化" style="display:none;"></a>

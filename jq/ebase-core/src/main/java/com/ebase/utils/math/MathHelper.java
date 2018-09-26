@@ -17,25 +17,33 @@ public class MathHelper {
 	 * @return
 	 */
 	public static String add(String numStr) {
-		StringBuilder result = new StringBuilder(numStr.substring(0, numStr.length() - 3));
+		StringBuilder result = new StringBuilder(numStr.substring(0, numStr.length() - 4));
 //		String begin = ;
-		String last = numStr.substring(numStr.length() - 3);
+		String last = numStr.substring(numStr.length() - 4);
 		char[] charArray = last.toCharArray();
-		char hundredPlace = charArray[0];
-		char tenPlace = charArray[1];
-		char theUnit = charArray[2];
+		char thousandPlace = charArray[0];
+		char hundredPlace = charArray[1];
+		char tenPlace = charArray[2];
+		char theUnit = charArray[3];
 		if (theUnit == '9') {
 			theUnit = '0';
 			if (tenPlace == '9') {
 				tenPlace = '0';
-				hundredPlace++;
+				if (hundredPlace == '9') {
+					hundredPlace = '0';
+					thousandPlace++;
+				} else {
+					hundredPlace++;
+				}
 			} else
 				tenPlace++;
 		} else 
 			theUnit++;
-		result.append(hundredPlace).append(tenPlace).append(theUnit);
+
+		result.append(thousandPlace).append(hundredPlace).append(tenPlace).append(theUnit);
 		return result.toString();
 	}
+
 	
 	/**
 	 * 加法运算

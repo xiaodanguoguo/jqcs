@@ -19,8 +19,10 @@ import jq.steel.cs.services.base.api.vo.MessageVO;
 import jq.steel.cs.services.base.facade.common.IsDelete;
 import jq.steel.cs.services.base.facade.common.Status;
 import jq.steel.cs.services.base.facade.dao.AcctInfoMapper;
+import jq.steel.cs.services.base.facade.dao.AcctRoleRealMapper;
 import jq.steel.cs.services.base.facade.dao.OrgInfoMapper;
 import jq.steel.cs.services.base.facade.model.AcctInfo;
+import jq.steel.cs.services.base.facade.model.AcctRoleReal;
 import jq.steel.cs.services.base.facade.model.OrgInfo;
 import jq.steel.cs.services.base.facade.service.message.MessageService;
 import jq.steel.cs.services.base.facade.service.sysbasics.FunctionManageService;
@@ -33,6 +35,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +48,7 @@ public class AcctServiceImpl implements AcctService {
 
     private static Logger LOG = LoggerFactory.getLogger(AcctServiceImpl.class);
 
-    private static String AUDIT_CUST = "100";
+    private static String AUDIT_CUST = "1000";
 
     private static String CODE = "jgzc";
 
@@ -58,6 +61,9 @@ public class AcctServiceImpl implements AcctService {
 
     @Autowired
     private AcctInfoMapper acctInfoMapper;
+
+    @Autowired
+    private AcctRoleRealMapper acctRoleRealMapper;
 
     @Autowired
     private OrgInfoMapper orgInfoMapper;
@@ -137,8 +143,8 @@ public class AcctServiceImpl implements AcctService {
         Long code = orgInfoMapper.getCode();
         String orgCode = code.toString();
         int zeroLength = 0;
-        if(orgCode.length() < 9) {
-            zeroLength = 9 - orgCode.length();
+        if(orgCode.length() < 12) {
+            zeroLength = 12 - orgCode.length();
         }
         while (zeroLength > 0) {
             orgCode = "0" + orgCode;
@@ -146,7 +152,7 @@ public class AcctServiceImpl implements AcctService {
         }
 
         orgInfo = new OrgInfo();
-        orgInfo.setOrgCode("C100" + orgCode);
+        orgInfo.setOrgCode("C1000" + orgCode);
         orgInfo.setId(AUDIT_CUST + orgCode);
         orgInfo.setOrgName(acctInfoVO.getCompanyName());
         orgInfo.setParentId(AUDIT_CUST);
@@ -157,10 +163,19 @@ public class AcctServiceImpl implements AcctService {
         Long i = orgInfoMapper.insertOrgInfo(orgInfo);
 
         acctInfo.setoInfoId(AUDIT_CUST + orgCode);
-        acctInfo.setAcctType(1L);//  管理员
-        acctInfo.setStatus(Byte.valueOf(Status.HOLD_AUDIT.getCode()));
+        acctInfo.setAcctType(2L);//  普通用户
+        acctInfo.setIsDelete(Byte.valueOf(IsDelete.NO.getCode()));
+        acctInfo.setStatus(Byte.valueOf(Status.START.getCode()));
         acctInfo.setName(acctInfoVO.getCompanyName());
         int count =  acctInfoMapper.insertSelective(acctInfo);
+
+        //添加角色关系
+        AcctRoleReal acctRoleReal = new AcctRoleReal();
+        acctRoleReal.setAcctId(acctInfo.getAcctId());
+        acctRoleReal.setRoleId(72L);
+        acctRoleReal.setStatus(Byte.valueOf("1"));
+        acctRoleReal.setCreatedTime(new Date());
+        int I = acctRoleRealMapper.insertSelective(acctRoleReal);
 
         // 发邮件
         MessageVO messageVO = new MessageVO();
@@ -219,12 +234,6 @@ public class AcctServiceImpl implements AcctService {
             if (acctInfo.getIsDelete().toString().equals(IsDelete.YES.getCode())) {
                 response.setResponseCode("0701004");
                 response.setRetMessage("账号已被禁用，该账户不可用");
-                return response;
-            }
-
-            if (acctInfo.getStatus().toString().equals(Status.STOP.getCode())) {
-                response.setResponseCode("0701005");
-                response.setRetMessage("账号未激活，该账户不可用");
                 return response;
             }
 
@@ -393,7 +402,7 @@ public class AcctServiceImpl implements AcctService {
         StringBuilder result = new StringBuilder(orgCode);
         String orgInfoId = orgInfoMapper.getOrgInfoId(orgCode);
         if (StringHelper.isBlank(orgInfoId))
-            orgInfoId = result.append("101").toString();
+            orgInfoId = result.append("1001").toString();
         else
             orgInfoId = MathHelper.add(orgInfoId);
         return orgInfoId;
