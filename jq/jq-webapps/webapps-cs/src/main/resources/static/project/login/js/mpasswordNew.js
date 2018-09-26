@@ -88,7 +88,7 @@ function submitCallBack(data){//修改密码成功接口返回
     if(data.retCode == "0000000"){
         var alertBox=new clsAlertBoxCtrl();
         alertBox.Alert("修改密码成功","成功提示",1,"","passwordTip");
-        jumpUrl("login.html","0000000",0);
+        jumpUrl("../../../login.html","0000000",0);
     }/*else {
         var alertBox=new clsAlertBoxCtrl();
         alertBox.Alert(data.retDesc,"失败提示",1,"","passwordErrTip");

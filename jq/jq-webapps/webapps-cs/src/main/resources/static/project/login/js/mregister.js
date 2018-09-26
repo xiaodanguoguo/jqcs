@@ -212,7 +212,7 @@ function initTabBox(dom){//tab切换，初始化页面
 function clsAlertBoxCtrl$sure() {//注册成功弹框确定，跳转页面
     if (this.id == "registerTip") {//注册成功
         closePopupWin();
-        jumpUrl("login.html","0000000",0);
+        jumpUrl("../../../login.html","0000000",0);
     }else if(this.id == "registerErrTip"){
         closePopupWin();
     }
