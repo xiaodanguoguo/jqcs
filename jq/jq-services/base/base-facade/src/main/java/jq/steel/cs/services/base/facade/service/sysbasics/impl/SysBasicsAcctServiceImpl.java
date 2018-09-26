@@ -802,7 +802,7 @@ public PageDTO<AcctInfoVO> listSysAcct(JsonRequest<AcctInfoVO> jsonRequest)throw
         //前端需要把树改成List结构渲染
         List<OrgInfoVO> orgList = new ArrayList<>();
         if(!CollectionUtils.isEmpty(list1)) {
-            copyOrgByTree(orgInfoVO, acctInfo.getOrgInfo(), orgList);
+            getParentToCurrent(orgInfoVO, acctInfo.getOrgInfo(), orgList, acctInfoVO.getOrgId());
         }
         acctInfoVO1.setOrgInfo(orgInfoVO);
         acctInfoVO1.setOrgArr(orgList);
@@ -830,6 +830,31 @@ public PageDTO<AcctInfoVO> listSysAcct(JsonRequest<AcctInfoVO> jsonRequest)throw
 
             if (parent != null) {
                 OrgInfoVO parentVO = copyOrgByTree(new OrgInfoVO(), parent, orgList);
+                orgInfoVO.setParent(parentVO);
+                orgList.add(parentVO);
+            }
+            return orgInfoVO;
+        }
+    }
+
+    private OrgInfoVO getParentToCurrent(OrgInfoVO orgInfoVO, OrgInfo orgInfo, List<OrgInfoVO> orgList, String currentOrgId) {
+        BeanCopyUtil.copy(orgInfo, orgInfoVO);
+        if (StringUtils.isEmpty(orgInfo)) {
+            OrgInfoVO orgInfoVO1=new OrgInfoVO();
+            return orgInfoVO1;
+        }else {
+            OrgInfo parent = orgInfo.getParent();
+
+            if (parent != null && parent.getId().equals(currentOrgId)) {
+                OrgInfoVO result = new OrgInfoVO();
+                BeanCopyUtil.copy(parent, result);
+                orgInfoVO.setParent(result);
+                orgList.add(result);
+                return orgInfoVO;
+            }
+
+            if (parent != null) {
+                OrgInfoVO parentVO = getParentToCurrent(new OrgInfoVO(), parent, orgList, currentOrgId);
                 orgInfoVO.setParent(parentVO);
                 orgList.add(parentVO);
             }
