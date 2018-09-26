@@ -202,15 +202,19 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
             case "INSTART":
                 $(cloneRow).find("#inquireStateA").html("内部调查开始");
                 $(cloneRow).find("#researchInOpe").show();
+                $(cloneRow).find("#downloadOutOpe").show();
                 break;
             case "INEND":
                 $(cloneRow).find("#inquireStateA").html("内部调查结束");
                 $(cloneRow).find("#rejectOpe").show();
                 $(cloneRow).find("#downloadInOpe").show();
+                $(cloneRow).find("#downloadOutOpe").show();
                 break;
             case "CONFIRM":
                 $(cloneRow).find("#inquireStateA").html("已确认");
                 $(cloneRow).find("#rejectOpe").show();
+                $(cloneRow).find("#downloadInOpe").show();
+                $(cloneRow).find("#downloadOutOpe").show();
                 break;
             default:
                 $(cloneRow).find("#inquireStateA").html("");

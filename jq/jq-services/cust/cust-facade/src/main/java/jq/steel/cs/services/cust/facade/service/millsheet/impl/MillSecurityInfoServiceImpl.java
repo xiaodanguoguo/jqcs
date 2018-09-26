@@ -77,7 +77,7 @@ public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
     public MillSecurityInfoVO fuJian(MillSecurityInfoVO millSecurityInfoVO, HttpServletRequest request) {
         MillSecurityInfo millSecurityInfo = new MillSecurityInfo();
         BeanCopyUtil.copy(millSecurityInfoVO,millSecurityInfo);
-        PfxSignShell signShell = new PfxSignShell(); // 验证PDF文件内的签名是否有效
+       /* PfxSignShell signShell = new PfxSignShell(); // 验证PDF文件内的签名是否有效
         String url = millSecurityInfo.getFileUrl();
         if(signShell.verifySign(url)){
             signShell.close();
@@ -90,7 +90,7 @@ public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
             millSecurityInfo.setExplain("文档内签名有效");
         }else {
             millSecurityInfo.setExplain("文档内签名被篡改");
-        }
+        }*/
         BeanCopyUtil.copy(millSecurityInfo,millSecurityInfoVO);
         return millSecurityInfoVO;
     }

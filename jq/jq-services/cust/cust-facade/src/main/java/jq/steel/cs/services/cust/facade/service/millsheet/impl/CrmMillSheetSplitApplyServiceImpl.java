@@ -70,16 +70,25 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         String newMillSheetNo= A + millSheetNo+ "";
         crmMillSheetSplitApply1.setMillsheetNo(newMillSheetNo);
         crmMillSheetSplitApply1.setFatherMillsheetNo(crmMillSheetSplitInfoList.get(0).getMillsheetNo());
-        crmMillSheetSplitApply1.setMillSheetType(crmMillSheetSplitInfoList.get(0).getMillSheetType());
-        crmMillSheetSplitApply1.setSaleParty(crmMillSheetSplitInfoList.get(0).getSaleParty());
+        crmMillSheetSplitApply1.setMillsheetType(crmMillSheetSplitInfoList.get(0).getMillsheetType());
+        crmMillSheetSplitApply1.setCreationTime(crmMillSheetSplitInfoList.get(0).getCreatedDt());
+        crmMillSheetSplitApply1.setZkunnr(crmMillSheetSplitInfoList.get(0).getZkunnr());
+        crmMillSheetSplitApply1.setZcpmc(crmMillSheetSplitInfoList.get(0).getZcpmc());
+        crmMillSheetSplitApply1.setSpiltCustomer(crmMillSheetSplitInfoList.get(0).getSpiltCustomer());
         crmMillSheetSplitApplyMapper.insertSelective(crmMillSheetSplitApply1);
         //添加明细表数据
         for (CrmMillSheetSplitInfo crmMillSheetSplitInfo:crmMillSheetSplitInfoList){
-            crmMillSheetSplitInfo.setCreatedBy(AssertContext.getAcctName());
-            crmMillSheetSplitInfo.setCreatedDt(new Date());
             crmMillSheetSplitInfo.setSplitApplyId(crmMillSheetSplitApply1.getSplitApplyId());
             crmMillSheetSplitInfo.setMillsheetNo(newMillSheetNo);
             crmMillSheetSplitInfo.setFatherMillsheetNo(crmMillSheetSplitInfo.getMillsheetNo());
+            crmMillSheetSplitInfo.setMillsheetType(crmMillSheetSplitInfo.getMillsheetType());
+            crmMillSheetSplitInfo.setZkunnr(crmMillSheetSplitInfo.getZkunnr());
+            crmMillSheetSplitInfo.setCreationTime(crmMillSheetSplitInfo.getCreatedDt());
+            crmMillSheetSplitInfo.setCreatedDt(new Date());
+            crmMillSheetSplitInfo.setCreatedBy(AssertContext.getAcctName());
+            crmMillSheetSplitInfo.setZcpmc(crmMillSheetSplitInfo.getZcpmc());
+            crmMillSheetSplitInfo.setSpecs(crmMillSheetSplitInfo.getSpecs());
+            crmMillSheetSplitInfo.setZchehao(crmMillSheetSplitInfo.getZchehao());
             crmMillSheetSplitInfoMapper.insertSelective(crmMillSheetSplitInfo);
             //调用存储过程
            Map<String,Object> map = new HashMap<String,Object>();

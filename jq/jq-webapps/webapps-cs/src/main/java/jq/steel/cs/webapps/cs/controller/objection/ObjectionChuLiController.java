@@ -224,7 +224,7 @@ public class ObjectionChuLiController {
     public JsonResponse<ObjectionChuLiVO> preview(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
         logger.info("参数", JsonUtil.toJson(jsonRequest));
         CreatePdf createPdf = new CreatePdf();
-        String domain = uploadConfig.getDomain();
+        String pathPattern = uploadConfig.getPathPattern();
         JsonResponse<ObjectionChuLiVO>  jsonResponse = new JsonResponse<>();
         String createPdfPath = uploadConfig.getReportUrl();
         jsonRequest.getReqBody().setReport(createPdfPath);
@@ -237,13 +237,15 @@ public class ObjectionChuLiController {
                 //report = uploadConfig.getDomain() +"/"+serviceResponse.getRetContent().getReport();
                 String  pdfName = jsonRequest.getReqBody().getClaimNo() + "S.pdf";
                 String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,jsonRequest.getReqBody().getReport(),pdfName,"shoulidan");
-                report =domain+ report1;
+                report =uploadConfig.getDomain()+pathPattern + uploadConfig.getReportUrl() + report1;
             }else if(jsonRequest.getReqBody().getTemplateType()==6){
                 String  pdfName = jsonRequest.getReqBody().getClaimNo() + "X.pdf";
-                report = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,jsonRequest.getReqBody().getReport(),pdfName,"xieyishu");
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,jsonRequest.getReqBody().getReport(),pdfName,"xieyishu");
+                report =uploadConfig.getDomain()+pathPattern + uploadConfig.getReportUrl() + report1;
             }else if(jsonRequest.getReqBody().getTemplateType()==7){
                 String  pdfName = jsonRequest.getReqBody().getClaimNo() + "T.pdf";
-                report = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,jsonRequest.getReqBody().getReport(),pdfName,"tongzhidan");
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,jsonRequest.getReqBody().getReport(),pdfName,"tongzhidan");
+                report =uploadConfig.getDomain()+pathPattern + uploadConfig.getReportUrl() + report1;
             }
             serviceResponse.getRetContent().setReport(report);
             jsonResponse.setRspBody(serviceResponse.getRetContent());

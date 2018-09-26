@@ -157,7 +157,7 @@ public class LoginStatusFilter implements Filter {
         userSession.setSessionId(acctSession.getSessionId());
         User user = new User();
         user.setAcctId(acctSession.getAcct().getAcctId().toString());
-        user.setAcctName(acctSession.getAcct().getAcctTitle());
+        user.setAcctName(acctSession.getAcct().getName());
         user.setOrgId(acctSession.getAcct().getoInfoId());
         user.setOrgName(acctSession.getAcct().getoInfoName());
         user.setCompanyId(acctSession.getAcct().getCompanyId());

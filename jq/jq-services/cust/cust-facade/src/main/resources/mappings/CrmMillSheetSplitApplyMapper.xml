@@ -10,8 +10,8 @@
     <result column="VERSION" property="version" jdbcType="NUMERIC" />
     <result column="MILLSHEET_NO" property="millsheetNo" jdbcType="VARCHAR" />
     <result column="FATHER_MILLSHEET_NO" property="fatherMillsheetNo" jdbcType="VARCHAR" />
-    <result column="QUALITY_CERTIFICATE_TYPE" property="millSheetType" jdbcType="VARCHAR" />
-    <result column="SALE_PARTY" property="saleParty" jdbcType="VARCHAR" />
+    <result column="QUALITY_CERTIFICATE_TYPE" property="millsheetType" jdbcType="VARCHAR" />
+    <result column="SALE_PARTY" property="zkunnr" jdbcType="VARCHAR" />
     <result column="CREATION_TIME" property="creationTime" jdbcType="TIMESTAMP" />
     <result column="PRODUCT_CATEGORY" property="productCategory" jdbcType="VARCHAR" />
     <result column="SHIP_TO_PARTY" property="shipToParty" jdbcType="VARCHAR" />
@@ -53,8 +53,8 @@ WHERE FATHER_MILLSHEET_NO=#{millsheetNo,jdbcType=VARCHAR}
       SHIP_TO_PARTY, STATUS)
     values (#{splitApplyId,jdbcType=NUMERIC}, #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP},
       #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC},
-      #{millsheetNo,jdbcType=VARCHAR}, #{fatherMillsheetNo,jdbcType=VARCHAR}, #{millSheetType,jdbcType=VARCHAR},
-      #{saleParty,jdbcType=VARCHAR}, #{creationTime,jdbcType=TIMESTAMP}, #{productCategory,jdbcType=VARCHAR},
+      #{millsheetNo,jdbcType=VARCHAR}, #{fatherMillsheetNo,jdbcType=VARCHAR}, #{millsheetType,jdbcType=VARCHAR},
+      #{zkunnr,jdbcType=VARCHAR}, #{creationTime,jdbcType=TIMESTAMP}, #{zcpmc,jdbcType=VARCHAR},
       #{shipToParty,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitApply">
@@ -87,19 +87,19 @@ WHERE FATHER_MILLSHEET_NO=#{millsheetNo,jdbcType=VARCHAR}
       <if test="fatherMillsheetNo != null" >
         FATHER_MILLSHEET_NO,
       </if>
-      <if test="millSheetType != null" >
+      <if test="millsheetType != null" >
         QUALITY_CERTIFICATE_TYPE,
       </if>
-      <if test="saleParty != null" >
+      <if test="zkunnr != null" >
         SALE_PARTY,
       </if>
       <if test="creationTime != null" >
         CREATION_TIME,
       </if>
-      <if test="productCategory != null" >
+      <if test="zcpmc != null" >
         PRODUCT_CATEGORY,
       </if>
-      <if test="shipToParty != null" >
+      <if test="spiltCustomer != null" >
         SHIP_TO_PARTY,
       </if>
       <if test="status != null" >
@@ -131,20 +131,20 @@ WHERE FATHER_MILLSHEET_NO=#{millsheetNo,jdbcType=VARCHAR}
       <if test="fatherMillsheetNo != null" >
         #{fatherMillsheetNo,jdbcType=VARCHAR},
       </if>
-      <if test="millSheetType != null" >
-        #{millSheetType,jdbcType=VARCHAR},
+      <if test="millsheetType != null" >
+        #{millsheetType,jdbcType=VARCHAR},
       </if>
-      <if test="saleParty != null" >
-        #{saleParty,jdbcType=VARCHAR},
+      <if test="zkunnr != null" >
+        #{zkunnr,jdbcType=VARCHAR},
       </if>
       <if test="creationTime != null" >
         #{creationTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="productCategory != null" >
-        #{productCategory,jdbcType=VARCHAR},
+      <if test="zcpmc != null" >
+        #{zcpmc,jdbcType=VARCHAR},
       </if>
-      <if test="shipToParty != null" >
-        #{shipToParty,jdbcType=VARCHAR},
+      <if test="spiltCustomer != null" >
+        #{spiltCustomer,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},

@@ -8,6 +8,11 @@ import java.util.List;
 
 public class CrmMillSheetSplitApply {
 
+    //规格
+    private  String specs;
+    //车号
+    private String zchehao;
+
     //private List<CrmMillSheetSplitInfo> crmMillSheetSplitInfos;
 
     private List<CrmMillSheetSplitInfoVO> crmMillSheetSplitInfoVOS;
@@ -37,9 +42,16 @@ public class CrmMillSheetSplitApply {
     private String fatherMillsheetNo;
 
     //private String qualityCertificateType;
-    private String millSheetType;
+    //private String millSheetType;
 
-    private String saleParty;
+    private String millsheetType;
+
+    //售达方
+    //private String saleParty;
+    private String zkunnr;
+
+    //产品名称
+    private String zcpmc;
 
     private Date creationTime;
 
@@ -61,6 +73,29 @@ public class CrmMillSheetSplitApply {
     //订货单位
     private  String spiltCustomer;
 
+    public String getSpecs() {
+        return specs;
+    }
+
+    public void setSpecs(String specs) {
+        this.specs = specs;
+    }
+
+    public String getZchehao() {
+        return zchehao;
+    }
+
+    public void setZchehao(String zchehao) {
+        this.zchehao = zchehao;
+    }
+
+    public String getZcpmc() {
+        return zcpmc;
+    }
+
+    public void setZcpmc(String zcpmc) {
+        this.zcpmc = zcpmc;
+    }
 
     public String getZcharg() {
         return zcharg;
@@ -158,20 +193,20 @@ public class CrmMillSheetSplitApply {
         this.fatherMillsheetNo = fatherMillsheetNo == null ? null : fatherMillsheetNo.trim();
     }
 
-    public String getMillSheetType() {
-        return millSheetType;
+    public String getMillsheetType() {
+        return millsheetType;
     }
 
-    public void setMillSheetType(String millSheetType) {
-        this.millSheetType = millSheetType;
+    public void setMillsheetType(String millsheetType) {
+        this.millsheetType = millsheetType;
     }
 
-    public String getSaleParty() {
-        return saleParty;
+    public String getZkunnr() {
+        return zkunnr;
     }
 
-    public void setSaleParty(String saleParty) {
-        this.saleParty = saleParty == null ? null : saleParty.trim();
+    public void setZkunnr(String zkunnr) {
+        this.zkunnr = zkunnr;
     }
 
     public Date getCreationTime() {
