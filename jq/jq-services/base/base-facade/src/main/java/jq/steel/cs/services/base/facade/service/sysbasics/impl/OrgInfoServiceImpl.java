@@ -45,7 +45,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 
     private static String FAILE_CODE = "shsb";
 
-	private static String AUDIT_CUST = "100";
+	private static String AUDIT_CUST = "1000";
 
     /**
 	 * 组织机构信息添加
@@ -70,7 +70,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		StringBuilder result = new StringBuilder(orgCode);
 		String orgInfoId = orgInfoMapper.getOrgInfoId(orgCode);
 		if (StringHelper.isBlank(orgInfoId))
-			orgInfoId = result.append("101").toString();
+			orgInfoId = result.append("1001").toString();
 		else
 			orgInfoId = MathHelper.add(orgInfoId);
 		return orgInfoId;
@@ -244,6 +244,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		OrgInfo orgInfo2 = new OrgInfo();
 		BeanCopyUtil.copy(orgInfoVO, orgInfo2);
 		orgInfo2.setStatus(Status.START.getCode());
+		orgInfo2.setTel(orgInfo.getTel());
 		Long k = orgInfoMapper.insertOrgInfo(orgInfo2);
 		messageService.sendEmailWithAttachment(SUCCESS_CODE, TITLE, messageVO, null, null);
 		return i;

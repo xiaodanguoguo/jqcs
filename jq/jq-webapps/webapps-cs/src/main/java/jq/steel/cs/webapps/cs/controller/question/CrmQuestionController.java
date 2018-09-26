@@ -379,7 +379,7 @@ public class CrmQuestionController {
         try {
             JsonRequest<CrmQuestionVO> jsonRequest = new JsonRequest<>();
             CrmQuestionVO vo = new CrmQuestionVO();
-            if (StringUtil.isEmpty(AssertContext.getOrgType())) {
+            if (StringUtil.isEmpty(AssertContext.getOrgType()) || !(AssertContext.getAcctType().equals("2"))) {
                 CrmQuestionVO crmQuestionVO = new CrmQuestionVO();
                 crmQuestionVO.setCount(0);
                 jsonResponse.setRspBody(crmQuestionVO);

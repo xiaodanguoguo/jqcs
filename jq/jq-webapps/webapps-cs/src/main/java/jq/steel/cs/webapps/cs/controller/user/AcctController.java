@@ -49,7 +49,6 @@ public class AcctController {
 
         try{
             AcctInfoVO acctInfoVO = jsonRequest.getReqBody();
-
             ServiceResponse<String> response =  backMemberAPI.userRegister(acctInfoVO);
 
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode())) {
