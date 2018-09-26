@@ -38,6 +38,31 @@
 	<link rel="stylesheet" href="../../../plugin/select/chosen_blue.css">
 	<script src="../../../plugin/select/chosen.jquery.js"></script>
 	<script>
+
+
+        //在页面未加载完毕之前显示的loading Html自定义内容
+
+        var _LoadingHtml = '<span id="loadingDiv" style="width:100%;height: '+ (document.documentElement.clientHeight  + 200) +'px;display: block;background: #fff;text-align: center;line-height: '+ (document.documentElement.clientHeight  + 200) +';">页面加载中，请等待...</span>';
+
+        //呈现loading效果
+
+        document.write(_LoadingHtml);
+
+        //监听加载状态改变
+        document.onreadystatechange = completeLoading;
+
+        //加载状态为complete时移除loading效果
+        function completeLoading() {
+            if (document.readyState == "complete") {
+                var loadingMask = document.getElementById('loadingDiv');
+                loadingMask.parentNode.removeChild(loadingMask);
+            }
+        }
+
+
+
+
+
         var date_start;
         var i=0;
 		$(function(){
