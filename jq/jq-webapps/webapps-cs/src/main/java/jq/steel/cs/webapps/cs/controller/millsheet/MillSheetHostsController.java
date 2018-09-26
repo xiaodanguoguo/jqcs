@@ -16,6 +16,7 @@ import com.lowagie2.text.pdf.PdfImportedPage;
 import com.lowagie2.text.pdf.PdfReader;
 import jq.steel.cs.services.cust.api.controller.MillSheetHostsAPI;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
+import jq.steel.cs.webapps.cs.controller.PdfToPng;
 import jq.steel.cs.webapps.cs.controller.file.UploadConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,6 +110,10 @@ public class MillSheetHostsController {
                     //合并文件
                     millSheetUrlName.substring(1);
                     String savepath =this.sheetNameUrl(millSheetUrlName,millSheetUrlL);
+                    //转换png
+                    String pngName =PdfToPng.pdf2Image(savepath,"",300);
+                    //\data\millpath\2018-09-25\\R20180925001_1.png
+                    String hh = createPdfPath+pngName;
                     serviceResponse.getRetContent().get(0).setMillSheetPath(createPdfPath + savepath);
                 }else {
                     //从质证书服务器获取文件到本地 返回url
@@ -117,8 +122,12 @@ public class MillSheetHostsController {
                     String url = createPdfPath + millSheetPath;
                     String millSheetName =  serviceResponse.getRetContent().get(0).getMillSheetName();
                     this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
-                    serviceResponse.getRetContent().get(0).setMillSheetPath(url);
-                    serviceResponse.getRetContent().get(0).setReport(millSheetUrl);
+
+                    //转换png
+                    String pngName =PdfToPng.pdf2Image(millSheetPath,"",300);
+                    //\data\millpath\2018-09-25\\R20180925001_1.png
+                    String hh = createPdfPath+pngName;
+                    serviceResponse.getRetContent().get(0).setMillSheetPath(hh);
                 }
             }else {
                 //打印

@@ -32,7 +32,7 @@ public class PdfToPng {
      * @param dpi dpi越大转换后越清晰，相对转换速度越慢
      * @return
      */
-    public static void pdf2Image(String PdfFilePath, String dstImgFolder, int dpi) {
+    public static String pdf2Image(String PdfFilePath, String dstImgFolder, int dpi) {
         File file = new File(PdfFilePath);
         PDDocument pdDocument;
         try {
@@ -66,7 +66,8 @@ public class PdfToPng {
                     ImageIO.write(image, "png", dstFile);
                 }
                 System.out.println("PDF文档转PNG图片成功！");
-
+                System.out.println(imgFilePath.toString());
+                return  imgFilePath.toString();
             } else {
                 System.out.println("PDF文档转PNG图片失败：" + "创建" + imgFolderPath + "失败");
             }
@@ -74,6 +75,7 @@ public class PdfToPng {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     private static boolean createDirectory(String folder) {
