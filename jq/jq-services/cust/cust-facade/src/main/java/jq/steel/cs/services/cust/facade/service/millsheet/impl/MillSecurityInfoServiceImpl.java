@@ -77,20 +77,20 @@ public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
     public MillSecurityInfoVO fuJian(MillSecurityInfoVO millSecurityInfoVO, HttpServletRequest request) {
         MillSecurityInfo millSecurityInfo = new MillSecurityInfo();
         BeanCopyUtil.copy(millSecurityInfoVO,millSecurityInfo);
-        PfxSignShell signShell = new PfxSignShell(); // 验证PDF文件内的签名是否有效
+       /* PfxSignShell signShell = new PfxSignShell(); // 验证PDF文件内的签名是否有效
         String url = millSecurityInfo.getFileUrl();
         if(signShell.verifySign(url)){
             signShell.close();
-           /* boolean success = deleteDir(new File(millSecurityInfo.getFileUrl()));
+            boolean success = deleteDir(new File(millSecurityInfo.getFileUrl()));
             if (success) {
                 System.out.println("Successfully deleted populated directory: " + millSecurityInfo.getFileUrl());
             } else {
                 System.out.println("Failed to delete populated directory: " + millSecurityInfo.getFileUrl());
-            }*/
+            }
             millSecurityInfo.setExplain("文档内签名有效");
         }else {
             millSecurityInfo.setExplain("文档内签名被篡改");
-        }
+        }*/
         BeanCopyUtil.copy(millSecurityInfo,millSecurityInfoVO);
         return millSecurityInfoVO;
     }

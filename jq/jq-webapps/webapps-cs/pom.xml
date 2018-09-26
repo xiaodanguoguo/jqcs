@@ -194,6 +194,40 @@
 		</dependency>
 		<!--servlet-->
 
+
+		<!--签章开始-->
+		<dependency>
+			<groupId>com.esa2000</groupId>
+			<artifactId>bcpkix-jdk15on</artifactId>
+			<version>152</version>
+		</dependency>
+		<dependency>
+			<groupId>com.esa2000</groupId>
+			<artifactId>bcprov-jdk15on</artifactId>
+			<version>152</version>
+		</dependency>
+		<dependency>
+			<groupId>com.esa2000</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.esa2000</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>com.esa2000</groupId>
+			<artifactId>PDFSignProL</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.esa2000</groupId>
+			<artifactId>seal-generation</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!--签章结束-->
+
 		<!--pdf-->
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
@@ -336,15 +370,15 @@
 			<name>aliyun Repository</name>
 			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
 		</repository>
-		<!--<repository>
-			<id>nexus</id>
-			<name>releases Repository</name>
-			<url>http://10.5.210.201:8388/nexus/content/repositories/thirdparty/</url>
-		</repository>-->
 		<repository>
 			<id>nexus</id>
 			<name>releases Repository</name>
-			<url>http://192.168.43.206:8081/repository/maven-releases/</url>
+			<url>http://10.5.210.201:8388/nexus/content/repositories/thirdparty/</url>
 		</repository>
+		<!--<repository>
+			<id>nexus</id>
+			<name>releases Repository</name>
+			<url>http://10.20.108.4:8081/repository/maven-releases/</url>
+	</repository>-->
 	</repositories>
 </project>
