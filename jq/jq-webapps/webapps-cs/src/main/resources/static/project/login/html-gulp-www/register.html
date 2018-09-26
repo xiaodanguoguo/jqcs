@@ -61,7 +61,7 @@
                 getAjaxResult("/acct/remSession","post",{},"quitFun(data)");
             })
             $("#logo").on("click",function () {
-                jumpUrl("../../login/html-gulp-www/login.html","0000000",0)
+                jumpUrl("../../../login.html","0000000",0)
             });
         })
         //退出接口
@@ -70,7 +70,7 @@
             if(jsData.retCode=="0000000"){
                 $.cookie('orgId',null);
                 $.cookie('acctType',null);//0超级管理员， 1管理员， 2用户
-                window.location.href="/static/project/login/html-gulp-www/login.html";
+                window.location.href="/static/project/login.html";
             }else{
                 alert(jsData.retDesc)
             }
@@ -84,7 +84,7 @@
                 $("#purchaseName").text(jsData.rspBody.name);
             }else{
                 //alert(jsData.retDesc);
-                window.location.href="/static/project/login/html-gulp-www/login.html";
+                window.location.href="/static/project/login.html";
             }
         }
         function init() {

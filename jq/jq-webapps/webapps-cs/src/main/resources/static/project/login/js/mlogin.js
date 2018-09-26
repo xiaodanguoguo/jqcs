@@ -188,7 +188,7 @@ function submitCallBack(data){
         if(GetQueryString("overtime") == 1){
             jumpUrl(unescape(getCookie("urlPath")),"0000000",0);
         }else{
-            jumpUrl("../../homePage/html-gulp-www/homePage.html","0000000",0);
+            jumpUrl("project/homePage/html-gulp-www/homePage.html","0000000",0);
         }
     }/*else {
         var alertBox=new clsAlertBoxCtrl();
