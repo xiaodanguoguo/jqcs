@@ -21,7 +21,7 @@ import java.io.IOException;
  */
 public class PdfToPng {
     public static void main(String[] args) {
-        pdf2Image("C:/Users/lirun/Desktop/1.pdf", "", 300);
+        pdf2Image("E:/1111.pdf", "", 300);
     }
 
     /***

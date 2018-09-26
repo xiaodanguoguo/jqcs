@@ -99,14 +99,15 @@ public class MillSheetHostsController {
                     String millSheetUrlName = "";
                     for(MillSheetHostsVO millSheetHostsVO :serviceResponse.getRetContent()){
                         String millSheetPath =  millSheetHostsVO.getMillSheetPath();
+                        millSheetUrlName += ";" + millSheetHostsVO.getMillSheetPath();
                         String millSheetName =  millSheetHostsVO.getMillSheetName();
                         String url = createPdfPath + millSheetPath;
                         millSheetUrlL =millSheetHostsVO.getMillSheetUrl();
                         this.saveUrlAs(url,millSheetUrlL,"GET",millSheetName);
                         millSheetHostsVO.setMillSheetPath(url);
-                        millSheetUrlName += ";" + millSheetHostsVO.getMillSheetPath();
                     }
                     //合并文件
+                    millSheetUrlName.substring(1);
                     String savepath =this.sheetNameUrl(millSheetUrlName,millSheetUrlL);
                     serviceResponse.getRetContent().get(0).setMillSheetPath(createPdfPath + savepath);
                 }else {
@@ -127,13 +128,14 @@ public class MillSheetHostsController {
                     for(MillSheetHostsVO millSheetHostsVO :serviceResponse.getRetContent()){
                         String millSheetPath =  millSheetHostsVO.getMillSheetPath();
                         String millSheetName =  millSheetHostsVO.getMillSheetName();
+                        millSheetUrlName += ";" + millSheetHostsVO.getMillSheetPath();
                         String url = createPdfPath + millSheetPath;
                         millSheetUrlL =millSheetHostsVO.getMillSheetUrl();
                         this.saveUrlAs(url,millSheetUrlL,"GET",millSheetName);
                         millSheetHostsVO.setMillSheetPath(url);
-                        millSheetUrlName += ";" + millSheetHostsVO.getMillSheetPath();
                     }
                     //合并文件
+                    millSheetUrlName.substring(1);
                     String savepath =this.sheetNameUrl(millSheetUrlName,millSheetUrlL);
                     String mPath = createPdfPath+savepath;
                     serviceResponse.getRetContent().get(0).setReport(mPath);
@@ -162,7 +164,7 @@ public class MillSheetHostsController {
         String[] names = millSheetUrlName.split(";");
         String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toString();
         // 后续需要优化合成后的pdf文件路径问题
-        String savepath = millSheeturl + now + ".pdf";
+        String savepath = millSheeturl +"/"+ now + ".pdf";
         mergePdfFiles(names, savepath);
         return savepath;
     }
