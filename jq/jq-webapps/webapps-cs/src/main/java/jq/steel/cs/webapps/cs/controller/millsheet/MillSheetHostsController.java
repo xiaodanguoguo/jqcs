@@ -467,21 +467,12 @@ public class MillSheetHostsController {
     @RequestMapping(value = "/downOperationManual",method = RequestMethod.POST)
     public void downOperationManual(@RequestParam("name") String jsonRequest,HttpServletResponse response){
         try {
-            List<String> list = JsonUtil.parseObject(jsonRequest,List.class);
-            JsonRequest<List<String>> jsonRequest1 = new JsonRequest();
-            jsonRequest1.setReqBody(list);
-            ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.downFile(jsonRequest1);
-            String millSheetPath ="";
-            String createPdfPath = uploadConfig.getDomain();
-            String millSheetPathA =  serviceResponse.getRetContent().get(0).getMillSheetPath();
-            String url = createPdfPath + millSheetPathA;
-            String millSheetUrl = serviceResponse.getRetContent().get(0).getMillSheetUrl();
-            String fileName =  serviceResponse.getRetContent().get(0).getMillSheetName();
-            this.saveUrlAs(url,millSheetUrl,"GET",fileName);
+
+            String fileName = "酒钢客服平台用户操作手册.pdf";
+            //String  operationManual = "E:/酒钢客服平台用户操作手册.pdf";
+            String  operationManual = "/data/model/酒钢客服平台用户操作手册.pdf";
             //配置请求头
-            millSheetPath = serviceResponse.getRetContent().get(0).getMillSheetPath();
-            String  millSheetName = serviceResponse.getRetContent().get(0).getMillSheetName();
-            response.setHeader("Content-Disposition", "attachment;fileName="+millSheetName);
+            response.setHeader("Content-Disposition", "attachment;fileName="+fileName);
 
             //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
             response.setContentType("multipart/form-data");
@@ -490,7 +481,7 @@ public class MillSheetHostsController {
 
             ServletOutputStream out=null;
             FileInputStream inputStream=null;
-            File file = new File(millSheetPath);
+            File file = new File(operationManual);
             try {
                 inputStream  = new FileInputStream(file);
 
