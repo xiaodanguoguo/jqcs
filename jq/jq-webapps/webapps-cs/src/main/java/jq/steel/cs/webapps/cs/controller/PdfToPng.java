@@ -21,7 +21,7 @@ import java.io.IOException;
  */
 public class PdfToPng {
     public static void main(String[] args) {
-        pdf2Image("E:/1111.pdf", "", 300);
+        pdf2Image("E:/1111.pdf", "/data/upload", 300);
     }
 
     /***
@@ -43,7 +43,7 @@ public class PdfToPng {
             if (dstImgFolder.equals("")) {
                 imgFolderPath = imgPDFPath + File.separator;// 获取图片存放的文件夹路径
             } else {
-                imgFolderPath = dstImgFolder + File.separator;
+                imgFolderPath = "res" + File.separator;
             }
 
             if (createDirectory(imgFolderPath)) {
@@ -68,6 +68,7 @@ public class PdfToPng {
                 System.out.println("PDF文档转PNG图片成功！");
                 System.out.println(imgFilePath.toString());
                 return  imgFilePath.toString();
+
             } else {
                 System.out.println("PDF文档转PNG图片失败：" + "创建" + imgFolderPath + "失败");
             }

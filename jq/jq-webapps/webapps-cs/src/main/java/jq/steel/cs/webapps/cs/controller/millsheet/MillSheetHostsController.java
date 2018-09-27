@@ -111,7 +111,7 @@ public class MillSheetHostsController {
                     millSheetUrlName.substring(1);
                     String savepath =this.sheetNameUrl(millSheetUrlName,millSheetUrlL);
                     //转换png
-                    String pngName =PdfToPng.pdf2Image(savepath,"",300);
+                    String pngName =PdfToPng.pdf2Image(savepath,"/data/upload",300);
                     //\data\millpath\2018-09-25\\R20180925001_1.png
                     String hh = createPdfPath+pngName;
                     serviceResponse.getRetContent().get(0).setMillSheetPath(createPdfPath + savepath);
@@ -460,5 +460,75 @@ public class MillSheetHostsController {
         }
         return jsonResponse;
     }
+
+
+
+    //下载操作手册
+    @RequestMapping(value = "/downOperationManual",method = RequestMethod.POST)
+    public void downOperationManual(@RequestParam("name") String jsonRequest,HttpServletResponse response){
+        try {
+            List<String> list = JsonUtil.parseObject(jsonRequest,List.class);
+            JsonRequest<List<String>> jsonRequest1 = new JsonRequest();
+            jsonRequest1.setReqBody(list);
+            ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.downFile(jsonRequest1);
+            String millSheetPath ="";
+            String createPdfPath = uploadConfig.getDomain();
+            String millSheetPathA =  serviceResponse.getRetContent().get(0).getMillSheetPath();
+            String url = createPdfPath + millSheetPathA;
+            String millSheetUrl = serviceResponse.getRetContent().get(0).getMillSheetUrl();
+            String fileName =  serviceResponse.getRetContent().get(0).getMillSheetName();
+            this.saveUrlAs(url,millSheetUrl,"GET",fileName);
+            //配置请求头
+            millSheetPath = serviceResponse.getRetContent().get(0).getMillSheetPath();
+            String  millSheetName = serviceResponse.getRetContent().get(0).getMillSheetName();
+            response.setHeader("Content-Disposition", "attachment;fileName="+millSheetName);
+
+            //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
+            response.setContentType("multipart/form-data");
+
+            //2.设置文件头：最后一个参数是设置下载文件名(假如我们叫zms.jpg,这里是设置名称)
+
+            ServletOutputStream out=null;
+            FileInputStream inputStream=null;
+            File file = new File(millSheetPath);
+            try {
+                inputStream  = new FileInputStream(file);
+
+                //3.通过response获取ServletOutputStream对象(out)
+                out = response.getOutputStream();
+
+                int b = 0;
+                byte[] buffer = new byte[512];
+                while (b != -1){
+                    b = inputStream.read(buffer);
+                    if(b != -1){
+                        out.write(buffer,0,b);//4.写到输出流(out)中
+                    }
+
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally{
+                try{
+                    if(inputStream!=null){
+                        inputStream.close();
+                    }
+                    if(out!=null){
+                        out.close();
+                        out.flush();
+                    }
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        } catch (BusinessException e) {
+            logger.error("下载报错", e);
+            e.printStackTrace();
+        }
+
+    }
+
 
 }
