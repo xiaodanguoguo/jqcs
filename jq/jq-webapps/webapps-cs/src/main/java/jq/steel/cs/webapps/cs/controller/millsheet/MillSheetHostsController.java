@@ -108,13 +108,13 @@ public class MillSheetHostsController {
                         millSheetHostsVO.setMillSheetPath(url);
                     }
                     //合并文件
-                    millSheetUrlName.substring(1);
+                    millSheetUrlName = millSheetUrlName.substring(1);
                     String savepath =this.sheetNameUrl(millSheetUrlName,millSheetUrlL);
                     //转换png
                     String pngName =PdfToPng.pdf2Image(savepath,"/data/upload",300);
                     //\data\millpath\2018-09-25\\R20180925001_1.png
                     String hh = createPdfPath+pngName;
-                    serviceResponse.getRetContent().get(0).setMillSheetPath(createPdfPath + savepath);
+                    serviceResponse.getRetContent().get(0).setMillSheetPath(hh);
                 }else {
                     //从质证书服务器获取文件到本地 返回url
                     String millSheetPath =  serviceResponse.getRetContent().get(0).getMillSheetPath();
@@ -144,7 +144,7 @@ public class MillSheetHostsController {
                         millSheetHostsVO.setMillSheetPath(url);
                     }
                     //合并文件
-                    millSheetUrlName.substring(1);
+                    millSheetUrlName = millSheetUrlName.substring(1);
                     String savepath =this.sheetNameUrl(millSheetUrlName,millSheetUrlL);
                     String mPath = createPdfPath+savepath;
                     serviceResponse.getRetContent().get(0).setReport(mPath);
