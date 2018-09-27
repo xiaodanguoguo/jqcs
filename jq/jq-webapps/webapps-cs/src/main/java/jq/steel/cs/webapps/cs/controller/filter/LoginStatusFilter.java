@@ -8,6 +8,7 @@ import com.ebase.core.session.UserSession;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.CookieUtil;
 import com.ebase.utils.JsonUtil;
+import com.ebase.utils.StringUtil;
 import com.ebase.utils.WebUtil;
 import jq.steel.cs.services.base.api.controller.AcctAPI;
 import org.slf4j.Logger;
@@ -15,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * @Auther: wangyu
  */
-@Component
+//@Component
 @ServletComponentScan("jq.steel.cs.webapps.cs.controller.filter")
 @WebFilter(value = {"/*"},filterName = "loginStatusFilter")
 public class LoginStatusFilter implements Filter {
@@ -77,7 +77,7 @@ public class LoginStatusFilter implements Filter {
         //不拦截
         String requestURL = servletRequest.getRequestURI().substring(servletRequest.getContextPath().length()).replaceAll("[/]+$", "");
 
-        if(allowedUrl(requestURL) || allowedSuffix(requestURL)){
+        if(StringUtil.isEmpty(requestURL) || allowedUrl(requestURL) || allowedSuffix(requestURL)){
             chain.doFilter(request, response);
             return ;
         } else {
@@ -118,7 +118,7 @@ public class LoginStatusFilter implements Filter {
             //获得缓存失败或登录状态无效 调到登录页面
             LOG.info("登录状态无效!");
 //            response.setContentType("text/html; charset=UTF-8");
-//            servletResponse.sendRedirect(passUrl + "/project/login/html-gulp-www/login.html");
+//            servletResponse.sendRedirect(passUrl + "/project/login/html-gulp-www/index.html");
             //
             if (WebUtil.isJsonRequest(servletRequest)) {
                 servletRequest.setCharacterEncoding("UTF-8");
