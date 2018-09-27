@@ -110,6 +110,7 @@
             if(jsData.retCode=="0000000"){
                 clearCookie("userName");
                 clearCookie("navListIdx");
+                clearCookie("isLogin")
                 if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
                     window.localStorage.limitCode = [];
                 }else{
@@ -353,7 +354,7 @@
         </div>
         <div class="content">
             <div class="previewOpeBox">
-                <div class="previewOpeBox-pdf" id="previewOpeBoxPdf"></div>
+                <img class="previewOpeBox-pdf" id="previewOpeBoxPdf"></img>
                 <div class="previewOpeBox-operate">
                     <button id="previewNext" class="btnLowNew previewOpeBox-operate-next fr">下一页</button>
                     <button id="previewPrev" class="btnLowNew previewOpeBox-operate-prev fl">上一页</button>
