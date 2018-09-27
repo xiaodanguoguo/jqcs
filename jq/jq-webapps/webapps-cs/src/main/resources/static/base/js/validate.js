@@ -1311,6 +1311,18 @@ var errMsg = {
             return true;
         }
     },
+    forallInt1: {
+        msg: "必须为非负数字或者带小数点的数字",
+        test: function(obj) {
+            if(!obj.value) return true;
+            var patrn =/^\d+(\.\d+)?$/;
+            var sInput = obj.value;
+            if (sInput.search(patrn) == -1) {
+                return false;
+            }
+            return true;
+        }
+    },
     forInt: {
         msg: "必须为整数",
         test: function(obj) {
