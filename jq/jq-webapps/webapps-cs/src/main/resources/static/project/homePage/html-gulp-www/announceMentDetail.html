@@ -98,10 +98,10 @@
                 clearCookie("navListIdx");
                 jumpUrl("../../homePage/html-gulp-www/homePage.html","0000000",0)
             });
-            /*$("#downLoadShouCe").on("click",function(){
-                var importParam = "name=" + JSON.stringify({});
-                $.download(requestUrl + "/", importParam, "POST");
-			});*/
+            $("#downLoadShouCe").on("click",function(){
+                var importParam = "name=";
+                $.download(requestUrl + "/millsheet/downOperationManual", importParam, "POST");
+			});
             start();
 		})
         //退出接口
