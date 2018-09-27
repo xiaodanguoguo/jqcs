@@ -124,7 +124,7 @@ public class MillSheetHostsController {
                     this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
 
                     //转换png
-                    String pngName =PdfToPng.pdf2Image(millSheetPath,"",300);
+                    String pngName =PdfToPng.pdf2Image(millSheetPath,"/data/upload",300);
                     //\data\millpath\2018-09-25\\R20180925001_1.png
                     String hh = createPdfPath+pngName;
                     serviceResponse.getRetContent().get(0).setMillSheetPath(hh);
