@@ -6,7 +6,7 @@
 	<link rel="icon" href="logocon.png">
 	<link rel="stylesheet" href="base/css/baseBlue.css">
 	<link rel="stylesheet" href="base/iconfont/iconfont.css">
-	<link rel="stylesheet" href="project/commonNav/css/cdommonHeaderBlue1.css">
+	<link rel="stylesheet" href="project/commonNav/css/commonHeaderBlue1.css">
 	<script src="base/js/jquery.js"></script>
 	<script src="base/js/public.js"></script>
 	<script src="base/js/docassistant.js" ></script>
@@ -39,6 +39,9 @@
 	<script src="plugin/select/chosen.jquery.js"></script>
 	<script>
         $(function(){
+            if(getCookie("isLogin") == 1){
+                jumpUrl("project/homePage/html-gulp-www/homePage.html","0000000","0");
+            }
             //loginFun('{"retCode":"0000000","aa":"123"}')
             //getAjaxResult("/acct/getAcct","post",{},"loginFun(data)");
             init();

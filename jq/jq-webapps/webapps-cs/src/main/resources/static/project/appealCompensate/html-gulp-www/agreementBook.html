@@ -110,6 +110,7 @@
             if(jsData.retCode=="0000000"){
                 clearCookie("userName");
                 clearCookie("navListIdx");
+                clearCookie("isLogin")
                 if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
                     window.localStorage.limitCode = [];
                 }else{

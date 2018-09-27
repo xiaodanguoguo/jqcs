@@ -40,6 +40,7 @@ function jumpUrl(strUrl,status,jumpType,data)
                 var allPath = escape(document.location.href);
                 // clearCookie("sid",jsonReqHeaderData);
                 setCookie("urlPath",allPath);
+                clearCookie("isLogin");
                 objWin.href = "../../../login.html?overtime=1";
                 break;
             default:
