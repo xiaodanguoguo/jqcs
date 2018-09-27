@@ -227,8 +227,9 @@ function previewCallBack(data){
         openWin("1200","700","previewOpeBox");
         document.body.jsLee.previewArr = data.rspBody;
         document.body.jsLee.previewArrCurrent = document.body.jsLee.previewArr[0].millSheetPath;
-        $("#previewOpeBoxPdf").attr("href",document.body.jsLee.previewArrCurrent);
-        $("#previewOpeBoxPdf").media({width:1150, height:550});
+        $("#previewOpeBoxPdf").attr("src",document.body.jsLee.previewArrCurrent);
+        /*$("#previewOpeBoxPdf").attr("href",document.body.jsLee.previewArrCurrent);
+        $("#previewOpeBoxPdf").media({width:1150, height:550});*/
         $("#previewPrev").attr("disabled",true).addClass("changeGary");
         if(document.body.jsLee.previewArr.length == 1){
             $("#previewNext").attr("disabled",true).addClass("changeGary");
@@ -255,8 +256,9 @@ function previewPage(type){//type——0上一页  1下一页
                     $("#previewNext").attr("disabled",true).addClass("changeGary");
                 }
             }
-            $("#previewOpeBoxPdf").attr("href",document.body.jsLee.previewArrCurrent);
-            $("#previewOpeBoxPdf").media({width:1150, height:550});
+            $("#previewOpeBoxPdf").attr("src",document.body.jsLee.previewArrCurrent);
+            /*$("#previewOpeBoxPdf").attr("href",document.body.jsLee.previewArrCurrent);
+            $("#previewOpeBoxPdf").media({width:1150, height:550});*/
             break;
         }
     }
