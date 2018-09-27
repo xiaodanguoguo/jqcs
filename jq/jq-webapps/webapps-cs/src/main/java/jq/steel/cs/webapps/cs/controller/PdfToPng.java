@@ -43,7 +43,7 @@ public class PdfToPng {
             if (dstImgFolder.equals("")) {
                 imgFolderPath = imgPDFPath + File.separator;// 获取图片存放的文件夹路径
             } else {
-                imgFolderPath = "res" + File.separator;
+                imgFolderPath = dstImgFolder + File.separator;
             }
 
             if (createDirectory(imgFolderPath)) {
@@ -66,7 +66,7 @@ public class PdfToPng {
                     ImageIO.write(image, "png", dstFile);
                 }
                 System.out.println("PDF文档转PNG图片成功！");
-                System.out.println(imgFilePath.toString());
+
                 return  imgFilePath.toString();
 
             } else {

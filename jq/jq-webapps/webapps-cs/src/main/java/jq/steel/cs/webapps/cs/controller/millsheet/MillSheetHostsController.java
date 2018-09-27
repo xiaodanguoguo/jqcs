@@ -112,8 +112,11 @@ public class MillSheetHostsController {
                     String savepath =this.sheetNameUrl(millSheetUrlName,millSheetUrlL);
                     //转换png
                     String pngName =PdfToPng.pdf2Image(savepath,"/data/upload",300);
+                    System.out.println("转换png路径"+pngName);
+                    String hh1 = pngName.replace("/data/upload","/res");
+
                     //\data\millpath\2018-09-25\\R20180925001_1.png
-                    String hh = createPdfPath+pngName;
+                    String hh = createPdfPath+"/"+hh1;
                     serviceResponse.getRetContent().get(0).setMillSheetPath(hh);
                 }else {
                     //从质证书服务器获取文件到本地 返回url
@@ -125,8 +128,9 @@ public class MillSheetHostsController {
 
                     //转换png
                     String pngName =PdfToPng.pdf2Image(millSheetPath,"/data/upload",300);
-                    //\data\millpath\2018-09-25\\R20180925001_1.png
-                    String hh = createPdfPath+pngName;
+                    System.out.println("转换png路径"+pngName);
+                    String hh1 = pngName.replace("/data/upload","/res");
+                    String hh = createPdfPath+"/"+hh1;
                     serviceResponse.getRetContent().get(0).setMillSheetPath(hh);
                 }
             }else {
