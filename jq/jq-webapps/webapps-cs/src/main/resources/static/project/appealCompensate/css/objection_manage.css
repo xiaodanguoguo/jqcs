@@ -32,7 +32,7 @@
 
 .submission-table { width: 950px; height: auto; margin-top: 10px; margin-left: 22px; overflow-x: scroll; overflow-y: scroll; }
 
-.table-list { table-layout: fixed; width: 1600px !important; }
+.table-list { table-layout: fixed; width: 1700px !important; }
 
 .table-list .table-list-currentrow-tdetail { width: 45px !important; text-align: center; word-break: break-all; }
 
