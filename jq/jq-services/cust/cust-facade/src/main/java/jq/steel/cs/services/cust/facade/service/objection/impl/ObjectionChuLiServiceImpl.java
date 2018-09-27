@@ -5,26 +5,20 @@ import com.ebase.core.page.PageDTO;
 import com.ebase.core.page.PageDTOUtil;
 import com.ebase.utils.BeanCopyUtil;
 import com.ebase.utils.DateFormatUtil;
-import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionChuLiVO;
-import jq.steel.cs.services.cust.api.vo.ObjectionDiaoChaVO;
-import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
 import jq.steel.cs.services.cust.facade.dao.CrmAgreementInfoMapper;
 import jq.steel.cs.services.cust.facade.dao.CrmClaimApplyMapper;
 import jq.steel.cs.services.cust.facade.dao.CrmClaimInfoMapper;
 import jq.steel.cs.services.cust.facade.model.CrmAgreementInfo;
 import jq.steel.cs.services.cust.facade.model.CrmClaimApply;
 import jq.steel.cs.services.cust.facade.model.CrmClaimInfo;
-import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
 import jq.steel.cs.services.cust.facade.service.objection.ObjectionChuLiService;
-import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
@@ -169,7 +163,7 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
     public ObjectionChuLiVO preview(ObjectionChuLiVO record) {
         String report = "";
         Integer templateType = record.getTemplateType();
-        CreatePdf createPdf = new CreatePdf();
+//        CreatePdf createPdf = new CreatePdf();
         //判断
         if(templateType ==1){
             //协议书预览(图片)
@@ -203,7 +197,7 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
 
     //下载 返回文件流
     public List<ObjectionChuLiVO> download(ObjectionChuLiVO list) {
-        CreatePdf createPdf = new CreatePdf();
+//        CreatePdf createPdf = new CreatePdf();
         List<ObjectionChuLiVO> liVOS = new ArrayList<>();
         Integer templateType = list.getTemplateType();
         String claimNo = (String) list.getClaimNos().get(0);
