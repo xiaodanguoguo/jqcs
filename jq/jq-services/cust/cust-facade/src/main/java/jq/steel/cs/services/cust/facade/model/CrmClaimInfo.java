@@ -7,6 +7,12 @@ import java.util.Date;
 
 public class CrmClaimInfo {
 
+    //跟踪人
+    private String trace;
+
+    //跟踪原因
+    private  Date trackingTime;
+
     private String parentSid;
 
     private String claimState1;
@@ -157,6 +163,22 @@ public class CrmClaimInfo {
 
     //异议确认量
     private  String objectionConfirmation;
+
+    public String getTrace() {
+        return trace;
+    }
+
+    public void setTrace(String trace) {
+        this.trace = trace;
+    }
+
+    public Date getTrackingTime() {
+        return trackingTime;
+    }
+
+    public void setTrackingTime(Date trackingTime) {
+        this.trackingTime = trackingTime;
+    }
 
     public String getParentSid() {
         return parentSid;

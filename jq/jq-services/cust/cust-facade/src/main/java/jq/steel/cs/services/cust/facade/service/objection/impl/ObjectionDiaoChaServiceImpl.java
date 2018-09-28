@@ -80,6 +80,8 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
      * */
     @Override
     public Integer update(ObjectionDiaoChaVO record) {
+        String orgCode = record.getOrgCode();
+        String oreName = record.getOrgName();
         CrmClaimOutInquire crmClaimOutInquire  = new CrmClaimOutInquire();
         BeanCopyUtil.copy(record,crmClaimOutInquire);
         if (crmClaimOutInquire.getOptionType()==1){
@@ -87,12 +89,12 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             //先查询是否有数据
            List<CrmClaimOutInquire> list = crmClaimOutInquireMapper.findByParams(crmClaimOutInquire);
             if (list.size()>0){
-                crmClaimOutInquire.setUpdateBy(AssertContext.getAcctName());
+                crmClaimOutInquire.setUpdateBy(orgCode);
                 crmClaimOutInquire.setUpdateDt(new Date());
                 integer = crmClaimOutInquireMapper.update(crmClaimOutInquire);
             }else {
                 //新增数据
-                crmClaimOutInquire.setCreateBy(AssertContext.getAcctName());
+                crmClaimOutInquire.setCreateBy(orgCode);
                 crmClaimOutInquire.setCreateDt(new Date());
                 integer = crmClaimOutInquireMapper.insertSelective(crmClaimOutInquire);
             }
@@ -111,8 +113,10 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             CrmClaimInfo crmClaimInfo  = new CrmClaimInfo();
             crmClaimInfo.setClaimNo(crmClaimOutInquire.getClaimNo());
             crmClaimInfo.setUpdatedDt(new Date());
-            crmClaimInfo.setUpdatedBy(AssertContext.getAcctName());
+            crmClaimInfo.setUpdatedBy(orgCode);
             crmClaimInfo.setInquireState("TRACK");
+            crmClaimInfo.setTrace(orgCode);
+            crmClaimInfo.setTrackingTime(new Date());
             int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
 
             //修改  货物所在地 lastUserAddr  缺陷名称 proProblem 异议确认量（吨）OBJECTION_CONFIRMATION
