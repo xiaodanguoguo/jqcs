@@ -522,6 +522,9 @@ function htmlInit2(data){//数据回显回调
             //富文本数据回显
             var ue = UE.getEditor('editor');
             ue.ready(function() {//编辑器初始化完成再赋值
+                if(data.rspBody.productionProcessAll == null){
+                    data.rspBody.productionProcessAll = "";
+                }
                 ue.setContent(data.rspBody.productionProcessAll);  //赋值给UEditor
             });
         }else if(document.body.jsLee.htmlType == 6){//确认书审核
@@ -582,7 +585,7 @@ function boxChecked(){
                 showErrInfoByCustomDiv($("#claimTypeA")[0],"请选择异议类别!");
             }
             if(!UE.getEditor('editor').getContent()){
-                showErrInfoByCustomDiv($("#fieldConclusionA")[0],"请输入生产工艺过程调查!");
+                showErrInfoByCustomDiv($("#productionProcessAllA")[0],"请输入生产工艺过程调查!");
             }
             return false;
         }

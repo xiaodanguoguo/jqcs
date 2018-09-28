@@ -41,7 +41,7 @@ function jumpUrl(strUrl,status,jumpType,data)
                 // clearCookie("sid",jsonReqHeaderData);
                 setCookie("urlPath",allPath);
                 clearCookie("isLogin");
-                objWin.href = "login.html?overtime=1";
+                objWin.href = window.location.host + "?overtime=1";
                 break;
             default:
                 if(status != 0000000 && data != null)
