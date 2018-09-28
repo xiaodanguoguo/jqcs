@@ -39,6 +39,7 @@
 	<script src="plugin/select/chosen.jquery.js"></script>
 	<script>
         $(function(){
+            checkDrag = true;
             if(getCookie("isLogin") == 1){
                 jumpUrl("project/homePage/html-gulp-www/homePage.html","0000000","0");
             }
@@ -226,10 +227,10 @@
                                 <span class="verification-TabCon-Every__Name">防伪码:</span>
                                 <input type="text" id="securityCode" class="verification-TabCon-Every__Input required"><b class="verification-TabCon-Every__Sign">*</b>
                             </li>
-                            <li class="verification-TabCon-Every__Every">
+                          <!--  <li class="verification-TabCon-Every__Every">
                                 <span class="verification-TabCon-Every__Name">滑动验证:</span>
                                 <div id="drag" class="drag" style="top: -30px;left: 87px;width: 354px;"></div>
-                            </li>
+                            </li>-->
                             <div class="btnBaseCommon verification-TabCon-Every__Submit" id="submitOpe">提交</div>
                             <div class="btnBaseCancel verification-TabCon-Every__reset" id="resetOpe">重置</div>
                         </ul>
