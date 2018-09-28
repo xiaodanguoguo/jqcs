@@ -164,6 +164,18 @@ public class CrmClaimInfo {
     //异议确认量
     private  String objectionConfirmation;
 
+    //备注
+    private String memo;
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+
     public String getTrace() {
         return trace;
     }

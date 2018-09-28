@@ -115,7 +115,7 @@ public class ObjectionChuLiVO {
 
     private String used;
 
-    private String contractNo;
+    private String contractNo;  //合同编号
 
     private BigDecimal contractVolume;
 
@@ -131,7 +131,7 @@ public class ObjectionChuLiVO {
 
     private BigDecimal contractUnitPrice;
 
-    private BigDecimal objectionNum;
+    private BigDecimal objectionNum;    //异议编号
 
     private String claimDesc;
 
@@ -147,7 +147,7 @@ public class ObjectionChuLiVO {
 
     private String filePath;
 
-    private String rejectReason;
+    private String rejectReason;    //驳回原因
 
     private String createdBy;
 
@@ -169,7 +169,7 @@ public class ObjectionChuLiVO {
 
     private Integer optionType;
 
-    private Integer dissentingUnit;
+    private Integer dissentingUnit; //异议单位
 
     //协议书地址
     private  String agreementPath;
@@ -219,6 +219,19 @@ public class ObjectionChuLiVO {
     private String userRequirement;
 
     private String handingSuggestion;
+
+
+    //备注
+    private String memo;
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
 
     public String getAgreementContent() {
         return agreementContent;

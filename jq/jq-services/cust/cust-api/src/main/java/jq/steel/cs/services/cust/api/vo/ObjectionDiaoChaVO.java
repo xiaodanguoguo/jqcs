@@ -26,11 +26,11 @@ public class ObjectionDiaoChaVO {
 
     private String claimState1;
 
-    private String inquireInfo;
+    private String inquireInfo; //调查事实阐述
 
-    private String fieldConclusionText;
+    private String fieldConclusionText; //现场结论
 
-    private String fieldConclusionPhoto;
+    private String fieldConclusionPhoto;//现场结论图片
 
     private Integer dissentingUnit;
 
@@ -72,7 +72,7 @@ public class ObjectionDiaoChaVO {
     //牌号
     private String zph;
 
-//内外部操作类型
+    //内外部操作类型
     private Integer type;
 
 
@@ -102,7 +102,7 @@ public class ObjectionDiaoChaVO {
 
     private String customerName;
 
-    private String custAddr;
+    private String custAddr;    //诉赔地址
 
     private String custEmpNo;
 
@@ -112,7 +112,7 @@ public class ObjectionDiaoChaVO {
 
     private String lastUser;
 
-    private String lastUserAddr;
+    private String lastUserAddr;    //使用单位,货物所在地
 
     private String createEmpNo;
 
@@ -126,7 +126,7 @@ public class ObjectionDiaoChaVO {
 
     private String used;
 
-    private String contractNo;
+    private String contractNo;  //合同号
 
     private BigDecimal contractVolume;
 
@@ -137,16 +137,16 @@ public class ObjectionDiaoChaVO {
 
     private String orderNo;
 
-    private String originalCarNo;
+    private String originalCarNo;   //车号
 
     private BigDecimal contractUnitPrice;
 
     private BigDecimal objectionNum;
 
     //终端用户加工工艺
-    private String endProcessingTech;
+    private String endProcessingTech;   //加工工艺及用途
 
-    private String claimDesc;
+    private String claimDesc;   //异议内容描述
 
     private String claimReason;
 
@@ -180,7 +180,7 @@ public class ObjectionDiaoChaVO {
 
     //外部调查状态
 
-    private String logisticsProcess;
+    private String logisticsProcess;    //物流过程
 
     private String outInquireFact;
 
@@ -192,24 +192,24 @@ public class ObjectionDiaoChaVO {
 
     private String inquireState;
 
-    private String memo;
+    private String memo;    //备注
 
 
 
     //内部调查字段
 
-    private String defectName;
+    private String defectName;  //缺陷名称
 
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date productDt;
+    private Date productDt; //生产日期
 
     private String shift;
 
-    private String fieldConclusion;
+    private String fieldConclusion; //现场结论富文本
 
-    private String userRequirement;
+    private String userRequirement; //用户要求
 
-    private String handingSuggestion;
+    private String handingSuggestion;   //处理意见
 
     private String followReason;
 

@@ -59,6 +59,8 @@
     <result column="REASONS_FOR_COMPULSORY_CLOSURE" property="reasonsForCompulsoryClosure" jdbcType="VARCHAR" />
     <result column="REPORT_PICTURE" property="reportPictures" jdbcType="VARCHAR" />
     <result column="OBJECTION_CONFIRMATION" property="objectionConfirmation" jdbcType="VARCHAR" />
+
+    <result column="MEMO" property="memo"/>
   </resultMap>
   <sql id="Base_Column_List" >
     SID, CLAIM_NO, PRODUCT_ID, PRODUCT_NAME, MILL_SHEET_NO, CUSTOMER_ID, CUSTOMER_NAME, 
@@ -666,13 +668,16 @@
     E.AGREEMENT_URL,
     E.AGREEMENT_NAME,
     E.REJECT_REASON,
-    E.AGREEMENT_STATE
+    E.AGREEMENT_STATE,
+    G.MEMO AS MEMO
+
     FROM
     WARRANTY.CRM_CLAIM_INFO A
     LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_APPLY D ON A.CLAIM_NO = D.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_AGREEMENT_INFO E ON A.CLAIM_NO = E.CASE_CODE
-    LEFT JOIN WARRANTY.MILL_SHEET_HEAD F ON A.MILL_SHEET_NO = F.MILL_SHEET_NO)H
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD F ON A.MILL_SHEET_NO = F.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE G ON A.CLAIM_NO = G.CLAIM_NO)H
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
         AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
