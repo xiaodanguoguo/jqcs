@@ -21,11 +21,22 @@ public class UploadConfig {
 
     private String pathPattern;
 
-    //润乾模板地址
+    //润乾地址
     private String reportUrl;
 
     //质证书ip
     private String millsheet;
+
+    //润乾模板地址
+    private String modelUrl;
+
+    public String getModelUrl() {
+        return modelUrl;
+    }
+
+    public void setModelUrl(String modelUrl) {
+        this.modelUrl = modelUrl;
+    }
 
     public String getMillsheet() {
         return millsheet;

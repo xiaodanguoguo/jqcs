@@ -226,7 +226,7 @@ public class ObjectionChuLiController {
         CreatePdf createPdf = new CreatePdf();
         String pathPattern = uploadConfig.getPathPattern();
         JsonResponse<ObjectionChuLiVO>  jsonResponse = new JsonResponse<>();
-        String createPdfPath = uploadConfig.getReportUrl();
+        String createPdfPath = uploadConfig.getModelUrl();
         jsonRequest.getReqBody().setReport(createPdfPath);
         try {
             ServiceResponse<ObjectionChuLiVO> serviceResponse = objectionChuLiAPI.preview(jsonRequest);
@@ -236,15 +236,15 @@ public class ObjectionChuLiController {
             }else if(jsonRequest.getReqBody().getTemplateType()==3) {
                 //report = uploadConfig.getDomain() +"/"+serviceResponse.getRetContent().getReport();
                 String  pdfName = jsonRequest.getReqBody().getClaimNo() + "S.pdf";
-                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,jsonRequest.getReqBody().getReport(),pdfName,"shoulidan");
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"shoulidan");
                 report =uploadConfig.getDomain()+pathPattern + uploadConfig.getReportUrl() + report1;
             }else if(jsonRequest.getReqBody().getTemplateType()==6){
                 String  pdfName = jsonRequest.getReqBody().getClaimNo() + "X.pdf";
-                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,jsonRequest.getReqBody().getReport(),pdfName,"xieyishu");
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"xieyishu");
                 report =uploadConfig.getDomain()+pathPattern + uploadConfig.getReportUrl() + report1;
             }else if(jsonRequest.getReqBody().getTemplateType()==7){
                 String  pdfName = jsonRequest.getReqBody().getClaimNo() + "T.pdf";
-                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,jsonRequest.getReqBody().getReport(),pdfName,"tongzhidan");
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"tongzhidan");
                 report =uploadConfig.getDomain()+pathPattern + uploadConfig.getReportUrl() + report1;
             }
             serviceResponse.getRetContent().setReport(report);
@@ -269,7 +269,7 @@ public class ObjectionChuLiController {
             CreatePdf createPdf = new CreatePdf();
             ObjectionChuLiVO objectionChuLiVO = (ObjectionChuLiVO)JsonUtil.parseObject(jsonRequest,ObjectionChuLiVO.class);
             //下载地址
-            String createPdfPath = uploadConfig.getReportUrl();
+            String createPdfPath = uploadConfig.getModelUrl();
             objectionChuLiVO.setReport(createPdfPath);
             JsonRequest<ObjectionChuLiVO> jsonRequest1 = new JsonRequest();
             jsonRequest1.setReqBody(objectionChuLiVO);
