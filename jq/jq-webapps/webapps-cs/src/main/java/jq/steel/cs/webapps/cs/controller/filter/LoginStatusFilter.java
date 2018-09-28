@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -34,7 +35,7 @@ import java.util.List;
 /**
  * @Auther: wangyu
  */
-//@Component
+@Component
 @ServletComponentScan("jq.steel.cs.webapps.cs.controller.filter")
 @WebFilter(value = {"/*"},filterName = "loginStatusFilter")
 public class LoginStatusFilter implements Filter {
