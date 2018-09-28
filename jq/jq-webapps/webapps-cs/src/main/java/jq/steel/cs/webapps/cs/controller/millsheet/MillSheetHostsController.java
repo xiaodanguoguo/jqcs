@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -472,7 +473,9 @@ public class MillSheetHostsController {
     public void downOperationManual(@RequestParam("name") String jsonRequest,HttpServletResponse response){
         try {
 
-            String fileName = "酒钢客服平台用户操作手册.pdf";
+            //String fileName = "酒钢客服平台用户操作手册.pdf";
+            String fileName = URLEncoder.encode("酒钢客服平台用户操作手册.pdf", "UTF-8");
+
             //String  operationManual = "E:/酒钢客服平台用户操作手册.pdf";
             String  operationManual = "/data/model/酒钢客服平台用户操作手册.pdf";
             //配置请求头
@@ -480,6 +483,7 @@ public class MillSheetHostsController {
 
             //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
             response.setContentType("multipart/form-data");
+            //response.setCharacterEncoding("ISO8859-1");
 
             //2.设置文件头：最后一个参数是设置下载文件名(假如我们叫zms.jpg,这里是设置名称)
 
@@ -520,6 +524,8 @@ public class MillSheetHostsController {
             }
         } catch (BusinessException e) {
             logger.error("下载报错", e);
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
