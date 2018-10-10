@@ -79,8 +79,8 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         //添加明细表数据
         for (CrmMillSheetSplitInfo crmMillSheetSplitInfo:crmMillSheetSplitInfoList){
             crmMillSheetSplitInfo.setSplitApplyId(crmMillSheetSplitApply1.getSplitApplyId());
-            crmMillSheetSplitInfo.setMillsheetNo(newMillSheetNo);
             crmMillSheetSplitInfo.setFatherMillsheetNo(crmMillSheetSplitInfo.getMillsheetNo());
+            crmMillSheetSplitInfo.setMillsheetNo(newMillSheetNo);
             crmMillSheetSplitInfo.setMillsheetType(crmMillSheetSplitInfo.getMillsheetType());
             crmMillSheetSplitInfo.setZkunnr(crmMillSheetSplitInfo.getZkunnr());
             crmMillSheetSplitInfo.setCreationTime(crmMillSheetSplitInfo.getCreatedDt());
@@ -107,7 +107,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             map.put("inzlosmenge",1);
             map.put("inspiltCustomer","ceshi");*/
             //this.cunChu("A1809040299","A180904029904","M","8888888",1,1,"ceshi");
-            this.cunChu(crmMillSheetSplitInfo.getMillsheetNo(),newMillSheetNo,crmMillSheetSplitInfo.getMillsheetType(),
+            this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(),newMillSheetNo,crmMillSheetSplitInfo.getMillsheetType(),
                     crmMillSheetSplitInfo.getZcharg(),crmMillSheetSplitInfo.getZjishu(),crmMillSheetSplitInfo.getZlosmenge(),
                     crmMillSheetSplitInfo.getSpiltCustomer());
         }
