@@ -21,10 +21,11 @@
     <result column="UPDATE_BYID" property="updateByid" jdbcType="NUMERIC" />
     <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
     <result column="UPDATE_DT" property="updateDt" jdbcType="TIMESTAMP" />
+    <result column="FACTORY" property="factory" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     PID, PRODUCT_NAME, DESIGNATION, STANDARD, CATEGORY_ID, USED, THUMBNAIL, PRODUCT_DESC, PRODUCT_MANUAL,
-    SORT_NUMBER, PRODUCT_AREA, STATUS, CREATE_BYID, CREATE_BY, CREATE_DT, UPDATE_BYID, UPDATE_BY, UPDATE_DT
+    SORT_NUMBER, PRODUCT_AREA, STATUS, CREATE_BYID, CREATE_BY, CREATE_DT, UPDATE_BYID, UPDATE_BY, UPDATE_DT, FACTORY
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     SELECT
@@ -46,6 +47,7 @@
         A.UPDATE_BYID,
         A.UPDATE_BY,
         A.UPDATE_DT,
+        A.FACTORY,
         B.CATEGORY_NAME
     FROM
         CRM_PRODUCT_INFO A
@@ -65,14 +67,14 @@
       THUMBNAIL, PRODUCT_DESC, PRODUCT_MANUAL,
       SORT_NUMBER, PRODUCT_AREA, STATUS,
       CREATE_BYID, CREATE_BY, CREATE_DT, 
-      UPDATE_BYID, UPDATE_BY, UPDATE_DT
+      UPDATE_BYID, UPDATE_BY, UPDATE_DT, FACTORY
       )
     values (#{pid,jdbcType=NUMERIC}, #{productName,jdbcType=VARCHAR}, #{designation,jdbcType=VARCHAR}, 
       #{standard,jdbcType=VARCHAR}, #{categoryId,jdbcType=NUMERIC}, #{used,jdbcType=VARCHAR}, 
       #{thumbnail,jdbcType=VARCHAR}, #{productDesc,jdbcType=VARCHAR}, #{productManual,jdbcType=VARCHAR},
       #{sortNumber,jdbcType=NUMERIC}, #{productArea,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
       #{createByid,jdbcType=NUMERIC}, #{createBy,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP}, 
-      #{updateByid,jdbcType=NUMERIC}, #{updateBy,jdbcType=VARCHAR}, #{updateDt,jdbcType=TIMESTAMP}
+      #{updateByid,jdbcType=NUMERIC}, #{updateBy,jdbcType=VARCHAR}, #{updateDt,jdbcType=TIMESTAMP}, #{factory}
       )
   </insert>
   <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductInfo" >
@@ -135,6 +137,9 @@
       <if test="updateDt != null" >
         UPDATE_DT,
       </if>
+      <if test="factory != null" >
+        FACTORY,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="pid != null" >
@@ -190,6 +195,9 @@
       </if>
       <if test="updateDt != null" >
         #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="factory != null" >
+        #{factory,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -247,6 +255,9 @@
       <if test="updateDt != null" >
         UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP},
       </if>
+      <if test="factory != null" >
+        FACTORY = #{factory,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where PID = #{pid,jdbcType=NUMERIC}
   </update>
@@ -268,6 +279,7 @@
       CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
       UPDATE_BYID = #{updateByid,jdbcType=NUMERIC},
       UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      FACTORY = #{factory,jdbcType=VARCHAR},
       UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP}
     where PID = #{pid,jdbcType=NUMERIC}
   </update>
@@ -311,6 +323,7 @@
     A.UPDATE_BYID,
     A.UPDATE_BY,
     A.UPDATE_DT,
+    A.FACTORY,
     B.CATEGORY_NAME
     FROM
     CRM_PRODUCT_INFO A

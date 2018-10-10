@@ -45,6 +45,8 @@ public class CrmProductInfoVO {
 
     private Date updateDt;
 
+    private String factory;
+
     private List<Long> pids;
 
     private int pageNum = 1;
@@ -208,6 +210,14 @@ public class CrmProductInfoVO {
 
     public void setUpdateDt(Date updateDt) {
         this.updateDt = updateDt;
+    }
+
+    public String getFactory() {
+        return factory;
+    }
+
+    public void setFactory(String factory) {
+        this.factory = factory;
     }
 
     public List<Long> getPids() {

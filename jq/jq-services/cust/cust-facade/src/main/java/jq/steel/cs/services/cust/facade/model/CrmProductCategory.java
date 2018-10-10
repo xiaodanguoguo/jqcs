@@ -26,6 +26,8 @@ public class CrmProductCategory {
 
     private Date updateDt;
 
+    private String factory;
+
     public Long getCid() {
         return cid;
     }
@@ -112,5 +114,13 @@ public class CrmProductCategory {
 
     public void setUpdateDt(Date updateDt) {
         this.updateDt = updateDt;
+    }
+
+    public String getFactory() {
+        return factory;
+    }
+
+    public void setFactory(String factory) {
+        this.factory = factory;
     }
 }

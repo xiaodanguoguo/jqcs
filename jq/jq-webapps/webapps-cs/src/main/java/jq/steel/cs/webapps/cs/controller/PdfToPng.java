@@ -1,12 +1,5 @@
 package jq.steel.cs.webapps.cs.controller;
 
-/**
- * @ClassName: PdfToPng
- * @Description:
- * @Author: lirunze
- * @CreateDate: 2018/9/24 18:05
- */
-
 import com.lowagie2.text.pdf.PdfReader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -17,7 +10,10 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by David on 2016/11/15.
+ * @ClassName: PdfToPng
+ * @Description:
+ * @Author: lirunze
+ * @CreateDate: 2018/9/24 18:05
  */
 public class PdfToPng {
     public static void main(String[] args) {
