@@ -47,6 +47,13 @@ public class CrmProductInfoVO {
 
     private List<Long> pids;
 
+    //工厂
+    private String factory;
+
+    public String getFactory() { return factory; }
+
+    public void setFactory(String factory) { this.factory = factory; }
+
     private int pageNum = 1;
     private int pageSize = 10;
 

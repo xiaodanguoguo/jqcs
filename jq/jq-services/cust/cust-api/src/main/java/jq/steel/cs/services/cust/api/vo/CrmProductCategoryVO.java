@@ -33,6 +33,14 @@ public class CrmProductCategoryVO {
     private int pageNum = 1;
     private int pageSize = 10;
 
+    //工厂
+    private String factory;
+
+    public String getFactory() { return factory; }
+
+    public void setFactory(String factory) { this.factory = factory; }
+
+
     public Long getCid() {
         return cid;
     }

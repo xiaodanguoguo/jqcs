@@ -21,10 +21,11 @@
     <result column="UPDATE_BYID" property="updateByid" jdbcType="NUMERIC" />
     <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
     <result column="UPDATE_DT" property="updateDt" jdbcType="TIMESTAMP" />
+    <result column="FACTORY" property="factory" jdbcType="VARCHAR"/>
   </resultMap>
   <sql id="Base_Column_List" >
     PID, PRODUCT_NAME, DESIGNATION, STANDARD, CATEGORY_ID, USED, THUMBNAIL, PRODUCT_DESC, PRODUCT_MANUAL,
-    SORT_NUMBER, PRODUCT_AREA, STATUS, CREATE_BYID, CREATE_BY, CREATE_DT, UPDATE_BYID, UPDATE_BY, UPDATE_DT
+    SORT_NUMBER, PRODUCT_AREA, STATUS, CREATE_BYID, CREATE_BY, CREATE_DT, UPDATE_BYID, UPDATE_BY, UPDATE_DT, FACTORY
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     SELECT
@@ -46,7 +47,9 @@
         A.UPDATE_BYID,
         A.UPDATE_BY,
         A.UPDATE_DT,
-        B.CATEGORY_NAME
+        A.FACTORY,
+        B.CATEGORY_NAME,
+        B.FACTORY
     FROM
         CRM_PRODUCT_INFO A
     LEFT JOIN CRM_PRODUCT_CATEGORY b ON A .CATEGORY_ID = b.cid
@@ -65,14 +68,16 @@
       THUMBNAIL, PRODUCT_DESC, PRODUCT_MANUAL,
       SORT_NUMBER, PRODUCT_AREA, STATUS,
       CREATE_BYID, CREATE_BY, CREATE_DT, 
-      UPDATE_BYID, UPDATE_BY, UPDATE_DT
+      UPDATE_BYID, UPDATE_BY, UPDATE_DT,
+      FACTORY
       )
     values (#{pid,jdbcType=NUMERIC}, #{productName,jdbcType=VARCHAR}, #{designation,jdbcType=VARCHAR}, 
       #{standard,jdbcType=VARCHAR}, #{categoryId,jdbcType=NUMERIC}, #{used,jdbcType=VARCHAR}, 
       #{thumbnail,jdbcType=VARCHAR}, #{productDesc,jdbcType=VARCHAR}, #{productManual,jdbcType=VARCHAR},
       #{sortNumber,jdbcType=NUMERIC}, #{productArea,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
       #{createByid,jdbcType=NUMERIC}, #{createBy,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP}, 
-      #{updateByid,jdbcType=NUMERIC}, #{updateBy,jdbcType=VARCHAR}, #{updateDt,jdbcType=TIMESTAMP}
+      #{updateByid,jdbcType=NUMERIC}, #{updateBy,jdbcType=VARCHAR}, #{updateDt,jdbcType=TIMESTAMP},
+      #{factory,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductInfo" >
@@ -135,6 +140,9 @@
       <if test="updateDt != null" >
         UPDATE_DT,
       </if>
+      <if test="factory != null" >
+        FACTORY,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="pid != null" >
@@ -190,6 +198,9 @@
       </if>
       <if test="updateDt != null" >
         #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="factory != null" >
+        #{factory,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -247,6 +258,9 @@
       <if test="updateDt != null" >
         UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP},
       </if>
+      <if test="factory != null" >
+        FACTORY = #{factory,jdbcType=VARCHAR},
+      </if>
     </set>
     where PID = #{pid,jdbcType=NUMERIC}
   </update>
@@ -268,7 +282,8 @@
       CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
       UPDATE_BYID = #{updateByid,jdbcType=NUMERIC},
       UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
-      UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP}
+      UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP},
+      FACTORY = #{factory,jdbcType=VARCHAR}
     where PID = #{pid,jdbcType=NUMERIC}
   </update>
   <select id="getList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductInfo" >
@@ -311,7 +326,9 @@
     A.UPDATE_BYID,
     A.UPDATE_BY,
     A.UPDATE_DT,
-    B.CATEGORY_NAME
+    A.FACTORY,
+    B.CATEGORY_NAME,
+    B.FACTORY
     FROM
     CRM_PRODUCT_INFO A
     LEFT JOIN CRM_PRODUCT_CATEGORY b ON A .CATEGORY_ID = b.cid
