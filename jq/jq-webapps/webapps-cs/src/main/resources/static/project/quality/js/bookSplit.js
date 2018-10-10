@@ -53,9 +53,9 @@ function clsMethodLee$operate(){
         jumpUrl("qualityBookList.html","0000000",0);
     });
     //拆分单位失焦事件
-    $("#spiltCustomerText").on("change",function(){
+    /*$("#spiltCustomerText").on("change",function(){
         getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",{"orgName":$(this).val()},"spiltCustomerTextCheckCallBack(data)");
-    });
+    });*/
 }
 function clsMethodLee$refresh(){
 

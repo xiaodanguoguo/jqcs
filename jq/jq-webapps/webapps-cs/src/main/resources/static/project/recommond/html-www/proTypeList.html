@@ -1,7 +1,27 @@
 @@include('../../commonNav/html/commonHeaderBlue.html')
 <link rel="stylesheet" href="../css/product.css">
+<style>
+
+    .apply-Table-nav { margin-left: 20px; margin-top: 20px; margin-bottom: 10px;}
+
+    .apply-Table-nav .apply-Table-nav__Input { width: 150px; height: 28px; line-height: 28px; border: 1px solid #dee3e6; }
+
+    .apply-Table-nav .btnBaseCommon { margin-left: 8px; width: 40px; }
+
+</style>
     <div class="product">
-        <ul class="product-list" comtype="standardTableCtrl" templateid="templateRow" reqpath="/product/category/introduct/list" reqparam="{}" method="POST">
+        <div class="apply-Table-nav" id="searchBox">
+            <span>质证书编码:&nbsp;&nbsp;</span>
+            <select type="text" class="apply-Table-nav__Input" id="condabcd">
+                <option value="">请选择</option>
+                <option value="0">不锈</option>
+                <option value="1">炼轧</option>
+                <option value="2">碳钢</option>
+                <option value="3">榆钢</option>
+            </select>
+            <div class="btnBaseCommon" id="searchBtn" comType="searchBtnCtrl" cond="condabcd" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
+        </div>
+        <ul class="product-list" id="tableList" comtype="standardTableCtrl" templateid="templateRow" reqpath="/product/category/introduct/list" reqparam="{}" method="POST">
             <li class="product-list-box" id="templateRow" style="display: none;cursor: pointer">
                 <div class="product-list-box__line">
                     <span class="product-list-box__name" id="categoryName"></span>
@@ -20,6 +40,12 @@
     }
     $(function(){
         limitCodeDeal($("*[limitCode]"),"limitCode");
+        $("#condabcd").chosen({
+            no_results_text: "暂无结果",
+            width: "150PX",
+            enable_split_word_search: false,
+            placeholder_text_single: ""
+        });
     })
 </script>
 @@include('../../commonNav/html/commonFoot.html')
