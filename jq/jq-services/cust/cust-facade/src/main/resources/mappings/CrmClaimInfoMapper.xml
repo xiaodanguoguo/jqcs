@@ -658,7 +658,7 @@
     (select T.TYPE_NAME from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
     WHERE T.TYPE_NAME=F.ZCPMC)) AS ZCPMC,
-    (select T.PARENT_SID from sgai_md_common_type t
+    (select T.SID from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
     WHERE T.TYPE_NAME=F.ZCPMC)) AS PARENT_SID,
     F.ZPH,
