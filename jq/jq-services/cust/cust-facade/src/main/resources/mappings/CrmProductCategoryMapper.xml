@@ -13,10 +13,11 @@
     <result column="UPDATE_BYID" property="updateByid" jdbcType="NUMERIC" />
     <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
     <result column="UPDATE_DT" property="updateDt" jdbcType="TIMESTAMP" />
+    <result column="FACTORY" property="factory" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     CID, CATEGORY_NAME, CATEGORY_DESC, PARENT_CID, STATUS, CREATE_BYID, CREATE_BY, CREATE_DT, 
-    UPDATE_BYID, UPDATE_BY, UPDATE_DT
+    UPDATE_BYID, UPDATE_BY, UPDATE_DT, FACTORY
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -35,11 +36,11 @@
     insert into CRM_PRODUCT_CATEGORY (CID, CATEGORY_NAME, CATEGORY_DESC, 
       PARENT_CID, STATUS, CREATE_BYID, 
       CREATE_BY, CREATE_DT, UPDATE_BYID, 
-      UPDATE_BY, UPDATE_DT)
+      UPDATE_BY, UPDATE_DT, FACTORY)
     values (#{cid,jdbcType=NUMERIC}, #{categoryName,jdbcType=VARCHAR}, #{categoryDesc,jdbcType=VARCHAR}, 
       #{parentCid,jdbcType=NUMERIC}, #{status,jdbcType=VARCHAR}, #{createByid,jdbcType=NUMERIC}, 
       #{createBy,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP}, #{updateByid,jdbcType=NUMERIC}, 
-      #{updateBy,jdbcType=VARCHAR}, #{updateDt,jdbcType=TIMESTAMP})
+      #{updateBy,jdbcType=VARCHAR}, #{updateDt,jdbcType=TIMESTAMP}, #{factory})
   </insert>
   <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
     <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="cid">
@@ -80,6 +81,9 @@
       <if test="updateDt != null" >
         UPDATE_DT,
       </if>
+      <if test="factory != null" >
+        FACTORY,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="cid != null" >
@@ -114,6 +118,9 @@
       </if>
       <if test="updateDt != null" >
         #{updateDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="factory != null" >
+        #{factory},
       </if>
     </trim>
   </insert>
@@ -150,6 +157,9 @@
       <if test="updateDt != null" >
         UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP},
       </if>
+      <if test="factory != null" >
+        FACTORY = #{factory,jdbcType=VARCHAR},
+      </if>
     </set>
     where CID = #{cid,jdbcType=NUMERIC}
   </update>
@@ -164,6 +174,8 @@
       CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
       UPDATE_BYID = #{updateByid,jdbcType=NUMERIC},
       UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      FACTORY = #{factory,jdbcType=VARCHAR},
       UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP}
     where CID = #{cid,jdbcType=NUMERIC}
   </update>

@@ -42,6 +42,8 @@ public class CrmProductInfo {
 
     private Date updateDt;
 
+    private String factory;
+
     public Long getPid() {
         return pid;
     }
@@ -192,5 +194,13 @@ public class CrmProductInfo {
 
     public void setUpdateDt(Date updateDt) {
         this.updateDt = updateDt;
+    }
+
+    public String getFactory() {
+        return factory;
+    }
+
+    public void setFactory(String factory) {
+        this.factory = factory;
     }
 }
