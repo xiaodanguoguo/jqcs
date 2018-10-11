@@ -476,6 +476,9 @@ public class SysBasicsAccttController {
             if (AssertContext.getAcctType().equals("2")) {
                 acctInfoVO.setOrgName(AssertContext.getOrgName());
             }
+            if (AssertContext.getOrgType().equals("1")) {
+                acctInfoVO.setOrgName(AssertContext.getOrgName());
+            }
             acctInfoVO.setOrgCode(AssertContext.getOrgCode());
             jsonResponse.setRspBody(acctInfoVO);
         }catch (BusinessException e){

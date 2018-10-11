@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.CrmClaimApplyCopyMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.CrmClaimApplyCopy" >
+    <id column="SID" property="sid" jdbcType="DECIMAL" />
+    <result column="CLAIM_NO" property="claimNo" jdbcType="VARCHAR" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="DECIMAL" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_ID" property="customerId" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_NAME" property="customerName" jdbcType="VARCHAR" />
+    <result column="CUST_ADDR" property="custAddr" jdbcType="VARCHAR" />
+    <result column="CUST_EMP_NO" property="custEmpNo" jdbcType="VARCHAR" />
+    <result column="CUST_TEL" property="custTel" jdbcType="VARCHAR" />
+    <result column="LAST_USER_ID" property="lastUserId" jdbcType="VARCHAR" />
+    <result column="LAST_USER" property="lastUser" jdbcType="VARCHAR" />
+    <result column="LAST_USER_ADDR" property="lastUserAddr" jdbcType="VARCHAR" />
+    <result column="CREATE_EMP_NO" property="createEmpNo" jdbcType="VARCHAR" />
+    <result column="LAST_USER_TEL" property="lastUserTel" jdbcType="VARCHAR" />
+    <result column="LAST_USER_EMAIL" property="lastUserEmail" jdbcType="VARCHAR" />
+    <result column="BATTEN_PLATE_NO" property="battenPlateNo" jdbcType="VARCHAR" />
+    <result column="DESIGNATION" property="designation" jdbcType="VARCHAR" />
+    <result column="USED" property="used" jdbcType="VARCHAR" />
+    <result column="CONTRACT_NO" property="contractNo" jdbcType="VARCHAR" />
+    <result column="CONTRACT_VOLUME" property="contractVolume" jdbcType="DECIMAL" />
+    <result column="SIZE_MARK" property="sizeMark" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_WEIGHT" property="originalWeight" jdbcType="DECIMAL" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_CAR_NO" property="originalCarNo" jdbcType="VARCHAR" />
+    <result column="CONTRACT_UNIT_PRICE" property="contractUnitPrice" jdbcType="DECIMAL" />
+    <result column="OBJECTION_NUM" property="objectionNum" jdbcType="DECIMAL" />
+    <result column="END_PROCESSING_TECH" property="endProcessingTech" jdbcType="VARCHAR" />
+    <result column="CLAIM_DESC" property="claimDesc" jdbcType="VARCHAR" />
+    <result column="CLAIM_REASON" property="claimReason" jdbcType="VARCHAR" />
+    <result column="STEEL_TYPE" property="steelType" jdbcType="VARCHAR" />
+    <result column="PRO_PROBLEM" property="proProblem" jdbcType="VARCHAR" />
+    <result column="PRO_DETAIL" property="proDetail" jdbcType="VARCHAR" />
+    <result column="CLAIM_STATE" property="claimState" jdbcType="VARCHAR" />
+    <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+    <result column="REJECT_REASON" property="rejectReason" jdbcType="VARCHAR" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="ADMISSIBILITY_TIME" property="admissibilityTime" jdbcType="TIMESTAMP" />
+    <result column="PRESENTATION_DATE" property="presentationDate" jdbcType="TIMESTAMP" />
+    <result column="ADMISSIBILITY_USER" property="admissibilityUser" jdbcType="VARCHAR" />
+    <result column="PRESENTATION_USER" property="presentationUser" jdbcType="VARCHAR" />
+    <result column="REASONS_FOR_COMPULSORY_CLOSURE" property="reasonsForCompulsoryClosure" jdbcType="VARCHAR" />
+    <result column="DISSENTING_UNIT" property="dissentingUnit" jdbcType="DECIMAL" />
+    <result column="REPORT_PICTURE" property="reportPicture" jdbcType="VARCHAR" />
+    <result column="OBJECTION_CONFIRMATION" property="objectionConfirmation" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SID, CLAIM_NO, PRODUCT_ID, PRODUCT_NAME, MILL_SHEET_NO, CUSTOMER_ID, CUSTOMER_NAME, 
+    CUST_ADDR, CUST_EMP_NO, CUST_TEL, LAST_USER_ID, LAST_USER, LAST_USER_ADDR, CREATE_EMP_NO, 
+    LAST_USER_TEL, LAST_USER_EMAIL, BATTEN_PLATE_NO, DESIGNATION, USED, CONTRACT_NO, 
+    CONTRACT_VOLUME, SIZE_MARK, ORIGINAL_WEIGHT, ORDER_NO, ORIGINAL_CAR_NO, CONTRACT_UNIT_PRICE, 
+    OBJECTION_NUM, END_PROCESSING_TECH, CLAIM_DESC, CLAIM_REASON, STEEL_TYPE, PRO_PROBLEM, 
+    PRO_DETAIL, CLAIM_STATE, FILE_PATH, REJECT_REASON, CREATED_BY, CREATED_DT, UPDATED_BY, 
+    UPDATED_DT, VERSION, ADMISSIBILITY_TIME, PRESENTATION_DATE, ADMISSIBILITY_USER, PRESENTATION_USER, 
+    REASONS_FOR_COMPULSORY_CLOSURE, DISSENTING_UNIT, REPORT_PICTURE, OBJECTION_CONFIRMATION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_CLAIM_APPLY_COPY
+    where SID = #{sid,jdbcType=DECIMAL}
+  </select>
+ <!-- <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_CLAIM_APPLY_COPY
+    where SID = #{sid,jdbcType=DECIMAL}
+  </delete>-->
+  <delete id="delete" parameterType="java.util.Map" >
+    delete from CRM_CLAIM_APPLY_COPY
+    where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApplyCopy" >
+    <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
+      SELECT SEQ_CRM_CLAIM_APPLY_COPY.nextval  FROM DUAL
+    </selectKey>
+    insert into CRM_CLAIM_APPLY_COPY (SID, CLAIM_NO, PRODUCT_ID, 
+      PRODUCT_NAME, MILL_SHEET_NO, CUSTOMER_ID, 
+      CUSTOMER_NAME, CUST_ADDR, CUST_EMP_NO, 
+      CUST_TEL, LAST_USER_ID, LAST_USER, 
+      LAST_USER_ADDR, CREATE_EMP_NO, LAST_USER_TEL, 
+      LAST_USER_EMAIL, BATTEN_PLATE_NO, DESIGNATION, 
+      USED, CONTRACT_NO, CONTRACT_VOLUME, 
+      SIZE_MARK, ORIGINAL_WEIGHT, ORDER_NO, 
+      ORIGINAL_CAR_NO, CONTRACT_UNIT_PRICE, OBJECTION_NUM, 
+      END_PROCESSING_TECH, CLAIM_DESC, CLAIM_REASON, 
+      STEEL_TYPE, PRO_PROBLEM, PRO_DETAIL, 
+      CLAIM_STATE, FILE_PATH, REJECT_REASON, 
+      CREATED_BY, CREATED_DT, UPDATED_BY, 
+      UPDATED_DT, VERSION, ADMISSIBILITY_TIME, 
+      PRESENTATION_DATE, ADMISSIBILITY_USER, 
+      PRESENTATION_USER, REASONS_FOR_COMPULSORY_CLOSURE, 
+      DISSENTING_UNIT, REPORT_PICTURE, OBJECTION_CONFIRMATION
+      )
+    values (#{sid,jdbcType=DECIMAL}, #{claimNo,jdbcType=VARCHAR}, #{productId,jdbcType=DECIMAL}, 
+      #{productName,jdbcType=VARCHAR}, #{millSheetNo,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, 
+      #{customerName,jdbcType=VARCHAR}, #{custAddr,jdbcType=VARCHAR}, #{custEmpNo,jdbcType=VARCHAR}, 
+      #{custTel,jdbcType=VARCHAR}, #{lastUserId,jdbcType=VARCHAR}, #{lastUser,jdbcType=VARCHAR}, 
+      #{lastUserAddr,jdbcType=VARCHAR}, #{createEmpNo,jdbcType=VARCHAR}, #{lastUserTel,jdbcType=VARCHAR}, 
+      #{lastUserEmail,jdbcType=VARCHAR}, #{battenPlateNo,jdbcType=VARCHAR}, #{designation,jdbcType=VARCHAR}, 
+      #{used,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, #{contractVolume,jdbcType=DECIMAL}, 
+      #{sizeMark,jdbcType=VARCHAR}, #{originalWeight,jdbcType=DECIMAL}, #{orderNo,jdbcType=VARCHAR}, 
+      #{originalCarNo,jdbcType=VARCHAR}, #{contractUnitPrice,jdbcType=DECIMAL}, #{objectionNum,jdbcType=DECIMAL}, 
+      #{endProcessingTech,jdbcType=VARCHAR}, #{claimDesc,jdbcType=VARCHAR}, #{claimReason,jdbcType=VARCHAR}, 
+      #{steelType,jdbcType=VARCHAR}, #{proProblem,jdbcType=VARCHAR}, #{proDetail,jdbcType=VARCHAR}, 
+      #{claimState,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, #{rejectReason,jdbcType=VARCHAR}, 
+      #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, 
+      #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL}, #{admissibilityTime,jdbcType=TIMESTAMP}, 
+      #{presentationDate,jdbcType=TIMESTAMP}, #{admissibilityUser,jdbcType=VARCHAR}, 
+      #{presentationUser,jdbcType=VARCHAR}, #{reasonsForCompulsoryClosure,jdbcType=VARCHAR}, 
+      #{dissentingUnit,jdbcType=DECIMAL}, #{reportPicture,jdbcType=VARCHAR}, #{objectionConfirmation,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApplyCopy" >
+    <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
+      SELECT SEQ_CRM_CLAIM_APPLY_COPY.nextval  FROM DUAL
+    </selectKey>
+    insert into CRM_CLAIM_APPLY_COPY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        SID,
+      </if>
+      <if test="claimNo != null" >
+        CLAIM_NO,
+      </if>
+      <if test="productId != null" >
+        PRODUCT_ID,
+      </if>
+      <if test="productName != null" >
+        PRODUCT_NAME,
+      </if>
+      <if test="millSheetNo != null" >
+        MILL_SHEET_NO,
+      </if>
+      <if test="customerId != null" >
+        CUSTOMER_ID,
+      </if>
+      <if test="customerName != null" >
+        CUSTOMER_NAME,
+      </if>
+      <if test="custAddr != null" >
+        CUST_ADDR,
+      </if>
+      <if test="custEmpNo != null" >
+        CUST_EMP_NO,
+      </if>
+      <if test="custTel != null" >
+        CUST_TEL,
+      </if>
+      <if test="lastUserId != null" >
+        LAST_USER_ID,
+      </if>
+      <if test="lastUser != null" >
+        LAST_USER,
+      </if>
+      <if test="lastUserAddr != null" >
+        LAST_USER_ADDR,
+      </if>
+      <if test="createEmpNo != null" >
+        CREATE_EMP_NO,
+      </if>
+      <if test="lastUserTel != null" >
+        LAST_USER_TEL,
+      </if>
+      <if test="lastUserEmail != null" >
+        LAST_USER_EMAIL,
+      </if>
+      <if test="battenPlateNo != null" >
+        BATTEN_PLATE_NO,
+      </if>
+      <if test="designation != null" >
+        DESIGNATION,
+      </if>
+      <if test="used != null" >
+        USED,
+      </if>
+      <if test="contractNo != null" >
+        CONTRACT_NO,
+      </if>
+      <if test="contractVolume != null" >
+        CONTRACT_VOLUME,
+      </if>
+      <if test="sizeMark != null" >
+        SIZE_MARK,
+      </if>
+      <if test="originalWeight != null" >
+        ORIGINAL_WEIGHT,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="originalCarNo != null" >
+        ORIGINAL_CAR_NO,
+      </if>
+      <if test="contractUnitPrice != null" >
+        CONTRACT_UNIT_PRICE,
+      </if>
+      <if test="objectionNum != null" >
+        OBJECTION_NUM,
+      </if>
+      <if test="endProcessingTech != null" >
+        END_PROCESSING_TECH,
+      </if>
+      <if test="claimDesc != null" >
+        CLAIM_DESC,
+      </if>
+      <if test="claimReason != null" >
+        CLAIM_REASON,
+      </if>
+      <if test="steelType != null" >
+        STEEL_TYPE,
+      </if>
+      <if test="proProblem != null" >
+        PRO_PROBLEM,
+      </if>
+      <if test="proDetail != null" >
+        PRO_DETAIL,
+      </if>
+      <if test="claimState != null" >
+        CLAIM_STATE,
+      </if>
+      <if test="filePath != null" >
+        FILE_PATH,
+      </if>
+      <if test="rejectReason != null" >
+        REJECT_REASON,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="admissibilityTime != null" >
+        ADMISSIBILITY_TIME,
+      </if>
+      <if test="presentationDate != null" >
+        PRESENTATION_DATE,
+      </if>
+      <if test="admissibilityUser != null" >
+        ADMISSIBILITY_USER,
+      </if>
+      <if test="presentationUser != null" >
+        PRESENTATION_USER,
+      </if>
+      <if test="reasonsForCompulsoryClosure != null" >
+        REASONS_FOR_COMPULSORY_CLOSURE,
+      </if>
+      <if test="dissentingUnit != null" >
+        DISSENTING_UNIT,
+      </if>
+      <if test="reportPicture != null" >
+        REPORT_PICTURE,
+      </if>
+      <if test="objectionConfirmation != null" >
+        OBJECTION_CONFIRMATION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=DECIMAL},
+      </if>
+      <if test="claimNo != null" >
+        #{claimNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=DECIMAL},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="millSheetNo != null" >
+        #{millSheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="custAddr != null" >
+        #{custAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="custEmpNo != null" >
+        #{custEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custTel != null" >
+        #{custTel,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUserId != null" >
+        #{lastUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUser != null" >
+        #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUserAddr != null" >
+        #{lastUserAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="createEmpNo != null" >
+        #{createEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUserTel != null" >
+        #{lastUserTel,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUserEmail != null" >
+        #{lastUserEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="battenPlateNo != null" >
+        #{battenPlateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="designation != null" >
+        #{designation,jdbcType=VARCHAR},
+      </if>
+      <if test="used != null" >
+        #{used,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null" >
+        #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractVolume != null" >
+        #{contractVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="sizeMark != null" >
+        #{sizeMark,jdbcType=VARCHAR},
+      </if>
+      <if test="originalWeight != null" >
+        #{originalWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="originalCarNo != null" >
+        #{originalCarNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractUnitPrice != null" >
+        #{contractUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="objectionNum != null" >
+        #{objectionNum,jdbcType=DECIMAL},
+      </if>
+      <if test="endProcessingTech != null" >
+        #{endProcessingTech,jdbcType=VARCHAR},
+      </if>
+      <if test="claimDesc != null" >
+        #{claimDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="claimReason != null" >
+        #{claimReason,jdbcType=VARCHAR},
+      </if>
+      <if test="steelType != null" >
+        #{steelType,jdbcType=VARCHAR},
+      </if>
+      <if test="proProblem != null" >
+        #{proProblem,jdbcType=VARCHAR},
+      </if>
+      <if test="proDetail != null" >
+        #{proDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="claimState != null" >
+        #{claimState,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectReason != null" >
+        #{rejectReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="admissibilityTime != null" >
+        #{admissibilityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="presentationDate != null" >
+        #{presentationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="admissibilityUser != null" >
+        #{admissibilityUser,jdbcType=VARCHAR},
+      </if>
+      <if test="presentationUser != null" >
+        #{presentationUser,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonsForCompulsoryClosure != null" >
+        #{reasonsForCompulsoryClosure,jdbcType=VARCHAR},
+      </if>
+      <if test="dissentingUnit != null" >
+        #{dissentingUnit,jdbcType=DECIMAL},
+      </if>
+      <if test="reportPicture != null" >
+        #{reportPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="objectionConfirmation != null" >
+        #{objectionConfirmation,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApplyCopy" >
+    update CRM_CLAIM_APPLY_COPY
+    <set >
+      <if test="claimNo != null" >
+        CLAIM_NO = #{claimNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        PRODUCT_ID = #{productId,jdbcType=DECIMAL},
+      </if>
+      <if test="productName != null" >
+        PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="millSheetNo != null" >
+        MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null" >
+        CUSTOMER_ID = #{customerId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="custAddr != null" >
+        CUST_ADDR = #{custAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="custEmpNo != null" >
+        CUST_EMP_NO = #{custEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custTel != null" >
+        CUST_TEL = #{custTel,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUserId != null" >
+        LAST_USER_ID = #{lastUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUser != null" >
+        LAST_USER = #{lastUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUserAddr != null" >
+        LAST_USER_ADDR = #{lastUserAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="createEmpNo != null" >
+        CREATE_EMP_NO = #{createEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUserTel != null" >
+        LAST_USER_TEL = #{lastUserTel,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUserEmail != null" >
+        LAST_USER_EMAIL = #{lastUserEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="battenPlateNo != null" >
+        BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="designation != null" >
+        DESIGNATION = #{designation,jdbcType=VARCHAR},
+      </if>
+      <if test="used != null" >
+        USED = #{used,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null" >
+        CONTRACT_NO = #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractVolume != null" >
+        CONTRACT_VOLUME = #{contractVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="sizeMark != null" >
+        SIZE_MARK = #{sizeMark,jdbcType=VARCHAR},
+      </if>
+      <if test="originalWeight != null" >
+        ORIGINAL_WEIGHT = #{originalWeight,jdbcType=DECIMAL},
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="originalCarNo != null" >
+        ORIGINAL_CAR_NO = #{originalCarNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractUnitPrice != null" >
+        CONTRACT_UNIT_PRICE = #{contractUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="objectionNum != null" >
+        OBJECTION_NUM = #{objectionNum,jdbcType=DECIMAL},
+      </if>
+      <if test="endProcessingTech != null" >
+        END_PROCESSING_TECH = #{endProcessingTech,jdbcType=VARCHAR},
+      </if>
+      <if test="claimDesc != null" >
+        CLAIM_DESC = #{claimDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="claimReason != null" >
+        CLAIM_REASON = #{claimReason,jdbcType=VARCHAR},
+      </if>
+      <if test="steelType != null" >
+        STEEL_TYPE = #{steelType,jdbcType=VARCHAR},
+      </if>
+      <if test="proProblem != null" >
+        PRO_PROBLEM = #{proProblem,jdbcType=VARCHAR},
+      </if>
+      <if test="proDetail != null" >
+        PRO_DETAIL = #{proDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="claimState != null" >
+        CLAIM_STATE = #{claimState,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        FILE_PATH = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectReason != null" >
+        REJECT_REASON = #{rejectReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="admissibilityTime != null" >
+        ADMISSIBILITY_TIME = #{admissibilityTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="presentationDate != null" >
+        PRESENTATION_DATE = #{presentationDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="admissibilityUser != null" >
+        ADMISSIBILITY_USER = #{admissibilityUser,jdbcType=VARCHAR},
+      </if>
+      <if test="presentationUser != null" >
+        PRESENTATION_USER = #{presentationUser,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonsForCompulsoryClosure != null" >
+        REASONS_FOR_COMPULSORY_CLOSURE = #{reasonsForCompulsoryClosure,jdbcType=VARCHAR},
+      </if>
+      <if test="dissentingUnit != null" >
+        DISSENTING_UNIT = #{dissentingUnit,jdbcType=DECIMAL},
+      </if>
+      <if test="reportPicture != null" >
+        REPORT_PICTURE = #{reportPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="objectionConfirmation != null" >
+        OBJECTION_CONFIRMATION = #{objectionConfirmation,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApplyCopy" >
+    update CRM_CLAIM_APPLY_COPY
+    set CLAIM_NO = #{claimNo,jdbcType=VARCHAR},
+      PRODUCT_ID = #{productId,jdbcType=DECIMAL},
+      PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
+      CUSTOMER_ID = #{customerId,jdbcType=VARCHAR},
+      CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      CUST_ADDR = #{custAddr,jdbcType=VARCHAR},
+      CUST_EMP_NO = #{custEmpNo,jdbcType=VARCHAR},
+      CUST_TEL = #{custTel,jdbcType=VARCHAR},
+      LAST_USER_ID = #{lastUserId,jdbcType=VARCHAR},
+      LAST_USER = #{lastUser,jdbcType=VARCHAR},
+      LAST_USER_ADDR = #{lastUserAddr,jdbcType=VARCHAR},
+      CREATE_EMP_NO = #{createEmpNo,jdbcType=VARCHAR},
+      LAST_USER_TEL = #{lastUserTel,jdbcType=VARCHAR},
+      LAST_USER_EMAIL = #{lastUserEmail,jdbcType=VARCHAR},
+      BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR},
+      DESIGNATION = #{designation,jdbcType=VARCHAR},
+      USED = #{used,jdbcType=VARCHAR},
+      CONTRACT_NO = #{contractNo,jdbcType=VARCHAR},
+      CONTRACT_VOLUME = #{contractVolume,jdbcType=DECIMAL},
+      SIZE_MARK = #{sizeMark,jdbcType=VARCHAR},
+      ORIGINAL_WEIGHT = #{originalWeight,jdbcType=DECIMAL},
+      ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+      ORIGINAL_CAR_NO = #{originalCarNo,jdbcType=VARCHAR},
+      CONTRACT_UNIT_PRICE = #{contractUnitPrice,jdbcType=DECIMAL},
+      OBJECTION_NUM = #{objectionNum,jdbcType=DECIMAL},
+      END_PROCESSING_TECH = #{endProcessingTech,jdbcType=VARCHAR},
+      CLAIM_DESC = #{claimDesc,jdbcType=VARCHAR},
+      CLAIM_REASON = #{claimReason,jdbcType=VARCHAR},
+      STEEL_TYPE = #{steelType,jdbcType=VARCHAR},
+      PRO_PROBLEM = #{proProblem,jdbcType=VARCHAR},
+      PRO_DETAIL = #{proDetail,jdbcType=VARCHAR},
+      CLAIM_STATE = #{claimState,jdbcType=VARCHAR},
+      FILE_PATH = #{filePath,jdbcType=VARCHAR},
+      REJECT_REASON = #{rejectReason,jdbcType=VARCHAR},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=DECIMAL},
+      ADMISSIBILITY_TIME = #{admissibilityTime,jdbcType=TIMESTAMP},
+      PRESENTATION_DATE = #{presentationDate,jdbcType=TIMESTAMP},
+      ADMISSIBILITY_USER = #{admissibilityUser,jdbcType=VARCHAR},
+      PRESENTATION_USER = #{presentationUser,jdbcType=VARCHAR},
+      REASONS_FOR_COMPULSORY_CLOSURE = #{reasonsForCompulsoryClosure,jdbcType=VARCHAR},
+      DISSENTING_UNIT = #{dissentingUnit,jdbcType=DECIMAL},
+      REPORT_PICTURE = #{reportPicture,jdbcType=VARCHAR},
+      OBJECTION_CONFIRMATION = #{objectionConfirmation,jdbcType=DECIMAL}
+    where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+  </update>
+</mapper>

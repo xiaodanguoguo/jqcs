@@ -245,4 +245,33 @@ public class CrmClaimInnerInquire {
     public void setProductionProcessAll(String productionProcessAll) {
         this.productionProcessAll = productionProcessAll;
     }
+
+    @Override
+    public String toString() {
+        return "CrmClaimInnerInquire{" +
+                "productionProcessInvestigati='" + productionProcessInvestigati + '\'' +
+                ", productionProcessPhoto='" + productionProcessPhoto + '\'' +
+                ", qualityGrade='" + qualityGrade + '\'' +
+                ", originalJudgementResult='" + originalJudgementResult + '\'' +
+                ", surfaceStructure='" + surfaceStructure + '\'' +
+                ", productionProcessText='" + productionProcessText + '\'' +
+                ", productionProcessAll='" + productionProcessAll + '\'' +
+                ", sid=" + sid +
+                ", claimNo='" + claimNo + '\'' +
+                ", logisticsProcess='" + logisticsProcess + '\'' +
+                ", endProcessingTech='" + endProcessingTech + '\'' +
+                ", outInquireFact='" + outInquireFact + '\'' +
+                ", claimConfirm='" + claimConfirm + '\'' +
+                ", claimVerdict='" + claimVerdict + '\'' +
+                ", improvement='" + improvement + '\'' +
+                ", inquireState='" + inquireState + '\'' +
+                ", memo='" + memo + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", createDt=" + createDt +
+                ", updateBy='" + updateBy + '\'' +
+                ", updateDt=" + updateDt +
+                ", version=" + version +
+                ", optionType=" + optionType +
+                '}';
+    }
 }

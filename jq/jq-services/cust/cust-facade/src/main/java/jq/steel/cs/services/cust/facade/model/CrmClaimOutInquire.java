@@ -8,12 +8,42 @@ import java.util.List;
 
 public class CrmClaimOutInquire {
 
+    //跟踪人
+    private String trace;
+
+    //跟踪原因
+    private  Date trackingTime;
+
     //厂家code
     private List<String> deptCodes;
 
     private  String parentSid;
 
     private String claimState1;
+
+    public String getTrace() {
+        return trace;
+    }
+
+    public void setTrace(String trace) {
+        this.trace = trace;
+    }
+
+    public Date getTrackingTime() {
+        return trackingTime;
+    }
+
+    public void setTrackingTime(Date trackingTime) {
+        this.trackingTime = trackingTime;
+    }
+
+    public List<String> getDeptCodes() {
+        return deptCodes;
+    }
+
+    public void setDeptCodes(List<String> deptCodes) {
+        this.deptCodes = deptCodes;
+    }
 
     public String getClaimState1() {
         return claimState1;
@@ -961,5 +991,104 @@ public class CrmClaimOutInquire {
 
     public void setReasonsForCompulsoryClosure(String reasonsForCompulsoryClosure) {
         this.reasonsForCompulsoryClosure = reasonsForCompulsoryClosure;
+    }
+
+    @Override
+    public String toString() {
+        return "CrmClaimOutInquire{" +
+                "deptCodes=" + deptCodes +
+                ", parentSid='" + parentSid + '\'' +
+                ", claimState1='" + claimState1 + '\'' +
+                ", productionProcessInvestigati='" + productionProcessInvestigati + '\'' +
+                ", productionProcessPhoto='" + productionProcessPhoto + '\'' +
+                ", qualityGrade='" + qualityGrade + '\'' +
+                ", originalJudgementResult='" + originalJudgementResult + '\'' +
+                ", surfaceStructure='" + surfaceStructure + '\'' +
+                ", productionProcessText='" + productionProcessText + '\'' +
+                ", productionProcessAll='" + productionProcessAll + '\'' +
+                ", outInquireFact='" + outInquireFact + '\'' +
+                ", claimConfirm='" + claimConfirm + '\'' +
+                ", claimVerdict='" + claimVerdict + '\'' +
+                ", improvement='" + improvement + '\'' +
+                ", memo='" + memo + '\'' +
+                ", fieldConclusionText='" + fieldConclusionText + '\'' +
+                ", fieldConclusionPhoto='" + fieldConclusionPhoto + '\'' +
+                ", objectionConfirmation='" + objectionConfirmation + '\'' +
+                ", reportPictures='" + reportPictures + '\'' +
+                ", salesManagerSuggests='" + salesManagerSuggests + '\'' +
+                ", inquireInfoPhoto='" + inquireInfoPhoto + '\'' +
+                ", inquireInfoText='" + inquireInfoText + '\'' +
+                ", inquireInfoAll='" + inquireInfoAll + '\'' +
+                ", zph='" + zph + '\'' +
+                ", zcpmc='" + zcpmc + '\'' +
+                ", deptCode='" + deptCode + '\'' +
+                ", specs='" + specs + '\'' +
+                ", sid=" + sid +
+                ", claimNo='" + claimNo + '\'' +
+                ", logisticsProcess='" + logisticsProcess + '\'' +
+                ", endProcessingTech='" + endProcessingTech + '\'' +
+                ", productDt=" + productDt +
+                ", shift='" + shift + '\'' +
+                ", fieldConclusion='" + fieldConclusion + '\'' +
+                ", userRequirement='" + userRequirement + '\'' +
+                ", handingSuggestion='" + handingSuggestion + '\'' +
+                ", inquireState='" + inquireState + '\'' +
+                ", followReason='" + followReason + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", createDt=" + createDt +
+                ", updateBy='" + updateBy + '\'' +
+                ", updateDt=" + updateDt +
+                ", version=" + version +
+                ", inquireInfo='" + inquireInfo + '\'' +
+                ", amountOfUse=" + amountOfUse +
+                ", productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", millSheetNo='" + millSheetNo + '\'' +
+                ", customerId='" + customerId + '\'' +
+                ", customerName='" + customerName + '\'' +
+                ", custAddr='" + custAddr + '\'' +
+                ", custEmpNo='" + custEmpNo + '\'' +
+                ", custTel='" + custTel + '\'' +
+                ", lastUserId='" + lastUserId + '\'' +
+                ", lastUser='" + lastUser + '\'' +
+                ", lastUserAddr='" + lastUserAddr + '\'' +
+                ", createEmpNo='" + createEmpNo + '\'' +
+                ", lastUserTel='" + lastUserTel + '\'' +
+                ", lastUserEmail='" + lastUserEmail + '\'' +
+                ", battenPlateNo='" + battenPlateNo + '\'' +
+                ", designation='" + designation + '\'' +
+                ", used='" + used + '\'' +
+                ", contractNo='" + contractNo + '\'' +
+                ", contractVolume=" + contractVolume +
+                ", originalWeight=" + originalWeight +
+                ", orderNo='" + orderNo + '\'' +
+                ", originalCarNo='" + originalCarNo + '\'' +
+                ", contractUnitPrice=" + contractUnitPrice +
+                ", objectionNum=" + objectionNum +
+                ", claimDesc='" + claimDesc + '\'' +
+                ", claimReason='" + claimReason + '\'' +
+                ", steelType='" + steelType + '\'' +
+                ", proProblem='" + proProblem + '\'' +
+                ", proDetail='" + proDetail + '\'' +
+                ", claimState='" + claimState + '\'' +
+                ", filePath='" + filePath + '\'' +
+                ", rejectReason='" + rejectReason + '\'' +
+                ", claimType='" + claimType + '\'' +
+                ", optionType=" + optionType +
+                ", dissentingUnit=" + dissentingUnit +
+                ", admissibilityTime=" + admissibilityTime +
+                ", presentationDate=" + presentationDate +
+                ", admissibilityUser='" + admissibilityUser + '\'' +
+                ", presentationUser='" + presentationUser + '\'' +
+                ", reasonsForCompulsoryClosure='" + reasonsForCompulsoryClosure + '\'' +
+                ", endDt=" + endDt +
+                ", endDtStr='" + endDtStr + '\'' +
+                ", startDt=" + startDt +
+                ", startDtStr='" + startDtStr + '\'' +
+                ", externalLnvestigator='" + externalLnvestigator + '\'' +
+                ", externalLnvestigationDate=" + externalLnvestigationDate +
+                ", internalLnvestigator='" + internalLnvestigator + '\'' +
+                ", internalLnvestigationDate=" + internalLnvestigationDate +
+                '}';
     }
 }

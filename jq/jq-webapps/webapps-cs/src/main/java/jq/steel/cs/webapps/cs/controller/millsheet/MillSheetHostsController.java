@@ -112,9 +112,9 @@ public class MillSheetHostsController {
                     millSheetUrlName = millSheetUrlName.substring(1);
                     String savepath =this.sheetNameUrl(millSheetUrlName,millSheetUrlL);
                     //转换png
-                    String pngName =PdfToPng.pdf2Image(savepath,"/data/upload",300);
+                    String pngName =PdfToPng.pdf2Image(savepath,"/data/kf_web",300);
                     System.out.println("转换png路径"+pngName);
-                    String hh1 = pngName.replace("/data/upload","/res");
+                    String hh1 = pngName.replace("/data/kf_web","/res");
 
                     //\data\millpath\2018-09-25\\R20180925001_1.png
                     String hh = createPdfPath+"/"+hh1;
@@ -128,9 +128,9 @@ public class MillSheetHostsController {
                     this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
 
                     //转换png
-                    String pngName =PdfToPng.pdf2Image(millSheetPath,"/data/upload",300);
+                    String pngName =PdfToPng.pdf2Image(millSheetPath,"/data/kf_web",300);
                     System.out.println("转换png路径"+pngName);
-                    String hh1 = pngName.replace("/data/upload","/res");
+                    String hh1 = pngName.replace("/data/kf_web","/res");
                     String hh = createPdfPath+"/"+hh1;
                     serviceResponse.getRetContent().get(0).setMillSheetPath(hh);
                 }
