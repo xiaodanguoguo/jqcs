@@ -237,17 +237,17 @@ public class ObjectionChuLiController {
                 //report = uploadConfig.getDomain() +"/"+serviceResponse.getRetContent().getReport();
                 String  pdfName = jsonRequest.getReqBody().getClaimNo() + "S.pdf";
                 String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"shoulidan");
-                String hh1 = report1.replace("/data/upload","/res");
+                String hh1 = report1.replace("/data/kf_web","/res");
                 report =uploadConfig.getDomain()+hh1;
             }else if(jsonRequest.getReqBody().getTemplateType()==6){
                 String  pdfName = jsonRequest.getReqBody().getClaimNo() + "X.pdf";
                 String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"xieyishu");
-                String hh1 = report1.replace("/data/upload","/res");
+                String hh1 = report1.replace("/data/kf_web","/res");
                 report =uploadConfig.getDomain()+hh1;
             }else if(jsonRequest.getReqBody().getTemplateType()==7){
                 String  pdfName = jsonRequest.getReqBody().getClaimNo() + "T.pdf";
                 String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"tongzhidan");
-                String hh1 = report1.replace("/data/upload","/res");
+                String hh1 = report1.replace("/data/kf_web","/res");
                 report =uploadConfig.getDomain()+hh1;
             }
             serviceResponse.getRetContent().setReport(report);

@@ -13,6 +13,9 @@
     <result column="VERSION" property="version" jdbcType="NUMERIC" />
   </resultMap>
   <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimLog" >
+    <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
+      SELECT SEQ_CRM_CLAIM_LOG.nextval  FROM DUAL
+    </selectKey>
     insert into CRM_CLAIM_LOG (SID, CLAIM_NO, TYPE, 
       OP_MEMO, CREATED_BY, CREATED_DT, 
       UPDATED_BY, UPDATED_DT, VERSION
@@ -23,6 +26,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimLog" >
+    <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
+      SELECT SEQ_CRM_CLAIM_LOG.nextval  FROM DUAL
+    </selectKey>
     insert into CRM_CLAIM_LOG
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="sid != null" >
