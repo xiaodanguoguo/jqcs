@@ -254,43 +254,201 @@
 	    	</div>
 	    	<div id="js-loader" class="og-head-maincontent">
 
-<link rel="stylesheet" href="../css/product_message.css">
-    <div class="message">
-        <!--<div class="message-title">
-        </div>-->
-        <div class="message-content">
-            <!--<h1 class="message-content-title">产品信息</h1>-->
-            <div id="searchBox">
-                <span style="margin-right: 10px;">产品名称：</span>
-                <input type="text" class="inputBase" id="condproductName">
-                <div class="btnLowNew" id="establish-Home-page" comtype="searchBtnCtrl" rule="cond" cond="condproductName" uniontableid="tableList" parentId="searchBox" limitCode="M40201">查询</div>
+<link rel="stylesheet" href="../css/credential_Management.css">
+<style>
+    .management-box-list__Every .chosen-container{
+        margin-left: 0;
+    }
+</style>
+<script src="../js/qualityBookList.js"></script>
+<script>
+    $(function(){
+        $("#conddeptCode").chosen({
+            //disable_search_threshold: 5,
+            no_results_text: "没有匹配结果!",
+            width:"122px",
+            enable_split_word_search: false,
+            placeholder_text_single: '请选择'
+        });
+    });
+</script>
+    <div class="management">
+       <!-- <div class="management-title">
+            <div class="btnLowNew management-Home-page">首页</div>
+            <div class="btnLowNew management-questionnaire">质证书查询
+                <b class="management-title-close">X</b>
             </div>
-            <div class="message-content-box clearfix " id="tableList" comtype="" templateid="templateRow" reqpath="/product/info/introduct/list" reqparam="{}" method="POST" page="tcdPageCode">
-                <dl class="message-content-box__Every" id="templateRow" style="display: none;cursor: pointer;">
-                    <dt class="message-content-box__picture" id="imgShow">
-                        <img id="thumbnail" src="" alt="" style="width: 288px;height: 200px;">
-                    </dt>
-                    <dd class="message-content-box__headline" id="productName"></dd>
-                </dl>
+        </div>-->
+        <div class="management-box">
+            <div class="management-box-list">
+                <ul class="management-box-list__Content clearfix" id="searchBox">
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">客户名称:</span>
+                        <input type="text" class="inputBase" id="condzkunnr">
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">合同号:</span>
+                        <input type="text" class="inputBase" id="condzhth">
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">车号:</span>
+                        <input type="text" class="inputBase" id="condzchehao">
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">质证书编号:</span>
+                        <input type="text" class="inputBase" id="condmillSheetNo">
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">批/板/卷号:</span>
+                        <input type="text" class="inputBase" id="condbattenPlateNo">
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">发车时间:</span>
+                        <input class="inputBase" type="text" name="startDt" id="condstartDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'condendDt\')}'})" />
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">至:</span>
+                        <input class="inputBase" type="text" name="condendDt" id="condendDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'condstartDt\')}'})" />
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">牌号:</span>
+                        <input type="text" class="inputBase" id="condzph">
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">订货单位:</span>
+                        <input type="text" class="inputBase" id="condzkunnrs">
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">分厂:</span>
+                        <select type="text" class="inputBase" id="conddeptCode">
+                            <option value="">请选择</option>
+                            <option value="1000">不锈</option>
+                            <option value="2000">炼轧</option>
+                            <option value="2200">碳钢</option>
+                            <option value="3000">榆钢</option>
+                        </select>
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">产线:</span>
+                        <input type="text" class="inputBase" id="condmillLine">
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">质证书状态:</span>
+                        <select type="text" class="inputBase" id="condstate">
+                            <option value="">请选择</option>
+                            <option value="NEW">新建</option>
+                            <option value="CREATED">已生成</option>
+                            <option value="EXAMINED">已审核</option>
+                            <option value="PRIVIEWED">已预览</option>
+                            <option value="DOWNLOADED">已下载</option>
+                            <option value="PRINTED">已打印</option>
+                            <option value="PENDING">待处理</option>
+                            <option value="FALLBACKED">已回退</option>
+                            <option value="DISSUSED">已置废</option>
+                            <option value="SPLITED">已拆分</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+            <div class="management-box-button">
+                <div class="btnLowNew management-box-search" comType="searchBtnCtrl" cond="condzkunnr,condzhth,condzchehao,condmillSheetNo,condbattenPlateNo,condzph,condstartDt,condendDt,condstate,condzkunnrs,conddeptCode,condmillLine" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
+                <div class="btnLowNew management-box-preview" id="previewOpe" limitCode="M20207">预览</div>
+                <div class="btnLowNew management-box-print" id="printOpe" limitCode="M20201">打印</div>
+                <div class="btnLowNew management-box-print" id="downLoadOpe" limitCode="M20202">下载</div>
+                <div class="btnBaseCancel management-box-reset" comType="clearAllCond" parentId="searchBox" bindCtrlId="condzkunnr,condzhth,condzchehao,condmillSheetNo,condbattenPlateNo,condzph,condstartDt,condendDt,condstate,condzkunnrs,conddeptCode,condmillLine"  limitCode="M20206">重置</div>
+                <!--<div class="btnLowNew management-box-apply">拆分申请</div>
+                <div class="btnLowNew management-box-split">强制拆分</div>-->
+            </div>
+            <table class="table-list" id="tableList" style="table-layout: fixed" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData" chkId="chkCoding" isCacheCond="sid" clsChk="clsChk" clsallchk="clsAllChk">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" width="3%">
+                        <input type="checkbox" id="checkAll" comtype="checkAll" cond="" class="clsAllChk" uniontableid="tableList" chkid="chkCoding">
+                    </th>
+                    <th class="table-list-currentrow-theader" width="12%">质证书编号</th>
+                    <th class="table-list-currentrow-theader" width="5%">质证书类别</th>
+                    <th class="table-list-currentrow-theader" width="5%">质证书状态</th>
+                    <th class="table-list-currentrow-theader" width="18%">售达方</th>
+                    <th class="table-list-currentrow-theader" width="10%">发车时间</th>
+                    <th class="table-list-currentrow-theader" width="12%">车号</th>
+                    <th class="table-list-currentrow-theader" width="12%">产品名称</th>
+                    <th class="table-list-currentrow-theader" width="7%">牌号</th>
+                    <th class="table-list-currentrow-theader"  width="5%">已打印次数</th>
+                    <th class="table-list-currentrow-theader"  width="5%">可打印次数</th>
+                    <th class="table-list-currentrow-theader"  width="5%">可下载次数</th>
+                    <th class="table-list-currentrow-theader"  width="7%">操作</th>
+                </tr>
+                <tr class="table-list-currentrow" id="templateRow" style="display: none;">
+                    <td class="table-list-currentrow-tdetail" style="text-align: center"><input type="checkbox" id="chkCoding" class="clsChk"></td>
+                    <td class="table-list-currentrow-tdetail" id="millSheetNo"></td>
+                    <td class="table-list-currentrow-tdetail" id="millSheetType" style="text-align: center"></td>
+                    <td class="table-list-currentrow-tdetail" id="stateName" style="text-align: center"></td>
+                    <td class="table-list-currentrow-tdetail" id="zkunnr"></td>
+                    <td class="table-list-currentrow-tdetail" id="createdDt" style="text-align: center"></td>
+                    <td class="table-list-currentrow-tdetail" id="zchehao"></td>
+                    <td class="table-list-currentrow-tdetail" id="zcpmc"></td>
+                    <td class="table-list-currentrow-tdetail" id="zph"></td>
+                    <td class="table-list-currentrow-tdetail" id="printedNum" style="text-align: center"></td>
+                    <td class="table-list-currentrow-tdetail" id="printableNum" style="text-align: center"></td>
+                    <td class="table-list-currentrow-tdetail" id="downableNum" style="text-align: center"></td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="btnLowImgCom" id="commonSplit" style="display: none" limitCode="M20203">拆分申请</span>
+                        <span class="btnLowImgCom" id="strongSplit" style="display:none;" limitCode="M20204">强制拆分</span>
+                        <span class="btnLowImgCom" id="historySplit" style="display:none;" limitCode="M20205">拆分历史</span>
+                        <span class="btnLowImgCom" id="applyBack" style="display:none;">申请回退</span>
+                    </td>
+                </tr>
+            </table>
+            <div id="nonData" class="noDataCon" style="display: none;width: 950px;margin-left: 28px;">
+                <i></i>
+                <p>暂无数据......</p>
             </div>
             <div class="tcdPageCode"></div>
         </div>
     </div>
+    <div id="previewOpeBox" class="popup gc_box" style="display:none">
+        <div class="title" style="">
+            <h2>预览</h2>
+            <div>
+                <a class="min" href=" " title="最小化" style="display:none;"></a>
+                <a class="max" href="javascript:;" title="最大化" style="display:none;">1</a>
+                <a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+                <a class="close" href="javascript:;" title="关闭" style="display:block;"></a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="previewOpeBox">
+                <img class="previewOpeBox-pdf" id="previewOpeBoxPdf"></img>
+                <div class="previewOpeBox-operate">
+                    <button id="previewNext" class="btnLowNew previewOpeBox-operate-next fr">下一页</button>
+                    <button id="previewPrev" class="btnLowNew previewOpeBox-operate-prev fl">上一页</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<div id="applyBackPopup" class="popup gc_box" style="display:none">
+    <div class="title" style="">
+        <h2>请输入回退原因</h2>
+        <div>
+            <a class="min" href=" " title="最小化" style="display:none;"></a>
+            <a class="max" href="javascript:;" title="最大化" style="display:none;"></a>
+            <a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+            <a class="close" href="javascript:;" title="关闭" style="display:block;"></a>
+        </div>
+    </div>
+    <div class="content">
+        <textarea id="rejectText" type="text" class="content-Input required isLengthOf" v_minlength="5" islengthofmsg="最少输入5个字" style="resize: none;width: 340px;height: 130px;border: 1px solid #e5e5e5;border-radius: 5px;margin-left: 7px;"></textarea>
+        <div class="">
+            <div id="rejectSureOpe" class="btnBaseCommon product-save" style="margin-left: 236px;margin-right: 20px;margin-top: 10px;">确定</div>
+            <div id="rejectCancelOpe" class="btnBaseCancel product-submit">取消</div>
+        </div>
+    </div>
+</div>
 <script>
-    $(function(){
-        limitCodeDeal($("*[limitCode]"),"limitCode");
-        $("#tableList").attr({"comType":"standardTableCtrl","reqParam":JSON.stringify({"categoryId":GetQueryString("categoryId")})});
-        document.body.jsCtrl.ctrl = $("#tableList")[0];
-        document.body.jsCtrl.init();
-    });
-    function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
-       // $(cloneRow).find("#imgShow").css("background","url('"+ jsonItem.thumbnail +"')");
-        $(cloneRow).on("click",function(){
-            jumpUrl("productDetail.html?pid="+ jsonItem.pid,"0000000",0);
-        })
-    }
+    $("#zezhao").click(function () {
+        alert(1)
+    })
 </script>
-
+    
 </div>
 </div>
 <div style="width: 1200px;height: 70px;margin: 0px auto;text-align: center;line-height: 70px;">

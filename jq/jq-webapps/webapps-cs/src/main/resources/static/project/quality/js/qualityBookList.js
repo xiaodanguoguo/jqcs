@@ -6,6 +6,7 @@ function clsMethodLee(){
         "path4":"/sysAcct/customerType"//获取用户信息接口
     };
     this.documentLee = null;
+    this.millSheetNo = "";//回退millSheetNo主键
     this.previewArr = [];//缓存预览数组
     this.previewArrCurrent = "";//当前预览图片
     this.init = clsMethodLee$init;//初始化页面的展示内容,绑定dom节点
@@ -31,7 +32,13 @@ function clsMethodLee$init(){
 function clsMethodLee$parse(){
     limitCodeDeal($("*[limitCode]"),"limitCode");
     getAjaxResult(this.requestUrl.path4,"POST",{},"getContentCallBack(data)");
-
+    $("#condstate").chosen({
+        //disable_search_threshold: 5,
+        no_results_text: "没有匹配结果!",
+        width:"122px",
+        enable_split_word_search: false,
+        placeholder_text_single: '请选择'
+    });
     this.operate();
 }
 
@@ -106,6 +113,15 @@ function clsMethodLee$operate(){
 
         }
     });
+    $("#rejectSureOpe").on("click",function(){//确认退回操作
+        if(checkBackSure()){
+            var jsonParam = {"millSheetNo":document.body.jsLee.millSheetNo,"regresses":$("#rejectText").val()};
+            getAjaxResult("/rebackApply/applyForRetreat","POST",jsonParam,"backSureCallBack(data)");
+        }
+    });
+    $("#rejectCancelOpe").on("click",function () {
+        closePopupWin();
+    });
 
 }
 function clsMethodLee$refresh(){
@@ -169,6 +185,9 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {//插件渲染操作
             $(cloneRow).find("#stateName").html("已拆分");
             break;
     }
+    if(statsBook == "EXAMINED" || statsBook == "DOWNLOADED" || statsBook == "PRIVIEWED" || statsBook == "PRINTED"){
+        $(cloneRow).find("#applyBack").show();
+    }
     //赋值title
     $(cloneRow).find("#zchehao").attr("title",jsonItem.zchehao);
     $(cloneRow).find("#zcpmc").attr("title",jsonItem.zcpmc);
@@ -190,6 +209,12 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {//插件渲染操作
     //拆分历史查看操作
     $(cloneRow).find("#historySplit").on("click",function(){
         jumpUrl("historySplit.html?millSheetNo=" + jsonItem.millSheetNo,"0000000",1);
+    });
+    //申请回退
+    $(cloneRow).find("#applyBack").on("click",function(){
+        openWin('360', '245', 'applyBackPopup', true);
+        $("#rejectText").val("");
+        document.body.jsLee.millSheetNo = jsonItem.millSheetNo;
     });
 };
 
@@ -224,7 +249,7 @@ function initplugPath(docm,comType,reqPath,reqParam,reqMethod){
 function previewCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        openWin("1200","700","previewOpeBox");
+        openWin("1200","600","previewOpeBox");
         document.body.jsLee.previewArr = data.rspBody;
         document.body.jsLee.previewArrCurrent = document.body.jsLee.previewArr[0].millSheetPath;
         $("#previewOpeBoxPdf").attr("src",document.body.jsLee.previewArrCurrent);
@@ -328,6 +353,26 @@ function printOpeCallBack(data){
     if(data.retCode == "0000000"){
         initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
         jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody[0].report,"0000000","1");
+    }
+}
+
+//校验退回操作
+function checkBackSure(){
+    initValidate($("#applyBackPopup")[0]);
+    var valiClass=new clsValidateCtrl();
+    if(!valiClass.validateAll4Ctrl($("#applyBackPopup")[0])){
+        return false;
+    }
+    return true;
+}
+
+//退回接口回调函数
+function backSureCallBack(data){
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        closePopupWin();
+        var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert("电子质证书，编号："+ document.body.jsLee.millSheetNo +"，已经回退","成功提示");
     }
 }
 

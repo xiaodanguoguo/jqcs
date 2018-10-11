@@ -69,7 +69,12 @@
             $("#userName").html(unescape(getCookie("userName")));
             $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
             if(unescape(getCookie("navListIdx"))){
-                $(".og-head-mainlt__sasety").eq(unescape(getCookie("navListIdx"))).addClass("og-head-mainlt__sidebar--shrinkActive");
+                $(".og-head-mainlt__sasety").each(function () {
+					if(unescape(getCookie("navListIdx")) == $(this).val()){
+					    $(this).addClass("og-head-mainlt__sidebar--shrinkActive")
+					}
+                });
+                //$(".og-head-mainlt__sasety").eq(unescape(getCookie("navListIdx"))).addClass("og-head-mainlt__sidebar--shrinkActive");
             }
 		    //导航的点击
 		    $(".og-head-navlist li a").on("click",function(){
@@ -103,6 +108,12 @@
                 $.download(requestUrl + "/millsheet/downOperationManual", importParam, "POST");
 			});
             start();
+            //赋值内容主体高度，显示footer
+			if($("#js-leftNavBar").height() > $("#js-loader").height()){
+			    $(".og-head-main").css("height",$("#js-leftNavBar").height()+"px");
+			}else{
+                $(".og-head-main").css("height",$("#js-loader").height()+"px");
+			}
 		})
         //退出接口
         function quitFun(data){
@@ -209,7 +220,8 @@
 						<ul class="menu-ul">
 							<li class="og-head-mainlt__sasety" limitCode="M201" value="6"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/checkTrue.html">防伪验证</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M202" value="7"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList.html">质证书管理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="M203" value="8"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M202" value="19"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList2.html">质证书管理(销售公司使用)</a></li>
+							<!--<li class="og-head-mainlt__sasety" limitCode="M203" value="8"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>-->
 						</ul>
 					</li>
 					<li class="og-head-mainlt__sidebar--menu"  limitCode="M3">
@@ -255,14 +267,14 @@
     <div class="product">
         <div class="apply-Table-nav" id="searchBox">
             <span>质证书编码:&nbsp;&nbsp;</span>
-            <select type="text" class="apply-Table-nav__Input" id="condabcd">
+            <select type="text" class="apply-Table-nav__Input" id="condfactory">
                 <option value="">请选择</option>
-                <option value="0">不锈</option>
-                <option value="1">炼轧</option>
-                <option value="2">碳钢</option>
-                <option value="3">榆钢</option>
+                <option value="1000">不锈</option>
+                <option value="2000">炼轧</option>
+                <option value="2200">碳钢</option>
+                <option value="3000">榆钢</option>
             </select>
-            <div class="btnBaseCommon" id="searchBtn" comType="searchBtnCtrl" cond="condabcd" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
+            <div class="btnBaseCommon" id="searchBtn" comType="searchBtnCtrl" cond="condfactory" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
         </div>
         <ul class="product-list" id="tableList" comtype="standardTableCtrl" templateid="templateRow" reqpath="/product/category/introduct/list" reqparam="{}" method="POST">
             <li class="product-list-box" id="templateRow" style="display: none;cursor: pointer">
@@ -283,7 +295,7 @@
     }
     $(function(){
         limitCodeDeal($("*[limitCode]"),"limitCode");
-        $("#condabcd").chosen({
+        $("#condfactory").chosen({
             no_results_text: "暂无结果",
             width: "150PX",
             enable_split_word_search: false,
@@ -294,7 +306,7 @@
 
 </div>
 </div>
-<div style="width: 1200px;height: 70px;margin: 0 auto;text-align: center;line-height: 70px;">
+<div style="width: 1200px;height: 70px;margin: 0px auto;text-align: center;line-height: 70px;">
     copyright ©️ 2018 甘肃酒钢集团宏兴钢铁股份有限公司 版权所有
 </div>
 </div>

@@ -14,7 +14,15 @@
         <!--企业注册-->
         <div class="tabContent" id="enterpriseRegister">
             <div class="register-container-main" id="js-register-container-main" style="width:620px;padding-top: 30px;">
-                <p class="register-container-text" style="margin-top: 0;">
+                <p class="register-container-text"  style="margin-top: 0;">
+                    <label for="" class="register-container-text__label"><i class="register-container__text-imp ">*</i>单位名称</label>
+                    <input type="text" id="companyName" class="register-container-text__input required numLetterChinese isLengthOf inputBase isLengthOfmsg" v_maxlength="50" v_minlength="0" isLengthOfmsg="请输入20位以内英文,数字或汉字"  placeholder="50位以内英文,数字或汉字">
+                </p>
+                <p class="register-container-text">
+                    <label for="" class="register-container-text__label"><i class="register-container__text-imp ">*</i>工商纳税人识别号信息</label>
+                    <input type="text" id="bukrs" class="register-container-text__input required isLengthOf inputBase numOrLetter" v_maxlength="18" v_minlength="18" isLengthOfmsg="请输入18位数字或英文"  placeholder="请输入18位数字或英文">
+                </p>
+                <p class="register-container-text">
                     <label for="" class="register-container-text__label"><i class="register-container__text-imp ">*</i>登录名</label>
                     <input type="text" id="acctTitle" class="register-container-text__input required numOrLetter isLengthOf inputBase"　v_maxlength="20" v_minlength="6" isLengthOfmsg="请输入6-20个中英文，数字"  placeholder="6-20个中英文，数字">
                 </p>
@@ -33,10 +41,6 @@
                     <input id="mobilePhone" type="text" name="phone" style="width:330px;"  class="inputBase register-container-text__input required isLengthOf allCellPhone" maxlength="11" v_maxlength="11" v_minlength="11" isLengthOfmsg="请输入11位手机号码" placeholder="11位手机号码" style="width: 269px">
                 </p>
                 <p class="register-container-text">
-                    <label for="" class="register-container-text__label"><i class="register-container__text-imp ">*</i>单位名称</label>
-                    <input type="text" id="companyName" class="register-container-text__input required numLetterChinese isLengthOf inputBase isLengthOfmsg" v_maxlength="50" v_minlength="0" isLengthOfmsg="请输入20位以内英文,数字或汉字"  placeholder="50位以内英文,数字或汉字">
-                </p>
-                <p class="register-container-text">
                     <label for="" class="register-container-text__label"><i class="register-container__text-imp ">*</i>单位地址</label>
                     <input type="text" id="address" class="register-container-text__input required isLengthOf inputBase" v_maxlength="20" v_minlength="0" isLengthOfmsg="请输入20位以内英文,数字或汉字"  placeholder="20位以内英文,数字或汉字">
                 </p>
@@ -46,7 +50,7 @@
                 </p>
                 <p class="register-container-text clearfix">
                     <label for="" class="register-container-text__label fl"><i class="register-container__text-imp ">*</i>校验</label>
-                    <div id="dragA" class="drag" style="top: -30px;left: 115px;"></div>
+                    <div id="dragA" class="drag" style="top: -30px;left: 144px;"></div>
                 </p>
             </div>
         </div>

@@ -6,6 +6,17 @@
     }
 </style>
 <script src="../js/qualityBookList.js"></script>
+<script>
+    $(function(){
+        $("#conddeptCode").chosen({
+            //disable_search_threshold: 5,
+            no_results_text: "没有匹配结果!",
+            width:"122px",
+            enable_split_word_search: false,
+            placeholder_text_single: '请选择'
+        });
+    });
+</script>
     <div class="management">
        <!-- <div class="management-title">
             <div class="btnLowNew management-Home-page">首页</div>
@@ -49,6 +60,24 @@
                         <input type="text" class="inputBase" id="condzph">
                     </li>
                     <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">订货单位:</span>
+                        <input type="text" class="inputBase" id="condzkunnrs">
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">分厂:</span>
+                        <select type="text" class="inputBase" id="conddeptCode">
+                            <option value="">请选择</option>
+                            <option value="1000">不锈</option>
+                            <option value="2000">炼轧</option>
+                            <option value="2200">碳钢</option>
+                            <option value="3000">榆钢</option>
+                        </select>
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">产线:</span>
+                        <input type="text" class="inputBase" id="condmillLine">
+                    </li>
+                    <li class="management-box-list__Every">
                         <span class="management-box-list__Name">质证书状态:</span>
                         <select type="text" class="inputBase" id="condstate">
                             <option value="">请选择</option>
@@ -67,11 +96,11 @@
                 </ul>
             </div>
             <div class="management-box-button">
-                <div class="btnLowNew management-box-search" comType="searchBtnCtrl" cond="condzkunnr,condzhth,condzchehao,condmillSheetNo,condbattenPlateNo,condzph,condstartDt,condendDt,condstate" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
+                <div class="btnLowNew management-box-search" comType="searchBtnCtrl" cond="condzkunnr,condzhth,condzchehao,condmillSheetNo,condbattenPlateNo,condzph,condstartDt,condendDt,condstate,condzkunnrs,conddeptCode,condmillLine" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
                 <div class="btnLowNew management-box-preview" id="previewOpe" limitCode="M20207">预览</div>
                 <div class="btnLowNew management-box-print" id="printOpe" limitCode="M20201">打印</div>
                 <div class="btnLowNew management-box-print" id="downLoadOpe" limitCode="M20202">下载</div>
-                <div class="btnBaseCancel management-box-reset" comType="clearAllCond" parentId="searchBox" bindCtrlId="condzkunnr,condzhth,condzchehao,condmillSheetNo,condbattenPlateNo,condzph,condstartDt,condendDt,condstate"  limitCode="M20206">重置</div>
+                <div class="btnBaseCancel management-box-reset" comType="clearAllCond" parentId="searchBox" bindCtrlId="condzkunnr,condzhth,condzchehao,condmillSheetNo,condbattenPlateNo,condzph,condstartDt,condendDt,condstate,condzkunnrs,conddeptCode,condmillLine"  limitCode="M20206">重置</div>
                 <!--<div class="btnLowNew management-box-apply">拆分申请</div>
                 <div class="btnLowNew management-box-split">强制拆分</div>-->
             </div>

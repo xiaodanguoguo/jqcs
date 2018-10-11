@@ -163,7 +163,7 @@ function passwordDiffer(a,b){//校验两次密码是否一致   a——首次输
 }
 
 function jsonJoin(){//拼接注册入参
-    var jsonParam = {"acctTitle":"","acctPassword":"","mobilePhone":"","companyName":"","address":"","email":""}
+    var jsonParam = {"acctTitle":"","acctPassword":"","mobilePhone":"","companyName":"","address":"","email":"","bukrs":""}
     if(document.body.jsLee.registerType == 0){//企业注册
         jsonParam.custType = 1;
         getValue4Desc(jsonParam,document.body.jsLee.enterpriseRegister[0]);

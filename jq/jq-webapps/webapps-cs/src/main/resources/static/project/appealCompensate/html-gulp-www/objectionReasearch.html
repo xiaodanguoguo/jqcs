@@ -69,7 +69,12 @@
             $("#userName").html(unescape(getCookie("userName")));
             $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
             if(unescape(getCookie("navListIdx"))){
-                $(".og-head-mainlt__sasety").eq(unescape(getCookie("navListIdx"))).addClass("og-head-mainlt__sidebar--shrinkActive");
+                $(".og-head-mainlt__sasety").each(function () {
+					if(unescape(getCookie("navListIdx")) == $(this).val()){
+					    $(this).addClass("og-head-mainlt__sidebar--shrinkActive")
+					}
+                });
+                //$(".og-head-mainlt__sasety").eq(unescape(getCookie("navListIdx"))).addClass("og-head-mainlt__sidebar--shrinkActive");
             }
 		    //导航的点击
 		    $(".og-head-navlist li a").on("click",function(){
@@ -103,6 +108,12 @@
                 $.download(requestUrl + "/millsheet/downOperationManual", importParam, "POST");
 			});
             start();
+            //赋值内容主体高度，显示footer
+			if($("#js-leftNavBar").height() > $("#js-loader").height()){
+			    $(".og-head-main").css("height",$("#js-leftNavBar").height()+"px");
+			}else{
+                $(".og-head-main").css("height",$("#js-loader").height()+"px");
+			}
 		})
         //退出接口
         function quitFun(data){
@@ -209,7 +220,8 @@
 						<ul class="menu-ul">
 							<li class="og-head-mainlt__sasety" limitCode="M201" value="6"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/checkTrue.html">防伪验证</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M202" value="7"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList.html">质证书管理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="M203" value="8"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M202" value="19"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList2.html">质证书管理(销售公司使用)</a></li>
+							<!--<li class="og-head-mainlt__sasety" limitCode="M203" value="8"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>-->
 						</ul>
 					</li>
 					<li class="og-head-mainlt__sidebar--menu"  limitCode="M3">
@@ -341,8 +353,8 @@
                         <th class="table-list-currentrow-theader" width="10%">规格</th>
                         <th class="table-list-currentrow-theader" width="7%">异议类别</th>
                         <th class="table-list-currentrow-theader" width="8%">异议量&nbsp;(&nbsp;吨&nbsp;)</th>
-                        <th class="table-list-currentrow-theader" width="9%">内部调查报告</th>
                         <th class="table-list-currentrow-theader" width="9%">外部调查报告</th>
+                        <th class="table-list-currentrow-theader" width="9%">内部调查报告</th>
                         <th class="table-list-currentrow-theader" width="8%">提报日期</th>
                         <th class="table-list-currentrow-theader" width="8%">受理时间</th>
                         <th class="table-list-currentrow-theader" width="8%">外部调查时间</th>
@@ -355,9 +367,11 @@
                     <tr class="table-list-currentrow" id="templateRow" style="display: none;">
                         <td class="table-list-currentrow-tdetail">
                             <span class="btnLowImgCom" id="printOpe" limitCode="M30302" style="display: none;">打印受理单</span>
-                            <span class="btnLowImgCom" id="detailOpe" limitCode="M30309">详情</span>
-                            <span class="btnLowImgCom" id="researchInOpe" limitCode="M30304" style="display: none;">内部调查</span>
+                            <span class="btnLowImgCom" id="detailOpe" limitCode="M30309">异议详情</span>
                             <span class="btnLowImgCom" id="researchOutOpe" limitCode="M30303" style="display: none;">外部调查</span>
+                            <span class="btnLowImgCom" id="researchInOpe" limitCode="M30304" style="display: none;">内部调查</span>
+                            <span class="btnLowImgCom" id="researchOutDetOpe" style="display: none;">外部调查详情</span>
+                            <span class="btnLowImgCom" id="researchInDetOpe" style="display: none;">内部调查详情</span>
                             <span class="btnLowImgCom" id="rejectOpe" limitCode="M30305" style="display: none;">驳回</span>
                             <span class="btnLowImgCom" id="acceptOpe" style="display: none;">受理</span>
                         </td>
@@ -374,10 +388,10 @@
                         <td class="table-list-currentrow-tdetail" id="claimTypeA"></td>
                         <td class="table-list-currentrow-tdetail" id="objectionNum"></td>
                         <td class="table-list-currentrow-tdetail">
-                            <span class="btnLowImgCom" id="downloadInOpe" limitCode="M30306" style="display: none">下载报告</span>
+                            <span class="btnLowImgCom" id="downloadOutOpe" limitCode="M30307" style="display: none;">下载报告</span>
                         </td>
                         <td class="table-list-currentrow-tdetail">
-                            <span class="btnLowImgCom" id="downloadOutOpe" limitCode="M30307" style="display: none;">下载报告</span>
+                            <span class="btnLowImgCom" id="downloadInOpe" limitCode="M30306" style="display: none">下载报告</span>
                         </td>
                         <td class="table-list-currentrow-tdetail" id="presentationDate"></td>
                         <td class="table-list-currentrow-tdetail" id="AdmissibilityTime"></td>
@@ -418,7 +432,7 @@
 
 </div>
 </div>
-<div style="width: 1200px;height: 70px;margin: 0 auto;text-align: center;line-height: 70px;">
+<div style="width: 1200px;height: 70px;margin: 0px auto;text-align: center;line-height: 70px;">
     copyright ©️ 2018 甘肃酒钢集团宏兴钢铁股份有限公司 版权所有
 </div>
 </div>
