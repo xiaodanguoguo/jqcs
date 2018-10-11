@@ -87,3 +87,19 @@
 .newsList-content-mainList-textEdit { height: 200px; }
 
 .inputBaseListCon { width: 34px; height: 22px; background-size: 34px 22px; cursor: pointer; }
+
+.textChangeBox-box { padding: 20px; }
+
+.textChangeBox-box-operate { margin-left: 780px; }
+
+.textChangeBox-box-operate .btnBaseCommon { margin-right: 20px; }
+
+.manageNews-main-search-list { width: 425px; padding: 0px 30px 10px 0; line-height: 28px; float: left; height: 28px; }
+
+.manageNews-mainSearch-list-name { float: left; width: 80px; text-align: right; line-height: 28px; height: 28px; margin-right: 10px; }
+
+.manageNews-mainSearch-list-input { float: left; width: 310px; }
+
+.manageNews-mainSearch-list-check { margin-right: 12px; margin-left: 100px; cursor: pointer; }
+
+.manageNews-mainSearch-list-searchBtn { margin-left: 315px; margin-right: 12px; }

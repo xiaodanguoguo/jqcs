@@ -206,6 +206,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
             case "EXAMINE":
                 $(cloneRow).find("#agreementStateA").html("已审核");
                 $(cloneRow).find("#viewDownloadOpe").show();
+                $(cloneRow).find("#agreementAuditDetOpe").show();
                 break;
             case "COMPLETE":
                 $(cloneRow).find("#agreementStateA").html("已完成");
@@ -241,6 +242,10 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
             $("#rejectText").val("");
             openWin('360', '245', 'inputAnswer', true);
             document.body.jsLee.claimNo = jsonItem.claimNo;
+        });
+        //协议书详情
+        $(cloneRow).find("#agreementAuditDetOpe").on("click",function(){
+            jumpUrl("agreementBook.html?htmlType=3&claimNo=" + jsonItem.claimNo,"0000000",0);
         });
     }
 }

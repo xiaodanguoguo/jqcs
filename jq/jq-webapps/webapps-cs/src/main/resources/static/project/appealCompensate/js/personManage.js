@@ -176,10 +176,10 @@ function openWinShow(type,sidStr){//type操作类型 0-订货单位新增 1-订�
     //修改title信息
     switch(type){
         case 0 :
-            $("#textChangeBoxTitle").html("新增订货单位信息");
+            $("#textChangeBoxTitle").html("新增质量异议提报人员信息");
             break;
         case 1 :
-            $("#textChangeBoxTitle").html("编辑订货单位信息");
+            $("#textChangeBoxTitle").html("编辑质量异议提报人员信息");
             break;
         case 2 :
             $("#textChangeBoxTitle").html("新增使用单位信息");

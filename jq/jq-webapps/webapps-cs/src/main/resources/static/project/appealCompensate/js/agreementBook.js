@@ -43,6 +43,14 @@ function clsMethodLee$parse(){
             //不可编辑
             ue.setDisabled();
         });
+    }else if(this.htmlType == 3){//协议书详情页面
+        $("#htmlBox input").attr("disabled",true).addClass("changeGary");
+        $("#htmlBox textarea").attr("disabled",true).addClass("changeGary");
+        var ue = UE.getEditor('editor');
+        ue.ready(function() {
+            //不可编辑
+            ue.setDisabled();
+        });
     }
     getAjaxResult(document.body.jsLee.requestUrl.path1,"POST",{"claimNo":this.claimNo},"initHtmlCallBack(data)")
     $("#claimNo").html(this.claimNo);

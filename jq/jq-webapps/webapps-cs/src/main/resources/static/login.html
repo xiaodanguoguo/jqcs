@@ -67,6 +67,15 @@
             $("#logo").on("click",function () {
                 jumpUrl("login.html","0000000",0)
             });
+            $(".login-tab-list").on("click",function () {
+                if($(this).index() == 1){
+                    jumpUrl("http://www.jiugang.com/index.html","0000000",1);
+                }else  if($(this).index() == 2){
+                    //jumpUrl("","0000000",1);
+                }else  if($(this).index() == 4){
+                    jumpUrl("http://www.jiugang.com/article/about/honor/","0000000",1);
+                }
+            });
         })
         //退出接口
         function quitFun(data){
@@ -104,11 +113,23 @@
 <body style="position: relative;">
 <div class="og-head">
 	<div class="og-head-nav">
-		<div class="og-head-navwrap">
+		<div class="og-head-navwrap" style="position:relative;overflow:inherit;">
 			<div class="og-head-navlogo" id="logo">
 				<a href="javascript:;" class="og-head-navlogo__logoimg fl"></a>
 				<div id="titleNameHead" class="og-head-navlogo__logoText fl"></div>
 			</div>
+            <style>
+                #appImg{
+                    display: none;
+                }
+                #saomiaoApp:hover #appImg{
+                    display: block;
+                }
+            </style>
+            <div id="saomiaoApp" class="fr" style="color: #666;line-height: 60px;margin-right: 130px;font-size: 16px;cursor: pointer;">
+                扫描下载APP
+                <img id="appImg" src="project/login/images/erweima.png" style="height: 200px;width: 200px;position:absolute;top: 45px;right: 170px;z-index: 2222222;box-shadow:5px 5px 0px #444;-moz-box-shadow:0px 0px 5px #444;-webkit-box-shadow:0px 0px 5px #444;"/>
+            </div>
 			<!--<div class="og-head-navwrap-opeBox clearfix fr">
 					<span class="og-head-navwrap-opeBoxList">
 						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/4.png')"></div>
