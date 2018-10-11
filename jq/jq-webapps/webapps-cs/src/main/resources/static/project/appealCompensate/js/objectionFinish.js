@@ -166,14 +166,20 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 break;
             case "HANDLE":
                 $(cloneRow).find("#claimStateA").html("处理中");
+                $(cloneRow).find("#uploadOpe").show();
                 break;
             case "END":
                 $(cloneRow).find("#claimStateA").html("已结案");
                 $(cloneRow).find("#strongEndOpe").hide();
                 $(cloneRow).find("#printOpe").show();
+                $(cloneRow).find("#uploadOpe").show();
+                $(cloneRow).find("#viewUploadOpe").show();
+
                 break;
             case "EVALUATE":
                 $(cloneRow).find("#claimStateA").html("已评价");
+                $(cloneRow).find("#strongEndOpe").hide();
+                $(cloneRow).find("#viewUploadOpe").show();
                 break;
         }
 
