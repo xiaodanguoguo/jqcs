@@ -5,12 +5,14 @@ import com.ebase.core.log.SearchableLoggerFactory;
 import com.raqsoft.report.view.ReportServlet;
 import com.raqsoft.report.view.ServletMappings;
 import org.slf4j.Logger;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 
+import javax.servlet.MultipartConfigElement;
 import java.io.IOException;
 
 @Configuration
@@ -41,6 +43,20 @@ public class WebConfig {
     public ResourceLoader createResourceLoader() {
 
         return new DefaultResourceLoader();
+    }
+
+    /**
+     * @param:
+     * @return:
+     * @description:  文件上传临时路径
+     * @author: lirunze
+     * @Date: 2018/10/10
+     */
+    @Bean
+    MultipartConfigElement multipartConfigElement() {
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setLocation("/data/tmp");
+        return factory.createMultipartConfig();
     }
 
 }
