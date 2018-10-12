@@ -102,7 +102,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
                 crmClaimLog.setType("外部调查报告修改");
                 crmClaimLog.setCreatedBy(orgCode);
                 crmClaimLog.setCreatedDt(new Date());
-                crmClaimLog.setOpMemo(crmClaimOutInquire.toString());
+                crmClaimLog.setOpMemo("外部调查报告修改");
                 crmClaimLogMapper.insert(crmClaimLog);
             }else {
                 //新增数据
@@ -115,7 +115,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
                 crmClaimLog.setType("外部调查报告保存");
                 crmClaimLog.setCreatedBy(orgCode);
                 crmClaimLog.setCreatedDt(new Date());
-                crmClaimLog.setOpMemo(crmClaimOutInquire.toString());
+                crmClaimLog.setOpMemo("外部调查报告保存");
                 crmClaimLogMapper.insert(crmClaimLog);
             }
             //修改  货物所在地 lastUserAddr  缺陷名称 proProblem 异议确认量（吨）OBJECTION_CONFIRMATION
@@ -153,7 +153,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimLog.setType("外部调查报告跟踪");
             crmClaimLog.setCreatedBy(orgCode);
             crmClaimLog.setCreatedDt(new Date());
-            crmClaimLog.setOpMemo(crmClaimOutInquire.toString());
+            crmClaimLog.setOpMemo("外部调查报告跟踪");
             crmClaimLogMapper.insert(crmClaimLog);
 
             //修改  货物所在地 lastUserAddr  缺陷名称 proProblem 异议确认量（吨）OBJECTION_CONFIRMATION
@@ -178,7 +178,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
                 crmClaimLog.setType("外部调查报告提交时有数据进行修改");
                 crmClaimLog.setCreatedBy(orgCode);
                 crmClaimLog.setCreatedDt(new Date());
-                crmClaimLog.setOpMemo(crmClaimOutInquire.toString());
+                crmClaimLog.setOpMemo("外部调查报告提交时有数据进行修改");
                 crmClaimLogMapper.insert(crmClaimLog);
             }else {
                 crmClaimOutInquireMapper.insertSelective(crmClaimOutInquire);
@@ -188,7 +188,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
                 crmClaimLog.setType("外部调查报告提交时没有数据进行新增");
                 crmClaimLog.setCreatedBy(orgCode);
                 crmClaimLog.setCreatedDt(new Date());
-                crmClaimLog.setOpMemo(crmClaimOutInquire.toString());
+                crmClaimLog.setOpMemo("外部调查报告提交时没有数据进行新增");
                 crmClaimLogMapper.insert(crmClaimLog);
             }
 
@@ -294,7 +294,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
                 crmClaimLog.setType("内部调查报告保存时有记录进行修改");
                 crmClaimLog.setCreatedBy(orgCode);
                 crmClaimLog.setCreatedDt(new Date());
-                crmClaimLog.setOpMemo(crmClaimInnerInquire.toString());
+                crmClaimLog.setOpMemo("内部调查报告保存时有记录进行修改");
                 crmClaimLogMapper.insert(crmClaimLog);
             }else {
 
@@ -305,7 +305,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
                 crmClaimLog.setType("内部调查报告保存时无记录进行新增");
                 crmClaimLog.setCreatedBy(orgCode);
                 crmClaimLog.setCreatedDt(new Date());
-                crmClaimLog.setOpMemo(crmClaimInnerInquire.toString());
+                crmClaimLog.setOpMemo("内部调查报告保存时无记录进行新增");
                 crmClaimLogMapper.insert(crmClaimLog);
             }
             //修改外部表
@@ -327,7 +327,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimLog.setType("内部调查提交");
             crmClaimLog.setCreatedBy(orgCode);
             crmClaimLog.setCreatedDt(new Date());
-            crmClaimLog.setOpMemo(crmClaimInnerInquire.toString());
+            crmClaimLog.setOpMemo("内部调查提交");
             crmClaimLogMapper.insert(crmClaimLog);
 
             //点击“提交”则内部调查报告结束，报告的状态修改为“调查结束”，记录调查结束时间和内部调查人员信息

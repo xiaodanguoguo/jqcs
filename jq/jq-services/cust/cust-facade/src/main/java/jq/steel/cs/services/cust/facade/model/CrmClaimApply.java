@@ -7,6 +7,12 @@ import java.util.Date;
 
 public class CrmClaimApply {
 
+    //结案时间
+    private Date closingTime;
+
+    //结案人
+    private String closingUser;
+
     private  String parentSid;
     //调查状态
     private  String inquireState;
@@ -152,6 +158,21 @@ public class CrmClaimApply {
     //异议确认量
     private  String objectionConfirmation;
 
+    public Date getClosingTime() {
+        return closingTime;
+    }
+
+    public void setClosingTime(Date closingTime) {
+        this.closingTime = closingTime;
+    }
+
+    public String getClosingUser() {
+        return closingUser;
+    }
+
+    public void setClosingUser(String closingUser) {
+        this.closingUser = closingUser;
+    }
 
     public String getParentSid() {
         return parentSid;

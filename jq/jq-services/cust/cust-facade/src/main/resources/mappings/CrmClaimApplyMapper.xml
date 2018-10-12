@@ -710,6 +710,12 @@
       <if test="presentationDate != null" >
         PRESENTATION_DATE = #{presentationDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="closingTime != null" >
+        ADMISSIBILITY_TIME = #{closingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closingUser != null and closingUser != ''" >
+        ADMISSIBILITY_USER = #{closingUser,jdbcType=VARCHAR},
+      </if>
       <if test="admissibilityUser != null and admissibilityUser != ''" >
         ADMISSIBILITY_USER = #{admissibilityUser,jdbcType=VARCHAR},
       </if>

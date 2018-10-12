@@ -242,15 +242,18 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
     // 强制结案
     @Override
     public Integer compulsorySettlement(ObjectionChuLiVO record) {
+        String orgCode = record.getOrgCode();
         CrmClaimApply crmClaimApply = new CrmClaimApply();
         CrmClaimInfo crmClaimInfo = new CrmClaimInfo();
         BeanCopyUtil.copy(record,crmClaimApply);
         BeanCopyUtil.copy(record,crmClaimInfo);
         crmClaimApply.setUpdatedDt(new Date());
-        crmClaimApply.setUpdatedBy(AssertContext.getAcctName());
+        crmClaimApply.setUpdatedBy(orgCode);
         crmClaimApply.setClaimState("END");
+        crmClaimApply.setClosingTime(new Date());
+        crmClaimApply.setClosingUser(orgCode);
         crmClaimApplyMapper.update(crmClaimApply);
-        crmClaimInfo.setUpdatedBy(AssertContext.getAcctName());
+        crmClaimInfo.setUpdatedBy(orgCode);
         crmClaimInfo.setUpdatedDt(new Date());
         crmClaimInfo.setClaimState("END");
         int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
