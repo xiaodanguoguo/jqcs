@@ -31,6 +31,7 @@ public class ObjectionJieAnServiceImpl implements ObjectionJieAnService{
     //上传协议书文件
     @Override
     public Integer upload(ObjectionJieAnVO record) {
+        String orgCode  = AssertContext.getOrgCode();
         int i;
         CrmAgreementInfo crmAgreementInfo = new CrmAgreementInfo();
         crmAgreementInfo.setClaimNo(record.getClaimNo());
@@ -46,6 +47,8 @@ public class ObjectionJieAnServiceImpl implements ObjectionJieAnService{
         crmClaimApply.setUpdatedBy(AssertContext.getAcctName());
         crmClaimApply.setUpdatedDt(new Date());
         crmClaimApply.setClaimState("END");
+        crmClaimApply.setClosingTime(new Date());
+        crmClaimApply.setClosingUser(orgCode);
         crmClaimApplyMapper.update(crmClaimApply);
         CrmClaimInfo crmClaimInfo = new CrmClaimInfo();
         crmClaimInfo.setClaimNo(record.getClaimNo());
