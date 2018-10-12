@@ -1,6 +1,7 @@
 package jq.steel.cs.webapps.cs.controller.sysbasics;
 
 import com.ebase.core.AssertContext;
+import com.ebase.core.exception.BusinessException;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
@@ -8,6 +9,7 @@ import com.ebase.core.web.json.JsonResponse;
 import feign.FeignException;
 import jq.steel.cs.services.base.api.controller.AcctOperPrivRelaAPI;
 import jq.steel.cs.services.base.api.controller.RoleInfoAPI;
+import jq.steel.cs.services.base.api.vo.AcctInfoVO;
 import jq.steel.cs.services.base.api.vo.AcctOperPrivRelaVO;
 import jq.steel.cs.services.base.api.vo.RoleInfoVO;
 import org.slf4j.Logger;
@@ -358,6 +360,21 @@ public class RoleInfoController {
             result.setRetCode(JsonResponse.SYS_EXCEPTION);
         }
         return result;
+    }
+
+
+    @RequestMapping("/getRoleCodeByAcctId")
+    public ServiceResponse<List<RoleInfoVO>> getRoleCodeByAcctId(@RequestBody JsonRequest<RoleInfoVO> jsonRequest){
+        ServiceResponse <List<RoleInfoVO>> jsonResponse = new ServiceResponse();
+        try {
+            String acctId = AssertContext.getAcctId();
+            ServiceResponse<List<RoleInfoVO>> list = roleInfoAPI.getRoleCodeByAcctId(acctId);
+            jsonResponse.setRetContent(list.getRetContent());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BusinessException("0103001");
+        }
+        return jsonResponse;
     }
 }
 
