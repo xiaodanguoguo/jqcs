@@ -50,28 +50,28 @@
                     </li>
                     <li class="management-box-list__Every">
                         <span class="management-box-list__Name">质证书状态:</span>
-                        <select type="text" class="inputBase" id="condstate">
+                        <select type="text" class="inputBase" id="condstates">
                             <option value="">请选择</option>
-                            <option value="NEW">新建</option>
-                            <option value="CREATED">已生成</option>
+                            <!--<option value="NEW">新建</option>-->
+                            <!--<option value="CREATED">已生成</option>-->
                             <option value="EXAMINED">已审核</option>
                             <option value="PRIVIEWED">已预览</option>
                             <option value="DOWNLOADED">已下载</option>
                             <option value="PRINTED">已打印</option>
-                            <option value="PENDING">待处理</option>
+                            <!--<option value="PENDING">待处理</option>
                             <option value="FALLBACKED">已回退</option>
                             <option value="DISSUSED">已置废</option>
-                            <option value="SPLITED">已拆分</option>
+                            <option value="SPLITED">已拆分</option>-->
                         </select>
                     </li>
                 </ul>
             </div>
             <div class="management-box-button">
-                <div class="btnLowNew management-box-search" comType="searchBtnCtrl" cond="condzkunnr,condzhth,condzchehao,condmillSheetNo,condbattenPlateNo,condzph,condstartDt,condendDt,condstate" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
+                <div class="btnLowNew management-box-search" comType="searchBtnCtrl" cond="condzkunnr,condzhth,condzchehao,condmillSheetNo,condbattenPlateNo,condzph,condstartDt,condendDt,condstates" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
                 <div class="btnLowNew management-box-preview" id="previewOpe" limitCode="M20207">预览</div>
                 <div class="btnLowNew management-box-print" id="printOpe" limitCode="M20201">打印</div>
                 <div class="btnLowNew management-box-print" id="downLoadOpe" limitCode="M20202">下载</div>
-                <div class="btnBaseCancel management-box-reset" comType="clearAllCond" parentId="searchBox" bindCtrlId="condzkunnr,condzhth,condzchehao,condmillSheetNo,condbattenPlateNo,condzph,condstartDt,condendDt,condstate"  limitCode="M20206">重置</div>
+                <div class="btnBaseCancel management-box-reset" comType="clearAllCond" parentId="searchBox" bindCtrlId="condzkunnr,condzhth,condzchehao,condmillSheetNo,condbattenPlateNo,condzph,condstartDt,condendDt,condstates"  limitCode="M20206">重置</div>
                 <!--<div class="btnLowNew management-box-apply">拆分申请</div>
                 <div class="btnLowNew management-box-split">强制拆分</div>-->
             </div>

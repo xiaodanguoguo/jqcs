@@ -38,7 +38,8 @@ var titleJson = {
             "objectionReasearch.html":"异议调查",
             "objectionSubmit.html":"异议提报",
             "objectionSubDetail.html":"异议提报-新建",
-            "personManage.html":"管理联系信息"
+            "personManage.html":"管理联系信息",
+            "objectionStatic.html":"质量异议统计台账"
         },
         "recommond":{//产品推介
             "productNewsList.html":"产品推介信息维护",
