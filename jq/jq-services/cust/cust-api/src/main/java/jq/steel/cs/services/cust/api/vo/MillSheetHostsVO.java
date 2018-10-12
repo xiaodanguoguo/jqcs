@@ -9,6 +9,8 @@ import java.util.List;
 
 public class MillSheetHostsVO implements Serializable {
 
+    private String states;
+
     //产线
     private String millLine;
     //（销售界面）客户名称
@@ -132,6 +134,14 @@ public class MillSheetHostsVO implements Serializable {
     private  String spiltCustomer;
 
     private  String productName;
+
+    public String getStates() {
+        return states;
+    }
+
+    public void setStates(String states) {
+        this.states = states;
+    }
 
     public String getMillLine() {
         return millLine;
