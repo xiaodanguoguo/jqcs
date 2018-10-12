@@ -138,12 +138,12 @@ public class CrmProductCategoryController {
      * @Date: 2018/8/25
      */
     @RequestMapping("/introduct/list")
-    ServiceResponse<List<CrmProductCategoryVO>> getIntroductList() {
+    ServiceResponse<List<CrmProductCategoryVO>> getIntroductList(@RequestBody JsonRequest<CrmProductCategoryVO> jsonRequest) {
         logger.info("产品分类分页查询");
         ServiceResponse<List<CrmProductCategoryVO>> serviceResponse = new ServiceResponse<>();
 
         try {
-            CrmProductCategoryVO crmProductCategoryVO = new CrmProductCategoryVO();
+            CrmProductCategoryVO crmProductCategoryVO = jsonRequest.getReqBody();
             crmProductCategoryVO.setStatus(ProductCategoryStatus.SUBMIT.getCode());
             List<CrmProductCategoryVO> page = crmProductCategoryService.getIntroductList(crmProductCategoryVO);
             serviceResponse.setRetContent(page);

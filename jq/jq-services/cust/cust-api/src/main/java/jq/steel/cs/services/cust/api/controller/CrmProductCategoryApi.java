@@ -66,5 +66,5 @@ public interface CrmProductCategoryApi {
      * @Date: 2018/8/25
      */
     @RequestMapping("/product/category/introduct/list")
-    ServiceResponse<List<CrmProductCategoryVO>> getIntroductList();
+    ServiceResponse<List<CrmProductCategoryVO>> getIntroductList(@RequestBody JsonRequest<CrmProductCategoryVO> jsonRequest);
 }

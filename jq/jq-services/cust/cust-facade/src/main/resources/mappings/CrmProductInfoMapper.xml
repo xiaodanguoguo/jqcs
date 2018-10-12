@@ -302,8 +302,8 @@
       </if>
       <if test="factoryCodes != null" >
         and FACTORY in
-        <foreach collection="factoryCodes" open="(" close=")" item="code" separator=",">
-          #{code}
+        <foreach collection="factoryCodes" open="(" close=")" item="item" separator="," index="index">
+          #{factoryCodes[${index}]}
         </foreach>
       </if>
     </trim>

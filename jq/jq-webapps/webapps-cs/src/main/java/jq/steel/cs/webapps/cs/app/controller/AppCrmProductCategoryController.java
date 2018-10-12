@@ -58,8 +58,11 @@ public class AppCrmProductCategoryController {
         JsonResponse<List<CrmProductCategoryVO>> jsonResponse = new JsonResponse<>();
 
         try {
+            CrmProductCategoryVO crmProductCategoryVO = new CrmProductCategoryVO();
+            JsonRequest jsonRequest = new JsonRequest();
+            jsonRequest.setReqBody(crmProductCategoryVO);
             ServiceResponse<List<CrmProductCategoryVO>> serviceResponse = crmProductCategoryApi
-                    .getIntroductList();
+                    .getIntroductList(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {

@@ -119,6 +119,7 @@ public class CrmProductCategoryServiceImpl implements CrmProductCategoryService 
     @Override
     public List<CrmProductCategoryVO> getIntroductList(CrmProductCategoryVO crmProductCategoryVO) {
         CrmProductCategory crmProductCategory = new CrmProductCategory();
+        BeanCopyUtil.copy(crmProductCategoryVO, crmProductCategory);
         crmProductCategory.setStatus(ProductCategoryStatus.SUBMIT.getCode());
         List<CrmProductCategory> list = crmProductCategoryMapper.getIntroductList(crmProductCategory);
 

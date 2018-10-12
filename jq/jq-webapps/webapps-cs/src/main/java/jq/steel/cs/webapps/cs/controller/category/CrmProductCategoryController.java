@@ -224,13 +224,13 @@ public class CrmProductCategoryController {
      * @Date: 2018/8/20
      */
     @RequestMapping(value = {"/introduct/list"}, method = RequestMethod.POST)
-    public JsonResponse<Map<String, List<CrmProductCategoryVO>>> getIntroductList() {
+    public JsonResponse<Map<String, List<CrmProductCategoryVO>>> getIntroductList(@RequestBody JsonRequest<CrmProductCategoryVO> jsonRequest) {
         logger.info("产品分类列表");
         JsonResponse<Map<String, List<CrmProductCategoryVO>>> jsonResponse = new JsonResponse<>();
 
         try {
             ServiceResponse<List<CrmProductCategoryVO>> serviceResponse = crmProductCategoryApi
-                    .getIntroductList();
+                    .getIntroductList(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 Map<String, List<CrmProductCategoryVO>> map = new HashMap<>();
                 map.put("resultData", serviceResponse.getRetContent());
