@@ -487,9 +487,16 @@ public class MillSheetHostsController {
 
             //String fileName = "酒钢客服平台用户操作手册.pdf";
             String fileName = URLEncoder.encode("酒钢客服平台用户操作手册.pdf", "UTF-8");
+            //orgTypr 1销售公司 2 一级代理 3贸易商 4终端客户
+            String operationManual="";
+            if (AssertContext.getOrgType().equals("1")){
+                  operationManual = "/data/model/酒钢客服平台用户操作手册_销售公司.pdf";
+            }else if(AssertContext.getOrgType().equals("3") || AssertContext.getOrgType().equals("2")){
+                  operationManual = "/data/model/酒钢客服平台用户操作手册_贸易商.pdf";
+            }else if (AssertContext.getOrgType().equals("4")){
+                  operationManual = "/data/model/酒钢客服平台用户操作手册_终端客户.pdf";
+            }
 
-            //String  operationManual = "E:/酒钢客服平台用户操作手册.pdf";
-            String  operationManual = "/data/model/酒钢客服平台用户操作手册.pdf";
             //配置请求头
             response.setHeader("Content-Disposition", "attachment;fileName="+fileName);
 

@@ -364,12 +364,12 @@ public class RoleInfoController {
 
 
     @RequestMapping("/getRoleCodeByAcctId")
-    public ServiceResponse<List<RoleInfoVO>> getRoleCodeByAcctId(@RequestBody JsonRequest<RoleInfoVO> jsonRequest){
-        ServiceResponse <List<RoleInfoVO>> jsonResponse = new ServiceResponse();
+    public JsonResponse<List<RoleInfoVO>> getRoleCodeByAcctId(@RequestBody JsonRequest<RoleInfoVO> jsonRequest){
+        JsonResponse <List<RoleInfoVO>> jsonResponse = new JsonResponse();
         try {
             String acctId = AssertContext.getAcctId();
             ServiceResponse<List<RoleInfoVO>> list = roleInfoAPI.getRoleCodeByAcctId(acctId);
-            jsonResponse.setRetContent(list.getRetContent());
+            jsonResponse.setRspBody(list.getRetContent());
         } catch (Exception e) {
             e.printStackTrace();
             throw new BusinessException("0103001");
