@@ -694,7 +694,9 @@
 
     <if test="acctCode != null"> AND ACCT_CODE = #{acctCode} </if>
 
-    <if test="name != null"> AND NAME = #{name} </if>
+    <if test="name != null"> AND NAME LIKE '%' || #{name} ||'%'</if>
+
+    <if test="name != null"> AND ORGTITLE LIKE '%' || #{orgTitle} ||'%'</if>
 
     <if test="dept != null"> AND DEPT = #{dept} </if>
 

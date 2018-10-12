@@ -114,4 +114,14 @@ public class CrmProductCategoryServiceImpl implements CrmProductCategoryService 
         List<CrmProductCategoryVO> listvo = BeanCopyUtil.copyList(list, CrmProductCategoryVO.class);
         return listvo;
     }
+
+    @Override
+    public List<CrmProductCategoryVO> getIntroductList(CrmProductCategoryVO crmProductCategoryVO) {
+        CrmProductCategory crmProductCategory = new CrmProductCategory();
+        crmProductCategory.setStatus(ProductCategoryStatus.SUBMIT.getCode());
+        List<CrmProductCategory> list = crmProductCategoryMapper.getIntroductList(crmProductCategory);
+
+        List<CrmProductCategoryVO> listvo = BeanCopyUtil.copyList(list, CrmProductCategoryVO.class);
+        return listvo;
+    }
 }
