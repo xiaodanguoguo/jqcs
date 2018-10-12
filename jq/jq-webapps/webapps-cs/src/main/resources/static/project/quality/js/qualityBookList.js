@@ -32,7 +32,7 @@ function clsMethodLee$init(){
 function clsMethodLee$parse(){
     limitCodeDeal($("*[limitCode]"),"limitCode");
     getAjaxResult(this.requestUrl.path4,"POST",{},"getContentCallBack(data)");
-    $("#condstate").chosen({
+    $("#condstates").chosen({
         //disable_search_threshold: 5,
         no_results_text: "没有匹配结果!",
         width:"122px",
