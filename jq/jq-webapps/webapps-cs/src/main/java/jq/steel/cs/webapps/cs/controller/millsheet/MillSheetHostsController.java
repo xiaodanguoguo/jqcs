@@ -14,6 +14,8 @@ import com.lowagie2.text.DocumentException;
 import com.lowagie2.text.pdf.PdfCopy;
 import com.lowagie2.text.pdf.PdfImportedPage;
 import com.lowagie2.text.pdf.PdfReader;
+import jq.steel.cs.services.base.api.controller.RoleInfoAPI;
+import jq.steel.cs.services.base.api.vo.RoleInfoVO;
 import jq.steel.cs.services.cust.api.controller.MillSheetHostsAPI;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.webapps.cs.controller.PdfToPng;
@@ -47,7 +49,10 @@ public class MillSheetHostsController {
     UploadConfig uploadConfig;
 
     @Autowired
-     private MillSheetHostsAPI millSheetHostsAPI;
+    private MillSheetHostsAPI millSheetHostsAPI;
+
+    @Autowired
+    private RoleInfoAPI roleInfoAPI;
     /**
      *条件分页查询
      * @param  jsonRequest
@@ -57,6 +62,13 @@ public class MillSheetHostsController {
     @RequestMapping(value = "/findMillSheetByPage",method = RequestMethod.POST)
     public JsonResponse<PageDTO<MillSheetHostsVO>>  findMillSheetByPage(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest){
         JsonResponse<PageDTO<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
+        String acctId = AssertContext.getAcctId();
+        ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+        List<String> list = new ArrayList<>();
+        for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+            list.add(roleInfoVO.getRoleCode());
+        }
+        jsonRequest.getReqBody().setDeptCodes(list);
         try {
         ServiceResponse<PageDTO<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findMillSheetByPage(jsonRequest);
         if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {

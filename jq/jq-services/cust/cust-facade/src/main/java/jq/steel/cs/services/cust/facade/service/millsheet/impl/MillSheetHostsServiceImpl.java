@@ -57,6 +57,9 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
 
             millSheetHosts.setMillSheetNos(idall);
         }
+        if(millSheetHosts.getDeptCode()!=null&& millSheetHosts.getDeptCode()!=""){
+            millSheetHosts.setDeptCodes(null);
+        }
         PageDTOUtil.startPage(millSheetHostsVO);
         String startDtStr = DateFormatUtil.getStartDateStr(millSheetHosts.getStartDt());
         millSheetHosts.setStartDtStr(startDtStr);

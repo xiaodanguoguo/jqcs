@@ -9,6 +9,17 @@ import java.util.List;
 
 public class MillSheetHostsVO implements Serializable {
 
+    //厂家code
+    private List<String> deptCodes;
+
+    public List<String> getDeptCodes() {
+        return deptCodes;
+    }
+
+    public void setDeptCodes(List<String> deptCodes) {
+        this.deptCodes = deptCodes;
+    }
+
     private String states;
 
     //产线
