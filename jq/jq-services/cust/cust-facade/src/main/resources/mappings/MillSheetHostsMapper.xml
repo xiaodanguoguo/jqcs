@@ -202,6 +202,23 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       <if test="deptCode != null and deptCode != ''" >
         AND MSO.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
       </if>
+      <if test="deptCodes != null" >
+        AND MSO.DEPT_CODE  in
+        <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
+          #{deptCodes[${index}]}
+        </foreach>
+      </if>
+  <!--<choose>
+        <when test="deptCodes != null">
+          AND MSO.DEPT_CODE  in
+          <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
+            #{deptCodes[${index}]}
+          </foreach>
+        </when>
+        <otherwise>
+          AND   MSO.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+        </otherwise>
+      </choose>-->
       <if test="millLine != null and millLine != ''" >
         AND MSH.MILL_LINE = #{millLine,jdbcType=VARCHAR}
       </if>
