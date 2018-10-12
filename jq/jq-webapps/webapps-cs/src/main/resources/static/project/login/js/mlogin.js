@@ -116,7 +116,10 @@ function clsMethodLee$refresh(){
 }
 
 function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
-    $(cloneRow).css("background","url('"+ jsonItem +"')");
+    $(cloneRow).css("background","url('"+ jsonItem.thumbnail +"')");
+    $(cloneRow).on("click",function () {
+        jumpUrl("project/recommond/html-gulp-www/productDetail1.html?pid=" + jsonItem.pid,"0000000",1);
+    });
 }
 function clsStandardTableCtrl$after() {
     if($("#imgListLun *[id=cloneRow]").length <=5){
