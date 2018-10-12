@@ -221,7 +221,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		acctInfo.setoInfoId(orgId);
 		acctInfo.setStatus(Byte.valueOf(Status.START.getCode()));
 		acctInfo.setIsDelete(Byte.valueOf(IsDelete.NO.getCode()));
-		acctInfo.setAcctType(2L);
+		acctInfo.setAcctType(1L);
 		orgInfoVO.setOrgCode("C" + orgId);
 
 

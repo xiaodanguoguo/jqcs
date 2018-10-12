@@ -160,6 +160,7 @@ public class AcctServiceImpl implements AcctService {
         orgInfo.setEmail(acctInfoVO.getEmail());
         orgInfo.setTel(acctInfoVO.getMobilePhone());
         orgInfo.setAddr(acctInfoVO.getAddress());
+        orgInfo.setBukrs(acctInfoVO.getBukrs());
         Long i = orgInfoMapper.insertOrgInfo(orgInfo);
 
         acctInfo.setoInfoId(AUDIT_CUST + orgCode);

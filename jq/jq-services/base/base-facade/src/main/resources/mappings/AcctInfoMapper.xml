@@ -219,6 +219,9 @@
       <if test="oInfoId != null" >
         O_INFO_ID,
       </if>
+      <if test="acctType != null" >
+        acct_type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="acctId != null" >
@@ -280,6 +283,9 @@
       </if>
       <if test="oInfoId != null" >
         #{oInfoId},
+      </if>
+      <if test="acctType != null" >
+        #{acctType},
       </if>
     </trim>
   </insert>

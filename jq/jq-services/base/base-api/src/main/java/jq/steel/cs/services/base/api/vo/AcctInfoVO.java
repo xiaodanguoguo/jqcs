@@ -116,6 +116,9 @@ public class AcctInfoVO {
 
     private String address;
 
+    // 公司代码
+    private String bukrs;
+
     public String getOrgCode() {
         return orgCode;
     }
@@ -483,5 +486,13 @@ public class AcctInfoVO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getBukrs() {
+        return bukrs;
+    }
+
+    public void setBukrs(String bukrs) {
+        this.bukrs = bukrs;
     }
 }
