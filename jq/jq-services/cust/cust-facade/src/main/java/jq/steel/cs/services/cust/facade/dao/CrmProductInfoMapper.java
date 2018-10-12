@@ -23,4 +23,6 @@ public interface CrmProductInfoMapper {
     CrmProductInfo getOne(CrmProductInfo record);
 
     Long getMaxSortNumber();
+
+    List<CrmProductInfo> getIntroductList(CrmProductInfoVO crmProductInfoVO);
 }

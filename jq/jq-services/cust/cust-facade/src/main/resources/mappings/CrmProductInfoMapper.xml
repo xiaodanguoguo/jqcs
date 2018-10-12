@@ -300,6 +300,35 @@
       <if test="categoryId != null and categoryId != '' " >
         AND category_Id = #{categoryId}
       </if>
+      <if test="factoryCodes != null" >
+        and FACTORY in
+        <foreach collection="factoryCodes" open="(" close=")" item="code" separator=",">
+          #{code}
+        </foreach>
+      </if>
+    </trim>
+    order by SORT_NUMBER desc
+  </select>
+  <select id="getIntroductList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductInfo" >
+    select
+    <include refid="Base_Column_List" />
+    from CRM_PRODUCT_INFO
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="productName != null and productName != '' " >
+        AND PRODUCT_NAME LIKE '%' || #{productName} ||'%'
+      </if>
+      <if test="used != null and used != '' " >
+        AND USED LIKE '%' || #{used} ||'%'
+      </if>
+      <if test="status != null and status != '' " >
+        AND status = #{status}
+      </if>
+      <if test="categoryId != null and categoryId != '' " >
+        AND category_Id = #{categoryId}
+      </if>
+      <if test="factory != null and factory != ''" >
+        AND FACTORY = #{factory}
+      </if>
     </trim>
     order by SORT_NUMBER desc
   </select>
