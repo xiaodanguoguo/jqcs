@@ -20,4 +20,6 @@ public interface CrmProductCategoryMapper {
     List<CrmProductCategory> getList(CrmProductCategory crmProductCategory);
 
     CrmProductCategory getOne(CrmProductCategory crmProductCategory);
+
+    List<CrmProductCategory> getIntroductList(CrmProductCategory crmProductCategory);
 }

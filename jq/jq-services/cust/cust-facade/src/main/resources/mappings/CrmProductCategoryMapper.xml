@@ -190,9 +190,28 @@
       <if test="status != null" >
         AND STATUS = #{status}
       </if>
+      <if test="factory != null" >
+        AND FACTORY = #{factory}
+      </if>
     </trim>
   </select>
-  <select id="getOne"  resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
+  <select id="getIntroductList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
+    select
+    <include refid="Base_Column_List" />
+    from CRM_PRODUCT_CATEGORY
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="categoryName != null and categoryName != '' " >
+        AND CATEGORY_NAME  LIKE '%' || #{categoryName} ||'%'
+      </if>
+      <if test="status != null" >
+        AND STATUS = #{status}
+      </if>
+      <if test="factory != null" >
+        AND FACTORY = #{factory}
+      </if>
+    </trim>
+  </select>
+  <select id="getOne" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
     select
     <include refid="Base_Column_List" />
     from CRM_PRODUCT_CATEGORY
@@ -202,4 +221,5 @@
       </if>
     </trim>
   </select>
+
 </mapper>

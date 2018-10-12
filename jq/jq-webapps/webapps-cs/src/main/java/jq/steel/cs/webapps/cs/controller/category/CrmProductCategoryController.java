@@ -8,6 +8,8 @@ import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
+import jq.steel.cs.services.base.api.controller.RoleInfoAPI;
+import jq.steel.cs.services.base.api.vo.RoleInfoVO;
 import jq.steel.cs.services.cust.api.controller.CrmProductCategoryApi;
 import jq.steel.cs.services.cust.api.vo.CrmProductCategoryVO;
 import org.slf4j.Logger;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +38,9 @@ public class CrmProductCategoryController {
 
     @Autowired
     private CrmProductCategoryApi crmProductCategoryApi;
+
+    @Autowired
+    private RoleInfoAPI roleInfoAPI;
 
     /**
      * @param: jsonRequest
@@ -237,5 +243,16 @@ public class CrmProductCategoryController {
         }
 
         return jsonResponse;
+    }
+
+    private List<String> getRoleCode() {
+        String acctId = AssertContext.getAcctId();
+        ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+        List<String> list = new ArrayList<>();
+        for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+            list.add(roleInfoVO.getRoleCode());
+        }
+
+        return list;
     }
 }

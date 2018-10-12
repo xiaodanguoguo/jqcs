@@ -145,7 +145,7 @@ public class CrmProductCategoryController {
         try {
             CrmProductCategoryVO crmProductCategoryVO = new CrmProductCategoryVO();
             crmProductCategoryVO.setStatus(ProductCategoryStatus.SUBMIT.getCode());
-            List<CrmProductCategoryVO> page = crmProductCategoryService.getPage(crmProductCategoryVO);
+            List<CrmProductCategoryVO> page = crmProductCategoryService.getIntroductList(crmProductCategoryVO);
             serviceResponse.setRetContent(page);
         } catch (Exception e) {
             logger.error("产品分类分页查询错误 = {}", e);

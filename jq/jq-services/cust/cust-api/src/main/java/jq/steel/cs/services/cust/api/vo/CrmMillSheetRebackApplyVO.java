@@ -5,6 +5,9 @@ import java.util.Date;
 
 public class CrmMillSheetRebackApplyVO implements Serializable{
 
+    //是否回退
+    private String IsReback;
+
     private  String orgCode;
 
     private  String orgName;
@@ -24,6 +27,14 @@ public class CrmMillSheetRebackApplyVO implements Serializable{
     private String millSheetNo;
 
     private String regresses;
+
+    public String getIsReback() {
+        return IsReback;
+    }
+
+    public void setIsReback(String isReback) {
+        IsReback = isReback;
+    }
 
     public String getOrgCode() {
         return orgCode;
