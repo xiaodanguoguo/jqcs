@@ -255,6 +255,131 @@
 	    	</div>
 	    	<div id="js-loader" class="og-head-maincontent">
 
+<style>
+    .objectionStatic{
+        width: 968px;margin: 10px;
+        overflow-x: scroll;
+        border: 1px solid #dee3e6;
+    }
+    .objSta-table{
+        width: 6000px;
+        table-layout: fixed;
+    }
+    .serachbox{
+        margin: 20px 10px 50px 10px;
+        width: 968px;
+    }
+    .serachbox-list{
+        float: left;
+        margin-bottom: 10px;
+        margin-right: 20px;
+    }
+    .serachbox-title{
+        width: 90px;
+        text-align: right;
+        margin-right: 3px;
+        height: 28px;
+        line-height: 28px;
+    }
+    .serachbox-input{
+        width: 120px;
+    }
+</style>
+<ul class="serachbox" id="searchBox">
+    <li class="serachbox-list">
+        <span class="serachbox-title fl">质量投诉编号：</span>
+        <input type="text" class="serachbox-input fl inputBase">
+    </li>
+    <li class="serachbox-list">
+        <span class="serachbox-title fl"></span>
+        <input type="text" class="serachbox-input fl inputBase">
+    </li>
+    <li class="serachbox-list">
+        <span class="serachbox-title fl"></span>
+        <input type="text" class="serachbox-input fl inputBase">
+    </li>
+    <li class="serachbox-list">
+        <span class="serachbox-title fl"></span>
+        <input type="text" class="serachbox-input fl inputBase">
+    </li>
+    <li class="serachbox-list fr" style="margin-right: 0">
+        <div class="btnBaseCommon"  comType="searchBtnCtrl" cond="condzph" rule="cond" unionTableId="tableList" parentId="searchBox">搜索</div>
+    </li>
+</ul>
+<div class="objectionStatic">
+    <table class="objSta-table table-list" id="tableList" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData" >
+        <tr class="table-list-currentrow">
+            <th class="table-list-currentrow-theader" style="width: 2%">质量投诉编号</th>
+            <th class="table-list-currentrow-theader" style="width: 3%">使用客户</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">联系人</th>
+            <th class="table-list-currentrow-theader" style="width: 2%">联系电话</th>
+            <th class="table-list-currentrow-theader" style="width: 3%">代理公司（或酒钢驻外公司）</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">联系人</th>
+            <th class="table-list-currentrow-theader" style="width: 2%">联系电话</th>
+            <th class="table-list-currentrow-theader" style="width: 6%">物流过程</th>
+            <th class="table-list-currentrow-theader" style="width: 3%">货物存放地</th>
+            <th class="table-list-currentrow-theader" style="width: 6%">加工工艺</th>
+            <th class="table-list-currentrow-theader" style="width: 3%">用途</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">车号</th>
+            <th class="table-list-currentrow-theader" style="width: 2%">质保书编号</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">钢号</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">规格(mm)</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">提出异议量(t)</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">确认量(t)</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">赔偿金额（元）</th>
+            <th class="table-list-currentrow-theader" style="width: 2%">投诉原因</th>
+            <th class="table-list-currentrow-theader" style="width: 5%">确认的产品质量问题</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">异议类别</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">炉批号</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">生产日期</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">生产工序</th>
+            <th class="table-list-currentrow-theader" style="width: 6%">处理依据及处理方式</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">受理日期</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">到达时间</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">结案日期</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">结案人</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">处理周期</th>
+            <th class="table-list-currentrow-theader" style="width: 8%">备注</th>
+            <th class="table-list-currentrow-theader" style="width: 5%">客户评价</th>
+        </tr>
+        <tr class="table-list-currentrow" id="templateRow" style="display: ;">
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+        </tr>
+    </table>
+</div>
+
+
 
 
 </div>
