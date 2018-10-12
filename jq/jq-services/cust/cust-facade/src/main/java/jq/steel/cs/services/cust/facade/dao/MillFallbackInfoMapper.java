@@ -2,6 +2,8 @@ package jq.steel.cs.services.cust.facade.dao;
 
 import jq.steel.cs.services.cust.facade.model.MillFallbackInfo;
 
+import java.util.List;
+
 public interface MillFallbackInfoMapper {
     int deleteByPrimaryKey(Long sid);
 
@@ -9,7 +11,7 @@ public interface MillFallbackInfoMapper {
 
     int insertSelective(MillFallbackInfo record);
 
-    MillFallbackInfo selectByPrimaryKey(Long sid);
+    List<MillFallbackInfo> selectByPrimaryKey(MillFallbackInfo record);
 
     int updateByPrimaryKeySelective(MillFallbackInfo record);
 

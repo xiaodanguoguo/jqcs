@@ -18,11 +18,11 @@
     SID, MILL_SHEET_NO, CUSTOMER_CODE, FALLBACK_REASON, FALLBACK_STATE, REJECTION_REASON, 
     CREATED_BY, CREATED_DT, UPDATED_BY, UPDATED_DT, VERSION
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.util.Map" >
     select 
     <include refid="Base_Column_List" />
     from MILL_FALLBACK_INFO
-    where SID = #{sid,jdbcType=DECIMAL}
+    where MILL_SHEET_NO = #{millSheetNo,jdbcType=DECIMAL}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from MILL_FALLBACK_INFO
