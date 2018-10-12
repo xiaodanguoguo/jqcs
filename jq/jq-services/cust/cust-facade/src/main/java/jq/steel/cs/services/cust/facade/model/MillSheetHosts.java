@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 
 public class MillSheetHosts {
+
+    private String states;
     //产线
     private String millLine;
 
@@ -118,6 +120,14 @@ public class MillSheetHosts {
 
     //客户名称
     private  String spiltCustomer;
+
+    public String getStates() {
+        return states;
+    }
+
+    public void setStates(String states) {
+        this.states = states;
+    }
 
     public String getMillLine() {
         return millLine;
