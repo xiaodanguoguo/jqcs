@@ -9,6 +9,11 @@ import java.util.List;
 
 public class MillSheetHostsVO implements Serializable {
 
+    //产线
+    private String millLine;
+    //（销售界面）客户名称
+    private String zkunnrs;
+
     //打印地址
     private  String  report;
 
@@ -127,6 +132,22 @@ public class MillSheetHostsVO implements Serializable {
     private  String spiltCustomer;
 
     private  String productName;
+
+    public String getMillLine() {
+        return millLine;
+    }
+
+    public void setMillLine(String millLine) {
+        this.millLine = millLine;
+    }
+
+    public String getZkunnrs() {
+        return zkunnrs;
+    }
+
+    public void setZkunnrs(String zkunnrs) {
+        this.zkunnrs = zkunnrs;
+    }
 
     public String getzkdauf() {  return zkdauf; }
 

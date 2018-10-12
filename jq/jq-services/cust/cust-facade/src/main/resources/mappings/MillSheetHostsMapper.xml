@@ -79,6 +79,7 @@
     <result column="VERSION" property="version" jdbcType="DECIMAL" />
     <result column="SPILT_CUSTOMER" property="spiltCustomer" jdbcType="VARCHAR" />
     <result column="ZKDAUF" property="zkdauf"/>
+    <result column="MILL_LINE" property="millLine"/>
   </resultMap>
 
 
@@ -157,6 +158,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     MSH.ZHTH,
     MSH.ZCPMC,
     MSH.ZPH,
+    MSH.MILL_LINE,
     MSH.ZKDAUF as ZKDAUF,
     MSO.SID,
     (select distinct name1 from MILL_CUSTOMER where KUNNR = MSO.ZKUNNR) ZKUNNR
@@ -191,8 +193,17 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       <if test="zph != null  and zph != ''" >
         AND MSH.ZPH = #{zph,jdbcType=VARCHAR}
       </if>
-      <if test="spiltCustomer != null  and zph != ''" >
+      <if test="spiltCustomer != null  and spiltCustomer != ''" >
         AND MSH.SPILT_CUSTOMER = #{spiltCustomer,jdbcType=VARCHAR}
+      </if>
+      <if test="zkunnrs != null  and zkunnrs != ''" >
+        AND MSH.SPILT_CUSTOMER = #{zkunnrs,jdbcType=VARCHAR}
+      </if>
+      <if test="deptCode != null and deptCode != ''" >
+        AND MSO.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+      </if>
+      <if test="millLine != null and millLine != ''" >
+        AND MSH.MILL_LINE = #{millLine,jdbcType=VARCHAR}
       </if>
       AND  MSO.STATE IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED')
     </trim>

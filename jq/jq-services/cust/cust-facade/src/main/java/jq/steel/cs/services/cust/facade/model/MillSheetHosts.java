@@ -8,6 +8,10 @@ import java.util.Date;
 import java.util.List;
 
 public class MillSheetHosts {
+    //产线
+    private String millLine;
+
+    private String zkunnrs;
 
     private Integer operationType;
 
@@ -115,12 +119,20 @@ public class MillSheetHosts {
     //客户名称
     private  String spiltCustomer;
 
-    public String getZkdauf() {
-        return zkdauf;
+    public String getMillLine() {
+        return millLine;
     }
 
-    public void setZkdauf(String zkdauf) {
-        this.zkdauf = zkdauf;
+    public void setMillLine(String millLine) {
+        this.millLine = millLine;
+    }
+
+    public String getZkunnrs() {
+        return zkunnrs;
+    }
+
+    public void setZkunnrs(String zkunnrs) {
+        this.zkunnrs = zkunnrs;
     }
 
     public Integer getOperationType() {
