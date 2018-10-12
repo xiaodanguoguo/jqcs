@@ -319,7 +319,7 @@ function getContentCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         if(data.rspBody){
-            if(data.rspBody.acctType != 1 && data.rspBody.acctType != 0){
+            if(data.rspBody.acctType != 5){
                 $("#condzkunnr").val(data.rspBody.orgName).attr("disabled",true).addClass("changeGary");
                 $("*[comType=clearAllCond]").attr("bindctrlid","condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph");
                 $("*[comType=clearAllCond]")[0].jsCtrl.bindCtrlId = "condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph";

@@ -370,6 +370,11 @@ function pdfViewCallBack2(data){
     }
 }
 
+function clsUploadCtrl$uploadBefore(thisAjaxupload, file, ext, parent) {
+    //console.log(parent.jsCtrl)
+    return false;
+}
+
 $(function(){
     //初始化自己封装方法
     var methodLee = new clsMethodLee();
