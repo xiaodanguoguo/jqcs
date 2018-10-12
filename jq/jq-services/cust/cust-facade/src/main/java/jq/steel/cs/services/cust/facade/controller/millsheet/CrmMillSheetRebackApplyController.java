@@ -22,14 +22,14 @@ public class CrmMillSheetRebackApplyController {
     private CrmMillSheetRebackApplyService crmMillSheetRebackApplyService;
 
     @RequestMapping("/applyForRetreat")
-    public ServiceResponse<Integer> saveProcurementInfo(@RequestBody JsonRequest<CrmMillSheetRebackApplyVO> jsonRequest) {
-        ServiceResponse<Integer> response = new ServiceResponse<Integer>();
-
+    public ServiceResponse<CrmMillSheetRebackApplyVO> saveProcurementInfo(@RequestBody JsonRequest<CrmMillSheetRebackApplyVO> jsonRequest) {
+        ServiceResponse<CrmMillSheetRebackApplyVO> response = new ServiceResponse<CrmMillSheetRebackApplyVO>();
         CrmMillSheetRebackApplyVO reqBody = jsonRequest.getReqBody();
         CrmMillSheetRebackApply copy = BeanCopyUtil.copy(reqBody, CrmMillSheetRebackApply.class);
         try {
-            Integer i = crmMillSheetRebackApplyService.applyForRetreat(copy);
-            response.setRetContent(i);
+            CrmMillSheetRebackApply crmMillSheetRebackApply = crmMillSheetRebackApplyService.applyForRetreat(copy);
+            CrmMillSheetRebackApplyVO applyVO =BeanCopyUtil.copy(crmMillSheetRebackApply,CrmMillSheetRebackApplyVO.class);
+            response.setRetContent(applyVO);
         } catch (BusinessException e) {
             logger.error("回退错误 = {}", e);
             response.setException(new BusinessException("500"));

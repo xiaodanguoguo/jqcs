@@ -113,7 +113,7 @@
                     }else{
                         var roleGroupId = "";
                     }
-                    var reqParam = {"opt":"insert","roleTitle":$("#resourchSe #roleTitle").val(),"roleGroupId":roleGroupId,"orgId":orgId,"status":status};
+                    var reqParam = {"opt":"insert","roleTitle":$("#resourchSe #roleTitle").val(),"roleGroupId":roleGroupId,"orgId":orgId,"status":status,"roleCode":$("#resourchSe #roleCode").val()};
                     getAjaxResult("/roleInfo/InsertRoleInfo", "post", reqParam, 'delOrSavePermission(data)');
                 }
             })
@@ -178,7 +178,7 @@
                     var status = 0;
                 }
                 if(data){
-                    reqParam = {"opt":"update","roleGroupId":$("#detailRow")[0].data.roleGroupId,"orgId":orgId,"roleId":data.roleId,"roleTitle":$("#resourchSe #roleTitle").val(),"status":status}
+                    reqParam = {"opt":"update","roleGroupId":$("#detailRow")[0].data.roleGroupId,"orgId":orgId,"roleId":data.roleId,"roleTitle":$("#resourchSe #roleTitle").val(),"status":status,"roleCode":$("#resourchSe #roleCode").val()}
                 };
 
                 initValidate($("#resourchSe1")[0]);
@@ -748,6 +748,7 @@
         <div class="resourchSe" style="padding:0 30px;">
             <ul class="resourchSe-ul">
                 <li><label>名称：</label><input type="text" class="required" id="roleTitle"/></li>
+                <li><label>角色编码：</label><input type="text" class="" id="roleCode"/></li>
                 <li style="position:relative;display:none"><label>选择组织：</label><!-- <input type="text" id="orgId"/> -->
 
 
