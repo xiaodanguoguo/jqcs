@@ -23,9 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @ClassName: CrmProductInfoController
@@ -400,9 +398,9 @@ public class CrmProductInfoController {
      * @Date: 2018/8/20
      */
     @RequestMapping(value = {"/index/list"}, method = RequestMethod.POST)
-    public JsonResponse<Map<String, List<String>>> getIndexPage() {
+    public JsonResponse<PageDTO<CrmProductInfoVO>> getIndexPage() {
         logger.info("产品信息列表 = {}");
-        JsonResponse<Map<String, List<String>>> jsonResponse = new JsonResponse<>();
+        JsonResponse<PageDTO<CrmProductInfoVO>> jsonResponse = new JsonResponse<>();
 
         try {
             JsonRequest<CrmProductInfoVO> jsonRequest = new JsonRequest();
@@ -414,18 +412,15 @@ public class CrmProductInfoController {
                     .getIntroductPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 List<CrmProductInfoVO> list = serviceResponse.getRetContent().getResultData();
-                List<String> result = new ArrayList<>();
                 if (CollectionUtils.isNotEmpty(list)) {
                     for (CrmProductInfoVO crmProductInfoVO : list) {
                         List<String> thumbnailList = JsonUtil.parseObject(crmProductInfoVO.getThumbnail(), List.class);
                         if (CollectionUtils.isNotEmpty(thumbnailList)) {
-                            result.add(FileUploadSringUtil.addPath(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), thumbnailList.get(0)));
+                            crmProductInfoVO.setThumbnail(FileUploadSringUtil.addPath(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), thumbnailList.get(0)));
                         }
                     }
                 }
-                Map<String, List<String>> map = new HashMap<>();
-                map.put("resultData", result);
-                jsonResponse.setRspBody(map);
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {
                 if (serviceResponse.isHasError()) {
                     jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
