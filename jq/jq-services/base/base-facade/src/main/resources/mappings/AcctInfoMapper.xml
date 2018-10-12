@@ -671,58 +671,53 @@
     acct.status,
     acct.o_info_id,
     acct.acct_type,
-    (
-    SELECT
-    o.org_name
-    FROM
-    org_info o
-    WHERE
-    o. ID = acct.o_info_id
-    ) AS orgtitle
+    o.org_name AS orgtitle
     FROM
     acct_info acct
+    left join org_info o
+    on o. ID = acct.o_info_id
     WHERE
     1 = 1
     AND acct.is_delete = 0
-    <if test="entId != null"> AND ENT_ID = #{entId} </if>
+    <if test="entId != null"> AND acct.ENT_ID = #{entId} </if>
 
-    <if test="loginSource != null"> LOGIN_SOURCE = #{loginSource}, </if>
+    <if test="loginSource != null"> acct.LOGIN_SOURCE = #{loginSource}, </if>
 
-    <if test="acctTitle != null"> AND ACCT_TITLE LIKE '%' || #{acctTitle} ||'%'</if>
+    <if test="acctTitle != null and acctTitle != '' "> AND acct.ACCT_TITLE LIKE '%' || #{acctTitle} ||'%'</if>
 
-    <if test="acctPassword != null"> AND ACCT_PASSWORD = #{acctPassword} </if>
+    <if test="acctPassword != null"> AND acct.ACCT_PASSWORD = #{acctPassword} </if>
 
-    <if test="acctCode != null"> AND ACCT_CODE = #{acctCode} </if>
+    <if test="acctCode != null"> AND acct.ACCT_CODE = #{acctCode} </if>
 
-    <if test="name != null"> AND NAME LIKE '%' || #{name} ||'%'</if>
+    <if test="name != null and name != ''"> AND acct.NAME LIKE '%' || #{name} ||'%'</if>
 
-    <if test="name != null"> AND ORGTITLE LIKE '%' || #{orgTitle} ||'%'</if>
+    <if test="orgTitle != null and orgTitle != ''"> AND o.org_name LIKE '%' || #{orgTitle} ||'%'</if>
 
-    <if test="dept != null"> AND DEPT = #{dept} </if>
+    <if test="dept != null"> AND acct.DEPT = #{dept} </if>
 
-    <if test="mobilePhone != null"> AND MOBILE_PHONE = #{mobilePhone} </if>
+    <if test="mobilePhone != null"> AND acct.MOBILE_PHONE = #{mobilePhone} </if>
 
-    <if test="email != null"> AND EMAIL = #{email} </if>
+    <if test="email != null"> AND acct.EMAIL = #{email} </if>
 
-    <if test="registerTime != null"> AND REGISTER_TIME = #{registerTime} </if>
+    <if test="registerTime != null"> AND acct.REGISTER_TIME = #{registerTime} </if>
 
-    <if test="lastLoginTime != null"> AND LAST_LOGIN_TIME = #{lastLoginTime} </if>
+    <if test="lastLoginTime != null"> AND acct.LAST_LOGIN_TIME = #{lastLoginTime} </if>
 
-    <if test="isDelete != null"> AND IS_DELETE = #{isDelete} </if>
+    <if test="isDelete != null"> AND acct.IS_DELETE = #{isDelete} </if>
 
-    <if test="updatedBy != null"> AND UPDATED_BY = #{updatedBy} </if>
+    <if test="updatedBy != null"> AND acct.UPDATED_BY = #{updatedBy} </if>
 
-    <if test="updatedTime != null"> AND UPDATED_TIME = #{updatedTime} </if>
+    <if test="updatedTime != null"> AND acct.UPDATED_TIME = #{updatedTime} </if>
 
-    <if test="status != null"> AND STATUS = #{status} </if>
+    <if test="status != null"> AND acct.STATUS = #{status} </if>
 
-    <if test="startTime != null"> AND START_TIME = #{startTime} </if>
+    <if test="startTime != null"> AND acct.START_TIME = #{startTime} </if>
 
-    <if test="entTime != null"> AND ENT_TIME = #{entTime} </if>
+    <if test="entTime != null"> AND acct.ENT_TIME = #{entTime} </if>
 
-    <if test="aCompanyId != null"> AND A_COMPANY_ID = #{aCompanyId} </if>
+    <if test="aCompanyId != null"> AND acct.A_COMPANY_ID = #{aCompanyId} </if>
 
-    <if test="oInfoId != null"> AND O_INFO_ID like CONCAT(#{oInfoId},'%') </if>
+    <if test="oInfoId != null"> AND acct.O_INFO_ID like CONCAT(#{oInfoId},'%') </if>
     <!--<if test="oInfoId != null"> AND O_INFO_ID = #{oInfoId} </if>-->
 
     <if test="oInfoName != null"> AND O_INFO_NAME = #{oInfoName} </if>
