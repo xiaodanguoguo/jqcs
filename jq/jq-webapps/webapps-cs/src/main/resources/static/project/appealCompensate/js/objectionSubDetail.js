@@ -185,6 +185,7 @@ function clsMethodLee$parse(){
             $("#inSearchBox input").attr("disabled",true).addClass("changeGary");
             $("#fieldConclusionA").attr("disabled",true).addClass("changeGary");
             $("#parentBox").prev().html("异议投诉描述:");
+            $("#productDt").removeAttr("disabled").removeClass("changeGary");
             getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"claimNo":this.claimNo,"optionType":2},"htmlInit2(data)");//数据回显操作
             break;
         case 6://确认书审核
