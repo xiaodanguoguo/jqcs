@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -447,6 +448,8 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             //异议状态-----》受理
             CrmClaimApply crmClaimApply = new CrmClaimApply();
             crmClaimApply.setClaimNo(crmClaimOutInquire.getClaimNo());
+            crmClaimApply.setAdmissibilityTime(new Date());
+            crmClaimApply.setAdmissibilityUser(orgCode);
             crmClaimApply.setClaimState("ACCEPTANCE");
             crmClaimApplyMapper.update(crmClaimApply);
             //日志记录
