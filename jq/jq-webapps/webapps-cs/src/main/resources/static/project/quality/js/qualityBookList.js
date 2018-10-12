@@ -3,7 +3,9 @@ function clsMethodLee(){
         "path1":"/millsheet/findMillSheetByPage",//初始list列表
         "path2":"/millsheet/preview",//预览接口
         "path3":"/millsheet/downFile",//下载接口
-        "path4":"/sysAcct/customerType"//获取用户信息接口
+        "path4":"/sysAcct/customerType",//获取用户信息接口
+        "path5":"/",//增加打印次数接口
+        "path6":"/"//增加下载次数接口
     };
     this.documentLee = null;
     this.millSheetNo = "";//回退millSheetNo主键
@@ -26,6 +28,10 @@ function clsMethodLee$init(){
     this.checkAll = $("#checkAll");
     //预览弹框
     this.previewOpeBox = $("#previewOpeBox");
+    //打印次数+1
+    this.printJiaOpe = $("#printJiaOpe");
+    //下载次数+1
+    this.downLoadJiaOpe = $("#downLoadJiaOpe");
     this.parse();
 
 }
@@ -123,6 +129,33 @@ function clsMethodLee$operate(){
         closePopupWin();
     });
 
+    //打印次+1
+    this.printJiaOpe.on("click",function(){
+        if($("#tableList")[0].cacheArr.length == 0){
+            var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert("请勾选将要增加打印次数的质证书","失败提示");
+        }else{
+            var millSheetNoArr = [];
+            for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
+                millSheetNoArr.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":1});
+            }
+            getAjaxResult(document.body.jsLee.requestUrl.path5,"POST",millSheetNoArr,"jiaOneCallBack(data)")
+        }
+    });
+
+    //下载次数+1
+    this.downLoadJiaOpe.on("click",function(){
+        if($("#tableList")[0].cacheArr.length == 0){
+            var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert("请勾选将要增加下载次数的质证书","失败提示");
+        }else{
+            var millSheetNoArr = [];
+            for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
+                millSheetNoArr.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":1});
+            }
+            getAjaxResult(document.body.jsLee.requestUrl.path6,"POST",millSheetNoArr,"jiaOneCallBack(data)")
+        }
+    });
 }
 function clsMethodLee$refresh(){
 
@@ -373,6 +406,14 @@ function backSureCallBack(data){
         closePopupWin();
         var alertBox=new clsAlertBoxCtrl();
         alertBox.Alert("电子质证书，编号："+ document.body.jsLee.millSheetNo +"，已经回退","成功提示");
+    }
+}
+
+//增加次数（打印/下载）回调函数
+function jiaOneCallBack(data){
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
     }
 }
 

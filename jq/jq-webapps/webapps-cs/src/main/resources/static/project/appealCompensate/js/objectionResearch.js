@@ -187,11 +187,15 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         switch (jsonItem.inquireState){
             case "OUTSTART":
                 $(cloneRow).find("#inquireStateA").html("外部调查开始");
-                $(cloneRow).find("#researchOutOpe").show();
+                if(jsonItem.claimState != "ADOPT"){
+                    $(cloneRow).find("#researchOutOpe").show();
+                }
                 break;
             case "TRACK":
                 $(cloneRow).find("#inquireStateA").html("已跟踪");
-                $(cloneRow).find("#researchOutOpe").show();
+                if(jsonItem.claimState != "ADOPT"){
+                    $(cloneRow).find("#researchOutOpe").show();
+                }
                 break;
             case "OUTEND":
                 $(cloneRow).find("#inquireStateA").html("外部调查结束");
@@ -224,7 +228,9 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 break;
             default:
                 $(cloneRow).find("#inquireStateA").html("");
-                $(cloneRow).find("#researchOutOpe").show();
+                if(jsonItem.claimState != "ADOPT"){
+                    $(cloneRow).find("#researchOutOpe").show();
+                }
                 break;
         }
         if(jsonItem.claimState == "END"){
