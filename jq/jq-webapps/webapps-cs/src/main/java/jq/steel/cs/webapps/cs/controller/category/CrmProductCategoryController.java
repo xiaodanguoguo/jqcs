@@ -55,6 +55,8 @@ public class CrmProductCategoryController {
         JsonResponse<Map<String, List<CrmProductCategoryVO>>> jsonResponse = new JsonResponse<>();
 
         try {
+            List<String> codes = this.getRoleCode();
+            jsonRequest.getReqBody().setFactoryCodes(codes);
             ServiceResponse<List<CrmProductCategoryVO>> serviceResponse = crmProductCategoryApi
                     .getPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
@@ -93,6 +95,11 @@ public class CrmProductCategoryController {
         JsonResponse<Boolean> jsonResponse = new JsonResponse<>();
 
         try {
+            String code = "";
+            List<String> codes = this.getRoleCode();
+            if (CollectionUtils.isNotEmpty(codes)) {
+                code = codes.get(0);
+            }
             List<CrmProductCategoryVO> list = jsonRequest.getReqBody();
             if (CollectionUtils.isNotEmpty(list)) {
                 for (CrmProductCategoryVO crmProductCategoryVO : list) {
@@ -100,6 +107,7 @@ public class CrmProductCategoryController {
                     crmProductCategoryVO.setCreateBy(AssertContext.getAcctName());
                     crmProductCategoryVO.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
                     crmProductCategoryVO.setUpdateBy(AssertContext.getAcctName());
+                    crmProductCategoryVO.setFactory(code);
                 }
             }
 
@@ -184,8 +192,9 @@ public class CrmProductCategoryController {
         JsonResponse<List<CrmProductCategoryVO>> jsonResponse = new JsonResponse<>();
 
         try {
+            List<String> codes = this.getRoleCode();
             ServiceResponse<List<CrmProductCategoryVO>> serviceResponse = crmProductCategoryApi
-                    .getList();
+                    .getList(codes);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {

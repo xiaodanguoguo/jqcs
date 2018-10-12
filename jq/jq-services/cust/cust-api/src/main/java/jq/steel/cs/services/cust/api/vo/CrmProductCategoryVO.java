@@ -1,6 +1,7 @@
 package jq.steel.cs.services.cust.api.vo;
 
 import java.util.Date;
+import java.util.List;
 
 public class CrmProductCategoryVO {
     // 产品分类ID
@@ -27,6 +28,8 @@ public class CrmProductCategoryVO {
     private Date updateDt;
 
     private String factory;
+
+    private List<String> factoryCodes;
 
     private String isSubmit;
 
@@ -129,6 +132,14 @@ public class CrmProductCategoryVO {
 
     public void setFactory(String factory) {
         this.factory = factory;
+    }
+
+    public List<String> getFactoryCodes() {
+        return factoryCodes;
+    }
+
+    public void setFactoryCodes(List<String> factoryCodes) {
+        this.factoryCodes = factoryCodes;
     }
 
     public String getIsSubmit() {

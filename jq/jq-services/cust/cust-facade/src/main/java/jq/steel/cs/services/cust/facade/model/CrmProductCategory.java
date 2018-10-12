@@ -1,6 +1,7 @@
 package jq.steel.cs.services.cust.facade.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class CrmProductCategory {
     // 产品分类ID
@@ -27,6 +28,8 @@ public class CrmProductCategory {
     private Date updateDt;
 
     private String factory;
+
+    private List<String> factoryCodes;
 
     public Long getCid() {
         return cid;
@@ -122,5 +125,13 @@ public class CrmProductCategory {
 
     public void setFactory(String factory) {
         this.factory = factory;
+    }
+
+    public List<String> getFactoryCodes() {
+        return factoryCodes;
+    }
+
+    public void setFactoryCodes(List<String> factoryCodes) {
+        this.factoryCodes = factoryCodes;
     }
 }

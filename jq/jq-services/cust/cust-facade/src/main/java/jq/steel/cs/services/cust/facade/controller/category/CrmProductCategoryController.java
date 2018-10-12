@@ -89,12 +89,12 @@ public class CrmProductCategoryController {
      * @Date: 2018/8/20
      */
     @RequestMapping("/down/list")
-    ServiceResponse<List<CrmProductCategoryVO>> getList() {
+    ServiceResponse<List<CrmProductCategoryVO>> getList(@RequestBody List<String> codes) {
         logger.info("产品分类分页查询");
         ServiceResponse<List<CrmProductCategoryVO>> serviceResponse = new ServiceResponse<>();
 
         try {
-            List<CrmProductCategoryVO> list = crmProductCategoryService.getList();
+            List<CrmProductCategoryVO> list = crmProductCategoryService.getList(codes);
             serviceResponse.setRetContent(list);
         } catch (Exception e) {
             logger.error("产品分类分页查询错误 = {}", e);

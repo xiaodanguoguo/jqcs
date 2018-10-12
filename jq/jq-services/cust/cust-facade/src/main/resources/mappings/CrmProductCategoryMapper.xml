@@ -190,8 +190,11 @@
       <if test="status != null" >
         AND STATUS = #{status}
       </if>
-      <if test="factory != null" >
-        AND FACTORY = #{factory}
+      <if test="factoryCodes != null" >
+        and FACTORY in
+        <foreach collection="factoryCodes" open="(" close=")" item="code" separator=",">
+          #{code}
+        </foreach>
       </if>
     </trim>
   </select>
