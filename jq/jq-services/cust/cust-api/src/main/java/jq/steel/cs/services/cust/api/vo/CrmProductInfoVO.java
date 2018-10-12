@@ -49,6 +49,8 @@ public class CrmProductInfoVO {
 
     private List<Long> pids;
 
+    private List<String> factoryCodes;
+
     private int pageNum = 1;
     private int pageSize = 10;
 
@@ -226,6 +228,14 @@ public class CrmProductInfoVO {
 
     public void setPids(List<Long> pids) {
         this.pids = pids;
+    }
+
+    public List<String> getFactoryCodes() {
+        return factoryCodes;
+    }
+
+    public void setFactoryCodes(List<String> factoryCodes) {
+        this.factoryCodes = factoryCodes;
     }
 
     public int getPageNum() {

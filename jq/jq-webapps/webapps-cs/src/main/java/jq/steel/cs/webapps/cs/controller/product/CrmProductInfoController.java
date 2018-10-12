@@ -9,6 +9,8 @@ import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
+import jq.steel.cs.services.base.api.controller.RoleInfoAPI;
+import jq.steel.cs.services.base.api.vo.RoleInfoVO;
 import jq.steel.cs.services.cust.api.controller.CrmProductInfoApi;
 import jq.steel.cs.services.cust.api.vo.CrmProductInfoVO;
 import jq.steel.cs.webapps.cs.controller.file.FileUploadSringUtil;
@@ -43,6 +45,10 @@ public class CrmProductInfoController {
     @Autowired
     private UploadConfig uploadConfig;
 
+
+    @Autowired
+    private RoleInfoAPI roleInfoAPI;
+
     /**
      * @param: jsonRequest
      * @return:
@@ -56,6 +62,8 @@ public class CrmProductInfoController {
         JsonResponse<PageDTO<CrmProductInfoVO>> jsonResponse = new JsonResponse<>();
 
         try {
+            List<String> codes = this.getRoleCode();
+            jsonRequest.getReqBody().setFactoryCodes(codes);
             ServiceResponse<PageDTO<CrmProductInfoVO>> serviceResponse = crmProductInfoApi
                     .getPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
@@ -215,6 +223,12 @@ public class CrmProductInfoController {
 
         try {
             CrmProductInfoVO vo = jsonRequest.getReqBody();
+            String code = "";
+            List<String> codes = this.getRoleCode();
+            if (CollectionUtils.isNotEmpty(codes)) {
+                code = codes.get(0);
+            }
+            vo.setFactory(code);
             List<String> thumbnailList = vo.getThumbnailList();
             List<String> thumbnails = new ArrayList<>();
             for (String s : thumbnailList) {
@@ -471,5 +485,16 @@ public class CrmProductInfoController {
         }
 
         return jsonResponse;
+    }
+
+    private List<String> getRoleCode() {
+        String acctId = AssertContext.getAcctId();
+        ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+        List<String> list = new ArrayList<>();
+        for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+            list.add(roleInfoVO.getRoleCode());
+        }
+
+        return list;
     }
 }
