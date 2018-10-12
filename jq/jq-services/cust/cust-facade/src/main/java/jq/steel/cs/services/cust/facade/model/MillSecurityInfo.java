@@ -4,6 +4,28 @@ import java.util.Date;
 
 public class MillSecurityInfo {
 
+    //防伪码验真次数(首页)
+    private Short checkNum;
+
+    //防伪码最大验真次数（首页）
+    private Short checkNumMax;
+
+    public Short getCheckNum() {
+        return checkNum;
+    }
+
+    public void setCheckNum(Short checkNum) {
+        this.checkNum = checkNum;
+    }
+
+    public Short getCheckNumMax() {
+        return checkNumMax;
+    }
+
+    public void setCheckNumMax(Short checkNumMax) {
+        this.checkNumMax = checkNumMax;
+    }
+
     //附件地址
     private String fileUrl;
 
