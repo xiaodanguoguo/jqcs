@@ -613,6 +613,7 @@ Preferences._readFromStorage = function (prefObj) {
       console.warn('Ignored window.print() because of a pending print job.');
       return;
     }
+    pdfCallback();
     try {
       dispatchEvent('beforeprint');
     } finally {
@@ -930,9 +931,9 @@ var PDFFindBar = (function PDFFindBarClosure() {
 
     // Add event listeners to the DOM elements.
     var self = this;
-    this.toggleButton.addEventListener('click', function() {
+    /*this.toggleButton.addEventListener('click', function() {
       self.toggle();
-    });
+    });*/
 
     this.findField.addEventListener('input', function() {
       self.dispatchEvent('');
@@ -6975,7 +6976,7 @@ function webViewerInitialized() {
     }
   }, true);
 
-  document.getElementById('sidebarToggle').addEventListener('click',
+ /* document.getElementById('sidebarToggle').addEventListener('click',
     function() {
       this.classList.toggle('toggled');
       outerContainer.classList.add('sidebarMoving');
@@ -6986,7 +6987,7 @@ function webViewerInitialized() {
         PDFViewerApplication.refreshThumbnailViewer();
       }
       PDFViewerApplication.forceRendering();
-    });
+    });*/
 
   document.getElementById('viewThumbnail').addEventListener('click',
     function() {
@@ -7041,17 +7042,17 @@ function webViewerInitialized() {
       PDFViewerApplication.setScale(this.value, false);
     });
 
-  document.getElementById('presentationMode').addEventListener('click',
+  /*document.getElementById('presentationMode').addEventListener('click',
     SecondaryToolbar.presentationModeClick.bind(SecondaryToolbar));
 
   document.getElementById('openFile').addEventListener('click',
-    SecondaryToolbar.openFileClick.bind(SecondaryToolbar));
+    SecondaryToolbar.openFileClick.bind(SecondaryToolbar));*/
 
   document.getElementById('print').addEventListener('click',
     SecondaryToolbar.printClick.bind(SecondaryToolbar));
 
-  document.getElementById('download').addEventListener('click',
-    SecondaryToolbar.downloadClick.bind(SecondaryToolbar));
+  /*document.getElementById('download').addEventListener('click',
+    SecondaryToolbar.downloadClick.bind(SecondaryToolbar));*/
 
 
   if (file && file.lastIndexOf('file:', 0) === 0) {
