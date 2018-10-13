@@ -222,7 +222,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             MillSheetHosts millSheetByPage = millSheetHostsMapper.findUrl(millSheetHosts);
             if(millSheetHosts.getOperationType().equals(1)){
                 //1是打印次数修改  2是下载次数修改
-                millSheetHosts.setPrintedNum(millSheetByPage.getPrintedNum()+1);
+                millSheetHosts.setPrintableNum(millSheetByPage.getPrintedNum()+1);
             }else {
                 millSheetHosts.setDownableNum(millSheetByPage.getDownableNum()+1);
             }

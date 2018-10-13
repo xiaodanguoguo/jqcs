@@ -51,11 +51,17 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
             List<ObjectionChuLiVO> objectionDiaoChaVOS = BeanCopyUtil.copyList(list, ObjectionChuLiVO.class);
             // 分页对象
             PageDTO<ObjectionChuLiVO> transform = PageDTOUtil.transform(objectionDiaoChaVOS);
+            //判断过期原因是否为空然后设置是否可以上传协议书
             for (ObjectionChuLiVO objectionChuLiVO:transform.getResultData()){
                 crmClaimInfo = new CrmClaimInfo();
                 BeanCopyUtil.copy(objectionChuLiVO, crmClaimInfo);
+                if (crmClaimInfo.getExpiredSign()!=null&&crmClaimInfo.getExpiredSign()!=""){
+                    crmClaimInfo.setIsUpload("Y");
+                }else {
+                    crmClaimInfo.setIsUpload("N");
+                }
                 //判断是否允许上传（结案时间减受理时间   7天 （没跟踪过） 20天（跟踪过））
-                if (crmClaimInfo.getTrace()!= null){
+                /*if (crmClaimInfo.getTrace()!= null){
                     Integer integer = DateUtil.countDays(crmClaimInfo.getClosingTime(),crmClaimInfo.getAdmissibilityTime());
                     System.out.println("结案日期"+crmClaimInfo.getClosingTime()+"受理日期"+crmClaimInfo.getAdmissibilityTime()+"时间差"+integer);
                     if (integer>20){
@@ -72,7 +78,7 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
                     }else {
                         crmClaimInfo.setIsUpload("Y");
                     }
-                }
+                }*/
             }
             return transform;
 

@@ -559,7 +559,9 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
 
 
     <update id="updateNum" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
-    update MILL_SHEET_HOSTS set version = version + 1,
+      update MILL_SHEET_HOSTS
+      <trim suffixOverrides=",">
+      set version = version + 1,
     <if test="printableNum != null" >
       PRINTABLE_NUM = #{printableNum,jdbcType=DECIMAL},
     </if>
@@ -579,8 +581,9 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
     </if>
       <if test="state != null and state != ''" >
-      STATE = #{state,jdbcType=VARCHAR}
+      STATE = #{state,jdbcType=VARCHAR},
      </if>
+      </trim>
     where MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
   </update>
 

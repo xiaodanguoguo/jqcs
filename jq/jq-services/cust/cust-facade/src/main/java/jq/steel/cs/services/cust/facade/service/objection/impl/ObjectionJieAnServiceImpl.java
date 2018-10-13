@@ -44,7 +44,7 @@ public class ObjectionJieAnServiceImpl implements ObjectionJieAnService{
         //修改为已结案
         CrmClaimApply crmClaimApply = new CrmClaimApply();
         crmClaimApply.setClaimNo(record.getClaimNo());
-        crmClaimApply.setUpdatedBy(AssertContext.getAcctName());
+        crmClaimApply.setUpdatedBy(orgCode);
         crmClaimApply.setUpdatedDt(new Date());
         crmClaimApply.setClaimState("END");
         crmClaimApply.setClosingTime(new Date());
@@ -53,7 +53,7 @@ public class ObjectionJieAnServiceImpl implements ObjectionJieAnService{
         CrmClaimInfo crmClaimInfo = new CrmClaimInfo();
         crmClaimInfo.setClaimNo(record.getClaimNo());
         crmClaimInfo.setUpdatedDt(new Date());
-        crmClaimInfo.setUpdatedBy(AssertContext.getAcctName());
+        crmClaimInfo.setUpdatedBy(orgCode);
         crmClaimInfo.setClaimState("END");
         crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
         //查询是否有文件
@@ -108,5 +108,21 @@ public class ObjectionJieAnServiceImpl implements ObjectionJieAnService{
         crmAgreementInfo.setClaimNoUrl(crmAgreementInfos.getAgreementUrlName());
         BeanCopyUtil.copy(crmAgreementInfos,record);
         return  record;
+    }
+
+
+    //过期原因录入
+    @Override
+    public Integer expiren(ObjectionJieAnVO record) {
+        String orgCode  = AssertContext.getOrgCode();
+        CrmClaimInfo crmClaimInfo = new CrmClaimInfo();
+        crmClaimInfo.setClaimNo(record.getClaimNo());
+        crmClaimInfo.setExpiredReason(record.getExpiredReason());
+        //录入原因之后标识置为“”
+        crmClaimInfo.setExpiredSign("");
+        crmClaimInfo.setUpdatedDt(new Date());
+        crmClaimInfo.setUpdatedBy(orgCode);
+        crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
+        return 1;
     }
 }
