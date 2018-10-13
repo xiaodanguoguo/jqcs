@@ -63,7 +63,7 @@
     <result column="CLOSING_TIME" property="closingTime" jdbcType="TIMESTAMP" />
     <result column="MEMO" property="memo"/>
     <result column="IS_TRACK" property="IsTrack"/>
-
+    <result column="EXPIRED_REASON" property="expiredReason"/>
   </resultMap>
   <sql id="Base_Column_List" >
     SID, CLAIM_NO, PRODUCT_ID, PRODUCT_NAME, MILL_SHEET_NO, CUSTOMER_ID, CUSTOMER_NAME, 
@@ -549,6 +549,12 @@
       <if test="IsTrack != null" >
         IS_TRACK = #{IsTrack ,jdbcType=VARCHAR},
       </if>
+      <if test="expiredReason != null" >
+        EXPIRED_REASON = #{expiredReason ,jdbcType=VARCHAR},
+      </if>
+      <if test="expiredSign != null" >
+        EXPIRED_SIGN = #{expiredSign ,jdbcType=VARCHAR},
+      </if>
     </trim>
     where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
   </update>
@@ -652,6 +658,7 @@
   <select id="findByPageChuLi" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInfo" >
     SELECT H.*FROM(SELECT
     A.IS_TRACK,
+    A.EXPIRED_REASON,
     A.CLAIM_NO,
     A.CLAIM_STATE,
     A.MILL_SHEET_NO,

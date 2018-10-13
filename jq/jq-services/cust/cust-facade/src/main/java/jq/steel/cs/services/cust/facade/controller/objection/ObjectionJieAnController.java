@@ -46,6 +46,27 @@ public class ObjectionJieAnController {
     }
 
     /**
+     *  过期原因
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/expiren",method = RequestMethod.POST)
+    public ServiceResponse<Integer> expiren(@RequestBody JsonRequest<ObjectionJieAnVO> jsonRequest){
+        logger.info("参数", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
+        try {
+            ObjectionJieAnVO objectionJieAnVO = jsonRequest.getReqBody();
+            Integer integer= objectionJieAnService.expiren(objectionJieAnVO);
+            serviceResponse.setRetContent(integer);
+        }catch (BusinessException e){
+            logger.error("获取分页出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
+    /**
      *  异议结案撤销
      * @param  jsonRequest
      * @return

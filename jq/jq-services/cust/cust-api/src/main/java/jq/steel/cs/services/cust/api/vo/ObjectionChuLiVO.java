@@ -8,6 +8,9 @@ import java.util.List;
 
 public class ObjectionChuLiVO {
 
+    //过期原因
+    private String expiredReason;
+
     //结案时间
     private Date closingTime;
 
@@ -21,6 +24,25 @@ public class ObjectionChuLiVO {
     private String fieldConclusion;
 
     private String claimState1;
+
+    //过期标识
+    private String expiredSign;
+
+    public String getExpiredSign() {
+        return expiredSign;
+    }
+
+    public void setExpiredSign(String expiredSign) {
+        this.expiredSign = expiredSign;
+    }
+
+    public String getExpiredReason() {
+        return expiredReason;
+    }
+
+    public void setExpiredReason(String expiredReason) {
+        this.expiredReason = expiredReason;
+    }
 
     public Date getClosingTime() {
         return closingTime;

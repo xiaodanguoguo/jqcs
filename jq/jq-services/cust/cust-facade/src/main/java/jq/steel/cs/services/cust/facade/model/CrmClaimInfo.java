@@ -7,6 +7,12 @@ import java.util.Date;
 
 public class CrmClaimInfo {
 
+    //过期标识
+    private String expiredSign;
+
+    //过期原因
+    private String expiredReason;
+
     //结案时间
     private Date closingTime;
 
@@ -48,14 +54,6 @@ public class CrmClaimInfo {
     private String manufactor;
 
     private String type;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date endDt;
@@ -184,6 +182,30 @@ public class CrmClaimInfo {
 
     //确认时间
     private Date confirmationTime;
+
+    public String getExpiredSign() {
+        return expiredSign;
+    }
+
+    public void setExpiredSign(String expiredSign) {
+        this.expiredSign = expiredSign;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getExpiredReason() {
+        return expiredReason;
+    }
+
+    public void setExpiredReason(String expiredReason) {
+        this.expiredReason = expiredReason;
+    }
 
     public Date getClosingTime() {
         return closingTime;

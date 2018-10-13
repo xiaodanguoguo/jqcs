@@ -69,6 +69,43 @@ public class ObjectionJieAnController {
     }
 
     /**
+     *  过期原因
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/expiren",method = RequestMethod.POST)
+    public JsonResponse<Integer> expiren(@RequestBody JsonRequest<ObjectionJieAnVO> jsonRequest) {
+        JsonResponse<Integer> jsonResponse = new JsonResponse<>();
+        try {
+            // 根据service层返回的编码做不同的操作
+            jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
+            jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            ServiceResponse<Integer> response = objectionJieAnAPI.expiren(jsonRequest);
+            if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
+                jsonResponse.setRspBody(response.getRetContent());
+                // 如果需要异常信息
+            else if (response.isHasError())
+                // 系统异常
+                jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                // 如果需要的话, 这个方法可以获取异常信息 response.getErrorMessage()
+            else {
+                // 根据业务的不同确定返回的业务信息是否正常,是否需要执行下一步操作
+                jsonResponse.setRetCode(response.getRetCode());
+                jsonResponse.setRetDesc(response.getRetMessage());
+            }
+        } catch (FeignException e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+            return jsonResponse;
+        }
+
+        return jsonResponse;
+
+    }
+
+    /**
      *  异议结案撤销
      * @param  jsonRequest
      * @return

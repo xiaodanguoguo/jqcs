@@ -21,6 +21,16 @@ public interface ObjectionJieAnAPI {
     @RequestMapping(value = "/objectionJieAn/upload",method = RequestMethod.POST)
     ServiceResponse<Integer> upload(@RequestBody JsonRequest<ObjectionJieAnVO> jsonRequest);
 
+
+    /**
+     *  过期原因
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/objectionJieAn/expiren",method = RequestMethod.POST)
+    ServiceResponse<Integer> expiren(@RequestBody JsonRequest<ObjectionJieAnVO> jsonRequest);
+
     /**
      *  异议结案撤销
      * @param  jsonRequest
