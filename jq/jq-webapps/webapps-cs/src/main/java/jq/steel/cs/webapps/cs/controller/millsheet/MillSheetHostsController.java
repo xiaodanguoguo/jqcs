@@ -551,4 +551,27 @@ public class MillSheetHostsController {
     }
 
 
+    /**
+     * 打印次数/下载次数+1
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/updateNumber",method = RequestMethod.POST)
+    public JsonResponse<Integer>  updateNumber(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest){
+        JsonResponse<Integer> jsonResponse = new JsonResponse<>();
+        for (MillSheetHostsVO millSheetHostsVO: jsonRequest.getReqBody()){
+            millSheetHostsVO.setOrgCode(AssertContext.getOrgCode());
+            millSheetHostsVO.setOrgName(AssertContext.getOrgName());
+        }
+        try {
+            ServiceResponse<Integer> serviceResponse = millSheetHostsAPI.updateNumber(jsonRequest);
+            jsonResponse.setRspBody(serviceResponse.getRetContent());
+        } catch (BusinessException e) {
+            logger.error("获取分页列表错误 = {}", e);
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+        return jsonResponse;
+    }
 }

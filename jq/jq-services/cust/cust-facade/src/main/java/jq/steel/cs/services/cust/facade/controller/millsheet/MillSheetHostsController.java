@@ -137,4 +137,23 @@ public class MillSheetHostsController {
         return srp;
     }
 
+    /**
+     * 打印次数/下载次数+1
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/updateNumber",method = RequestMethod.POST)
+    public ServiceResponse<Integer>  updateNumber(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest){
+        ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
+        try {
+            Integer integer = millSheetHostsService.updateNumber(jsonRequest.getReqBody());
+            serviceResponse.setRetContent(integer);
+        }catch (BusinessException e){
+            logger.error("出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
 }

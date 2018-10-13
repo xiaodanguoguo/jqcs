@@ -22,4 +22,7 @@ public interface MillSheetHostsService {
 
     //返回app端质证书下载路径
     MillSheetHostsVO getUrlForApp(JsonRequest<MillSheetHostsVO> jsonRequest);
+
+    //修改打印次数下载次数
+    Integer updateNumber(List<MillSheetHostsVO> millSheetHostsVO);
 }
