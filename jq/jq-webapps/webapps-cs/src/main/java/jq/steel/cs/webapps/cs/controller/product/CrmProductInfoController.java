@@ -61,6 +61,10 @@ public class CrmProductInfoController {
 
         try {
             List<String> codes = this.getRoleCode();
+            if (CollectionUtils.isEmpty(codes)) {
+                jsonResponse.setRetCode("0000004");
+                return jsonResponse;
+            }
             jsonRequest.getReqBody().setFactoryCodes(codes);
             ServiceResponse<PageDTO<CrmProductInfoVO>> serviceResponse = crmProductInfoApi
                     .getPage(jsonRequest);
@@ -225,6 +229,10 @@ public class CrmProductInfoController {
             List<String> codes = this.getRoleCode();
             if (CollectionUtils.isNotEmpty(codes)) {
                 code = codes.get(0);
+            } else {
+                jsonResponse.setRetCode("0000004");
+                return jsonResponse;
+
             }
             vo.setFactory(code);
             List<String> thumbnailList = vo.getThumbnailList();

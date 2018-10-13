@@ -56,6 +56,11 @@ public class CrmProductCategoryController {
 
         try {
             List<String> codes = this.getRoleCode();
+
+            if (CollectionUtils.isEmpty(codes)) {
+                jsonResponse.setRetCode("0000004");
+            }
+
             jsonRequest.getReqBody().setFactoryCodes(codes);
             ServiceResponse<List<CrmProductCategoryVO>> serviceResponse = crmProductCategoryApi
                     .getPage(jsonRequest);
@@ -97,8 +102,12 @@ public class CrmProductCategoryController {
         try {
             String code = "";
             List<String> codes = this.getRoleCode();
+
             if (CollectionUtils.isNotEmpty(codes)) {
                 code = codes.get(0);
+            } else {
+                jsonResponse.setRetCode("0000004");
+                return jsonResponse;
             }
             List<CrmProductCategoryVO> list = jsonRequest.getReqBody();
             if (CollectionUtils.isNotEmpty(list)) {
@@ -193,6 +202,10 @@ public class CrmProductCategoryController {
 
         try {
             List<String> codes = this.getRoleCode();
+            if (CollectionUtils.isEmpty(codes)) {
+                jsonResponse.setRetCode("0000004");
+                return jsonResponse;
+            }
             ServiceResponse<List<CrmProductCategoryVO>> serviceResponse = crmProductCategoryApi
                     .getList(codes);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
