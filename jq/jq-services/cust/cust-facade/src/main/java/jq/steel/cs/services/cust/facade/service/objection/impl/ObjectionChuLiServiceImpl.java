@@ -55,7 +55,7 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
             for (ObjectionChuLiVO objectionChuLiVO:transform.getResultData()){
                 crmClaimInfo = new CrmClaimInfo();
                 BeanCopyUtil.copy(objectionChuLiVO, crmClaimInfo);
-                if (crmClaimInfo.getExpiredSign()!=null&&crmClaimInfo.getExpiredSign().equals("")){
+                if (crmClaimInfo.getExpiredSign()!=null&&crmClaimInfo.getExpiredSign()!=""){
                     crmClaimInfo.setIsUpload("Y");
                 }else {
                     crmClaimInfo.setIsUpload("N");
