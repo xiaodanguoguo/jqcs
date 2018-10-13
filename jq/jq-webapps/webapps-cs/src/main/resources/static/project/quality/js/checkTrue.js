@@ -71,7 +71,7 @@ function inputCheckCallBack(data){
         alertBox.Alert(data.rspBody.explain,"成功提示");
     }
 }
-//上传防伪验真成功回调
+//上传防伪码验真成功回调
 function uploadCheckCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){

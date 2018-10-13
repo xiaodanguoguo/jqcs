@@ -43,6 +43,7 @@ function clsMethodLee$parse(){
             //不可编辑
             ue.setDisabled();
         });
+        $("#returnPrev").show();
     }else if(this.htmlType == 3){//协议书详情页面
         $("#htmlBox input").attr("disabled",true).addClass("changeGary");
         $("#htmlBox textarea").attr("disabled",true).addClass("changeGary");
@@ -102,6 +103,11 @@ function clsMethodLee$operate(){
             $(this).val(0);
             $("#agreementAmountUpper").val(changeMoneyToChinese($(this).val()));
         }
+    });
+
+    //返回上一页
+    $("#returnPrev").on("click",function(){
+        jumpUrl("objectionDeal.html","0000000",0);
     });
 
 }
