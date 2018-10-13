@@ -427,7 +427,7 @@ function getContentCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         if(data.rspBody){
-            if(data.rspBody.acctType != 1 && data.rspBody.acctType != 0){
+            if(data.rspBody.acctType != 5){
                 $("#condcustomerId").val(data.rspBody.orgCode).attr("disabled",true).addClass("changeGary");
                  $("#tableList")[0].cacheArr = [];
                 initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"condcustomerId":data.rspBody.orgCode},"POST");

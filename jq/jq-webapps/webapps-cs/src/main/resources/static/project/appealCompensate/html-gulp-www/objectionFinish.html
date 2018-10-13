@@ -285,7 +285,8 @@
                     </li>
                     <li class="submission-box-list__Every">
                         <span class="submission-box-list__Name">生产厂家:</span>
-                        <input id="conddeptCode" type="text" class="inputBase">
+                        <select type="text" class="inputBase" id="conddeptCode" comType="singleSelectCtrl" reqPath="/roleInfo/getRoleCodeByAcctId" reqParam="{}" selCode="roleCode" selValue="roleTitle" emptyValue="请选择">
+                        </select>
                     </li>
                     <li class="submission-box-list__Every" style="margin-top: 4px">
                         <span class="submission-box-list__Name">产品大类:</span>
@@ -362,7 +363,7 @@
                         <th class="table-list-currentrow-theader" width="6%">异议量&nbsp;(&nbsp;吨&nbsp;)</th>
                         <th class="table-list-currentrow-theader" width="11%">使用单位</th>
                         <th class="table-list-currentrow-theader" width="6%">提报日期</th>
-                        <th class="table-list-currentrow-theader" width="7%">上传查看协议书有效文件</th>
+                        <th class="table-list-currentrow-theader" width="7%">查看协议书有效文件</th>
                         <th class="table-list-currentrow-theader" width="9%">强制结案原因</th>
                     </tr>
                     <tr class="table-list-currentrow" id="templateRow" style="display: none;">
@@ -370,6 +371,7 @@
                             <span class="btnLowImgCom" id="cancelOpe" limitCode="M30501" style="display: none;">撤销</span>
                             <span class="btnLowImgCom" id="strongEndOpe" limitCode="M30504">强制结案</span>
                             <span class="btnLowImgCom" id="printOpe" limitCode="M30503" style="display: none;">打印通知单</span>
+                            <span class="btnLowImgCom fl" limitCode="M30505" id="uploadOpe" comType="uploadCtrl" uploadType="button" uploadTypeVal="上传协议书图片" reqPath="/file/upload" uploadSize='{"w":"92","h":"26"}' filetype="custom" fileExt="jpg|jpeg|gif|png" style="display: none;">上传</span>
                         </td>
                         <td class="table-list-currentrow-tdetail">
                             <input type="checkbox" id="chkCoding" class="clsChk">
@@ -388,7 +390,6 @@
                         <td class="table-list-currentrow-tdetail" id="lastUser"></td>
                         <td class="table-list-currentrow-tdetail" id="presentationDate"></td>
                         <td class="table-list-currentrow-tdetail">
-                            <span class="btnLowImgCom fl" limitCode="M30505" id="uploadOpe" comType="uploadCtrl" uploadType="button" uploadTypeVal="上传" reqPath="/file/upload" uploadSize='{"w":"50","h":"26"}' filetype="custom" fileExt="jpg|jpeg|gif|png" style="display: none;">上传</span>
                             <span class="btnLowImgCom" id="viewUploadOpe" limitCode="M30506" style="position:relative;top: 2px;display: none;">查看</span>
                         </td>
                         <td class="table-list-currentrow-tdetail" id="reasonsForCompulsoryClosure"></td>

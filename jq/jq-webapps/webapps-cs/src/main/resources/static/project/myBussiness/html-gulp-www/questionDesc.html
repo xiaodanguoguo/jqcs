@@ -263,6 +263,12 @@
     var qidJump = "";
     $(document).ready(function(){
         limitCodeDeal($("*[limitCode]"),"limitCode");
+        if(readTab == 1){
+            $("#returnPrev").show();
+            $("#returnPrev").on("click",function(){
+                jumpUrl("questionList.html","0000000",0);
+			});
+		}
         var jsonData = {"qid":qid};
         getAjaxResult("/question/preview","POST",jsonData,"descCallBack(data)");
 
@@ -366,6 +372,7 @@
         </div>-->
         <div class="questionnaire-name">
             <h1 class="questionnaire-name__tit" id="questionTitle">关于棒材产品的满意度调查(2018/0717————2018/07/20)</h1>
+			<div id="returnPrev" class="btnBaseCommon fr" style="margin-top: -55px;display: none;">返回上一页</div>
         </div>
         <div class="questionnaire-list">
 			<div class="questionnaire-Every-list" id="questionContent" comType="" templateParentId="templateParentId" templateChildId="templateChildId" jsonChildName="crmQuestionTeamAnswerVOList" reqpath="" reqparam="{}" method="POST" parentIdx="idx">
