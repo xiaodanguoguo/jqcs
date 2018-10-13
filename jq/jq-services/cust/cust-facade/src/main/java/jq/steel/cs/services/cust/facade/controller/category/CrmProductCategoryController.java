@@ -5,6 +5,7 @@ import com.ebase.core.log.SearchableLoggerFactory;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.utils.JsonUtil;
+import com.ebase.utils.StringUtil;
 import jq.steel.cs.services.cust.api.vo.CrmProductCategoryVO;
 import jq.steel.cs.services.cust.facade.common.ProductCategoryStatus;
 import jq.steel.cs.services.cust.facade.service.category.CrmProductCategoryService;
@@ -70,7 +71,9 @@ public class CrmProductCategoryController {
         try {
             List<CrmProductCategoryVO> list = jsonRequest.getReqBody();
             for (CrmProductCategoryVO vo : list) {
-                vo.setStatus(ProductCategoryStatus.SAVE.getCode());
+                if (StringUtil.isEmpty(vo.getStatus())) {
+                    vo.setStatus(ProductCategoryStatus.SAVE.getCode());
+                }
             }
             serviceResponse = crmProductCategoryService.insertCrmProductCategory(list);
         } catch (Exception e) {

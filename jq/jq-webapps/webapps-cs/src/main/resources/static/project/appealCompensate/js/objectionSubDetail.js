@@ -84,6 +84,8 @@ function clsMethodLee$init(){
     this.newsChageSure = $("#newsChageSure");
     //弹框取消按钮
     this.newsChageCancel = $("#newsChageCancel");
+    //返回上一页
+    this.returnPrev = $("#returnPrev");
     this.parse();
 
 }
@@ -131,6 +133,7 @@ function clsMethodLee$parse(){
             $(".box6").remove();
             $("#submitBox input").attr("disabled",true).addClass("changeGary");
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
+            this.returnPrev.show();
             getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":this.claimNo,"optionType":3},"htmlInit(data)");//数据回显操作
             break;
         case 3://销售审核
@@ -219,6 +222,7 @@ function clsMethodLee$parse(){
             $(".box3:last").remove();
             $("#submitBox input").attr("disabled",true).addClass("changeGary");
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
+            this.returnPrev.show();
             getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":this.claimNo,"optionType":4},"htmlInit(data)");//数据回显操作
             break;
         case 8://外部调查报告详情
@@ -235,6 +239,7 @@ function clsMethodLee$parse(){
             $(".box4:last").remove();
             $("#submitBox input").attr("disabled",true).addClass("changeGary");
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
+            this.returnPrev.show();
             getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"claimNo":this.claimNo,"optionType":1},"htmlInit2(data)");//数据回显操作
             break;
             break;
@@ -253,6 +258,7 @@ function clsMethodLee$parse(){
             $("#parentBox").prev().html("异议投诉描述:");
             $("#submitBox input").attr("disabled",true).addClass("changeGary");
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
+            this.returnPrev.show();
             getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"claimNo":this.claimNo,"optionType":2},"htmlInit2(data)");//数据回显操作
             break;
     }
@@ -456,6 +462,23 @@ function clsMethodLee$operate(){
         var valiClass=new clsValidateCtrl();
         if(valiClass.validateAll4Ctrl(domCon)){
             ajaxExecute(document.body.jsLee.operateType);
+        }
+    });
+
+    this.returnPrev.on("click",function () {//返回上一页
+        switch (Number(document.body.jsLee.htmlType)) {
+            case 2://详情
+                jumpUrl("objectionSubmit.html","0000000",0);
+                break;
+            case 7://销售审核详情
+                jumpUrl("objectionReasearch.html","0000000",0);
+                break;
+            case 8://外部调查详情
+                jumpUrl("objectionReasearch.html","0000000",0);
+                break;
+            case 9://内部调查详情
+                jumpUrl("objectionReasearch.html","0000000",0);
+                break;
         }
     });
 }

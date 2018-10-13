@@ -37,6 +37,8 @@ function clsMethodLee$init(){
 }
 function clsMethodLee$parse(){
     limitCodeDeal($("*[limitCode]"),"limitCode");
+    $("#condstartDt").val(getNowFormatDate());
+    $("#condendDt").val(getNowFormatDate());
     getAjaxResult(this.requestUrl.path4,"POST",{},"getContentCallBack(data)");
     $("#condstates").chosen({
         //disable_search_threshold: 5,
@@ -87,7 +89,7 @@ function clsMethodLee$operate(){
                 }
                 var importParam = "name=" + JSON.stringify(millSheetNoArr);
                 $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
-
+                $("#tableList")[0].cacheArr = [];
                 setTimeout(function(){
                     initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
                 },2000);
@@ -357,10 +359,10 @@ function getContentCallBack(data){
                 $("*[comType=clearAllCond]").attr("bindctrlid","condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph");
                 $("*[comType=clearAllCond]")[0].jsCtrl.bindCtrlId = "condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph";
                 $("#tableList")[0].cacheArr = [];
-                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"zkunnr":data.rspBody.orgName},"POST");
+                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"zkunnr":data.rspBody.orgName,"startDt":$("#condstartDt").val(),"endDt":$("#condendDt").val()},"POST");
             }else{
                 $("#tableList")[0].cacheArr = [];
-                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{},"POST");
+                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"startDt":$("#condstartDt").val(),"endDt":$("#condendDt").val()},"POST");
             }
 
         }
@@ -384,6 +386,7 @@ function clsAlertBoxCtrl$sure() {//成功弹框确定
 function printOpeCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
+        $("#tableList")[0].cacheArr = [];
         initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
         jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody[0].report,"0000000","1");
     }
@@ -415,6 +418,30 @@ function jiaOneCallBack(data){
     if(data.retCode == "0000000"){
         initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
     }
+}
+
+function clsSearchBtnCtrl$after(jsonCond) {
+    $("#tableList")[0].cacheArr = [];
+    return jsonCond;
+}
+
+//获取当前日期
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+        /*+ " " + date.getHours() + seperator2 + date.getMinutes()
+        + seperator2 + date.getSeconds();*/
+    return currentdate;
 }
 
 $(function(){

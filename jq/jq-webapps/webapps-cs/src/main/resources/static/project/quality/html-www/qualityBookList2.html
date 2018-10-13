@@ -56,11 +56,6 @@
                     <li class="management-box-list__Every">
                         <span class="management-box-list__Name">分厂:</span>
                         <select type="text" class="inputBase" id="conddeptCode" comType="singleSelectCtrl" reqPath="/roleInfo/getRoleCodeByAcctId" reqParam="{}" selCode="roleCode" selValue="roleTitle" emptyValue="请选择">
-                            <!--<option value="">请选择</option>
-                            <option value="1000">不锈</option>
-                            <option value="2000">炼轧</option>
-                            <option value="2200">碳钢</option>
-                            <option value="3000">榆钢</option>-->
                         </select>
                     </li>
                     <li class="management-box-list__Every">
@@ -96,45 +91,51 @@
                 <!--<div class="btnLowNew management-box-apply">拆分申请</div>
                 <div class="btnLowNew management-box-split">强制拆分</div>-->
             </div>
-            <table class="table-list" id="tableList" style="table-layout: fixed" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData" chkId="chkCoding" isCacheCond="sid" clsChk="clsChk" clsallchk="clsAllChk">
-                <tr class="table-list-currentrow">
-                    <th class="table-list-currentrow-theader" width="3%">
-                        <input type="checkbox" id="checkAll" comtype="checkAll" cond="" class="clsAllChk" uniontableid="tableList" chkid="chkCoding">
-                    </th>
-                    <th class="table-list-currentrow-theader" width="12%">质证书编号</th>
-                    <th class="table-list-currentrow-theader" width="5%">质证书类别</th>
-                    <th class="table-list-currentrow-theader" width="5%">质证书状态</th>
-                    <th class="table-list-currentrow-theader" width="18%">售达方</th>
-                    <th class="table-list-currentrow-theader" width="10%">发车时间</th>
-                    <th class="table-list-currentrow-theader" width="12%">车号</th>
-                    <th class="table-list-currentrow-theader" width="12%">产品名称</th>
-                    <th class="table-list-currentrow-theader" width="7%">牌号</th>
-                    <th class="table-list-currentrow-theader"  width="5%">已打印次数</th>
-                    <th class="table-list-currentrow-theader"  width="5%">可打印次数</th>
-                    <th class="table-list-currentrow-theader"  width="5%">可下载次数</th>
-                    <th class="table-list-currentrow-theader"  width="7%">操作</th>
-                </tr>
-                <tr class="table-list-currentrow" id="templateRow" style="display: none;">
-                    <td class="table-list-currentrow-tdetail" style="text-align: center"><input type="checkbox" id="chkCoding" class="clsChk"></td>
-                    <td class="table-list-currentrow-tdetail" id="millSheetNo"></td>
-                    <td class="table-list-currentrow-tdetail" id="millSheetType" style="text-align: center"></td>
-                    <td class="table-list-currentrow-tdetail" id="stateName" style="text-align: center"></td>
-                    <td class="table-list-currentrow-tdetail" id="zkunnr"></td>
-                    <td class="table-list-currentrow-tdetail" id="createdDt" style="text-align: center"></td>
-                    <td class="table-list-currentrow-tdetail" id="zchehao"></td>
-                    <td class="table-list-currentrow-tdetail" id="zcpmc"></td>
-                    <td class="table-list-currentrow-tdetail" id="zph"></td>
-                    <td class="table-list-currentrow-tdetail" id="printedNum" style="text-align: center"></td>
-                    <td class="table-list-currentrow-tdetail" id="printableNum" style="text-align: center"></td>
-                    <td class="table-list-currentrow-tdetail" id="downableNum" style="text-align: center"></td>
-                    <td class="table-list-currentrow-tdetail">
-                        <span class="btnLowImgCom" id="commonSplit" style="display: none" limitCode="M20203">拆分申请</span>
-                        <span class="btnLowImgCom" id="strongSplit" style="display:none;" limitCode="M20204">强制拆分</span>
-                        <span class="btnLowImgCom" id="historySplit" style="display:none;" limitCode="M20205">拆分历史</span>
-                        <span class="btnLowImgCom" id="applyBack" style="display:none;">申请回退</span>
-                    </td>
-                </tr>
-            </table>
+            <div style="width: 980px;overflow:scroll;">
+                <table class="table-list" id="tableList" style="table-layout: fixed;width:1200px;" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData" chkId="chkCoding" isCacheCond="sid" clsChk="clsChk" clsallchk="clsAllChk">
+                    <tr class="table-list-currentrow">
+                        <th class="table-list-currentrow-theader"  width="7%">操作</th>
+                        <th class="table-list-currentrow-theader" width="3%">
+                            <input type="checkbox" id="checkAll" comtype="checkAll" cond="" class="clsAllChk" uniontableid="tableList" chkid="chkCoding">
+                        </th>
+                        <th class="table-list-currentrow-theader" width="12%">质证书编号</th>
+                        <th class="table-list-currentrow-theader" width="5%">质证书类别</th>
+                        <th class="table-list-currentrow-theader" width="5%">质证书状态</th>
+                        <th class="table-list-currentrow-theader" width="18%">售达方</th>
+                        <th class="table-list-currentrow-theader" width="10%">发车时间</th>
+                        <th class="table-list-currentrow-theader" width="12%">车号</th>
+                        <th class="table-list-currentrow-theader" width="12%">产品名称</th>
+                        <th class="table-list-currentrow-theader" width="7%">牌号</th>
+                        <th class="table-list-currentrow-theader"  width="5%">已打印次数</th>
+                        <th class="table-list-currentrow-theader"  width="5%">可打印次数</th>
+                        <th class="table-list-currentrow-theader"  width="5%">可下载次数</th>
+                        <th class="table-list-currentrow-theader"  width="15%">回退原因</th>
+                        <th class="table-list-currentrow-theader"  width="15%">驳回回退原因</th>
+                    </tr>
+                    <tr class="table-list-currentrow" id="templateRow" style="display: none;">
+                        <td class="table-list-currentrow-tdetail">
+                            <span class="btnLowImgCom" id="commonSplit" style="display: none" limitCode="M20203">拆分申请</span>
+                            <span class="btnLowImgCom" id="strongSplit" style="display:none;" limitCode="M20204">强制拆分</span>
+                            <span class="btnLowImgCom" id="historySplit" style="display:none;" limitCode="M20205">拆分历史</span>
+                            <span class="btnLowImgCom" id="applyBack" style="display:none;">申请回退</span>
+                        </td>
+                        <td class="table-list-currentrow-tdetail" style="text-align: center"><input type="checkbox" id="chkCoding" class="clsChk"></td>
+                        <td class="table-list-currentrow-tdetail" id="millSheetNo" style="text-align: center;"></td>
+                        <td class="table-list-currentrow-tdetail" id="millSheetType" style="text-align: center"></td>
+                        <td class="table-list-currentrow-tdetail" id="stateName" style="text-align: center"></td>
+                        <td class="table-list-currentrow-tdetail" id="zkunnr"></td>
+                        <td class="table-list-currentrow-tdetail" id="createdDt" style="text-align: center"></td>
+                        <td class="table-list-currentrow-tdetail" id="zchehao" style="text-align: center"></td>
+                        <td class="table-list-currentrow-tdetail" id="zcpmc"></td>
+                        <td class="table-list-currentrow-tdetail" id="zph" style="text-align: center"></td>
+                        <td class="table-list-currentrow-tdetail" id="printedNum" style="text-align: center"></td>
+                        <td class="table-list-currentrow-tdetail" id="printableNum" style="text-align: center"></td>
+                        <td class="table-list-currentrow-tdetail" id="downableNum" style="text-align: center"></td>
+                        <td class="table-list-currentrow-tdetail" id="fallbackReason"></td>
+                        <td class="table-list-currentrow-tdetail" id="rejectionReason"></td>
+                    </tr>
+                </table>
+            </div>
             <div id="nonData" class="noDataCon" style="display: none;width: 950px;margin-left: 28px;">
                 <i></i>
                 <p>暂无数据......</p>
@@ -173,7 +174,7 @@
         </div>
     </div>
     <div class="content">
-        <textarea id="rejectText" type="text" class="content-Input required isLengthOf" v_minlength="5" islengthofmsg="最少输入5个字" style="resize: none;width: 340px;height: 130px;border: 1px solid #e5e5e5;border-radius: 5px;margin-left: 7px;"></textarea>
+        <textarea id="rejectText" type="text" class="content-Input required isLengthOf" v_minlength="5" v_maxlength="30" islengthofmsg="请输入5-30个字" placeholder="请输入5-30个字" style="resize: none;width: 340px;height: 130px;border: 1px solid #e5e5e5;border-radius: 5px;margin-left: 7px;"></textarea>
         <div class="">
             <div id="rejectSureOpe" class="btnBaseCommon product-save" style="margin-left: 236px;margin-right: 20px;margin-top: 10px;">确定</div>
             <div id="rejectCancelOpe" class="btnBaseCancel product-submit">取消</div>

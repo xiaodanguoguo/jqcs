@@ -23,7 +23,8 @@
                     </li>
                     <li class="submission-box-list__Every">
                         <span class="submission-box-list__Name">生产厂家:</span>
-                        <input id="conddeptCode" type="text" class="inputBase">
+                        <select type="text" class="inputBase" id="conddeptCode" comType="singleSelectCtrl" reqPath="/roleInfo/getRoleCodeByAcctId" reqParam="{}" selCode="roleCode" selValue="roleTitle" emptyValue="请选择">
+                        </select>
                     </li>
                     <li class="submission-box-list__Every" style="margin-top: 4px;">
                         <span class="submission-box-list__Name">产品大类:</span>
@@ -112,7 +113,7 @@
                     <tr class="table-list-currentrow" id="templateRow" style="display: none;">
                         <td class="table-list-currentrow-tdetail">
                             <span class="btnLowImgCom" id="printOpe" limitCode="M30302" style="display: none;">打印受理单</span>
-                            <span class="btnLowImgCom" id="detailOpe" limitCode="M30309">异议详情</span>
+                            <span class="btnLowImgCom" id="detailOpe" limitCode="M30309">销售审核详情</span>
                             <span class="btnLowImgCom" id="researchOutOpe" limitCode="M30303" style="display: none;">外部调查</span>
                             <span class="btnLowImgCom" id="researchInOpe" limitCode="M30304" style="display: none;">内部调查</span>
                             <span class="btnLowImgCom" id="researchOutDetOpe" style="display: none;">外部调查详情</span>
