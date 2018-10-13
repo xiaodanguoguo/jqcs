@@ -54,11 +54,11 @@
 
 .newsList-content-mainListRows-ul { border-bottom: 1px solid #dee3e6; width: 735px; padding: 10px; }
 
-.newsList-content-mainListRows-ulList { width: 180px; margin-bottom: 4px; float: left; }
+.newsList-content-mainListRows-ulList { width: 245px; margin-bottom: 4px; float: left; }
 
-.newsList-content-mainListRowsUlList-title { width: 80px; margin-right: 6px; line-height: 28px; text-align: right; }
+.newsList-content-mainListRowsUlList-title { width: 106px; margin-right: 6px; line-height: 28px; text-align: right; }
 
-.newsList-content-mainListRowsUlList-text { width: 70px; }
+.newsList-content-mainListRowsUlList-text { width: 110px; }
 
 .newsList-content-mainListRows-text { width: 735px; height: 83px; line-height: 24px; padding: 0 10px; }
 

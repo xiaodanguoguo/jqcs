@@ -281,6 +281,11 @@
                         <input id="condcustomerId" type="text" class="inputBase">
                     </li>
                     <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">生产厂家:</span>
+                        <select type="text" class="inputBase" id="conddeptCode" comType="singleSelectCtrl" reqPath="/roleInfo/getRoleCodeByAcctId" reqParam="{}" selCode="roleCode" selValue="roleTitle" emptyValue="请选择">
+                        </select>
+                    </li>
+                    <li class="submission-box-list__Every">
                         <span class="submission-box-list__Name">产品牌号:</span>
                         <input id="conddesignation" type="text" class="inputBase">
                     </li>
@@ -336,7 +341,7 @@
                 </ul>
             </div>
             <div class="submission-box-button">
-                <div class="btnLowNew submission-box-search" comType="searchBtnCtrl" cond="condclaimNo,condcustomerId,conddesignation,condstartDt,condendDt,condclaimType,condclaimState,condsid,condbattenPlateNo" rule="cond" unionTableId="tableList" parentId="searchBox"  limitCode="M30210">查询</div>
+                <div class="btnLowNew submission-box-search" comType="searchBtnCtrl" cond="condclaimNo,condcustomerId,conddesignation,condstartDt,condendDt,condclaimType,condclaimState,condsid,condbattenPlateNo,conddeptCode" rule="cond" unionTableId="tableList" parentId="searchBox"  limitCode="M30210">查询</div>
                 <div class="btnLowNew submission-box-create" id="newOpe" limitCode="M30201">新建</div>
                 <!--<div class="btnLowNew submission-box-amend">修改</div>
                 <div class="btnLowNew submission-box-submit">提交</div>-->
@@ -463,10 +468,13 @@
         </div>
         <div class="content">
             <div class="previewOpeBox">
-                <div class="previewOpeBox-pdf" id="previewOpeBoxPdf"></div>
+                <!--<div class="previewOpeBox-pdf" id="previewOpeBoxPdf"></div>-->
                 <div class="previewOpeBox-operate" style="margin-top: 20px;">
-                    <button id="previewNext" class="btnLowNew previewOpeBox-operate-next fr">下一页</button>
-                    <button id="previewPrev" class="btnLowNew previewOpeBox-operate-prev fl">上一页</button>
+                    <img src="" alt="" id="" style="width: 400px;height: 600px;margin-left: 25px;">
+                    <div style="margin-top: 10px;padding-bottom: 20px;">
+                        <button id="previewNext" class="btnLowNew previewOpeBox-operate-next fr">下一页</button>
+                        <button id="previewPrev" class="btnLowNew previewOpeBox-operate-prev fl">上一页</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -483,8 +491,9 @@
         </div>
         <div class="content">
             <div class="previewOpeBox">
-                <div class="previewOpeBox-pdf" id="previewOpeBoxPdf2"></div>
-                <div class="previewOpeBox-operate" style="margin-top: 20px;">
+                <!--<div class="previewOpeBox-pdf" id="previewOpeBoxPdf2"></div>-->
+                <img src="" alt="" id="" style="width: 400px;height: 600px;margin-left: 25px;">
+                <div style="margin-top: 10px;padding-bottom: 20px;">
                     <button id="downViewCancel" class="btnLowNew previewOpeBox-operate-prev fl">取消</button>
                     <button id="downView" class="btnLowNew previewOpeBox-operate-next fr">下载</button>
                 </div>

@@ -71,11 +71,11 @@ function clsMethodLee$operate(){
         }
     });
     this.rejectSureOpe.on("click",function(){//强制结案确认操作
-        if($("#rejectText").val().length >= 5){
+        if($("#rejectText").val().length >= 5 && $("#rejectText").val().length <= 30){
             var jsonParam = {"claimNo":document.body.jsLee.claimNo,"reasonsForCompulsoryClosure":$("#rejectText").val()};
             getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",jsonParam,"rejectOpeCallBack(data)");
         }else if($("#rejectText").val().length > 0){
-            showErrInfoByCustomDiv($("#rejectText")[0],"强制结案理由至少5个字！");
+            showErrInfoByCustomDiv($("#rejectText")[0],"强制结案理由为5-30个字！");
         }else{
             showErrInfoByCustomDiv($("#rejectText")[0],"请输入强制结案理由！");
         }
@@ -86,13 +86,13 @@ function clsMethodLee$operate(){
     });
 
     this.revokeSureOpe.on("click",function(){//撤销确认操作
-        if($("#revokeText").val().length >= 5){
+        if($("#revokeText").val().length >= 5 && $("#revokeText").val().length <= 30){
             var jsonParam = {"claimNo":document.body.jsLee.claimNo,"reasonsForCompulsoryClosure":$("#revokeText").val()};
             getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",jsonParam,"revokeOpeCallBack(data)");
         }else if($("#revokeText").val().length > 0){
-            showErrInfoByCustomDiv($("#revokeText")[0],"强制结案理由至少5个字！");
+            showErrInfoByCustomDiv($("#revokeText")[0],"撤销理由为5-30个字！");
         }else{
-            showErrInfoByCustomDiv($("#revokeText")[0],"请输入强制结案理由！");
+            showErrInfoByCustomDiv($("#revokeText")[0],"请输入撤销理由！");
         }
     });
 
@@ -393,6 +393,8 @@ function uploadCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
+        var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert("上传成功","成功提示");
     }
 }
 
@@ -406,9 +408,9 @@ function pdfViewCallBack(data){
 function pdfViewCallBack2(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        openWin("800","600","previewOpeBox2");
-        $("#previewOpeBoxPdf2").attr("href",data.rspBody.report);
-        $("#previewOpeBoxPdf2").media({width:740, height:450});
+        openWin("500","600","previewOpeBox2");
+        $("#previewOpeBox2 img").attr("src",data.rspBody.report);
+        //$("#previewOpeBoxPdf2").media({width:740, height:450});
         //jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody.report,"0000000","1");
     }
 }

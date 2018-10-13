@@ -333,7 +333,7 @@ function starSureCallBack(data){
 function viewOpeCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        openWin("800","600","previewOpeBox");
+        openWin("500","600","previewOpeBox");
         if(data.rspBody.url == "" || data.rspBody.url == null){
             document.body.jsLee.previewArr = "";
             document.body.jsLee.previewArrCurrent = "";
@@ -341,9 +341,9 @@ function viewOpeCallBack(data){
             document.body.jsLee.previewArr = data.rspBody.url.split(";");
             document.body.jsLee.previewArrCurrent = document.body.jsLee.previewArr[0];
         }
-
-        $("#previewOpeBoxPdf").attr("href",document.body.jsLee.previewArrCurrent);
-        $("#previewOpeBoxPdf").media({width:740, height:450});
+        $("#previewOpeBox img").attr("src",document.body.jsLee.previewArrCurrent);
+        /*$("#previewOpeBoxPdf").attr("href",document.body.jsLee.previewArrCurrent);
+        $("#previewOpeBoxPdf").media({width:740, height:450});*/
         $("#previewPrev").attr("disabled",true).addClass("changeGary");
         if(document.body.jsLee.previewArr.length == 1){
             $("#previewNext").attr("disabled",true).addClass("changeGary");
@@ -368,8 +368,9 @@ function previewPage(type){//type——0上一页  1下一页
                     $("#previewPrev").removeAttr("disabled").removeClass("changeGary");
                 }
             }
-            $("#previewOpeBoxPdf").attr("href",document.body.jsLee.previewArrCurrent);
-            $("#previewOpeBoxPdf").media({width:740, height:450});
+           /* $("#previewOpeBoxPdf").attr("href",document.body.jsLee.previewArrCurrent);
+            $("#previewOpeBoxPdf").media({width:740, height:450});*/
+            $("#previewOpeBox img").attr("src",document.body.jsLee.previewArrCurrent);
             break;
         }
     }
@@ -415,9 +416,11 @@ function clsAlertBoxCtrl$sure() {
 function pdfViewCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        openWin("800","600","previewOpeBox2");
-        $("#previewOpeBoxPdf2").attr("href",data.rspBody.report);
-        $("#previewOpeBoxPdf2").media({width:740, height:450});
+        openWin("500","600","previewOpeBox2");
+        /*$("#previewOpeBoxPdf2").attr("href",data.rspBody.report);
+        $("#previewOpeBoxPdf2").media({width:740, height:450});*/
+        document.body.jsLee.report = data.rspBody.report;
+        $("#previewOpeBox2 img").attr("src",data.rspBody.report);
         //jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody.report,"0000000","1");
     }
 }
