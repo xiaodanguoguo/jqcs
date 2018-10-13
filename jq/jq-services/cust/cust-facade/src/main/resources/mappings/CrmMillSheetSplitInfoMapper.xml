@@ -14,7 +14,7 @@
     <result column="QUALITY_CERTIFICATE_TYPE" property="millSheetType" jdbcType="VARCHAR" />
     <result column="SALE_PARTY" property="zkunnr" jdbcType="VARCHAR" />
     <result column="CREATION_TIME" property="creationTime" jdbcType="TIMESTAMP" />
-    <result column="FURNACE_NUMBER" property="zlph" jdbcType="VARCHAR" />
+    <result column="FURNACE_NUMBER" property="zcharg" jdbcType="VARCHAR" />
     <result column="ZJISHU" property="zjishu" jdbcType="NUMERIC" />
     <result column="WEIGHT" property="zlosmenge" jdbcType="NUMERIC" />
     <result column="LICENSE_NUMBER" property="zchehao" jdbcType="VARCHAR" />
