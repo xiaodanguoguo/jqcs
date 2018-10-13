@@ -388,6 +388,25 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             CrmClaimApply crmClaimApply  = new CrmClaimApply();
             crmClaimApply.setClaimNo(crmClaimApply1.getClaimNo());
             CrmClaimApply crmClaimApply2 = crmClaimApplyMapper.findByParams(crmClaimApply);
+            if (crmClaimApply2.getClaimState().equals("NEW")){
+                crmClaimApply2.setClaimState("新建");
+            }else if (crmClaimApply2.getClaimState().equals("PRESENT")){
+                crmClaimApply2.setClaimState("已提报");
+            }else if (crmClaimApply2.getClaimState().equals("ACCEPTANCE")){
+                crmClaimApply2.setClaimState("已受理");
+            }else if (crmClaimApply2.getClaimState().equals("REJECT")){
+                crmClaimApply2.setClaimState("已驳回");
+            }else if (crmClaimApply2.getClaimState().equals("INVESTIGATION")){
+                crmClaimApply2.setClaimState("调查中");
+            }else if (crmClaimApply2.getClaimState().equals("HANDLE")){
+                crmClaimApply2.setClaimState("处理中");
+            }else if (crmClaimApply2.getClaimState().equals("END")){
+                crmClaimApply2.setClaimState("已结案");
+            }else if (crmClaimApply2.getClaimState().equals("EVALUATE")){
+                crmClaimApply2.setClaimState("已评价");
+            }else if (crmClaimApply2.getClaimState().equals("ADOPT")){
+                crmClaimApply2.setClaimState("销售审核通过");
+            }
             crmClaimApplyList.add(crmClaimApply2);
         }
         //转换返回对象

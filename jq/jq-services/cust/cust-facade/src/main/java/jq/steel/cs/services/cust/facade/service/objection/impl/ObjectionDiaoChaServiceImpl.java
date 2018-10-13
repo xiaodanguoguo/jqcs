@@ -368,6 +368,25 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             CrmClaimOutInquire crmClaimOutInquire1  = new CrmClaimOutInquire();
             crmClaimOutInquire1.setClaimNo(crmClaimOutInquire.getClaimNo());
             CrmClaimOutInquire crmClaimOutInquire2 = crmClaimOutInquireMapper.find(crmClaimOutInquire);
+            if (crmClaimOutInquire2.getClaimState().equals("NEW")){
+                crmClaimOutInquire2.setClaimState("新建");
+            }else if (crmClaimOutInquire2.getClaimState().equals("PRESENT")){
+                crmClaimOutInquire2.setClaimState("已提报");
+            }else if (crmClaimOutInquire2.getClaimState().equals("ACCEPTANCE")){
+                crmClaimOutInquire2.setClaimState("已受理");
+            }else if (crmClaimOutInquire2.getClaimState().equals("REJECT")){
+                crmClaimOutInquire2.setClaimState("已驳回");
+            }else if (crmClaimOutInquire2.getClaimState().equals("INVESTIGATION")){
+                crmClaimOutInquire2.setClaimState("调查中");
+            }else if (crmClaimOutInquire2.getClaimState().equals("HANDLE")){
+                crmClaimOutInquire2.setClaimState("处理中");
+            }else if (crmClaimOutInquire2.getClaimState().equals("END")){
+                crmClaimOutInquire2.setClaimState("已结案");
+            }else if (crmClaimOutInquire2.getClaimState().equals("EVALUATE")){
+                crmClaimOutInquire2.setClaimState("已评价");
+            }else if (crmClaimOutInquire2.getClaimState().equals("ADOPT")){
+                crmClaimOutInquire2.setClaimState("销售审核通过");
+            }
             crmClaimOutInquires1.add(crmClaimOutInquire2);
         }
 

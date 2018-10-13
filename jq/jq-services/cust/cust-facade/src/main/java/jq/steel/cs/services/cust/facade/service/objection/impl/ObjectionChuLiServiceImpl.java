@@ -183,6 +183,25 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
             CrmClaimInfo crmClaimInfo  = new CrmClaimInfo();
             crmClaimInfo.setClaimNo(crmClaimApply1.getClaimNo());
             CrmClaimInfo crmClaimInfo1 = crmClaimInfoMapper.findByPage(crmClaimInfo);
+            if (crmClaimInfo1.getClaimState().equals("NEW")){
+                crmClaimInfo1.setClaimState("新建");
+            }else if (crmClaimInfo1.getClaimState().equals("PRESENT")){
+                crmClaimInfo1.setClaimState("已提报");
+            }else if (crmClaimInfo1.getClaimState().equals("ACCEPTANCE")){
+                crmClaimInfo1.setClaimState("已受理");
+            }else if (crmClaimInfo1.getClaimState().equals("REJECT")){
+                crmClaimInfo1.setClaimState("已驳回");
+            }else if (crmClaimInfo1.getClaimState().equals("INVESTIGATION")){
+                crmClaimInfo1.setClaimState("调查中");
+            }else if (crmClaimInfo1.getClaimState().equals("HANDLE")){
+                crmClaimInfo1.setClaimState("处理中");
+            }else if (crmClaimInfo1.getClaimState().equals("END")){
+                crmClaimInfo1.setClaimState("已结案");
+            }else if (crmClaimInfo1.getClaimState().equals("EVALUATE")){
+                crmClaimInfo1.setClaimState("已评价");
+            }else if (crmClaimInfo1.getClaimState().equals("ADOPT")){
+                crmClaimInfo1.setClaimState("销售审核通过");
+            }
             crmClaimInfos1.add(crmClaimInfo1);
         }
         //转换返回对象
