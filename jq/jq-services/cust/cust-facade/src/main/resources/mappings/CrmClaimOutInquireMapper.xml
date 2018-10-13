@@ -99,6 +99,7 @@ WHERE
     A.CLAIM_NO,
     A.CLAIM_STATE,
     A.MILL_SHEET_NO,
+    A.CUSTOMER_NAME,
     A.REJECT_REASON,
     case when B.DEPT_CODE = '1000' then '不锈钢厂'
     when B.DEPT_CODE = '2000' then '炼轧厂'
@@ -143,7 +144,7 @@ WHERE
         <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
       </if>
       <if test="customerId != null and customerId != ''" >
-        AND H.CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+        AND H.CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
       </if>
       <if test="claimType != null and claimType != ''" >
         AND H.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
@@ -534,6 +535,7 @@ LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
     A.CLAIM_NO,
     A.CLAIM_STATE,
     A.MILL_SHEET_NO,
+    A.CUSTOMER_NAME,
     B.DEPT_CODE,
     A.PRODUCT_ID,
     A.PRODUCT_NAME,
@@ -573,7 +575,7 @@ LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
         <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
       </if>
       <if test="customerId != null and customerId != ''" >
-        AND H.CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+        AND H.CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
       </if>
       <if test="claimType != null and claimType != ''" >
         AND H.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
