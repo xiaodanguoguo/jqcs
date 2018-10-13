@@ -95,6 +95,7 @@
 <!--异议提报查询-->
   <select id="findByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
     SELECT h.* from(SELECT
+    A.SID,
     A.CLAIM_NO,
     A.CLAIM_STATE,
     A.MILL_SHEET_NO,
@@ -170,6 +171,7 @@
         AND H.CLAIM_STATE = #{claimState}
       </if>
     </trim>
+    order by H.SID desc
   </select>
 
 <!--导出查询-->

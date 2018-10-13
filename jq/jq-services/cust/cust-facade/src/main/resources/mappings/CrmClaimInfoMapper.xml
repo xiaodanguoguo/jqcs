@@ -657,6 +657,7 @@
   <!--异议处理查询-->
   <select id="findByPageChuLi" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInfo" >
     SELECT H.*FROM(SELECT
+    A.SID,
     A.IS_TRACK,
     A.EXPIRED_REASON,
     A.CLAIM_NO,
@@ -752,7 +753,7 @@
       <if test="agreementState != null and agreementState != ''" >
         AND H.AGREEMENT_STATE = #{agreementState}
       </if>
-
+      order by H.SID desc
     </trim>
   </select>
   <!--销售审核查询-->

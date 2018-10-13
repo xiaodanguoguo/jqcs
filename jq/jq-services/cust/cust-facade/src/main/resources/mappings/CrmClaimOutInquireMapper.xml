@@ -96,6 +96,7 @@ WHERE
 <!--异议调查-->
   <select id="findByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
     SELECT H.* FROM(SELECT
+    A.SID,
     A.CLAIM_NO,
     A.CLAIM_STATE,
     A.MILL_SHEET_NO,
@@ -193,6 +194,7 @@ WHERE
       <if test="inquireState != null and inquireState != ''" >
         AND H.INQUIRE_STATE = #{inquireState,jdbcType=VARCHAR}
       </if>
+      order by H.SID desc
     </trim>
   </select>
 
