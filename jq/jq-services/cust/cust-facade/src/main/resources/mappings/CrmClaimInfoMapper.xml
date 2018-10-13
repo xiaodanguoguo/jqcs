@@ -657,6 +657,7 @@
   <!--异议处理查询-->
   <select id="findByPageChuLi" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInfo" >
     SELECT H.*FROM(SELECT
+    A.BATTEN_PLATE_NO,
     A.SID,
     A.IS_TRACK,
     A.EXPIRED_REASON,

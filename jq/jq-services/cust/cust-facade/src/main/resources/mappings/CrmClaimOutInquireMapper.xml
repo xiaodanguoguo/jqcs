@@ -96,6 +96,7 @@ WHERE
 <!--异议调查-->
   <select id="findByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
     SELECT H.* FROM(SELECT
+    A.BATTEN_PLATE_NO,
     A.SID,
     A.CLAIM_NO,
     A.CLAIM_STATE,
