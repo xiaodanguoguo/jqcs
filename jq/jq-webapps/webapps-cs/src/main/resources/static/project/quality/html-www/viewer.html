@@ -18,17 +18,11 @@
     <script src="../../../plugin/popup/script/manhuaDialog.1.0.js"></script>
     <script>
       //动态设置要打开的pdf路径，或者在url路径后面增加file=xxxx.do返回文件流
-      DEFAULT_URL = 'http://10.1.213.118:20008/data/millpath/2018-10-13/C20181013001.pdf';
+      //DEFAULT_URL = '../../../plugin/pdfPrint/web/222.pdf';
+      DEFAULT_URL = GetQueryString("file");
       function pdfCallback(){
           //alert(1)
-          var alertBox = new clsAlertBoxCtrl();
-          alertBox.Alert("确认打印？打印次数减一","警告提示",1,"","printOpeTip");
-      }
-      function clsAlertBoxCtrl$sure() {//成功弹框确定
-          if (this.id == "printOpeTip") {
-              closePopupWin();
-              //SecondaryToolbar.printClick.bind(SecondaryToolbar)
-          }
+          return true;
       }
     </script>
   </head>
@@ -136,9 +130,9 @@
           <div id="toolbarContainer">
             <div id="toolbarViewer">
               <div id="toolbarViewerLeft">
-                <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="11" data-l10n-id="toggle_sidebar">
+               <!-- <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="11" data-l10n-id="toggle_sidebar">
                   <span data-l10n-id="toggle_sidebar_label">Toggle Sidebar</span>
-                </button>
+                </button>-->
                 <div class="toolbarButtonSpacer"></div>
                 <button id="viewFind" class="toolbarButton group hiddenSmallView" title="Find in Document" tabindex="12" data-l10n-id="findbar">
                    <span data-l10n-id="findbar_label">Find</span>
@@ -157,13 +151,14 @@
                 <span id="numPages" class="toolbarLabel"></span>
               </div>
               <div id="toolbarViewerRight">
-                <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="Switch to Presentation Mode" tabindex="31" data-l10n-id="presentation_mode">
+                <!--<button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="Switch to Presentation Mode" tabindex="31" data-l10n-id="presentation_mode">
                   <span data-l10n-id="presentation_mode_label">Presentation Mode</span>
-                </button>
+                </button>-->
 
-                <button id="openFile" class="toolbarButton openFile hiddenLargeView" title="Open File" tabindex="32" data-l10n-id="open_file">
+               <!-- <button id="openFile" class="toolbarButton openFile hiddenLargeView" title="Open File" tabindex="32" data-l10n-id="open_file">
                   <span data-l10n-id="open_file_label">Open</span>
-                </button>
+                </button>-->
+                <div id="printTip" style="line-height: 32px;color: #fff;">请慎重操作，打印次数将减一！</div>
 
                 <button id="print" class="toolbarButton print hiddenMediumView" title="Print" tabindex="33" data-l10n-id="print">
                   <span data-l10n-id="print_label">Print</span>
@@ -176,11 +171,11 @@
                   <span data-l10n-id="bookmark_label">Current View</span>
                 </a>
 
-                <div class="verticalToolbarSeparator hiddenSmallView"></div>
+                <!--<div class="verticalToolbarSeparator hiddenSmallView"></div>
 
                 <button id="secondaryToolbarToggle" class="toolbarButton" title="Tools" tabindex="36" data-l10n-id="tools">
                   <span data-l10n-id="tools_label">Tools</span>
-                </button>
+                </button>-->
               </div>
               <div class="outerCenter">
                 <div class="innerCenter" id="toolbarViewerMiddle">

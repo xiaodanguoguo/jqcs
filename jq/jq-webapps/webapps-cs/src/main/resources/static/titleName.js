@@ -27,7 +27,7 @@ var titleJson = {
         "quality":{//质证书
             "applyBack.html":"申请回退",
             "bookSplit.html":"质证书拆分",
-            "checkTrue.html":"防伪验真",
+            "checkTrue.html":"防伪码验真",
             "historySplit.html":"质证书拆分历史",
             "qualityBookList.html":"质证书管理"
         },
