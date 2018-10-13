@@ -234,10 +234,11 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
           and MSO.STATE  = #{states,jdbcType=VARCHAR}
         </when>
         <otherwise>
-          AND MSO.STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED')
+          AND MSO.STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED','SPLITED')
         </otherwise>
       </choose>
     </trim>
+    order by MSO.SID desc
   </select>
 
   <select id="findUrl" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
