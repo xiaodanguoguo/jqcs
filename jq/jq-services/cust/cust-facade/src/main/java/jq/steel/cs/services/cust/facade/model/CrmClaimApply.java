@@ -158,6 +158,7 @@ public class CrmClaimApply {
     //异议确认量
     private  String objectionConfirmation;
 
+
     public Date getClosingTime() {
         return closingTime;
     }
