@@ -46,12 +46,13 @@ public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
         crmMillSheetCheckLog.setMillSheetNo(millSecurityInfoVO.getMillSheetNo());
         String ip=request.getRemoteAddr();
         crmMillSheetCheckLog.setIpAddr(ip);
-        crmMillSheetCheckLog.setVerifier(AssertContext.getAcctName());
+        crmMillSheetCheckLog.setVerifier(orgCode);
         crmMillSheetCheckLogMapper.insertSelective(crmMillSheetCheckLog);
-            if (millSheetByPage.size()>0){
+        if (millSheetByPage.size()>0){
             List<MillSecurityInfo> millSecurityInfos = millSecurityInfoMapper.findByParams(millSecurityInfo);
             if (millSecurityInfos.size()>0){
                 int coCheckNum = millSecurityInfos.get(0).getCoCheckNum()+1;
+                int checkNum = millSecurityInfos.get(0).getCheckNum()+1;
                 //判断是否登录来区别首页验证与系统内验证
                 if(orgCode!=null){
                     if(millSecurityInfos.get(0).getCoCheckNum()>=millSecurityInfos.get(0).getCoCheckNumMax()){
@@ -69,9 +70,9 @@ public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
                     }else{
                         millSecurityInfo.setUpdatedBy(AssertContext.getAcctName());
                         millSecurityInfo.setUpdatedDt(new Date());
-                        millSecurityInfo.setCheckNum((short) coCheckNum);
+                        millSecurityInfo.setCheckNum((short) checkNum);
                         millSecurityInfoMapper.updateByPrimaryKeySelective(millSecurityInfo);
-                        millSecurityInfoVO.setExplain("此质证书"+millSecurityInfos.get(0).getMillSheetNo()+"已成功验证"+coCheckNum+"次");
+                        millSecurityInfoVO.setExplain("此质证书"+millSecurityInfos.get(0).getMillSheetNo()+"已成功验证"+checkNum+"次");
                     }
                 }
 
