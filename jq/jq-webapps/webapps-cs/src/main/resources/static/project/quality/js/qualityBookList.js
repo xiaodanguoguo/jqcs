@@ -4,7 +4,7 @@ function clsMethodLee(){
         "path2":"/millsheet/preview",//预览接口
         "path3":"/millsheet/downFile",//下载接口
         "path4":"/sysAcct/customerType",//获取用户信息接口
-        "path5":"/",//增加打印次数接口
+        "path5":"/millsheet/updateNumber",//增加打印次数接口
         "path6":"/"//增加下载次数接口
     };
     this.documentLee = null;
@@ -78,7 +78,7 @@ function clsMethodLee$operate(){
         }else{
             var num = 0;
             for(var nI = 0; nI < $("#tableList")[0].cacheArr.length; nI++){
-                if($("#tableList")[0].cacheArr[nI].printableNum != 0){
+                if($("#tableList")[0].cacheArr[nI].downableNum != 0){
                     num++;
                 }
             }
@@ -153,9 +153,9 @@ function clsMethodLee$operate(){
         }else{
             var millSheetNoArr = [];
             for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
-                millSheetNoArr.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":1});
+                millSheetNoArr.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":2});
             }
-            getAjaxResult(document.body.jsLee.requestUrl.path6,"POST",millSheetNoArr,"jiaOneCallBack(data)")
+            getAjaxResult(document.body.jsLee.requestUrl.path5,"POST",millSheetNoArr,"jiaOneCallBack(data)")
         }
     });
 }
