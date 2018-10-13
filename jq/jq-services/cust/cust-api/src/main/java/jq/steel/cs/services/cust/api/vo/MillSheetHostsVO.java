@@ -9,6 +9,12 @@ import java.util.List;
 
 public class MillSheetHostsVO implements Serializable {
 
+    //回退原因
+    private String fallbackReason;
+
+    // 驳回回退原因
+    private String rejectionReason;
+
     //厂家code
     private List<String> deptCodes;
 
@@ -145,6 +151,22 @@ public class MillSheetHostsVO implements Serializable {
     private  String spiltCustomer;
 
     private  String productName;
+
+    public String getFallbackReason() {
+        return fallbackReason;
+    }
+
+    public void setFallbackReason(String fallbackReason) {
+        this.fallbackReason = fallbackReason;
+    }
+
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
+    }
 
     public String getStates() {
         return states;
