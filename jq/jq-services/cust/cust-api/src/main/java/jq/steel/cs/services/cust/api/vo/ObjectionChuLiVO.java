@@ -8,10 +8,35 @@ import java.util.List;
 
 public class ObjectionChuLiVO {
 
+    //结案时间
+    private Date closingTime;
+
+    //是否跟踪
+    private String IsTrack;
+
+    //是否允许上传
+    private String isUpload;
+
     //现场结论
     private String fieldConclusion;
 
     private String claimState1;
+
+    public Date getClosingTime() {
+        return closingTime;
+    }
+
+    public void setClosingTime(Date closingTime) {
+        this.closingTime = closingTime;
+    }
+
+    public String getIsTrack() {
+        return IsTrack;
+    }
+
+    public void setIsTrack(String isTrack) {
+        IsTrack = isTrack;
+    }
 
     public String getFieldConclusion() {
         return fieldConclusion;
@@ -223,6 +248,15 @@ public class ObjectionChuLiVO {
 
     //备注
     private String memo;
+
+
+    public String getIsUpload() {
+        return isUpload;
+    }
+
+    public void setIsUpload(String isUpload) {
+        this.isUpload = isUpload;
+    }
 
     public String getMemo() {
         return memo;

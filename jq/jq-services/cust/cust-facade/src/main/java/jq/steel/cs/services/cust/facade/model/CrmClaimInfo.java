@@ -7,6 +7,15 @@ import java.util.Date;
 
 public class CrmClaimInfo {
 
+    //结案时间
+    private Date closingTime;
+
+    //受理时间
+    private Date admissibilityTime;
+
+    //是否允许上传
+    private String isUpload;
+
     //是否跟踪
     private String IsTrack;
 
@@ -175,6 +184,30 @@ public class CrmClaimInfo {
 
     //确认时间
     private Date confirmationTime;
+
+    public Date getClosingTime() {
+        return closingTime;
+    }
+
+    public void setClosingTime(Date closingTime) {
+        this.closingTime = closingTime;
+    }
+
+    public Date getAdmissibilityTime() {
+        return admissibilityTime;
+    }
+
+    public void setAdmissibilityTime(Date admissibilityTime) {
+        this.admissibilityTime = admissibilityTime;
+    }
+
+    public String getIsUpload() {
+        return isUpload;
+    }
+
+    public void setIsUpload(String isUpload) {
+        this.isUpload = isUpload;
+    }
 
     public String getIsTrack() {
         return IsTrack;

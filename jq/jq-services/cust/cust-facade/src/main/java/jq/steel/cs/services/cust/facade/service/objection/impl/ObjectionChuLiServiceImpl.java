@@ -1,18 +1,21 @@
 package jq.steel.cs.services.cust.facade.service.objection.impl;
 
+import com.alibaba.druid.sql.visitor.functions.If;
 import com.ebase.core.AssertContext;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.page.PageDTOUtil;
 import com.ebase.utils.BeanCopyUtil;
 import com.ebase.utils.DateFormatUtil;
+import com.ebase.utils.DateUtil;
+import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionChuLiVO;
 import jq.steel.cs.services.cust.facade.dao.CrmAgreementInfoMapper;
 import jq.steel.cs.services.cust.facade.dao.CrmClaimApplyMapper;
 import jq.steel.cs.services.cust.facade.dao.CrmClaimInfoMapper;
-import jq.steel.cs.services.cust.facade.model.CrmAgreementInfo;
-import jq.steel.cs.services.cust.facade.model.CrmClaimApply;
-import jq.steel.cs.services.cust.facade.model.CrmClaimInfo;
+import jq.steel.cs.services.cust.facade.model.*;
 import jq.steel.cs.services.cust.facade.service.objection.ObjectionChuLiService;
+import org.apache.ibatis.jdbc.Null;
+import org.apache.zookeeper.data.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +51,29 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
             List<ObjectionChuLiVO> objectionDiaoChaVOS = BeanCopyUtil.copyList(list, ObjectionChuLiVO.class);
             // 分页对象
             PageDTO<ObjectionChuLiVO> transform = PageDTOUtil.transform(objectionDiaoChaVOS);
+            for (ObjectionChuLiVO objectionChuLiVO:transform.getResultData()){
+                crmClaimInfo = new CrmClaimInfo();
+                BeanCopyUtil.copy(objectionChuLiVO, crmClaimInfo);
+                //判断是否允许上传（结案时间减受理时间   7天 （没跟踪过） 20天（跟踪过））
+                if (crmClaimInfo.getTrace()!= null){
+                    Integer integer = DateUtil.countDays(crmClaimInfo.getClosingTime(),crmClaimInfo.getAdmissibilityTime());
+                    System.out.println("结案日期"+crmClaimInfo.getClosingTime()+"受理日期"+crmClaimInfo.getAdmissibilityTime()+"时间差"+integer);
+                    if (integer>20){
+                        crmClaimInfo.setIsUpload("N");
+                    }else {
+                        crmClaimInfo.setIsUpload("Y");
+                    }
+                }else {
+                    //没有跟踪
+                    Integer integer = DateUtil.countDays(crmClaimInfo.getClosingTime(),crmClaimInfo.getAdmissibilityTime());
+                    System.out.println("结案日期"+crmClaimInfo.getClosingTime()+"受理日期"+crmClaimInfo.getAdmissibilityTime()+"时间差"+integer);
+                    if (integer>7){
+                        crmClaimInfo.setIsUpload("N");
+                    }else {
+                        crmClaimInfo.setIsUpload("Y");
+                    }
+                }
+            }
             return transform;
 
         }finally {
