@@ -800,10 +800,10 @@
     A.REJECT_REASON,
     A.REASONS_FOR_COMPULSORY_CLOSURE,
     A.LAST_USER_ID,
-    case when B.DEPT_CODE = '1000' then '不锈钢厂'
-    when B.DEPT_CODE = '2000' then '炼轧厂'
-    when B.DEPT_CODE = '2200' then '碳钢薄板厂'
-    when B.DEPT_CODE='3000' then '榆钢工厂' else B.DEPT_CODE end as DEPT_CODE,
+    case when B.DEPT_CODE = '1000' then '不锈'
+    when B.DEPT_CODE = '2000' then '炼轧'
+    when B.DEPT_CODE = '2200' then '碳钢'
+    when B.DEPT_CODE='3000' then '榆钢' else B.DEPT_CODE end as DEPT_CODE,
     (select T.TYPE_NAME from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
     WHERE T.TYPE_NAME=D.ZCPMC)) AS ZCPMC,
@@ -879,10 +879,10 @@
     A.REJECT_REASON,
     A.REASONS_FOR_COMPULSORY_CLOSURE,
     A.LAST_USER_ID,
-    case when B.DEPT_CODE = '1000' then '不锈钢厂'
-    when B.DEPT_CODE = '2000' then '炼轧厂'
-    when B.DEPT_CODE = '2200' then '碳钢薄板厂'
-    when B.DEPT_CODE='3000' then '榆钢工厂' else B.DEPT_CODE end as DEPT_CODE,
+    case when B.DEPT_CODE = '1000' then '不锈'
+    when B.DEPT_CODE = '2000' then '炼轧'
+    when B.DEPT_CODE = '2200' then '碳钢'
+    when B.DEPT_CODE='3000' then '榆钢' else B.DEPT_CODE end as DEPT_CODE,
     (select T.TYPE_NAME from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
     WHERE T.TYPE_NAME=D.ZCPMC)) AS ZCPMC,
