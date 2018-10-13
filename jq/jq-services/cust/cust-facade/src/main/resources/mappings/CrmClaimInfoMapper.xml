@@ -543,6 +543,9 @@
       <if test="confirmationTime != null" >
         CONFIRMATION_TIME = #{confirmationTime ,jdbcType=TIMESTAMP},
       </if>
+      <if test="IsTrack != null" >
+        IS_TRACK = #{IsTrack ,jdbcType=VARCHAR},
+      </if>
     </trim>
     where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
   </update>

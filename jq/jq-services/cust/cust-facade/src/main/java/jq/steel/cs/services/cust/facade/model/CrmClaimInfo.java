@@ -7,6 +7,9 @@ import java.util.Date;
 
 public class CrmClaimInfo {
 
+    //是否跟踪
+    private String IsTrack;
+
     //跟踪人
     private String trace;
 
@@ -172,6 +175,14 @@ public class CrmClaimInfo {
 
     //确认时间
     private Date confirmationTime;
+
+    public String getIsTrack() {
+        return IsTrack;
+    }
+
+    public void setIsTrack(String isTrack) {
+        IsTrack = isTrack;
+    }
 
     public String getMemo() {
         return memo;
