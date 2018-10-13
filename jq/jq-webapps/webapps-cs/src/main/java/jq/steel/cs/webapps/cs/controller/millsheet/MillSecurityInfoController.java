@@ -77,9 +77,9 @@ public class MillSecurityInfoController {
                 } else {
                     System.out.println("Failed to delete populated directory: " + localUrl);
                 }
-                serviceResponse.getRetContent().setExplain("文档内签名有效");
+                serviceResponse.getRetContent().setExplain("文档内签名有效，验真成功！");
             }else {
-                serviceResponse.getRetContent().setExplain("文档内签名被篡改");
+                serviceResponse.getRetContent().setExplain("文档内签名被篡改，验真失败！");
             }
 
             jsonResponse.setRspBody(serviceResponse.getRetContent());

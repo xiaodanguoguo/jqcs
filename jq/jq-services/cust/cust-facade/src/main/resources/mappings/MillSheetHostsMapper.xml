@@ -80,6 +80,9 @@
     <result column="SPILT_CUSTOMER" property="spiltCustomer" jdbcType="VARCHAR" />
     <result column="ZKDAUF" property="zkdauf"/>
     <result column="MILL_LINE" property="millLine"/>
+    <result column="FALLBACK_REASON" property="fallbackReason"/>
+    <result column="REJECTION_REASON" property="rejectionReason"/>
+
   </resultMap>
 
 
@@ -136,6 +139,8 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
   <!--分页查询-->
   <select id="findMillSheetByPage" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
     SELECT
+    MFI.FALLBACK_REASON,
+    case when MFS.STEP_RESULT ='Y' then '' else MFI.REJECTION_REASON end as REJECTION_REASON,
     MSO.STATE,
     MSO.CREATED_DT,
     MSO.DATA_STATE,
@@ -159,12 +164,14 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     MSH.ZCPMC,
     MSH.ZPH,
     MSH.MILL_LINE,
-    MSH.ZKDAUF as ZKDAUF,
+    MSH.ZKDAUF AS ZKDAUF,
     MSO.SID,
-    (select distinct name1 from MILL_CUSTOMER where KUNNR = MSO.ZKUNNR) ZKUNNR
+    (select distinct name1 from MILL_CUSTOMER where KUNNR = MSO.ZKUNNR) AS ZKUNNR
     FROM
     WARRANTY.MILL_SHEET_HOSTS MSO
     LEFT JOIN WARRANTY.MILL_SHEET_HEAD MSH ON MSO.MILL_SHEET_NO = MSH.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.MILL_FALLBACK_INFO MFI ON MSO.MILL_SHEET_NO = MFI.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.MILL_FALLBACK_STEPS MFS ON MSO.MILL_SHEET_NO = MFS.MILL_SHEET_NO
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
         AND TO_CHAR (MSO.CREATED_DT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}

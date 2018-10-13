@@ -9,6 +9,12 @@ import java.util.List;
 
 public class MillSheetHosts {
 
+    //回退原因
+    private String fallbackReason;
+
+    // 驳回回退原因
+    private String rejectionReason;
+
     //厂家code
     private List<String> deptCodes;
 
@@ -131,6 +137,22 @@ public class MillSheetHosts {
 
     //客户名称
     private  String spiltCustomer;
+
+    public String getFallbackReason() {
+        return fallbackReason;
+    }
+
+    public void setFallbackReason(String fallbackReason) {
+        this.fallbackReason = fallbackReason;
+    }
+
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
+    }
 
     public String getStates() {
         return states;
