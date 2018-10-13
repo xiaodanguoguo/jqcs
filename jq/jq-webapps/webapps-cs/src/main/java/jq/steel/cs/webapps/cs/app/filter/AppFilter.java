@@ -108,6 +108,11 @@ public class AppFilter implements Filter {
 
                             UserSession userSession = convert(acctSession);
                             AssertContext.init(userSession);
+
+                            /*String authKey = CacheKeyConstant.ACCT_SESSION  + httpRequest.getSession().getId() + WebUtil.getClientType(httpRequest);
+                            // 重置过期时间
+                            acctAPI.expire(authKey);*/
+
                         }
                     }
                 }

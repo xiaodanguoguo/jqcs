@@ -340,6 +340,12 @@ public class AcctServiceImpl implements AcctService {
         return map;
     }
 
+    @Override
+    public void expire(String authKey) {
+        cacheService.expire(authKey, TIME_EXPIRE);
+        System.out.println(cacheService.ttl(authKey));
+    }
+
 
     private AcctSession loginSuccess(Acct acct, AcctLogin acctLogin) {
 
