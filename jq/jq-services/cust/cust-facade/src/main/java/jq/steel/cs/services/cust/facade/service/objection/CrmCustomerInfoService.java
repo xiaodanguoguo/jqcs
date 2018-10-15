@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CrmCustomerInfoService {
 
-    Integer orderUnitInsert (CrmCustomerInfoVO crmCustomerInfoVO);
+    CrmCustomerInfoVO orderUnitInsert (CrmCustomerInfoVO crmCustomerInfoVO);
 
     PageDTO<CrmCustomerInfoVO> findByPage(CrmCustomerInfoVO crmCustomerInfoVO);
 

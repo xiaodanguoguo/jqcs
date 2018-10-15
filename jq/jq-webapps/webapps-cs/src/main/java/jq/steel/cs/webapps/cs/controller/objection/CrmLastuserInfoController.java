@@ -31,14 +31,14 @@ public class CrmLastuserInfoController {
      *
      * */
     @RequestMapping(value = "/unitOfUseInsert",method = RequestMethod.POST)
-    public JsonResponse<Integer> unitOfUseInsert(@RequestBody JsonRequest<CrmLastuserInfoVO> jsonRequest) {
+    public JsonResponse<CrmLastuserInfoVO> unitOfUseInsert(@RequestBody JsonRequest<CrmLastuserInfoVO> jsonRequest) {
         logger.info("参数={}", JsonUtil.toJson(jsonRequest));
-        JsonResponse<Integer> jsonResponse = new JsonResponse<>();
+        JsonResponse<CrmLastuserInfoVO> jsonResponse = new JsonResponse<>();
         try {
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
             // 根据service层返回的编码做不同的操作
-            ServiceResponse<Integer> response = crmLastuserInfoAPI.unitOfUseInsert(jsonRequest);
+            ServiceResponse<CrmLastuserInfoVO> response = crmLastuserInfoAPI.unitOfUseInsert(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
                 // 如果需要异常信息

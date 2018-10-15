@@ -247,13 +247,18 @@ public class ObjectionDiaoChaController {
         headers.add("异议编号@claimNo@4000");
         headers.add("异议状态@claimState@4000");
         headers.add("生产厂家@deptCode@4000");
-        headers.add("产品大类@zcpmc@4000");
+        headers.add("产品大类@productName@4000");
         headers.add("牌号@zph@4000");
         headers.add("规格@specs@4000");
         headers.add("异议量(吨)@objectionNum@8000");
         headers.add("提报日期@presentationDate@4000");
-        headers.add("驳回原因@rejectReason@4000");
-        headers.add("强制结案原因@reasonsForCompulsoryClosure@4000");
+        headers.add("受理日期@admissibilityTime@4000");
+        headers.add("外部调查时间@externalLnvestigationDate@4000");
+        headers.add("外部调查人@externalLnvestigator@4000");
+        headers.add("内部调查时间@internalLnvestigationDate@4000");
+        headers.add("内部调查人@internalLnvestigator@4000");
+        headers.add("跟踪原因@followReason@4000");
+        headers.add("确认书驳回原因@rejectReason@4000");
         return headers;
     }
 

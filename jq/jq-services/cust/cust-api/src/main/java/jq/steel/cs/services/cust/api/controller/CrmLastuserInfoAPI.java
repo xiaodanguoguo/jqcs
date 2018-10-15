@@ -20,7 +20,7 @@ public interface CrmLastuserInfoAPI {
      * @return
      */
     @RequestMapping(value ="/unitOfUse/unitOfUseInsert", method = RequestMethod.POST)
-    ServiceResponse<Integer> unitOfUseInsert(@RequestBody JsonRequest<CrmLastuserInfoVO> jsonRequest);
+    ServiceResponse<CrmLastuserInfoVO> unitOfUseInsert(@RequestBody JsonRequest<CrmLastuserInfoVO> jsonRequest);
 
     /**
      * 条件分页查询

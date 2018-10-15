@@ -19,7 +19,7 @@ public class CrmLastuserInfoServiceImpl implements CrmLastuserInfoService{
     private CrmLastuserInfoMapper crmLastuserInfoMapper;
     //新增/修改
     @Override
-    public Integer unitOfUseInsert(CrmLastuserInfoVO crmLastuserInfoVO) {
+    public CrmLastuserInfoVO unitOfUseInsert(CrmLastuserInfoVO crmLastuserInfoVO) {
         CrmLastuserInfo crmLastuserInfo = BeanCopyUtil.copy(crmLastuserInfoVO, CrmLastuserInfo.class);
         String orgName = crmLastuserInfoVO.getOrgName();
         String orgCode = crmLastuserInfoVO.getOrgCode();
@@ -58,7 +58,10 @@ public class CrmLastuserInfoServiceImpl implements CrmLastuserInfoService{
             String lastUserId = orgCode+"-"+String.valueOf(in);
             crmLastuserInfo.setLastUserId(lastUserId);
             Integer integer = crmLastuserInfoMapper.insertSelective(crmLastuserInfo);
-            return integer;
+
+            CrmLastuserInfoVO crmLastuserInfoVO1 = BeanCopyUtil.copy(crmLastuserInfo, CrmLastuserInfoVO.class);
+
+            return crmLastuserInfoVO1;
         }else {
             //修改 SID
             crmLastuserInfo.setUpdatedBy(orgCode);
@@ -73,7 +76,9 @@ public class CrmLastuserInfoServiceImpl implements CrmLastuserInfoService{
             }
             crmLastuserInfoMapper.updateByPrimaryKeySelective(crmLastuserInfo);
 
-            return  1;
+            CrmLastuserInfoVO crmLastuserInfoVO1 = BeanCopyUtil.copy(crmLastuserInfo, CrmLastuserInfoVO.class);
+
+            return crmLastuserInfoVO1;
         }
 
     }

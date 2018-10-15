@@ -20,7 +20,7 @@ public interface CrmCustomerInfoAPI {
      * @return
      */
     @RequestMapping(value ="/orderUnit/orderUnitInsert", method = RequestMethod.POST)
-    ServiceResponse<Integer> orderUnitInsert(@RequestBody JsonRequest<CrmCustomerInfoVO> jsonRequest);
+    ServiceResponse<CrmCustomerInfoVO> orderUnitInsert(@RequestBody JsonRequest<CrmCustomerInfoVO> jsonRequest);
 
     /**
      * 条件分页查询

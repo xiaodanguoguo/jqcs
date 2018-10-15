@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CrmLastuserInfoService {
 
-    Integer unitOfUseInsert (CrmLastuserInfoVO crmLastuserInfoVO);
+    CrmLastuserInfoVO unitOfUseInsert (CrmLastuserInfoVO crmLastuserInfoVO);
 
     PageDTO<CrmLastuserInfoVO> findByPage(CrmLastuserInfoVO crmLastuserInfoVO);
 

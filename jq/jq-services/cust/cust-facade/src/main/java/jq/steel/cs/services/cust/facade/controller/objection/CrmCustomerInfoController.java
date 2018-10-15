@@ -27,13 +27,13 @@ public class CrmCustomerInfoController {
 
     //新增/修改
     @RequestMapping(value = "/orderUnitInsert",method = RequestMethod.POST)
-    public ServiceResponse<Integer> orderUnitInsert(@RequestBody JsonRequest<CrmCustomerInfoVO> jsonRequest){
+    public ServiceResponse<CrmCustomerInfoVO> orderUnitInsert(@RequestBody JsonRequest<CrmCustomerInfoVO> jsonRequest){
         logger.info("分页", JsonUtil.toJson(jsonRequest));
-        ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<CrmCustomerInfoVO> serviceResponse = new ServiceResponse<>();
         try {
             CrmCustomerInfoVO crmCustomerInfoVO = jsonRequest.getReqBody();
-            Integer integer = crmCustomerInfoService.orderUnitInsert(crmCustomerInfoVO);
-            serviceResponse.setRetContent(integer);
+            CrmCustomerInfoVO CrmCustomerInfoVO1 = crmCustomerInfoService.orderUnitInsert(crmCustomerInfoVO);
+            serviceResponse.setRetContent(CrmCustomerInfoVO1);
         }catch (BusinessException e){
             logger.error("add出错",e);
             serviceResponse.setException(new BusinessException("500"));
