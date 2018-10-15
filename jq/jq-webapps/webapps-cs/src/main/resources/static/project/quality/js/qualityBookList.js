@@ -224,6 +224,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {//插件渲染操作
             break;
         case "SPLITED"://已拆分
             $(cloneRow).find("#stateName").html("已拆分");
+            $(cloneRow).find("#commonSplit").show();
             break;
     }
     if(statsBook == "EXAMINED" || statsBook == "DOWNLOADED" || statsBook == "PRIVIEWED" || statsBook == "PRINTED"){

@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html dir="ltr" mozdisallowselectionprint moznomarginboxes>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="google" content="notranslate">
+    <title>打印质证书</title>
+    <script src="../../../base/js/jquery.js"></script>
+    <script src="../../../base/js/public.js"></script>
+    <script src="../../../base/js/docassistant.js" ></script>
+    <link rel="stylesheet" href="../../../plugin/popup/css/manhuaDialog.1.0_blue.css">
+    <script src="../../../plugin/popup/script/manhuaDialog.1.0.js"></script>
+    <style>
+      *{margin：0；padding：0}
+      @media print {
+        img,div,body,html{
+          page-break-before: auto;
+          page-break-after: always;
+        }
+      }
+      @page{margin:0;}
+    </style>
+  </head>
+  <body>
+  <div class="modal-footer">
+    <button data-bb-handler="success" type="button" class="btn" id="scan_print">
+      <font>
+        <font>打印</font>
+      </font>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="bootbox-body">
+      <div class="row">
+        <div class="col-md-12" style="display: flex;justify-content: center;">
+          <!--startprint-->
+          <img id="filePng" src="" alt="">
+          <!--endprint-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+      //相当于将截取的内容渲染到页面中,进行整个页面的打印,打印之后在将原页面内容重新渲染
+      function print_qr(){
+          var bdhtml = window.document.body.innerHTML;
+          var startStr = "<!--startprint-->";
+          var endStr = "<!--endprint-->";
+
+          var printHtml = bdhtml.substring(bdhtml.indexOf(startStr) + startStr.length, bdhtml.indexOf(endStr));
+
+          //将截取的字符串进行打印
+          window.document.body.innerHTML = printHtml;
+          window.print();
+
+          //打印结束后重新加载页面,否则打印页面点击取消时原页面被修改
+          window.document.body.innerHTML = bdhtml;
+          $("#filePng").css({"width":c+"px","height":d + "px"});
+          location.reload();
+      }
+      var a = "";
+      var b = "";
+      var c = ""
+      var d = "";
+      $(function () {
+          $("#filePng").attr("src","http://cs.jiugang.com//res//C20181013020_1.png");
+          a = $("#filePng")[0].offsetWidth;
+          b = $("#filePng")[0].offsetHeight;
+          c = document.body.clientWidth;
+          d = c / a * b;
+          $("#filePng").css({"width":c+"px","height":d + "px"});
+          $('#scan_print').on('click',function(){
+
+              print_qr();
+          });
+      });
+  </script>
+  </body>
+</html>
+
