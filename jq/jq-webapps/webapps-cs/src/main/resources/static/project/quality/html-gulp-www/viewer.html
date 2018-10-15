@@ -10,21 +10,45 @@
     <script src="../../../plugin/pdfPrint/web/l10n.js"></script>
     <script src="../../../plugin/pdfPrint/build/pdf.js"></script>
     <script src="../../../plugin/pdfPrint/web/debugger.js"></script>
-    <script src="../../../plugin/pdfPrint/web/viewer.js"></script>
     <script src="../../../base/js/jquery.js"></script>
     <script src="../../../base/js/public.js"></script>
     <script src="../../../base/js/docassistant.js" ></script>
+    <script>
+        //动态设置要打开的pdf路径，或者在url路径后面增加file=xxxx.do返回文件流
+        //DEFAULT_URL = '../../../plugin/pdfPrint/web/222.pdf';
+        var PDFData = "";
+        $.ajax({
+            url: GetQueryString("file"),
+            type: "GET",
+            async: false,
+            cache: false,
+            data: JSON.stringify({}),
+            dataType: 'text',
+            contentType: 'application/json',
+            success: function (data) {
+                DEFAULT_URL = data;
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+        var rawLength = PDFData.length;
+        //转换成pdf.js能直接解析的Uint8Array类型,见pdf.js-4068  
+        var array = new Uint8Array(new ArrayBuffer(rawLength));
+        for(i = 0; i < rawLength; i++) {
+            array[i] = PDFData.charCodeAt(i) & 0xff;
+        }
+
+        DEFAULT_URL = array;
+        //DEFAULT_URL = GetQueryString("file");
+        function pdfCallback(){
+            //alert(1)
+            return true;
+        }
+    </script>
+    <script src="../../../plugin/pdfPrint/web/viewer.js"></script>
     <link rel="stylesheet" href="../../../plugin/popup/css/manhuaDialog.1.0_blue.css">
     <script src="../../../plugin/popup/script/manhuaDialog.1.0.js"></script>
-    <script>
-      //动态设置要打开的pdf路径，或者在url路径后面增加file=xxxx.do返回文件流
-      //DEFAULT_URL = '../../../plugin/pdfPrint/web/222.pdf';
-      DEFAULT_URL = GetQueryString("file");
-      function pdfCallback(){
-          //alert(1)
-          return true;
-      }
-    </script>
   </head>
   <body tabindex="1" class="loadingInProgress">
     <div id="outerContainer">

@@ -75,7 +75,7 @@ function inputCheckCallBack(data){
 function uploadCheckCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        $("#fileUrl").val().attr("allPath","");
+        $("#fileUrl").val("").attr("allPath","");
         var alertBox=new clsAlertBoxCtrl();
         alertBox.Alert(data.rspBody.explain,"验真提示");
     }
