@@ -5,7 +5,8 @@ function clsMethodLee(){
         "path3":"/millsheet/downFile",//下载接口
         "path4":"/sysAcct/customerType",//获取用户信息接口
         "path5":"/millsheet/updateNumber",//增加打印次数接口
-        "path6":"/"//增加下载次数接口
+        "path6":"/",//增加下载次数接口
+        "path7":"/millsheet/findMillSheetByPage1"//初始list列表
     };
     this.documentLee = null;
     this.millSheetNo = "";//回退millSheetNo主键
@@ -91,7 +92,12 @@ function clsMethodLee$operate(){
                 $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
                 $("#tableList")[0].cacheArr = [];
                 setTimeout(function(){
-                    initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+                    //initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+                    if(window.location.href.indexOf("qualityBookList2") != -1){
+                        initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path7,null,"POST");
+                    }else{
+                        initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+                    }
                 },2000);
             }else{
                 var alertBox = new clsAlertBoxCtrl();
@@ -294,8 +300,12 @@ function previewCallBack(data){
         if(document.body.jsLee.previewArr.length == 1){
             $("#previewNext").attr("disabled",true).addClass("changeGary");
         }
-
-        initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+        if(window.location.href.indexOf("qualityBookList2") != -1){
+            initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path7,null,"POST");
+        }else{
+            initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+        }
+        //initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
     }
 }
 
@@ -359,10 +369,20 @@ function getContentCallBack(data){
                 $("*[comType=clearAllCond]").attr("bindctrlid","condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph");
                 $("*[comType=clearAllCond]")[0].jsCtrl.bindCtrlId = "condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph";
                 $("#tableList")[0].cacheArr = [];
-                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"zkunnr":data.rspBody.orgName,"startDt":$("#condstartDt").val(),"endDt":$("#condendDt").val()},"POST");
+                if(window.location.href.indexOf("qualityBookList2") != -1){
+                    initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path7,{"zkunnr":data.rspBody.orgName,"startDt":$("#condstartDt").val(),"endDt":$("#condendDt").val()},"POST");
+                }else{
+                    initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"zkunnr":data.rspBody.orgName,"startDt":$("#condstartDt").val(),"endDt":$("#condendDt").val()},"POST");
+                }
+                //initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"zkunnr":data.rspBody.orgName,"startDt":$("#condstartDt").val(),"endDt":$("#condendDt").val()},"POST");
             }else{
                 $("#tableList")[0].cacheArr = [];
-                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"startDt":$("#condstartDt").val(),"endDt":$("#condendDt").val()},"POST");
+                if(window.location.href.indexOf("qualityBookList2") != -1){
+                    initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path7,{"startDt":$("#condstartDt").val(),"endDt":$("#condendDt").val()},"POST");
+                }else{
+                    initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"startDt":$("#condstartDt").val(),"endDt":$("#condendDt").val()},"POST");
+                }
+                //initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"startDt":$("#condstartDt").val(),"endDt":$("#condendDt").val()},"POST");
             }
 
         }
@@ -387,7 +407,11 @@ function printOpeCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         $("#tableList")[0].cacheArr = [];
-        initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+        if(window.location.href.indexOf("qualityBookList2") != -1){
+            initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path7,null,"POST");
+        }else{
+            initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+        }
         jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody[0].report,"0000000","1");
     }
 }
@@ -416,7 +440,12 @@ function backSureCallBack(data){
 function jiaOneCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+        //initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+        if(window.location.href.indexOf("qualityBookList2") != -1){
+            initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path7,null,"POST");
+        }else{
+            initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+        }
     }
 }
 
