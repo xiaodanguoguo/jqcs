@@ -129,6 +129,7 @@ public class ObjectionChuLiController {
         try {
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
             // 根据service层返回的编码做不同的操作
             ServiceResponse<Integer> response = objectionChuLiAPI.agreementUpdate(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
@@ -391,6 +392,7 @@ public class ObjectionChuLiController {
         try {
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
             // 根据service层返回的编码做不同的操作
             ServiceResponse<Integer> response = objectionChuLiAPI.compulsorySettlement(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))

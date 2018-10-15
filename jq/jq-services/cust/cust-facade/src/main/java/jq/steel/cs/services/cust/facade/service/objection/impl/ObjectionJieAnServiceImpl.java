@@ -31,7 +31,9 @@ public class ObjectionJieAnServiceImpl implements ObjectionJieAnService{
     //上传协议书文件
     @Override
     public Integer upload(ObjectionJieAnVO record) {
-        String orgCode  = AssertContext.getOrgCode();
+        String orgCode = record.getOrgCode();
+        String orgName = record.getOrgName();
+        String acctName = record.getAcctName();
         int i;
         CrmAgreementInfo crmAgreementInfo = new CrmAgreementInfo();
         crmAgreementInfo.setClaimNo(record.getClaimNo());
@@ -44,16 +46,16 @@ public class ObjectionJieAnServiceImpl implements ObjectionJieAnService{
         //修改为已结案
         CrmClaimApply crmClaimApply = new CrmClaimApply();
         crmClaimApply.setClaimNo(record.getClaimNo());
-        crmClaimApply.setUpdatedBy(orgCode);
+        crmClaimApply.setUpdatedBy(acctName);
         crmClaimApply.setUpdatedDt(new Date());
         crmClaimApply.setClaimState("END");
         crmClaimApply.setClosingTime(new Date());
-        crmClaimApply.setClosingUser(orgCode);
+        crmClaimApply.setClosingUser(acctName);
         crmClaimApplyMapper.update(crmClaimApply);
         CrmClaimInfo crmClaimInfo = new CrmClaimInfo();
         crmClaimInfo.setClaimNo(record.getClaimNo());
         crmClaimInfo.setUpdatedDt(new Date());
-        crmClaimInfo.setUpdatedBy(orgCode);
+        crmClaimInfo.setUpdatedBy(acctName);
         crmClaimInfo.setClaimState("END");
         crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
         //查询是否有文件
@@ -67,6 +69,9 @@ public class ObjectionJieAnServiceImpl implements ObjectionJieAnService{
     //异议结案撤销
     @Override
     public Integer revoke(ObjectionJieAnVO record) {
+        String orgCode = record.getOrgCode();
+        String orgName = record.getOrgName();
+        String acctName = record.getAcctName();
         //撤销后，协议书状态变为“编辑中”，异议状态仍为“处理中”。
         CrmAgreementInfo crmAgreementInfo = new CrmAgreementInfo();
         CrmClaimApply crmClaimApply = new CrmClaimApply();
@@ -79,13 +84,13 @@ public class ObjectionJieAnServiceImpl implements ObjectionJieAnService{
         Integer integer =crmAgreementInfoMapper.updateByPrimaryKeySelective(crmAgreementInfo);
 
         crmClaimApply.setClaimNo(record.getClaimNo());
-        crmClaimApply.setUpdatedBy(AssertContext.getAcctName());
+        crmClaimApply.setUpdatedBy(acctName);
         crmClaimApply.setUpdatedDt(new Date());
         crmClaimApply.setClaimState("HANDLE");
         crmClaimApplyMapper.update(crmClaimApply);
         crmClaimInfo.setClaimNo(record.getClaimNo());
         crmClaimInfo.setUpdatedDt(new Date());
-        crmClaimInfo.setUpdatedBy(AssertContext.getAcctName());
+        crmClaimInfo.setUpdatedBy(acctName);
         crmClaimInfo.setClaimState("HANDLE");
         int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
         return i;
@@ -115,13 +120,14 @@ public class ObjectionJieAnServiceImpl implements ObjectionJieAnService{
     @Override
     public Integer expiren(ObjectionJieAnVO record) {
         String orgCode  = AssertContext.getOrgCode();
+        String acctName = AssertContext.getAcctName();
         CrmClaimInfo crmClaimInfo = new CrmClaimInfo();
         crmClaimInfo.setClaimNo(record.getClaimNo());
         crmClaimInfo.setExpiredReason(record.getExpiredReason());
         //录入原因之后标识置为“”
         crmClaimInfo.setExpiredSign("");
         crmClaimInfo.setUpdatedDt(new Date());
-        crmClaimInfo.setUpdatedBy(orgCode);
+        crmClaimInfo.setUpdatedBy(acctName);
         crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
         return 1;
     }

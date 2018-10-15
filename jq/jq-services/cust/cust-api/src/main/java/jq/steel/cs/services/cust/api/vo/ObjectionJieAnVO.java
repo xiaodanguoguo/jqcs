@@ -2,6 +2,8 @@ package jq.steel.cs.services.cust.api.vo;
 
 public class ObjectionJieAnVO {
 
+    private String acctName;
+
     //过期原因
     private String expiredReason;
 
@@ -29,6 +31,14 @@ public class ObjectionJieAnVO {
 
     //润乾地址
     private  String report;
+
+    public String getAcctName() {
+        return acctName;
+    }
+
+    public void setAcctName(String acctName) {
+        this.acctName = acctName;
+    }
 
     public String getExpiredSign() {
         return expiredSign;

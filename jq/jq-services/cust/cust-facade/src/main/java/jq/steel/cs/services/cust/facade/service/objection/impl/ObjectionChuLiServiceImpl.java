@@ -123,6 +123,7 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
      * */
     @Override
     public Integer agreementUpdate(ObjectionChuLiVO record) {
+        String acctName = record.getAcctName();
         CrmAgreementInfo  crmAgreementInfo  = new CrmAgreementInfo();
         BeanCopyUtil.copy(record,crmAgreementInfo);
         if (crmAgreementInfo.getOptionStuts()== 1){
@@ -130,7 +131,7 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
             crmAgreementInfo.setClaimNo(record.getClaimNo());
             List<CrmAgreementInfo> list= crmAgreementInfoMapper.findList(crmAgreementInfo);
             if (list.size()>0){
-                crmAgreementInfo.setUpdatedBy(AssertContext.getAcctName());
+                crmAgreementInfo.setUpdatedBy(acctName);
                 crmAgreementInfo.setUpdatedDt(new Date());
                 crmAgreementInfo.setAgreementState("EDIT");
                 crmAgreementInfo.setClaimNo(record.getClaimNo());
@@ -138,28 +139,28 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
                 return  integer;
             }else {
                 crmAgreementInfo.setCreatedDt(new Date());
-                crmAgreementInfo.setCreatedBy(AssertContext.getAcctName());
+                crmAgreementInfo.setCreatedBy(acctName);
                 crmAgreementInfo.setAgreementState("EDIT");
                 crmAgreementInfo.setClaimNo(record.getClaimNo());
                 Integer integer  = crmAgreementInfoMapper.insertSelective(crmAgreementInfo);
                 return  integer;
             }
         }else if(crmAgreementInfo.getOptionStuts()== 2){
-            crmAgreementInfo.setUpdatedBy(AssertContext.getAcctName());
+            crmAgreementInfo.setUpdatedBy(acctName);
             crmAgreementInfo.setUpdatedDt(new Date());
             crmAgreementInfo.setAgreementState("COMPLETE");
             crmAgreementInfo.setClaimNo(record.getClaimNo());
             Integer integer =crmAgreementInfoMapper.updateByPrimaryKeySelective(crmAgreementInfo);
             return  integer;
         }else if(crmAgreementInfo.getOptionStuts()== 3){
-            crmAgreementInfo.setUpdatedBy(AssertContext.getAcctName());
+            crmAgreementInfo.setUpdatedBy(acctName);
             crmAgreementInfo.setUpdatedDt(new Date());
             crmAgreementInfo.setAgreementState("EDIT");
             crmAgreementInfo.setClaimNo(record.getClaimNo());
             Integer integer =crmAgreementInfoMapper.updateByPrimaryKeySelective(crmAgreementInfo);
             return  integer;
         }else {
-            crmAgreementInfo.setUpdatedBy(AssertContext.getAcctName());
+            crmAgreementInfo.setUpdatedBy(acctName);
             crmAgreementInfo.setUpdatedDt(new Date());
             crmAgreementInfo.setAgreementState("EXAMINE");
             crmAgreementInfo.setClaimNo(record.getClaimNo());
@@ -317,17 +318,18 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
     @Override
     public Integer compulsorySettlement(ObjectionChuLiVO record) {
         String orgCode = record.getOrgCode();
+        String acctName= record.getAcctName();
         CrmClaimApply crmClaimApply = new CrmClaimApply();
         CrmClaimInfo crmClaimInfo = new CrmClaimInfo();
         BeanCopyUtil.copy(record,crmClaimApply);
         BeanCopyUtil.copy(record,crmClaimInfo);
         crmClaimApply.setUpdatedDt(new Date());
-        crmClaimApply.setUpdatedBy(orgCode);
+        crmClaimApply.setUpdatedBy(acctName);
         crmClaimApply.setClaimState("END");
         crmClaimApply.setClosingTime(new Date());
-        crmClaimApply.setClosingUser(orgCode);
+        crmClaimApply.setClosingUser(acctName);
         crmClaimApplyMapper.update(crmClaimApply);
-        crmClaimInfo.setUpdatedBy(orgCode);
+        crmClaimInfo.setUpdatedBy(acctName);
         crmClaimInfo.setUpdatedDt(new Date());
         crmClaimInfo.setClaimState("END");
         int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);

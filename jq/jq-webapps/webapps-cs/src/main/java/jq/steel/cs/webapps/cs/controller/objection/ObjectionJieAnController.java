@@ -44,6 +44,7 @@ public class ObjectionJieAnController {
             // 根据service层返回的编码做不同的操作
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
             ServiceResponse<Integer> response = objectionJieAnAPI.upload(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
@@ -81,6 +82,7 @@ public class ObjectionJieAnController {
             // 根据service层返回的编码做不同的操作
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
             ServiceResponse<Integer> response = objectionJieAnAPI.expiren(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
@@ -117,6 +119,7 @@ public class ObjectionJieAnController {
         try {
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
             ServiceResponse<Integer> response = objectionJieAnAPI.revoke(jsonRequest);
             // 根据service层返回的编码做不同的操作
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
