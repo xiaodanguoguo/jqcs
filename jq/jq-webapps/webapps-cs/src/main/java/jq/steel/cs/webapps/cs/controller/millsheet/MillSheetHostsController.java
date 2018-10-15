@@ -68,7 +68,12 @@ public class MillSheetHostsController {
         for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
             list.add(roleInfoVO.getRoleCode());
         }
-        jsonRequest.getReqBody().setDeptCodes(list);
+        if (list.size()>0){
+            jsonRequest.getReqBody().setDeptCodes(list);
+        }else {
+            jsonRequest.getReqBody().setDeptCodes(null);
+        }
+
         try {
         ServiceResponse<PageDTO<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findMillSheetByPage(jsonRequest);
         if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
@@ -109,7 +114,7 @@ public class MillSheetHostsController {
             //1是预览  2是打印
             if (jsonRequest.getReqBody().get(0).getOperationType().equals(1)){
                 if (jsonRequest.getReqBody().size()>1){
-                    //从质证书服务器获取文件到本地   重新生成文件
+                    /*//从质证书服务器获取文件到本地   重新生成文件
                     String millSheetUrlName = "";
                     for(MillSheetHostsVO millSheetHostsVO :serviceResponse.getRetContent()){
                         String millSheetPath =  millSheetHostsVO.getMillSheetPath();
@@ -130,7 +135,24 @@ public class MillSheetHostsController {
 
                     //\data\millpath\2018-09-25\\R20180925001_1.png
                     String hh = createPdfPath+"/"+hh1;
-                    serviceResponse.getRetContent().get(0).setMillSheetPath(hh);
+                    serviceResponse.getRetContent().get(0).setMillSheetPath(hh);*/
+
+
+                    //从质证书服务器获取文件到本地   重新生成文件
+                    String millSheetUrlName = "";
+                    for(MillSheetHostsVO millSheetHostsVO :serviceResponse.getRetContent()){
+                        String millSheetPath =  millSheetHostsVO.getMillSheetPath();
+                        String millSheetName =  millSheetHostsVO.getMillSheetName();
+                        String url = createPdfPath + millSheetPath;
+                        millSheetUrlL =millSheetHostsVO.getMillSheetUrl();
+                        this.saveUrlAs(url,millSheetUrlL,"GET",millSheetName);
+                        //转换png
+                        String pngName =PdfToPng.pdf2Image(millSheetPath,"/data/kf_web",300);
+                        System.out.println("转换png路径"+pngName);
+                        String hh1 = pngName.replace("/data/kf_web","/res");
+                        String hh = createPdfPath+"/"+hh1;
+                        millSheetHostsVO.setMillSheetPath(hh);
+                    }
                 }else {
                     //从质证书服务器获取文件到本地 返回url
                     String millSheetPath =  serviceResponse.getRetContent().get(0).getMillSheetPath();

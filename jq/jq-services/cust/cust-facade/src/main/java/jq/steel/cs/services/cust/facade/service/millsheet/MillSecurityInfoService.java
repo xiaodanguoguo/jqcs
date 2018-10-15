@@ -8,6 +8,8 @@ public interface MillSecurityInfoService {
 
     MillSecurityInfoVO fangWeiMa (MillSecurityInfoVO millSheetHostsVO,HttpServletRequest request);
 
+    MillSecurityInfoVO fangWeiMa1 (MillSecurityInfoVO millSheetHostsVO,HttpServletRequest request);
+
     MillSecurityInfoVO fuJian (MillSecurityInfoVO millSheetHostsVO,HttpServletRequest request);
 
 }

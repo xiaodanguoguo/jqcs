@@ -528,8 +528,7 @@
   <!--查询当前用户的rolecode-->
   <select id="getRoleCodeByAcctId" resultMap="BaseResultMap" parameterType="java.lang.String">
   SELECT
-  C.ROLE_CODE,
-  C.ROLE_TITLE
+  C.ROLE_CODE
   FROM
   WARRANTY.ACCT_INFO A
   LEFT JOIN WARRANTY.ACCT_ROLE_REAL B ON A.ACCT_ID = B.ACCT_ID

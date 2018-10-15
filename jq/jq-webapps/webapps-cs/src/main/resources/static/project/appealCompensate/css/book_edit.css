@@ -12,7 +12,7 @@
 
 .check-name .check-name-title { text-align: center; font-size: 28px; }
 
-.check-box { margin-left: 28px; width: 934px; height: 950px; vertical-align: middle; vertical-align: text-top; border: 1px solid #dee3e6; }
+.check-box { margin-left: 28px; width: 934px; /*height:950px;*/ vertical-align: middle; vertical-align: text-top; border: 1px solid #dee3e6; }
 
 .check-box .check-box-number { margin: 10px 8px; }
 
@@ -53,3 +53,5 @@
 .edui-button { width: 28px !important; }
 
 .newsList-content-mainList-textEdit { height: 200px; }
+
+.newsList-content-mainList-titleTip { color: #fa5b6d; }

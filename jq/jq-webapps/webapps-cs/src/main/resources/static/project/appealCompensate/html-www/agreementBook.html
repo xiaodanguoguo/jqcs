@@ -45,8 +45,9 @@
                 </li>
                 <div id="secondBox">
                     <li class="submission-box-list__Every">
-                        <span class="submission-box-list__Name">投诉内容描述:</span>
-                        <textarea id="claimDesc" class="submission-box-list__Input submission-box-list__describe required" style="resize: none"></textarea>
+                        <span class="submission-box-list__Name">投诉内容描述:<span class="newsList-content-mainList-titleTip">（300字内）:</span></span>
+                        <textarea id="claimDesc" class="submission-box-list__Input submission-box-list__describe required" style="height:150px;resize: none" onkeyup="javascript:checkWords(this,300);" onmousedown="javascript:checkWords(this,300);"></textarea>
+                        <span style="position: relative;top: -24px;left: 680px;width: 200px;display: block;text-align: right;margin-bottom: -36px;"><i id="wordCheck">300</i>/300</span>
                     </li>
                     <li class="submission-box-list__Every">
                         <span class="submission-box-list__Name fl">现场结论:</span>
@@ -55,8 +56,9 @@
                         </div>
                     </li>
                     <li class="submission-box-list__Every">
-                        <span class="submission-box-list__Name submission-box-list__Names">协议内容:</span>
-                        <textarea id="agreementContent" class="submission-box-list__Input submission-box-list__content required" style="height:200px;resize: none"></textarea>
+                        <span class="submission-box-list__Name submission-box-list__Names">协议内容:<span class="newsList-content-mainList-titleTip">（300字内）:</span></span>
+                        <textarea id="agreementContent" class="submission-box-list__Input submission-box-list__content required" style="height:200px;resize: none" onkeyup="javascript:checkWords(this,300);" onmousedown="javascript:checkWords(this,300);"></textarea>
+                        <span style="position: relative;top: -24px;left: 680px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">300</i>/300</span>
                     </li>
                     <li class="submission-box-list__Every">
                         <span class="submission-box-list__Namenum">异议确认量:</span>

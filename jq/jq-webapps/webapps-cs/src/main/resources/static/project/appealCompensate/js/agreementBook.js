@@ -259,6 +259,15 @@ function paramJson(){
     return jsonParam;
 }
 
+function checkWords(a,len){
+    var str = a.value;
+    if(str.length > len){
+        a.value=a.value.substring(0,len);
+    }
+    $(a).next().find("i").html(len - a.value.length);
+}
+
+
 $(function(){
     //初始化自己封装方法
     var methodLee = new clsMethodLee();

@@ -298,6 +298,19 @@ public class RoleInfoServiceImpl implements RoleInfoService {
     @Override
     public List<RoleInfoVO> getRoleCodeByAcctId(String acctId) {
         List<RoleInfo>  list = roleInfoMapper.getRoleCodeByAcctId(acctId);
+        for (RoleInfo roleInfo:list){
+            if (roleInfo.getRoleCode().equals("1000")){
+                roleInfo.setRoleTitle("不锈");
+            }else if (roleInfo.getRoleCode().equals("2000")){
+                roleInfo.setRoleTitle("炼轧");
+            }else if (roleInfo.getRoleCode().equals("2200")){
+                roleInfo.setRoleTitle("碳钢");
+            }else if (roleInfo.getRoleCode().equals("3000")){
+                roleInfo.setRoleTitle("榆钢");
+            }else {
+                roleInfo.setRoleTitle("其他");
+            }
+        }
         List<RoleInfoVO> result = BeanCopyUtil.copyList(list, RoleInfoVO.class);
         return result;
     }

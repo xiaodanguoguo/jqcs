@@ -21,7 +21,7 @@ public class CrmCustomerInfoServiceImpl implements CrmCustomerInfoService{
 
     //新增/修改
     @Override
-    public Integer orderUnitInsert(CrmCustomerInfoVO crmCustomerInfoVO) {
+    public CrmCustomerInfoVO orderUnitInsert(CrmCustomerInfoVO crmCustomerInfoVO) {
         String orgName = crmCustomerInfoVO.getOrgName();
         String orgCode = crmCustomerInfoVO.getOrgCode();
         CrmCustomerInfo crmCustomerInfo = BeanCopyUtil.copy(crmCustomerInfoVO, CrmCustomerInfo.class);
@@ -47,7 +47,8 @@ public class CrmCustomerInfoServiceImpl implements CrmCustomerInfoService{
                 }
             }
             Integer integer = crmCustomerInfoMapper.insertSelective(crmCustomerInfo);
-            return integer;
+            CrmCustomerInfoVO crmCustomerInfoVOs = BeanCopyUtil.copy(crmCustomerInfo, CrmCustomerInfoVO.class);
+            return crmCustomerInfoVOs;
         }else {
             //修改 SID
             crmCustomerInfo.setUpdatedBy(orgCode);
@@ -62,7 +63,8 @@ public class CrmCustomerInfoServiceImpl implements CrmCustomerInfoService{
             }
             crmCustomerInfoMapper.updateByPrimaryKeySelective(crmCustomerInfo);
 
-            return  1;
+            CrmCustomerInfoVO crmCustomerInfoVOs = BeanCopyUtil.copy(crmCustomerInfo, CrmCustomerInfoVO.class);
+            return crmCustomerInfoVOs;
         }
 
     }

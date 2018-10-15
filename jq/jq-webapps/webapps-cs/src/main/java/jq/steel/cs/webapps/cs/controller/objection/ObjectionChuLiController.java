@@ -206,14 +206,19 @@ public class ObjectionChuLiController {
         List<String> headers = new ArrayList<>();
         headers.add("异议编号@claimNo@4000");
         headers.add("异议状态@claimState@4000");
+        headers.add("调查报告状态@inquireState@4000");
+        headers.add("协议书状态@agreementState@4000");
         headers.add("生产厂家@deptCode@4000");
         headers.add("产品大类@zcpmc@4000");
+        headers.add("客户@customerName@4000");
         headers.add("牌号@zph@4000");
         headers.add("规格@specs@4000");
+        headers.add("异议类别@claimType@4000");
         headers.add("异议量(吨)@objectionNum@8000");
+        headers.add("使用单位@lastUser@8000");
         headers.add("提报日期@presentationDate@4000");
-        headers.add("驳回原因@rejectReason@4000");
         headers.add("强制结案原因@reasonsForCompulsoryClosure@4000");
+        headers.add("协议书驳回原因@rejectReason@4000");
         return headers;
     }
 
