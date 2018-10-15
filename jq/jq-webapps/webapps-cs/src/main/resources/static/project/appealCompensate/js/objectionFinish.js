@@ -215,25 +215,25 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
 
         //判断异议类别  0表面外观 1理化功能  2加工使用  3尺寸公差  4实物不符  5计量  6其他
         switch (jsonItem.claimType) {
-            case "0":
+            case "1":
                 $(cloneRow).find("#claimTypeA").html("表面外观");
                 break;
-            case "1":
-                $(cloneRow).find("#claimTypeA").html("理化功能");
-                break;
             case "2":
-                $(cloneRow).find("#claimTypeA").html("加工使用");
+                $(cloneRow).find("#claimTypeA").html("理化性能");
                 break;
             case "3":
-                $(cloneRow).find("#claimTypeA").html("尺寸公差");
+                $(cloneRow).find("#claimTypeA").html("加工使用");
                 break;
             case "4":
-                $(cloneRow).find("#claimTypeA").html("实物不符");
+                $(cloneRow).find("#claimTypeA").html("尺寸公差");
                 break;
             case "5":
-                $(cloneRow).find("#claimTypeA").html("计量");
+                $(cloneRow).find("#claimTypeA").html("实物不符");
                 break;
             case "6":
+                $(cloneRow).find("#claimTypeA").html("计量");
+                break;
+            case "7":
                 $(cloneRow).find("#claimTypeA").html("其他");
                 break;
             case "7":
