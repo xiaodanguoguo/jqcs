@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class CrmClaimApply {
+    //提报日期导出字段转换
+    private String ast;
 
     //结案时间
     private Date closingTime;
@@ -135,9 +137,11 @@ public class CrmClaimApply {
     private Integer dissentingUnit;
 
     //受理时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date admissibilityTime;
 
     //提报时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date presentationDate;
 
     //受理人
@@ -158,6 +162,13 @@ public class CrmClaimApply {
     //异议确认量
     private  String objectionConfirmation;
 
+    public String getAst() {
+        return ast;
+    }
+
+    public void setAst(String ast) {
+        this.ast = ast;
+    }
 
     public Date getClosingTime() {
         return closingTime;
