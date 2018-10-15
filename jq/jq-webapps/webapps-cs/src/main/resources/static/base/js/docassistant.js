@@ -6714,7 +6714,7 @@ function clsStandardEditTableCtrl$del()
 		for(var nI=$("#"+this.ctrl.id).find("*[id='"+this.cloneId+"']").length-1; nI>=0; nI--)
 		{
 			var item = $("#"+this.ctrl.id).find("*[id='"+this.cloneId+"']")[nI];
-			if($(item).find("#"+this.chkId)[0].checked)
+			if($(item).find("#"+this.chkId)[0].checked && $(item).find("#"+this.chkId).css("display") != "none")
 			{
 				if(this.optBefore("delete",item))
 				{

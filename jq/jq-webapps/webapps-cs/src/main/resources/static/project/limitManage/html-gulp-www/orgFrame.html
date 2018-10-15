@@ -419,9 +419,14 @@
         //编辑
         $("#comTiss").on("click",function(){
             _this.newCom=1;
-            if(_this.rank==1){
+            /*if(_this.rank==1){
                 document.body.docT.alertBox.Alert("不可以修改根目录","提示")
             }else if(_this.rank==2){
+                openWin('350', '450', 'inputAnswer', true);
+            }else{
+                document.body.docT.alertBox.Alert("请先选择客户","提示")
+            }*/
+            if(_this.rank){
                 openWin('350', '450', 'inputAnswer', true);
             }else{
                 document.body.docT.alertBox.Alert("请先选择客户","提示")

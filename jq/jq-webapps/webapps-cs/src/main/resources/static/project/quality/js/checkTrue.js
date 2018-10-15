@@ -7,7 +7,11 @@ $(function(){
     $("#submitOpe").on("click",function(){//提交操作
         if(checkForm()){
             var jsonParam = {"millSheetNo":$("#millSheetNo").val(),"securityCode":$("#securityCode").val()}
-            getAjaxResult("/millsheetcheck/fangWeiMa","POST",jsonParam,"inputCheckCallBack(data)");
+            if(document.location.href.indexOf("checkTrue.html") == -1){
+                getAjaxResult("/millsheetcheck/fangWeiMa","POST",jsonParam,"inputCheckCallBack(data)");
+            }else{
+                getAjaxResult("/millsheetcheck/fangWeiMa1","POST",jsonParam,"inputCheckCallBack(data)");
+            }
         }
     });
     $("#resetOpe").on("click",function(){//重置操作

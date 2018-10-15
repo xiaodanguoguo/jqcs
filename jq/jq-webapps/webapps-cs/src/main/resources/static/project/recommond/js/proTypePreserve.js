@@ -132,6 +132,7 @@ function clsAlertBoxCtrl$sure() {//保存成功弹框确定，跳转页面
     }
 }
 
+
 $(function(){
     //初始化自己封装方法
     var methodLee = new clsMethodLee();
