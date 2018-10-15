@@ -384,7 +384,7 @@ function getContentCallBack(data){
         if(data.rspBody){
             if(data.rspBody.acctType != 5){
                 $("#condzkunnr").val(data.rspBody.orgName).attr("disabled",true).addClass("changeGary");
-                $("*[comType=clearAllCond]").attr("bindctrlid","condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph");
+                $("*[comType=clearAllCond]").attr("bindCtrlId","condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph");
                 $("*[comType=clearAllCond]")[0].jsCtrl.bindCtrlId = "condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph";
                 $("#tableList")[0].cacheArr = [];
                 if(window.location.href.indexOf("qualityBookList2") != -1){
