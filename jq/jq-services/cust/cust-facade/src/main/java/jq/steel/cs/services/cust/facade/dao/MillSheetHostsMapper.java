@@ -7,8 +7,13 @@ public interface MillSheetHostsMapper {
     int insert(MillSheetHosts record);
 
     int insertSelective(MillSheetHosts record);
+
     //分页查询
     List<MillSheetHosts> findMillSheetByPage(MillSheetHosts record);
+
+    //分页查询（酒钢）
+    List<MillSheetHosts> findMillSheetByPage1(MillSheetHosts record);
+
     //查询pdf地址
     List<MillSheetHosts> findUrlList(MillSheetHosts record);
 
