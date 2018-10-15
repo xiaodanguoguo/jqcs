@@ -5,6 +5,7 @@ import com.ebase.core.page.PageDTO;
 import com.ebase.core.page.PageDTOUtil;
 import com.ebase.utils.BeanCopyUtil;
 import com.ebase.utils.DateFormatUtil;
+import com.ebase.utils.DateUtil;
 import jq.steel.cs.services.cust.api.vo.ObjectionDiaoChaVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
 import jq.steel.cs.services.cust.facade.dao.*;
@@ -368,6 +369,27 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             CrmClaimOutInquire crmClaimOutInquire1  = new CrmClaimOutInquire();
             crmClaimOutInquire1.setClaimNo(crmClaimOutInquire.getClaimNo());
             CrmClaimOutInquire crmClaimOutInquire2 = crmClaimOutInquireMapper.find(crmClaimOutInquire);
+
+            //提报日期
+            Date date= crmClaimOutInquire2.getPresentationDate();
+            String ast = DateUtil.formatDate(date, "yyyy-MM-dd");
+            crmClaimOutInquire2.setAst(ast);
+
+            //受理日期
+            Date date1= crmClaimOutInquire2.getPresentationDate();
+            String at = DateUtil.formatDate(date1, "yyyy-MM-dd");
+            crmClaimOutInquire2.setAt(at);
+
+            //外部调查时间
+            Date date2= crmClaimOutInquire2.getPresentationDate();
+            String eld = DateUtil.formatDate(date2, "yyyy-MM-dd");
+            crmClaimOutInquire2.setEld(eld);
+
+            //内部调查时间
+            Date date3= crmClaimOutInquire2.getPresentationDate();
+            String ild = DateUtil.formatDate(date3, "yyyy-MM-dd");
+            crmClaimOutInquire2.setIld(ild);
+
             if (crmClaimOutInquire2.getClaimState().equals("NEW")){
                 crmClaimOutInquire2.setClaimState("新建");
             }else if (crmClaimOutInquire2.getClaimState().equals("PRESENT")){
