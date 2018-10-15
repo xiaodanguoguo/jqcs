@@ -26,7 +26,7 @@ public class MillSecurityInfoController {
     private MillSecurityInfoService millSecurityInfoService;
 
 
-    //防伪码验真
+    //防伪码验真(首页)
     @RequestMapping(value = "/fangWeiMa",method = RequestMethod.POST)
     public ServiceResponse<MillSecurityInfoVO> fangWeiMa(@RequestBody JsonRequest<MillSecurityInfoVO> jsonRequest,HttpServletRequest request){
         logger.info("防伪码", JsonUtil.toJson(jsonRequest));
@@ -34,6 +34,22 @@ public class MillSecurityInfoController {
         try {
             MillSecurityInfoVO millSecurityInfoVO = jsonRequest.getReqBody();
             MillSecurityInfoVO millSecurityInfoVO1 = millSecurityInfoService.fangWeiMa(millSecurityInfoVO,request);
+            serviceResponse.setRetContent(millSecurityInfoVO1);
+        }catch (BusinessException e){
+            logger.error("防伪码验真出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
+    //防伪码验真
+    @RequestMapping(value = "/fangWeiMa1",method = RequestMethod.POST)
+    public ServiceResponse<MillSecurityInfoVO> fangWeiMa1(@RequestBody JsonRequest<MillSecurityInfoVO> jsonRequest,HttpServletRequest request){
+        logger.info("防伪码", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<MillSecurityInfoVO> serviceResponse = new ServiceResponse<>();
+        try {
+            MillSecurityInfoVO millSecurityInfoVO = jsonRequest.getReqBody();
+            MillSecurityInfoVO millSecurityInfoVO1 = millSecurityInfoService.fangWeiMa1(millSecurityInfoVO,request);
             serviceResponse.setRetContent(millSecurityInfoVO1);
         }catch (BusinessException e){
             logger.error("防伪码验真出错",e);

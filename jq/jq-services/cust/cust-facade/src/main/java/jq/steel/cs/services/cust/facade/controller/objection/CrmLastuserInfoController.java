@@ -27,13 +27,13 @@ public class CrmLastuserInfoController {
 
     //新增/修改
     @RequestMapping(value = "/unitOfUseInsert",method = RequestMethod.POST)
-    public ServiceResponse<Integer> unitOfUseInsert(@RequestBody JsonRequest<CrmLastuserInfoVO> jsonRequest){
+    public ServiceResponse<CrmLastuserInfoVO> unitOfUseInsert(@RequestBody JsonRequest<CrmLastuserInfoVO> jsonRequest){
         logger.info("分页", JsonUtil.toJson(jsonRequest));
-        ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<CrmLastuserInfoVO> serviceResponse = new ServiceResponse<>();
         try {
             CrmLastuserInfoVO crmLastuserInfoVO = jsonRequest.getReqBody();
-           Integer integer = crmLastuserInfoService.unitOfUseInsert(crmLastuserInfoVO);
-            serviceResponse.setRetContent(integer);
+            CrmLastuserInfoVO crmLastuserInfoVO1 = crmLastuserInfoService.unitOfUseInsert(crmLastuserInfoVO);
+            serviceResponse.setRetContent(crmLastuserInfoVO1);
         }catch (BusinessException e){
             logger.error("add出错",e);
             serviceResponse.setException(new BusinessException("500"));

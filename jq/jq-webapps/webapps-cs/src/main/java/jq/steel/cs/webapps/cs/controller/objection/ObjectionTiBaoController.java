@@ -247,7 +247,7 @@ public class ObjectionTiBaoController {
         headers.add("牌号@zph@4000");
         headers.add("规格@specs@4000");
         headers.add("异议量(吨)@objectionNum@8000");
-        headers.add("提报日期@presentationDate@4000");
+        headers.add("提报日期@ast@4000");
         headers.add("驳回原因@rejectReason@4000");
         headers.add("强制结案原因@reasonsForCompulsoryClosure@4000");
         return headers;

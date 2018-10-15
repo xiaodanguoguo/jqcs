@@ -7,7 +7,11 @@ $(function(){
     $("#submitOpe").on("click",function(){//提交操作
         if(checkForm()){
             var jsonParam = {"millSheetNo":$("#millSheetNo").val(),"securityCode":$("#securityCode").val()}
-            getAjaxResult("/millsheetcheck/fangWeiMa","POST",jsonParam,"inputCheckCallBack(data)");
+            if(document.location.href.indexOf("checkTrue.html") == -1){
+                getAjaxResult("/millsheetcheck/fangWeiMa","POST",jsonParam,"inputCheckCallBack(data)");
+            }else{
+                getAjaxResult("/millsheetcheck/fangWeiMa1","POST",jsonParam,"inputCheckCallBack(data)");
+            }
         }
     });
     $("#resetOpe").on("click",function(){//重置操作
@@ -75,7 +79,7 @@ function inputCheckCallBack(data){
 function uploadCheckCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        $("#fileUrl").val().attr("allPath","");
+        $("#fileUrl").val("").attr("allPath","");
         var alertBox=new clsAlertBoxCtrl();
         alertBox.Alert(data.rspBody.explain,"验真提示");
     }

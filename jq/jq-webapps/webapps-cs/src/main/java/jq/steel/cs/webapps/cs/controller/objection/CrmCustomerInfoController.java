@@ -34,13 +34,13 @@ public class CrmCustomerInfoController {
      *
      * */
     @RequestMapping(value = "/orderUnitInsert",method = RequestMethod.POST)
-    public JsonResponse<Integer> orderUnitInsert(@RequestBody JsonRequest<CrmCustomerInfoVO> jsonRequest) {
-        JsonResponse<Integer> jsonResponse = new JsonResponse<>();
+    public JsonResponse<CrmCustomerInfoVO> orderUnitInsert(@RequestBody JsonRequest<CrmCustomerInfoVO> jsonRequest) {
+        JsonResponse<CrmCustomerInfoVO> jsonResponse = new JsonResponse<>();
         try {
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
             // 根据service层返回的编码做不同的操作
-            ServiceResponse<Integer> response = crmCustomerInfoAPI.orderUnitInsert(jsonRequest);
+            ServiceResponse<CrmCustomerInfoVO> response = crmCustomerInfoAPI.orderUnitInsert(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
                 // 如果需要异常信息
