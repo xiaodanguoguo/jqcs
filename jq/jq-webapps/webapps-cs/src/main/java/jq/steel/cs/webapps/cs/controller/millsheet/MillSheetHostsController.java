@@ -68,7 +68,12 @@ public class MillSheetHostsController {
         for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
             list.add(roleInfoVO.getRoleCode());
         }
-        jsonRequest.getReqBody().setDeptCodes(list);
+        if (list.size()>0){
+            jsonRequest.getReqBody().setDeptCodes(list);
+        }else {
+            jsonRequest.getReqBody().setDeptCodes(null);
+        }
+
         try {
         ServiceResponse<PageDTO<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findMillSheetByPage(jsonRequest);
         if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
