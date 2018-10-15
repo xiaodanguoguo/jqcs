@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class CrmClaimInnerInquire {
 
+    private String acctName;
+
     //生产工艺过程调查
     private  String productionProcessInvestigati;
 
@@ -58,8 +60,13 @@ public class CrmClaimInnerInquire {
     //操作类型
     private  Integer optionType;
 
+    public String getAcctName() {
+        return acctName;
+    }
 
-
+    public void setAcctName(String acctName) {
+        this.acctName = acctName;
+    }
 
     public Integer getOptionType() {
         return optionType;

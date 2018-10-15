@@ -270,8 +270,17 @@ public class ObjectionChuLiVO {
 
     private String handingSuggestion;
 
+    private String acctName;
     //备注
     private String memo;
+
+    public String getAcctName() {
+        return acctName;
+    }
+
+    public void setAcctName(String acctName) {
+        this.acctName = acctName;
+    }
 
     public String getAst() {
         return ast;

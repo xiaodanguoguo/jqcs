@@ -6,6 +6,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class CrmClaimApply {
+
+    private String acctName;
+
     //提报日期导出字段转换
     private String ast;
 
@@ -161,6 +164,14 @@ public class CrmClaimApply {
 
     //异议确认量
     private  String objectionConfirmation;
+
+    public String getAcctName() {
+        return acctName;
+    }
+
+    public void setAcctName(String acctName) {
+        this.acctName = acctName;
+    }
 
     public String getAst() {
         return ast;

@@ -8,6 +8,8 @@ import java.util.List;
 
 public class CrmClaimOutInquire {
 
+    private String acctName;
+
     //提报日期导出字段转换
     private String ast;
 
@@ -32,6 +34,14 @@ public class CrmClaimOutInquire {
     private  String parentSid;
 
     private String claimState1;
+
+    public String getAcctName() {
+        return acctName;
+    }
+
+    public void setAcctName(String acctName) {
+        this.acctName = acctName;
+    }
 
     public String getAst() {
         return ast;

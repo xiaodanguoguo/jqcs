@@ -10,6 +10,8 @@ public class CrmClaimInfo {
     //提报日期导出字段转换
     private String ast;
 
+    private String acctName;
+
     //过期标识
     private String expiredSign;
 
@@ -185,6 +187,14 @@ public class CrmClaimInfo {
 
     //确认时间
     private Date confirmationTime;
+
+    public String getAcctName() {
+        return acctName;
+    }
+
+    public void setAcctName(String acctName) {
+        this.acctName = acctName;
+    }
 
     public String getAst() {
         return ast;

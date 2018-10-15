@@ -86,7 +86,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
     @Override
     public Integer update(ObjectionDiaoChaVO record) {
         String orgCode = record.getOrgCode();
-        String oreName = record.getOrgName();
+        String acctName = record.getAcctName();
         CrmClaimOutInquire crmClaimOutInquire  = new CrmClaimOutInquire();
         BeanCopyUtil.copy(record,crmClaimOutInquire);
         if (crmClaimOutInquire.getOptionType()==1){
@@ -94,27 +94,27 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             //先查询是否有数据
            List<CrmClaimOutInquire> list = crmClaimOutInquireMapper.findByParams(crmClaimOutInquire);
             if (list.size()>0){
-                crmClaimOutInquire.setUpdateBy(orgCode);
+                crmClaimOutInquire.setUpdateBy(acctName);
                 crmClaimOutInquire.setUpdateDt(new Date());
                 integer = crmClaimOutInquireMapper.update(crmClaimOutInquire);
                 //日志记录
                 CrmClaimLog crmClaimLog = new CrmClaimLog();
                 crmClaimLog.setClaimNo(record.getClaimNo());
                 crmClaimLog.setType("外部调查报告修改");
-                crmClaimLog.setCreatedBy(orgCode);
+                crmClaimLog.setCreatedBy(acctName);
                 crmClaimLog.setCreatedDt(new Date());
                 crmClaimLog.setOpMemo("外部调查报告修改");
                 crmClaimLogMapper.insert(crmClaimLog);
             }else {
                 //新增数据
-                crmClaimOutInquire.setCreateBy(orgCode);
+                crmClaimOutInquire.setCreateBy(acctName);
                 crmClaimOutInquire.setCreateDt(new Date());
                 integer = crmClaimOutInquireMapper.insertSelective(crmClaimOutInquire);
                 //日志记录
                 CrmClaimLog crmClaimLog = new CrmClaimLog();
                 crmClaimLog.setClaimNo(record.getClaimNo());
                 crmClaimLog.setType("外部调查报告保存");
-                crmClaimLog.setCreatedBy(orgCode);
+                crmClaimLog.setCreatedBy(acctName);
                 crmClaimLog.setCreatedDt(new Date());
                 crmClaimLog.setOpMemo("外部调查报告保存");
                 crmClaimLogMapper.insert(crmClaimLog);
@@ -146,7 +146,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimOutInquire1.setClaimNo(record.getClaimNo());
             crmClaimOutInquire1.setUpdateDt(new Date());
             crmClaimOutInquire1.setUpdateBy(orgCode);
-            crmClaimOutInquire1.setTrace(orgCode);
+            crmClaimOutInquire1.setTrace(acctName);
             crmClaimOutInquire1.setTrackingTime(new Date());
             crmClaimOutInquireMapper.update(crmClaimOutInquire1);
 
@@ -460,6 +460,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
     @Override
     public Integer updateState(ObjectionDiaoChaVO record) {
         String orgCode = record.getOrgCode();
+        String orgName = record.getOrgName();
         CrmClaimOutInquire crmClaimOutInquire  = new CrmClaimOutInquire();
         BeanCopyUtil.copy(record,crmClaimOutInquire);
         //修改诉赔明细表状态
@@ -492,14 +493,14 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             CrmClaimApply crmClaimApply = new CrmClaimApply();
             crmClaimApply.setClaimNo(crmClaimOutInquire.getClaimNo());
             crmClaimApply.setAdmissibilityTime(new Date());
-            crmClaimApply.setAdmissibilityUser(orgCode);
+            crmClaimApply.setAdmissibilityUser(orgName);
             crmClaimApply.setClaimState("ACCEPTANCE");
             crmClaimApplyMapper.update(crmClaimApply);
             //日志记录
             CrmClaimLog crmClaimLog = new CrmClaimLog();
             crmClaimLog.setClaimNo(record.getClaimNo());
             crmClaimLog.setType("诉赔受理");
-            crmClaimLog.setCreatedBy(orgCode);
+            crmClaimLog.setCreatedBy(orgName);
             crmClaimLog.setCreatedDt(new Date());
             crmClaimLog.setOpMemo("诉赔受理");
             crmClaimLogMapper.insert(crmClaimLog);

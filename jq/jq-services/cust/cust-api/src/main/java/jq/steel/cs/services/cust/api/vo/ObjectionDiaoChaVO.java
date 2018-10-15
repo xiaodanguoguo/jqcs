@@ -22,6 +22,8 @@ public class ObjectionDiaoChaVO {
     //acctid
     private String acctId;
 
+    private String acctName;
+
     private  String deptCode;
 
     private String claimState1;
@@ -194,7 +196,13 @@ public class ObjectionDiaoChaVO {
 
     private String memo;    //备注
 
+    public String getAcctName() {
+        return acctName;
+    }
 
+    public void setAcctName(String acctName) {
+        this.acctName = acctName;
+    }
 
     //内部调查字段
 
