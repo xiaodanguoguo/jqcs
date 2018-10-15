@@ -10,8 +10,51 @@
     <script src="../../../base/js/docassistant.js" ></script>
     <link rel="stylesheet" href="../../../plugin/popup/css/manhuaDialog.1.0_blue.css">
     <script src="../../../plugin/popup/script/manhuaDialog.1.0.js"></script>
+    <script>
+        //相当于将截取的内容渲染到页面中,进行整个页面的打印,打印之后在将原页面内容重新渲染
+        function print_qr(){
+            var bdhtml = window.document.body.innerHTML;
+            var startStr = "<!--startprint-->";
+            var endStr = "<!--endprint-->";
+
+            var printHtml = bdhtml.substring(bdhtml.indexOf(startStr) + startStr.length, bdhtml.indexOf(endStr));
+
+            //将截取的字符串进行打印
+            window.document.body.innerHTML = printHtml;
+            window.print();
+
+            //打印结束后重新加载页面,否则打印页面点击取消时原页面被修改
+            window.document.body.innerHTML = bdhtml;
+            $("#filePng").css({"width":c+"px","height":d + "px"});
+            location.reload();
+        }
+        var a = "";
+        var b = "";
+        var c = ""
+        var d = "";
+        $(function () {
+            $("#filePng").attr("src",GetQueryString("file"));
+            a = $("#filePng")[0].offsetWidth;
+            b = $("#filePng")[0].offsetHeight;
+            c = document.body.clientWidth;
+            d = c / a * b*0.99;
+            if(c == 0 || b == 0){
+                c = document.body.clientWidth;
+                d = document.body.clientWidth * 0.707 *0.99;
+            }
+            $("#filePng").css({"width":c+"px","height":d + "px"});
+            $('#scan_print').on('click',function(){
+                var alertBox = new clsAlertBoxCtrl();
+                alertBox.Alert("确认打印？打印次数减一","警告提示",1,"","printOpeTip");
+            });
+        });
+        function clsAlertBoxCtrl$sure() {//成功弹框确定
+            if (this.id == "printOpeTip") {
+                print_qr();
+            }
+        }
+    </script>
     <style>
-      *{margin：0；padding：0}
       @media print {
         img,div,body,html{
           page-break-before: auto;
@@ -19,6 +62,7 @@
         }
       }
       @page{margin:0;}
+      html,body,p,div,img,button{margin: 0;}
     </style>
   </head>
   <body>
@@ -41,41 +85,6 @@
       </div>
     </div>
   </div>
-  <script>
-      //相当于将截取的内容渲染到页面中,进行整个页面的打印,打印之后在将原页面内容重新渲染
-      function print_qr(){
-          var bdhtml = window.document.body.innerHTML;
-          var startStr = "<!--startprint-->";
-          var endStr = "<!--endprint-->";
-
-          var printHtml = bdhtml.substring(bdhtml.indexOf(startStr) + startStr.length, bdhtml.indexOf(endStr));
-
-          //将截取的字符串进行打印
-          window.document.body.innerHTML = printHtml;
-          window.print();
-
-          //打印结束后重新加载页面,否则打印页面点击取消时原页面被修改
-          window.document.body.innerHTML = bdhtml;
-          $("#filePng").css({"width":c+"px","height":d + "px"});
-          location.reload();
-      }
-      var a = "";
-      var b = "";
-      var c = ""
-      var d = "";
-      $(function () {
-          $("#filePng").attr("src","http://cs.jiugang.com//res//C20181013020_1.png");
-          a = $("#filePng")[0].offsetWidth;
-          b = $("#filePng")[0].offsetHeight;
-          c = document.body.clientWidth;
-          d = c / a * b;
-          $("#filePng").css({"width":c+"px","height":d + "px"});
-          $('#scan_print').on('click',function(){
-
-              print_qr();
-          });
-      });
-  </script>
   </body>
 </html>
 

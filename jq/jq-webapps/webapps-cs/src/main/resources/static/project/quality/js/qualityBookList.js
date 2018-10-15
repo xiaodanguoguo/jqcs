@@ -111,7 +111,7 @@ function clsMethodLee$operate(){
             var alertBox=new clsAlertBoxCtrl();
             alertBox.Alert("请勾选将要打印的质证书","失败提示");
         }else{
-            var num = 0;
+            /*var num = 0;
             for(var nI = 0; nI < $("#tableList")[0].cacheArr.length; nI++){
                 if($("#tableList")[0].cacheArr[nI].printableNum != 0){
                     num++;
@@ -123,8 +123,12 @@ function clsMethodLee$operate(){
             }else{
                 var alertBox = new clsAlertBoxCtrl();
                 alertBox.Alert("存在打印次数已为0的质证书，请取消勾选！","错误提示");
+            }*/
+            var millSheetNoArr = [];
+            for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
+                millSheetNoArr.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":1});
             }
-
+            getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",millSheetNoArr,"previewCallBack2(data)")
         }
     });
     $("#rejectSureOpe").on("click",function(){//确认退回操作
@@ -307,6 +311,19 @@ function previewCallBack(data){
             initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
         }
         //initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+    }
+}
+
+//  打印回调
+function previewCallBack2(data){
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        jumpUrl("viewerPng.html?file="+data.rspBody[0].millSheetPath,"0000000",1);
+        if(window.location.href.indexOf("qualityBookList2") != -1){
+            initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path7,null,"POST");
+        }else{
+            initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+        }
     }
 }
 
