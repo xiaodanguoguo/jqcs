@@ -7,6 +7,24 @@ import java.util.Date;
 
 public class CrmClaimInfo {
 
+    //过期标识
+    private String expiredSign;
+
+    //过期原因
+    private String expiredReason;
+
+    //结案时间
+    private Date closingTime;
+
+    //受理时间
+    private Date admissibilityTime;
+
+    //是否允许上传
+    private String isUpload;
+
+    //是否跟踪
+    private String IsTrack;
+
     //跟踪人
     private String trace;
 
@@ -36,14 +54,6 @@ public class CrmClaimInfo {
     private String manufactor;
 
     private String type;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date endDt;
@@ -166,6 +176,68 @@ public class CrmClaimInfo {
 
     //备注
     private String memo;
+
+    //确认人
+    private String confirmationPerson;
+
+    //确认时间
+    private Date confirmationTime;
+
+    public String getExpiredSign() {
+        return expiredSign;
+    }
+
+    public void setExpiredSign(String expiredSign) {
+        this.expiredSign = expiredSign;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getExpiredReason() {
+        return expiredReason;
+    }
+
+    public void setExpiredReason(String expiredReason) {
+        this.expiredReason = expiredReason;
+    }
+
+    public Date getClosingTime() {
+        return closingTime;
+    }
+
+    public void setClosingTime(Date closingTime) {
+        this.closingTime = closingTime;
+    }
+
+    public Date getAdmissibilityTime() {
+        return admissibilityTime;
+    }
+
+    public void setAdmissibilityTime(Date admissibilityTime) {
+        this.admissibilityTime = admissibilityTime;
+    }
+
+    public String getIsUpload() {
+        return isUpload;
+    }
+
+    public void setIsUpload(String isUpload) {
+        this.isUpload = isUpload;
+    }
+
+    public String getIsTrack() {
+        return IsTrack;
+    }
+
+    public void setIsTrack(String isTrack) {
+        IsTrack = isTrack;
+    }
 
     public String getMemo() {
         return memo;
@@ -712,5 +784,96 @@ public class CrmClaimInfo {
 
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    public String getConfirmationPerson() {
+        return confirmationPerson;
+    }
+
+    public void setConfirmationPerson(String confirmationPerson) {
+        this.confirmationPerson = confirmationPerson;
+    }
+
+    public Date getConfirmationTime() {
+        return confirmationTime;
+    }
+
+    public void setConfirmationTime(Date confirmationTime) {
+        this.confirmationTime = confirmationTime;
+    }
+
+    @Override
+    public String toString() {
+        return "CrmClaimInfo{" +
+                "trace='" + trace + '\'' +
+                ", trackingTime=" + trackingTime +
+                ", parentSid='" + parentSid + '\'' +
+                ", claimState1='" + claimState1 + '\'' +
+                ", zph='" + zph + '\'' +
+                ", zcpmc='" + zcpmc + '\'' +
+                ", reasonsForCompulsoryClosure='" + reasonsForCompulsoryClosure + '\'' +
+                ", agreementUrl='" + agreementUrl + '\'' +
+                ", agreementName='" + agreementName + '\'' +
+                ", agreementState='" + agreementState + '\'' +
+                ", deptCode='" + deptCode + '\'' +
+                ", manufactor='" + manufactor + '\'' +
+                ", type='" + type + '\'' +
+                ", endDt=" + endDt +
+                ", endDtStr='" + endDtStr + '\'' +
+                ", startDt=" + startDt +
+                ", startDtStr='" + startDtStr + '\'' +
+                ", sid=" + sid +
+                ", claimNo='" + claimNo + '\'' +
+                ", productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", millSheetNo='" + millSheetNo + '\'' +
+                ", customerId='" + customerId + '\'' +
+                ", customerName='" + customerName + '\'' +
+                ", custAddr='" + custAddr + '\'' +
+                ", custEmpNo='" + custEmpNo + '\'' +
+                ", custTel='" + custTel + '\'' +
+                ", lastUserId='" + lastUserId + '\'' +
+                ", lastUser='" + lastUser + '\'' +
+                ", lastUserAddr='" + lastUserAddr + '\'' +
+                ", createEmpNo='" + createEmpNo + '\'' +
+                ", lastUserTel='" + lastUserTel + '\'' +
+                ", lastUserEmail='" + lastUserEmail + '\'' +
+                ", steelType='" + steelType + '\'' +
+                ", claimType='" + claimType + '\'' +
+                ", battenPlateNo='" + battenPlateNo + '\'' +
+                ", proProblem='" + proProblem + '\'' +
+                ", designation='" + designation + '\'' +
+                ", used='" + used + '\'' +
+                ", contractNo='" + contractNo + '\'' +
+                ", contractVolume=" + contractVolume +
+                ", specs='" + specs + '\'' +
+                ", originalWeight=" + originalWeight +
+                ", orderNo='" + orderNo + '\'' +
+                ", originalCarNo='" + originalCarNo + '\'' +
+                ", contractUnitPrice=" + contractUnitPrice +
+                ", objectionNum=" + objectionNum +
+                ", endProcessingTech='" + endProcessingTech + '\'' +
+                ", claimDesc='" + claimDesc + '\'' +
+                ", claimReason='" + claimReason + '\'' +
+                ", claimState='" + claimState + '\'' +
+                ", filePath='" + filePath + '\'' +
+                ", checkState='" + checkState + '\'' +
+                ", rejectReason='" + rejectReason + '\'' +
+                ", createdBy='" + createdBy + '\'' +
+                ", createdDt=" + createdDt +
+                ", updatedBy='" + updatedBy + '\'' +
+                ", updatedDt=" + updatedDt +
+                ", version=" + version +
+                ", optionType=" + optionType +
+                ", optionStuts=" + optionStuts +
+                ", explain='" + explain + '\'' +
+                ", dissentingUnit=" + dissentingUnit +
+                ", inquireState='" + inquireState + '\'' +
+                ", presentationDate=" + presentationDate +
+                ", presentationUser='" + presentationUser + '\'' +
+                ", reportPictures='" + reportPictures + '\'' +
+                ", objectionConfirmation='" + objectionConfirmation + '\'' +
+                ", memo='" + memo + '\'' +
+                '}';
     }
 }

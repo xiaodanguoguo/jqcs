@@ -9,18 +9,8 @@ import jq.steel.cs.services.cust.api.vo.CrmCustomerInfoVO;
 import jq.steel.cs.services.cust.api.vo.CrmLastuserInfoVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoCountVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
-import jq.steel.cs.services.cust.facade.dao.CrmAgreementInfoMapper;
-import jq.steel.cs.services.cust.facade.dao.CrmClaimApplyMapper;
-import jq.steel.cs.services.cust.facade.dao.CrmClaimInfoMapper;
-import jq.steel.cs.services.cust.facade.dao.MdCommonTypeMapper;
-import jq.steel.cs.services.cust.facade.dao.MillSheetHeadMapper;
-import jq.steel.cs.services.cust.facade.dao.MillSheetHostsMapper;
-import jq.steel.cs.services.cust.facade.model.CrmAgreementInfo;
-import jq.steel.cs.services.cust.facade.model.CrmClaimApply;
-import jq.steel.cs.services.cust.facade.model.CrmClaimInfo;
-import jq.steel.cs.services.cust.facade.model.MdCommonType;
-import jq.steel.cs.services.cust.facade.model.MillSheetHead;
-import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
+import jq.steel.cs.services.cust.facade.dao.*;
+import jq.steel.cs.services.cust.facade.model.*;
 import jq.steel.cs.services.cust.facade.service.objection.CrmCustomerInfoService;
 import jq.steel.cs.services.cust.facade.service.objection.CrmLastuserInfoService;
 import jq.steel.cs.services.cust.facade.service.objection.ObjectionTiBaoService;
@@ -62,6 +52,12 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
 
     @Autowired
     private MdCommonTypeMapper mdCommonTypeMapper;
+
+    @Autowired
+    private CrmClaimApplyCopyMapper crmClaimApplyCopyMapper;
+
+    @Autowired
+    private CrmClaimLogMapper crmClaimLogMapper;
 
 
     //分页条件查询
@@ -160,8 +156,11 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             //转换mdel
             CrmClaimApply crmClaimApply  = new CrmClaimApply();
             CrmClaimInfo crmClaimInfo = new CrmClaimInfo();
+            //诉赔申请表备份
+            CrmClaimApplyCopy crmClaimApplyCopy = new CrmClaimApplyCopy();
             BeanCopyUtil.copy(objectionTiBaoVO,crmClaimApply);
             BeanCopyUtil.copy(objectionTiBaoVO,crmClaimInfo);
+            BeanCopyUtil.copy(objectionTiBaoVO,crmClaimApplyCopy);
             //1审核保存操作2驳回操作3通过操作4修改保存5新增保存
             if (crmClaimApply.getOptionStuts()== 1){
                 crmClaimApply.setUpdatedBy(orgCode);
@@ -169,6 +168,14 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 crmClaimApply.setUpdatedBy(orgCode);
                 crmClaimApply.setUpdatedDt(new Date());
                 crmClaimApplyMapper.update(crmClaimApply);
+                //日志记录
+                CrmClaimLog crmClaimLog = new CrmClaimLog();
+                crmClaimLog.setClaimNo(objectionTiBaoVO.getClaimNo());
+                crmClaimLog.setType("销售审核保存");
+                crmClaimLog.setCreatedBy(orgCode);
+                crmClaimLog.setCreatedDt(new Date());
+                crmClaimLog.setOpMemo(crmClaimInfo.toString());
+                crmClaimLogMapper.insert(crmClaimLog);
                 Integer integer =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
                 return  integer;
             }else if(crmClaimApply.getOptionStuts()== 2){
@@ -179,6 +186,14 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 h.setClaimState("REJECT");
                 h.setRejectReason(crmClaimApply.getRejectReason());
                 crmClaimApplyMapper.update(h);
+                //日志记录
+                CrmClaimLog crmClaimLog = new CrmClaimLog();
+                crmClaimLog.setClaimNo(objectionTiBaoVO.getClaimNo());
+                crmClaimLog.setType("销售审核驳回");
+                crmClaimLog.setCreatedBy(orgCode);
+                crmClaimLog.setCreatedDt(new Date());
+                crmClaimLog.setOpMemo("销售审核驳回");
+                crmClaimLogMapper.insert(crmClaimLog);
                 CrmClaimInfo g  = new CrmClaimInfo();
                 g.setUpdatedDt(new Date());
                 g.setUpdatedBy(orgCode);
@@ -197,6 +212,14 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 h.setAdmissibilityUser(orgCode);
                 h.setProProblem(crmClaimApply.getProProblem());
                 crmClaimApplyMapper.update(h);
+                //日志记录
+                CrmClaimLog crmClaimLog = new CrmClaimLog();
+                crmClaimLog.setClaimNo(objectionTiBaoVO.getClaimNo());
+                crmClaimLog.setType("销售审核通过");
+                crmClaimLog.setCreatedBy(orgCode);
+                crmClaimLog.setCreatedDt(new Date());
+                crmClaimLog.setOpMemo("销售审核通过");
+                crmClaimLogMapper.insert(crmClaimLog);
                 CrmClaimInfo g  = new CrmClaimInfo();
                 g.setUpdatedDt(new Date());
                 g.setUpdatedBy(orgCode);
@@ -207,7 +230,16 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 Integer integer = crmClaimInfoMapper.updateByPrimaryKeySelective(g);
                 return  integer;
             }else if(crmClaimApply.getOptionStuts()== 4){
+                //日志记录
+                CrmClaimLog crmClaimLog = new CrmClaimLog();
+                crmClaimLog.setClaimNo(objectionTiBaoVO.getClaimNo());
+                crmClaimLog.setType("用戶诉赔修改保存");
+                crmClaimLog.setCreatedBy(orgCode);
+                crmClaimLog.setCreatedDt(new Date());
+                crmClaimLog.setOpMemo(crmClaimApply.toString());
+                crmClaimLogMapper.insert(crmClaimLog);
                 //修改保存
+                crmClaimApplyCopyMapper.update(crmClaimApplyCopy);
                 crmClaimApplyMapper.update(crmClaimApply);
                 Integer integer = crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
                 return  integer;
@@ -253,6 +285,21 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 crmClaimApply.setCustomerId(orgCode);
                 crmClaimApply.setCreatedDt(new Date());
                 Integer integer = crmClaimApplyMapper.insertSelective(crmClaimApply);
+                //备份表
+                crmClaimApplyCopy.setClaimState("NEW");
+                crmClaimApplyCopy.setClaimNo(claimNo);
+                crmClaimApplyCopy.setCreatedBy(orgCode);
+                crmClaimApplyCopy.setCustomerId(orgCode);
+                crmClaimApplyCopy.setCreatedDt(new Date());
+                crmClaimApplyCopyMapper.insert(crmClaimApplyCopy);
+                //日志记录
+                CrmClaimLog crmClaimLog = new CrmClaimLog();
+                crmClaimLog.setClaimNo(claimNo);
+                crmClaimLog.setType("用戶诉赔新增保存");
+                crmClaimLog.setCreatedBy(orgCode);
+                crmClaimLog.setCreatedDt(new Date());
+                crmClaimLog.setOpMemo(crmClaimApply.toString());
+                crmClaimLogMapper.insert(crmClaimLog);
                 if (integer>0){
                     crmClaimInfo.setClaimState("NEW");
                     crmClaimInfo.setCreatedDt(new Date());
@@ -279,8 +326,10 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             //转换mdel
             CrmClaimApply crmClaimApply = new CrmClaimApply();
             CrmClaimInfo crmClaimInfo = new CrmClaimInfo();
+            CrmClaimApplyCopy crmClaimApplyCopy = new CrmClaimApplyCopy();
             BeanCopyUtil.copy(objectionTiBaoVO, crmClaimApply);
             BeanCopyUtil.copy(objectionTiBaoVO, crmClaimInfo);
+            BeanCopyUtil.copy(objectionTiBaoVO, crmClaimApplyCopy);
             if (crmClaimApply.getOptionType() == 1) {
                 //提交
                 crmClaimApply.setClaimState("PRESENT");
@@ -289,6 +338,14 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
 //            crmClaimApply.setPresentationUser(orgCode);
                 crmClaimApply.setPresentationDate(new Date());
                 crmClaimApplyMapper.update(crmClaimApply);
+                //日志记录
+                CrmClaimLog crmClaimLog = new CrmClaimLog();
+                crmClaimLog.setClaimNo(objectionTiBaoVO.getClaimNo());
+                crmClaimLog.setType("用戶诉赔提报");
+                crmClaimLog.setCreatedBy(orgCode);
+                crmClaimLog.setCreatedDt(new Date());
+                crmClaimLog.setOpMemo("用戶诉赔提报");
+                crmClaimLogMapper.insert(crmClaimLog);
                 crmClaimInfo.setClaimState("PRESENT");
                 crmClaimInfo.setUpdatedBy(orgCode);
                 crmClaimInfo.setUpdatedDt(new Date());
@@ -296,9 +353,16 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 return integer;
             } else {
                 //删除
-                crmClaimApply.setUpdatedDt(new Date());
-                crmClaimApply.setUpdatedBy(orgCode);
                 crmClaimApplyMapper.delete(crmClaimApply.getClaimNo());
+                crmClaimApplyCopyMapper.delete(crmClaimApplyCopy.getClaimNo());
+                //日志记录
+                CrmClaimLog crmClaimLog = new CrmClaimLog();
+                crmClaimLog.setClaimNo(objectionTiBaoVO.getClaimNo());
+                crmClaimLog.setType("用戶诉赔删除");
+                crmClaimLog.setCreatedBy(orgCode);
+                crmClaimLog.setCreatedDt(new Date());
+                crmClaimLog.setOpMemo("用戶诉赔删除");
+                crmClaimLogMapper.insert(crmClaimLog);
                 crmClaimInfo.setClaimState("PRESENT");
                 crmClaimInfo.setUpdatedBy(orgCode);
                 crmClaimInfo.setUpdatedDt(new Date());
@@ -324,6 +388,25 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             CrmClaimApply crmClaimApply  = new CrmClaimApply();
             crmClaimApply.setClaimNo(crmClaimApply1.getClaimNo());
             CrmClaimApply crmClaimApply2 = crmClaimApplyMapper.findByParams(crmClaimApply);
+            if (crmClaimApply2.getClaimState().equals("NEW")){
+                crmClaimApply2.setClaimState("新建");
+            }else if (crmClaimApply2.getClaimState().equals("PRESENT")){
+                crmClaimApply2.setClaimState("已提报");
+            }else if (crmClaimApply2.getClaimState().equals("ACCEPTANCE")){
+                crmClaimApply2.setClaimState("已受理");
+            }else if (crmClaimApply2.getClaimState().equals("REJECT")){
+                crmClaimApply2.setClaimState("已驳回");
+            }else if (crmClaimApply2.getClaimState().equals("INVESTIGATION")){
+                crmClaimApply2.setClaimState("调查中");
+            }else if (crmClaimApply2.getClaimState().equals("HANDLE")){
+                crmClaimApply2.setClaimState("处理中");
+            }else if (crmClaimApply2.getClaimState().equals("END")){
+                crmClaimApply2.setClaimState("已结案");
+            }else if (crmClaimApply2.getClaimState().equals("EVALUATE")){
+                crmClaimApply2.setClaimState("已评价");
+            }else if (crmClaimApply2.getClaimState().equals("ADOPT")){
+                crmClaimApply2.setClaimState("销售审核通过");
+            }
             crmClaimApplyList.add(crmClaimApply2);
         }
         //转换返回对象

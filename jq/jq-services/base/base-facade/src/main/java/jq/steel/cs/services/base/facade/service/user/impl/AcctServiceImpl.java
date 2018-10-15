@@ -160,6 +160,7 @@ public class AcctServiceImpl implements AcctService {
         orgInfo.setEmail(acctInfoVO.getEmail());
         orgInfo.setTel(acctInfoVO.getMobilePhone());
         orgInfo.setAddr(acctInfoVO.getAddress());
+        orgInfo.setBukrs(acctInfoVO.getBukrs());
         Long i = orgInfoMapper.insertOrgInfo(orgInfo);
 
         acctInfo.setoInfoId(AUDIT_CUST + orgCode);
@@ -337,6 +338,12 @@ public class AcctServiceImpl implements AcctService {
         }
 
         return map;
+    }
+
+    @Override
+    public void expire(String authKey) {
+        cacheService.expire(authKey, TIME_EXPIRE);
+        System.out.println(cacheService.ttl(authKey));
     }
 
 

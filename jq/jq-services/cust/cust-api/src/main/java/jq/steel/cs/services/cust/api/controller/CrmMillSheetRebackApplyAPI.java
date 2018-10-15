@@ -20,5 +20,5 @@ public interface CrmMillSheetRebackApplyAPI {
      *
      * */
     @RequestMapping(value ="/rebackApply/applyForRetreat", method = RequestMethod.POST)
-    ServiceResponse<Integer> applyForRetreat(@RequestBody JsonRequest<CrmMillSheetRebackApplyVO> jsonRequest);
+    ServiceResponse<CrmMillSheetRebackApplyVO> applyForRetreat(@RequestBody JsonRequest<CrmMillSheetRebackApplyVO> jsonRequest);
 }

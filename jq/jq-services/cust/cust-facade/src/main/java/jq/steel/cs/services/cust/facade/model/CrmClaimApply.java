@@ -7,6 +7,12 @@ import java.util.Date;
 
 public class CrmClaimApply {
 
+    //结案时间
+    private Date closingTime;
+
+    //结案人
+    private String closingUser;
+
     private  String parentSid;
     //调查状态
     private  String inquireState;
@@ -152,6 +158,22 @@ public class CrmClaimApply {
     //异议确认量
     private  String objectionConfirmation;
 
+
+    public Date getClosingTime() {
+        return closingTime;
+    }
+
+    public void setClosingTime(Date closingTime) {
+        this.closingTime = closingTime;
+    }
+
+    public String getClosingUser() {
+        return closingUser;
+    }
+
+    public void setClosingUser(String closingUser) {
+        this.closingUser = closingUser;
+    }
 
     public String getParentSid() {
         return parentSid;
@@ -658,5 +680,75 @@ public class CrmClaimApply {
 
     public void setStartDtStr(String startDtStr) {
         this.startDtStr = startDtStr;
+    }
+
+    @Override
+    public String toString() {
+        return "CrmClaimApply{" +
+                "parentSid='" + parentSid + '\'' +
+                ", inquireState='" + inquireState + '\'' +
+                ", manufactor='" + manufactor + '\'' +
+                ", specs='" + specs + '\'' +
+                ", zcpmc='" + zcpmc + '\'' +
+                ", zph='" + zph + '\'' +
+                ", endDt=" + endDt +
+                ", endDtStr='" + endDtStr + '\'' +
+                ", startDt=" + startDt +
+                ", startDtStr='" + startDtStr + '\'' +
+                ", sid=" + sid +
+                ", claimNo='" + claimNo + '\'' +
+                ", productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", millSheetNo='" + millSheetNo + '\'' +
+                ", customerId='" + customerId + '\'' +
+                ", customerName='" + customerName + '\'' +
+                ", custAddr='" + custAddr + '\'' +
+                ", custEmpNo='" + custEmpNo + '\'' +
+                ", custTel='" + custTel + '\'' +
+                ", lastUserId='" + lastUserId + '\'' +
+                ", lastUser='" + lastUser + '\'' +
+                ", lastUserAddr='" + lastUserAddr + '\'' +
+                ", createEmpNo='" + createEmpNo + '\'' +
+                ", lastUserTel='" + lastUserTel + '\'' +
+                ", lastUserEmail='" + lastUserEmail + '\'' +
+                ", battenPlateNo='" + battenPlateNo + '\'' +
+                ", designation='" + designation + '\'' +
+                ", used='" + used + '\'' +
+                ", contractNo='" + contractNo + '\'' +
+                ", contractVolume=" + contractVolume +
+                ", sizeMark='" + sizeMark + '\'' +
+                ", originalWeight=" + originalWeight +
+                ", orderNo='" + orderNo + '\'' +
+                ", originalCarNo='" + originalCarNo + '\'' +
+                ", contractUnitPrice=" + contractUnitPrice +
+                ", objectionNum=" + objectionNum +
+                ", endProcessingTech='" + endProcessingTech + '\'' +
+                ", claimDesc='" + claimDesc + '\'' +
+                ", claimReason='" + claimReason + '\'' +
+                ", steelType='" + steelType + '\'' +
+                ", proProblem='" + proProblem + '\'' +
+                ", proDetail='" + proDetail + '\'' +
+                ", claimState='" + claimState + '\'' +
+                ", filePath='" + filePath + '\'' +
+                ", rejectReason='" + rejectReason + '\'' +
+                ", createdBy='" + createdBy + '\'' +
+                ", createdDt=" + createdDt +
+                ", updatedBy='" + updatedBy + '\'' +
+                ", updatedDt=" + updatedDt +
+                ", version=" + version +
+                ", claimType='" + claimType + '\'' +
+                ", optionStuts=" + optionStuts +
+                ", optionType=" + optionType +
+                ", dissentingUnit=" + dissentingUnit +
+                ", admissibilityTime=" + admissibilityTime +
+                ", presentationDate=" + presentationDate +
+                ", admissibilityUser='" + admissibilityUser + '\'' +
+                ", presentationUser='" + presentationUser + '\'' +
+                ", reasonsForCompulsoryClosure='" + reasonsForCompulsoryClosure + '\'' +
+                ", deptCode='" + deptCode + '\'' +
+                ", reportPictures='" + reportPictures + '\'' +
+                ", objectionConfirmation='" + objectionConfirmation + '\'' +
+                ", explain='" + explain + '\'' +
+                '}';
     }
 }

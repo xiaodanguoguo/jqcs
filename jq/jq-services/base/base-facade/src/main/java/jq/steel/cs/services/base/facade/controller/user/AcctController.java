@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -217,6 +218,20 @@ public class AcctController {
 
         } catch (Exception e){
             LOG.error("获取用户信息 error  = {}", e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+
+        return serviceResponse;
+    }
+
+    @RequestMapping(value = "/expire",method = RequestMethod.POST)
+    public ServiceResponse expire(@RequestParam(value = "authKey")String authKey) {
+        ServiceResponse serviceResponse = new ServiceResponse<>();
+
+        try {
+            acctService.expire(authKey);
+        } catch (Exception e) {
+            LOG.error("重置过期时间错误 = {}", e);
             serviceResponse.setException(new BusinessException("500"));
         }
 

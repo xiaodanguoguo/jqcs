@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>酒钢客户服务平台</title>
+	<link rel="icon" href   ="../../../logocon.png">
+	<link rel="stylesheet" href="../../../base/css/baseBlue.css">
+	<link rel="stylesheet" href="../../../base/iconfont/iconfont.css">
+	<link rel="stylesheet" href="../../commonNav/css/commonHeaderBlue.css">
+	<script src="../../../base/js/jquery.js"></script>
+	<script src="../../../base/js/public.js"></script>
+	<script src="../../../base/js/docassistant.js" ></script>
+	<script src="../../../base/js/validate.js"></script>
+	<script src="../../../base/js/jquery.media.js"></script>
+	<script src="../../../base/js/jquery.cookie.js"></script>
+	<script src='../../../titleName.js'></script>
+	<script src="../../../reqConfig.js"></script>
+	<!--！！！！！！
+		组件js
+	！！！！！！！-->
+	<script type="text/javascript" src="../../../base/js/ajaxupload.js"></script>
+	<!--时间插件-->
+	<link rel="stylesheet" href="../../../plugin/WdatePickerBlue/My97DatePicker/skin/messageWdatePicker.css">
+	<script src="../../../plugin/WdatePickerBlue/My97DatePicker/WdatePicker.js"></script>
+	<!--弹框插件-->
+	<link rel="stylesheet" href="../../../plugin/popup/css/manhuaDialog.1.0_blue.css">
+	<script src="../../../plugin/popup/script/manhuaDialog.1.0.js"></script>
+	<!--提示校验-->
+	<link rel="stylesheet" href="../../../plugin/tip/css/tip-twitter/tip-twitter.css">
+	<script src="../../../plugin/tip/script/jquery.poshytip.js"></script>
+	<!--滑动校验-->
+	<link rel="stylesheet" href="../../../plugin/dragValidate/css/drag.css">
+	<script src="../../../plugin/dragValidate/js/drag.js"></script>
+	<!--分页-->
+	<link rel="stylesheet" href="../../../plugin/page/css/table.css">
+	<script type="text/javascript" src="../../../plugin/page/script/jquery.page.js"></script>
+	<!--下拉选择-->
+	<link rel="stylesheet" href="../../../plugin/select/chosen_blue.css">
+	<script src="../../../plugin/select/chosen.jquery.js"></script>
+	<script>
+
+
+        //在页面未加载完毕之前显示的loading Html自定义内容
+
+        var _LoadingHtml = '<span id="loadingDiv" style="width:100%;height: '+ (document.documentElement.clientHeight  + 200) +'px;display: block;background: #fff;text-align: center;line-height: '+ (document.documentElement.clientHeight  + 200) +';">页面加载中，请等待...</span>';
+
+        //呈现loading效果
+
+        document.write(_LoadingHtml);
+
+        //监听加载状态改变
+        document.onreadystatechange = completeLoading;
+
+        //加载状态为complete时移除loading效果
+        function completeLoading() {
+            if (document.readyState == "complete") {
+                var loadingMask = document.getElementById('loadingDiv');
+                loadingMask.parentNode.removeChild(loadingMask);
+            }
+        }
+
+
+
+
+
+        var date_start;
+        var i=0;
+		$(function(){
+            $("#userName").html(unescape(getCookie("userName")));
+            $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
+            if(unescape(getCookie("navListIdx"))){
+                $(".og-head-mainlt__sasety").each(function () {
+					if(unescape(getCookie("navListIdx")) == $(this).val()){
+					    $(this).addClass("og-head-mainlt__sidebar--shrinkActive")
+					}
+                });
+                //$(".og-head-mainlt__sasety").eq(unescape(getCookie("navListIdx"))).addClass("og-head-mainlt__sidebar--shrinkActive");
+            }
+		    //导航的点击
+		    $(".og-head-navlist li a").on("click",function(){
+                $(".og-head-navlist li a").removeClass("og-head-navlist____linkActive");
+		        $(this).addClass("og-head-navlist____linkActive")
+                $(".og-head-mainlt__sidebar").css("display","none");
+		        $(".og-head-mainlt__sidebar").eq($(this).parents(".og-head-navlist__item").index()).css("display","")
+			})
+			//左侧的点击事件
+			$("#js-leftNavBar .og-head-mainlt__sasety").on("click",function(){
+                $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
+			    $(this).addClass("og-head-mainlt__sidebar--shrinkActive");
+			    setCookie("navListIdx",escape($(this).val()));
+			    window.location.href=$(this).find("a").attr("acSrc")
+				//$(this).parents(".og-head-mainlt__sidebar--menu").find("ul").css("display","");
+			})
+            //点击退出
+            $("#quitBtn").on("click",function(){
+                getAjaxResult("/acct/remSession","post",{},"quitFun(data)");
+
+            })
+			$("#editPassword").on("click",function(){
+			    jumpUrl("../../login/html-gulp-www/passwordNew.html","0000000",0);
+			});
+            $("#logo").on("click",function () {
+                clearCookie("navListIdx");
+                jumpUrl("../../homePage/html-gulp-www/homePage.html","0000000",0)
+            });
+            $("#downLoadShouCe").on("click",function(){
+                var importParam = "name=";
+                $.download(requestUrl + "/millsheet/downOperationManual", importParam, "POST");
+			});
+            start();
+            //赋值内容主体高度，显示footer
+			if($("#js-leftNavBar").height() > $("#js-loader").height()){
+			    $(".og-head-main").css("height",$("#js-leftNavBar").height()+"px");
+			}else{
+                $(".og-head-main").css("height",$("#js-loader").height()+"px");
+			}
+		})
+        //退出接口
+        function quitFun(data){
+            var jsData=JSON.parse(data);
+            if(jsData.retCode=="0000000"){
+                clearCookie("userName");
+                clearCookie("navListIdx");
+                clearCookie("isLogin")
+                if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
+                    window.localStorage.limitCode = [];
+                }else{
+                    setCookie("limitCode",escape(JSON.stringify([])));
+                }
+                jumpUrl("../../../login.html","0000000",0);
+            }else{
+                alert(jsData.retDesc)
+            }
+        }
+        function start(){
+            date_start=new Date();  //开始时间
+            start_time();
+        }
+        function start_time(){
+
+            set= window.setTimeout("start_time()", 1000);
+            var date_end= new Date(); //结束时间
+            var date_sum = date_end.getTime() - new Date(date_start).getTime(); //结束时间-开始时间
+            //天数
+            var days=Math.floor(date_sum/(24*60*60*1000))
+            //小时数
+            var day_ms=date_sum%(24*60*60*1000)    //计算天数后剩余的毫秒数
+            var hours=Math.floor(day_ms/(60*60*1000))
+            //分钟数
+            var day_hour=day_ms%(60*60*1000)        //计算小时数后剩余的毫秒数
+            var minutes=Math.floor(day_hour/(60*1000))
+            //秒数
+            var day_min=day_hour%(60*1000)      //计算分钟数后剩余的毫秒数
+            var seconds=Math.round(day_min/1000)
+            //getMonth 方法返回一个0到11之间的整数，是Date对象中的月份值，并不是现实中的月份值，要加+1才是。
+            //开始运行时间
+            document.getElementById("now_time").innerHTML=
+                ""+date_end.getFullYear()+"年"
+                +(date_end.getMonth()+1)+"月"+date_end.getDate()+"日"
+                +date_end.getHours()+"时"+date_end.getMinutes()+"分"
+                +date_end.getSeconds()+"秒"
+		}
+	</script>
+</head>
+<body style="position: relative;">
+	<div class="og-head">
+		<div class="og-head-nav">
+	        <div class="og-head-navwrap">
+	            <div class="og-head-navlogo" id="logo">
+	                <a href="javascript:;" class="og-head-navlogo__logoimg"></a>
+	            </div>
+				<div class="og-head-navwrap-opeBox clearfix fr">
+					<!--
+					<span class="og-head-navwrap-opeBoxList">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/4.png')"></div>
+						<span class="fl">公告</span>
+					</span>
+					<span class="og-head-navwrap-opeBoxList">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../images/3.png')"></div>
+						<span class="fl">代办</span>
+					</span>-->
+					<span class="og-head-navwrap-opeBoxList" id="downLoadShouCe" style="cursor: pointer">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/xiazia.png')"></div>
+						<span class="fl">下载手册</span>
+					</span>
+					<span class="og-head-navwrap-opeBoxList" id="quitBtn" style="cursor: pointer">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/tc.png')"></div>
+						<span  class="fl">退出</span>
+					</span>
+					<span class="og-head-navwrap-opeBoxList" id="editPassword" style="cursor: pointer">
+						<div class="og-head-navwrap-opeBoxListImg fl" style="background-image: url('../../commonNav/images/xgmm.png')"></div>
+						<span class="fl">修改密码</span>
+					</span>
+				</div>
+	            <div class="og-head-navwrap-box clearfix fr">
+					<span class="og-head-navwrap-boxList">您好，<span id="userName"></span></span>
+					<p id="now_time" class="og-head-navwrap-boxList" style="width: 220px;"></p>
+				</div>
+	        </div>
+	    </div>
+	   	<div class="og-head-main clearfix">
+	    	<div class="og-head-mainlt og-head-mainlt__homepaActive" id="js-leftNavBar">
+	    		<!--<div class="og-head-mainlt__homepa">
+	    			权限管理
+	    		</div>-->
+	    		<ul class="og-head-mainlt__sidebar">
+	    			<li class="og-head-mainlt__sidebar--menu" limitCode="M5">
+	    				<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">系统管理</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" limitCode="M505" value="0"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/accountAudit.html">账号审核</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M501" value="1"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/orgFrame.html">组织管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M503" value="2"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/roleManage.html">角色管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M504" value="3"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/resourceManage.html">资源管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M502" value="4"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/userManage.html">人员管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M104" value="5"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/annListPreserve.html">发布公告</a></li>
+						</ul>
+	    			</li>
+					<li class="og-head-mainlt__sidebar--menu" limitCode="M2">
+						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">质量证明书</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" limitCode="M201" value="6"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/checkTrue.html">防伪验证</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M202" value="7"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList.html">质证书管理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M202" value="19"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList2.html">质证书管理(酒钢)</a></li>
+							<!--<li class="og-head-mainlt__sasety" limitCode="M203" value="8"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>-->
+						</ul>
+					</li>
+					<li class="og-head-mainlt__sidebar--menu"  limitCode="M3">
+						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">产品诉赔</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" limitCode="M301" value="9"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/personManage.html">管理联系信息</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M302" value="10"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionSubmit.html">异议提报</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M303" value="11"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionReasearch.html">异议调查</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M304" value="12"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionDeal.html">异议处理</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M305" value="13"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionFinish.html">异议结案</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M305" value="20"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionStatic.html">质量异议统计台账</a></li>
+						</ul>
+					</li>
+					<li class="og-head-mainlt__sidebar--menu" limitCode="M1">
+						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">问卷调查</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" limitCode="M101" value="14"><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/questionList.html">创建调查问卷</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M103" value="15"><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/questionStatic.html">问卷调查统计</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M102" value="16"><a href="javascript:;" href="javascript:;" acSrc="../../myBussiness/html-gulp-www/questionWrite.html">请填写调查问卷</a></li>
+						</ul>
+					</li>
+					<li class="og-head-mainlt__sidebar--menu"  limitCode="M4">
+						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">产品推荐</span></a>
+						<ul class="menu-ul">
+							<li class="og-head-mainlt__sasety" limitCode="M401" value="17"><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/productNewsList.html">产品推荐信息维护</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M402"  value="18"><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/proTypeList.html">按品种分类</a></li>
+							<!--<li class="og-head-mainlt__sasety" limitCode=""><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/productNewsList.html">按用途分类</a></li>-->
+						</ul>
+					</li>
+	    		</ul>
+	    	</div>
+	    	<div id="js-loader" class="og-head-maincontent">
+
+<style>
+    .objectionStatic{
+        width: 968px;margin: 10px;
+        overflow-x: scroll;
+        border: 1px solid #dee3e6;
+    }
+    .objSta-table{
+        width: 6000px;
+        table-layout: fixed;
+    }
+    .serachbox{
+        margin: 20px 10px 50px 10px;
+        width: 968px;
+    }
+    .serachbox-list{
+        float: left;
+        margin-bottom: 5px;
+    }
+    .serachbox-title{
+        width: 90px;
+        text-align: right;
+        margin-right: 3px;
+        height: 28px;
+        line-height: 28px;
+    }
+    .serachbox-input{
+        width: 120px;
+    }
+</style>
+<ul class="serachbox" id="searchBox">
+    <li class="serachbox-list">
+        <span class="serachbox-title fl">质量投诉编号：</span>
+        <input type="text" class="serachbox-input fl inputBase">
+    </li>
+    <li class="serachbox-list">
+        <span class="serachbox-title fl"></span>
+        <input type="text" class="serachbox-input fl inputBase">
+    </li>
+    <li class="serachbox-list">
+        <span class="serachbox-title fl"></span>
+        <input type="text" class="serachbox-input fl inputBase">
+    </li>
+    <li class="serachbox-list">
+        <span class="serachbox-title fl"></span>
+        <input type="text" class="serachbox-input fl inputBase">
+    </li>
+    <li class="serachbox-list fr" style="margin-right: 0">
+        <div class="btnBaseCommon" comType="searchBtnCtrl" cond="condzph" rule="cond" unionTableId="tableList" parentId="searchBox">搜索</div>
+        <div class="btnBaseCommon">导出</div>
+    </li>
+</ul>
+<div class="objectionStatic">
+    <table class="objSta-table table-list" id="tableList" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData" >
+        <tr class="table-list-currentrow">
+            <th class="table-list-currentrow-theader" style="width: 2%">质量投诉编号</th>
+            <th class="table-list-currentrow-theader" style="width: 3%">使用客户</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">联系人</th>
+            <th class="table-list-currentrow-theader" style="width: 2%">联系电话</th>
+            <th class="table-list-currentrow-theader" style="width: 3%">代理公司（或酒钢驻外公司）</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">联系人</th>
+            <th class="table-list-currentrow-theader" style="width: 2%">联系电话</th>
+            <th class="table-list-currentrow-theader" style="width: 6%">物流过程</th>
+            <th class="table-list-currentrow-theader" style="width: 3%">货物存放地</th>
+            <th class="table-list-currentrow-theader" style="width: 6%">加工工艺</th>
+            <th class="table-list-currentrow-theader" style="width: 3%">用途</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">车号</th>
+            <th class="table-list-currentrow-theader" style="width: 2%">质保书编号</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">钢号</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">规格(mm)</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">提出异议量(t)</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">确认量(t)</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">赔偿金额（元）</th>
+            <th class="table-list-currentrow-theader" style="width: 2%">投诉原因</th>
+            <th class="table-list-currentrow-theader" style="width: 5%">确认的产品质量问题</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">异议类别</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">炉批号</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">生产日期</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">生产工序</th>
+            <th class="table-list-currentrow-theader" style="width: 6%">处理依据及处理方式</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">受理日期</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">到达时间</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">结案日期</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">结案人</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">处理周期</th>
+            <th class="table-list-currentrow-theader" style="width: 8%">备注</th>
+            <th class="table-list-currentrow-theader" style="width: 5%">客户评价</th>
+        </tr>
+        <tr class="table-list-currentrow" id="templateRow" style="display: ;">
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail"></td>
+        </tr>
+    </table>
+    <div id="nonData" class="noDataCon" style="display: none">
+        <i></i>
+        <p>暂无数据......</p>
+    </div>
+</div>
+<div class="tcdPageCode"></div>
+
+
+
+
+</div>
+</div>
+<div style="width: 1200px;height: 70px;margin: 0px auto;text-align: center;line-height: 70px;">
+    copyright ©️ 2018 甘肃酒钢集团宏兴钢铁股份有限公司 版权所有
+</div>
+</div>
+</body>
+</html>

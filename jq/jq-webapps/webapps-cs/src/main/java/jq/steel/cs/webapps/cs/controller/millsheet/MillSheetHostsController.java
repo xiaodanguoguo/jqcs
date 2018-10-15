@@ -14,6 +14,8 @@ import com.lowagie2.text.DocumentException;
 import com.lowagie2.text.pdf.PdfCopy;
 import com.lowagie2.text.pdf.PdfImportedPage;
 import com.lowagie2.text.pdf.PdfReader;
+import jq.steel.cs.services.base.api.controller.RoleInfoAPI;
+import jq.steel.cs.services.base.api.vo.RoleInfoVO;
 import jq.steel.cs.services.cust.api.controller.MillSheetHostsAPI;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.webapps.cs.controller.PdfToPng;
@@ -47,7 +49,10 @@ public class MillSheetHostsController {
     UploadConfig uploadConfig;
 
     @Autowired
-     private MillSheetHostsAPI millSheetHostsAPI;
+    private MillSheetHostsAPI millSheetHostsAPI;
+
+    @Autowired
+    private RoleInfoAPI roleInfoAPI;
     /**
      *条件分页查询
      * @param  jsonRequest
@@ -57,6 +62,13 @@ public class MillSheetHostsController {
     @RequestMapping(value = "/findMillSheetByPage",method = RequestMethod.POST)
     public JsonResponse<PageDTO<MillSheetHostsVO>>  findMillSheetByPage(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest){
         JsonResponse<PageDTO<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
+        String acctId = AssertContext.getAcctId();
+        ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+        List<String> list = new ArrayList<>();
+        for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+            list.add(roleInfoVO.getRoleCode());
+        }
+        jsonRequest.getReqBody().setDeptCodes(list);
         try {
         ServiceResponse<PageDTO<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findMillSheetByPage(jsonRequest);
         if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
@@ -112,9 +124,9 @@ public class MillSheetHostsController {
                     millSheetUrlName = millSheetUrlName.substring(1);
                     String savepath =this.sheetNameUrl(millSheetUrlName,millSheetUrlL);
                     //转换png
-                    String pngName =PdfToPng.pdf2Image(savepath,"/data/upload",300);
+                    String pngName =PdfToPng.pdf2Image(savepath,"/data/kf_web",300);
                     System.out.println("转换png路径"+pngName);
-                    String hh1 = pngName.replace("/data/upload","/res");
+                    String hh1 = pngName.replace("/data/kf_web","/res");
 
                     //\data\millpath\2018-09-25\\R20180925001_1.png
                     String hh = createPdfPath+"/"+hh1;
@@ -128,9 +140,9 @@ public class MillSheetHostsController {
                     this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
 
                     //转换png
-                    String pngName =PdfToPng.pdf2Image(millSheetPath,"/data/upload",300);
+                    String pngName =PdfToPng.pdf2Image(millSheetPath,"/data/kf_web",300);
                     System.out.println("转换png路径"+pngName);
-                    String hh1 = pngName.replace("/data/upload","/res");
+                    String hh1 = pngName.replace("/data/kf_web","/res");
                     String hh = createPdfPath+"/"+hh1;
                     serviceResponse.getRetContent().get(0).setMillSheetPath(hh);
                 }
@@ -475,9 +487,16 @@ public class MillSheetHostsController {
 
             //String fileName = "酒钢客服平台用户操作手册.pdf";
             String fileName = URLEncoder.encode("酒钢客服平台用户操作手册.pdf", "UTF-8");
+            //orgTypr 1销售公司 2 一级代理 3贸易商 4终端客户
+            String operationManual="";
+            if (AssertContext.getOrgType().equals("1")){
+                  operationManual = "/data/model/酒钢客服平台用户操作手册_销售公司.pdf";
+            }else if(AssertContext.getOrgType().equals("3") || AssertContext.getOrgType().equals("2")){
+                  operationManual = "/data/model/酒钢客服平台用户操作手册_贸易商.pdf";
+            }else if (AssertContext.getOrgType().equals("4")){
+                  operationManual = "/data/model/酒钢客服平台用户操作手册_终端客户.pdf";
+            }
 
-            //String  operationManual = "E:/酒钢客服平台用户操作手册.pdf";
-            String  operationManual = "/data/model/酒钢客服平台用户操作手册.pdf";
             //配置请求头
             response.setHeader("Content-Disposition", "attachment;fileName="+fileName);
 
@@ -532,4 +551,27 @@ public class MillSheetHostsController {
     }
 
 
+    /**
+     * 打印次数/下载次数+1
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/updateNumber",method = RequestMethod.POST)
+    public JsonResponse<Integer>  updateNumber(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest){
+        JsonResponse<Integer> jsonResponse = new JsonResponse<>();
+        for (MillSheetHostsVO millSheetHostsVO: jsonRequest.getReqBody()){
+            millSheetHostsVO.setOrgCode(AssertContext.getOrgCode());
+            millSheetHostsVO.setOrgName(AssertContext.getOrgName());
+        }
+        try {
+            ServiceResponse<Integer> serviceResponse = millSheetHostsAPI.updateNumber(jsonRequest);
+            jsonResponse.setRspBody(serviceResponse.getRetContent());
+        } catch (BusinessException e) {
+            logger.error("获取分页列表错误 = {}", e);
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+        return jsonResponse;
+    }
 }

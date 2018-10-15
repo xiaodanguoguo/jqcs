@@ -9,6 +9,29 @@ import java.util.List;
 
 public class MillSheetHosts {
 
+    //回退原因
+    private String fallbackReason;
+
+    // 驳回回退原因
+    private String rejectionReason;
+
+    //厂家code
+    private List<String> deptCodes;
+
+    public List<String> getDeptCodes() {
+        return deptCodes;
+    }
+
+    public void setDeptCodes(List<String> deptCodes) {
+        this.deptCodes = deptCodes;
+    }
+
+    private String states;
+    //产线
+    private String millLine;
+
+    private String zkunnrs;
+
     private Integer operationType;
 
     private  String originalCarNo;
@@ -115,12 +138,44 @@ public class MillSheetHosts {
     //客户名称
     private  String spiltCustomer;
 
-    public String getZkdauf() {
-        return zkdauf;
+    public String getFallbackReason() {
+        return fallbackReason;
     }
 
-    public void setZkdauf(String zkdauf) {
-        this.zkdauf = zkdauf;
+    public void setFallbackReason(String fallbackReason) {
+        this.fallbackReason = fallbackReason;
+    }
+
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public void setRejectionReason(String rejectionReason) {
+        this.rejectionReason = rejectionReason;
+    }
+
+    public String getStates() {
+        return states;
+    }
+
+    public void setStates(String states) {
+        this.states = states;
+    }
+
+    public String getMillLine() {
+        return millLine;
+    }
+
+    public void setMillLine(String millLine) {
+        this.millLine = millLine;
+    }
+
+    public String getZkunnrs() {
+        return zkunnrs;
+    }
+
+    public void setZkunnrs(String zkunnrs) {
+        this.zkunnrs = zkunnrs;
     }
 
     public Integer getOperationType() {

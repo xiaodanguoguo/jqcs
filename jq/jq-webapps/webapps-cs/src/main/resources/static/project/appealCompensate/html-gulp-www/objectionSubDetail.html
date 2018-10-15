@@ -69,7 +69,12 @@
             $("#userName").html(unescape(getCookie("userName")));
             $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
             if(unescape(getCookie("navListIdx"))){
-                $(".og-head-mainlt__sasety").eq(unescape(getCookie("navListIdx"))).addClass("og-head-mainlt__sidebar--shrinkActive");
+                $(".og-head-mainlt__sasety").each(function () {
+					if(unescape(getCookie("navListIdx")) == $(this).val()){
+					    $(this).addClass("og-head-mainlt__sidebar--shrinkActive")
+					}
+                });
+                //$(".og-head-mainlt__sasety").eq(unescape(getCookie("navListIdx"))).addClass("og-head-mainlt__sidebar--shrinkActive");
             }
 		    //导航的点击
 		    $(".og-head-navlist li a").on("click",function(){
@@ -103,6 +108,12 @@
                 $.download(requestUrl + "/millsheet/downOperationManual", importParam, "POST");
 			});
             start();
+            //赋值内容主体高度，显示footer
+			if($("#js-leftNavBar").height() > $("#js-loader").height()){
+			    $(".og-head-main").css("height",$("#js-leftNavBar").height()+"px");
+			}else{
+                $(".og-head-main").css("height",$("#js-loader").height()+"px");
+			}
 		})
         //退出接口
         function quitFun(data){
@@ -209,7 +220,8 @@
 						<ul class="menu-ul">
 							<li class="og-head-mainlt__sasety" limitCode="M201" value="6"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/checkTrue.html">防伪验证</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M202" value="7"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList.html">质证书管理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="M203" value="8"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M202" value="19"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList2.html">质证书管理(酒钢)</a></li>
+							<!--<li class="og-head-mainlt__sasety" limitCode="M203" value="8"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>-->
 						</ul>
 					</li>
 					<li class="og-head-mainlt__sidebar--menu"  limitCode="M3">
@@ -220,6 +232,7 @@
 							<li class="og-head-mainlt__sasety" limitCode="M303" value="11"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionReasearch.html">异议调查</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M304" value="12"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionDeal.html">异议处理</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M305" value="13"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionFinish.html">异议结案</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M305" value="20"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionStatic.html">质量异议统计台账</a></li>
 						</ul>
 					</li>
 					<li class="og-head-mainlt__sidebar--menu" limitCode="M1">
@@ -273,11 +286,13 @@
                 <span class="newsList-search__name fl"><i class="mustText"></i>异议产品</span>
                 <input id="productName" class="inputBase newsList-search__input fl required" type="text" disabled="true">
             </div>
+            <div class="btnLowNew fr" style="margin-right: 30px;display: none;" id="returnPrev">返回</div>
         </div>
         <div id="boxFirst">
             <div class="newsList-title clearfix">
                 <div class="newsList-title__border fl"></div>
-                <span class="newsList-title__name fl">订货单位信息</span>
+                <span class="newsList-title__name fl">质量异议提报人员信息</span>
+                <button class="btnLowNew fl box01" id="firstCreateperson" style="margin-left: 50px;margin-top: -5px;">新增质量异议提报人员</button>
             </div>
             <div class="newsList-content" id="firstDetail">
                 <div class="newsList-content-create box01" id="dinghuoCreate"></div>
@@ -307,6 +322,7 @@
             <div class="newsList-title clearfix">
                 <div class="newsList-title__border fl"></div>
                 <span class="newsList-title__name fl">使用单位信息</span>
+                <button class="btnLowNew fl box01" id="firstCreateperson2" style="margin-left: 50px;margin-top: -5px;">新增使用单位</button>
             </div>
             <div class="newsList-content" id="secondDetail">
                 <div class="newsList-content-create box01" id="shiyongCreate"></div>
@@ -448,9 +464,9 @@
                             <input id="millSheetNo" class="inputBase newsList-content-mainList-text fl" type="text">
                         </li>
                     </div>
-                    <li class="newsList-content-main-list2 box3">
+                    <li class="newsList-content-main-list2 box3" style="width: 425px;">
                         <span class="newsList-content-mainList-title fl"><i class="mustText disNone">*</i>产品问题:</span>
-                        <input id="proProblem" class="inputBase newsList-content-mainList-text fl required" type="text">
+                        <input id="proProblem" class="inputBase newsList-content-mainList-text fl required" type="text" style="width: 300px;">
                     </li>
 
 
@@ -623,15 +639,15 @@
             <div class="newsList-content">
                 <ul class="newsList-content-main clearfix">
                     <li class="newsList-content-main-listRow">
-                        <span class="newsList-content-mainList-title fl">物流过程:</span>
+                        <span class="newsList-content-mainList-title fl"><i class="mustText">*</i>物流过程:</span>
                         <textarea id="logisticsProcess" class="inputBase newsList-content-mainList-text fl required"  style="resize:none" ></textarea>
                     </li>
                     <li class="newsList-content-main-listRow">
-                        <span class="newsList-content-mainList-title fl">加工工艺及用途:</span>
+                        <span class="newsList-content-mainList-title fl"><i class="mustText">*</i>加工工艺及用途:</span>
                         <textarea id="endProcessingTech" class="inputBase newsList-content-mainList-text fl required"  style="resize:none" ></textarea>
                     </li>
                     <li class="newsList-content-main-listRows clearfix" style="padding-bottom: 50px;">
-                        <span class="newsList-content-mainList-title fl">调查事实阐述:</span>
+                        <span class="newsList-content-mainList-title fl"><i class="mustText">*</i>调查事实阐述:</span>
                         <div id="parentBox" class="inputBase newsList-content-mainList-main fl clearfix" id="inSearchBox" style="height: 585px;">
                             <ul class="newsList-content-mainListRows-ul clearfix fl" id="inSearchBox">
                                 <li class="newsList-content-mainListRows-ulList">
@@ -640,14 +656,14 @@
                                 </li>
                                 <li class="newsList-content-mainListRows-ulList">
                                     <span class="newsList-content-mainListRowsUlList-title fl">合同号:</span>
-                                    <input id="contractNo" class="inputBase newsList-content-mainListRowsUlList-text fl required" type="text" disabled="true">
+                                    <input id="contractNo" class="inputBase newsList-content-mainListRowsUlList-text fl" type="text" disabled="true">
                                 </li>
                                 <li class="newsList-content-mainListRows-ulList">
                                     <span class="newsList-content-mainListRowsUlList-title fl">质证书编号:</span>
                                     <input id="millSheetNo" class="inputBase newsList-content-mainListRowsUlList-text fl required" type="text" disabled="true">
                                 </li>
                                 <li class="newsList-content-mainListRows-ulList">
-                                    <span class="newsList-content-mainListRowsUlList-title fl">异议确认量（吨）:</span>
+                                    <span class="newsList-content-mainListRowsUlList-title fl"><i class="mustText">*</i>异议确认量（吨）:</span>
                                     <input id="objectionConfirmation" class="inputBase newsList-content-mainListRowsUlList-text fl required" type="text">
                                 </li>
                                 <li class="newsList-content-mainListRows-ulList">
@@ -667,22 +683,30 @@
                     </li>
                     <div class="box4">
                         <li class="newsList-content-main-listRow">
-                            <span class="newsList-content-mainList-title fl">现场结论:</span>
-                            <div id="fieldConclusionA" class="newsList-content-mainList-textEdit fl" style="overflow:scroll;height: 350px;">
+                            <span class="newsList-content-mainList-title fl"><i class="mustText">*</i>现场结论:</span>
+                            <div id="fieldConclusionA" class="newsList-content-mainList-textEdit fl" style="overflow:scroll;height: 350px;width: 755px;">
                                 <script id="editor2" type="text/plain"></script>
                             </div>
                         </li>
                         <li class="newsList-content-main-listRow">
-                            <span class="newsList-content-mainList-title fl">用户要求:</span>
+                            <span class="newsList-content-mainList-title fl"><i class="mustText">*</i>用户要求:</span>
                             <textarea id="userRequirement" class="inputBase newsList-content-mainList-text fl required"  style="resize:none" ></textarea>
                         </li>
                         <li class="newsList-content-main-listRow">
-                            <span class="newsList-content-mainList-title fl">处理建议:</span>
+                            <span class="newsList-content-mainList-title fl"><i class="mustText">*</i>处理建议:</span>
                             <textarea id="handingSuggestion" class="inputBase newsList-content-mainList-text fl required"  style="resize:none" ></textarea>
                         </li>
                         <li class="newsList-content-main-listRow">
-                            <span class="newsList-content-mainList-title fl">销售经理建议:</span>
-                            <input id="salesManagerSuggests" class="inputBase newsList-content-mainList-text fl required">
+                            <span class="newsList-content-mainList-title fl"><i class="mustText">*</i>销售经理建议:</span>
+                            <textarea id="salesManagerSuggests" class="inputBase newsList-content-mainList-text fl required" style="resize:none" ></textarea>
+                        </li>
+                        <li class="newsList-content-main-listRow box4">
+                            <span class="newsList-content-mainList-title fl">协议内容:</span>
+                            <textarea id="agreementContent" class="inputBase newsList-content-mainList-text fl" style="resize:none;height: 150px;" ></textarea>
+                        </li>
+                        <li class="newsList-content-main-listRow box4">
+                            <span class="newsList-content-mainList-title fl">协议金额:</span>
+                            <input id="agreementAmount" class="inputBase newsList-content-mainList-text forMoney fl" style="width: 100px;height: 26px;">
                         </li>
                     </div>
                     <div class="box5">
@@ -692,7 +716,7 @@
                         </li>
                         <li class="newsList-content-main-listRows clearfix">
                             <span class="newsList-content-mainList-title fl">生产工艺过程调查:</span>
-                            <div class="inputBase newsList-content-mainList-main fl clearfix" style="height: 460px;">
+                            <div class="inputBase newsList-content-mainList-main fl clearfix" style="height: 486px;">
                                 <ul class="newsList-content-mainListRows-ul clearfix fl">
                                     <li class="newsList-content-mainListRows-ulList">
                                         <span class="newsList-content-mainListRowsUlList-title fl">质量等级:</span>
@@ -719,11 +743,11 @@
                         </li>
                         <li class="newsList-content-main-listRow">
                             <span class="newsList-content-mainList-title fl">原因分析及结论:</span>
-                            <textarea id="claimVerdict" class="inputBase newsList-content-mainList-text fl required"  style="resize:none" ></textarea>
+                            <textarea id="claimVerdict" class="inputBase newsList-content-mainList-text fl required"  style="resize:none;height: 200px;" ></textarea>
                         </li>
                         <li class="newsList-content-main-listRow">
                             <span class="newsList-content-mainList-title fl">整改措施:</span>
-                            <textarea id="improvement" class="inputBase newsList-content-mainList-text fl required"  style="resize:none" ></textarea>
+                            <textarea id="improvement" class="inputBase newsList-content-mainList-text fl required"  style="resize:none;height: 200px;" ></textarea>
                         </li>
                     </div>
                 </ul>
@@ -847,10 +871,77 @@
             <img id="bigImg" src="" alt="" style="width: 600px;height: 400px;margin-left: 24px;">
         </div>
     </div>
+<div id="textChangeBox" class="popup gc_box" style="display:none">
+    <div class="title" style="">
+        <h2 id="textChangeBoxTitle">新增质量异议提报人员信息</h2>
+        <div>
+            <a class="min" href=" " title="最小化" style="display:none;"></a>
+            <a class="max" href="javascript:;" title="最大化" style="display:none;"></a>
+            <a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+            <a class="close" href="javascript:;" title="关闭" style="display:block;"></a>
+        </div>
+    </div>
+    <div class="content">
+        <div class="textChangeBox-box">
+            <ul class="manageNews-main-search clearfix" id="orderUnitPopup" style="display: none">
+                <li class="manageNews-main-search-list" style="display: none;">
+                    <span class="manageNews-mainSearch-list-name">客服联系编号:</span>
+                    <input id="customerId" type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">客户单位名称:</span>
+                    <input id="customerName" type="text" class="inputBase manageNews-mainSearch-list-input required" disabled="disabled">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">单位地址:</span>
+                    <input id="custAddr" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">联系人:</span>
+                    <input id="custEmpNo" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">手机号码:</span>
+                    <input id="custTel" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <input class="manageNews-mainSearch-list-check" type="checkbox" name="" id="defaultFlag">
+                    <span>设为默认联系人</span>
+                </li>
+            </ul>
+            <ul class="manageNews-main-search clearfix" id="userUnitPopup" style="display: none;">
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">使用单位名称:</span>
+                    <input id="lastUser" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">货物所在地:</span>
+                    <input id="lastUserAddr" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">联系人:</span>
+                    <input id="createEmpNo" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">手机号码:</span>
+                    <input id="lastUserTel" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <input class="manageNews-mainSearch-list-check" type="checkbox" name="" id="defaultFlag">
+                    <span>设为默认联系人</span>
+                </li>
+            </ul>
+            <div class="textChangeBox-box-operate">
+                <div class="btnBaseCommon" id="newsChageSure">确定</div>
+                <div class="btnBaseCancel" id="newsChageCancel">取消</div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </div>
 </div>
-<div style="width: 1200px;height: 70px;margin: 0 auto;text-align: center;line-height: 70px;">
+<div style="width: 1200px;height: 70px;margin: 0px auto;text-align: center;line-height: 70px;">
     copyright ©️ 2018 甘肃酒钢集团宏兴钢铁股份有限公司 版权所有
 </div>
 </div>

@@ -53,9 +53,9 @@ function clsMethodLee$operate(){
         jumpUrl("qualityBookList.html","0000000",0);
     });
     //拆分单位失焦事件
-    $("#spiltCustomerText").on("change",function(){
+    /*$("#spiltCustomerText").on("change",function(){
         getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",{"orgName":$(this).val()},"spiltCustomerTextCheckCallBack(data)");
-    });
+    });*/
 }
 function clsMethodLee$refresh(){
 
@@ -182,6 +182,7 @@ function checkForm(dom){//提交tab1
 
 function blurCheck(dom,doms,markRow){//dom当前事件节点，doms所有这个数据集合，markRow当前节点的唯一标识
     var numTotal = 0;//主数据总数量
+    var weightTotal = 0;//主数据总重量
     var numAdd = 0;//拆分总和数量
     var domMain = "";//主数据相关dom节点
     var keyName = dom.attr("id");//当前点击的是件次还是重量的id
@@ -190,6 +191,7 @@ function blurCheck(dom,doms,markRow){//dom当前事件节点，doms所有这个�
         if($(this).parents("#cloneRow")[0].jsonData.sid == markRow){//找到所有当前的批次或者重量
             if(this.tagName.toLowerCase() == "td"){//如果元素类型是td，则说明是主数据
                 numTotal = parseFloat($(this).parents("#cloneRow")[0].jsonData[keyName]);
+                weightTotal = parseFloat($(this).parents("#cloneRow")[0].jsonData.zlosmenge);
                 if(keyName == "zjishu")
                     unitPrice = (parseFloat($(this).parents("#cloneRow")[0].jsonData.zlosmenge) / parseFloat($(this).parents("#cloneRow")[0].jsonData.zjishu));
                 domMain = $(this);
@@ -200,7 +202,7 @@ function blurCheck(dom,doms,markRow){//dom当前事件节点，doms所有这个�
     })
     if(numTotal < numAdd){
         var alertBox=new clsAlertBoxCtrl();
-        alertBox.Alert("拆分数据总和数量超过了主数据数据数量","错误提示");
+        alertBox.Alert("拆分子质证书的件次不得大于母质证书件次!","错误提示");
         dom.val(0);
         numAdd = 0;
         doms.each(function () {
@@ -215,13 +217,14 @@ function blurCheck(dom,doms,markRow){//dom当前事件节点，doms所有这个�
         })
     }
     domMain.html((numTotal - numAdd).toFixed(0));
+    domMain.parents("#cloneRow").find("#zlosmenge").html(weightTotal);
     if(keyName == "zjishu"){
         var numNext = dom.val();
         if(dom.val() == "" || dom.val() == null) {
             numNext = 0;
         }
         dom.parents("#cloneRow").find("#zlosmenge").val((unitPrice * parseFloat(numNext)).toFixed(2));
-        domMain.parents("#cloneRow").find("#zlosmenge").html((domMain.parents("#cloneRow").find("#zlosmenge").html() - unitPrice*parseFloat(numNext)).toFixed(2));
+        domMain.parents("#cloneRow").find("#zlosmenge").html((weightTotal - unitPrice*parseFloat(numNext)).toFixed(2));
     }
 }
 

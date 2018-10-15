@@ -7,7 +7,8 @@ function clsMethodLee(){
         "path5":"/objectionJieAn/look",//查看协议书接口
         "path7":"/md/findItemsByTypeId",//产品大类下拉接口
         "path8":"/objectionJieAn/upload",//上传之后把上传图片传给后台
-        "path9":"/objectionChuLi/preview"//查看pdf接口
+        "path9":"/objectionChuLi/preview",//查看pdf接口
+        "path10":""//过期原因确认接口
     };
     this.documentLee = null;
     this.claimNo = "";//强制结案的当前缓存标识
@@ -28,6 +29,11 @@ function clsMethodLee$init(){
     this.revokeSureOpe = $("#revokeSureOpe");
     //撤销取消按钮
     this.revokeCancelOpe = $("#revokeCancelOpe");
+    //过期原因确认按钮
+    this.pastDateOpe = $("#pastDateOpe");
+
+    //过期原因取消按钮
+    this.pastDateCancelOpe = $("#pastDateCancelOpe");
 
     this.parse();
 
@@ -65,11 +71,11 @@ function clsMethodLee$operate(){
         }
     });
     this.rejectSureOpe.on("click",function(){//强制结案确认操作
-        if($("#rejectText").val().length >= 5){
+        if($("#rejectText").val().length >= 5 && $("#rejectText").val().length <= 30){
             var jsonParam = {"claimNo":document.body.jsLee.claimNo,"reasonsForCompulsoryClosure":$("#rejectText").val()};
             getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",jsonParam,"rejectOpeCallBack(data)");
         }else if($("#rejectText").val().length > 0){
-            showErrInfoByCustomDiv($("#rejectText")[0],"强制结案理由至少5个字！");
+            showErrInfoByCustomDiv($("#rejectText")[0],"强制结案理由为5-30个字！");
         }else{
             showErrInfoByCustomDiv($("#rejectText")[0],"请输入强制结案理由！");
         }
@@ -80,13 +86,13 @@ function clsMethodLee$operate(){
     });
 
     this.revokeSureOpe.on("click",function(){//撤销确认操作
-        if($("#revokeText").val().length >= 5){
+        if($("#revokeText").val().length >= 5 && $("#revokeText").val().length <= 30){
             var jsonParam = {"claimNo":document.body.jsLee.claimNo,"reasonsForCompulsoryClosure":$("#revokeText").val()};
             getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",jsonParam,"revokeOpeCallBack(data)");
         }else if($("#revokeText").val().length > 0){
-            showErrInfoByCustomDiv($("#revokeText")[0],"强制结案理由至少5个字！");
+            showErrInfoByCustomDiv($("#revokeText")[0],"撤销理由为5-30个字！");
         }else{
-            showErrInfoByCustomDiv($("#revokeText")[0],"请输入强制结案理由！");
+            showErrInfoByCustomDiv($("#revokeText")[0],"请输入撤销理由！");
         }
     });
 
@@ -101,6 +107,23 @@ function clsMethodLee$operate(){
     });
     //下载协议书关闭
     $("#downViewCancel").on("click",function(){
+        closePopupWin();
+    });
+
+    //过期原因确认操作
+    this.pastDateOpe.on("click",function(){
+        if($("#pastDateText").val().length >= 5){
+            var jsonParam = {"claimNo":document.body.jsLee.claimNo,"expiredReason":$("#pastDateText").val()};
+            getAjaxResult(document.body.jsLee.requestUrl.path10,"POST",jsonParam,"pastDateOpeCallBack(data)");
+        }else if($("#pastDateText").val().length > 0){
+            showErrInfoByCustomDiv($("#pastDateText")[0],"过期原因至少5个字！");
+        }else{
+            showErrInfoByCustomDiv($("#pastDateText")[0],"请输入过期原因！");
+        }
+    });
+
+    //过期原因取消操作
+    this.pastDateCancelOpe.on("click",function(){
         closePopupWin();
     });
 
@@ -148,32 +171,45 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         switch (jsonItem.claimState){
             case "NEW":
                 $(cloneRow).find("#claimStateA").html("新建");
+                $(cloneRow).find("#uploadOpe").remove();
                 break;
             case "PRESENT":
                 $(cloneRow).find("#claimStateA").html("已提报");
+                $(cloneRow).find("#uploadOpe").remove();
                 break;
             case "ADOPT":
                 $(cloneRow).find("#claimStateA").html("销售审核通过");
+                $(cloneRow).find("#uploadOpe").remove();
                 break;
             case "ACCEPTANCE":
                 $(cloneRow).find("#claimStateA").html("已受理");
+                $(cloneRow).find("#uploadOpe").remove();
                 break;
             case "REJECT":
                 $(cloneRow).find("#claimStateA").html("已驳回");
+                $(cloneRow).find("#uploadOpe").remove();
                 break;
             case "INVESTIGATION":
                 $(cloneRow).find("#claimStateA").html("调查中");
+                $(cloneRow).find("#uploadOpe").remove();
                 break;
             case "HANDLE":
                 $(cloneRow).find("#claimStateA").html("处理中");
+                //$(cloneRow).find("#uploadOpe").show();
                 break;
             case "END":
                 $(cloneRow).find("#claimStateA").html("已结案");
                 $(cloneRow).find("#strongEndOpe").hide();
                 $(cloneRow).find("#printOpe").show();
+                //$(cloneRow).find("#uploadOpe").show();
+                $(cloneRow).find("#viewUploadOpe").show();
+
                 break;
             case "EVALUATE":
                 $(cloneRow).find("#claimStateA").html("已评价");
+                $(cloneRow).find("#strongEndOpe").hide();
+                $(cloneRow).find("#viewUploadOpe").show();
+                $(cloneRow).find("#uploadOpe").remove();
                 break;
         }
 
@@ -284,6 +320,16 @@ function revokeOpeCallBack(data) {
     }
 }
 
+//过期原因确认回调
+function pastDateOpeCallBack(data) {
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        closePopupWin();
+        initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
+    }
+}
+
+
 //按照组件重新编写div校验
 function showErrInfoByCustomDiv(elem,error)
 {
@@ -344,7 +390,12 @@ function clsUploadCtrl$successAfter(ctrl, response)
 }
 
 function uploadCallBack(data){
-
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
+        var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert("上传成功","成功提示");
+    }
 }
 
 function pdfViewCallBack(data){
@@ -357,11 +408,25 @@ function pdfViewCallBack(data){
 function pdfViewCallBack2(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        openWin("800","600","previewOpeBox2");
-        $("#previewOpeBoxPdf2").attr("href",data.rspBody.report);
-        $("#previewOpeBoxPdf2").media({width:740, height:450});
+        openWin("500","600","previewOpeBox2");
+        $("#previewOpeBox2 img").attr("src",data.rspBody.report);
+        //$("#previewOpeBoxPdf2").media({width:740, height:450});
         //jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody.report,"0000000","1");
     }
+}
+
+function clsUploadCtrl$uploadBefore(thisAjaxupload, file, ext, parent) {
+    //console.log($(parent.jsCtrl.ctrl).parents("tr")[0].jsonData)
+    var jsonA = $(parent.jsCtrl.ctrl).parents("tr")[0].jsonData;
+    document.body.jsLee.claimNo = jsonA.claimNo;
+    if(jsonA.inquireState == "TRACK" && jsonA.closingTime - jsonA.admissibilityTime > 20 && jsonA.isUpload == "Y"){//已跟踪   过期时间是20天
+        openWin('360', '245', 'inputAnswer3', true);
+        return false;
+    }else if(jsonA.inquireState != "TRACK" && jsonA.closingTime - jsonA.admissibilityTime > 7 && jsonA.isUpload == "Y"){//过期时间是7天
+        openWin('360', '245', 'inputAnswer3', true);
+        return false;
+    }
+    return true;
 }
 
 $(function(){

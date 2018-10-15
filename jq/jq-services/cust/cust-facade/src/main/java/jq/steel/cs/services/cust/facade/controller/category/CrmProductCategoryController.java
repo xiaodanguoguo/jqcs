@@ -5,6 +5,7 @@ import com.ebase.core.log.SearchableLoggerFactory;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.utils.JsonUtil;
+import com.ebase.utils.StringUtil;
 import jq.steel.cs.services.cust.api.vo.CrmProductCategoryVO;
 import jq.steel.cs.services.cust.facade.common.ProductCategoryStatus;
 import jq.steel.cs.services.cust.facade.service.category.CrmProductCategoryService;
@@ -70,7 +71,9 @@ public class CrmProductCategoryController {
         try {
             List<CrmProductCategoryVO> list = jsonRequest.getReqBody();
             for (CrmProductCategoryVO vo : list) {
-                vo.setStatus(ProductCategoryStatus.SAVE.getCode());
+                if (StringUtil.isEmpty(vo.getStatus())) {
+                    vo.setStatus(ProductCategoryStatus.SAVE.getCode());
+                }
             }
             serviceResponse = crmProductCategoryService.insertCrmProductCategory(list);
         } catch (Exception e) {
@@ -89,12 +92,12 @@ public class CrmProductCategoryController {
      * @Date: 2018/8/20
      */
     @RequestMapping("/down/list")
-    ServiceResponse<List<CrmProductCategoryVO>> getList() {
+    ServiceResponse<List<CrmProductCategoryVO>> getList(@RequestBody List<String> codes) {
         logger.info("产品分类分页查询");
         ServiceResponse<List<CrmProductCategoryVO>> serviceResponse = new ServiceResponse<>();
 
         try {
-            List<CrmProductCategoryVO> list = crmProductCategoryService.getList();
+            List<CrmProductCategoryVO> list = crmProductCategoryService.getList(codes);
             serviceResponse.setRetContent(list);
         } catch (Exception e) {
             logger.error("产品分类分页查询错误 = {}", e);
@@ -138,14 +141,14 @@ public class CrmProductCategoryController {
      * @Date: 2018/8/25
      */
     @RequestMapping("/introduct/list")
-    ServiceResponse<List<CrmProductCategoryVO>> getIntroductList() {
+    ServiceResponse<List<CrmProductCategoryVO>> getIntroductList(@RequestBody JsonRequest<CrmProductCategoryVO> jsonRequest) {
         logger.info("产品分类分页查询");
         ServiceResponse<List<CrmProductCategoryVO>> serviceResponse = new ServiceResponse<>();
 
         try {
-            CrmProductCategoryVO crmProductCategoryVO = new CrmProductCategoryVO();
+            CrmProductCategoryVO crmProductCategoryVO = jsonRequest.getReqBody();
             crmProductCategoryVO.setStatus(ProductCategoryStatus.SUBMIT.getCode());
-            List<CrmProductCategoryVO> page = crmProductCategoryService.getPage(crmProductCategoryVO);
+            List<CrmProductCategoryVO> page = crmProductCategoryService.getIntroductList(crmProductCategoryVO);
             serviceResponse.setRetContent(page);
         } catch (Exception e) {
             logger.error("产品分类分页查询错误 = {}", e);

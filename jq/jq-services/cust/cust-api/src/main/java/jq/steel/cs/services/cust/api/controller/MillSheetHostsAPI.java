@@ -65,4 +65,13 @@ public interface MillSheetHostsAPI {
      */
     @RequestMapping(value = "/millsheet/downloadForApp")
     public ServiceResponse<MillSheetHostsVO> downloadForApp(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest);
+
+
+    /**
+     * 打印次数/下载次数+1
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/millsheet/updateNumber",method = RequestMethod.POST)
+    ServiceResponse<Integer> updateNumber(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest);
 }

@@ -69,7 +69,12 @@
             $("#userName").html(unescape(getCookie("userName")));
             $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
             if(unescape(getCookie("navListIdx"))){
-                $(".og-head-mainlt__sasety").eq(unescape(getCookie("navListIdx"))).addClass("og-head-mainlt__sidebar--shrinkActive");
+                $(".og-head-mainlt__sasety").each(function () {
+					if(unescape(getCookie("navListIdx")) == $(this).val()){
+					    $(this).addClass("og-head-mainlt__sidebar--shrinkActive")
+					}
+                });
+                //$(".og-head-mainlt__sasety").eq(unescape(getCookie("navListIdx"))).addClass("og-head-mainlt__sidebar--shrinkActive");
             }
 		    //导航的点击
 		    $(".og-head-navlist li a").on("click",function(){
@@ -103,6 +108,12 @@
                 $.download(requestUrl + "/millsheet/downOperationManual", importParam, "POST");
 			});
             start();
+            //赋值内容主体高度，显示footer
+			if($("#js-leftNavBar").height() > $("#js-loader").height()){
+			    $(".og-head-main").css("height",$("#js-leftNavBar").height()+"px");
+			}else{
+                $(".og-head-main").css("height",$("#js-loader").height()+"px");
+			}
 		})
         //退出接口
         function quitFun(data){
@@ -209,7 +220,8 @@
 						<ul class="menu-ul">
 							<li class="og-head-mainlt__sasety" limitCode="M201" value="6"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/checkTrue.html">防伪验证</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M202" value="7"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList.html">质证书管理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="M203" value="8"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M202" value="19"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList2.html">质证书管理(酒钢)</a></li>
+							<!--<li class="og-head-mainlt__sasety" limitCode="M203" value="8"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>-->
 						</ul>
 					</li>
 					<li class="og-head-mainlt__sidebar--menu"  limitCode="M3">
@@ -220,6 +232,7 @@
 							<li class="og-head-mainlt__sasety" limitCode="M303" value="11"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionReasearch.html">异议调查</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M304" value="12"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionDeal.html">异议处理</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M305" value="13"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionFinish.html">异议结案</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M305" value="20"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionStatic.html">质量异议统计台账</a></li>
 						</ul>
 					</li>
 					<li class="og-head-mainlt__sidebar--menu" limitCode="M1">
@@ -333,7 +346,7 @@
 
 </div>
 </div>
-<div style="width: 1200px;height: 70px;margin: 0 auto;text-align: center;line-height: 70px;">
+<div style="width: 1200px;height: 70px;margin: 0px auto;text-align: center;line-height: 70px;">
     copyright ©️ 2018 甘肃酒钢集团宏兴钢铁股份有限公司 版权所有
 </div>
 </div>

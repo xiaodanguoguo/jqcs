@@ -187,38 +187,50 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         switch (jsonItem.inquireState){
             case "OUTSTART":
                 $(cloneRow).find("#inquireStateA").html("外部调查开始");
-                $(cloneRow).find("#researchOutOpe").show();
+                if(jsonItem.claimState != "ADOPT"){
+                    $(cloneRow).find("#researchOutOpe").show();
+                }
                 break;
             case "TRACK":
                 $(cloneRow).find("#inquireStateA").html("已跟踪");
-                $(cloneRow).find("#researchOutOpe").show();
+                if(jsonItem.claimState != "ADOPT"){
+                    $(cloneRow).find("#researchOutOpe").show();
+                }
                 break;
             case "OUTEND":
                 $(cloneRow).find("#inquireStateA").html("外部调查结束");
                 $(cloneRow).find("#researchInOpe").show();
                 $(cloneRow).find("#rejectOpe").show();
                 $(cloneRow).find("#downloadOutOpe").show();
+                $(cloneRow).find("#researchOutDetOpe").show();
                 break;
             case "INSTART":
                 $(cloneRow).find("#inquireStateA").html("内部调查开始");
                 $(cloneRow).find("#researchInOpe").show();
                 $(cloneRow).find("#downloadOutOpe").show();
+                $(cloneRow).find("#researchOutDetOpe").show();
                 break;
             case "INEND":
                 $(cloneRow).find("#inquireStateA").html("内部调查结束");
                 $(cloneRow).find("#rejectOpe").show();
                 $(cloneRow).find("#downloadInOpe").show();
+                $(cloneRow).find("#researchInDetOpe").show();
                 $(cloneRow).find("#downloadOutOpe").show();
+                $(cloneRow).find("#researchOutDetOpe").show();
                 break;
             case "CONFIRM":
                 $(cloneRow).find("#inquireStateA").html("已确认");
                 $(cloneRow).find("#rejectOpe").show();
                 $(cloneRow).find("#downloadInOpe").show();
+                $(cloneRow).find("#researchInDetOpe").show();
                 $(cloneRow).find("#downloadOutOpe").show();
+                $(cloneRow).find("#researchOutDetOpe").show();
                 break;
             default:
                 $(cloneRow).find("#inquireStateA").html("");
-                $(cloneRow).find("#researchOutOpe").show();
+                if(jsonItem.claimState != "ADOPT"){
+                    $(cloneRow).find("#researchOutOpe").show();
+                }
                 break;
         }
         if(jsonItem.claimState == "END"){
@@ -237,6 +249,16 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         $(cloneRow).find("#downloadOutOpe").on("click",function(){
             var importParam = "name=" + JSON.stringify({"templateType":5,"claimNos":[jsonItem.claimNo]});
             $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
+        });
+        //内部调查详情
+        $(cloneRow).find("#researchInDetOpe").on("click",function(){
+            //跳转内部调查详情
+            jumpUrl("objectionSubDetail.html?htmlType=9&claimNo="+jsonItem.claimNo,"0000000",0);
+        });
+        //外部调查详情
+        $(cloneRow).find("#researchOutDetOpe").on("click",function(){
+            //跳转外部调查详情
+            jumpUrl("objectionSubDetail.html?htmlType=8&claimNo="+jsonItem.claimNo,"0000000",0);
         });
         //查看详情操作
         $(cloneRow).find("#detailOpe").on("click",function(){

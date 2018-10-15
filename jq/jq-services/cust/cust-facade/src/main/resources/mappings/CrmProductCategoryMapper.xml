@@ -17,7 +17,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     CID, CATEGORY_NAME, CATEGORY_DESC, PARENT_CID, STATUS, CREATE_BYID, CREATE_BY, CREATE_DT, 
-    UPDATE_BYID, UPDATE_BY, UPDATE_DT,FACTORY
+    UPDATE_BYID, UPDATE_BY, UPDATE_DT, FACTORY
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -36,11 +36,11 @@
     insert into CRM_PRODUCT_CATEGORY (CID, CATEGORY_NAME, CATEGORY_DESC, 
       PARENT_CID, STATUS, CREATE_BYID, 
       CREATE_BY, CREATE_DT, UPDATE_BYID, 
-      UPDATE_BY, UPDATE_DT,FACTORY)
+      UPDATE_BY, UPDATE_DT, FACTORY)
     values (#{cid,jdbcType=NUMERIC}, #{categoryName,jdbcType=VARCHAR}, #{categoryDesc,jdbcType=VARCHAR}, 
       #{parentCid,jdbcType=NUMERIC}, #{status,jdbcType=VARCHAR}, #{createByid,jdbcType=NUMERIC}, 
       #{createBy,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP}, #{updateByid,jdbcType=NUMERIC}, 
-      #{updateBy,jdbcType=VARCHAR}, #{updateDt,jdbcType=TIMESTAMP}, #{factory,jdbcType=VARCHAR})
+      #{updateBy,jdbcType=VARCHAR}, #{updateDt,jdbcType=TIMESTAMP}, #{factory})
   </insert>
   <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
     <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="cid">
@@ -120,7 +120,7 @@
         #{updateDt,jdbcType=TIMESTAMP},
       </if>
       <if test="factory != null" >
-        #{factory,jdbcType=VARCHAR},
+        #{factory},
       </if>
     </trim>
   </insert>
@@ -174,8 +174,9 @@
       CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
       UPDATE_BYID = #{updateByid,jdbcType=NUMERIC},
       UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
-      UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP},
-      FACTORY = #{factory,jdbcType=VARCHAR}
+      UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
+      FACTORY = #{factory,jdbcType=VARCHAR},
+      UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP}
     where CID = #{cid,jdbcType=NUMERIC}
   </update>
   <select id="getList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
@@ -189,9 +190,31 @@
       <if test="status != null" >
         AND STATUS = #{status}
       </if>
+      <if test="factoryCodes != null" >
+        and FACTORY in
+        <foreach collection="factoryCodes" open="(" close=")" item="code" separator="," index="index">
+          #{factoryCodes[${index}]}
+        </foreach>
+      </if>
     </trim>
   </select>
-  <select id="getOne"  resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
+  <select id="getIntroductList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
+    select
+    <include refid="Base_Column_List" />
+    from CRM_PRODUCT_CATEGORY
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="categoryName != null and categoryName != '' " >
+        AND CATEGORY_NAME  LIKE '%' || #{categoryName} ||'%'
+      </if>
+      <if test="status != null" >
+        AND STATUS = #{status}
+      </if>
+      <if test="factory != null" >
+        AND FACTORY = #{factory}
+      </if>
+    </trim>
+  </select>
+  <select id="getOne" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
     select
     <include refid="Base_Column_List" />
     from CRM_PRODUCT_CATEGORY
@@ -201,4 +224,5 @@
       </if>
     </trim>
   </select>
+
 </mapper>

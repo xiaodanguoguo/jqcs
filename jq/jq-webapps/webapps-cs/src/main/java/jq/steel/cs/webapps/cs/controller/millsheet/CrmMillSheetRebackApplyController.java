@@ -29,23 +29,18 @@ public class CrmMillSheetRebackApplyController {
      *
      * */
     @RequestMapping(value = "/applyForRetreat",method = RequestMethod.POST)
-    public JsonResponse<Integer> applyForRetreat(@RequestBody JsonRequest<CrmMillSheetRebackApplyVO> jsonRequest){
+    public JsonResponse<CrmMillSheetRebackApplyVO> applyForRetreat(@RequestBody JsonRequest<CrmMillSheetRebackApplyVO> jsonRequest){
 //        logger.info("分页",JsonUtil.toJson(jsonRequest));
-        JsonResponse<Integer> jsonResponse = new JsonResponse<>();
+        JsonResponse<CrmMillSheetRebackApplyVO> jsonResponse = new JsonResponse<>();
         try {
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
-            ServiceResponse<Integer> serviceResponse = crmMillSheetRebackApplyAPI.applyForRetreat(jsonRequest);
-            if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
+            ServiceResponse<CrmMillSheetRebackApplyVO> serviceResponse = crmMillSheetRebackApplyAPI.applyForRetreat(jsonRequest);
+            if (serviceResponse.getRetContent().getIsReback().equals("Y")){
+                jsonResponse.setRetCode("1111111");
+                jsonResponse.setRetDesc("此质证书已回退过，不可再次回退");
+            }else {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
-            } else {
-                if (serviceResponse.isHasError()) {
-                    jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
-                }else {
-                    jsonResponse.setRetCode(serviceResponse.getRetCode());
-                    jsonResponse.setRetDesc(serviceResponse.getRetMessage());
-                    return jsonResponse;
-                }
             }
         } catch (BusinessException e) {
             logger.error("回退错误 = {}", e);

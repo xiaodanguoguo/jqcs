@@ -57,6 +57,9 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
 
             millSheetHosts.setMillSheetNos(idall);
         }
+        if(millSheetHosts.getDeptCode()!=null&& millSheetHosts.getDeptCode()!=""){
+            millSheetHosts.setDeptCodes(null);
+        }
         PageDTOUtil.startPage(millSheetHostsVO);
         String startDtStr = DateFormatUtil.getStartDateStr(millSheetHosts.getStartDt());
         millSheetHosts.setStartDtStr(startDtStr);
@@ -207,5 +210,24 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
         MillSheetHostsVO vo = new MillSheetHostsVO();
         BeanCopyUtil.copy(millSheetHosts,vo);
         return vo;
+    }
+
+    //修改打印次数下载次数
+    @Override
+    public Integer updateNumber(List<MillSheetHostsVO> record) {
+        for(MillSheetHostsVO millSheetHostsVO:record){
+            //转换mdel
+            MillSheetHosts millSheetHosts = new MillSheetHosts();
+            BeanCopyUtil.copy(millSheetHostsVO,millSheetHosts);
+            MillSheetHosts millSheetByPage = millSheetHostsMapper.findUrl(millSheetHosts);
+            if(millSheetHosts.getOperationType().equals(1)){
+                //1是打印次数修改  2是下载次数修改
+                millSheetHosts.setPrintableNum(millSheetByPage.getPrintableNum()+1);
+            }else {
+                millSheetHosts.setDownableNum(millSheetByPage.getDownableNum()+1);
+            }
+            millSheetHostsMapper.updateNum(millSheetHosts);
+        }
+        return 1;
     }
 }

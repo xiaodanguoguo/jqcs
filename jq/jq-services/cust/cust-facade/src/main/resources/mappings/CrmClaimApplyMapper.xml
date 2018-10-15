@@ -95,11 +95,14 @@
 <!--异议提报查询-->
   <select id="findByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
     SELECT h.* from(SELECT
+    A.SID,
     A.CLAIM_NO,
     A.CLAIM_STATE,
     A.MILL_SHEET_NO,
     A.PRODUCT_ID,
     A.CUSTOMER_ID,
+    A.CUSTOMER_NAME,
+    A.BATTEN_PLATE_NO,
     A.PRODUCT_NAME,
     A.DESIGNATION,
     A.SIZE_MARK,
@@ -107,14 +110,13 @@
     A.OBJECTION_NUM,
     C.INQUIRE_STATE,
     A.LAST_USER,
-    A.CUSTOMER_NAME,
     A.PRESENTATION_DATE,
     A.REJECT_REASON,
     A.REASONS_FOR_COMPULSORY_CLOSURE,
-    case when B.DEPT_CODE = '1000' then '不锈钢厂'
-    when B.DEPT_CODE = '2000' then '炼轧厂'
-    when B.DEPT_CODE = '2200' then '碳钢薄板厂'
-    when B.DEPT_CODE='3000' then '榆钢工厂' else B.DEPT_CODE end as DEPT_CODE,
+    case when B.DEPT_CODE = '1000' then '不锈'
+    when B.DEPT_CODE = '2000' then '炼轧'
+    when B.DEPT_CODE = '2200' then '碳钢'
+    when B.DEPT_CODE='3000' then '榆钢' else B.DEPT_CODE end as DEPT_CODE,
     (select T.TYPE_NAME from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
     WHERE T.TYPE_NAME=D.ZCPMC)) AS ZCPMC,
@@ -137,7 +139,7 @@
          <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
        </if>
       <if test="customerId != null and customerId != ''" >
-        AND H.CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+        AND H.CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
       </if>
       <if test="sid != null and sid != ''" >
         AND H.PARENT_SID = #{sid,jdbcType=VARCHAR}
@@ -170,6 +172,7 @@
         AND H.CLAIM_STATE = #{claimState}
       </if>
     </trim>
+    order by H.SID desc
   </select>
 
 <!--导出查询-->
@@ -178,10 +181,10 @@
     A.*,
     C.CLAIM_TYPE,
     C.INQUIRE_STATE,
-    case when B.DEPT_CODE = '1000' then '不锈钢厂'
-    when B.DEPT_CODE = '2000' then '炼轧厂'
-    when B.DEPT_CODE = '2200' then '碳钢薄板厂'
-    when B.DEPT_CODE='3000' then '榆钢工厂' else B.DEPT_CODE end as DEPT_CODE,
+    case when B.DEPT_CODE = '1000' then '不锈'
+    when B.DEPT_CODE = '2000' then '炼轧'
+    when B.DEPT_CODE = '2200' then '碳钢'
+    when B.DEPT_CODE='3000' then '榆钢' else B.DEPT_CODE end as DEPT_CODE,
     (select T.TYPE_NAME from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
     WHERE T.TYPE_NAME=D.ZCPMC)) AS ZCPMC,
@@ -204,7 +207,7 @@
         <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
       </if>
       <if test="customerId != null and customerId != ''" >
-        AND H.CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+        AND H.CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
       </if>
       <if test="sid != null and sid != ''" >
         AND H.PARENT_SID = #{sid,jdbcType=VARCHAR}
@@ -710,6 +713,12 @@
       <if test="presentationDate != null" >
         PRESENTATION_DATE = #{presentationDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="closingTime != null" >
+        ADMISSIBILITY_TIME = #{closingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closingUser != null and closingUser != ''" >
+        ADMISSIBILITY_USER = #{closingUser,jdbcType=VARCHAR},
+      </if>
       <if test="admissibilityUser != null and admissibilityUser != ''" >
         ADMISSIBILITY_USER = #{admissibilityUser,jdbcType=VARCHAR},
       </if>
@@ -794,10 +803,10 @@
     A.REJECT_REASON,
     A.REASONS_FOR_COMPULSORY_CLOSURE,
     A.LAST_USER_ID,
-    case when B.DEPT_CODE = '1000' then '不锈钢厂'
-    when B.DEPT_CODE = '2000' then '炼轧厂'
-    when B.DEPT_CODE = '2200' then '碳钢薄板厂'
-    when B.DEPT_CODE='3000' then '榆钢工厂' else B.DEPT_CODE end as DEPT_CODE,
+    case when B.DEPT_CODE = '1000' then '不锈'
+    when B.DEPT_CODE = '2000' then '炼轧'
+    when B.DEPT_CODE = '2200' then '碳钢'
+    when B.DEPT_CODE='3000' then '榆钢' else B.DEPT_CODE end as DEPT_CODE,
     (select T.TYPE_NAME from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
     WHERE T.TYPE_NAME=D.ZCPMC)) AS ZCPMC,
@@ -873,10 +882,10 @@
     A.REJECT_REASON,
     A.REASONS_FOR_COMPULSORY_CLOSURE,
     A.LAST_USER_ID,
-    case when B.DEPT_CODE = '1000' then '不锈钢厂'
-    when B.DEPT_CODE = '2000' then '炼轧厂'
-    when B.DEPT_CODE = '2200' then '碳钢薄板厂'
-    when B.DEPT_CODE='3000' then '榆钢工厂' else B.DEPT_CODE end as DEPT_CODE,
+    case when B.DEPT_CODE = '1000' then '不锈'
+    when B.DEPT_CODE = '2000' then '炼轧'
+    when B.DEPT_CODE = '2200' then '碳钢'
+    when B.DEPT_CODE='3000' then '榆钢' else B.DEPT_CODE end as DEPT_CODE,
     (select T.TYPE_NAME from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
     WHERE T.TYPE_NAME=D.ZCPMC)) AS ZCPMC,
@@ -896,7 +905,7 @@
         <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
       </if>
       <if test="customerId != null and customerId != ''" >
-        AND A.CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+        AND A.CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
       </if>
       <if test="claimType != null and claimType != ''" >
         AND C.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}

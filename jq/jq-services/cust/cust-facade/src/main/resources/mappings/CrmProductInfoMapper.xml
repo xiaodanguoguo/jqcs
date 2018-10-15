@@ -21,7 +21,7 @@
     <result column="UPDATE_BYID" property="updateByid" jdbcType="NUMERIC" />
     <result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
     <result column="UPDATE_DT" property="updateDt" jdbcType="TIMESTAMP" />
-    <result column="FACTORY" property="factory" jdbcType="VARCHAR"/>
+    <result column="FACTORY" property="factory" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     PID, PRODUCT_NAME, DESIGNATION, STANDARD, CATEGORY_ID, USED, THUMBNAIL, PRODUCT_DESC, PRODUCT_MANUAL,
@@ -48,8 +48,7 @@
         A.UPDATE_BY,
         A.UPDATE_DT,
         A.FACTORY,
-        B.CATEGORY_NAME,
-        B.FACTORY
+        B.CATEGORY_NAME
     FROM
         CRM_PRODUCT_INFO A
     LEFT JOIN CRM_PRODUCT_CATEGORY b ON A .CATEGORY_ID = b.cid
@@ -68,16 +67,14 @@
       THUMBNAIL, PRODUCT_DESC, PRODUCT_MANUAL,
       SORT_NUMBER, PRODUCT_AREA, STATUS,
       CREATE_BYID, CREATE_BY, CREATE_DT, 
-      UPDATE_BYID, UPDATE_BY, UPDATE_DT,
-      FACTORY
+      UPDATE_BYID, UPDATE_BY, UPDATE_DT, FACTORY
       )
     values (#{pid,jdbcType=NUMERIC}, #{productName,jdbcType=VARCHAR}, #{designation,jdbcType=VARCHAR}, 
       #{standard,jdbcType=VARCHAR}, #{categoryId,jdbcType=NUMERIC}, #{used,jdbcType=VARCHAR}, 
       #{thumbnail,jdbcType=VARCHAR}, #{productDesc,jdbcType=VARCHAR}, #{productManual,jdbcType=VARCHAR},
       #{sortNumber,jdbcType=NUMERIC}, #{productArea,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
       #{createByid,jdbcType=NUMERIC}, #{createBy,jdbcType=VARCHAR}, #{createDt,jdbcType=TIMESTAMP}, 
-      #{updateByid,jdbcType=NUMERIC}, #{updateBy,jdbcType=VARCHAR}, #{updateDt,jdbcType=TIMESTAMP},
-      #{factory,jdbcType=VARCHAR}
+      #{updateByid,jdbcType=NUMERIC}, #{updateBy,jdbcType=VARCHAR}, #{updateDt,jdbcType=TIMESTAMP}, #{factory}
       )
   </insert>
   <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductInfo" >
@@ -200,7 +197,7 @@
         #{updateDt,jdbcType=TIMESTAMP},
       </if>
       <if test="factory != null" >
-        #{factory,jdbcType=VARCHAR},
+        #{factory,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -259,7 +256,7 @@
         UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP},
       </if>
       <if test="factory != null" >
-        FACTORY = #{factory,jdbcType=VARCHAR},
+        FACTORY = #{factory,jdbcType=TIMESTAMP},
       </if>
     </set>
     where PID = #{pid,jdbcType=NUMERIC}
@@ -282,8 +279,8 @@
       CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
       UPDATE_BYID = #{updateByid,jdbcType=NUMERIC},
       UPDATE_BY = #{updateBy,jdbcType=VARCHAR},
-      UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP},
-      FACTORY = #{factory,jdbcType=VARCHAR}
+      FACTORY = #{factory,jdbcType=VARCHAR},
+      UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP}
     where PID = #{pid,jdbcType=NUMERIC}
   </update>
   <select id="getList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductInfo" >
@@ -302,6 +299,35 @@
       </if>
       <if test="categoryId != null and categoryId != '' " >
         AND category_Id = #{categoryId}
+      </if>
+      <if test="factoryCodes != null" >
+        and FACTORY in
+        <foreach collection="factoryCodes" open="(" close=")" item="item" separator="," index="index">
+          #{factoryCodes[${index}]}
+        </foreach>
+      </if>
+    </trim>
+    order by SORT_NUMBER desc
+  </select>
+  <select id="getIntroductList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductInfo" >
+    select
+    <include refid="Base_Column_List" />
+    from CRM_PRODUCT_INFO
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="productName != null and productName != '' " >
+        AND PRODUCT_NAME LIKE '%' || #{productName} ||'%'
+      </if>
+      <if test="used != null and used != '' " >
+        AND USED LIKE '%' || #{used} ||'%'
+      </if>
+      <if test="status != null and status != '' " >
+        AND status = #{status}
+      </if>
+      <if test="categoryId != null and categoryId != '' " >
+        AND category_Id = #{categoryId}
+      </if>
+      <if test="factory != null and factory != ''" >
+        AND FACTORY = #{factory}
       </if>
     </trim>
     order by SORT_NUMBER desc
@@ -327,8 +353,7 @@
     A.UPDATE_BY,
     A.UPDATE_DT,
     A.FACTORY,
-    B.CATEGORY_NAME,
-    B.FACTORY
+    B.CATEGORY_NAME
     FROM
     CRM_PRODUCT_INFO A
     LEFT JOIN CRM_PRODUCT_CATEGORY b ON A .CATEGORY_ID = b.cid

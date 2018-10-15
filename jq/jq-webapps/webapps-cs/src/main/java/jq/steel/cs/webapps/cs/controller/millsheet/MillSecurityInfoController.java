@@ -1,5 +1,6 @@
 package jq.steel.cs.webapps.cs.controller.millsheet;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.ebase.core.AssertContext;
 import com.ebase.core.exception.BusinessException;
 import com.ebase.core.service.ServiceResponse;
@@ -39,6 +40,7 @@ public class MillSecurityInfoController {
         //logger.info("分页",JsonUtil.toJson(jsonRequest));
         JsonResponse<MillSecurityInfoVO> jsonResponse = new JsonResponse<>();
         try {
+            logger.info("orgCode"+AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
             ServiceResponse<MillSecurityInfoVO> serviceResponse = millSecurityInfoAPI.fangWeiMa(jsonRequest);
@@ -77,9 +79,9 @@ public class MillSecurityInfoController {
                 } else {
                     System.out.println("Failed to delete populated directory: " + localUrl);
                 }
-                serviceResponse.getRetContent().setExplain("文档内签名有效");
+                serviceResponse.getRetContent().setExplain("文档内签名有效，验真成功！");
             }else {
-                serviceResponse.getRetContent().setExplain("文档内签名被篡改");
+                serviceResponse.getRetContent().setExplain("文档内签名被篡改，验真失败！");
             }
 
             jsonResponse.setRspBody(serviceResponse.getRetContent());

@@ -43,6 +43,15 @@ function clsMethodLee$parse(){
             //不可编辑
             ue.setDisabled();
         });
+        $("#returnPrev").show();
+    }else if(this.htmlType == 3){//协议书详情页面
+        $("#htmlBox input").attr("disabled",true).addClass("changeGary");
+        $("#htmlBox textarea").attr("disabled",true).addClass("changeGary");
+        var ue = UE.getEditor('editor');
+        ue.ready(function() {
+            //不可编辑
+            ue.setDisabled();
+        });
     }
     getAjaxResult(document.body.jsLee.requestUrl.path1,"POST",{"claimNo":this.claimNo},"initHtmlCallBack(data)")
     $("#claimNo").html(this.claimNo);
@@ -94,6 +103,11 @@ function clsMethodLee$operate(){
             $(this).val(0);
             $("#agreementAmountUpper").val(changeMoneyToChinese($(this).val()));
         }
+    });
+
+    //返回上一页
+    $("#returnPrev").on("click",function(){
+        jumpUrl("objectionDeal.html","0000000",0);
     });
 
 }

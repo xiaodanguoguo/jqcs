@@ -96,23 +96,23 @@
 
   <select id="splitFind" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo">
     SELECT
-    A.SID,
-    A.CREATED_DT,
-    A.MILL_SHEET_NO,
-    A.ZCHARG,
-    A.SPECS,
-    B.MILL_SHEET_TYPE,
-    B.SPLIT_MAX_VALUE,
-    A.ZCHEHAO,
-    C.ZCPMC,
-    A.ZJISHU,
-    A.ZJISHU_UNIT,
-    (select distinct name1 from MILL_CUSTOMER where KUNNR = B.ZKUNNR) ZKUNNR,
-    B.ZKUNWE,
-    A.ZLOSMENGE,
-    A.ZLPH,
-    B.SURPLUS_BATCH
-    FROM
+A.SID,
+A.CREATED_DT,
+A.MILL_SHEET_NO,
+A.ZCHARG,
+A.SPECS,
+B.MILL_SHEET_TYPE,
+B.SPLIT_MAX_VALUE,
+A.ZCHEHAO,
+C.ZCPMC,
+A.ZJISHU_UNIT,
+(select distinct name1 from MILL_CUSTOMER where KUNNR = B.ZKUNNR) AS ZKUNNR,
+(select distinct name1 from MILL_CUSTOMER where KUNNR = B.ZKUNWE) AS ZKUNWE,
+A.ZLPH,
+B.SURPLUS_BATCH,
+A.SURPLUS_ZLOSMENGE AS ZLOSMENGE,
+A.SURPLUS_ZJISHU AS ZJISHU
+FROM
     WARRANTY.MILL_COIL_INFO A
     LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.MILL_SHEET_HEAD C ON A.MILL_SHEET_NO = C.MILL_SHEET_NO
@@ -139,7 +139,6 @@
   ZCHARG
   FROM
   MILL_COIL_INFO
-  LEFT
   WHERE ZCHARG =  #{zcharg,jdbcType=VARCHAR}
   </select>
   <sql id="Base_Column_List" >

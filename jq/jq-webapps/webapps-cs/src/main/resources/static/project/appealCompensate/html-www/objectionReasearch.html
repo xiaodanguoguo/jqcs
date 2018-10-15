@@ -23,7 +23,8 @@
                     </li>
                     <li class="submission-box-list__Every">
                         <span class="submission-box-list__Name">生产厂家:</span>
-                        <input id="conddeptCode" type="text" class="inputBase">
+                        <select type="text" class="inputBase" id="conddeptCode" comType="singleSelectCtrl" reqPath="/roleInfo/getRoleCodeByAcctId" reqParam="{}" selCode="roleCode" selValue="roleTitle" emptyValue="请选择">
+                        </select>
                     </li>
                     <li class="submission-box-list__Every" style="margin-top: 4px;">
                         <span class="submission-box-list__Name">产品大类:</span>
@@ -98,8 +99,8 @@
                         <th class="table-list-currentrow-theader" width="10%">规格</th>
                         <th class="table-list-currentrow-theader" width="7%">异议类别</th>
                         <th class="table-list-currentrow-theader" width="8%">异议量&nbsp;(&nbsp;吨&nbsp;)</th>
-                        <th class="table-list-currentrow-theader" width="9%">内部调查报告</th>
                         <th class="table-list-currentrow-theader" width="9%">外部调查报告</th>
+                        <th class="table-list-currentrow-theader" width="9%">内部调查报告</th>
                         <th class="table-list-currentrow-theader" width="8%">提报日期</th>
                         <th class="table-list-currentrow-theader" width="8%">受理时间</th>
                         <th class="table-list-currentrow-theader" width="8%">外部调查时间</th>
@@ -112,9 +113,11 @@
                     <tr class="table-list-currentrow" id="templateRow" style="display: none;">
                         <td class="table-list-currentrow-tdetail">
                             <span class="btnLowImgCom" id="printOpe" limitCode="M30302" style="display: none;">打印受理单</span>
-                            <span class="btnLowImgCom" id="detailOpe" limitCode="M30309">详情</span>
-                            <span class="btnLowImgCom" id="researchInOpe" limitCode="M30304" style="display: none;">内部调查</span>
+                            <span class="btnLowImgCom" id="detailOpe" limitCode="M30309">销售审核详情</span>
                             <span class="btnLowImgCom" id="researchOutOpe" limitCode="M30303" style="display: none;">外部调查</span>
+                            <span class="btnLowImgCom" id="researchInOpe" limitCode="M30304" style="display: none;">内部调查</span>
+                            <span class="btnLowImgCom" id="researchOutDetOpe" style="display: none;">外部调查详情</span>
+                            <span class="btnLowImgCom" id="researchInDetOpe" style="display: none;">内部调查详情</span>
                             <span class="btnLowImgCom" id="rejectOpe" limitCode="M30305" style="display: none;">驳回</span>
                             <span class="btnLowImgCom" id="acceptOpe" style="display: none;">受理</span>
                         </td>
@@ -131,10 +134,10 @@
                         <td class="table-list-currentrow-tdetail" id="claimTypeA"></td>
                         <td class="table-list-currentrow-tdetail" id="objectionNum"></td>
                         <td class="table-list-currentrow-tdetail">
-                            <span class="btnLowImgCom" id="downloadInOpe" limitCode="M30306" style="display: none">下载报告</span>
+                            <span class="btnLowImgCom" id="downloadOutOpe" limitCode="M30307" style="display: none;">下载报告</span>
                         </td>
                         <td class="table-list-currentrow-tdetail">
-                            <span class="btnLowImgCom" id="downloadOutOpe" limitCode="M30307" style="display: none;">下载报告</span>
+                            <span class="btnLowImgCom" id="downloadInOpe" limitCode="M30306" style="display: none">下载报告</span>
                         </td>
                         <td class="table-list-currentrow-tdetail" id="presentationDate"></td>
                         <td class="table-list-currentrow-tdetail" id="AdmissibilityTime"></td>

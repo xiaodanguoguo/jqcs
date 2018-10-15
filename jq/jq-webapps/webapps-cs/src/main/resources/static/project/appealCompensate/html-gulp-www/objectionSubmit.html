@@ -69,7 +69,12 @@
             $("#userName").html(unescape(getCookie("userName")));
             $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
             if(unescape(getCookie("navListIdx"))){
-                $(".og-head-mainlt__sasety").eq(unescape(getCookie("navListIdx"))).addClass("og-head-mainlt__sidebar--shrinkActive");
+                $(".og-head-mainlt__sasety").each(function () {
+					if(unescape(getCookie("navListIdx")) == $(this).val()){
+					    $(this).addClass("og-head-mainlt__sidebar--shrinkActive")
+					}
+                });
+                //$(".og-head-mainlt__sasety").eq(unescape(getCookie("navListIdx"))).addClass("og-head-mainlt__sidebar--shrinkActive");
             }
 		    //导航的点击
 		    $(".og-head-navlist li a").on("click",function(){
@@ -103,6 +108,12 @@
                 $.download(requestUrl + "/millsheet/downOperationManual", importParam, "POST");
 			});
             start();
+            //赋值内容主体高度，显示footer
+			if($("#js-leftNavBar").height() > $("#js-loader").height()){
+			    $(".og-head-main").css("height",$("#js-leftNavBar").height()+"px");
+			}else{
+                $(".og-head-main").css("height",$("#js-loader").height()+"px");
+			}
 		})
         //退出接口
         function quitFun(data){
@@ -209,7 +220,8 @@
 						<ul class="menu-ul">
 							<li class="og-head-mainlt__sasety" limitCode="M201" value="6"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/checkTrue.html">防伪验证</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M202" value="7"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList.html">质证书管理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="M203" value="8"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M202" value="19"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList2.html">质证书管理(酒钢)</a></li>
+							<!--<li class="og-head-mainlt__sasety" limitCode="M203" value="8"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>-->
 						</ul>
 					</li>
 					<li class="og-head-mainlt__sidebar--menu"  limitCode="M3">
@@ -220,6 +232,7 @@
 							<li class="og-head-mainlt__sasety" limitCode="M303" value="11"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionReasearch.html">异议调查</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M304" value="12"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionDeal.html">异议处理</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M305" value="13"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionFinish.html">异议结案</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M305" value="20"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionStatic.html">质量异议统计台账</a></li>
 						</ul>
 					</li>
 					<li class="og-head-mainlt__sidebar--menu" limitCode="M1">
@@ -266,6 +279,11 @@
                     <li class="submission-box-list__Every">
                         <span class="submission-box-list__Name">客户名称:</span>
                         <input id="condcustomerId" type="text" class="inputBase">
+                    </li>
+                    <li class="submission-box-list__Every">
+                        <span class="submission-box-list__Name">生产厂家:</span>
+                        <select type="text" class="inputBase" id="conddeptCode" comType="singleSelectCtrl" reqPath="/roleInfo/getRoleCodeByAcctId" reqParam="{}" selCode="roleCode" selValue="roleTitle" emptyValue="请选择">
+                        </select>
                     </li>
                     <li class="submission-box-list__Every">
                         <span class="submission-box-list__Name">产品牌号:</span>
@@ -323,7 +341,7 @@
                 </ul>
             </div>
             <div class="submission-box-button">
-                <div class="btnLowNew submission-box-search" comType="searchBtnCtrl" cond="condclaimNo,condcustomerId,conddesignation,condstartDt,condendDt,condclaimType,condclaimState,condsid,condbattenPlateNo" rule="cond" unionTableId="tableList" parentId="searchBox"  limitCode="M30210">查询</div>
+                <div class="btnLowNew submission-box-search" comType="searchBtnCtrl" cond="condclaimNo,condcustomerId,conddesignation,condstartDt,condendDt,condclaimType,condclaimState,condsid,condbattenPlateNo,conddeptCode" rule="cond" unionTableId="tableList" parentId="searchBox"  limitCode="M30210">查询</div>
                 <div class="btnLowNew submission-box-create" id="newOpe" limitCode="M30201">新建</div>
                 <!--<div class="btnLowNew submission-box-amend">修改</div>
                 <div class="btnLowNew submission-box-submit">提交</div>-->
@@ -358,7 +376,7 @@
                 <tr class="table-list-currentrow" id="templateRow" style="display: none;">
                     <td class="table-list-currentrow-tdetail">
                         <span class="btnLowImgCom" id="editOpe" limitCode="M30202" style="display: none;">修改</span>
-                        <span class="btnLowImgCom" id="detailOpe" limitCode="M30211">详情</span>
+                        <span class="btnLowImgCom" id="detailOpe" limitCode="M30211">异议详情</span>
                         <span class="btnLowImgCom" id="auditOpe" limitCode="M30206" style="display: none;">销售审核</span>
                         <span class="btnLowImgCom" id="evaluateOpe" limitCode="M30207" style="display: none;">异议处理评价</span>
                     </td>
@@ -450,10 +468,13 @@
         </div>
         <div class="content">
             <div class="previewOpeBox">
-                <div class="previewOpeBox-pdf" id="previewOpeBoxPdf"></div>
+                <!--<div class="previewOpeBox-pdf" id="previewOpeBoxPdf"></div>-->
                 <div class="previewOpeBox-operate" style="margin-top: 20px;">
-                    <button id="previewNext" class="btnLowNew previewOpeBox-operate-next fr">下一页</button>
-                    <button id="previewPrev" class="btnLowNew previewOpeBox-operate-prev fl">上一页</button>
+                    <img src="" alt="" id="" style="width: 400px;height: 600px;margin-left: 25px;">
+                    <div style="margin-top: 10px;padding-bottom: 20px;">
+                        <button id="previewNext" class="btnLowNew previewOpeBox-operate-next fr">下一页</button>
+                        <button id="previewPrev" class="btnLowNew previewOpeBox-operate-prev fl">上一页</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -470,8 +491,9 @@
         </div>
         <div class="content">
             <div class="previewOpeBox">
-                <div class="previewOpeBox-pdf" id="previewOpeBoxPdf2"></div>
-                <div class="previewOpeBox-operate" style="margin-top: 20px;">
+                <!--<div class="previewOpeBox-pdf" id="previewOpeBoxPdf2"></div>-->
+                <img src="" alt="" id="" style="width: 400px;height: 600px;margin-left: 25px;">
+                <div style="margin-top: 10px;padding-bottom: 20px;">
                     <button id="downViewCancel" class="btnLowNew previewOpeBox-operate-prev fl">取消</button>
                     <button id="downView" class="btnLowNew previewOpeBox-operate-next fr">下载</button>
                 </div>
@@ -481,7 +503,7 @@
 
 </div>
 </div>
-<div style="width: 1200px;height: 70px;margin: 0 auto;text-align: center;line-height: 70px;">
+<div style="width: 1200px;height: 70px;margin: 0px auto;text-align: center;line-height: 70px;">
     copyright ©️ 2018 甘肃酒钢集团宏兴钢铁股份有限公司 版权所有
 </div>
 </div>

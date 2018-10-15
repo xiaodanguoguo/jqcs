@@ -1,6 +1,5 @@
 package jq.steel.cs.services.cust.facade.dao;
 
-import jq.steel.cs.services.cust.api.vo.CrmProductInfoVO;
 import jq.steel.cs.services.cust.facade.model.CrmProductInfo;
 
 import java.util.List;
@@ -18,9 +17,11 @@ public interface CrmProductInfoMapper {
 
     int updateByPrimaryKey(CrmProductInfo record);
 
-    List<CrmProductInfo> getList(CrmProductInfoVO record);
+    List<CrmProductInfo> getList(CrmProductInfo record);
 
     CrmProductInfo getOne(CrmProductInfo record);
 
     Long getMaxSortNumber();
+
+    List<CrmProductInfo> getIntroductList(CrmProductInfo crmProductInfoVO);
 }

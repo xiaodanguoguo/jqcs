@@ -8,10 +8,57 @@ import java.util.List;
 
 public class ObjectionChuLiVO {
 
+    //过期原因
+    private String expiredReason;
+
+    //结案时间
+    private Date closingTime;
+
+    //是否跟踪
+    private String IsTrack;
+
+    //是否允许上传
+    private String isUpload;
+
     //现场结论
     private String fieldConclusion;
 
     private String claimState1;
+
+    //过期标识
+    private String expiredSign;
+
+    public String getExpiredSign() {
+        return expiredSign;
+    }
+
+    public void setExpiredSign(String expiredSign) {
+        this.expiredSign = expiredSign;
+    }
+
+    public String getExpiredReason() {
+        return expiredReason;
+    }
+
+    public void setExpiredReason(String expiredReason) {
+        this.expiredReason = expiredReason;
+    }
+
+    public Date getClosingTime() {
+        return closingTime;
+    }
+
+    public void setClosingTime(Date closingTime) {
+        this.closingTime = closingTime;
+    }
+
+    public String getIsTrack() {
+        return IsTrack;
+    }
+
+    public void setIsTrack(String isTrack) {
+        IsTrack = isTrack;
+    }
 
     public String getFieldConclusion() {
         return fieldConclusion;
@@ -223,6 +270,15 @@ public class ObjectionChuLiVO {
 
     //备注
     private String memo;
+
+
+    public String getIsUpload() {
+        return isUpload;
+    }
+
+    public void setIsUpload(String isUpload) {
+        this.isUpload = isUpload;
+    }
 
     public String getMemo() {
         return memo;

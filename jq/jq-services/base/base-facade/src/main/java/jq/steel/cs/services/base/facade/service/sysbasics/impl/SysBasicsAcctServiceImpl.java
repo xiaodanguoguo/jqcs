@@ -536,20 +536,23 @@ public class SysBasicsAcctServiceImpl implements SysBasicsAcctService {
         }else if(acctInfo.getAcctId()!=null){
             if (CollectionUtils.isNotEmpty(list)) {
                 for (AcctInfo acctInfo1 : list) {
-                    if (!acctInfo1.getAcctId().equals(reqBody.getAcctId()) && reqBody.getAcctTitle().equals(acctInfo1.getAcctTitle())) {
-                        jsonResponse.setRetCode("0701006");
-                        return jsonResponse;
+                    if (!acctInfo1.getAcctId().equals(reqBody.getAcctId())) {
+                        if (!acctInfo1.getAcctId().equals(reqBody.getAcctId()) && reqBody.getAcctTitle().equals(acctInfo1.getAcctTitle())) {
+                            jsonResponse.setRetCode("0701006");
+                            return jsonResponse;
+                        }
+
+                        if (!acctInfo1.getAcctId().equals(reqBody.getAcctId()) && reqBody.getEmail().equals(acctInfo1.getEmail())) {
+                            jsonResponse.setRetCode("0401004");
+                            return jsonResponse;
+                        }
+
+                        if (!acctInfo1.getAcctId().equals(reqBody.getAcctId()) && reqBody.getMobilePhone().equals(acctInfo1.getMobilePhone())) {
+                            jsonResponse.setRetCode("0401005");
+                            return jsonResponse;
+                        }
                     }
 
-                    if (!acctInfo1.getAcctId().equals(reqBody.getAcctId()) && reqBody.getEmail().equals(acctInfo1.getEmail())) {
-                        jsonResponse.setRetCode("0401004");
-                        return jsonResponse;
-                    }
-
-                    if (!acctInfo1.getAcctId().equals(reqBody.getAcctId()) && reqBody.getMobilePhone().equals(acctInfo1.getMobilePhone())) {
-                        jsonResponse.setRetCode("0401005");
-                        return jsonResponse;
-                    }
                 }
             }
             //用户表修改
@@ -912,20 +915,23 @@ public PageDTO<AcctInfoVO> listSysAcct(JsonRequest<AcctInfoVO> jsonRequest)throw
         List<AcctInfo> list = acctInfoMapper.selectAll(acctInfo);
         if (CollectionUtils.isNotEmpty(list)) {
             for (AcctInfo acctInfo1 : list) {
-                if ((!acctInfo1.getAcctId().equals(acctInfoVO.getAcctId())) && acctInfoVO.getAcctTitle().equals(acctInfo1.getAcctTitle())) {
-                    serviceResponse.setResponseCode("0701006");
-                    return serviceResponse;
+                if (!acctInfo1.getAcctId().equals(acctInfoVO.getAcctId())) {
+                    if ((!acctInfo1.getAcctId().equals(acctInfoVO.getAcctId())) && acctInfoVO.getAcctTitle().equals(acctInfo1.getAcctTitle())) {
+                        serviceResponse.setResponseCode("0701006");
+                        return serviceResponse;
+                    }
+
+                    if ((!acctInfo1.getAcctId().equals(acctInfoVO.getAcctId())) && acctInfoVO.getEmail().equals(acctInfo1.getEmail())) {
+                        serviceResponse.setResponseCode("0401004");
+                        return serviceResponse;
+                    }
+
+                    if ((!acctInfo1.getAcctId().equals(acctInfoVO.getAcctId())) && acctInfoVO.getMobilePhone().equals(acctInfo1.getMobilePhone())) {
+                        serviceResponse.setResponseCode("0401005");
+                        return serviceResponse;
+                    }
                 }
 
-                if ((!acctInfo1.getAcctId().equals(acctInfoVO.getAcctId())) && acctInfoVO.getEmail().equals(acctInfo1.getEmail())) {
-                    serviceResponse.setResponseCode("0401004");
-                    return serviceResponse;
-                }
-
-                if ((!acctInfo1.getAcctId().equals(acctInfoVO.getAcctId())) && acctInfoVO.getMobilePhone().equals(acctInfo1.getMobilePhone())) {
-                    serviceResponse.setResponseCode("0401005");
-                    return serviceResponse;
-                }
             }
         }
         int i = acctInfoMapper.updateByPrimaryKeySelective(acctInfo);

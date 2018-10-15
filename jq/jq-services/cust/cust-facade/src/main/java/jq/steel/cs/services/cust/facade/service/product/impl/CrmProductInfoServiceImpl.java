@@ -45,7 +45,7 @@ public class CrmProductInfoServiceImpl implements CrmProductInfoService {
 
             PageDTOUtil.startPage(crmProductInfoVO);
 
-            List<CrmProductInfo> list = crmProductInfoMapper.getList(crmProductInfoVO);
+            List<CrmProductInfo> list = crmProductInfoMapper.getList(crmProductInfo);
             PageDTO<CrmProductInfoVO> page = PageDTOUtil.transform(list, CrmProductInfoVO.class);
 
             return page;
@@ -211,7 +211,7 @@ public class CrmProductInfoServiceImpl implements CrmProductInfoService {
             crmProductInfoVO.setStatus(ProductInfoStatus.ISSUE.getCode());
             PageDTOUtil.startPage(crmProductInfoVO);
 
-            List<CrmProductInfo> list = crmProductInfoMapper.getList(crmProductInfoVO);
+            List<CrmProductInfo> list = crmProductInfoMapper.getIntroductList(crmProductInfo);
             PageDTO<CrmProductInfoVO> page = PageDTOUtil.transform(list, CrmProductInfoVO.class);
 
             return page;

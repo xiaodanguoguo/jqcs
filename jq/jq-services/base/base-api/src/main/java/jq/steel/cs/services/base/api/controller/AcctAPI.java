@@ -63,4 +63,7 @@ public interface AcctAPI {
 
     @RequestMapping(value = "acct/getAcctAuthPath",method = RequestMethod.POST)
     public ServiceResponse<Map<String, String>> getAcctAuthPath(@RequestParam(value = "acctId") String acctId);
+
+    @RequestMapping(value = "acct/expire",method = RequestMethod.POST)
+    public ServiceResponse expire(@RequestParam(value = "authKey") String authKey);
 }

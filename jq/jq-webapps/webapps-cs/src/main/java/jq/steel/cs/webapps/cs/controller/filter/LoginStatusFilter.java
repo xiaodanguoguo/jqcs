@@ -3,6 +3,7 @@ package jq.steel.cs.webapps.cs.controller.filter;
 import com.ebase.core.AssertContext;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.session.AcctSession;
+import com.ebase.core.session.CacheKeyConstant;
 import com.ebase.core.session.User;
 import com.ebase.core.session.UserSession;
 import com.ebase.core.web.json.JsonResponse;
@@ -112,6 +113,9 @@ public class LoginStatusFilter implements Filter {
 
         //验证用户是否登录..
         String sessionId = CookieUtil.getSessionId(servletRequest);
+        String authKey = CacheKeyConstant.ACCT_SESSION  + servletRequest.getSession().getId() + WebUtil.getClientType(servletRequest);
+        // 重置过期时间
+        acctAPI.expire(authKey);
 
         ServiceResponse<AcctSession> serviceResponse =  acctAPI.getUser(sessionId);
 

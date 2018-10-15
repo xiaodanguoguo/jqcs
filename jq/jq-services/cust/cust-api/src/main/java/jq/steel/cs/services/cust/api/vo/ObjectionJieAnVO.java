@@ -1,19 +1,21 @@
 package jq.steel.cs.services.cust.api.vo;
 
 public class ObjectionJieAnVO {
+
+    //过期原因
+    private String expiredReason;
+
+    //过期标识
+    private String expiredSign;
+
+
     private String claimState1;
-
-    public String getClaimState1() {
-        return claimState1;
-    }
-
-    public void setClaimState1(String claimState1) {
-        this.claimState1 = claimState1;
-    }
 
     //上传文件图片字段
     private String viewUrl;
+
     private String originalName;
+
     private String filePath;
 
     private  String orgCode;
@@ -25,10 +27,32 @@ public class ObjectionJieAnVO {
     //协议书文件地址
     private  String  claimNoUrl;
 
-
-
     //润乾地址
     private  String report;
+
+    public String getExpiredSign() {
+        return expiredSign;
+    }
+
+    public void setExpiredSign(String expiredSign) {
+        this.expiredSign = expiredSign;
+    }
+
+    public String getExpiredReason() {
+        return expiredReason;
+    }
+
+    public void setExpiredReason(String expiredReason) {
+        this.expiredReason = expiredReason;
+    }
+
+    public String getClaimState1() {
+        return claimState1;
+    }
+
+    public void setClaimState1(String claimState1) {
+        this.claimState1 = claimState1;
+    }
 
     public String getViewUrl() {
         return viewUrl;

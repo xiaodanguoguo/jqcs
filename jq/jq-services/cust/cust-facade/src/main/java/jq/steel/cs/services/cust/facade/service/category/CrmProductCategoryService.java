@@ -38,5 +38,7 @@ public interface CrmProductCategoryService {
      * @author: lirunze
      * @Date: 2018/8/20
      */
-    List<CrmProductCategoryVO> getList();
+    List<CrmProductCategoryVO> getList(List<String> codes);
+
+    List<CrmProductCategoryVO> getIntroductList(CrmProductCategoryVO crmProductCategoryVO);
 }

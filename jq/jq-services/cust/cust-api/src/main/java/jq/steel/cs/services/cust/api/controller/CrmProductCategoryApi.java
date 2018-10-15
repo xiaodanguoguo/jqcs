@@ -46,7 +46,7 @@ public interface CrmProductCategoryApi {
      * @Date: 2018/8/20
      */
     @RequestMapping("/product/category/down/list")
-    ServiceResponse<List<CrmProductCategoryVO>> getList();
+    ServiceResponse<List<CrmProductCategoryVO>> getList(@RequestBody List<String> codes);
 
     /**
      * @param: jsonRequest
@@ -56,7 +56,7 @@ public interface CrmProductCategoryApi {
      * @Date: 2018/8/20
      */
     @RequestMapping("/product/category/submit")
-    ServiceResponse<Boolean> submitCrmProductCategory(JsonRequest<List<CrmProductCategoryVO>> jsonRequest);
+    ServiceResponse<Boolean> submitCrmProductCategory(@RequestBody JsonRequest<List<CrmProductCategoryVO>> jsonRequest);
 
     /**
      * @param:  jsonRequest
@@ -66,5 +66,5 @@ public interface CrmProductCategoryApi {
      * @Date: 2018/8/25
      */
     @RequestMapping("/product/category/introduct/list")
-    ServiceResponse<List<CrmProductCategoryVO>> getIntroductList();
+    ServiceResponse<List<CrmProductCategoryVO>> getIntroductList(@RequestBody JsonRequest<CrmProductCategoryVO> jsonRequest);
 }

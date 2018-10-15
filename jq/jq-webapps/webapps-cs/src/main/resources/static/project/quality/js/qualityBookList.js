@@ -3,9 +3,12 @@ function clsMethodLee(){
         "path1":"/millsheet/findMillSheetByPage",//初始list列表
         "path2":"/millsheet/preview",//预览接口
         "path3":"/millsheet/downFile",//下载接口
-        "path4":"/sysAcct/customerType"//获取用户信息接口
+        "path4":"/sysAcct/customerType",//获取用户信息接口
+        "path5":"/millsheet/updateNumber",//增加打印次数接口
+        "path6":"/"//增加下载次数接口
     };
     this.documentLee = null;
+    this.millSheetNo = "";//回退millSheetNo主键
     this.previewArr = [];//缓存预览数组
     this.previewArrCurrent = "";//当前预览图片
     this.init = clsMethodLee$init;//初始化页面的展示内容,绑定dom节点
@@ -25,13 +28,25 @@ function clsMethodLee$init(){
     this.checkAll = $("#checkAll");
     //预览弹框
     this.previewOpeBox = $("#previewOpeBox");
+    //打印次数+1
+    this.printJiaOpe = $("#printJiaOpe");
+    //下载次数+1
+    this.downLoadJiaOpe = $("#downLoadJiaOpe");
     this.parse();
 
 }
 function clsMethodLee$parse(){
     limitCodeDeal($("*[limitCode]"),"limitCode");
+    $("#condstartDt").val(getNowFormatDate());
+    $("#condendDt").val(getNowFormatDate());
     getAjaxResult(this.requestUrl.path4,"POST",{},"getContentCallBack(data)");
-
+    $("#condstates").chosen({
+        //disable_search_threshold: 5,
+        no_results_text: "没有匹配结果!",
+        width:"122px",
+        enable_split_word_search: false,
+        placeholder_text_single: '请选择'
+    });
     this.operate();
 }
 
@@ -63,7 +78,7 @@ function clsMethodLee$operate(){
         }else{
             var num = 0;
             for(var nI = 0; nI < $("#tableList")[0].cacheArr.length; nI++){
-                if($("#tableList")[0].cacheArr[nI].printableNum != 0){
+                if($("#tableList")[0].cacheArr[nI].downableNum != 0){
                     num++;
                 }
             }
@@ -74,7 +89,7 @@ function clsMethodLee$operate(){
                 }
                 var importParam = "name=" + JSON.stringify(millSheetNoArr);
                 $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
-
+                $("#tableList")[0].cacheArr = [];
                 setTimeout(function(){
                     initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
                 },2000);
@@ -106,7 +121,43 @@ function clsMethodLee$operate(){
 
         }
     });
+    $("#rejectSureOpe").on("click",function(){//确认退回操作
+        if(checkBackSure()){
+            var jsonParam = {"millSheetNo":document.body.jsLee.millSheetNo,"regresses":$("#rejectText").val()};
+            getAjaxResult("/rebackApply/applyForRetreat","POST",jsonParam,"backSureCallBack(data)");
+        }
+    });
+    $("#rejectCancelOpe").on("click",function () {
+        closePopupWin();
+    });
 
+    //打印次+1
+    this.printJiaOpe.on("click",function(){
+        if($("#tableList")[0].cacheArr.length == 0){
+            var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert("请勾选将要增加打印次数的质证书","失败提示");
+        }else{
+            var millSheetNoArr = [];
+            for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
+                millSheetNoArr.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":1});
+            }
+            getAjaxResult(document.body.jsLee.requestUrl.path5,"POST",millSheetNoArr,"jiaOneCallBack(data)")
+        }
+    });
+
+    //下载次数+1
+    this.downLoadJiaOpe.on("click",function(){
+        if($("#tableList")[0].cacheArr.length == 0){
+            var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert("请勾选将要增加下载次数的质证书","失败提示");
+        }else{
+            var millSheetNoArr = [];
+            for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
+                millSheetNoArr.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":2});
+            }
+            getAjaxResult(document.body.jsLee.requestUrl.path5,"POST",millSheetNoArr,"jiaOneCallBack(data)")
+        }
+    });
 }
 function clsMethodLee$refresh(){
 
@@ -169,6 +220,9 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {//插件渲染操作
             $(cloneRow).find("#stateName").html("已拆分");
             break;
     }
+    if(statsBook == "EXAMINED" || statsBook == "DOWNLOADED" || statsBook == "PRIVIEWED" || statsBook == "PRINTED"){
+        $(cloneRow).find("#applyBack").show();
+    }
     //赋值title
     $(cloneRow).find("#zchehao").attr("title",jsonItem.zchehao);
     $(cloneRow).find("#zcpmc").attr("title",jsonItem.zcpmc);
@@ -190,6 +244,12 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {//插件渲染操作
     //拆分历史查看操作
     $(cloneRow).find("#historySplit").on("click",function(){
         jumpUrl("historySplit.html?millSheetNo=" + jsonItem.millSheetNo,"0000000",1);
+    });
+    //申请回退
+    $(cloneRow).find("#applyBack").on("click",function(){
+        openWin('360', '245', 'applyBackPopup', true);
+        $("#rejectText").val("");
+        document.body.jsLee.millSheetNo = jsonItem.millSheetNo;
     });
 };
 
@@ -224,7 +284,7 @@ function initplugPath(docm,comType,reqPath,reqParam,reqMethod){
 function previewCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        openWin("1200","700","previewOpeBox");
+        openWin("1200","600","previewOpeBox");
         document.body.jsLee.previewArr = data.rspBody;
         document.body.jsLee.previewArrCurrent = document.body.jsLee.previewArr[0].millSheetPath;
         $("#previewOpeBoxPdf").attr("src",document.body.jsLee.previewArrCurrent);
@@ -294,15 +354,15 @@ function getContentCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         if(data.rspBody){
-            if(data.rspBody.acctType != 1 && data.rspBody.acctType != 0){
+            if(data.rspBody.acctType != 5){
                 $("#condzkunnr").val(data.rspBody.orgName).attr("disabled",true).addClass("changeGary");
                 $("*[comType=clearAllCond]").attr("bindctrlid","condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph");
                 $("*[comType=clearAllCond]")[0].jsCtrl.bindCtrlId = "condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph";
                 $("#tableList")[0].cacheArr = [];
-                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"zkunnr":data.rspBody.orgName},"POST");
+                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"zkunnr":data.rspBody.orgName,"startDt":$("#condstartDt").val(),"endDt":$("#condendDt").val()},"POST");
             }else{
                 $("#tableList")[0].cacheArr = [];
-                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{},"POST");
+                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"startDt":$("#condstartDt").val(),"endDt":$("#condendDt").val()},"POST");
             }
 
         }
@@ -326,9 +386,62 @@ function clsAlertBoxCtrl$sure() {//成功弹框确定
 function printOpeCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
+        $("#tableList")[0].cacheArr = [];
         initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
         jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody[0].report,"0000000","1");
     }
+}
+
+//校验退回操作
+function checkBackSure(){
+    initValidate($("#applyBackPopup")[0]);
+    var valiClass=new clsValidateCtrl();
+    if(!valiClass.validateAll4Ctrl($("#applyBackPopup")[0])){
+        return false;
+    }
+    return true;
+}
+
+//退回接口回调函数
+function backSureCallBack(data){
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        closePopupWin();
+        var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert("电子质证书，编号："+ document.body.jsLee.millSheetNo +"，已经回退","成功提示");
+    }
+}
+
+//增加次数（打印/下载）回调函数
+function jiaOneCallBack(data){
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+    }
+}
+
+function clsSearchBtnCtrl$after(jsonCond) {
+    $("#tableList")[0].cacheArr = [];
+    return jsonCond;
+}
+
+//获取当前日期
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+        /*+ " " + date.getHours() + seperator2 + date.getMinutes()
+        + seperator2 + date.getSeconds();*/
+    return currentdate;
 }
 
 $(function(){

@@ -1,6 +1,9 @@
 package jq.steel.cs.services.cust.facade.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
+import java.util.List;
 
 public class CrmProductInfo {
     // 产品ID
@@ -34,6 +37,7 @@ public class CrmProductInfo {
 
     private String createBy;
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date createDt;
 
     private Long updateByid;
@@ -42,12 +46,9 @@ public class CrmProductInfo {
 
     private Date updateDt;
 
-    //工厂
     private String factory;
 
-    public String getFactory() { return factory; }
-
-    public void setFactory(String factory) { this.factory = factory; }
+    private List<String> factoryCodes;
 
     public Long getPid() {
         return pid;
@@ -199,5 +200,21 @@ public class CrmProductInfo {
 
     public void setUpdateDt(Date updateDt) {
         this.updateDt = updateDt;
+    }
+
+    public String getFactory() {
+        return factory;
+    }
+
+    public void setFactory(String factory) {
+        this.factory = factory;
+    }
+
+    public List<String> getFactoryCodes() {
+        return factoryCodes;
+    }
+
+    public void setFactoryCodes(List<String> factoryCodes) {
+        this.factoryCodes = factoryCodes;
     }
 }

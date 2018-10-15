@@ -48,4 +48,5 @@ public interface AcctService {
      */
     Map<String, String> getAcctAuthPath(String acctId);
 
+    void expire(String authKey);
 }

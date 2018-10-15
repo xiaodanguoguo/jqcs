@@ -12,7 +12,9 @@
             </div>
             <div class="message-content-box clearfix " id="tableList" comtype="" templateid="templateRow" reqpath="/product/info/introduct/list" reqparam="{}" method="POST" page="tcdPageCode">
                 <dl class="message-content-box__Every" id="templateRow" style="display: none;cursor: pointer;">
-                    <dt class="message-content-box__picture" id="imgShow"></dt>
+                    <dt class="message-content-box__picture" id="imgShow">
+                        <img id="thumbnail" src="" alt="" style="width: 288px;height: 200px;">
+                    </dt>
                     <dd class="message-content-box__headline" id="productName"></dd>
                 </dl>
             </div>
@@ -27,7 +29,7 @@
         document.body.jsCtrl.init();
     });
     function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
-        $(cloneRow).find("#imgShow").css("background",jsonItem.thumbnail);
+       // $(cloneRow).find("#imgShow").css("background","url('"+ jsonItem.thumbnail +"')");
         $(cloneRow).on("click",function(){
             jumpUrl("productDetail.html?pid="+ jsonItem.pid,"0000000",0);
         })

@@ -96,14 +96,17 @@ WHERE
 <!--异议调查-->
   <select id="findByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
     SELECT H.* FROM(SELECT
+    A.BATTEN_PLATE_NO,
+    A.SID,
     A.CLAIM_NO,
     A.CLAIM_STATE,
     A.MILL_SHEET_NO,
+    A.CUSTOMER_NAME,
     A.REJECT_REASON,
-    case when B.DEPT_CODE = '1000' then '不锈钢厂'
-    when B.DEPT_CODE = '2000' then '炼轧厂'
-    when B.DEPT_CODE = '2200' then '碳钢薄板厂'
-    when B.DEPT_CODE='3000' then '榆钢工厂' else B.DEPT_CODE end as DEPT_CODE,
+    case when B.DEPT_CODE = '1000' then '不锈'
+    when B.DEPT_CODE = '2000' then '炼轧'
+    when B.DEPT_CODE = '2200' then '碳钢'
+    when B.DEPT_CODE='3000' then '榆钢' else B.DEPT_CODE end as DEPT_CODE,
     A.PRODUCT_ID,
     A.PRODUCT_NAME,
     A.DESIGNATION,
@@ -143,7 +146,7 @@ WHERE
         <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
       </if>
       <if test="customerId != null and customerId != ''" >
-        AND H.CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+        AND H.CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
       </if>
       <if test="claimType != null and claimType != ''" >
         AND H.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
@@ -192,6 +195,7 @@ WHERE
       <if test="inquireState != null and inquireState != ''" >
         AND H.INQUIRE_STATE = #{inquireState,jdbcType=VARCHAR}
       </if>
+      order by H.SID desc
     </trim>
   </select>
 
@@ -517,6 +521,12 @@ LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
       <if test="fieldConclusionPhoto != null and fieldConclusionPhoto != ''" >
         FIELD_CONCLUSION_PHOTO = #{fieldConclusionPhoto,jdbcType=VARCHAR},
       </if>
+      <if test="trace != null" >
+        TRACE = #{trace ,jdbcType=VARCHAR},
+      </if>
+      <if test="trackingTime != null" >
+        TRACKING_TIME = #{trackingTime ,jdbcType=TIMESTAMP},
+      </if>
     </trim>
     where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
   </update>
@@ -528,6 +538,7 @@ LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
     A.CLAIM_NO,
     A.CLAIM_STATE,
     A.MILL_SHEET_NO,
+    A.CUSTOMER_NAME,
     B.DEPT_CODE,
     A.PRODUCT_ID,
     A.PRODUCT_NAME,
@@ -567,7 +578,7 @@ LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
         <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
       </if>
       <if test="customerId != null and customerId != ''" >
-        AND H.CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+        AND H.CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
       </if>
       <if test="claimType != null and claimType != ''" >
         AND H.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}

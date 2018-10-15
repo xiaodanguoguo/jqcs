@@ -1,5 +1,7 @@
 package jq.steel.cs.services.cust.api.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -37,6 +39,7 @@ public class CrmProductInfoVO {
 
     private String createBy;
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date createDt;
 
     private Long updateByid;
@@ -45,14 +48,11 @@ public class CrmProductInfoVO {
 
     private Date updateDt;
 
-    private List<Long> pids;
-
-    //工厂
     private String factory;
 
-    public String getFactory() { return factory; }
+    private List<Long> pids;
 
-    public void setFactory(String factory) { this.factory = factory; }
+    private List<String> factoryCodes;
 
     private int pageNum = 1;
     private int pageSize = 10;
@@ -217,12 +217,28 @@ public class CrmProductInfoVO {
         this.updateDt = updateDt;
     }
 
+    public String getFactory() {
+        return factory;
+    }
+
+    public void setFactory(String factory) {
+        this.factory = factory;
+    }
+
     public List<Long> getPids() {
         return pids;
     }
 
     public void setPids(List<Long> pids) {
         this.pids = pids;
+    }
+
+    public List<String> getFactoryCodes() {
+        return factoryCodes;
+    }
+
+    public void setFactoryCodes(List<String> factoryCodes) {
+        this.factoryCodes = factoryCodes;
     }
 
     public int getPageNum() {

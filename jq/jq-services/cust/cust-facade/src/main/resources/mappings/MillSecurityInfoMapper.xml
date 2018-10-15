@@ -152,6 +152,12 @@
       <if test="coCheckNumMax != null" >
         CO_CHECK_NUM_MAX = #{coCheckNumMax,jdbcType=DECIMAL},
       </if>
+      <if test="checkNum != null" >
+        CHECK_NUM = #{checkNum,jdbcType=DECIMAL},
+      </if>
+      <if test="checkNumMax != null" >
+        CHECK_NUM_MAX = #{checkNumMax,jdbcType=DECIMAL},
+      </if>
       <if test="createdBy != null" >
         CREATED_BY = #{createdBy,jdbcType=VARCHAR},
       </if>

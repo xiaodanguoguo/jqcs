@@ -4,8 +4,10 @@
     <script src="../js/userManage.js"></script>
     <div class="useMange-content">
         <div class="useMange-content-search" id="searchBox">
-            <input class="fl useMange-content-search__input" id="condacctTitle" placeholder="用户名查询">
-            <div class="fl useMange-content-search__btn" comType="searchBtnCtrl" cond="condacctTitle" rule="cond" unionTableId="tableList" parentId="searchBox" limitCode="M50201">搜索</div>
+            <input class="fl useMange-content-search__input" id="condacctTitle" placeholder="用户名查询" style="width: 100px;">
+            <input class="fl useMange-content-search__input" id="condname" placeholder="用户信息查询" style="width: 100px;">
+            <input class="fl useMange-content-search__input" id="condorgTitle" placeholder="组织查询" style="width: 100px;">
+            <div class="fl useMange-content-search__btn" comType="searchBtnCtrl" cond="condacctTitle,condname,condorgTitle" rule="cond" unionTableId="tableList" parentId="searchBox" limitCode="M50201">搜索</div>
             <div class="useMange-content-search__btn fl" id="userNew" style="margin-left: 10px;" limitCode="M50205">新建</div>
         </div>
         <table class="useMange-content-table" id="tableList" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="" method="POST" noData="nonData">

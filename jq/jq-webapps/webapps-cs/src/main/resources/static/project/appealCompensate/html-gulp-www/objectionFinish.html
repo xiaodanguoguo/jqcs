@@ -69,7 +69,12 @@
             $("#userName").html(unescape(getCookie("userName")));
             $(".og-head-mainlt__sidebar .og-head-mainlt__sasety").removeClass("og-head-mainlt__sidebar--shrinkActive");
             if(unescape(getCookie("navListIdx"))){
-                $(".og-head-mainlt__sasety").eq(unescape(getCookie("navListIdx"))).addClass("og-head-mainlt__sidebar--shrinkActive");
+                $(".og-head-mainlt__sasety").each(function () {
+					if(unescape(getCookie("navListIdx")) == $(this).val()){
+					    $(this).addClass("og-head-mainlt__sidebar--shrinkActive")
+					}
+                });
+                //$(".og-head-mainlt__sasety").eq(unescape(getCookie("navListIdx"))).addClass("og-head-mainlt__sidebar--shrinkActive");
             }
 		    //导航的点击
 		    $(".og-head-navlist li a").on("click",function(){
@@ -103,6 +108,12 @@
                 $.download(requestUrl + "/millsheet/downOperationManual", importParam, "POST");
 			});
             start();
+            //赋值内容主体高度，显示footer
+			if($("#js-leftNavBar").height() > $("#js-loader").height()){
+			    $(".og-head-main").css("height",$("#js-leftNavBar").height()+"px");
+			}else{
+                $(".og-head-main").css("height",$("#js-loader").height()+"px");
+			}
 		})
         //退出接口
         function quitFun(data){
@@ -209,7 +220,8 @@
 						<ul class="menu-ul">
 							<li class="og-head-mainlt__sasety" limitCode="M201" value="6"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/checkTrue.html">防伪验证</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M202" value="7"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList.html">质证书管理</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="M203" value="8"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M202" value="19"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/qualityBookList2.html">质证书管理(酒钢)</a></li>
+							<!--<li class="og-head-mainlt__sasety" limitCode="M203" value="8"><a href="javascript:;" href="javascript:;" acSrc="../../quality/html-gulp-www/applyBack.html">申请回退</a></li>-->
 						</ul>
 					</li>
 					<li class="og-head-mainlt__sidebar--menu"  limitCode="M3">
@@ -220,6 +232,7 @@
 							<li class="og-head-mainlt__sasety" limitCode="M303" value="11"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionReasearch.html">异议调查</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M304" value="12"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionDeal.html">异议处理</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M305" value="13"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionFinish.html">异议结案</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M305" value="20"><a href="javascript:;" href="javascript:;" acSrc="../../appealCompensate/html-gulp-www/objectionStatic.html">质量异议统计台账</a></li>
 						</ul>
 					</li>
 					<li class="og-head-mainlt__sidebar--menu" limitCode="M1">
@@ -272,7 +285,8 @@
                     </li>
                     <li class="submission-box-list__Every">
                         <span class="submission-box-list__Name">生产厂家:</span>
-                        <input id="conddeptCode" type="text" class="inputBase">
+                        <select type="text" class="inputBase" id="conddeptCode" comType="singleSelectCtrl" reqPath="/roleInfo/getRoleCodeByAcctId" reqParam="{}" selCode="roleCode" selValue="roleTitle" emptyValue="请选择">
+                        </select>
                     </li>
                     <li class="submission-box-list__Every" style="margin-top: 4px">
                         <span class="submission-box-list__Name">产品大类:</span>
@@ -349,7 +363,7 @@
                         <th class="table-list-currentrow-theader" width="6%">异议量&nbsp;(&nbsp;吨&nbsp;)</th>
                         <th class="table-list-currentrow-theader" width="11%">使用单位</th>
                         <th class="table-list-currentrow-theader" width="6%">提报日期</th>
-                        <th class="table-list-currentrow-theader" width="7%">上传查看协议书有效文件</th>
+                        <th class="table-list-currentrow-theader" width="7%">查看协议书有效文件</th>
                         <th class="table-list-currentrow-theader" width="9%">强制结案原因</th>
                     </tr>
                     <tr class="table-list-currentrow" id="templateRow" style="display: none;">
@@ -357,6 +371,7 @@
                             <span class="btnLowImgCom" id="cancelOpe" limitCode="M30501" style="display: none;">撤销</span>
                             <span class="btnLowImgCom" id="strongEndOpe" limitCode="M30504">强制结案</span>
                             <span class="btnLowImgCom" id="printOpe" limitCode="M30503" style="display: none;">打印通知单</span>
+                            <span class="btnLowImgCom fl" limitCode="M30505" id="uploadOpe" comType="uploadCtrl" uploadType="button" uploadTypeVal="上传协议书图片" reqPath="/file/upload" uploadSize='{"w":"92","h":"26"}' filetype="custom" fileExt="jpg|jpeg|gif|png" style="display: none;">上传</span>
                         </td>
                         <td class="table-list-currentrow-tdetail">
                             <input type="checkbox" id="chkCoding" class="clsChk">
@@ -375,8 +390,7 @@
                         <td class="table-list-currentrow-tdetail" id="lastUser"></td>
                         <td class="table-list-currentrow-tdetail" id="presentationDate"></td>
                         <td class="table-list-currentrow-tdetail">
-                            <span class="btnLowImgCom fl" limitCode="M30505" id="uploadOpe" comType="uploadCtrl" uploadType="button" uploadTypeVal="上传" reqPath="/file/upload" uploadSize='{"w":"50","h":"26"}' filetype="custom" fileExt="jpg|jpeg|gif|png">上传</span>
-                            <span class="btnLowImgCom" id="viewUploadOpe" limitCode="M30506" style="position:relative;top: 2px;">查看</span>
+                            <span class="btnLowImgCom" id="viewUploadOpe" limitCode="M30506" style="position:relative;top: 2px;display: none;">查看</span>
                         </td>
                         <td class="table-list-currentrow-tdetail" id="reasonsForCompulsoryClosure"></td>
                     </tr>
@@ -454,17 +468,39 @@
         <div class="content">
             <div class="previewOpeBox">
                 <div class="previewOpeBox-pdf" id="previewOpeBoxPdf2"></div>
-                <div class="previewOpeBox-operate" style="margin-top: 20px;">
-                    <button id="downViewCancel" class="btnLowNew previewOpeBox-operate-prev fl">取消</button>
-                    <button id="downView" class="btnLowNew previewOpeBox-operate-next fr">下载</button>
+                <div class="previewOpeBox-operate" style="margin-top: 20px;width: 500px;">
+                    <img src="" alt="" id="" style="width: 400px;height: 600px;margin-left: 50px;">
+                    <div style="margin-top: 10px;padding-bottom: 20px;">
+                        <button id="downView" class="btnLowNew previewOpeBox-operate-next fr mr20">下载</button>
+                        <button id="downViewCancel" class="btnLowNew previewOpeBox-operate-prev fr mr20">取消</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+<div id="inputAnswer3" class="popup gc_box" style="display:none">
+    <div class="title" style="">
+        <h2>请输入过期原因</h2>
+        <div>
+            <a class="min" href=" " title="最小化" style="display:none;"></a>
+            <a class="max" href="javascript:;" title="最大化" style="display:none;"></a>
+            <a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+            <a class="close" href="javascript:;" title="关闭" style="display:block;"></a>
+        </div>
+    </div>
+    <div class="content">
+        <textarea id="pastDateText" type="text" class="content-Input" style="resize: none"></textarea>
+        <div class="">
+            <div id="pastDateOpe" class="btnBaseCommon product-save" style="margin-left: 236px;margin-right: 20px;margin-top: 10px;">确定</div>
+            <div id="pastDateCancelOpe" class="btnBaseCancel product-submit">取消</div>
+        </div>
+    </div>
+</div>
+
 </div>
 </div>
-<div style="width: 1200px;height: 70px;margin: 0 auto;text-align: center;line-height: 70px;">
+<div style="width: 1200px;height: 70px;margin: 0px auto;text-align: center;line-height: 70px;">
     copyright ©️ 2018 甘肃酒钢集团宏兴钢铁股份有限公司 版权所有
 </div>
 </div>
