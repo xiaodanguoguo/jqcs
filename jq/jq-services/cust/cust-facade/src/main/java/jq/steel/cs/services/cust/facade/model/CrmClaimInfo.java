@@ -7,6 +7,9 @@ import java.util.Date;
 
 public class CrmClaimInfo {
 
+    //提报日期导出字段转换
+    private String ast;
+
     //过期标识
     private String expiredSign;
 
@@ -182,6 +185,14 @@ public class CrmClaimInfo {
 
     //确认时间
     private Date confirmationTime;
+
+    public String getAst() {
+        return ast;
+    }
+
+    public void setAst(String ast) {
+        this.ast = ast;
+    }
 
     public String getExpiredSign() {
         return expiredSign;

@@ -183,6 +183,9 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
             CrmClaimInfo crmClaimInfo  = new CrmClaimInfo();
             crmClaimInfo.setClaimNo(crmClaimApply1.getClaimNo());
             CrmClaimInfo crmClaimInfo1 = crmClaimInfoMapper.findByPage(crmClaimInfo);
+            Date pDATE= crmClaimInfo1.getPresentationDate();
+            String ast = DateUtil.formatDate(pDATE, "yyyy-MM-dd");
+            crmClaimInfo1.setAst(ast);
             if (crmClaimInfo1.getClaimState().equals("NEW")){
                 crmClaimInfo1.setClaimState("新建");
             }else if (crmClaimInfo1.getClaimState().equals("PRESENT")){
