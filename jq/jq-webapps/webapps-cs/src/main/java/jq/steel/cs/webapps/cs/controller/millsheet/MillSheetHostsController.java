@@ -151,6 +151,7 @@ public class MillSheetHostsController {
                         System.out.println("转换png路径"+pngName);
                         String hh1 = pngName.replace("/data/kf_web","/res");
                         String hh = createPdfPath+"/"+hh1;
+                        System.out.println("*********************millSheetPath路径*************************************"+hh);
                         millSheetHostsVO.setMillSheetPath(hh);
                     }
                 }else {

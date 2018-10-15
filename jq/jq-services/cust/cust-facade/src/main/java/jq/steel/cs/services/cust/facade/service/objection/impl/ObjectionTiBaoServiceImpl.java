@@ -4,6 +4,7 @@ import com.ebase.core.page.PageDTO;
 import com.ebase.core.page.PageDTOUtil;
 import com.ebase.utils.BeanCopyUtil;
 import com.ebase.utils.DateFormatUtil;
+import com.ebase.utils.DateUtil;
 import com.ebase.utils.StringUtil;
 import jq.steel.cs.services.cust.api.vo.CrmCustomerInfoVO;
 import jq.steel.cs.services.cust.api.vo.CrmLastuserInfoVO;
@@ -388,6 +389,9 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             CrmClaimApply crmClaimApply  = new CrmClaimApply();
             crmClaimApply.setClaimNo(crmClaimApply1.getClaimNo());
             CrmClaimApply crmClaimApply2 = crmClaimApplyMapper.findByParams(crmClaimApply);
+            Date pDATE= crmClaimApply2.getPresentationDate();
+            String ast = DateUtil.formatDate(pDATE, "yyyy-MM-dd");
+            crmClaimApply2.setAst(ast);
             if (crmClaimApply2.getClaimState().equals("NEW")){
                 crmClaimApply2.setClaimState("新建");
             }else if (crmClaimApply2.getClaimState().equals("PRESENT")){

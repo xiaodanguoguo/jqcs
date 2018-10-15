@@ -7,6 +7,9 @@ import java.util.Date;
 
 public class ObjectionTiBaoVO {
 
+    //提报日期导出字段转换
+    private String ast;
+
     //质量异议报告图片
     private String reportPictures;
 
@@ -166,6 +169,14 @@ public class ObjectionTiBaoVO {
     private  String report;
 
     private Integer count;
+
+    public String getAst() {
+        return ast;
+    }
+
+    public void setAst(String ast) {
+        this.ast = ast;
+    }
 
     public String getReportPictures() {
         return reportPictures;
