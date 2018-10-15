@@ -103,7 +103,7 @@ function clsStandardEditTableCtrl$progress(jsonItem,cloneRow)
     if(jsonItem.status == 2){
         $(cloneRow).find("#categoryName").attr("disabled",true);
         $(cloneRow).find("#categoryDesc").attr("disabled",true);
-        $(cloneRow).find("#chkCoding").remove()
+        $(cloneRow).find("#chkCoding").hide()
         $(cloneRow).find("#statusA").html("已提交");
     }else{
         $(cloneRow).find("#statusA").html("待提交");
@@ -116,7 +116,7 @@ function  saveCallBack(data) {
     if(data.retCode == "0000000"){
         var alertBox=new clsAlertBoxCtrl();
         if(document.body.jsLee.opeType == 1){
-            alertBox.Alert("保存成功","成功提示",1,"","jumpUrlTip");
+            alertBox.Alert("保存成功,是否返回产品维护列表","成功提示",1,"","jumpUrlTip");
         }else {
             alertBox.Alert("提交成功","成功提示",1,"","jumpUrlTip");
         }
