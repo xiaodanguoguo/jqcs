@@ -368,6 +368,7 @@ public class RoleInfoController {
         JsonResponse <List<RoleInfoVO>> jsonResponse = new JsonResponse();
         try {
             String acctId = AssertContext.getAcctId();
+            System.out.println("***********************************acctId**************** "+acctId);
             ServiceResponse<List<RoleInfoVO>> list = roleInfoAPI.getRoleCodeByAcctId(acctId);
             jsonResponse.setRspBody(list.getRetContent());
         } catch (Exception e) {
