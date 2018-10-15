@@ -55,6 +55,31 @@ public class MillSecurityInfoController {
 
 
     /**
+     * 防伪码验真
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/fangWeiMa1",method = RequestMethod.POST)
+    public JsonResponse<MillSecurityInfoVO> fangWeiMa1(@RequestBody JsonRequest<MillSecurityInfoVO> jsonRequest){
+        //logger.info("分页",JsonUtil.toJson(jsonRequest));
+        JsonResponse<MillSecurityInfoVO> jsonResponse = new JsonResponse<>();
+        try {
+            logger.info("orgCode"+AssertContext.getOrgCode());
+            jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
+            jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            ServiceResponse<MillSecurityInfoVO> serviceResponse = millSecurityInfoAPI.fangWeiMa1(jsonRequest);
+            jsonResponse.setRspBody(serviceResponse.getRetContent());
+        } catch (BusinessException e) {
+            logger.error("获取分页列表错误 = {}", e);
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+        return jsonResponse;
+    }
+
+
+    /**
      * 附件验真
      * @param
      * @return

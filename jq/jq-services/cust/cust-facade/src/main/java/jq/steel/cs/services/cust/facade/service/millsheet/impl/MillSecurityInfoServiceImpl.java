@@ -54,7 +54,7 @@ public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
                 int coCheckNum = millSecurityInfos.get(0).getCoCheckNum()+1;
                 int checkNum = millSecurityInfos.get(0).getCheckNum()+1;
                 //判断是否登录来区别首页验证与系统内验证
-                if(orgCode!=null){
+              /*  if(orgCode!=null){*/
                     if(millSecurityInfos.get(0).getCoCheckNum()>=millSecurityInfos.get(0).getCoCheckNumMax()){
                         millSecurityInfoVO.setExplain("此质证书超过验证次数");
                     }else{
@@ -64,7 +64,7 @@ public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
                         millSecurityInfoMapper.updateByPrimaryKeySelective(millSecurityInfo);
                         millSecurityInfoVO.setExplain("此质证书"+millSecurityInfos.get(0).getMillSheetNo()+"已成功验证"+coCheckNum+"次");
                     }
-                }else {
+              /*  }else {
                     if(millSecurityInfos.get(0).getCheckNum()>=millSecurityInfos.get(0).getCheckNumMax()){
                         millSecurityInfoVO.setExplain("此质证书超过验证次数");
                     }else{
@@ -74,7 +74,7 @@ public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
                         millSecurityInfoMapper.updateByPrimaryKeySelective(millSecurityInfo);
                         millSecurityInfoVO.setExplain("此质证书"+millSecurityInfos.get(0).getMillSheetNo()+"已成功验证"+checkNum+"次");
                     }
-                }
+                }*/
 
             }else {
                 millSecurityInfoVO.setExplain("此质证书防伪码"+millSecurityInfoVO.getSecurityCode()+"有误");
@@ -84,6 +84,53 @@ public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
         }
         //MillSecurityInfoVO millSecurityInfoVO1 = new MillSecurityInfoVO();
        // millSecurityInfoVO1.setExplain(millSecurityInfo.getExplain());
+        return millSecurityInfoVO;
+    }
+
+
+
+    @Override
+    public MillSecurityInfoVO fangWeiMa1(MillSecurityInfoVO millSecurityInfoVO,HttpServletRequest request) {
+        String orgCode = millSecurityInfoVO.getOrgCode();
+        //转换mdel
+        MillSheetHosts millSheetHosts = new MillSheetHosts();
+        BeanCopyUtil.copy(millSecurityInfoVO,millSheetHosts);
+        MillSecurityInfo millSecurityInfo = new MillSecurityInfo();
+        BeanCopyUtil.copy(millSecurityInfoVO,millSecurityInfo);
+        List<MillSheetHosts> millSheetByPage = millSheetHostsMapper.findList(millSheetHosts);
+        //日志表
+        CrmMillSheetCheckLog crmMillSheetCheckLog = new CrmMillSheetCheckLog();
+        crmMillSheetCheckLog.setCheckDt(new Date());
+        crmMillSheetCheckLog.setType((short) 1);
+        crmMillSheetCheckLog.setSecurityCode(millSecurityInfoVO.getSecurityCode());
+        crmMillSheetCheckLog.setMillSheetNo(millSecurityInfoVO.getMillSheetNo());
+        String ip=request.getRemoteAddr();
+        crmMillSheetCheckLog.setIpAddr(ip);
+        crmMillSheetCheckLog.setVerifier(orgCode);
+        crmMillSheetCheckLogMapper.insertSelective(crmMillSheetCheckLog);
+        if (millSheetByPage.size()>0){
+            List<MillSecurityInfo> millSecurityInfos = millSecurityInfoMapper.findByParams(millSecurityInfo);
+            if (millSecurityInfos.size()>0){
+                int coCheckNum = millSecurityInfos.get(0).getCoCheckNum()+1;
+                int checkNum = millSecurityInfos.get(0).getCheckNum()+1;
+                    if(millSecurityInfos.get(0).getCheckNum()>=millSecurityInfos.get(0).getCheckNumMax()){
+                        millSecurityInfoVO.setExplain("此质证书超过验证次数");
+                    }else{
+                        millSecurityInfo.setUpdatedBy(AssertContext.getAcctName());
+                        millSecurityInfo.setUpdatedDt(new Date());
+                        millSecurityInfo.setCheckNum((short) checkNum);
+                        millSecurityInfoMapper.updateByPrimaryKeySelective(millSecurityInfo);
+                        millSecurityInfoVO.setExplain("此质证书"+millSecurityInfos.get(0).getMillSheetNo()+"已成功验证"+checkNum+"次");
+                    }
+
+            }else {
+                millSecurityInfoVO.setExplain("此质证书防伪码"+millSecurityInfoVO.getSecurityCode()+"有误");
+            }
+        }else {
+            millSecurityInfoVO.setExplain("此质证书编号"+millSecurityInfoVO.getMillSheetNo()+"有误");
+        }
+        //MillSecurityInfoVO millSecurityInfoVO1 = new MillSecurityInfoVO();
+        // millSecurityInfoVO1.setExplain(millSecurityInfo.getExplain());
         return millSecurityInfoVO;
     }
 

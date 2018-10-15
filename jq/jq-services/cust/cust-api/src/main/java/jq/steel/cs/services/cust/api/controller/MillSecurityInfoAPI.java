@@ -23,6 +23,15 @@ public interface MillSecurityInfoAPI {
     @RequestMapping(value ="/millsheetcheck/fangWeiMa", method = RequestMethod.POST)
     ServiceResponse<MillSecurityInfoVO> fangWeiMa(@RequestBody JsonRequest<MillSecurityInfoVO> jsonRequest);
 
+
+    /**
+     * 防伪码验真
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value ="/millsheetcheck/fangWeiMa1", method = RequestMethod.POST)
+    ServiceResponse<MillSecurityInfoVO> fangWeiMa1(@RequestBody JsonRequest<MillSecurityInfoVO> jsonRequest);
+
     /**
      * 防伪码验真
      * @param jsonRequest
