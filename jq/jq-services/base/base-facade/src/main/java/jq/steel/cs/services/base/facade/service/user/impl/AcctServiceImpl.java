@@ -343,7 +343,7 @@ public class AcctServiceImpl implements AcctService {
     @Override
     public void expire(String authKey) {
         cacheService.expire(authKey, TIME_EXPIRE);
-        System.out.println(cacheService.ttl(authKey));
+        LOG.info("{}-------------{}",authKey, cacheService.ttl(authKey));
     }
 
 

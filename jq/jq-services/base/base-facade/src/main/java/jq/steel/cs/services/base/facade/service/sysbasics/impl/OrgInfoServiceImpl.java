@@ -11,9 +11,15 @@ import jq.steel.cs.services.base.api.vo.OrgInfoVO;
 import jq.steel.cs.services.base.facade.common.IsDelete;
 import jq.steel.cs.services.base.facade.common.Status;
 import jq.steel.cs.services.base.facade.dao.AcctInfoMapper;
+import jq.steel.cs.services.base.facade.dao.AcctRoleGroupRoleMapper;
 import jq.steel.cs.services.base.facade.dao.OrgInfoMapper;
+import jq.steel.cs.services.base.facade.dao.RoleGroupMapper;
+import jq.steel.cs.services.base.facade.dao.RoleInfoMapper;
 import jq.steel.cs.services.base.facade.model.AcctInfo;
+import jq.steel.cs.services.base.facade.model.AcctRoleGroupRole;
 import jq.steel.cs.services.base.facade.model.OrgInfo;
+import jq.steel.cs.services.base.facade.model.RoleGroup;
+import jq.steel.cs.services.base.facade.model.RoleInfo;
 import jq.steel.cs.services.base.facade.service.message.MessageService;
 import jq.steel.cs.services.base.facade.service.sysbasics.OrgInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +43,15 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	private AcctInfoMapper acctInfoMapper;
 
 	@Autowired
+	private RoleGroupMapper roleGroupMapper;
+
+	@Autowired
+	private RoleInfoMapper roleInfoMapper;
+
+	@Autowired
+	private AcctRoleGroupRoleMapper acctRoleGroupRoleMapper;
+
+	@Autowired
     private MessageService messageService;
 
     private static String TITLE = "酒钢客服系统注册成功通知";
@@ -52,11 +67,73 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	 * 传入父类ParentId添加子类OrgCode
 	 */
 	@Override
+	@Transactional
 	public synchronized Long addOrgInfo(OrgInfo orgInfo) {
 		String orgInfoId = getOrgInfoId(orgInfo.getParentId());
 		orgInfo.setId(orgInfoId);
 		orgInfo.setCreatedTime(new Date());
 		Long l = orgInfoMapper.insertOrgInfo(orgInfo);
+
+		// 添加默认组织角色
+		RoleGroup roleGroup = new RoleGroup();
+		roleGroup.setRoleGroupTitle("数据权限");
+		roleGroup.setIsDelete("0");
+		roleGroup.setStatus("0");
+		roleGroup.setOrgId(orgInfoId);
+		roleGroupMapper.insertSelective(roleGroup);
+
+		RoleInfo roleInfo1 = new RoleInfo();
+		roleInfo1.setRoleCode("1000");
+		roleInfo1.setRoleTitle("不锈");
+		roleInfo1.setIsDelete("0");
+		roleInfo1.setStatus("1");
+		roleInfo1.setOrgId(orgInfoId);
+		roleInfoMapper.insertSelective(roleInfo1);
+
+		AcctRoleGroupRole acctRoleGroupRole1 = new AcctRoleGroupRole();
+		acctRoleGroupRole1.setRoleGroupId(roleGroup.getRoleGroupId());
+		acctRoleGroupRole1.setRoleId(roleInfo1.getRoleId());
+		acctRoleGroupRoleMapper.insertSelective(acctRoleGroupRole1);
+
+		RoleInfo roleInfo2 = new RoleInfo();
+		roleInfo2.setRoleCode("2000");
+		roleInfo2.setRoleTitle("炼扎");
+		roleInfo2.setIsDelete("0");
+		roleInfo2.setStatus("1");
+		roleInfo2.setOrgId(orgInfoId);
+		roleInfoMapper.insertSelective(roleInfo2);
+
+		AcctRoleGroupRole acctRoleGroupRole2 = new AcctRoleGroupRole();
+		acctRoleGroupRole2.setRoleGroupId(roleGroup.getRoleGroupId());
+		acctRoleGroupRole2.setRoleId(roleInfo2.getRoleId());
+		acctRoleGroupRoleMapper.insertSelective(acctRoleGroupRole2);
+
+		RoleInfo roleInfo3 = new RoleInfo();
+		roleInfo3.setRoleCode("2200");
+		roleInfo3.setRoleTitle("碳薄厂");
+		roleInfo3.setIsDelete("0");
+		roleInfo3.setStatus("1");
+		roleInfo3.setOrgId(orgInfoId);
+		roleInfoMapper.insertSelective(roleInfo3);
+
+		AcctRoleGroupRole acctRoleGroupRole3 = new AcctRoleGroupRole();
+		acctRoleGroupRole3.setRoleGroupId(roleGroup.getRoleGroupId());
+		acctRoleGroupRole3.setRoleId(roleInfo3.getRoleId());
+		acctRoleGroupRoleMapper.insertSelective(acctRoleGroupRole3);
+
+		RoleInfo roleInfo4 = new RoleInfo();
+		roleInfo4.setRoleCode("3000");
+		roleInfo4.setRoleTitle("榆钢");
+		roleInfo4.setIsDelete("0");
+		roleInfo4.setStatus("1");
+		roleInfo4.setOrgId(orgInfoId);
+		roleInfoMapper.insertSelective(roleInfo4);
+
+		AcctRoleGroupRole acctRoleGroupRole4 = new AcctRoleGroupRole();
+		acctRoleGroupRole4.setRoleGroupId(roleGroup.getRoleGroupId());
+		acctRoleGroupRole4.setRoleId(roleInfo4.getRoleId());
+		acctRoleGroupRoleMapper.insertSelective(acctRoleGroupRole4);
+
 		return l;
 	}
 
