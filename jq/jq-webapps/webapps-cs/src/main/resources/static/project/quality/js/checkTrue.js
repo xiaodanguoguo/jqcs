@@ -22,6 +22,9 @@ $(function(){
     $("#uploadCheck").on("click",function(){//上传验证操作
         if($("#fileUrl").val()){
             getAjaxResult("/millsheetcheck/fuJian","POST",{"fileUrl":$("#fileUrl").attr("allPath")},"uploadCheckCallBack(data)");
+        }else{
+            var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert("请上传质证书pdf原件！","错误提示",1,"","");
         }
     });
 });
