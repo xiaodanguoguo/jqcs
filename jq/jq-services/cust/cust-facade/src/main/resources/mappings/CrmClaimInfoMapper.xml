@@ -94,8 +94,9 @@
     <result column="CLOSING_TIME" property="closingTime" jdbcType="TIMESTAMP" />
     <result column="CLOSING_USER" property="closingUser" jdbcType="VARCHAR" />
     <result column="MEMO" property="memo"/>
-    originalCarNo
-    agreementAmount
+    <result column="ORIGINAL_CAR_NO" property="originalCarNo"/>
+    <result column="AGREEMENT_AMOUNT" property="agreementAmount"/>
+
   </resultMap>
 
   <sql id="Base_Column_List" >
