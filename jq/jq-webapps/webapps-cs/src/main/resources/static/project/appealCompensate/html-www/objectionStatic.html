@@ -51,7 +51,7 @@
     </li>
 </ul>
 <div class="objectionStatic">
-    <table class="objSta-table table-list" id="tableList" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData" >
+    <table class="objSta-table table-list" id="tableList" comType="standardTableCtrl" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="/objectionLendger/findLedgerByPage" reqParam="{}" method="POST" noData="nonData" >
         <tr class="table-list-currentrow">
             <th class="table-list-currentrow-theader" style="width: 2%">质量投诉编号</th>
             <th class="table-list-currentrow-theader" style="width: 3%">使用客户</th>
@@ -65,7 +65,7 @@
             <th class="table-list-currentrow-theader" style="width: 6%">加工工艺</th>
             <th class="table-list-currentrow-theader" style="width: 3%">用途</th>
             <th class="table-list-currentrow-theader" style="width: 1%">车号</th>
-            <th class="table-list-currentrow-theader" style="width: 2%">质保书编号</th>
+            <th class="table-list-currentrow-theader" style="width: 2%">质证书编号</th>
             <th class="table-list-currentrow-theader" style="width: 1%">钢号</th>
             <th class="table-list-currentrow-theader" style="width: 1%">规格(mm)</th>
             <th class="table-list-currentrow-theader" style="width: 1%">提出异议量(t)</th>
@@ -87,38 +87,38 @@
             <th class="table-list-currentrow-theader" style="width: 5%">客户评价</th>
         </tr>
         <tr class="table-list-currentrow" id="templateRow" style="display: ;">
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
-            <td class="table-list-currentrow-tdetail"></td>
+            <td class="table-list-currentrow-tdetail" id="claimNo"></td>
+            <td class="table-list-currentrow-tdetail" id="lastUser"></td>
+            <td class="table-list-currentrow-tdetail" id="createEmpNo"></td>
+            <td class="table-list-currentrow-tdetail" id="lastUserTel"></td>
+            <td class="table-list-currentrow-tdetail" id="customerName"></td>
+            <td class="table-list-currentrow-tdetail" id="custEmpNo"></td>
+            <td class="table-list-currentrow-tdetail" id="custTel"></td>
+            <td class="table-list-currentrow-tdetail" id="logisticsProcess"></td>
+            <td class="table-list-currentrow-tdetail" id="lastUserAddr"></td>
+            <td class="table-list-currentrow-tdetail" id="endProcessingTech"></td>
+            <td class="table-list-currentrow-tdetail" id="used"></td>
+            <td class="table-list-currentrow-tdetail" id="originalCarNo"></td>
+            <td class="table-list-currentrow-tdetail" id="millSheetNo"></td>
+            <td class="table-list-currentrow-tdetail" id="battenPlateNo"></td>
+            <td class="table-list-currentrow-tdetail" id="designation"></td>
+            <td class="table-list-currentrow-tdetail" id="objectionNum"></td>
+            <td class="table-list-currentrow-tdetail" id="objectionConfirmation"></td>
+            <td class="table-list-currentrow-tdetail" id="agreementAmount"></td>
+            <td class="table-list-currentrow-tdetail" id=""></td>
+            <td class="table-list-currentrow-tdetail" id="proProblem"></td>
+            <td class="table-list-currentrow-tdetail" id="claimType"></td>
+            <td class="table-list-currentrow-tdetail" id=""></td>
+            <td class="table-list-currentrow-tdetail" id="productDt"></td>
+            <td class="table-list-currentrow-tdetail" id=""></td>
+            <td class="table-list-currentrow-tdetail" id="handingSuggestion"></td>
+            <td class="table-list-currentrow-tdetail" id="admissibilityTime"></td>
+            <td class="table-list-currentrow-tdetail" id=""></td>
+            <td class="table-list-currentrow-tdetail" id="closingTime"></td>
+            <td class="table-list-currentrow-tdetail" id="closingUser"></td>
+            <td class="table-list-currentrow-tdetail" id=""></td>
+            <td class="table-list-currentrow-tdetail" id="memo"></td>
+            <td class="table-list-currentrow-tdetail" id=""></td>
         </tr>
     </table>
     <div id="nonData" class="noDataCon" style="display: none">

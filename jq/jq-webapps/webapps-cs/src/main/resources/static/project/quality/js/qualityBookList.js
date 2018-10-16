@@ -112,24 +112,29 @@ function clsMethodLee$operate(){
             var alertBox=new clsAlertBoxCtrl();
             alertBox.Alert("请勾选将要打印的质证书","失败提示");
         }else{
-            /*var num = 0;
+            var num = 0;
             for(var nI = 0; nI < $("#tableList")[0].cacheArr.length; nI++){
                 if($("#tableList")[0].cacheArr[nI].printableNum != 0){
                     num++;
                 }
             }
             if(num == $("#tableList")[0].cacheArr.length){
-                var alertBox = new clsAlertBoxCtrl();
-                alertBox.Alert("确认打印？打印次数减一","警告提示",1,"","printOpeTip");
+                var millSheetNoArr = [];
+                for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
+                    millSheetNoArr.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":2});
+                }
+                getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",millSheetNoArr,"printOpeCallBack(data)");
+                /*var alertBox = new clsAlertBoxCtrl();
+                alertBox.Alert("确认打印？打印次数减一","警告提示",1,"","printOpeTip");*/
             }else{
                 var alertBox = new clsAlertBoxCtrl();
                 alertBox.Alert("存在打印次数已为0的质证书，请取消勾选！","错误提示");
-            }*/
-            var millSheetNoArr = [];
+            }
+            /*var millSheetNoArr = [];
             for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
                 millSheetNoArr.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":1});
             }
-            getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",millSheetNoArr,"previewCallBack2(data)")
+            getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",millSheetNoArr,"previewCallBack2(data)")*/
         }
     });
     $("#rejectSureOpe").on("click",function(){//确认退回操作
@@ -433,7 +438,7 @@ function printOpeCallBack(data){
         }else{
             initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
         }
-        jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody[0].report,"0000000","1");
+        jumpUrl("../../../generic/web/viewer.html?pdfUrl=" + data.rspBody[0].report,"0000000","1");
     }
 }
 
