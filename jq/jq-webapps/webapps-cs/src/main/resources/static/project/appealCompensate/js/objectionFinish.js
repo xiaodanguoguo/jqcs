@@ -8,7 +8,7 @@ function clsMethodLee(){
         "path7":"/md/findItemsByTypeId",//产品大类下拉接口
         "path8":"/objectionJieAn/upload",//上传之后把上传图片传给后台
         "path9":"/objectionChuLi/preview",//查看pdf接口
-        "path10":""//过期原因确认接口
+        "path10":"/objectionJieAn/expiren"//过期原因确认接口
     };
     this.documentLee = null;
     this.claimNo = "";//强制结案的当前缓存标识
