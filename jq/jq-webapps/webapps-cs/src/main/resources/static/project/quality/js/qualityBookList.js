@@ -6,7 +6,8 @@ function clsMethodLee(){
         "path4":"/sysAcct/customerType",//获取用户信息接口
         "path5":"/millsheet/updateNumber",//增加打印次数接口
         "path6":"/",//增加下载次数接口
-        "path7":"/millsheet/findMillSheetByPage1"//初始list列表
+        "path7":"/millsheet/findMillSheetByPage1",//初始list列表
+        "path8":"/millsheet/preview1",//预览接口
     };
     this.documentLee = null;
     this.millSheetNo = "";//回退millSheetNo主键
@@ -123,7 +124,7 @@ function clsMethodLee$operate(){
                 for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
                     millSheetNoArr.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":2});
                 }
-                getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",millSheetNoArr,"printOpeCallBack(data)");
+                getAjaxResult(document.body.jsLee.requestUrl.path8,"POST",millSheetNoArr,"printOpeCallBack(data)");
                 /*var alertBox = new clsAlertBoxCtrl();
                 alertBox.Alert("确认打印？打印次数减一","警告提示",1,"","printOpeTip");*/
             }else{
