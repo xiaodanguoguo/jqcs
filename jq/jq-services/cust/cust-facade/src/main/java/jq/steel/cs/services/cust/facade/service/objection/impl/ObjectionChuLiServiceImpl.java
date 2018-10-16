@@ -206,26 +206,30 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
             }else if (crmClaimInfo1.getClaimState().equals("ADOPT")){
                 crmClaimInfo1.setClaimState("销售审核通过");
             }
-            if (crmClaimInfo1.getInquireState().equals("OUTSTART")){
-                crmClaimInfo1.setInquireState("外部调查开始");
-            }else if (crmClaimInfo1.getInquireState().equals("TRACK")){
-                crmClaimInfo1.setInquireState("已跟踪");
-            }else if (crmClaimInfo1.getInquireState().equals("OUTEND")){
-                crmClaimInfo1.setInquireState("外部调查结束");
-            }else if (crmClaimInfo1.getInquireState().equals("INSTART")){
-                crmClaimInfo1.setInquireState("内部调查开始");
-            }else if (crmClaimInfo1.getInquireState().equals("INEND")){
-                crmClaimInfo1.setInquireState("调查结束");
-            }else if (crmClaimInfo1.getInquireState().equals("CONFIRM")){
-                crmClaimInfo1.setInquireState("已确认");
+            if(crmClaimApply1.getInquireState()!=null){
+                if (crmClaimInfo1.getInquireState().equals("OUTSTART")){
+                    crmClaimInfo1.setInquireState("外部调查开始");
+                }else if (crmClaimInfo1.getInquireState().equals("TRACK")){
+                    crmClaimInfo1.setInquireState("已跟踪");
+                }else if (crmClaimInfo1.getInquireState().equals("OUTEND")){
+                    crmClaimInfo1.setInquireState("外部调查结束");
+                }else if (crmClaimInfo1.getInquireState().equals("INSTART")){
+                    crmClaimInfo1.setInquireState("内部调查开始");
+                }else if (crmClaimInfo1.getInquireState().equals("INEND")){
+                    crmClaimInfo1.setInquireState("调查结束");
+                }else if (crmClaimInfo1.getInquireState().equals("CONFIRM")){
+                    crmClaimInfo1.setInquireState("已确认");
+                }
             }
-            if (crmClaimInfo1.getAgreementState().equals("EDIT")){
-                crmClaimInfo1.setAgreementState("编辑中");
-            }else if (crmClaimInfo1.getAgreementState().equals("COMPLETE")){
-                crmClaimInfo1.setAgreementState("已完成");
-            }else if (crmClaimInfo1.getAgreementState().equals("EXAMINE")){
-                crmClaimInfo1.setAgreementState("已审核");
-            }
+           if (crmClaimInfo1.getAgreementState()!=null){
+               if (crmClaimInfo1.getAgreementState().equals("EDIT")){
+                   crmClaimInfo1.setAgreementState("编辑中");
+               }else if (crmClaimInfo1.getAgreementState().equals("COMPLETE")){
+                   crmClaimInfo1.setAgreementState("已完成");
+               }else if (crmClaimInfo1.getAgreementState().equals("EXAMINE")){
+                   crmClaimInfo1.setAgreementState("已审核");
+               }
+           }
             crmClaimInfos1.add(crmClaimInfo1);
         }
         //转换返回对象
