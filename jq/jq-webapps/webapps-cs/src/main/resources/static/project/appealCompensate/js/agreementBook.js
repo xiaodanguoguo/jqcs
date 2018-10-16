@@ -55,6 +55,11 @@ function clsMethodLee$parse(){
     }
     getAjaxResult(document.body.jsLee.requestUrl.path1,"POST",{"claimNo":this.claimNo},"initHtmlCallBack(data)")
     $("#claimNo").html(this.claimNo);
+    $("*[id=wordCheck]").each(function(){
+        var a = $(this).next().html();
+        var b = $(this).parent().prev().val().length;
+        $(this).html(a-b);
+    });
     this.operate();
 }
 

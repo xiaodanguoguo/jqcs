@@ -303,7 +303,7 @@
                     <li class="submission-box-list__Every">
                         <span class="submission-box-list__Name">投诉内容描述:<span class="newsList-content-mainList-titleTip">（300字内）:</span></span>
                         <textarea id="claimDesc" class="submission-box-list__Input submission-box-list__describe required" style="height:150px;resize: none" onkeyup="javascript:checkWords(this,300);" onmousedown="javascript:checkWords(this,300);"></textarea>
-                        <span style="position: relative;top: -24px;left: 680px;width: 200px;display: block;text-align: right;margin-bottom: -36px;"><i id="wordCheck">300</i>/300</span>
+                        <span style="position: relative;top: -24px;left: 680px;width: 200px;display: block;text-align: right;margin-bottom: -36px;"><i id="wordCheck">300</i>/<i id="wordCheckTotal">300</i></span>
                     </li>
                     <li class="submission-box-list__Every">
                         <span class="submission-box-list__Name fl">现场结论:</span>
@@ -314,14 +314,15 @@
                     <li class="submission-box-list__Every">
                         <span class="submission-box-list__Name submission-box-list__Names">协议内容:<span class="newsList-content-mainList-titleTip">（300字内）:</span></span>
                         <textarea id="agreementContent" class="submission-box-list__Input submission-box-list__content required" style="height:200px;resize: none" onkeyup="javascript:checkWords(this,300);" onmousedown="javascript:checkWords(this,300);"></textarea>
-                        <span style="position: relative;top: -24px;left: 680px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">300</i>/300</span>
+                        <span style="position: relative;top: -24px;left: 680px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">300</i>/<i id="wordCheckTotal">300</i></span>
                     </li>
                     <li class="submission-box-list__Every">
                         <span class="submission-box-list__Namenum">异议确认量:</span>
                         <input id="agreementNum" type="text" class="inputBase submission-box-list__numInput required forallInt1">
                         <span class="submission-box-list__Namenums">赔偿金额&nbsp;(&nbsp;小写&nbsp;):</span>
-                        <div style="display: inline-block">
-                            <input id="agreementAmount" type="text" class="inputBase submission-box-list__numberInput required forMoney">
+                        <div style="display: inline-block;margin-right: 20px;">
+                            <input id="agreementAmount" type="text" class="inputBase submission-box-list__numberInput required forMoney" style="width: 100px;">
+                            <span>元</span>
                         </div>
                         <span class="submission-box-list__Namenums">赔偿金额&nbsp;(&nbsp;大写&nbsp;):</span>
                         <input id="agreementAmountUpper" type="text" class="inputBase submission-box-list__numberInput required">

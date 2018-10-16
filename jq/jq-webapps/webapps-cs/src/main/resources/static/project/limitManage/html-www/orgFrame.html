@@ -56,6 +56,7 @@
         //点击添加客户调用的接口
         $("#addTissue").on("click",function(){
             openWin('350', '450', 'inputAnswer', true);
+            $("#addReInpDiv #sapCode").attr("disabled",true);
             $("#addReInp").val("");
             initValidate($("#addReInpDiv")[0]);
             _this.newCom=0;
@@ -141,6 +142,7 @@
             $("#orgType").attr("initValue","").trigger('chosen:updated');
             if(_this.rank){
                 openWin('350', '450', 'inputAnswer', true);
+                $("#addReInpDiv #sapCode").attr("disabled",true);
             }else{
                 document.body.docT.alertBox.Alert("请先选择客户","提示")
             }
@@ -172,6 +174,7 @@
             }*/
             if(_this.rank){
                 openWin('350', '450', 'inputAnswer', true);
+                $("#addReInpDiv #sapCode").attr("disabled",true);
             }else{
                 document.body.docT.alertBox.Alert("请先选择客户","提示")
             }
@@ -199,6 +202,9 @@
             }
             window.open(encodeURI(url+"?orgId="+$(this).parents("#fotTable")[0].jsonData.id+"&orgName="+$(this).parents("#fotTable")[0].jsonData.orgName))
         })
+        $("#addReInpDiv #sapCode").on("change",function(){
+            //getAjaxResult("",)
+        });
     }
     //页面初始化调用树的接口
     function orgInfo(data){
@@ -542,8 +548,8 @@
     <div class="content">
         <div class="resourchSe" id="addReInpDiv">
             <ul class="resourchSe-ul">
-                <li class="ml20"><label>名称：</label><input type="text" class="required" id="addReInp"/></li>
                 <li class="ml20"><label>sap编码：</label><input type="text" class="required" id="sapCode"/></li>
+                <li class="ml20"><label>名称：</label><input type="text" class="required" id="addReInp" disabled="disabled"/></li>
                 <li class="ml20"><label>客户类型：</label><select type="text" class="required" id="orgType" style="width:157px">
                     <option value="">请选择</option>
                     <option value="1">销售公司</option>
