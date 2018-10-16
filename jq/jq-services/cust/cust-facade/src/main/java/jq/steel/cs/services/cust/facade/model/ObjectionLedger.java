@@ -67,6 +67,28 @@ public class ObjectionLedger {
     //备注
     private String memo;
 
+    //车号
+    private String originalCarNo;
+
+    //赔偿金额（小写）
+    private BigDecimal agreementAmount;
+
+    public BigDecimal getAgreementAmount() {
+        return agreementAmount;
+    }
+
+    public void setAgreementAmount(BigDecimal agreementAmount) {
+        this.agreementAmount = agreementAmount;
+    }
+
+    public String getOriginalCarNo() {
+        return originalCarNo;
+    }
+
+    public void setOriginalCarNo(String originalCarNo) {
+        this.originalCarNo = originalCarNo;
+    }
+
     public String getClaimNo() {
         return claimNo;
     }
