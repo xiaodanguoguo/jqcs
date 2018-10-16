@@ -79,6 +79,22 @@ public class MillSheetHostsController {
     }
 
     //查询文件地址
+    @RequestMapping(value = "/preview1",method = RequestMethod.POST)
+    public ServiceResponse<List<MillSheetHostsVO>> findUrl1(@RequestBody JsonRequest<List<String>> jsonRequest,HttpServletRequest request){
+        logger.info("参数 = {}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<List<MillSheetHostsVO>> serviceResponse = new ServiceResponse<>();
+        List<String> reqBody = jsonRequest.getReqBody();
+        try {
+            List<MillSheetHostsVO> list = millSheetHostsService.findUrl1(reqBody,request);
+            serviceResponse.setRetContent(list);
+        }catch (BusinessException e){
+            logger.error("出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
+    //查询文件地址
     @RequestMapping(value = "/rollbackQuery",method = RequestMethod.POST)
     public ServiceResponse<MillSheetHostsVO> rollbackQuery(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest){
         logger.info("参数 = {}", JsonUtil.toJson(jsonRequest));

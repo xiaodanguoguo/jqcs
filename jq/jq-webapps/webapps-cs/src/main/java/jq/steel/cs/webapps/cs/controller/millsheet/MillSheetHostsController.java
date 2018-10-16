@@ -254,14 +254,18 @@ public class MillSheetHostsController {
     }
 
 
-    @RequestMapping(value = "/preview1")
-    public void pdfStreamHandler(HttpServletRequest request, HttpServletResponse response,@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest) {
+    @RequestMapping(value = "/preview1/{PARAM}")
+    public void pdfStreamHandler(HttpServletRequest request, HttpServletResponse response,@PathVariable("PARAM") String param) {
+        String acctName =AssertContext.getAcctName();
+        List<String> list = JsonUtil.parseObject(param, List.class);
+        JsonRequest<List<String>> jsonRequest1 = new JsonRequest();
+        jsonRequest1.setReqBody(list);
         logger.info("preview--------------------------------------------------" );
-        ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findUrl(jsonRequest);
+        ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findUrl1(jsonRequest1);
         String millSheetUrlL ="";
         String createPdfPath = uploadConfig.getDomain();
         //打印
-        if (jsonRequest.getReqBody().size()>1){
+        if (jsonRequest1.getReqBody().size()>1){
             //从质证书服务器获取文件到本地   重新生成文件
             String millSheetUrlName = "";
             for(MillSheetHostsVO millSheetHostsVO :serviceResponse.getRetContent()){

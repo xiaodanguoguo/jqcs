@@ -16,6 +16,10 @@ public interface MillSheetHostsService {
 
     //查询质证书文件地址
     List<MillSheetHostsVO> findUrl(List<MillSheetHostsVO> millSheetHostsVO,HttpServletRequest request);
+
+    //打印
+    List<MillSheetHostsVO> findUrl1(List<String> list,HttpServletRequest request);
+
     //下载地址
     List<MillSheetHostsVO> findDownUrl(List<String> list);
 

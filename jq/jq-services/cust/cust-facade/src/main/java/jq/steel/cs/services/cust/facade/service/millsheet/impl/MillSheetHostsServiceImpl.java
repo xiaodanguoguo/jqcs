@@ -167,6 +167,33 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     }
 
     @Override
+    public List<MillSheetHostsVO> findUrl1(List<String> list,HttpServletRequest request) {
+        List<MillSheetHosts> millSheetHosts = new ArrayList<>();
+        for(int i = 0;i < list.size();i++){
+            MillSheetHosts millSheetHosts1 = new MillSheetHosts();
+            millSheetHosts1.setMillSheetNo(list.get(i));
+            millSheetHosts.add(millSheetHosts1);
+        }
+        String ip=request.getRemoteAddr();
+        for(MillSheetHosts millSheetHosts2:millSheetHosts){
+            //转换mdel
+            MillSheetHosts millSheetHosts1 = new MillSheetHosts();
+            BeanCopyUtil.copy(millSheetHosts2,millSheetHosts1);
+            MillSheetHosts millSheetByPage = millSheetHostsMapper.findUrl(millSheetHosts1);
+            millSheetByPage.setMillSheetPath(millSheetByPage.getMillSheetUrl() +"/"+millSheetByPage.getMillSheetName());
+            BeanCopyUtil.copy(millSheetByPage,millSheetHosts2);
+            //添加日志操作记录
+            MillOperationHis millOperationHis = new MillOperationHis();
+            millOperationHis.setMillSheetNo(millSheetHosts2.getMillSheetNo());
+            millOperationHis.setOperationTime(new Date());
+           // millOperationHisMapper.insertSelective(millOperationHis);
+        }
+        //转换返回对象
+        List<MillSheetHostsVO> millSheetHostsVOS = BeanCopyUtil.copyList(millSheetHosts, MillSheetHostsVO.class);
+        return millSheetHostsVOS;
+    }
+
+    @Override
     public List<MillSheetHostsVO> findDownUrl(List<String> list) {
         List<MillSheetHosts> millSheetHosts = new ArrayList<>();
         for(int i = 0;i < list.size();i++){
