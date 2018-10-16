@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
@@ -250,6 +251,59 @@ public class MillSheetHostsController {
             jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
         }
         return jsonResponse;
+    }
+
+
+    @RequestMapping(value = "/preview1")
+    public void pdfStreamHandler(HttpServletRequest request, HttpServletResponse response,@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest) {
+        logger.info("preview--------------------------------------------------" );
+        ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findUrl(jsonRequest);
+        String millSheetUrlL ="";
+        String createPdfPath = uploadConfig.getDomain();
+        //打印
+        if (jsonRequest.getReqBody().size()>1){
+            //从质证书服务器获取文件到本地   重新生成文件
+            String millSheetUrlName = "";
+            for(MillSheetHostsVO millSheetHostsVO :serviceResponse.getRetContent()){
+                String millSheetPath =  millSheetHostsVO.getMillSheetPath();
+                String millSheetName =  millSheetHostsVO.getMillSheetName();
+                millSheetUrlName += ";" + millSheetHostsVO.getMillSheetPath();
+                String url = createPdfPath + millSheetPath;
+                millSheetUrlL =millSheetHostsVO.getMillSheetUrl();
+                this.saveUrlAs(url,millSheetUrlL,"GET",millSheetName);
+                millSheetHostsVO.setMillSheetPath(url);
+            }
+            //合并文件
+            millSheetUrlName = millSheetUrlName.substring(1);
+            String savepath =this.sheetNameUrl(millSheetUrlName,millSheetUrlL);
+            String mPath = createPdfPath+savepath;
+            serviceResponse.getRetContent().get(0).setReport(mPath);
+        }else {
+            //从质证书服务器获取文件到本地 返回url
+            String millSheetPath =  serviceResponse.getRetContent().get(0).getMillSheetPath();
+            String millSheetUrl =   serviceResponse.getRetContent().get(0).getMillSheetUrl();
+            String url = createPdfPath + millSheetPath;
+            String millSheetName =  serviceResponse.getRetContent().get(0).getMillSheetName();
+            this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
+            serviceResponse.getRetContent().get(0).setReport(url);
+        }
+        String fPath =  serviceResponse.getRetContent().get(0).getReport();
+        File file = new File(fPath);
+        if (file.exists()){
+            byte[] data = null;
+            try {
+                FileInputStream input = new FileInputStream(file);
+                data = new byte[input.available()];
+                input.read(data);
+                response.getOutputStream().write(data);
+                input.close();
+            } catch (Exception e) {
+                logger.error("pdf文件处理异常：" + e.getMessage());
+            }
+
+        }else{
+            return;
+        }
     }
 
     private String sheetNameUrl(String millSheetUrlName,String millSheeturl) {
