@@ -8,6 +8,18 @@ import java.util.List;
 
 public class ObjectionDiaoChaVO {
 
+    //提报日期导出字段转换
+    private String ast;
+
+    //受理日期导出字段转换
+    private String at;
+
+    //外部调查时间导出字段转换
+    private String eld;
+
+    //内部调查时间导出字段转换
+    private String ild;
+
     //厂家code
     private List<String> deptCodes;
 
@@ -263,7 +275,37 @@ public class ObjectionDiaoChaVO {
 
     private  String objectionConfirmation;
 
+    public String getAst() {
+        return ast;
+    }
 
+    public void setAst(String ast) {
+        this.ast = ast;
+    }
+
+    public String getAt() {
+        return at;
+    }
+
+    public void setAt(String at) {
+        this.at = at;
+    }
+
+    public String getEld() {
+        return eld;
+    }
+
+    public void setEld(String eld) {
+        this.eld = eld;
+    }
+
+    public String getIld() {
+        return ild;
+    }
+
+    public void setIld(String ild) {
+        this.ild = ild;
+    }
 
     public String getAcctId() {
         return acctId;
