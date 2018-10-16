@@ -33,16 +33,38 @@ http://sourceforge.net/adobe/cmap/wiki/License/
 
 <!-- This snippet is used in production (included from viewer.html) -->
 <link rel="resource" type="application/l10n" href="locale/locale.properties"/>
+    <link rel="stylesheet" href="../../../plugin/popup/css/manhuaDialog.1.0_blue.css">
+    <script src="../../base/js/jquery.js" type="text/javascript"></script>
+    <script src="../../base/js/public.js" type="text/javascript"></script>
+    <script src="../../base/js/docassistant.js" type="text/javascript"></script>
 <script src="l10n.js"></script>
 <script src="../build/pdf.js"></script>
 
 
-
+    <script src="../../../plugin/popup/script/manhuaDialog.1.0.js"></script>
     <script src="debugger.js"></script>
     <script src="viewer.js"></script>
 	<script>
+      var  markPrint = 0;
 	//动态设置要打开的pdf路径，或者在url路径后面增加file=xxxx.do返回文件流
 		//DEFAULT_URL = 'http://localhost:8080/build/build/generic/web/222.pdf'
+      function printCallBack(markPrint){
+          if(markPrint == 0){
+              var alertBox=new clsAlertBoxCtrl();
+              alertBox.Alert("打印次数将减1","温馨提示",1,"","passwordTip");
+              return false;
+          }else{
+              return true;
+          }
+      }
+    function clsAlertBoxCtrl$sure() {//修改密码成功弹框确定
+        if (this.id == "passwordTip") {//修改密码成功
+            closePopupWin();
+            markPrint = 1;
+            window.print();
+            markPrint = 0;
+        }
+    }
 	</script>
   </head>
 
@@ -99,9 +121,9 @@ http://sourceforge.net/adobe/cmap/wiki/License/
               <span data-l10n-id="presentation_mode_label">Presentation Mode</span>
             </button>
 
-            <button id="secondaryOpenFile" class="secondaryToolbarButton openFile visibleLargeView" title="Open File" tabindex="52" data-l10n-id="open_file">
+            <!--<button id="secondaryOpenFile" class="secondaryToolbarButton openFile visibleLargeView" title="Open File" tabindex="52" data-l10n-id="open_file">
               <span data-l10n-id="open_file_label">Open</span>
-            </button>
+            </button>-->
 
             <button id="secondaryPrint" class="secondaryToolbarButton print visibleMediumView" title="Print" tabindex="53" data-l10n-id="print">
               <span data-l10n-id="print_label">Print</span>
@@ -172,30 +194,32 @@ http://sourceforge.net/adobe/cmap/wiki/License/
                 <span id="numPages" class="toolbarLabel"></span>
               </div>
               <div id="toolbarViewerRight">
-                <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="Switch to Presentation Mode" tabindex="31" data-l10n-id="presentation_mode">
+               <!-- <button id="presentationMode" class="toolbarButton presentationMode hiddenLargeView" title="Switch to Presentation Mode" tabindex="31" data-l10n-id="presentation_mode">
                   <span data-l10n-id="presentation_mode_label">Presentation Mode</span>
-                </button>
+                </button>-->
 
-                <button id="openFile" class="toolbarButton openFile hiddenLargeView" title="Open File" tabindex="32" data-l10n-id="open_file">
+                <!--<button id="openFile" class="toolbarButton openFile hiddenLargeView" title="Open File" tabindex="32" data-l10n-id="open_file">
                   <span data-l10n-id="open_file_label">Open</span>
-                </button>
+                </button>-->
 
                 <button id="print" class="toolbarButton print hiddenMediumView" title="Print" tabindex="33" data-l10n-id="print">
                   <span data-l10n-id="print_label">Print</span>
                 </button>
 
-                <button id="download" class="toolbarButton download hiddenMediumView" title="Download" tabindex="34" data-l10n-id="download">
+               <!-- <button id="download" class="toolbarButton download hiddenMediumView" title="Download" tabindex="34" data-l10n-id="download">
                   <span data-l10n-id="download_label">Download</span>
-                </button>
-                <a href="#" id="viewBookmark" class="toolbarButton bookmark hiddenSmallView" title="Current view (copy or open in new window)" tabindex="35" data-l10n-id="bookmark">
+                </button>--><!-- <button id="download" class="toolbarButton download hiddenMediumView" title="Download" tabindex="34" data-l10n-id="download">
+                  <span data-l10n-id="download_label">Download</span>
+                </button>-->
+               <!-- <a href="#" id="viewBookmark" class="toolbarButton bookmark hiddenSmallView" title="Current view (copy or open in new window)" tabindex="35" data-l10n-id="bookmark">
                   <span data-l10n-id="bookmark_label">Current View</span>
-                </a>
+                </a>-->
 
                 <div class="verticalToolbarSeparator hiddenSmallView"></div>
 
-                <button id="secondaryToolbarToggle" class="toolbarButton" title="Tools" tabindex="36" data-l10n-id="tools">
+                <!--<button id="secondaryToolbarToggle" class="toolbarButton" title="Tools" tabindex="36" data-l10n-id="tools">
                   <span data-l10n-id="tools_label">Tools</span>
-                </button>
+                </button>-->
               </div>
               <div class="outerCenter">
                 <div class="innerCenter" id="toolbarViewerMiddle">

@@ -613,13 +613,16 @@ Preferences._readFromStorage = function (prefObj) {
       console.warn('Ignored window.print() because of a pending print job.');
       return;
     }
-    try {
-      dispatchEvent('beforeprint');
-    } finally {
-      canvases = document.querySelectorAll('canvas');
-      index = -1;
-      next();
+    if(printCallBack(markPrint)){
+        try {
+            dispatchEvent('beforeprint');
+        } finally {
+            canvases = document.querySelectorAll('canvas');
+            index = -1;
+            next();
+        }
     }
+
   };
 
   function dispatchEvent(eventType) {
@@ -7041,17 +7044,17 @@ function webViewerInitialized() {
       PDFViewerApplication.setScale(this.value, false);
     });
 
-  document.getElementById('presentationMode').addEventListener('click',
-    SecondaryToolbar.presentationModeClick.bind(SecondaryToolbar));
+  /*document.getElementById('presentationMode').addEventListener('click',
+    SecondaryToolbar.presentationModeClick.bind(SecondaryToolbar));*/
 
-  document.getElementById('openFile').addEventListener('click',
-    SecondaryToolbar.openFileClick.bind(SecondaryToolbar));
+  /*document.getElementById('openFile').addEventListener('click',
+    SecondaryToolbar.openFileClick.bind(SecondaryToolbar));*/
 
   document.getElementById('print').addEventListener('click',
     SecondaryToolbar.printClick.bind(SecondaryToolbar));
 
-  document.getElementById('download').addEventListener('click',
-    SecondaryToolbar.downloadClick.bind(SecondaryToolbar));
+  /*document.getElementById('download').addEventListener('click',
+    SecondaryToolbar.downloadClick.bind(SecondaryToolbar));*/
 
 
   if (file && file.lastIndexOf('file:', 0) === 0) {
@@ -7149,7 +7152,7 @@ window.addEventListener('updateviewarea', function (evt) {
     });
   });
   var href = PDFViewerApplication.getAnchorUrl(location.pdfOpenParams);
-  document.getElementById('viewBookmark').href = href;
+  //document.getElementById('viewBookmark').href = href;
   document.getElementById('secondaryViewBookmark').href = href;
 
   // Update the current bookmark in the browsing history.
