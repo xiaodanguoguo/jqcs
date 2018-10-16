@@ -203,7 +203,7 @@
             window.open(encodeURI(url+"?orgId="+$(this).parents("#fotTable")[0].jsonData.id+"&orgName="+$(this).parents("#fotTable")[0].jsonData.orgName))
         })
         $("#addReInpDiv #sapCode").on("change",function(){
-            getAjaxResult("/orgInfo/getOrgName","POST",{"sapCode":$()},"orgCodeCheckCallBack(data)")
+            getAjaxResult("/orgInfo/getOrgName","POST",{"sapCode":$(this).val()},"orgCodeCheckCallBack(data)")
         });
     }
     //校验客户code码
