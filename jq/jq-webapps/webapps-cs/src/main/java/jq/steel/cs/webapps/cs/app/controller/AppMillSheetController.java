@@ -51,9 +51,9 @@ public class AppMillSheetController {
             String millSheetName = vo.getMillSheetName();
             MillSheetDownloadVO downloadVO = new MillSheetDownloadVO();
             if(millSheetUrl == null){
-                downloadVO.setMillSheetPath(uploadConfig.getDomain()+"/"+uploadConfig.getPathPattern()+"/"+millSheetName);
+                jsrp.setRetDesc("URL或者文件名为null");
             }else {
-                downloadVO.setMillSheetPath(uploadConfig.getDomain()+"/"+uploadConfig.getPathPattern()+millSheetUrl+"/"+millSheetName);
+                downloadVO.setMillSheetPath(uploadConfig.getDomain()+millSheetUrl+"/"+millSheetName);
             }
             jsrp.setRspBody(downloadVO);
             jsrp.setRetCode(JsonResponse.SUCCESS);
@@ -64,7 +64,5 @@ public class AppMillSheetController {
             e.printStackTrace();
             return jsrp;
         }
-        /*sheetHostsVO.setMillSheetPath(uploadConfig.getDomain()+"/"+uploadConfig.getPathPattern()+"/xxx.pdf");
-        sheetHostsVO.setMillSheetPath("http://192.168.1.109:20183/res/xxx.pdf");*/
     }
 }
