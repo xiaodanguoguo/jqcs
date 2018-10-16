@@ -310,6 +310,8 @@ function previewCallBack(data){
         $("#previewPrev").attr("disabled",true).addClass("changeGary");
         if(document.body.jsLee.previewArr.length == 1){
             $("#previewNext").attr("disabled",true).addClass("changeGary");
+        }else{
+            $("#previewNext").attr("disabled",false).removeClass("changeGary");
         }
         $("#tableList")[0].cacheArr = [];
         if(window.location.href.indexOf("qualityBookList2") != -1){
