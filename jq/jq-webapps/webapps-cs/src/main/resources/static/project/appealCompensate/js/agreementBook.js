@@ -52,6 +52,7 @@ function clsMethodLee$parse(){
             //不可编辑
             ue.setDisabled();
         });
+        $("#returnPrev").show();
     }
     getAjaxResult(document.body.jsLee.requestUrl.path1,"POST",{"claimNo":this.claimNo},"initHtmlCallBack(data)")
     $("#claimNo").html(this.claimNo);
