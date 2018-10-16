@@ -1,5 +1,7 @@
 package jq.steel.cs.services.cust.facade.dao;
 
+import feign.Param;
+import jq.steel.cs.services.cust.api.vo.CrmClaimCommentsVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoCountVO;
 import jq.steel.cs.services.cust.facade.model.CrmClaimApply;
 
@@ -37,5 +39,5 @@ public interface CrmClaimApplyMapper {
     List<CrmClaimApply> findgenzongByPage(CrmClaimApply crmClaimApply);
 
     // 判断此条异议是否为已评价状态
-    CrmClaimApply getByClaimNo(String claimNo);
+    CrmClaimApply getByClaimNo(CrmClaimCommentsVO vo);
 }

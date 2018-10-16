@@ -953,7 +953,7 @@
   </select>
 
   <!--根据claimNo查询-->
-  <select id="getByClaimNo">
+  <select id="getByClaimNo" resultType="jq.steel.cs.services.cust.facade.model.CrmClaimApply">
     select CLAIM_STATE
     from CRM_CLAIM_APPLY
     <trim prefix="WHERE" prefixOverrides="AND |OR ">

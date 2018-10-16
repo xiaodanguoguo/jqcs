@@ -446,7 +446,7 @@ FROM
     mpd.SID AS MPD_SID, mpd.KURZTEXT AS MPD_KURZTEXT, mpd.ORIGINAL_INPUT as MPD_ORIGINAL_INPUT
     FROM MILL_SHEET_HOSTS msh
     LEFT JOIN MILL_COIL_INFO mci on msh.MILL_SHEET_NO = mci.MILL_SHEET_NO
-    LEFT JOIN MILL_PHYSICS_DATA mpd on mci.ZCHARG = mpd.ZCHARG
+    LEFT JOIN MILL_PHYSICS_DATA mpd on mci.ZCHARG = mpd.ZCHARG AND mpd.MILL_SHEET_NO=msh.MILL_SHEET_NO
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="millSheetNo != null and millSheetNo != ''" >
         and msh.MILL_SHEET_NO = #{millSheetNo}
@@ -463,7 +463,7 @@ FROM
   mcd.SID AS MCD_SID, mcd.KURZTEXT AS MCD_KURZTEXT, mcd.ORIGINAL_INPUT AS MCD_ORIGINAL_INPUT
   FROM MILL_SHEET_HOSTS msh
   LEFT JOIN MILL_COIL_INFO mci on msh.MILL_SHEET_NO = mci.MILL_SHEET_NO
-  LEFT JOIN MILL_CHEMISTRY_DATA mcd on mci.ZCHARG = mcd.ZCHARG
+  LEFT JOIN MILL_CHEMISTRY_DATA mcd on mci.ZCHARG = mcd.ZCHARG  AND mcd.MILL_SHEET_NO=msh.MILL_SHEET_NO
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="millSheetNo != null and millSheetNo != ''" >
         and msh.MILL_SHEET_NO = #{millSheetNo}
@@ -507,7 +507,7 @@ FROM
     DISTINCT mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE,
     mpd.SID AS MPD_SID, mpd.KURZTEXT AS MPD_KURZTEXT
     FROM MILL_COIL_INFO mci
-    LEFT JOIN MILL_PHYSICS_DATA mpd on mci.ZCHARG = mpd.ZCHARG
+    LEFT JOIN MILL_PHYSICS_DATA mpd on mci.ZCHARG = mpd.ZCHARG AND mci.MILL_SHEET_NO = mpd.MILL_SHEET_NO
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="sid != null" >
         AND mci.SID = #{sid}
@@ -528,7 +528,7 @@ FROM
     DISTINCT mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE,
     mcd.SID AS MCD_SID, mcd.KURZTEXT AS MCD_KURZTEXT, mcd.ORIGINAL_INPUT AS MCD_ORIGINAL_INPUT
     FROM MILL_COIL_INFO mci
-    LEFT JOIN MILL_CHEMISTRY_DATA mcd on mci.ZCHARG = mcd.ZCHARG
+    LEFT JOIN MILL_CHEMISTRY_DATA mcd on mci.ZCHARG = mcd.ZCHARG AND mcd.MILL_SHEET_NO=mci.MILL_SHEET_NO
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="sid != null" >
         AND mci.SID = #{sid}

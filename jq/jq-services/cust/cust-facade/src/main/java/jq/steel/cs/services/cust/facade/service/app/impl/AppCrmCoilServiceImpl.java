@@ -43,8 +43,10 @@ public class AppCrmCoilServiceImpl implements AppCrmCoilService {
         }
 
         for (CrmMillCoilInfo coilInfo : coilAndChemistryInfo) {
-            CrmMillCoilInfo crmMillCoilInfo = coilInfoMap.get(coilInfo.getZcharg());
-            coilInfo.setListForMillPhysicsData(crmMillCoilInfo.getListForMillPhysicsData());
+            if (coilInfoMap.get(coilInfo.getZcharg()) != null) {
+                CrmMillCoilInfo crmMillCoilInfo = coilInfoMap.get(coilInfo.getZcharg());
+                coilInfo.setListForMillPhysicsData(crmMillCoilInfo.getListForMillPhysicsData());
+            }
         }
 
         List<CrmMillCoilInfoVO> listVO = BeanCopyUtil.copyList(coilAndChemistryInfo, CrmMillCoilInfoVO.class);

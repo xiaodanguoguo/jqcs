@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <title>信息</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./base/js/jquery.js"></script>
+    <script src="./base/js/docassistant.js"></script>
+    <script src="./base/js/config.js"></script>
+
+</head>
+<body>
+<h4 class="stl_header">
+    <img src="./images/logo.png"/>本钢集团</h4>
+<h4 class="stl_scrlApp">钢卷基本信息</h4>
+<div class="stl_appDiv" id="appDiv">
+    <table class="stl_table" cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="table_title">证明书编号：</td>
+            <td class="table_intro">181016C0001</td>
+        </tr>
+        <tr>
+            <td class="table_title">收货单位：</td>
+            <td class="table_intro">浙江物产金属集团有限公司</td>
+        </tr>
+        <tr>
+            <td class="table_title">产品名称：</td>
+            <td class="table_intro">冷轧卷</td>
+        </tr>
+        <tr>
+            <td class="table_title">牌号：</td>
+            <td class="table_intro">SPCC</td>
+        </tr>
+        <tr>
+            <td class="table_title">标准：</td>
+            <td class="table_intro">BX 348-2018:SPCC</td>
+        </tr>
+        <tr>
+            <td class="table_title">车号：</td>
+            <td class="table_intro">1646371</td>
+        </tr>
+        <tr>
+            <td class="table_title">到站：</td>
+            <td class="table_intro">1</td>
+        </tr>
+        <tr>
+            <td class="table_title">重量：</td>
+            <td class="table_intro">BJJ-金州</td>
+        </tr>
+        <tr>
+            <td class="table_title">交货状态：</td>
+            <td class="table_intro">冷轧</td>
+        </tr>
+        <tr>
+            <td class="table_title">注释A：</td>
+            <td class="table_intro">*A1 屈服强度 YIELD STRENGTH
+                *A2 抗拉强度 TENSILE STRENGTH
+                *A3 伸长率 ELONGATIO
+            </td>
+        </tr>
+        <tr>
+            <td class="table_title">注释B：</td>
+            <td class="table_intro"></td>
+        </tr>
+        <tr>
+            <td class="table_title">注释C：</td>
+            <td class="table_intro"></td>
+        </tr>
+    </table>
+</div>
+<h4 class="stl_scrlDetail">明细列表</h4>
+<div class="stl_DivDetail" id="DivDetail">
+    <table class="stl_table" cellpadding="0" cellspacing="0" id="templteTable" style="display:none">
+        <tr>
+            <td class="table_title">轧制序号：</td>
+            <td class="table_intro"></td>
+        </tr>
+        <tr>
+            <td class="table_title">生产日期：</td>
+            <td class="table_intro">2018/10/04</td>
+        </tr>
+        <tr>
+            <td class="table_title">钢卷号：</td>
+            <td class="table_intro" id="zcharg">8AW000390100</td>
+        </tr>
+        <tr>
+            <td class="table_title">炉号：</td>
+            <td class="table_intro">1864912</td>
+        </tr>
+        <tr>
+            <td class="table_title">等级：</td>
+            <td class="table_intro">2</td>
+        </tr>
+        <tr>
+            <td class="table_title">规格：</td>
+            <td class="table_intro" id="specs">740000.0*1500.0*1.0</td>
+        </tr>
+        <tr>
+            <td class="table_title">数量：</td>
+            <td class="table_intro" id="zJiShu">1</td>
+        </tr>
+        <tr>
+            <td class="table_title">重量：</td>
+            <td class="table_intro" id="zlosmenge">8.585</td>
+        </tr>
+        <tr id="templteTr" style="display:none">
+            <td class="table_title" id="kurztext">P：</td>
+            <td class="table_intro" id="original_input">0.007</td>
+        </tr>
+        <tr id="templteTrH" style="display:none">
+            <td class="table_title" id="kurztext">P：</td>
+            <td class="table_intro" id="originalInput">0.007</td>
+        </tr>
+
+    </table>
+</div>
+
+</body>
+<script>
+    document.documentElement.style.fontSize = 2 * window.innerWidth / 7.5 + 'px';
+</script>
+<script>
+    jsonReqHeaderData = {};
+    $(function () {
+        getAjaxResult("/millSheetDetail/qrCode", "post", {"millSheetNo": "C20181013013-002163414925"}, "loginFun(data)");
+
+
+    })
+    function loginFun(data) {
+        var jsData=JSON.parse(data);
+        if(jsData.retCode=="0000000"){
+            for (var i = 0; i < jsData.rspBody.length; i++) {
+                var textG = jsData.rspBody[i]
+                var cloneRwo = $("#templteTable").clone(true);
+                $(cloneRwo).css("display", "");
+                $(cloneRwo).find().text();
+                $("#DivDetail").append(cloneRwo);
+                $(cloneRwo).find("#zcharg").text(textG.zcharg);
+                $(cloneRwo).find("#specs").text(textG.specs);
+                $(cloneRwo).find("#zlosmenge").text(textG.zlosmenge);
+                $(cloneRwo).find("#zJiShu").text(textG.zJiShu);
+                for (var s = 0; s < jsData.rspBody[i].listForMillChemistryData.length; s++) {
+                    var textVal = jsData.rspBody[i].listForMillChemistryData[s];
+                    var cloneRwoTr = $("#templteTr").clone(true);
+                    $(cloneRwoTr).css("display", "");
+                    $(cloneRwoTr).find().text();
+                    $(cloneRwo).append(cloneRwoTr);
+                    $(cloneRwoTr).find("#kurztext").text(textVal.kurztext + "：");
+                    $(cloneRwoTr).find("#original_input").text(textVal.original_input);
+                }
+                for (var q = 0; q < jsData.rspBody[i].listForMillPhysicsData.length; q++) {
+                    var textValH = jsData.rspBody[i].listForMillPhysicsData[q];
+                    var cloneRwoTrH = $("#templteTrH").clone(true);
+                    $(cloneRwoTrH).css("display", "");
+                    $(cloneRwo).append(cloneRwoTr);
+                    $(cloneRwoTrH).find("#kurztext").text(textValH.kurztext + "：");
+                    $(cloneRwoTrH).find("#originalInput").text(textValH.originalInput);
+
+                }
+            }
+        }
+
+    }
+</script>
+</html>

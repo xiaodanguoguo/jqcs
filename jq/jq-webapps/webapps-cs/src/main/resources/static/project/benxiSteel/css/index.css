@@ -1,0 +1,81 @@
+html,body{
+    margin: 0;
+    padding: 0;
+}
+.stl_header {
+    position: fixed;
+    top: 0;
+    height: .5rem;
+    line-height: .5rem;
+    margin: 0;
+    padding: 0 .1rem;
+    background: #003b90;
+    width: 100%;
+    color: #fff;
+    z-index: 1000;
+    font-weight: bold;
+    font-size: .16rem;
+}
+
+.stl_header img {
+    display: block;
+    float: left;
+    padding: .04rem;
+}
+
+.stl_scrlApp {
+    color: #fff;
+    background-color: #003b90;
+    height: .36rem;
+    line-height: .36rem;
+    margin: .5rem 0 0 0;
+    padding: 0 .1rem;
+    border-top: .01rem solid #fff;
+    font-weight: bold;
+    font-size: .16rem;
+}
+
+.stl_appDiv {
+    width: 100%;
+    margin: .1rem auto;
+    padding: 0;
+}
+
+.stl_scrlDetail {
+    color: #fff;
+    background-color: #003b90;
+    height: .36rem;
+    line-height: .36rem;
+    padding: 0 .1rem;
+    margin: 0;
+    font-weight: bold;
+    font-size: .16rem;
+
+}
+.stl_DivDetail {
+    width: 100%;
+    margin: .1rem auto;
+    padding: 0;
+}
+.stl_table{
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.stl_table td{
+    min-height: .36rem;
+    line-height: .36rem;
+    border: .01rem solid #e4e4e4;
+}
+.table_title{
+    width: 1.2rem;
+    text-align: right;
+    font-size: .14rem;
+    background: #eee;
+    margin-right: .1rem;
+}
+.table_intro{
+    padding: 0  .15rem;
+    font-size: .14rem;
+}

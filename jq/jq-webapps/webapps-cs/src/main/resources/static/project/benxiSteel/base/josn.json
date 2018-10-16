@@ -1,0 +1,62 @@
+url:/millSheetDetail/qrCode
+
+入参: {
+"reqBody": {
+"millSheetNo": "C20181013013-002163414925"}
+}
+
+出参: {
+"retCode": "0000000",
+"retDesc": "操作成功!",
+"timestamp": "2018-10-16 15:14:11.488",
+"rspBody":[
+{
+"sid": null,
+"state": null,
+"zcharg": "18072432",
+"specs": "∮12.0mm/9m)",
+"zlosmenge": "16.385",
+"zJiShu": 5,
+"listForMillChemistryData":[
+{
+"sid": 3598109,
+"kurztext": "V",
+"original_input": "0.027"
+},
+{
+"sid": 3598110,
+"kurztext": "Ceq",
+"original_input": "0.445"
+},
+{
+"sid": 3598105,
+"kurztext": "Si",
+"original_input": "0.245"
+},
+{
+"sid": 3598106,
+"kurztext": "Mn",
+"original_input": "1.269"
+},
+{
+"sid": 3598107,
+"kurztext": "P",
+"original_input": "0.028"
+},
+{
+"sid": 3598108,
+"kurztext": "S",
+"original_input": "0.025"
+}
+],
+"listForMillPhysicsData":[
+Object{...},
+{
+"sid": 4989806,
+"kurztext": "A",
+"originalInput": "29.0"
+}
+],
+"showFlag": 0
+},
+

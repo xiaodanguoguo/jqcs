@@ -839,12 +839,12 @@
   </select>
 
   <!--根据ClaimNo查询-->
-  <select id="getByCaimNo">
+  <select id="getByCaimNo" resultType="jq.steel.cs.services.cust.facade.model.CrmClaimInfo" parameterType="java.lang.String">
     select CLAIM_STATE
     from CRM_CLAIM_INFO
     <trim prefix="where" prefixOverrides="AND | OR">
-      <if test="claimState != null and claimState != ''">
-        and CLAIM_STATE = #{claimState}
+      <if test="claimNo != null and claimNo != ''">
+        and CLAIM_NO = #{claimNo}
       </if>
     </trim>
   </select>

@@ -23,7 +23,7 @@ public class CrmMillCoilInfoVO implements Serializable {
     //用于存储钢卷对应的物理数据
     private List<CrmMillPhysicsDataVO> listForMillPhysicsData = new ArrayList<>();
 
-    private int showFlag;
+    private int showFlag = 1;
 
 
     public String getState() {

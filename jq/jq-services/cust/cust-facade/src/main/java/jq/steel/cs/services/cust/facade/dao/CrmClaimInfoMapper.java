@@ -1,5 +1,8 @@
 package jq.steel.cs.services.cust.facade.dao;
 
+import feign.Param;
+import jq.steel.cs.services.cust.api.vo.CrmClaimCommentsVO;
+import jq.steel.cs.services.cust.facade.model.CrmAgreementInfo;
 import jq.steel.cs.services.cust.api.vo.ObjectionLedgerVO;
 import jq.steel.cs.services.cust.facade.model.CrmClaimInfo;
 import jq.steel.cs.services.cust.facade.model.ObjectionLedger;
@@ -34,5 +37,5 @@ public interface CrmClaimInfoMapper {
     CrmClaimInfo  findByParams(CrmClaimInfo record);
 
     //判断此条异议是否为已评价状态
-    CrmClaimInfo getByCaimNo(String claimNo);
+    CrmClaimInfo getByCaimNo(CrmClaimCommentsVO vo);
 }

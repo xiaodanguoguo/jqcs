@@ -4,21 +4,22 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class MillSheetHead {
+
     private Long sid;
 
-    private String zchehao;
+    private String zchehao;     //车号
 
     private String zcharg;
 
-    private String millSheetNo;
+    private String millSheetNo; //质证书编号
 
     private String zkdauf;
 
     private String zkunnr;
 
-    private String zkunwe;
+    private String zkunwe;  //送达方
 
-    private String zdaozhan;
+    private String zdaozhan; //到站
 
     private String vbelnVl;
 
@@ -26,13 +27,13 @@ public class MillSheetHead {
 
     private String zhth;
 
-    private String zcpmc;
+    private String zcpmc;   //产品名称
 
-    private String zph;
+    private String zph;     //牌号
 
-    private String zzxbz;
+    private String zzxbz;   //标准
 
-    private String zfjsm;
+    private String zfjsm;   //附加说明
 
     private Long totalZjishu;
 
@@ -51,6 +52,8 @@ public class MillSheetHead {
     private Date updatedDt;
 
     private Integer version;
+
+    private String zjhzt;   //交货状态
 
     public Long getSid() {
         return sid;

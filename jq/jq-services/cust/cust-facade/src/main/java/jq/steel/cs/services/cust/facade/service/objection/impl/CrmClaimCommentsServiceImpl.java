@@ -30,8 +30,8 @@ public class CrmClaimCommentsServiceImpl implements CrmClaimCommentsService {
     @Override
     public Integer evaluate(CrmClaimCommentsVO crmClaimCommentsVO) {
         //如果这条数据是已评价的状态就不能再评价了
-        CrmClaimApply apply = crmClaimApplyMapper.getByClaimNo(crmClaimCommentsVO.getClaimNo());
-        CrmClaimInfo info  = crmClaimInfoMapper.getByCaimNo(crmClaimCommentsVO.getClaimNo());
+        CrmClaimApply apply = crmClaimApplyMapper.getByClaimNo(crmClaimCommentsVO);
+        CrmClaimInfo info  = crmClaimInfoMapper.getByCaimNo(crmClaimCommentsVO);
         if(apply != null && info != null ){
             if(!("EVALUATE".equals(apply.getClaimState())) || !("EVALUATE".equals(info.getClaimState()))){
                 return 0;
