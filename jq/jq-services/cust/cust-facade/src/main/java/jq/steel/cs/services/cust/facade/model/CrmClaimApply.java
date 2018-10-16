@@ -13,6 +13,7 @@ public class CrmClaimApply {
     private String ast;
 
     //结案时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date closingTime;
 
     //结案人

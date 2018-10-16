@@ -65,6 +65,70 @@
     <result column="IS_TRACK" property="IsTrack"/>
     <result column="EXPIRED_REASON" property="expiredReason"/>
   </resultMap>
+
+  <resultMap id="BaseResultMap1" type="jq.steel.cs.services.cust.facade.model.ObjectionLedger" >
+    <id column="SID" property="sid" jdbcType="NUMERIC" />
+    <result column="CLAIM_NO" property="claimNo" jdbcType="VARCHAR" />
+    <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_ID" property="customerId" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_NAME" property="customerName" jdbcType="VARCHAR" />
+    <result column="CUST_ADDR" property="custAddr" jdbcType="VARCHAR" />
+    <result column="CUST_EMP_NO" property="custEmpNo" jdbcType="VARCHAR" />
+    <result column="CUST_TEL" property="custTel" jdbcType="VARCHAR" />
+    <result column="LAST_USER_ID" property="lastUserId" jdbcType="VARCHAR" />
+    <result column="LAST_USER" property="lastUser" jdbcType="VARCHAR" />
+    <result column="LAST_USER_ADDR" property="lastUserAddr" jdbcType="VARCHAR" />
+    <result column="CREATE_EMP_NO" property="createEmpNo" jdbcType="VARCHAR" />
+    <result column="LAST_USER_TEL" property="lastUserTel" jdbcType="VARCHAR" />
+    <result column="LAST_USER_EMAIL" property="lastUserEmail" jdbcType="VARCHAR" />
+    <result column="STEEL_TYPE" property="steelType" jdbcType="VARCHAR" />
+    <result column="CLAIM_TYPE" property="claimType" jdbcType="VARCHAR" />
+    <result column="BATTEN_PLATE_NO" property="battenPlateNo" jdbcType="VARCHAR" />
+    <result column="PRO_PROBLEM" property="proProblem" jdbcType="VARCHAR" />
+    <result column="DESIGNATION" property="designation" jdbcType="VARCHAR" />
+    <result column="USED" property="used" jdbcType="VARCHAR" />
+    <result column="CONTRACT_NO" property="contractNo" jdbcType="VARCHAR" />
+    <result column="CONTRACT_VOLUME" property="contractVolume" jdbcType="NUMERIC" />
+    <result column="SIZE_MARK" property="specs" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_WEIGHT" property="originalWeight" jdbcType="NUMERIC" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_CAR_NO" property="originalCarNo" jdbcType="VARCHAR" />
+    <result column="CONTRACT_UNIT_PRICE" property="contractUnitPrice" jdbcType="NUMERIC" />
+    <result column="OBJECTION_NUM" property="objectionNum" jdbcType="NUMERIC" />
+    <result column="END_PROCESSING_TECH" property="endProcessingTech" jdbcType="VARCHAR" />
+    <result column="CLAIM_DESC" property="claimDesc" jdbcType="VARCHAR" />
+    <result column="CLAIM_REASON" property="claimReason" jdbcType="VARCHAR" />
+    <result column="CLAIM_STATE" property="claimState" jdbcType="VARCHAR" />
+    <result column="FILE_PATH" property="filePath" jdbcType="VARCHAR" />
+    <result column="CHECK_STATE" property="checkState" jdbcType="VARCHAR" />
+    <result column="REJECT_REASON" property="rejectReason" jdbcType="VARCHAR" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+    <result column="DISSENTING_UNIT" property="dissentingUnit" jdbcType="NUMERIC" />
+    <result column="INQUIRE_STATE" property="inquireState" jdbcType="VARCHAR" />
+    <result column="ZCPMC" property="zcpmc" jdbcType="VARCHAR" />
+    <result column="ZPH" property="zph" jdbcType="VARCHAR" />
+    <result column="PARENT_SID" property="parentSid" jdbcType="NUMERIC" />
+
+    <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
+    <result column="PRESENTATION_USER" property="presentationUser" jdbcType="VARCHAR" />
+    <result column="PRESENTATION_DATE" property="presentationDate" jdbcType="TIMESTAMP" />
+    <result column="AGREEMENT_URL" property="agreementUrl" jdbcType="VARCHAR" />
+    <result column="AGREEMENT_NAME" property="agreementName" jdbcType="VARCHAR" />
+    <result column="AGREEMENT_STATE" property="agreementState" jdbcType="VARCHAR" />
+    <result column="REASONS_FOR_COMPULSORY_CLOSURE" property="reasonsForCompulsoryClosure" jdbcType="VARCHAR" />
+    <result column="REPORT_PICTURE" property="reportPictures" jdbcType="VARCHAR" />
+    <result column="OBJECTION_CONFIRMATION" property="objectionConfirmation" jdbcType="VARCHAR" />
+    <result column="ADMISSIBILITY_TIME" property="admissibilityTime" jdbcType="TIMESTAMP" />
+    <result column="CLOSING_TIME" property="closingTime" jdbcType="TIMESTAMP" />
+    <result column="MEMO" property="memo"/>
+    <result column="IS_TRACK" property="IsTrack"/>
+    <result column="EXPIRED_REASON" property="expiredReason"/>
+  </resultMap>
+
   <sql id="Base_Column_List" >
     SID, CLAIM_NO, PRODUCT_ID, PRODUCT_NAME, MILL_SHEET_NO, CUSTOMER_ID, CUSTOMER_NAME, 
     CUST_ADDR, CUST_EMP_NO, CUST_TEL, LAST_USER_ID, LAST_USER, LAST_USER_ADDR, CREATE_EMP_NO, 
@@ -817,7 +881,7 @@
 
 
 
-  <select id="findLedgerByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.ObjectionLedger" >
+  <select id="findLedgerByPage" resultMap="BaseResultMap1" parameterType="jq.steel.cs.services.cust.facade.model.ObjectionLedger" >
     SELECT
     A.CLAIM_NO,
     A.LAST_USER,
