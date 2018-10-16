@@ -31,8 +31,8 @@ public class ObjectionLendgerController {
      * @param jsonRequest
      * @return
      */
-    @RequestMapping(value = "/findByPage", method = RequestMethod.POST)
-    public ServiceResponse<PageDTO<ObjectionLedgerVO>> findByPage(@RequestBody JsonRequest<ObjectionLedgerVO> jsonRequest){
+    @RequestMapping(value = "/findLedgerByPage", method = RequestMethod.POST)
+    public ServiceResponse<PageDTO<ObjectionLedgerVO>> findLedgerByPage(@RequestBody JsonRequest<ObjectionLedgerVO> jsonRequest){
         logger.info("分页", JsonUtil.toJson(jsonRequest));
         ServiceResponse<PageDTO<ObjectionLedgerVO>> serviceResponse = new ServiceResponse<>();
         try {

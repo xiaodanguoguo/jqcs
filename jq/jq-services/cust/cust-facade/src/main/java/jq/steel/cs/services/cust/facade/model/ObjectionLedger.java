@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class ObjectionLedger {
 
+    private Long sid;
+
     private String claimNo;
 
     private String lastUser;
@@ -72,6 +74,14 @@ public class ObjectionLedger {
 
     //赔偿金额（小写）
     private BigDecimal agreementAmount;
+
+    public Long getSid() {
+        return sid;
+    }
+
+    public void setSid(Long sid) {
+        this.sid = sid;
+    }
 
     public BigDecimal getAgreementAmount() {
         return agreementAmount;

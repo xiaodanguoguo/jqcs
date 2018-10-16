@@ -853,6 +853,7 @@
 
   <select id="findLedgerByPage" resultMap="BaseResultMap1" parameterType="jq.steel.cs.services.cust.facade.model.ObjectionLedger" >
     SELECT
+    A.SID,
     A.CLAIM_NO,
     A.LAST_USER,
     A.LAST_USER_TEL,
@@ -886,59 +887,18 @@
     INNER JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE D ON A.CLAIM_NO = D.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_COMMENTS E ON A.CLAIM_NO = E.CLAIM_NO
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
-      <if test="endDtStr != null" >
-        AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
-        <!--AND  #{} &gt;= A.PRESENTATION_DATE-->
-      </if>
-      <if test="startDtStr != null" >
-        AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
-        <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
-      </if>
-      <if test="customerId != null and customerId != ''" >
-        AND H.CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
-      </if>
-      <if test="claimType != null and claimType != ''" >
-        AND H.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
-      </if>
-      <if test="productName != null and productName != ''" >
-        AND H.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
-      </if>
-      <if test="productId != null and productId != ''" >
-        AND H.PRODUCT_ID = #{productId,jdbcType=VARCHAR}
-      </if>
       <if test="claimNo != null and claimNo != ''" >
-        AND H.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+        AND A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
       </if>
-      <if test="battenPlateNo != null and battenPlateNo != ''" >
-        AND H.BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR}
-      </if>
-      <if test="deptCode != null and deptCode != ''" >
-        AND  H.DEPT_CODE like  '%' || #{deptCode} ||'%'
-      </if>
-      <if test="designation != null and designation != ''" >
-        AND H.DESIGNATION = #{designation,jdbcType=VARCHAR}
-      </if>
-      <choose>
+      <!--<choose>
         <when test="claimState1 !=null and claimState1 != ''">
           and H.CLAIM_STATE  = #{claimState1,jdbcType=VARCHAR}
         </when>
         <otherwise>
           AND H.CLAIM_STATE IN ('INVESTIGATION', 'HANDLE', 'END', 'EVALUATE','ADOPT')
         </otherwise>
-      </choose>
-      <!-- <if test="claimState != null and claimState != ''" >
-         AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
-       </if>-->
-      <if test="inquireState != null and inquireState != ''" >
-        AND H.INQUIRE_STATE = #{inquireState}
-      </if>
-      <if test="sid != null and sid != ''" >
-        AND H.PARENT_SID = #{sid,jdbcType=VARCHAR}
-      </if>
-      <if test="agreementState != null and agreementState != ''" >
-        AND H.AGREEMENT_STATE = #{agreementState}
-      </if>
-      order by H.SID desc
+      </choose>-->
     </trim>
+    order by A.SID desc
   </select>
 </mapper>

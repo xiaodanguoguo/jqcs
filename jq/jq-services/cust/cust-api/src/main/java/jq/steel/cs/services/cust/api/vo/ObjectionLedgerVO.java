@@ -9,6 +9,12 @@ import java.util.Date;
 //异议统计台账
 public class ObjectionLedgerVO {
 
+    private Long sid;
+
+    private int pageNum = 1;
+
+    private int pageSize = 10;
+
     private String claimNo;
 
     private String lastUser;
@@ -74,6 +80,30 @@ public class ObjectionLedgerVO {
 
     //赔偿金额（小写）
     private BigDecimal agreementAmount;
+
+    public Long getSid() {
+        return sid;
+    }
+
+    public void setSid(Long sid) {
+        this.sid = sid;
+    }
+
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
 
     public BigDecimal getAgreementAmount() {
         return agreementAmount;
