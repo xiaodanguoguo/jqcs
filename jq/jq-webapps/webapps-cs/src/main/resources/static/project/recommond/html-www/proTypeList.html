@@ -35,7 +35,7 @@
         $(cloneRow).find("#categoryName").attr("title",jsonItem.categoryName);
         $(cloneRow).find("#categoryDesc").attr("title",jsonItem.categoryDesc);
         $(cloneRow).on("click",function(){
-            jumpUrl("productShow.html?categoryId="+ jsonItem.cid,"0000000",0);
+            jumpUrl("productShow.html?categoryId="+ jsonItem.cid,"0000000",1);
         })
     }
     $(function(){
