@@ -488,4 +488,13 @@
 	<select id="getCode" resultType="java.lang.Long">
 		SELECT SEQ_ORG_INFO.nextval FROM dual
 	</select>
+
+	<select id="getOrgCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select DISTINCT NAME1 as ORG_NAME FROM MILL_CUSTOMER
+		WHERE 1=1
+		<if test="sapCode != null and sapCode != ''">
+			and KUNNR = #{sapCode}
+		</if>
+
+	</select>
 </mapper>

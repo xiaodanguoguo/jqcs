@@ -5,6 +5,7 @@ import com.ebase.core.page.PageDTO;
 import com.ebase.core.page.PageDTOUtil;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.utils.BeanCopyUtil;
+import com.ebase.utils.StringUtil;
 import com.ebase.utils.math.MathHelper;
 import jq.steel.cs.services.base.api.vo.MessageVO;
 import jq.steel.cs.services.base.api.vo.OrgInfoVO;
@@ -403,6 +404,22 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 			orgInfo.setTrue(false);
 			return  orgInfo;
 		}
+	}
+
+	@Override
+	public OrgInfoVO getOrgName(OrgInfoVO reqBody) {
+		OrgInfo orgInfo1 = orgInfoMapper.getOrgCode(reqBody.getSapCode());
+		OrgInfoVO orgInfoVO = new OrgInfoVO();
+		if (orgInfo1 != null) {
+			if (StringUtil.isEmpty(orgInfo1.getOrgName())) {
+				orgInfoVO.setOrgName("");
+			} else {
+				orgInfoVO.setOrgName(orgInfo1.getOrgName());
+			}
+		}
+
+
+		return orgInfoVO;
 	}
 }
 

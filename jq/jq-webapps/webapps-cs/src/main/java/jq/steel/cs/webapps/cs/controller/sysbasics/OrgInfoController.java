@@ -343,4 +343,39 @@ public class OrgInfoController {
 		return jsonResponse;
 	}
 
+	/**
+	 * @param:
+	 * @return:
+	 * @description: 通过sap编码获取客户名称
+	 * @author: lirunze
+	 * @Date: 2018/9/3
+	 */
+	@RequestMapping(value = "/getOrgName", method = RequestMethod.POST)
+	public JsonResponse<OrgInfoVO> getOrgName(@RequestBody JsonRequest<OrgInfoVO> jsonRequest) {
+		logger.info("通过sap编码获取客户名称 = {}", JsonUtil.toJson(jsonRequest));
+		JsonResponse<OrgInfoVO> jsonResponse = new JsonResponse<>();
+
+		try {
+			ServiceResponse<OrgInfoVO> serviceResponse = orgInfoServiceAPI.getOrgName(jsonRequest);
+			if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
+				jsonResponse.setRspBody(serviceResponse.getRetContent());
+			} else {
+				if (serviceResponse.isHasError()) {
+					jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+				} else {
+					jsonResponse.setRetCode(serviceResponse.getRetCode());
+					jsonResponse.setRetDesc(serviceResponse.getRetMessage());
+				}
+			}
+		} catch (BusinessException e) {
+			logger.error("通过sap编码获取客户名称错误 = {}", e);
+			jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+		} catch (Exception e) {
+			logger.error("通过sap编码获取客户名称错误 = {}", e);
+			jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+		}
+
+		return jsonResponse;
+	}
+
 }

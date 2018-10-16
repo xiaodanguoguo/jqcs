@@ -59,4 +59,13 @@ public interface OrgInfoService {
 	 * @Date: 2018/9/3
 	 */
 	OrgInfo selectOrgName(OrgInfoVO orgInfoVO);
+
+	/**
+	 * @param:
+	 * @return:
+	 * @description:  通过sap编码获取客户名称
+	 * @author: lirunze
+	 * @Date: 2018/10/16
+	 */
+	OrgInfoVO getOrgName(OrgInfoVO reqBody);
 }

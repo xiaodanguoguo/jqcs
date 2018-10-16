@@ -64,4 +64,6 @@ public interface OrgInfoMapper {
 	List<OrgInfo> queryExistsOrgInfo(OrgInfo orgInfo);
 
 	Long getCode();
+
+	OrgInfo getOrgCode(@Param("sapCode") String sapCode);
 }

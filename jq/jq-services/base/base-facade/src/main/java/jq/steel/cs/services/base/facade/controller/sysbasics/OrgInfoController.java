@@ -7,12 +7,12 @@ import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.BeanCopyUtil;
-import io.swagger.models.auth.In;
 import jq.steel.cs.services.base.api.vo.AcctInfoVO;
 import jq.steel.cs.services.base.api.vo.OrgInfoVO;
 import jq.steel.cs.services.base.facade.model.AcctInfo;
 import jq.steel.cs.services.base.facade.model.OrgInfo;
 import jq.steel.cs.services.base.facade.service.sysbasics.OrgInfoService;
+import org.apache.poi.ss.formula.functions.T;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -333,6 +333,26 @@ public class OrgInfoController {
 
 		return serviceResponse;
 	}
-	 
 
+	/**
+	 * @param:
+	 * @return:
+	 * @description: 通过sap编码获取客户名称
+	 * @author: lirunze
+	 * @Date: 2018/9/3
+	 */
+	@RequestMapping(value = "/getOrgName", method = RequestMethod.POST)
+	ServiceResponse<OrgInfoVO> getOrgName(@RequestBody JsonRequest<OrgInfoVO> jsonRequest) {
+		ServiceResponse<OrgInfoVO> serviceResponse = new ServiceResponse<>();
+
+		try {
+			OrgInfoVO orgInfoVO = orgInfoService.getOrgName(jsonRequest.getReqBody());
+			serviceResponse.setRetContent(orgInfoVO);
+		} catch (Exception e) {
+		    logger.error("通过sap编码获取客户名称错误 = {}", e);
+		    serviceResponse.setException(new BusinessException("500"));
+		}
+
+		return serviceResponse;
+	}
 }

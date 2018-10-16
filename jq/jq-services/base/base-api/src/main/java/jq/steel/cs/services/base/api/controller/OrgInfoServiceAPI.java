@@ -127,5 +127,13 @@ public interface OrgInfoServiceAPI {
 	ServiceResponse<OrgInfoVO> selectOrgName(@RequestBody JsonRequest<OrgInfoVO> jsonRequest);
 
 
-
+	/**
+	 * @param:
+	 * @return:
+	 * @description: 通过sap编码获取客户名称
+	 * @author: lirunze
+	 * @Date: 2018/9/3
+	 */
+	@RequestMapping(value = "/getOrgName", method = RequestMethod.POST)
+	ServiceResponse<OrgInfoVO> getOrgName(@RequestBody JsonRequest<OrgInfoVO> jsonRequest);
 }
