@@ -1,11 +1,15 @@
 package jq.steel.cs.services.cust.facade.dao;
 
-import jq.steel.cs.services.cust.facade.model.CrmAgreementInfo;
+import jq.steel.cs.services.cust.api.vo.ObjectionLedgerVO;
 import jq.steel.cs.services.cust.facade.model.CrmClaimInfo;
+import jq.steel.cs.services.cust.facade.model.ObjectionLedger;
 
 import java.util.List;
 
 public interface CrmClaimInfoMapper {
+
+    //分页查询
+    List<ObjectionLedger> findLedgerByPage (ObjectionLedger record);
 
     CrmClaimInfo select(CrmClaimInfo record);
 
