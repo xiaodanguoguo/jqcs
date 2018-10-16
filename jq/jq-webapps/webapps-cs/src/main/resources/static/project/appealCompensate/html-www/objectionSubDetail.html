@@ -217,12 +217,12 @@
                     <li class="newsList-content-main-listRow">
                         <span class="newsList-content-mainList-title fl">终端用户加工工艺<span class="newsList-content-mainList-titleTip">（100字内）:</span></span>
                         <textarea id="endProcessingTech" class="inputBase newsList-content-mainList-text fl required"  style="resize:none;height: 75px;" onkeyup="javascript:checkWords(this,100);" onmousedown="javascript:checkWords(this,100);"></textarea>
-                        <span style="position: relative;top: -20px;left: 650px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">100</i>/100</span>
+                        <span style="position: relative;top: -20px;left: 650px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">100</i>/<i id="wordCheckTotal">100</i></span>
                     </li>
                     <li class="newsList-content-main-listRow">
                         <span class="newsList-content-mainList-title fl">异议内容描述<span class="newsList-content-mainList-titleTip">（300字内）:</span></span>
                         <textarea id="claimDesc" class="inputBase newsList-content-mainList-text fl required"  style="resize:none;height:150px;" placeholder="涉及到多份质证书或者多个批/板/卷号的情况，请将所有卷号、质证书以及缺陷信息描述清楚！" onkeyup="javascript:checkWords(this,300);" onmousedown="javascript:checkWords(this,300);"></textarea>
-                        <span style="position: relative;top: -20px;left: 650px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">300</i>/300</span>
+                        <span style="position: relative;top: -20px;left: 650px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">300</i>/<i id="wordCheckTotal">300</i></span>
                     </li>
                     <li class="newsList-content-main-listRow">
                         <span class="newsList-content-mainList-title fl">异议重量<span class="newsList-content-mainList-titleTip">（吨）:</span></span>
@@ -231,7 +231,7 @@
                     <li class="newsList-content-main-listRow">
                         <span class="newsList-content-mainList-title fl">异议要求及理由<span class="newsList-content-mainList-titleTip">（100字内）:</span></span>
                         <textarea id="claimReason" class="inputBase newsList-content-mainList-text fl required"  style="height: 75px;resize:none"  onkeyup="javascript:checkWords(this,100);" onmousedown="javascript:checkWords(this,100);"></textarea>
-                        <span style="position: relative;top: -20px;left: 650px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">100</i>/100</span>
+                        <span style="position: relative;top: -20px;left: 650px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">100</i>/<i id="wordCheckTotal">100</i></span>
                     </li>
                     <div class="box01">
                         <li class="newsList-content-main-listRow">
@@ -388,12 +388,12 @@
                     <li class="newsList-content-main-listRow">
                         <span class="newsList-content-mainList-title fl"><i class="mustText">*</i>物流过程:<span class="newsList-content-mainList-titleTip">（100字内）:</span></span>
                         <textarea id="logisticsProcess" class="inputBase newsList-content-mainList-text fl required"  style="resize:none;height: 75px;" onkeyup="javascript:checkWords(this,100);" onmousedown="javascript:checkWords(this,100);"></textarea>
-                        <span style="position: relative;top: -20px;left: 650px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">100</i>/100</span>
+                        <span style="position: relative;top: -20px;left: 650px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">100</i>/<i id="wordCheckTotal">100</i></span>
                     </li>
                     <li class="newsList-content-main-listRow">
                         <span class="newsList-content-mainList-title fl"><i class="mustText">*</i>加工工艺及用途:<span class="newsList-content-mainList-titleTip">（300字内）:</span></span>
                         <textarea id="endProcessingTech" class="inputBase newsList-content-mainList-text fl required"  style="resize:none;height: 150px;" onkeyup="javascript:checkWords(this,300);" onmousedown="javascript:checkWords(this,300);"></textarea>
-                        <span style="position: relative;top: -20px;left: 650px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">300</i>/300</span>
+                        <span style="position: relative;top: -20px;left: 650px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">300</i>/<i id="wordCheckTotal">300</i></span>
                     </li>
                     <li class="newsList-content-main-listRows clearfix" style="padding-bottom: 50px;">
                         <span class="newsList-content-mainList-title fl"><i class="mustText">*</i>调查事实阐述:<span class="newsList-content-mainList-titleTip">（500字内）:</span></span>
@@ -424,7 +424,7 @@
                                     <input id="productDt" class="inputBase newsList-content-mainListRowsUlList-text fl required" type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})">
                                 </li>
                             </ul>
-                            <textarea id="inquireInfo" class="inputBase newsList-content-mainList-text fl required"  style="height: 200px;width: 734px;resize:none"<!-- onkeyup="javascript:checkWords(this,500);" onmousedown="javascript:checkWords(this,500);"-->></textarea>
+                            <textarea id="inquireInfo" class="inputBase newsList-content-mainList-text fl required"  style="height: 200px;width: 734px;resize:none"></textarea>
                             <!--<span style="position: relative;top: -20px;left: 550px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">500</i>/500</span>-->
                             <div id="inquireInfoAllA" class="newsList-content-mainList-textEdit box4 fl">
                                 <script id="editor" type="text/plain"></script>
@@ -453,7 +453,7 @@
                         <li class="newsList-content-main-listRow box4">
                             <span class="newsList-content-mainList-title fl">协议内容:<span class="newsList-content-mainList-titleTip">（300字内）:</span></span>
                             <textarea id="agreementContent" class="inputBase newsList-content-mainList-text fl" style="resize:none;height: 150px;" onkeyup="javascript:checkWords(this,300);" onmousedown="javascript:checkWords(this,300);"></textarea>
-                            <span style="position: relative;top: -20px;left: 650px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">300</i>/300</span>
+                            <span style="position: relative;top: -20px;left: 650px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">300</i>/<i id="wordCheckTotal">300</i></span>
                         </li>
                         <li class="newsList-content-main-listRow box4">
                             <span class="newsList-content-mainList-title fl">协议金额:</span>
@@ -495,12 +495,12 @@
                         <li class="newsList-content-main-listRow">
                             <span class="newsList-content-mainList-title fl">原因分析及结论:<span class="newsList-content-mainList-titleTip">（500字内）:</span></span>
                             <textarea id="claimVerdict" class="inputBase newsList-content-mainList-text fl required"  style="resize:none;height: 200px;" onkeyup="javascript:checkWords(this,500);" onmousedown="javascript:checkWords(this,500);"></textarea>
-                            <span style="position: relative;top: -20px;left: 650px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">500</i>/500</span>
+                            <span style="position: relative;top: -20px;left: 650px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">500</i>/<i id="wordCheckTotal">500</i></span>
                         </li>
                         <li class="newsList-content-main-listRow">
                             <span class="newsList-content-mainList-title fl">整改措施:<span class="newsList-content-mainList-titleTip">（500字内）:</span></span>
                             <textarea id="improvement" class="inputBase newsList-content-mainList-text fl required"  style="resize:none;height: 200px;" onkeyup="javascript:checkWords(this,500);" onmousedown="javascript:checkWords(this,500);"></textarea>
-                            <span style="position: relative;top: -20px;left: 650px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">500</i>/500</span>
+                            <span style="position: relative;top: -20px;left: 650px;width: 200px;display: block;text-align: right;height: 32px;"><i id="wordCheck">500</i>/<i id="wordCheckTotal">500</i></span>
                         </li>
                     </div>
                 </ul>

@@ -271,6 +271,11 @@ function clsMethodLee$parse(){
     }else{
         $(".og-head-main").css("height",$("#js-loader").height()+"px");
     }
+    $("*[id=wordCheck]").each(function(){
+        var a = $(this).next().html();
+        var b = $(this).parent().prev().val().length;
+        $(this).html(a-b);
+    });
     this.operate();
 }
 
