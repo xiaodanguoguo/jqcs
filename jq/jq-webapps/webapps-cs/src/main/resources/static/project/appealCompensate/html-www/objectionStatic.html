@@ -30,6 +30,10 @@
     .chosen-container{
         margin-left: 0;
     }
+    .table-list-currentrow-tdetail{
+        word-break: break-all;
+        text-align: center;
+    }
 </style>
 <ul class="serachbox" id="searchBox">
     <li class="serachbox-list">
@@ -53,23 +57,29 @@
     </li>
     <li class="serachbox-list">
         <span class="serachbox-title fl">投诉单位：</span>
-        <input type="text" class="serachbox-input fl inputBase">
+        <select type="text" class="inputBase" id="conddeptCode">
+            <option value="">请选择</option>
+            <option value="2000">炼轧</option>
+            <option value="1000">不锈</option>
+            <option value="3000">榆钢</option>
+            <option value="2200">碳钢</option>
+        </select>
     </li>
     <li class="serachbox-list">
         <span class="serachbox-title fl">投诉客户：</span>
-        <input type="text" class="serachbox-input fl inputBase">
+        <input type="text" class="serachbox-input fl inputBase" id="customerName">
     </li>
     <li class="serachbox-list">
         <span class="serachbox-title fl">提报时间：</span>
-        <input class="inputBase serachbox-input" type="text" name="startDate" id="startDate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endDate\')}'})" />
+        <input class="inputBase serachbox-input" type="text" name="condstartDt" id="condstartDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'condendDt\')}'})" />
     </li>
     <li class="serachbox-list">
         <span class="serachbox-title fl">至：</span>
-        <input class="inputBase serachbox-input" type="text" name="endDate" id="endDate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'startDate\')}'})" />
+        <input class="inputBase serachbox-input" type="text" name="condendDt" id="condendDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'condstartDt\')}'})" />
     </li>
     <li class="serachbox-list fr" style="margin-right: 0">
-        <div class="btnBaseCommon" comType="searchBtnCtrl" cond="condzph" rule="cond" unionTableId="tableList" parentId="searchBox">搜索</div>
-        <div class="btnBaseCommon">导出</div>
+        <div class="btnBaseCommon" comType="searchBtnCtrl" cond="condclaimNo,condclaimState,conddeptCode,customerName,condstartDt,condendDt" rule="cond" unionTableId="tableList" parentId="searchBox">搜索</div>
+        <div class="btnBaseCommon" id="export">导出</div>
     </li>
 </ul>
 <div class="objectionStatic">
@@ -89,7 +99,7 @@
             <th class="table-list-currentrow-theader" style="width: 3%">用途</th>
             <th class="table-list-currentrow-theader" style="width: 1%">车号</th>
             <th class="table-list-currentrow-theader" style="width: 2%">质证书编号</th>
-            <th class="table-list-currentrow-theader" style="width: 1%">钢号</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">规格</th>
             <th class="table-list-currentrow-theader" style="width: 1%">牌号(mm)</th>
             <th class="table-list-currentrow-theader" style="width: 1%">提出异议量(t)</th>
             <th class="table-list-currentrow-theader" style="width: 1%">确认量(t)</th>
@@ -97,7 +107,6 @@
             <th class="table-list-currentrow-theader" style="width: 2%">投诉原因</th>
             <th class="table-list-currentrow-theader" style="width: 5%">确认的产品质量问题</th>
             <th class="table-list-currentrow-theader" style="width: 1%">异议类别</th>
-            <th class="table-list-currentrow-theader" style="width: 1%">炉批号</th>
             <th class="table-list-currentrow-theader" style="width: 1%">生产日期</th>
             <th class="table-list-currentrow-theader" style="width: 1%">生产工序</th>
             <th class="table-list-currentrow-theader" style="width: 6%">处理依据及处理方式</th>
@@ -124,25 +133,24 @@
             <td class="table-list-currentrow-tdetail" id="used"></td>
             <td class="table-list-currentrow-tdetail" id="originalCarNo"></td>
             <td class="table-list-currentrow-tdetail" id="millSheetNo"></td>
-            <td class="table-list-currentrow-tdetail" id="battenPlateNo"></td>
+            <td class="table-list-currentrow-tdetail" id="specs"></td>
             <td class="table-list-currentrow-tdetail" id="designation"></td>
             <td class="table-list-currentrow-tdetail" id="objectionNum"></td>
             <td class="table-list-currentrow-tdetail" id="objectionConfirmation"></td>
             <td class="table-list-currentrow-tdetail" id="agreementAmount"></td>
-            <td class="table-list-currentrow-tdetail" id=""></td>
+            <td class="table-list-currentrow-tdetail" id="claimReason"></td>
             <td class="table-list-currentrow-tdetail" id="proProblem"></td>
-            <td class="table-list-currentrow-tdetail" id="claimType"></td>
-            <td class="table-list-currentrow-tdetail" id=""></td>
+            <td class="table-list-currentrow-tdetail" id="claimTypeA"></td>
             <td class="table-list-currentrow-tdetail" id="productDt"></td>
-            <td class="table-list-currentrow-tdetail" id=""></td>
+            <td class="table-list-currentrow-tdetail" id="millLine"></td>
             <td class="table-list-currentrow-tdetail" id="handingSuggestion"></td>
             <td class="table-list-currentrow-tdetail" id="admissibilityTime"></td>
-            <td class="table-list-currentrow-tdetail" id=""></td>
+            <td class="table-list-currentrow-tdetail" id="arrivalTime"></td>
             <td class="table-list-currentrow-tdetail" id="closingTime"></td>
             <td class="table-list-currentrow-tdetail" id="closingUser"></td>
-            <td class="table-list-currentrow-tdetail" id=""></td>
+            <td class="table-list-currentrow-tdetail" id="cycle"></td>
             <td class="table-list-currentrow-tdetail" id="memo"></td>
-            <td class="table-list-currentrow-tdetail" id=""></td>
+            <td class="table-list-currentrow-tdetail" id="evaluate"></td>
         </tr>
     </table>
     <div id="nonData" class="noDataCon" style="display: none">
@@ -152,6 +160,7 @@
 </div>
 <div class="tcdPageCode"></div>
 <script>
+    var jsonExprot = {};
     function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         //判断异议状态  0新建 1已提报  2已受理  3已驳回  4调查中  5处理中  6已结案  7已评价
         switch (jsonItem.claimState){
@@ -183,6 +192,32 @@
                 $(cloneRow).find("#claimStateA").html("已评价");
                 break;
         }
+        switch (jsonItem.claimType) {
+            case "1":
+                $(cloneRow).find("#claimTypeA").html("表面外观");
+                break;
+            case "2":
+                $(cloneRow).find("#claimTypeA").html("理化性能");
+                break;
+            case "3":
+                $(cloneRow).find("#claimTypeA").html("加工使用");
+                break;
+            case "4":
+                $(cloneRow).find("#claimTypeA").html("尺寸公差");
+                break;
+            case "5":
+                $(cloneRow).find("#claimTypeA").html("实物不符");
+                break;
+            case "6":
+                $(cloneRow).find("#claimTypeA").html("计量");
+                break;
+            case "7":
+                $(cloneRow).find("#claimTypeA").html("其他");
+                break;
+            case "7":
+                $(cloneRow).find("#claimTypeA").html("已评价");
+                break;
+        }
     }
     $(function(){
         $("#condclaimState").chosen({
@@ -191,7 +226,22 @@
             enable_split_word_search: false,
             placeholder_text_single: ""
         });
+        $("#conddeptCode").chosen({
+            no_results_text: "暂无结果",
+            width: "142PX",
+            enable_split_word_search: false,
+            placeholder_text_single: ""
+        });
+        $("#export").on("click",function(){
+            var importParam = "name=" + JSON.stringify(jsonExprot);
+            $.download(requestUrl + "/objectionLendger/export", importParam, "POST");
+        });
     });
+
+    function clsSearchBtnCtrl$after(jsonCond) {
+        jsonExprot = jsonCond;
+        return jsonCond;
+    }
 
 </script>
 
