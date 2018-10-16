@@ -15,6 +15,7 @@ public class ObjectionChuLiVO {
     private String expiredReason;
 
     //结案时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date closingTime;
 
     //是否跟踪
