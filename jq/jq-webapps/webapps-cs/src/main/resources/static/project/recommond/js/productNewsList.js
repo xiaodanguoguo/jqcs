@@ -176,6 +176,11 @@ function deleteOpeCallBack(data){
     }
 }
 
+function clsSearchBtnCtrl$after(jsonCond) {
+    $("#tableList")[0].cacheArr = [];
+    return jsonCond;
+}
+
 $(function(){
     //初始化自己封装方法
     var methodLee = new clsMethodLee();
