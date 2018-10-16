@@ -56,9 +56,9 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
                 crmClaimInfo = new CrmClaimInfo();
                 BeanCopyUtil.copy(objectionChuLiVO, crmClaimInfo);
                 if (crmClaimInfo.getExpiredSign()!=null&&crmClaimInfo.getExpiredSign()!=""){
-                    crmClaimInfo.setIsUpload("Y");
+                    objectionChuLiVO.setIsUpload("Y");
                 }else {
-                    crmClaimInfo.setIsUpload("N");
+                    objectionChuLiVO.setIsUpload("N");
                 }
                 //判断是否允许上传（结案时间减受理时间   7天 （没跟踪过） 20天（跟踪过））
                 /*if (crmClaimInfo.getTrace()!= null){
