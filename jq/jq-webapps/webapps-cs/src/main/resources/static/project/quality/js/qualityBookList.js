@@ -92,6 +92,7 @@ function clsMethodLee$operate(){
                 $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
                 $("#tableList")[0].cacheArr = [];
                 setTimeout(function(){
+                    $("#tableList")[0].cacheArr = [];
                     //initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
                     if(window.location.href.indexOf("qualityBookList2") != -1){
                         initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path7,null,"POST");
@@ -305,6 +306,7 @@ function previewCallBack(data){
         if(document.body.jsLee.previewArr.length == 1){
             $("#previewNext").attr("disabled",true).addClass("changeGary");
         }
+        $("#tableList")[0].cacheArr = [];
         if(window.location.href.indexOf("qualityBookList2") != -1){
             initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path7,null,"POST");
         }else{
@@ -319,6 +321,7 @@ function previewCallBack2(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         jumpUrl("viewerPng.html?file="+data.rspBody[0].millSheetPath,"0000000",1);
+        $("#tableList")[0].cacheArr = [];
         if(window.location.href.indexOf("qualityBookList2") != -1){
             initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path7,null,"POST");
         }else{

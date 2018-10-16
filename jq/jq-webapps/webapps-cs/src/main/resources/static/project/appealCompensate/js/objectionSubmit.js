@@ -425,6 +425,11 @@ function pdfViewCallBack(data){
     }
 }
 
+function clsSearchBtnCtrl$after(jsonCond) {
+    $("#tableList")[0].cacheArr = [];
+    return jsonCond;
+}
+
 //返回联系人信息
 function getContentCallBack(data){
     data = JSON.parse(data);
