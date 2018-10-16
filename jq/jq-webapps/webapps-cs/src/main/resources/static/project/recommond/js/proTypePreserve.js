@@ -47,12 +47,8 @@ function clsMethodLee$operate(){
         var obj = new clsValidateCtrl();
         if(obj.validateAll())
         {
-            var jsonData = [];
-            $("tr[id='cloneRow']").each(function(){
-                jsonData.push(this.jsonData);
-            });
-            document.body.jsLee.opeType = 2;
-            getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",jsonData,"saveCallBack(data)")
+            var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert("是否提交","温馨提示",1,"","btnSubmitTip");
         }
     });
     $("#btnDelete").on("click",function(){
@@ -129,6 +125,13 @@ function  saveCallBack(data) {
 function clsAlertBoxCtrl$sure() {//保存成功弹框确定，跳转页面
     if (this.id == "jumpUrlTip") {
         jumpUrl("productNewsList.html","0000000",0);
+    }else if(this.id == "btnSubmitTip"){
+        var jsonData = [];
+        $("tr[id='cloneRow']").each(function(){
+            jsonData.push(this.jsonData);
+        });
+        document.body.jsLee.opeType = 2;
+        getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",jsonData,"saveCallBack(data)")
     }
 }
 
