@@ -277,9 +277,7 @@
 <div class="contentA">
     <div class="">
         <div class="btnLowNew product-add" id="btnInsert" unionTableId="tableList">添加</div>
-        <div class="btnLowNew product-del" id="btnDelete" unionTableId="tableList">删除</div>
-        <div class="btnLowNew product-save" id="btnSave" unionTableId="tableList">保存</div>
-        <div class="btnLowNew product-submit" id="btnSubmit" unionTableId="tableList">提交</div>
+        <div class="btnLowNew product-del" id="btnDelete" unionTableId="tableList">清除</div>
     </div>
     <table class="table-list product_main" id="tableList" insertid="btnInsert" chkid="chkCoding" deleteid="btnDelete" comtype="" templateid="templateRow" reqpath="" reqparam="{}" method="POST" nodata="nonData">
         <tr class="table-list-currentrow">
@@ -322,6 +320,10 @@
     <div id="nonData" class="noDataCon" style="display: none">
         <i></i>
         <p>暂无数据......</p>
+    </div>
+    <div style="margin: 20px auto;width: 200px;">
+        <div class="btnBaseCommon product-save" id="btnSave" unionTableId="tableList">保存</div>
+        <div class="btnBaseCommon product-submit" id="btnSubmit" unionTableId="tableList">提交</div>
     </div>
 </div>
 
