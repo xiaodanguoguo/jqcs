@@ -37,6 +37,7 @@ http://sourceforge.net/adobe/cmap/wiki/License/
     <script src="../../base/js/jquery.js" type="text/javascript"></script>
     <script src="../../base/js/public.js" type="text/javascript"></script>
     <script src="../../base/js/docassistant.js" type="text/javascript"></script>
+    <script src="../../../reqConfig.js" type="text/javascript"></script>
 <script src="l10n.js"></script>
 <script src="../build/pdf.js"></script>
 
@@ -46,19 +47,41 @@ http://sourceforge.net/adobe/cmap/wiki/License/
     <script src="viewer.js"></script>
 	<script>
       var  markPrint = 0;
+      var millSheetNos = [];
+      $(function(){
+          if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
+              if(window.localStorage["millSheetNos"] == null || window.localStorage["millSheetNos"] == "" || window.localStorage["millSheetNos"] == undefined){
+                  millSheetNos = [];
+              }else{
+                  millSheetNos = JSON.parse(window.localStorage["millSheetNos"]);
+              }
+          }else{
+              if(getCookie("millSheetNos") == null || getCookie("millSheetNos") == "" || getCookie("millSheetNos") == undefined){
+                  millSheetNos = [];
+              }else{
+                  millSheetNos = JSON.parse(getCookie("millSheetNos"));
+              }
+          }
+      });
 	//动态设置要打开的pdf路径，或者在url路径后面增加file=xxxx.do返回文件流
 		//DEFAULT_URL = 'http://localhost:8080/build/build/generic/web/222.pdf'
       function printCallBack(markPrint){
           if(markPrint == 0){
               var alertBox=new clsAlertBoxCtrl();
-              alertBox.Alert("打印次数将减1","温馨提示",1,"","passwordTip");
+              alertBox.Alert("打印次数将减1","温馨提示",1,"","printTipPop");
               return false;
           }else{
               return true;
           }
       }
-    function clsAlertBoxCtrl$sure() {//修改密码成功弹框确定
-        if (this.id == "passwordTip") {//修改密码成功
+    function clsAlertBoxCtrl$sure() {//
+        if (this.id == "printTipPop") {//
+            getAjaxResult("/millsheet/preview","POST",millSheetNos,"printOpeCallBack(data)");
+        }
+    }
+    function printOpeCallBack(data){
+        data = JSON.parse(data);
+        if(data.retCode == "0000000"){
             closePopupWin();
             markPrint = 1;
             window.print();

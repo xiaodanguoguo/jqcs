@@ -352,57 +352,65 @@
                 <div class="btnLowNew submission-box-apply">销售审核</div>
                 <div class="btnLowNew submission-box-appraise">异议处理评价</div>-->
             </div>
-            <table class="table-list" id="tableList" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData" chkId="chkCoding" isCacheCond="claimNo" clsChk="clsChk" clsallchk="clsAllChk">
-                <tr class="table-list-currentrow">
-                    <th class="table-list-currentrow-theader" width="8%">操作</th>
-                    <th class="table-list-currentrow-theader" width="2%">
-                        <input type="checkbox" id="checkAll" comtype="checkAll" cond="" class="clsAllChk" uniontableid="tableList" chkid="chkCoding">
-                    </th>
-                    <th class="table-list-currentrow-theader" width="3%">序号</th>
-                    <th class="table-list-currentrow-theader" width="6%">异议编号</th>
-                    <th class="table-list-currentrow-theader" width="5%">异议状态</th>
-                    <th class="table-list-currentrow-theader" width="7%">生产厂家</th>
-                    <th class="table-list-currentrow-theader" width="7%">产品大类</th>
-                    <th class="table-list-currentrow-theader" width="7%">牌号</th>
-                    <th class="table-list-currentrow-theader" width="8%">规格</th><!--
+            <div class="submission-table" style="width: 950px;overflow-x: scroll">
+                <table class="table-list" id="tableList" style="width: 1300px!important;table-layout: fixed" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData" chkId="chkCoding" isCacheCond="claimNo" clsChk="clsChk" clsallchk="clsAllChk">
+                    <tr class="table-list-currentrow">
+                        <th class="table-list-currentrow-theader" width="8%">操作</th>
+                        <th class="table-list-currentrow-theader" width="2%">
+                            <input type="checkbox" id="checkAll" comtype="checkAll" cond="" class="clsAllChk" uniontableid="tableList" chkid="chkCoding">
+                        </th>
+                        <th class="table-list-currentrow-theader" width="4%">序号</th>
+                        <th class="table-list-currentrow-theader" width="6%">异议编号</th>
+                        <th class="table-list-currentrow-theader" width="5%">异议状态</th>
+                        <th class="table-list-currentrow-theader" width="7%">生产厂家</th>
+                        <th class="table-list-currentrow-theader" width="7%">产品大类</th>
+                        <th class="table-list-currentrow-theader" width="7%">牌号</th>
+                        <th class="table-list-currentrow-theader" width="8%">规格</th><!--
                     <th class="table-list-currentrow-theader" width="5%">异议类别</th>-->
-                    <th class="table-list-currentrow-theader" width="6%">异议量(吨)</th>
-                    <th class="table-list-currentrow-theader" width="8%">提报日期</th>
-                    <th class="table-list-currentrow-theader" width="3%">报告附件</th>
-                    <th class="table-list-currentrow-theader" width="4%">协议书查看</th>
-                    <th class="table-list-currentrow-theader" width="6%">驳回原因</th>
-                    <th class="table-list-currentrow-theader" width="8%">强制结案原因</th>
-                </tr>
-                <tr class="table-list-currentrow" id="templateRow" style="display: none;">
-                    <td class="table-list-currentrow-tdetail">
-                        <span class="btnLowImgCom" id="editOpe" limitCode="M30202" style="display: none;">修改</span>
-                        <span class="btnLowImgCom" id="detailOpe" limitCode="M30211">异议详情</span>
-                        <span class="btnLowImgCom" id="auditOpe" limitCode="M30206" style="display: none;">销售审核</span>
-                        <span class="btnLowImgCom" id="evaluateOpe" limitCode="M30207" style="display: none;">异议处理评价</span>
-                    </td>
-                    <td class="table-list-currentrow-tdetail">
-                        <input type="checkbox" id="chkCoding" class="clsChk">
-                    </td>
-                    <td class="table-list-currentrow-tdetail" id="indexNum"></td>
-                    <td class="table-list-currentrow-tdetail" id="claimNo"></td>
-                    <td class="table-list-currentrow-tdetail" id="claimStateA"></td>
-                    <td class="table-list-currentrow-tdetail" id="deptCode"></td>
-                    <td class="table-list-currentrow-tdetail" id="zcpmc"></td>
-                    <td class="table-list-currentrow-tdetail" id="zph"></td>
-                    <td class="table-list-currentrow-tdetail" id="specs"></td>
-                    <!--<td class="table-list-currentrow-tdetail" id="claimTypeA"></td>-->
-                    <td class="table-list-currentrow-tdetail" id="objectionNum"></td>
-                    <td class="table-list-currentrow-tdetail" id="presentationDate"></td>
-                    <td class="table-list-currentrow-tdetail">
-                        <a href="javascript:;" class="submission-box-watch" id="viewOpe" limitCode="M30209">查看</a>
-                    </td>
-                    <td class="table-list-currentrow-tdetail">
-                        <img src="../images/pic.png" class="submission-box-img" alt="" id="downloadOpe" style="display:none;">
-                    </td>
-                    <td class="table-list-currentrow-tdetail" id="rejectReason"></td>
-                    <td class="table-list-currentrow-tdetail" id="reasonsForCompulsoryClosure"></td>
-                </tr>
-            </table>
+                        <th class="table-list-currentrow-theader" width="6%">异议量(吨)</th>
+                        <th class="table-list-currentrow-theader" width="8%">提报日期</th>
+                        <th class="table-list-currentrow-theader" width="5%">报告附件</th>
+                        <th class="table-list-currentrow-theader" width="6%">协议书查看</th>
+                        <th class="table-list-currentrow-theader" width="6%">驳回原因</th>
+                        <th class="table-list-currentrow-theader" width="8%">强制结案原因</th>
+                        <th class="table-list-currentrow-theader" width="6%">受理人</th>
+                        <th class="table-list-currentrow-theader" width="10%">受理人电话</th>
+                        <th class="table-list-currentrow-theader" width="8%">受理时间</th>
+                    </tr>
+                    <tr class="table-list-currentrow" id="templateRow" style="display: none;">
+                        <td class="table-list-currentrow-tdetail">
+                            <span class="btnLowImgCom" id="editOpe" limitCode="M30202" style="display: none;">修改</span>
+                            <span class="btnLowImgCom" id="detailOpe" limitCode="M30211">异议详情</span>
+                            <span class="btnLowImgCom" id="auditOpe" limitCode="M30206" style="display: none;">销售审核</span>
+                            <span class="btnLowImgCom" id="evaluateOpe" limitCode="M30207" style="display: none;">异议处理评价</span>
+                        </td>
+                        <td class="table-list-currentrow-tdetail">
+                            <input type="checkbox" id="chkCoding" class="clsChk">
+                        </td>
+                        <td class="table-list-currentrow-tdetail" id="indexNum"></td>
+                        <td class="table-list-currentrow-tdetail" id="claimNo"></td>
+                        <td class="table-list-currentrow-tdetail" id="claimStateA"></td>
+                        <td class="table-list-currentrow-tdetail" id="deptCode"></td>
+                        <td class="table-list-currentrow-tdetail" id="zcpmc"></td>
+                        <td class="table-list-currentrow-tdetail" id="zph"></td>
+                        <td class="table-list-currentrow-tdetail" id="specs"></td>
+                        <!--<td class="table-list-currentrow-tdetail" id="claimTypeA"></td>-->
+                        <td class="table-list-currentrow-tdetail" id="objectionNum"></td>
+                        <td class="table-list-currentrow-tdetail" id="presentationDate"></td>
+                        <td class="table-list-currentrow-tdetail">
+                            <a href="javascript:;" class="submission-box-watch" id="viewOpe" limitCode="M30209">查看</a>
+                        </td>
+                        <td class="table-list-currentrow-tdetail">
+                            <img src="../images/pic.png" class="submission-box-img" alt="" id="downloadOpe" style="display:none;">
+                        </td>
+                        <td class="table-list-currentrow-tdetail" id="rejectReason"></td>
+                        <td class="table-list-currentrow-tdetail" id="reasonsForCompulsoryClosure"></td>
+                        <td class="table-list-currentrow-tdetail" id="admissibilityUser"></td>
+                        <td class="table-list-currentrow-tdetail" id="admissibilityTime"></td>
+                        <td class="table-list-currentrow-tdetail" id="phone"></td>
+                    </tr>
+                </table>
+            </div>
             <div id="nonData" class="noDataCon" style="width: 950px !important; margin-left: 22px;display: none">
                 <i></i>
                 <p>暂无数据......</p>

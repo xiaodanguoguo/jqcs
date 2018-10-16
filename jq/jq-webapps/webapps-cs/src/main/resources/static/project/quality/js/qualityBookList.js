@@ -121,16 +121,18 @@ function clsMethodLee$operate(){
             }
             if(num == $("#tableList")[0].cacheArr.length){
                 var millSheetNoArr = [];
+                var millSheetNos = [];
                 for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
                     millSheetNoArr.push($("#tableList")[0].cacheArr[nI].millSheetNo);
+                    millSheetNos.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":2});
                 }
 
                 //getAjaxResult(document.body.jsLee.requestUrl.path8,"POST",millSheetNoArr,"printOpeCallBack(data)");
-                /*if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
-                    window.localStorage.millSheetNos = JSON.stringify(millSheetNoArr);
+                if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
+                    window.localStorage.millSheetNos = JSON.stringify(millSheetNos);
                 }else{
-                    setCookie("limitCode",escape(JSON.stringify(millSheetNoArr)));
-                }*/
+                    setCookie("millSheetNos",escape(JSON.stringify(millSheetNos)));
+                }
                 jumpUrl("../../../generic/web/viewer.html?file=/millsheet/preview1/"+JSON.stringify(millSheetNoArr),"0000000","1");
                 /*var alertBox = new clsAlertBoxCtrl();
                 alertBox.Alert("确认打印？打印次数减一","警告提示",1,"","printOpeTip");*/
