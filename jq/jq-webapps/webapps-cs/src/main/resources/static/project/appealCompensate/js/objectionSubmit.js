@@ -433,7 +433,7 @@ function getContentCallBack(data){
             if(data.rspBody.acctType != 5){
                 $("#condcustomerId").val(data.rspBody.orgName).attr("disabled",true).addClass("changeGary");
                  $("#tableList")[0].cacheArr = [];
-                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"condcustomerId":data.rspBody.orgName},"POST");
+                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,{"customerId":data.rspBody.orgName},"POST");
             }else{
                 $("#tableList")[0].cacheArr = [];
                 initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");

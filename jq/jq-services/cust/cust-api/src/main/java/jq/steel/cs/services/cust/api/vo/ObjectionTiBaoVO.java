@@ -159,6 +159,8 @@ public class ObjectionTiBaoVO {
 
     private String manufactor;
 
+    private String acctName;
+
     private  String orgCode;
 
     private  String orgName;
@@ -169,6 +171,14 @@ public class ObjectionTiBaoVO {
     private  String report;
 
     private Integer count;
+
+    public String getAcctName() {
+        return acctName;
+    }
+
+    public void setAcctName(String acctName) {
+        this.acctName = acctName;
+    }
 
     public String getAst() {
         return ast;

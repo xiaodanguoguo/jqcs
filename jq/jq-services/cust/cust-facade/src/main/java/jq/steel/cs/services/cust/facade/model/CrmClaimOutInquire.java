@@ -8,6 +8,20 @@ import java.util.List;
 
 public class CrmClaimOutInquire {
 
+    private String acctName;
+
+    //提报日期导出字段转换
+    private String ast;
+
+    //受理日期导出字段转换
+    private String at;
+
+    //外部调查时间导出字段转换
+    private String eld;
+
+    //内部调查时间导出字段转换
+    private String ild;
+
     //跟踪人
     private String trace;
 
@@ -20,6 +34,46 @@ public class CrmClaimOutInquire {
     private  String parentSid;
 
     private String claimState1;
+
+    public String getAcctName() {
+        return acctName;
+    }
+
+    public void setAcctName(String acctName) {
+        this.acctName = acctName;
+    }
+
+    public String getAst() {
+        return ast;
+    }
+
+    public void setAst(String ast) {
+        this.ast = ast;
+    }
+
+    public String getAt() {
+        return at;
+    }
+
+    public void setAt(String at) {
+        this.at = at;
+    }
+
+    public String getEld() {
+        return eld;
+    }
+
+    public void setEld(String eld) {
+        this.eld = eld;
+    }
+
+    public String getIld() {
+        return ild;
+    }
+
+    public void setIld(String ild) {
+        this.ild = ild;
+    }
 
     public String getTrace() {
         return trace;

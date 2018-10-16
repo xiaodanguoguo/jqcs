@@ -477,7 +477,7 @@ LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
         DEFECT_NAME = #{proProblem,jdbcType=VARCHAR},
       </if>
       <if test="productDt != null" >
-        PRODUCT_DT = #{productDt,jdbcType=VARCHAR},
+        PRODUCT_DT = #{productDt,jdbcType=TIMESTAMP},
       </if>
       <if test="shift != null and shift != ''" >
         SHIFT = #{shift,jdbcType=VARCHAR},

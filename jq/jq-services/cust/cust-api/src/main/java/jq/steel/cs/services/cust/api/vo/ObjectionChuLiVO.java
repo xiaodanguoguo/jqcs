@@ -8,6 +8,9 @@ import java.util.List;
 
 public class ObjectionChuLiVO {
 
+    //提报日期导出字段转换
+    private String ast;
+
     //过期原因
     private String expiredReason;
 
@@ -267,10 +270,25 @@ public class ObjectionChuLiVO {
 
     private String handingSuggestion;
 
-
+    private String acctName;
     //备注
     private String memo;
 
+    public String getAcctName() {
+        return acctName;
+    }
+
+    public void setAcctName(String acctName) {
+        this.acctName = acctName;
+    }
+
+    public String getAst() {
+        return ast;
+    }
+
+    public void setAst(String ast) {
+        this.ast = ast;
+    }
 
     public String getIsUpload() {
         return isUpload;

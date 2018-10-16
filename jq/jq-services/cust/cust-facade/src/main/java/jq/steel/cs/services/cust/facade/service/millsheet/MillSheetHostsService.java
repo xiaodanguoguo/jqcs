@@ -10,6 +10,10 @@ import java.util.List;
 public interface MillSheetHostsService {
     //分页条件查询
     PageDTO<MillSheetHostsVO> findMillSheetByPage(MillSheetHostsVO millSheetHostsVO);
+
+    //分页条件查询（酒钢）
+    PageDTO<MillSheetHostsVO> findMillSheetByPage1(MillSheetHostsVO millSheetHostsVO);
+
     //查询质证书文件地址
     List<MillSheetHostsVO> findUrl(List<MillSheetHostsVO> millSheetHostsVO,HttpServletRequest request);
     //下载地址

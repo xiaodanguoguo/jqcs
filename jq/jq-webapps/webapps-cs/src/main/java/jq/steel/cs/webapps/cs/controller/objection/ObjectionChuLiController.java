@@ -129,6 +129,7 @@ public class ObjectionChuLiController {
         try {
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
             // 根据service层返回的编码做不同的操作
             ServiceResponse<Integer> response = objectionChuLiAPI.agreementUpdate(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
@@ -216,7 +217,7 @@ public class ObjectionChuLiController {
         headers.add("异议类别@claimType@4000");
         headers.add("异议量(吨)@objectionNum@8000");
         headers.add("使用单位@lastUser@8000");
-        headers.add("提报日期@presentationDate@4000");
+        headers.add("提报日期@ast@4000");
         headers.add("强制结案原因@reasonsForCompulsoryClosure@4000");
         headers.add("协议书驳回原因@rejectReason@4000");
         return headers;
@@ -391,6 +392,7 @@ public class ObjectionChuLiController {
         try {
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
             // 根据service层返回的编码做不同的操作
             ServiceResponse<Integer> response = objectionChuLiAPI.compulsorySettlement(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))

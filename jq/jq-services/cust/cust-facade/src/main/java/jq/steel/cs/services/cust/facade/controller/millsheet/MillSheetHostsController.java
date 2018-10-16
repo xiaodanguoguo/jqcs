@@ -46,6 +46,22 @@ public class MillSheetHostsController {
         return  serviceResponse;
     }
 
+    //条件分页查询（酒钢）
+    @RequestMapping(value = "/findMillSheetByPage1",method = RequestMethod.POST)
+    public ServiceResponse<PageDTO<MillSheetHostsVO>> findMillSheetByPage1(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest){
+        logger.info("分页 = {}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<PageDTO<MillSheetHostsVO>> serviceResponse = new ServiceResponse<>();
+        try {
+            MillSheetHostsVO millSheetHostsVO = jsonRequest.getReqBody();
+            PageDTO<MillSheetHostsVO> pageDTO = millSheetHostsService.findMillSheetByPage1(millSheetHostsVO);
+            serviceResponse.setRetContent(pageDTO);
+        }catch (BusinessException e){
+            logger.error("获取分页出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
     //查询文件地址
     @RequestMapping(value = "/preview",method = RequestMethod.POST)
     public ServiceResponse<List<MillSheetHostsVO>> findUrl(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest,HttpServletRequest request){

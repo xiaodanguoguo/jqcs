@@ -154,6 +154,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
     public Integer update(ObjectionTiBaoVO objectionTiBaoVO) {
         String orgCode = objectionTiBaoVO.getOrgCode();
         String orgName = objectionTiBaoVO.getOrgName();
+        String acctName = objectionTiBaoVO.getAcctName();
             //转换mdel
             CrmClaimApply crmClaimApply  = new CrmClaimApply();
             CrmClaimInfo crmClaimInfo = new CrmClaimInfo();
@@ -164,16 +165,16 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             BeanCopyUtil.copy(objectionTiBaoVO,crmClaimApplyCopy);
             //1审核保存操作2驳回操作3通过操作4修改保存5新增保存
             if (crmClaimApply.getOptionStuts()== 1){
-                crmClaimApply.setUpdatedBy(orgCode);
+                crmClaimApply.setUpdatedBy(acctName);
                 crmClaimApply.setUpdatedDt(new Date());
-                crmClaimApply.setUpdatedBy(orgCode);
+                crmClaimApply.setUpdatedBy(acctName);
                 crmClaimApply.setUpdatedDt(new Date());
                 crmClaimApplyMapper.update(crmClaimApply);
                 //日志记录
                 CrmClaimLog crmClaimLog = new CrmClaimLog();
                 crmClaimLog.setClaimNo(objectionTiBaoVO.getClaimNo());
                 crmClaimLog.setType("销售审核保存");
-                crmClaimLog.setCreatedBy(orgCode);
+                crmClaimLog.setCreatedBy(acctName);
                 crmClaimLog.setCreatedDt(new Date());
                 crmClaimLog.setOpMemo(crmClaimInfo.toString());
                 crmClaimLogMapper.insert(crmClaimLog);
@@ -182,7 +183,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             }else if(crmClaimApply.getOptionStuts()== 2){
                 CrmClaimApply h  = new CrmClaimApply();
                 h.setUpdatedDt(new Date());
-                h.setUpdatedBy(orgCode);
+                h.setUpdatedBy(acctName);
                 h.setClaimNo(crmClaimApply.getClaimNo());
                 h.setClaimState("REJECT");
                 h.setRejectReason(crmClaimApply.getRejectReason());
@@ -191,13 +192,13 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 CrmClaimLog crmClaimLog = new CrmClaimLog();
                 crmClaimLog.setClaimNo(objectionTiBaoVO.getClaimNo());
                 crmClaimLog.setType("销售审核驳回");
-                crmClaimLog.setCreatedBy(orgCode);
+                crmClaimLog.setCreatedBy(acctName);
                 crmClaimLog.setCreatedDt(new Date());
                 crmClaimLog.setOpMemo("销售审核驳回");
                 crmClaimLogMapper.insert(crmClaimLog);
                 CrmClaimInfo g  = new CrmClaimInfo();
                 g.setUpdatedDt(new Date());
-                g.setUpdatedBy(orgCode);
+                g.setUpdatedBy(acctName);
                 g.setClaimNo(crmClaimApply.getClaimNo());
                 g.setClaimState("REJECT");
                 g.setRejectReason(crmClaimApply.getRejectReason());
@@ -206,24 +207,24 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             }else if(crmClaimApply.getOptionStuts()== 3){
                 CrmClaimApply h  = new CrmClaimApply();
                 h.setUpdatedDt(new Date());
-                h.setUpdatedBy(orgCode);
+                h.setUpdatedBy(acctName);
                 h.setClaimNo(crmClaimApply.getClaimNo());
                 h.setClaimState("ADOPT");
                 h.setAdmissibilityTime(new Date());
-                h.setAdmissibilityUser(orgCode);
+                h.setAdmissibilityUser(acctName);
                 h.setProProblem(crmClaimApply.getProProblem());
                 crmClaimApplyMapper.update(h);
                 //日志记录
                 CrmClaimLog crmClaimLog = new CrmClaimLog();
                 crmClaimLog.setClaimNo(objectionTiBaoVO.getClaimNo());
                 crmClaimLog.setType("销售审核通过");
-                crmClaimLog.setCreatedBy(orgCode);
+                crmClaimLog.setCreatedBy(acctName);
                 crmClaimLog.setCreatedDt(new Date());
                 crmClaimLog.setOpMemo("销售审核通过");
                 crmClaimLogMapper.insert(crmClaimLog);
                 CrmClaimInfo g  = new CrmClaimInfo();
                 g.setUpdatedDt(new Date());
-                g.setUpdatedBy(orgCode);
+                g.setUpdatedBy(acctName);
                 g.setClaimNo(crmClaimApply.getClaimNo());
                 g.setClaimState("ADOPT");
                 g.setProProblem(crmClaimInfo.getProProblem());
@@ -235,7 +236,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 CrmClaimLog crmClaimLog = new CrmClaimLog();
                 crmClaimLog.setClaimNo(objectionTiBaoVO.getClaimNo());
                 crmClaimLog.setType("用戶诉赔修改保存");
-                crmClaimLog.setCreatedBy(orgCode);
+                crmClaimLog.setCreatedBy(acctName);
                 crmClaimLog.setCreatedDt(new Date());
                 crmClaimLog.setOpMemo(crmClaimApply.toString());
                 crmClaimLogMapper.insert(crmClaimLog);
@@ -282,14 +283,14 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 //新增 apply表  再新增 info表
                 crmClaimApply.setClaimState("NEW");
                 crmClaimApply.setClaimNo(claimNo);
-                crmClaimApply.setCreatedBy(orgCode);
+                crmClaimApply.setCreatedBy(acctName);
                 crmClaimApply.setCustomerId(orgCode);
                 crmClaimApply.setCreatedDt(new Date());
                 Integer integer = crmClaimApplyMapper.insertSelective(crmClaimApply);
                 //备份表
                 crmClaimApplyCopy.setClaimState("NEW");
                 crmClaimApplyCopy.setClaimNo(claimNo);
-                crmClaimApplyCopy.setCreatedBy(orgCode);
+                crmClaimApplyCopy.setCreatedBy(acctName);
                 crmClaimApplyCopy.setCustomerId(orgCode);
                 crmClaimApplyCopy.setCreatedDt(new Date());
                 crmClaimApplyCopyMapper.insert(crmClaimApplyCopy);
@@ -297,14 +298,14 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 CrmClaimLog crmClaimLog = new CrmClaimLog();
                 crmClaimLog.setClaimNo(claimNo);
                 crmClaimLog.setType("用戶诉赔新增保存");
-                crmClaimLog.setCreatedBy(orgCode);
+                crmClaimLog.setCreatedBy(acctName);
                 crmClaimLog.setCreatedDt(new Date());
                 crmClaimLog.setOpMemo(crmClaimApply.toString());
                 crmClaimLogMapper.insert(crmClaimLog);
                 if (integer>0){
                     crmClaimInfo.setClaimState("NEW");
                     crmClaimInfo.setCreatedDt(new Date());
-                    crmClaimInfo.setCreatedBy(orgCode);
+                    crmClaimInfo.setCreatedBy(acctName);
                     crmClaimInfo.setCustomerId(orgCode);
                     crmClaimInfo.setClaimNo(claimNo);
                     crmClaimInfo.setDissentingUnit(dissentingUnit);
@@ -324,6 +325,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
         for (ObjectionTiBaoVO objectionTiBaoVO:objectionTiBaoVOS) {
             String orgCode = objectionTiBaoVO.getOrgCode();
             String orgName = objectionTiBaoVO.getOrgName();
+            String acctName =objectionTiBaoVO.getAcctName();
             //转换mdel
             CrmClaimApply crmClaimApply = new CrmClaimApply();
             CrmClaimInfo crmClaimInfo = new CrmClaimInfo();
@@ -335,7 +337,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 //提交
                 crmClaimApply.setClaimState("PRESENT");
                 crmClaimApply.setUpdatedDt(new Date());
-                crmClaimApply.setUpdatedBy(orgCode);
+                crmClaimApply.setUpdatedBy(acctName);
 //            crmClaimApply.setPresentationUser(orgCode);
                 crmClaimApply.setPresentationDate(new Date());
                 crmClaimApplyMapper.update(crmClaimApply);
@@ -343,12 +345,12 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 CrmClaimLog crmClaimLog = new CrmClaimLog();
                 crmClaimLog.setClaimNo(objectionTiBaoVO.getClaimNo());
                 crmClaimLog.setType("用戶诉赔提报");
-                crmClaimLog.setCreatedBy(orgCode);
+                crmClaimLog.setCreatedBy(acctName);
                 crmClaimLog.setCreatedDt(new Date());
                 crmClaimLog.setOpMemo("用戶诉赔提报");
                 crmClaimLogMapper.insert(crmClaimLog);
                 crmClaimInfo.setClaimState("PRESENT");
-                crmClaimInfo.setUpdatedBy(orgCode);
+                crmClaimInfo.setUpdatedBy(acctName);
                 crmClaimInfo.setUpdatedDt(new Date());
                 Integer integer = crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
                 return integer;
@@ -360,12 +362,12 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 CrmClaimLog crmClaimLog = new CrmClaimLog();
                 crmClaimLog.setClaimNo(objectionTiBaoVO.getClaimNo());
                 crmClaimLog.setType("用戶诉赔删除");
-                crmClaimLog.setCreatedBy(orgCode);
+                crmClaimLog.setCreatedBy(acctName);
                 crmClaimLog.setCreatedDt(new Date());
                 crmClaimLog.setOpMemo("用戶诉赔删除");
                 crmClaimLogMapper.insert(crmClaimLog);
                 crmClaimInfo.setClaimState("PRESENT");
-                crmClaimInfo.setUpdatedBy(orgCode);
+                crmClaimInfo.setUpdatedBy(acctName);
                 crmClaimInfo.setUpdatedDt(new Date());
                 Integer integer = crmClaimInfoMapper.deleteByPrimaryKey(crmClaimInfo.getClaimNo());
                 return integer;

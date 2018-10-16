@@ -133,6 +133,7 @@ public class ObjectionDiaoChaController {
             // 根据service层返回的编码做不同的操作
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
             ServiceResponse<Integer> response = objectionDiaoChaAPI.update(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
@@ -170,6 +171,7 @@ public class ObjectionDiaoChaController {
             // 根据service层返回的编码做不同的操作
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
             ServiceResponse<Integer> response = objectionDiaoChaAPI.updateInside(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
@@ -251,11 +253,11 @@ public class ObjectionDiaoChaController {
         headers.add("牌号@zph@4000");
         headers.add("规格@specs@4000");
         headers.add("异议量(吨)@objectionNum@8000");
-        headers.add("提报日期@presentationDate@4000");
-        headers.add("受理日期@admissibilityTime@4000");
-        headers.add("外部调查时间@externalLnvestigationDate@4000");
+        headers.add("提报日期@ast@4000");
+        headers.add("受理日期@at@4000");
+        headers.add("外部调查时间@eld@4000");
         headers.add("外部调查人@externalLnvestigator@4000");
-        headers.add("内部调查时间@internalLnvestigationDate@4000");
+        headers.add("内部调查时间@ild@4000");
         headers.add("内部调查人@internalLnvestigator@4000");
         headers.add("跟踪原因@followReason@4000");
         headers.add("确认书驳回原因@rejectReason@4000");
@@ -330,6 +332,7 @@ public class ObjectionDiaoChaController {
             // 根据service层返回的编码做不同的操作
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
             ServiceResponse<Integer> response = objectionDiaoChaAPI.reject(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
@@ -367,6 +370,7 @@ public class ObjectionDiaoChaController {
             // 根据service层返回的编码做不同的操作
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
             ServiceResponse<Integer> response = objectionDiaoChaAPI.updateState(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());

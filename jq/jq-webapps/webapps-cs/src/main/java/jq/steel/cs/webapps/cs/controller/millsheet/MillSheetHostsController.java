@@ -94,6 +94,49 @@ public class MillSheetHostsController {
         }
         return jsonResponse;
     }
+
+
+    /**
+     *条件分页查询（酒钢）
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/findMillSheetByPage1",method = RequestMethod.POST)
+    public JsonResponse<PageDTO<MillSheetHostsVO>>  findMillSheetByPage1(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest){
+        JsonResponse<PageDTO<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
+        String acctId = AssertContext.getAcctId();
+        ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+        List<String> list = new ArrayList<>();
+        for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+            list.add(roleInfoVO.getRoleCode());
+        }
+        if (list.size()>0){
+            jsonRequest.getReqBody().setDeptCodes(list);
+        }else {
+            jsonRequest.getReqBody().setDeptCodes(null);
+        }
+
+        try {
+            ServiceResponse<PageDTO<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findMillSheetByPage1(jsonRequest);
+            if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            } else {
+                if (serviceResponse.isHasError()) {
+                    jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                }else {
+                    jsonResponse.setRetCode(serviceResponse.getRetCode());
+                    jsonResponse.setRetDesc(serviceResponse.getRetMessage());
+                    return jsonResponse;
+                }
+            }
+        } catch (BusinessException e) {
+            logger.error("获取分页列表错误 = {}", e);
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+        return jsonResponse;
+    }
     /**
      *预览 返回对象文件地址
      * @param  jsonRequest

@@ -25,6 +25,16 @@ public interface MillSheetHostsAPI {
     @RequestMapping(value ="/millsheet/findMillSheetByPage", method = RequestMethod.POST)
     ServiceResponse<PageDTO<MillSheetHostsVO>> findMillSheetByPage(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest);
 
+
+    /**
+     * 条件分页查询（酒钢）
+     *
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value ="/millsheet/findMillSheetByPage1", method = RequestMethod.POST)
+    ServiceResponse<PageDTO<MillSheetHostsVO>> findMillSheetByPage1(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest);
+
     /**
      * 查询质证书地址
      * @param jsonRequest

@@ -39,7 +39,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     @Autowired
     private MillOperationHisMapper millOperationHisMapper;
 
-
+    //分页查询
     @Override
     public PageDTO<MillSheetHostsVO> findMillSheetByPage(MillSheetHostsVO millSheetHostsVO) {
         try {
@@ -79,6 +79,52 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 }
             }
         return transform;
+
+        }finally {
+            PageDTOUtil.endPage();
+        }
+    }
+
+    //分页查询（酒钢）
+    @Override
+    public PageDTO<MillSheetHostsVO> findMillSheetByPage1(MillSheetHostsVO millSheetHostsVO) {
+        try {
+            //转换mdel
+            MillSheetHosts millSheetHosts = new MillSheetHosts();
+            BeanCopyUtil.copy(millSheetHostsVO,millSheetHosts);
+            if(millSheetHosts.getZcharg()!=null && millSheetHosts.getZcharg()!=""){
+                MillCoilInfo coilInfo = new MillCoilInfo();
+                coilInfo.setZcharg(millSheetHosts.getZcharg());
+                List<MillCoilInfo> list = millCoilInfoMapper.findMillsheetNumber(coilInfo);
+                List<String> idall = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++){
+                    idall.add(list.get(i).getMillsheetNo());
+                }
+
+                millSheetHosts.setMillSheetNos(idall);
+            }
+            if(millSheetHosts.getDeptCode()!=null&& millSheetHosts.getDeptCode()!=""){
+                millSheetHosts.setDeptCodes(null);
+            }
+            PageDTOUtil.startPage(millSheetHostsVO);
+            String startDtStr = DateFormatUtil.getStartDateStr(millSheetHosts.getStartDt());
+            millSheetHosts.setStartDtStr(startDtStr);
+            String endDtStr = DateFormatUtil.getEndDateStr(millSheetHosts.getEndDt());
+            millSheetHosts.setEndDtStr(endDtStr);
+            List<MillSheetHosts> millSheetByPage = millSheetHostsMapper.findMillSheetByPage1(millSheetHosts);
+            // 分页对象
+            PageDTO<MillSheetHostsVO> transform = PageDTOUtil.transform(millSheetByPage, MillSheetHostsVO.class);
+            for (MillSheetHostsVO millSheetHosts2:transform.getResultData()){
+                millSheetHosts = new MillSheetHosts();
+                BeanCopyUtil.copy(millSheetHosts2, millSheetHosts);
+                List<CrmMillSheetSplitApply> crmMillSheetSplitApplies = crmMillSheetSplitApplyMapper.findFmillSheet(millSheetHosts);
+                if (crmMillSheetSplitApplies.size()>0){
+                    millSheetHosts2.setIsSplit(1);
+                }else {
+                    millSheetHosts2.setIsSplit(0);
+                }
+            }
+            return transform;
 
         }finally {
             PageDTOUtil.endPage();
