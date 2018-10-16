@@ -131,7 +131,7 @@ function clsMethodLee$operate(){
                 }else{
                     setCookie("limitCode",escape(JSON.stringify(millSheetNoArr)));
                 }*/
-                jumpUrl("../../../generic/web/viewer.html?file=/millsheet/preview1&param="+JSON.stringify(millSheetNoArr),"0000000","1");
+                jumpUrl("../../../generic/web/viewer.html?file=/millsheet/preview1/"+JSON.stringify(millSheetNoArr),"0000000","1");
                 /*var alertBox = new clsAlertBoxCtrl();
                 alertBox.Alert("确认打印？打印次数减一","警告提示",1,"","printOpeTip");*/
             }else{
