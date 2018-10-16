@@ -440,7 +440,7 @@ function printOpeCallBack(data){
         }else{
             initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
         }
-        jumpUrl("../../../generic/web/viewer.html?pdfUrl=" + data.rspBody[0].report,"0000000","1");
+        jumpUrl("../../../generic/web/viewer.html?file=" + data.rspBody[0].report,"0000000","1");
     }
 }
 

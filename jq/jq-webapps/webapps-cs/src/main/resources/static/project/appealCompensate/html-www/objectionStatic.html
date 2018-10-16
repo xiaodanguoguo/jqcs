@@ -27,23 +27,45 @@
     .serachbox-input{
         width: 120px;
     }
+    .chosen-container{
+        margin-left: 0;
+    }
 </style>
 <ul class="serachbox" id="searchBox">
     <li class="serachbox-list">
         <span class="serachbox-title fl">质量投诉编号：</span>
+        <input id="condclaimNo" type="text" class="serachbox-input fl inputBase">
+    </li>
+    <li class="serachbox-list" style="margin-top: 4px;height: 24px;">
+        <span class="serachbox-title fl">异议状态：</span>
+        <select id="condclaimState" name="" class="inputBase submission-box-list__Select">
+            <option value="">请选择</option>
+            <option value="NEW">新建</option>
+            <option value="PRESENT">已提报</option>
+            <option value="ADOPT">销售审核通过</option>
+            <option value="ACCEPTANCE">已受理</option>
+            <option value="REJECT">已驳回</option>
+            <option value="INVESTIGATION">调查中</option>
+            <option value="HANDLE">处理中</option>
+            <option value="END">已结案</option>
+            <option value="EVALUATE">已评价</option>
+        </select>
+    </li>
+    <li class="serachbox-list">
+        <span class="serachbox-title fl">投诉单位：</span>
         <input type="text" class="serachbox-input fl inputBase">
     </li>
     <li class="serachbox-list">
-        <span class="serachbox-title fl"></span>
+        <span class="serachbox-title fl">投诉客户：</span>
         <input type="text" class="serachbox-input fl inputBase">
     </li>
     <li class="serachbox-list">
-        <span class="serachbox-title fl"></span>
-        <input type="text" class="serachbox-input fl inputBase">
+        <span class="serachbox-title fl">提报时间：</span>
+        <input class="inputBase serachbox-input" type="text" name="startDate" id="startDate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endDate\')}'})" />
     </li>
     <li class="serachbox-list">
-        <span class="serachbox-title fl"></span>
-        <input type="text" class="serachbox-input fl inputBase">
+        <span class="serachbox-title fl">至：</span>
+        <input class="inputBase serachbox-input" type="text" name="endDate" id="endDate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'startDate\')}'})" />
     </li>
     <li class="serachbox-list fr" style="margin-right: 0">
         <div class="btnBaseCommon" comType="searchBtnCtrl" cond="condzph" rule="cond" unionTableId="tableList" parentId="searchBox">搜索</div>
@@ -54,6 +76,7 @@
     <table class="objSta-table table-list" id="tableList" comType="standardTableCtrl" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="/objectionLendger/findLedgerByPage" reqParam="{}" method="POST" noData="nonData" >
         <tr class="table-list-currentrow">
             <th class="table-list-currentrow-theader" style="width: 2%">质量投诉编号</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">异议状态</th>
             <th class="table-list-currentrow-theader" style="width: 3%">使用客户</th>
             <th class="table-list-currentrow-theader" style="width: 1%">联系人</th>
             <th class="table-list-currentrow-theader" style="width: 2%">联系电话</th>
@@ -88,6 +111,7 @@
         </tr>
         <tr class="table-list-currentrow" id="templateRow" style="display: none;">
             <td class="table-list-currentrow-tdetail" id="claimNo"></td>
+            <td class="table-list-currentrow-tdetail" id="claimStateA"></td>
             <td class="table-list-currentrow-tdetail" id="lastUser"></td>
             <td class="table-list-currentrow-tdetail" id="createEmpNo"></td>
             <td class="table-list-currentrow-tdetail" id="lastUserTel"></td>
@@ -127,7 +151,49 @@
     </div>
 </div>
 <div class="tcdPageCode"></div>
+<script>
+    function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
+        //判断异议状态  0新建 1已提报  2已受理  3已驳回  4调查中  5处理中  6已结案  7已评价
+        switch (jsonItem.claimState){
+            case "NEW":
+                $(cloneRow).find("#claimStateA").html("新建");
+                break;
+            case "PRESENT":
+                $(cloneRow).find("#claimStateA").html("已提报");
+                break;
+            case "ADOPT":
+                $(cloneRow).find("#claimStateA").html("销售审核通过");
+                break;
+            case "ACCEPTANCE":
+                $(cloneRow).find("#claimStateA").html("已受理");
+                break;
+            case "REJECT":
+                $(cloneRow).find("#claimStateA").html("已驳回");
+                break;
+            case "INVESTIGATION":
+                $(cloneRow).find("#claimStateA").html("调查中");
+                break;
+            case "HANDLE":
+                $(cloneRow).find("#claimStateA").html("处理中");
+                break;
+            case "END":
+                $(cloneRow).find("#claimStateA").html("已结案");
+                break;
+            case "EVALUATE":
+                $(cloneRow).find("#claimStateA").html("已评价");
+                break;
+        }
+    }
+    $(function(){
+        $("#condclaimState").chosen({
+            no_results_text: "暂无结果",
+            width: "142PX",
+            enable_split_word_search: false,
+            placeholder_text_single: ""
+        });
+    });
 
+</script>
 
 
 @@include('../../commonNav/html/commonFoot.html')
