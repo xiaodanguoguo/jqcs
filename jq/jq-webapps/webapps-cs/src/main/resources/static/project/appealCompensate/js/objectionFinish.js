@@ -419,14 +419,25 @@ function clsUploadCtrl$uploadBefore(thisAjaxupload, file, ext, parent) {
     //console.log($(parent.jsCtrl.ctrl).parents("tr")[0].jsonData)
     var jsonA = $(parent.jsCtrl.ctrl).parents("tr")[0].jsonData;
     document.body.jsLee.claimNo = jsonA.claimNo;
-    if(jsonA.inquireState == "TRACK" && jsonA.closingTime - jsonA.admissibilityTime > 20 && jsonA.isUpload == "N"){//已跟踪   过期时间是20天
+    if(jsonA.inquireState == "TRACK" && dayDistance(jsonA.closingTime,jsonA.admissibilityTime,20) && jsonA.isUpload == "N"){//已跟踪   过期时间是20天
         openWin('360', '245', 'inputAnswer3', true);
         return false;
-    }else if(jsonA.inquireState != "TRACK" && jsonA.closingTime - jsonA.admissibilityTime > 7 && jsonA.isUpload == "N"){//过期时间是7天
+    }else if(jsonA.inquireState != "TRACK" && dayDistance(jsonA.closingTime,jsonA.admissibilityTime,7) && jsonA.isUpload == "N"){//过期时间是7天
         openWin('360', '245', 'inputAnswer3', true);
         return false;
     }
     return true;
+}
+
+//过期时间计算
+function dayDistance(a,b,c){//c过期时间段
+    var formatTimeA = new Date(a).getTime();//结案时间
+    var formatTimeB = new Date(b).getTime();//受理时间
+    if((formatTimeA - formatTimeB) > (c *24 * 60 * 60 * 1000)){
+        return true;
+    }else{
+        return false;
+    }
 }
 
 $(function(){
