@@ -48,6 +48,7 @@
     <result column="ADMISSIBILITY_TIME" property="admissibilityTime" jdbcType="TIMESTAMP" />
     <result column="PRESENTATION_DATE" property="presentationDate" jdbcType="TIMESTAMP" />
     <result column="ADMISSIBILITY_USER" property="admissibilityUser" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
     <result column="PRESENTATION_USER" property="presentationUser" jdbcType="VARCHAR" />
     <result column="REASONS_FOR_COMPULSORY_CLOSURE" property="reasonsForCompulsoryClosure" jdbcType="VARCHAR" />
     <result column="REPORT_PICTURE" property="reportPictures" jdbcType="VARCHAR" />
@@ -59,6 +60,7 @@
     <result column="ZPH" property="zph" jdbcType="VARCHAR" />
 
     <result column="PARENT_SID" property="parentSid" jdbcType="NUMERIC" />
+
 
 
 
@@ -113,6 +115,9 @@
     A.PRESENTATION_DATE,
     A.REJECT_REASON,
     A.REASONS_FOR_COMPULSORY_CLOSURE,
+    A.ADMISSIBILITY_TIME,
+    (select name from ACCT_INFO where ACCT_ID = A.ADMISSIBILITY_USER) AS ADMISSIBILITY_USER,
+    (select MOBILE_PHONE from ACCT_INFO where ACCT_ID = A.ADMISSIBILITY_USER) AS PHONE,
     case when B.DEPT_CODE = '1000' then '不锈'
     when B.DEPT_CODE = '2000' then '炼轧'
     when B.DEPT_CODE = '2200' then '碳钢'

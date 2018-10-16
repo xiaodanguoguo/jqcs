@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class CrmClaimApply {
 
+    private String phone;
+
     private String acctName;
 
     //提报日期导出字段转换
@@ -165,6 +167,14 @@ public class CrmClaimApply {
 
     //异议确认量
     private  String objectionConfirmation;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getAcctName() {
         return acctName;

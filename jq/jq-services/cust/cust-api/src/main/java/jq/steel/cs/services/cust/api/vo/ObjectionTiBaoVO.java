@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class ObjectionTiBaoVO {
 
+    private String phone;
+
     //提报日期导出字段转换
     private String ast;
 
@@ -171,6 +173,14 @@ public class ObjectionTiBaoVO {
     private  String report;
 
     private Integer count;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getAcctName() {
         return acctName;
