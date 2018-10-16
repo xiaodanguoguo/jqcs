@@ -419,10 +419,10 @@ function clsUploadCtrl$uploadBefore(thisAjaxupload, file, ext, parent) {
     //console.log($(parent.jsCtrl.ctrl).parents("tr")[0].jsonData)
     var jsonA = $(parent.jsCtrl.ctrl).parents("tr")[0].jsonData;
     document.body.jsLee.claimNo = jsonA.claimNo;
-    if(jsonA.inquireState == "TRACK" && jsonA.closingTime - jsonA.admissibilityTime > 20 && jsonA.isUpload == "Y"){//已跟踪   过期时间是20天
+    if(jsonA.inquireState == "TRACK" && jsonA.closingTime - jsonA.admissibilityTime > 20 && jsonA.isUpload == "N"){//已跟踪   过期时间是20天
         openWin('360', '245', 'inputAnswer3', true);
         return false;
-    }else if(jsonA.inquireState != "TRACK" && jsonA.closingTime - jsonA.admissibilityTime > 7 && jsonA.isUpload == "Y"){//过期时间是7天
+    }else if(jsonA.inquireState != "TRACK" && jsonA.closingTime - jsonA.admissibilityTime > 7 && jsonA.isUpload == "N"){//过期时间是7天
         openWin('360', '245', 'inputAnswer3', true);
         return false;
     }
