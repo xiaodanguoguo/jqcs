@@ -410,12 +410,11 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	public OrgInfoVO getOrgName(OrgInfoVO reqBody) {
 		OrgInfo orgInfo1 = orgInfoMapper.getOrgCode(reqBody.getSapCode());
 		OrgInfoVO orgInfoVO = new OrgInfoVO();
-		if (orgInfo1 != null) {
-			if (StringUtil.isEmpty(orgInfo1.getOrgName())) {
-				orgInfoVO.setOrgName("");
-			} else {
-				orgInfoVO.setOrgName(orgInfo1.getOrgName());
-			}
+		orgInfoVO.setOrgName("");
+
+		if (orgInfo1 != null && !StringUtil.isEmpty(orgInfo1.getOrgName())) {
+			orgInfoVO.setOrgName(orgInfo1.getOrgName());
+
 		}
 
 
