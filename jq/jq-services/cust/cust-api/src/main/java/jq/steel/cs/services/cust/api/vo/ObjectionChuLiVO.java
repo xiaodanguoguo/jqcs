@@ -8,6 +8,8 @@ import java.util.List;
 
 public class ObjectionChuLiVO {
 
+    private  String objectionConfirmation;
+
     //厂家code
     private List<String> deptCodes;
 
@@ -42,6 +44,14 @@ public class ObjectionChuLiVO {
 
     //过期标识
     private String expiredSign;
+
+    public String getObjectionConfirmation() {
+        return objectionConfirmation;
+    }
+
+    public void setObjectionConfirmation(String objectionConfirmation) {
+        this.objectionConfirmation = objectionConfirmation;
+    }
 
     public String getExpiredSign() {
         return expiredSign;

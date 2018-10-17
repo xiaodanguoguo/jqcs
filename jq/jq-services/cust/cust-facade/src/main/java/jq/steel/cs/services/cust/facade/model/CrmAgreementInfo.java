@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class CrmAgreementInfo {
+
+    private  String objectionConfirmation;
     //投诉内容描述
     private String claimDesc;
 
@@ -101,6 +103,13 @@ public class CrmAgreementInfo {
     //协议书图片地址
     private  String  claimNoUrl;
 
+    public String getObjectionConfirmation() {
+        return objectionConfirmation;
+    }
+
+    public void setObjectionConfirmation(String objectionConfirmation) {
+        this.objectionConfirmation = objectionConfirmation;
+    }
 
     public String getClaimDesc() {
         return claimDesc;

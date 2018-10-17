@@ -65,9 +65,9 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             //转换mdel
             CrmClaimApply crmClaimApply  = new CrmClaimApply();
             BeanCopyUtil.copy(objectionTiBaoVO,crmClaimApply);
-            /*if(crmClaimApply.getDeptCode()!=null&& crmClaimApply.getDeptCode()!=""){
+            if(crmClaimApply.getDeptCode()!=null&& crmClaimApply.getDeptCode()!=""){
                 crmClaimApply.setDeptCodes(null);
-            }*/
+            }
             PageDTOUtil.startPage(objectionTiBaoVO);
             String startDtStr = DateFormatUtil.getStartDateStr(crmClaimApply.getStartDt());
             crmClaimApply.setStartDtStr(startDtStr);

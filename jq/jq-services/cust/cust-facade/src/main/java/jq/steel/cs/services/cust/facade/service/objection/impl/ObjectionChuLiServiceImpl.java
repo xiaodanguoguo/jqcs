@@ -125,6 +125,13 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
         }else {
             crmAgreementInfo1.setDeptName("酒钢集团榆中钢铁有限责任公司");
         }
+        //判断此agreement表是否有协议来展示 赔偿金额（小写）值
+        CrmAgreementInfo  aa  = new CrmAgreementInfo();
+        aa.setClaimNo(reqbody.getClaimNo());
+        List<CrmAgreementInfo> agreementInfos =crmAgreementInfoMapper.findList(aa);
+        if(agreementInfos.size()>0){
+            crmAgreementInfo1.setAgreementAmount(agreementInfos.get(0).getAgreementAmount());
+        }
         BeanCopyUtil.copy(crmAgreementInfo1,reqbody);
         return reqbody;
     }
