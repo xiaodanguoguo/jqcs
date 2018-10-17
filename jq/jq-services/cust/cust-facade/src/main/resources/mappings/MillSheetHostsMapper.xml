@@ -634,6 +634,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     MSH.ZPH,
     MSH.MILL_LINE,
     MSH.ZKDAUF AS ZKDAUF,
+    MSH.SPILT_CUSTOMER,
     MSO.SID,
     (select distinct name1 from MILL_CUSTOMER where KUNNR = MSO.ZKUNNR) AS ZKUNNR
     FROM
@@ -669,11 +670,11 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       <if test="zph != null  and zph != ''" >
         AND H.ZPH = #{zph,jdbcType=VARCHAR}
       </if>
-      <if test="spiltCustomer != null  and spiltCustomer != ''" >
+      <!--<if test="spiltCustomer != null  and spiltCustomer != ''" >
         AND H.SPILT_CUSTOMER = #{spiltCustomer,jdbcType=VARCHAR}
-      </if>
+      </if>-->
       <if test="zkunnrs != null  and zkunnrs != ''" >
-        AND H.SPILT_CUSTOMER = #{zkunnrs,jdbcType=VARCHAR}
+        AND H.SPILT_CUSTOMER like  '%' || #{zkunnrs} ||'%'
       </if>
       <if test="deptCode != null and deptCode != ''" >
         AND H.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
