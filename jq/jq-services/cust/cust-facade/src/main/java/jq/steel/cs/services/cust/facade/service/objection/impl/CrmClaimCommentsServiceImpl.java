@@ -33,7 +33,7 @@ public class CrmClaimCommentsServiceImpl implements CrmClaimCommentsService {
         CrmClaimApply apply = crmClaimApplyMapper.getByClaimNo(crmClaimCommentsVO);
         CrmClaimInfo info  = crmClaimInfoMapper.getByCaimNo(crmClaimCommentsVO);
         if(apply != null && info != null ){
-            if(!("EVALUATE".equals(apply.getClaimState())) || !("EVALUATE".equals(info.getClaimState()))){
+            if(("EVALUATE".equals(apply.getClaimState())) || ("EVALUATE".equals(info.getClaimState()))){
                 return 0;
             }
         }
