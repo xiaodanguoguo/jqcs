@@ -375,6 +375,7 @@ public class ObjectionDiaoChaController {
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
             jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
+            jsonRequest.getReqBody().setAcctId(AssertContext.getAcctId());
             ServiceResponse<Integer> response = objectionDiaoChaAPI.updateState(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());

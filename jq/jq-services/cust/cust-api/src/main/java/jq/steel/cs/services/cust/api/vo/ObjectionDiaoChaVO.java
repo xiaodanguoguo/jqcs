@@ -103,6 +103,8 @@ public class ObjectionDiaoChaVO {
 
     private  String orgCode;
 
+    private String acctId;
+
     private  String orgName;
 
     private Integer optionType;

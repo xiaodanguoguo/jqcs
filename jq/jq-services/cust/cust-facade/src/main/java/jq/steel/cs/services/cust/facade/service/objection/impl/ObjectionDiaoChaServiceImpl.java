@@ -482,6 +482,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
     public Integer updateState(ObjectionDiaoChaVO record) {
         String orgCode = record.getOrgCode();
         String orgName = record.getOrgName();
+        String acctId = record.getAcctId();
         String acctName = record.getAcctName();
         CrmClaimOutInquire crmClaimOutInquire  = new CrmClaimOutInquire();
         BeanCopyUtil.copy(record,crmClaimOutInquire);
@@ -515,7 +516,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             CrmClaimApply crmClaimApply = new CrmClaimApply();
             crmClaimApply.setClaimNo(crmClaimOutInquire.getClaimNo());
             crmClaimApply.setAdmissibilityTime(new Date());
-            crmClaimApply.setAdmissibilityUser(acctName);
+            crmClaimApply.setAdmissibilityUser(acctId);
             crmClaimApply.setClaimState("ACCEPTANCE");
             crmClaimApplyMapper.update(crmClaimApply);
             //日志记录
