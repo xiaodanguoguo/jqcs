@@ -8,6 +8,17 @@ import java.util.List;
 
 public class ObjectionDiaoChaVO {
 
+
+    //到达时间
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private  Date arrivalTime;
+
+    //协议内容
+    private String agreementContent;
+
+    //赔偿金额（小写）
+    private BigDecimal agreementAmount;
+
     //提报日期导出字段转换
     private String ast;
 
@@ -274,6 +285,30 @@ public class ObjectionDiaoChaVO {
     private  String reportPictures;
 
     private  String objectionConfirmation;
+
+    public Date getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(Date arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+    public String getAgreementContent() {
+        return agreementContent;
+    }
+
+    public void setAgreementContent(String agreementContent) {
+        this.agreementContent = agreementContent;
+    }
+
+    public BigDecimal getAgreementAmount() {
+        return agreementAmount;
+    }
+
+    public void setAgreementAmount(BigDecimal agreementAmount) {
+        this.agreementAmount = agreementAmount;
+    }
 
     public String getAst() {
         return ast;

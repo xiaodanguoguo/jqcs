@@ -10,6 +10,8 @@ import com.ebase.utils.JsonUtil;
 import com.ebase.utils.excel.ExportExcelUtils;
 import com.ebase.utils.file.ZipUtils;
 import feign.FeignException;
+import jq.steel.cs.services.base.api.controller.RoleInfoAPI;
+import jq.steel.cs.services.base.api.vo.RoleInfoVO;
 import jq.steel.cs.services.cust.api.controller.ObjectionChuLiAPI;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionChuLiVO;
@@ -45,6 +47,10 @@ public class ObjectionChuLiController {
     UploadConfig uploadConfig;
 
 
+    @Autowired
+    private RoleInfoAPI roleInfoAPI;
+
+
     /**
      *  条件分页查询
      * @param  jsonRequest
@@ -54,6 +60,17 @@ public class ObjectionChuLiController {
     @RequestMapping(value = "/findByPage",method = RequestMethod.POST)
     public JsonResponse<PageDTO<ObjectionChuLiVO>> findByPage(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
         JsonResponse<PageDTO<ObjectionChuLiVO>> jsonResponse = new JsonResponse<>();
+        String acctId = AssertContext.getAcctId();
+        ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+        List<String> list = new ArrayList<>();
+        for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+            list.add(roleInfoVO.getRoleCode());
+        }
+        if (list.size()>0){
+            jsonRequest.getReqBody().setDeptCodes(list);
+        }else {
+            jsonRequest.getReqBody().setDeptCodes(null);
+        }
         try {
             ServiceResponse<PageDTO<ObjectionChuLiVO>> serviceResponse = objectionChuLiAPI.findByPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {

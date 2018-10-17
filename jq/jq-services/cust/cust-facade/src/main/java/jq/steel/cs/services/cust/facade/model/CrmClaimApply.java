@@ -4,8 +4,26 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class CrmClaimApply {
+
+    //审核人
+    private  String auditor;
+
+    //审核时间
+    private  Date auditTime;
+
+    //厂家code
+    private List<String> deptCodes;
+
+    public List<String> getDeptCodes() {
+        return deptCodes;
+    }
+
+    public void setDeptCodes(List<String> deptCodes) {
+        this.deptCodes = deptCodes;
+    }
 
     private String phone;
 
@@ -167,6 +185,22 @@ public class CrmClaimApply {
 
     //异议确认量
     private  String objectionConfirmation;
+
+    public String getAuditor() {
+        return auditor;
+    }
+
+    public void setAuditor(String auditor) {
+        this.auditor = auditor;
+    }
+
+    public Date getAuditTime() {
+        return auditTime;
+    }
+
+    public void setAuditTime(Date auditTime) {
+        this.auditTime = auditTime;
+    }
 
     public String getPhone() {
         return phone;

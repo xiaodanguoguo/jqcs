@@ -51,6 +51,9 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             //转换mdel
             CrmClaimOutInquire crmClaimOutInquire  = new CrmClaimOutInquire();
             BeanCopyUtil.copy(objectionDiaoChaVO,crmClaimOutInquire);
+            if(crmClaimOutInquire.getDeptCode()!=null&& crmClaimOutInquire.getDeptCode()!=""){
+                crmClaimOutInquire.setDeptCodes(null);
+            }
             PageDTOUtil.startPage(objectionDiaoChaVO);
             String startDtStr = DateFormatUtil.getStartDateStr(crmClaimOutInquire.getStartDt());
             crmClaimOutInquire.setStartDtStr(startDtStr);
@@ -62,6 +65,20 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             List<ObjectionDiaoChaVO> objectionDiaoChaVOS = BeanCopyUtil.copyList(list, ObjectionDiaoChaVO.class);
             // 分页对象
             PageDTO<ObjectionDiaoChaVO> transform = PageDTOUtil.transform(objectionDiaoChaVOS);
+            for (ObjectionDiaoChaVO objectionDiaoChaVO1:transform.getResultData()){
+                crmClaimOutInquire = new CrmClaimOutInquire();
+                BeanCopyUtil.copy(objectionDiaoChaVO1, crmClaimOutInquire);
+                if(crmClaimOutInquire.getDeptCode().equals("1000")){
+                    objectionDiaoChaVO1.setDeptCode("不锈");
+                }else if(crmClaimOutInquire.getDeptCode().equals("2000")){
+                    objectionDiaoChaVO1.setDeptCode("炼轧");
+                }else if(crmClaimOutInquire.getDeptCode().equals("2200")){
+                    objectionDiaoChaVO1.setDeptCode("碳钢");
+                }else if(crmClaimOutInquire.getDeptCode().equals("3000")){
+                    objectionDiaoChaVO1.setDeptCode("榆钢");
+                }
+
+            }
             return transform;
 
         }finally {
@@ -301,7 +318,8 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
                 crmClaimLog.setOpMemo("内部调查报告保存时有记录进行修改");
                 crmClaimLogMapper.insert(crmClaimLog);
             }else {
-
+                crmClaimInnerInquire.setCreateBy(acctName);
+                crmClaimInnerInquire.setCreateDt(new Date());
              integer =  crmClaimInnerInquireMapper.insertSelective(crmClaimInnerInquire);
                 //日志记录
                 CrmClaimLog crmClaimLog = new CrmClaimLog();

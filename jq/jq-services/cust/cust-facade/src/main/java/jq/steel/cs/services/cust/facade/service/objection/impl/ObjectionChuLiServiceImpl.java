@@ -9,6 +9,7 @@ import com.ebase.utils.DateFormatUtil;
 import com.ebase.utils.DateUtil;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionChuLiVO;
+import jq.steel.cs.services.cust.api.vo.ObjectionDiaoChaVO;
 import jq.steel.cs.services.cust.facade.dao.CrmAgreementInfoMapper;
 import jq.steel.cs.services.cust.facade.dao.CrmClaimApplyMapper;
 import jq.steel.cs.services.cust.facade.dao.CrmClaimInfoMapper;
@@ -42,6 +43,9 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
             //转换mdel
             CrmClaimInfo crmClaimInfo  = new CrmClaimInfo();
             BeanCopyUtil.copy(record,crmClaimInfo);
+            if(crmClaimInfo.getDeptCode()!=null&& crmClaimInfo.getDeptCode()!=""){
+                crmClaimInfo.setDeptCodes(null);
+            }
             PageDTOUtil.startPage(record);
             String startDtStr = DateFormatUtil.getStartDateStr(crmClaimInfo.getStartDt());
             crmClaimInfo.setStartDtStr(startDtStr);
@@ -60,6 +64,15 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
                 }else {
                     objectionChuLiVO.setIsUpload("N");
                 }
+                    if(crmClaimInfo.getDeptCode().equals("1000")){
+                        objectionChuLiVO.setDeptCode("不锈");
+                    }else if(crmClaimInfo.getDeptCode().equals("2000")){
+                        objectionChuLiVO.setDeptCode("炼轧");
+                    }else if(crmClaimInfo.getDeptCode().equals("2200")){
+                        objectionChuLiVO.setDeptCode("碳钢");
+                    }else if(crmClaimInfo.getDeptCode().equals("3000")){
+                        objectionChuLiVO.setDeptCode("榆钢");
+                    }
                 //判断是否允许上传（结案时间减受理时间   7天 （没跟踪过） 20天（跟踪过））
                 /*if (crmClaimInfo.getTrace()!= null){
                     Integer integer = DateUtil.countDays(crmClaimInfo.getClosingTime(),crmClaimInfo.getAdmissibilityTime());

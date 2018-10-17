@@ -56,7 +56,11 @@ public class ObjectionDiaoChaController {
         for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
             list.add(roleInfoVO.getRoleCode());
         }
-        jsonRequest.getReqBody().setDeptCodes(list);
+        if (list.size()>0){
+            jsonRequest.getReqBody().setDeptCodes(list);
+        }else {
+            jsonRequest.getReqBody().setDeptCodes(null);
+        }
         try {
             ServiceResponse<PageDTO<ObjectionDiaoChaVO>> serviceResponse = objectionDiaoChaAPI.findByPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
