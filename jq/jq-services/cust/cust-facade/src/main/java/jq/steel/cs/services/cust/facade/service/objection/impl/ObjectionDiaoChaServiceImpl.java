@@ -251,6 +251,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             //添加协议书数据
             CrmAgreementInfo crmAgreementInfo = new CrmAgreementInfo();
             crmAgreementInfo.setClaimNo(crmClaimOutInquire.getClaimNo());
+            crmAgreementInfo.setAgreementAmount(crmClaimOutInquire.getAgreementAmount());
             crmAgreementInfo.setDownloadableNum(3);
             crmAgreementInfo.setDownloadedNum(0);
             crmAgreementInfo.setCreatedBy(acctName);
