@@ -68,6 +68,7 @@
 
   <resultMap id="BaseResultMap1" type="jq.steel.cs.services.cust.facade.model.ObjectionLedger" >
     <id column="SID" property="sid" jdbcType="NUMERIC" />
+    <result column="CLAIM_STATE" property="claimState" jdbcType="VARCHAR" />
     <result column="CLAIM_NO" property="claimNo" jdbcType="VARCHAR" />
     <result column="LAST_USER" property="lastUser" jdbcType="VARCHAR" />
     <result column="LAST_USER_ADDR" property="lastUserAddr" jdbcType="VARCHAR" />
@@ -855,6 +856,7 @@
     SELECT
     A.SID,
     A.CLAIM_NO,
+    A.CLAIM_STATE,
     A.LAST_USER,
     A.LAST_USER_TEL,
     A.CREATE_EMP_NO,
@@ -876,28 +878,38 @@
     B.PRODUCT_DT,
     B.HANDING_SUGGESTION,
     C.OBJECTION_CONFIRMATION,
+    C.PRESENTATION_DATE,
     C.ADMISSIBILITY_TIME,
     C.CLOSING_TIME,
     C.CLOSING_USER,
-    D.MEMO
+    D.MEMO,
+    F.DEPT_CODE
     FROM
     WARRANTY.CRM_CLAIM_INFO A
     LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_APPLY C ON A.CLAIM_NO = C.CLAIM_NO
-    INNER JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE D ON A.CLAIM_NO = D.CLAIM_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE D ON A.CLAIM_NO = D.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_COMMENTS E ON A.CLAIM_NO = E.CLAIM_NO
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS F ON A.MILL_SHEET_NO = F.MILL_SHEET_NO
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="claimNo != null and claimNo != ''" >
         AND A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
       </if>
-      <!--<choose>
-        <when test="claimState1 !=null and claimState1 != ''">
-          and H.CLAIM_STATE  = #{claimState1,jdbcType=VARCHAR}
-        </when>
-        <otherwise>
-          AND H.CLAIM_STATE IN ('INVESTIGATION', 'HANDLE', 'END', 'EVALUATE','ADOPT')
-        </otherwise>
-      </choose>-->
+      <if test="claimState != null and claimState != ''" >
+        AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
+      </if>
+      <if test="deptCode != null and deptCode != ''" >
+        AND F.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+      </if>
+      <if test="customerName != null and customerName != ''" >
+        AND A.CUSTOMER_NAME like  '%' || #{customerName} ||'%'
+      </if>
+      <if test="endDtStr != null" >
+        AND TO_CHAR (C.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+      </if>
+      <if test="startDtStr != null" >
+        AND TO_CHAR (C.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+      </if>
     </trim>
     order by A.SID desc
   </select>

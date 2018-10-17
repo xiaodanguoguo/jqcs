@@ -318,7 +318,8 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
                 crmClaimLog.setOpMemo("内部调查报告保存时有记录进行修改");
                 crmClaimLogMapper.insert(crmClaimLog);
             }else {
-
+                crmClaimInnerInquire.setCreateBy(acctName);
+                crmClaimInnerInquire.setCreateDt(new Date());
              integer =  crmClaimInnerInquireMapper.insertSelective(crmClaimInnerInquire);
                 //日志记录
                 CrmClaimLog crmClaimLog = new CrmClaimLog();

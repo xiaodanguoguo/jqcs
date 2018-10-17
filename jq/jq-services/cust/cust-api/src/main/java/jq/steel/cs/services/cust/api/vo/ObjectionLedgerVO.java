@@ -9,6 +9,16 @@ import java.util.Date;
 //异议统计台账
 public class ObjectionLedgerVO {
 
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date endDt;
+    private String endDtStr;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date startDt;
+    private String startDtStr;
+
+    private String claimState;
+
     private Long sid;
 
     private int pageNum = 1;
@@ -80,6 +90,46 @@ public class ObjectionLedgerVO {
 
     //赔偿金额（小写）
     private BigDecimal agreementAmount;
+
+    public Date getEndDt() {
+        return endDt;
+    }
+
+    public void setEndDt(Date endDt) {
+        this.endDt = endDt;
+    }
+
+    public String getEndDtStr() {
+        return endDtStr;
+    }
+
+    public void setEndDtStr(String endDtStr) {
+        this.endDtStr = endDtStr;
+    }
+
+    public Date getStartDt() {
+        return startDt;
+    }
+
+    public void setStartDt(Date startDt) {
+        this.startDt = startDt;
+    }
+
+    public String getStartDtStr() {
+        return startDtStr;
+    }
+
+    public void setStartDtStr(String startDtStr) {
+        this.startDtStr = startDtStr;
+    }
+
+    public String getClaimState() {
+        return claimState;
+    }
+
+    public void setClaimState(String claimState) {
+        this.claimState = claimState;
+    }
 
     public Long getSid() {
         return sid;

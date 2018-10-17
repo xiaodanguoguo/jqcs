@@ -29,6 +29,10 @@ public class ObjectionLendgerServiceImpl implements ObjectionLendgerService{
             ObjectionLedger objectionLedger  = new ObjectionLedger();
             BeanCopyUtil.copy(objectionLedgerVO,objectionLedger);
             PageDTOUtil.startPage(objectionLedgerVO);
+            String startDtStr = DateFormatUtil.getStartDateStr(objectionLedger.getStartDt());
+            objectionLedger.setStartDtStr(startDtStr);
+            String endDtStr = DateFormatUtil.getEndDateStr(objectionLedger.getEndDt());
+            objectionLedger.setEndDtStr(endDtStr);
             List<ObjectionLedger> ledgerList = crmClaimInfoMapper.findLedgerByPage(objectionLedger);
             //转换返回对象
             List<ObjectionLedgerVO> objectionLedgerVOS = BeanCopyUtil.copyList(ledgerList, ObjectionLedgerVO.class);
