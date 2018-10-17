@@ -334,6 +334,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             CrmClaimOutInquire crmClaimOutInquire = new CrmClaimOutInquire();
             crmClaimOutInquire.setClaimNo(record.getClaimNo());
             crmClaimOutInquire.setShift(record.getShift());
+            crmClaimOutInquire.setProductDt(record.getProductDt());
             crmClaimOutInquireMapper.update(crmClaimOutInquire);
             return integer;
         }else {
