@@ -118,10 +118,7 @@
     A.ADMISSIBILITY_TIME,
     (select name from ACCT_INFO where ACCT_ID = A.ADMISSIBILITY_USER) AS ADMISSIBILITY_USER,
     (select MOBILE_PHONE from ACCT_INFO where ACCT_ID = A.ADMISSIBILITY_USER) AS PHONE,
-    case when B.DEPT_CODE = '1000' then '不锈'
-    when B.DEPT_CODE = '2000' then '炼轧'
-    when B.DEPT_CODE = '2200' then '碳钢'
-    when B.DEPT_CODE='3000' then '榆钢' else B.DEPT_CODE end as DEPT_CODE,
+    B.DEPT_CODE,
     (select T.TYPE_NAME from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
     WHERE T.TYPE_NAME=D.ZCPMC)) AS ZCPMC,
@@ -167,9 +164,18 @@
       <if test="claimState != null and claimState != ''" >
         AND H.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
       </if>
-      <if test="manufactor != null and manufactor != ''" >
-        AND  H.DEPT_CODE = #{manufactor,jdbcType=VARCHAR}
+      <if test="deptCode != null and deptCode != ''" >
+        AND H.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
       </if>
+      <if test="deptCodes != null" >
+        AND H.DEPT_CODE  in
+        <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
+          #{deptCodes[${index}]}
+        </foreach>
+      </if>
+      <!--<if test="manufactor != null and manufactor != ''" >
+        AND  H.DEPT_CODE = #{manufactor,jdbcType=VARCHAR}
+      </if>-->
       <if test="designation != null and designation != ''" >
         AND H.DESIGNATION = #{designation,jdbcType=VARCHAR}
       </if>
@@ -738,6 +744,12 @@
       </if>
       <if test="objectionConfirmation != null" >
         OBJECTION_CONFIRMATION = #{objectionConfirmation ,jdbcType=NUMERIC}
+      </if>
+      <if test="auditTime != null" >
+        AUDIT_TIME = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null and auditor != ''" >
+        AUDITOR = #{auditor,jdbcType=VARCHAR},
       </if>
     </trim>
     where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}

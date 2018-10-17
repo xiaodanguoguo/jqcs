@@ -6,10 +6,7 @@ import com.ebase.utils.BeanCopyUtil;
 import com.ebase.utils.DateFormatUtil;
 import com.ebase.utils.DateUtil;
 import com.ebase.utils.StringUtil;
-import jq.steel.cs.services.cust.api.vo.CrmCustomerInfoVO;
-import jq.steel.cs.services.cust.api.vo.CrmLastuserInfoVO;
-import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoCountVO;
-import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
+import jq.steel.cs.services.cust.api.vo.*;
 import jq.steel.cs.services.cust.facade.dao.*;
 import jq.steel.cs.services.cust.facade.model.*;
 import jq.steel.cs.services.cust.facade.service.objection.CrmCustomerInfoService;
@@ -68,6 +65,9 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             //转换mdel
             CrmClaimApply crmClaimApply  = new CrmClaimApply();
             BeanCopyUtil.copy(objectionTiBaoVO,crmClaimApply);
+            /*if(crmClaimApply.getDeptCode()!=null&& crmClaimApply.getDeptCode()!=""){
+                crmClaimApply.setDeptCodes(null);
+            }*/
             PageDTOUtil.startPage(objectionTiBaoVO);
             String startDtStr = DateFormatUtil.getStartDateStr(crmClaimApply.getStartDt());
             crmClaimApply.setStartDtStr(startDtStr);
@@ -78,7 +78,20 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             List<ObjectionTiBaoVO> objectionTiBaoVOS = BeanCopyUtil.copyList(crmClaimApplies, ObjectionTiBaoVO.class);
             // 分页对象
             PageDTO<ObjectionTiBaoVO> transform = PageDTOUtil.transform(objectionTiBaoVOS);
+            for (ObjectionTiBaoVO objectionTiBaoVO1:transform.getResultData()){
+                crmClaimApply = new CrmClaimApply();
+                BeanCopyUtil.copy(objectionTiBaoVO1, crmClaimApply);
+                if(crmClaimApply.getDeptCode().equals("1000")){
+                    objectionTiBaoVO1.setDeptCode("不锈");
+                }else if(crmClaimApply.getDeptCode().equals("2000")){
+                    objectionTiBaoVO1.setDeptCode("炼轧");
+                }else if(crmClaimApply.getDeptCode().equals("2200")){
+                    objectionTiBaoVO1.setDeptCode("碳钢");
+                }else if(crmClaimApply.getDeptCode().equals("3000")){
+                    objectionTiBaoVO1.setDeptCode("榆钢");
+                }
 
+            }
 
             return transform;
 
@@ -210,8 +223,10 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 h.setUpdatedBy(acctName);
                 h.setClaimNo(crmClaimApply.getClaimNo());
                 h.setClaimState("ADOPT");
-                h.setAdmissibilityTime(new Date());
-                h.setAdmissibilityUser(acctName);
+                h.setAuditor(acctName);
+                h.setAuditTime(new Date());
+                //h.setAdmissibilityTime(new Date());
+                //h.setAdmissibilityUser(acctName);
                 h.setProProblem(crmClaimApply.getProProblem());
                 crmClaimApplyMapper.update(h);
                 //日志记录

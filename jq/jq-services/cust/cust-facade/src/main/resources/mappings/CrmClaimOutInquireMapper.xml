@@ -62,6 +62,10 @@
     <result column="PRO_PROBLEM" property="proProblem" jdbcType="VARCHAR" />
     <result column="FIELD_CONCLUSION_TEXT" property="fieldConclusionText" jdbcType="VARCHAR" />
     <result column="FIELD_CONCLUSION_PHOTO" property="fieldConclusionPhoto" jdbcType="VARCHAR" />
+    <result column="ARRIVAL_TIME" property="arrivalTime" jdbcType="TIMESTAMP" />
+    <result column="AGREEMENT_CONTENT" property="agreementContent" jdbcType="VARCHAR" />
+    <result column="AGREEMENT_AMOUNT" property="agreementAmount" jdbcType="NUMERIC" />
+
 
 
 
@@ -103,10 +107,7 @@ WHERE
     A.MILL_SHEET_NO,
     A.CUSTOMER_NAME,
     A.REJECT_REASON,
-    case when B.DEPT_CODE = '1000' then '不锈'
-    when B.DEPT_CODE = '2000' then '炼轧'
-    when B.DEPT_CODE = '2200' then '碳钢'
-    when B.DEPT_CODE='3000' then '榆钢' else B.DEPT_CODE end as DEPT_CODE,
+    B.DEPT_CODE,
     A.PRODUCT_ID,
     A.PRODUCT_NAME,
     A.DESIGNATION,
@@ -160,9 +161,6 @@ WHERE
       <if test="battenPlateNo != null and battenPlateNo != ''" >
         AND H.BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR}
       </if>
-    <!--  <if test="claimState != null and claimState != ''" >
-        AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
-      </if>-->
       <choose>
         <when test="claimState1 !=null and claimState1 != ''">
           and H.CLAIM_STATE  = #{claimState1,jdbcType=VARCHAR}
@@ -171,21 +169,18 @@ WHERE
           AND H.CLAIM_STATE IN ('ADOPT','ACCEPTANCE','INVESTIGATION', 'HANDLE', 'END', 'EVALUATE','ADOPT')
         </otherwise>
       </choose>
-      <if test="deptCode != null and deptCode != ''" >
+      <!--<if test="deptCode != null and deptCode != ''" >
         AND   H.DEPT_CODE like  '%' || #{deptCode} ||'%'
+      </if>-->
+      <if test="deptCode != null and deptCode != ''" >
+        AND H.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
       </if>
-        <!--AND   H.INQUIRE_STATE NOT IN  ('INEND')-->
-         <!--<choose>
-           <when test="deptCodes != null and deptCodes != ''">
-             AND H.DEPT_CODE  in
-             <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
-               #{deptCodes[${index}]}
-             </foreach>
-           </when>
-           <otherwise>
-            AND   H.DEPT_CODE like  '%' || #{deptCode} ||'%'
-           </otherwise>
-         </choose>-->
+      <if test="deptCodes != null" >
+        AND H.DEPT_CODE  in
+        <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
+          #{deptCodes[${index}]}
+        </foreach>
+      </if>
       <if test="sid != null and sid != ''" >
         AND H.PARENT_SID = #{sid,jdbcType=VARCHAR}
       </if>
@@ -195,8 +190,8 @@ WHERE
       <if test="inquireState != null and inquireState != ''" >
         AND H.INQUIRE_STATE = #{inquireState,jdbcType=VARCHAR}
       </if>
-      order by H.SID desc
     </trim>
+    order by H.SID desc
   </select>
 
 <!--异议处理确认书审核查询-->
@@ -245,6 +240,9 @@ B.REJECT_REASON,
 B.SALES_MANAGER_SUGGESTS,
 B.INQUIRE_INFO_ALL,
 B.AMOUNT_OF_USE,
+B.ARRIVAL_TIME,
+B.AGREEMENT_CONTENT,
+B.AGREEMENT_AMOUNT,
 C.OUT_INQUIRE_FACT,
 C.CLAIM_CONFIRM,
 C.CLAIM_VERDICT,
@@ -375,6 +373,15 @@ LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
       <if test="fieldConclusionPhoto != null and fieldConclusionPhoto != ''" >
         FIELD_CONCLUSION_PHOTO,
       </if>
+      <if test="arrivalTime != null and arrivalTime != ''" >
+        ARRIVAL_TIME,
+      </if>
+      <if test="agreementContent != null" >
+        AGREEMENT_CONTENT,
+      </if>
+      <if test="agreementAmount != null" >
+        AGREEMENT_AMOUNT,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="sid != null" >
@@ -455,6 +462,15 @@ LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
       <if test="fieldConclusionPhoto != null and fieldConclusionPhoto != ''" >
         #{fieldConclusionPhoto,jdbcType=VARCHAR},
       </if>
+      <if test="arrivalTime != null and arrivalTime != ''" >
+        #{arrivalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agreementContent != null" >
+        #{agreementContent ,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementAmount != null" >
+        #{agreementAmount ,jdbcType=NUMERIC},
+      </if>
     </trim>
   </insert>
 
@@ -526,6 +542,15 @@ LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
       </if>
       <if test="trackingTime != null" >
         TRACKING_TIME = #{trackingTime ,jdbcType=TIMESTAMP},
+      </if>
+      <if test="arrivalTime != null and arrivalTime != ''" >
+        ARRIVAL_TIME = #{arrivalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agreementContent != null" >
+        AGREEMENT_CONTENT = #{agreementContent ,jdbcType=VARCHAR},
+      </if>
+      <if test="agreementAmount != null" >
+        AGREEMENT_AMOUNT = #{agreementAmount ,jdbcType=NUMERIC},
       </if>
     </trim>
     where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}

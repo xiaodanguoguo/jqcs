@@ -8,6 +8,17 @@ import java.util.List;
 
 public class ObjectionChuLiVO {
 
+    //厂家code
+    private List<String> deptCodes;
+
+    public List<String> getDeptCodes() {
+        return deptCodes;
+    }
+
+    public void setDeptCodes(List<String> deptCodes) {
+        this.deptCodes = deptCodes;
+    }
+
     //提报日期导出字段转换
     private String ast;
 

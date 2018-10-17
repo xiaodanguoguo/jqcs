@@ -8,6 +8,15 @@ import java.util.List;
 
 public class CrmClaimOutInquire {
 
+    //到达时间
+    private  Date arrivalTime;
+
+    //协议内容
+    private String agreementContent;
+
+    //赔偿金额（小写）
+    private BigDecimal agreementAmount;
+
     private String acctName;
 
     //提报日期导出字段转换
@@ -34,6 +43,30 @@ public class CrmClaimOutInquire {
     private  String parentSid;
 
     private String claimState1;
+
+    public Date getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(Date arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+    public String getAgreementContent() {
+        return agreementContent;
+    }
+
+    public void setAgreementContent(String agreementContent) {
+        this.agreementContent = agreementContent;
+    }
+
+    public BigDecimal getAgreementAmount() {
+        return agreementAmount;
+    }
+
+    public void setAgreementAmount(BigDecimal agreementAmount) {
+        this.agreementAmount = agreementAmount;
+    }
 
     public String getAcctName() {
         return acctName;

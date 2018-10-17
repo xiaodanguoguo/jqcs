@@ -707,10 +707,7 @@
     A.INQUIRE_STATE,
     A.LAST_USER,
     A.CUSTOMER_NAME,
-    case when B.DEPT_CODE = '1000' then '不锈'
-    when B.DEPT_CODE = '2000' then '炼轧'
-    when B.DEPT_CODE = '2200' then '碳钢'
-    when B.DEPT_CODE='3000' then '榆钢' else B.DEPT_CODE end as DEPT_CODE,
+    B.DEPT_CODE,
     (select T.TYPE_NAME from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
     WHERE T.TYPE_NAME=F.ZCPMC)) AS ZCPMC,
@@ -763,7 +760,13 @@
         AND H.BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR}
       </if>
       <if test="deptCode != null and deptCode != ''" >
-        AND  H.DEPT_CODE like  '%' || #{deptCode} ||'%'
+        AND H.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+      </if>
+      <if test="deptCodes != null" >
+        AND H.DEPT_CODE  in
+        <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
+          #{deptCodes[${index}]}
+        </foreach>
       </if>
       <if test="designation != null and designation != ''" >
         AND H.DESIGNATION = #{designation,jdbcType=VARCHAR}
@@ -776,9 +779,6 @@
           AND H.CLAIM_STATE IN ('INVESTIGATION', 'HANDLE', 'END', 'EVALUATE','ADOPT')
         </otherwise>
       </choose>
-     <!-- <if test="claimState != null and claimState != ''" >
-        AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
-      </if>-->
       <if test="inquireState != null and inquireState != ''" >
         AND H.INQUIRE_STATE = #{inquireState}
       </if>
@@ -788,8 +788,8 @@
       <if test="agreementState != null and agreementState != ''" >
         AND H.AGREEMENT_STATE = #{agreementState}
       </if>
-      order by H.SID desc
     </trim>
+    order by H.SID desc
   </select>
   <!--销售审核查询-->
   <select id="findByParams" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInfo" >
