@@ -10,6 +10,7 @@ public class ObjectionDiaoChaVO {
 
 
     //到达时间
+    @JsonFormat(pattern="yyyy-MM-dd")
     private  Date arrivalTime;
 
     //协议内容

@@ -543,7 +543,7 @@ LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
       <if test="trackingTime != null" >
         TRACKING_TIME = #{trackingTime ,jdbcType=TIMESTAMP},
       </if>
-      <if test="arrivalTime != null and arrivalTime != ''" >
+      <if test="arrivalTime != null" >
         ARRIVAL_TIME = #{arrivalTime,jdbcType=TIMESTAMP},
       </if>
       <if test="agreementContent != null" >
