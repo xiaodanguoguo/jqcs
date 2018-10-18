@@ -373,7 +373,7 @@ LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
       <if test="fieldConclusionPhoto != null and fieldConclusionPhoto != ''" >
         FIELD_CONCLUSION_PHOTO,
       </if>
-      <if test="arrivalTime != null and arrivalTime != ''" >
+      <if test="arrivalTime != null" >
         ARRIVAL_TIME,
       </if>
       <if test="agreementContent != null" >
@@ -462,7 +462,7 @@ LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
       <if test="fieldConclusionPhoto != null and fieldConclusionPhoto != ''" >
         #{fieldConclusionPhoto,jdbcType=VARCHAR},
       </if>
-      <if test="arrivalTime != null and arrivalTime != ''" >
+      <if test="arrivalTime != null" >
         #{arrivalTime,jdbcType=TIMESTAMP},
       </if>
       <if test="agreementContent != null" >

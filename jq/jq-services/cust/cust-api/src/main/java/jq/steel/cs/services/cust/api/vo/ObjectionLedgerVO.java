@@ -9,6 +9,8 @@ import java.util.Date;
 //异议统计台账
 public class ObjectionLedgerVO {
 
+    private String deptCode;
+
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date endDt;
     private String endDtStr;
@@ -90,6 +92,14 @@ public class ObjectionLedgerVO {
 
     //赔偿金额（小写）
     private BigDecimal agreementAmount;
+
+    public String getDeptCode() {
+        return deptCode;
+    }
+
+    public void setDeptCode(String deptCode) {
+        this.deptCode = deptCode;
+    }
 
     public Date getEndDt() {
         return endDt;

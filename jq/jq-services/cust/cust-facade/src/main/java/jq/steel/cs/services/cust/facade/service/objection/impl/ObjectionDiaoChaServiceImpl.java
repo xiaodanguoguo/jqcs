@@ -251,6 +251,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             //添加协议书数据
             CrmAgreementInfo crmAgreementInfo = new CrmAgreementInfo();
             crmAgreementInfo.setClaimNo(crmClaimOutInquire.getClaimNo());
+            crmAgreementInfo.setAgreementAmount(crmClaimOutInquire.getAgreementAmount());
             crmAgreementInfo.setDownloadableNum(3);
             crmAgreementInfo.setDownloadedNum(0);
             crmAgreementInfo.setCreatedBy(acctName);
@@ -334,6 +335,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             CrmClaimOutInquire crmClaimOutInquire = new CrmClaimOutInquire();
             crmClaimOutInquire.setClaimNo(record.getClaimNo());
             crmClaimOutInquire.setShift(record.getShift());
+            crmClaimOutInquire.setProductDt(record.getProductDt());
             crmClaimOutInquireMapper.update(crmClaimOutInquire);
             return integer;
         }else {
@@ -481,6 +483,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
     public Integer updateState(ObjectionDiaoChaVO record) {
         String orgCode = record.getOrgCode();
         String orgName = record.getOrgName();
+        String acctId = record.getAcctId();
         String acctName = record.getAcctName();
         CrmClaimOutInquire crmClaimOutInquire  = new CrmClaimOutInquire();
         BeanCopyUtil.copy(record,crmClaimOutInquire);
@@ -514,7 +517,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             CrmClaimApply crmClaimApply = new CrmClaimApply();
             crmClaimApply.setClaimNo(crmClaimOutInquire.getClaimNo());
             crmClaimApply.setAdmissibilityTime(new Date());
-            crmClaimApply.setAdmissibilityUser(acctName);
+            crmClaimApply.setAdmissibilityUser(acctId);
             crmClaimApply.setClaimState("ACCEPTANCE");
             crmClaimApplyMapper.update(crmClaimApply);
             //日志记录

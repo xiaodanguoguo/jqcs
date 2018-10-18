@@ -31,6 +31,8 @@
     <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
     <result column="CLAIM_DESC" property="claimDesc"/>
     <result column="FIELD_CONCLUSION" property="fieldConclusion" jdbcType="VARCHAR" />
+    <!--异议确认量-->
+    <result column="OBJECTION_CONFIRMATION" property="objectionConfirmation" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     SID, CASE_CODE, AGREEMENT_URL, AGREEMENT_NAME, AGREEMENT_STATE, DOWNLOADABLE_NUM,
@@ -63,6 +65,7 @@
   <select id="findList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmAgreementInfo" >
     SELECT
     CASE_CODE,
+    AGREEMENT_AMOUNT,
     AGREEMENT_URL,
     AGREEMENT_NAME,
     AGREEMENT_URL || '//' || AGREEMENT_NAME  AS AGREEMENT_URL_NAME,
@@ -87,6 +90,7 @@ A.MILL_SHEET_NO,
 A.ORIGINAL_CAR_NO,
 A.CLAIM_DESC,
 A.MILL_SHEET_NO,
+A.OBJECTION_CONFIRMATION,
 C.*,
 B.AGREEMENT_CONTENT,
 B.AGREEMENT_NUM,
