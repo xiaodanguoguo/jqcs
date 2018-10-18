@@ -149,7 +149,12 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 millOperationHis.setOperator(millSheetHostsVO.getOrgCode());
                 millOperationHis.setOperationType("PRIVIEWED");
                 millOperationHis.setOperationIp(ip);
-                millSheetHosts.setState("PRIVIEWED");
+                //打印完的预览不改状态  下载完的预览不改变状态
+                if (millSheetByPage.getDataState().equals("PRINTED")|| millSheetByPage.getDataState().equals("DOWNLOADED")){
+                    millSheetHosts.setState("");
+                }else {
+                    millSheetHosts.setState("PRIVIEWED");
+                }
             }else {
                 //减少打印次数
                 millOperationHis.setOperationType("PRINTED");
@@ -212,7 +217,12 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             millSheetHosts1.setDownNum(url.getDownNum()+1);
             //millSheetHosts1.setUpdatedBy(orgName);
             millSheetHosts1.setUpdatedDt(new Date());
-            millSheetHosts1.setState("DOWNLOADED");
+            //打印完的下载不改状态
+            if (millSheetHosts1.getDataState().equals("PRINTED")){
+                millSheetHosts1.setState("");
+            }else {
+                millSheetHosts1.setState("DOWNLOADED");
+            }
             millSheetHostsMapper.updateNum(millSheetHosts1);
             //日志表
             MillOperationHis millOperationHis = new MillOperationHis();
