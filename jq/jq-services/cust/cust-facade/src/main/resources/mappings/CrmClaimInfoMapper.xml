@@ -97,7 +97,12 @@
     <result column="MEMO" property="memo"/>
     <result column="ORIGINAL_CAR_NO" property="originalCarNo"/>
     <result column="AGREEMENT_AMOUNT" property="agreementAmount"/>
-
+    <result column="MILL_LINE" property="millLine"/>
+    <result column="ARRIVAL_TIME" property="arrivalTime"/>
+    <result column="IS_TRACK" property="IsTrack"/>
+    <result column="HANDLER_USER" property="handlerUser"/>
+    <result column="HANDLER_TIME" property="handlerTime"/>
+    <result column="HANDLER_RESULTS" property="handlerResults"/>
   </resultMap>
 
   <sql id="Base_Column_List" >
@@ -873,16 +878,29 @@
     A.OBJECTION_NUM,
     A.CLAIM_REASON,
     A.PRO_PROBLEM,
-    A.CLAIM_TYPE,
+    case when A.CLAIM_TYPE = '1' then '表面外观'
+    when A.CLAIM_TYPE = '2' then '理化性能'
+    when A.CLAIM_TYPE = '3' then '加工使用'
+    when A.CLAIM_TYPE = '4' then '尺寸公差'
+    when A.CLAIM_TYPE = '5' then '实物不符'
+    when A.CLAIM_TYPE = '6' then '计量'
+    when A.CLAIM_TYPE='7' then '其他' else  A.CLAIM_TYPE end as CLAIM_TYPE,
+    A.IS_TRACK,
     B.LOGISTICS_PROCESS,
     B.PRODUCT_DT,
     B.HANDING_SUGGESTION,
+    B.AGREEMENT_AMOUNT,
+    B.ARRIVAL_TIME,
     C.OBJECTION_CONFIRMATION,
     C.PRESENTATION_DATE,
     C.ADMISSIBILITY_TIME,
     C.CLOSING_TIME,
     C.CLOSING_USER,
     D.MEMO,
+    E.HANDLER_USER,
+    E.HANDLER_TIME,
+    E.HANDLER_RESULTS,
+    (SELECT TYPE_NAME FROM SGAI_MD_COMMON_TYPE WHERE TYPE_DESC =F.STOREROOM_CODE) AS MILL_LINE,
     F.DEPT_CODE
     FROM
     WARRANTY.CRM_CLAIM_INFO A
@@ -890,7 +908,7 @@
     LEFT JOIN WARRANTY.CRM_CLAIM_APPLY C ON A.CLAIM_NO = C.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE D ON A.CLAIM_NO = D.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_COMMENTS E ON A.CLAIM_NO = E.CLAIM_NO
-    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS F ON A.MILL_SHEET_NO = F.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD F ON A.MILL_SHEET_NO = F.MILL_SHEET_NO
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="claimNo != null and claimNo != ''" >
         AND A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}

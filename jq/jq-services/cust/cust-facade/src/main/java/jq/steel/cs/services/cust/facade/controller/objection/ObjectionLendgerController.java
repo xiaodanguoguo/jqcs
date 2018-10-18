@@ -6,6 +6,7 @@ import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.utils.JsonUtil;
 import jq.steel.cs.services.cust.api.vo.ObjectionLedgerVO;
+import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
 import jq.steel.cs.services.cust.facade.service.objection.ObjectionLendgerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/objectionLendger")
@@ -39,6 +42,27 @@ public class ObjectionLendgerController {
             ObjectionLedgerVO objectionLedgerVO = jsonRequest.getReqBody();
             PageDTO<ObjectionLedgerVO> pageDTO = objectionLendgerService.findByPage(objectionLedgerVO);
             serviceResponse.setRetContent(pageDTO);
+        }catch (BusinessException e){
+            logger.error("获取分页出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
+    /**
+     * 导出
+     *
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/export", method = RequestMethod.POST)
+    public ServiceResponse<List<ObjectionLedgerVO>> export(@RequestBody JsonRequest<ObjectionLedgerVO> jsonRequest){
+        logger.info("导出", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<List<ObjectionLedgerVO>> serviceResponse = new ServiceResponse<>();
+        try {
+            ObjectionLedgerVO objectionTiBaoVO = jsonRequest.getReqBody();
+            List<ObjectionLedgerVO> integer = objectionLendgerService.export(objectionTiBaoVO);
+            serviceResponse.setRetContent(integer);
         }catch (BusinessException e){
             logger.error("获取分页出错",e);
             serviceResponse.setException(new BusinessException("500"));

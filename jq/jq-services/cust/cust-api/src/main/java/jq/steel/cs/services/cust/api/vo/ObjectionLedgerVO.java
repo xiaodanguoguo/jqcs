@@ -9,6 +9,20 @@ import java.util.Date;
 //异议统计台账
 public class ObjectionLedgerVO {
 
+    private String pd;
+
+    private String at;
+
+    private String at1;
+
+    private String ct;
+
+    //客户评价
+    private String evaluate;
+
+    //产线(生产工序)
+    private String millLine;
+
     private String deptCode;
 
     @JsonFormat(pattern="yyyy-MM-dd")
@@ -92,6 +106,77 @@ public class ObjectionLedgerVO {
 
     //赔偿金额（小写）
     private BigDecimal agreementAmount;
+
+    //到达时间
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date arrivalTime;
+
+    //处理周期
+    private String cycle;
+
+    public String getPd() {
+        return pd;
+    }
+
+    public void setPd(String pd) {
+        this.pd = pd;
+    }
+
+    public String getAt() {
+        return at;
+    }
+
+    public void setAt(String at) {
+        this.at = at;
+    }
+
+    public String getAt1() {
+        return at1;
+    }
+
+    public void setAt1(String at1) {
+        this.at1 = at1;
+    }
+
+    public String getCt() {
+        return ct;
+    }
+
+    public void setCt(String ct) {
+        this.ct = ct;
+    }
+
+    public String getEvaluate() {
+        return evaluate;
+    }
+
+    public void setEvaluate(String evaluate) {
+        this.evaluate = evaluate;
+    }
+
+    public String getCycle() {
+        return cycle;
+    }
+
+    public void setCycle(String cycle) {
+        this.cycle = cycle;
+    }
+
+    public Date getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(Date arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+    public String getMillLine() {
+        return millLine;
+    }
+
+    public void setMillLine(String millLine) {
+        this.millLine = millLine;
+    }
 
     public String getDeptCode() {
         return deptCode;

@@ -7,6 +7,22 @@ import java.util.Date;
 
 public class ObjectionLedger {
 
+    private BigDecimal handlerUser;
+
+    private BigDecimal handlerTime;
+
+    private BigDecimal handlerResults;
+
+    //处理周期
+    private String cycle;
+
+    //到达时间
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date arrivalTime;
+
+    //产线(生产工序)
+    private String millLine;
+
     private String deptCode;
 
     @JsonFormat(pattern="yyyy-MM-dd")
@@ -87,6 +103,54 @@ public class ObjectionLedger {
     //赔偿金额（小写）
     private BigDecimal agreementAmount;
 
+
+    public BigDecimal getHandlerUser() {
+        return handlerUser;
+    }
+
+    public void setHandlerUser(BigDecimal handlerUser) {
+        this.handlerUser = handlerUser;
+    }
+
+    public BigDecimal getHandlerTime() {
+        return handlerTime;
+    }
+
+    public void setHandlerTime(BigDecimal handlerTime) {
+        this.handlerTime = handlerTime;
+    }
+
+    public BigDecimal getHandlerResults() {
+        return handlerResults;
+    }
+
+    public void setHandlerResults(BigDecimal handlerResults) {
+        this.handlerResults = handlerResults;
+    }
+
+    public String getCycle() {
+        return cycle;
+    }
+
+    public void setCycle(String cycle) {
+        this.cycle = cycle;
+    }
+
+    public Date getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(Date arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+    public String getMillLine() {
+        return millLine;
+    }
+
+    public void setMillLine(String millLine) {
+        this.millLine = millLine;
+    }
 
     public String getDeptCode() {
         return deptCode;
