@@ -270,7 +270,7 @@ function checkWords(a,len){
     if(str.length > len){
         a.value=a.value.substring(0,len);
     }
-    $(a).next().find("i").html(len - a.value.length);
+    $(a).next().find("i:first").html(len - a.value.length);
 }
 
 
