@@ -156,7 +156,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
           /*  crmClaimInfo.setTrace(orgCode);
             crmClaimInfo.setTrackingTime(new Date());*/
             //添加是否跟踪过
-            crmClaimInfo.setTrace("Y");
+            crmClaimInfo.setIsTrack("Y");
             int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
             //记录跟踪人跟踪时间
             CrmClaimOutInquire crmClaimOutInquire1  = new CrmClaimOutInquire();
