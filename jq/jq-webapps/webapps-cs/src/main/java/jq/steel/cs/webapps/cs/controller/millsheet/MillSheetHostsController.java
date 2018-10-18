@@ -253,7 +253,7 @@ public class MillSheetHostsController {
         return jsonResponse;
     }
 
-
+    //打印跳转界面返回pdf文件流
     @RequestMapping(value = "/preview1/{PARAM}")
     public void pdfStreamHandler(HttpServletRequest request, HttpServletResponse response,@PathVariable("PARAM") String param) {
         String acctName =AssertContext.getAcctName();
