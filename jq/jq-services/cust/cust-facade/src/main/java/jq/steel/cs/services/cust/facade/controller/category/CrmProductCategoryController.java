@@ -1,5 +1,6 @@
 package jq.steel.cs.services.cust.facade.controller.category;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.ebase.core.exception.BusinessException;
 import com.ebase.core.log.SearchableLoggerFactory;
 import com.ebase.core.service.ServiceResponse;
@@ -121,9 +122,12 @@ public class CrmProductCategoryController {
 
         try {
             List<CrmProductCategoryVO> list = jsonRequest.getReqBody();
-            for (CrmProductCategoryVO vo : list) {
-                vo.setStatus(ProductCategoryStatus.SUBMIT.getCode());
+            if (CollectionUtils.isNotEmpty(list)) {
+                for (CrmProductCategoryVO vo : list) {
+                    vo.setStatus(ProductCategoryStatus.SUBMIT.getCode());
+                }
             }
+
             serviceResponse = crmProductCategoryService.insertCrmProductCategory(list);
         } catch (Exception e) {
             logger.error("保存or提交产品分类错误 = {}", e);

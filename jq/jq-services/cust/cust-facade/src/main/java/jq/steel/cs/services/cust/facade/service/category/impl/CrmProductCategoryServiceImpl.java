@@ -49,13 +49,6 @@ public class CrmProductCategoryServiceImpl implements CrmProductCategoryService 
             return serviceResponse;
         }
 
-        String status = "";
-        if (ProductCategoryStatus.SAVE.getCode().equals(list.get(0).getIsSubmit())) {
-            status = ProductCategoryStatus.SAVE.getCode();
-        } else if (ProductCategoryStatus.SUBMIT.getCode().equals(list.get(0).getIsSubmit())) {
-            status = ProductCategoryStatus.SUBMIT.getCode();
-        }
-
         CrmProductCategory crmProductCategory = null;
 
         for (CrmProductCategoryVO crmProductCategoryVO : list) {
@@ -91,7 +84,6 @@ public class CrmProductCategoryServiceImpl implements CrmProductCategoryService 
                 } else {
                     crmProductCategory = new CrmProductCategory();
                     BeanCopyUtil.copy(crmProductCategoryVO, crmProductCategory);
-                    crmProductCategory.setStatus(status);
                     crmProductCategory.setCreateDt(new Date());
                     crmProductCategory.setUpdateBy(null);
                     crmProductCategory.setUpdateByid(null);
