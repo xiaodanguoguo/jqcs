@@ -16,83 +16,83 @@
     <img src="logoBig.png" style="max-width:0.45rem;margin-top:0.05rem"/>酒钢集团</h4>
 <h4 class="stl_scrlApp">钢卷基本信息</h4>
 <div class="stl_appDiv" id="appDiv">
-    <table class="stl_table" cellpadding="0" cellspacing="0">
+    <table class="stl_table" cellpadding="0" cellspacing="0" id="templateTableStl" style="display:none">
         <tr>
             <td class="table_title">证明书编号：</td>
-            <td class="table_intro">181016C0001</td>
+            <td class="table_intro" id="millSheetNo"></td>
         </tr>
         <tr>
             <td class="table_title">收货单位：</td>
-            <td class="table_intro">浙江物产金属集团有限公司</td>
+            <td class="table_intro" id="zkunwe"></td>
         </tr>
         <tr>
             <td class="table_title">产品名称：</td>
-            <td class="table_intro">冷轧卷</td>
+            <td class="table_intro"id="zcpmc"></td>
         </tr>
         <tr>
             <td class="table_title">牌号：</td>
-            <td class="table_intro">SPCC</td>
+            <td class="table_intro" id="zph"></td>
         </tr>
         <tr>
             <td class="table_title">标准：</td>
-            <td class="table_intro">BX 348-2018:SPCC</td>
+            <td class="table_intro" id="zzxbz"></td>
         </tr>
         <tr>
             <td class="table_title">车号：</td>
-            <td class="table_intro">1646371</td>
+            <td class="table_intro"id="zchehao"></td>
         </tr>
         <tr>
             <td class="table_title">到站：</td>
-            <td class="table_intro">1</td>
+            <td class="table_intro"id="zdaozhan"></td>
         </tr>
-        <tr>
+        <!--<tr>
             <td class="table_title">重量：</td>
-            <td class="table_intro">BJJ-金州</td>
-        </tr>
+            <td class="table_intro" id="">BJJ-金州</td>
+        </tr>-->
         <tr>
             <td class="table_title">交货状态：</td>
-            <td class="table_intro">冷轧</td>
+            <td class="table_intro" id="zjhzt">冷轧</td>
         </tr>
-        <tr>
+        <!--<tr>
             <td class="table_title">注释A：</td>
-            <td class="table_intro">*A1 屈服强度 YIELD STRENGTH
+            <td class="table_intro" id="">*A1 屈服强度 YIELD STRENGTH
                 *A2 抗拉强度 TENSILE STRENGTH
                 *A3 伸长率 ELONGATIO
             </td>
-        </tr>
-        <tr>
+        </tr>-->
+      <!--  <tr>
             <td class="table_title">注释B：</td>
-            <td class="table_intro"></td>
+            <td class="table_intro"id=""></td>
         </tr>
         <tr>
             <td class="table_title">注释C：</td>
-            <td class="table_intro"></td>
-        </tr>
+            <td class="table_intro"id=""></td>
+        </tr>-->
     </table>
 </div>
 <h4 class="stl_scrlDetail">明细列表</h4>
 <div class="stl_DivDetail" id="DivDetail">
     <table class="stl_table" cellpadding="0" cellspacing="0" id="templteTable" style="display:none">
-        <tr>
+        <!--<tr>
             <td class="table_title">轧制序号：</td>
             <td class="table_intro"></td>
-        </tr>
-        <tr>
+        </tr>-->
+       <!-- <tr>
             <td class="table_title">生产日期：</td>
             <td class="table_intro">2018/10/04</td>
-        </tr>
+        </tr>-->
         <tr>
             <td class="table_title">钢卷号：</td>
             <td class="table_intro" id="zcharg">8AW000390100</td>
         </tr>
         <tr>
             <td class="table_title">炉号：</td>
-            <td class="table_intro">1864912</td>
+            <td class="table_intro" id="zlph">1864912</td>
         </tr>
-        <tr>
+       <!-- <tr>
             <td class="table_title">等级：</td>
             <td class="table_intro">2</td>
-        </tr>
+        </tr>-->
         <tr>
             <td class="table_title">规格：</td>
             <td class="table_intro" id="specs">740000.0*1500.0*1.0</td>
@@ -130,9 +130,24 @@
     })
     function loginFun(data) {
         var jsData=JSON.parse(data);
+        var resultData = [];
         if(jsData.retCode=="0000000"){
+			var textOne = jsData.rspBody[0].millSheetHead;
+			var cloneOne = $("#templateTableStl").clone(true);
+			$(cloneOne).css("display", "");
+			$(cloneOne).find().text();
+			$("#appDiv").append(cloneOne);
+			$(cloneOne).find("#millSheetNo").text(textOne.millSheetNo);
+			$(cloneOne).find("#zkunwe").text(textOne.zkunwe);
+			$(cloneOne).find("#zcpmc").text(textOne.zcpmc);
+			$(cloneOne).find("#zph").text(textOne.zph);
+			$(cloneOne).find("#zzxbz").text(textOne.zzxbz);
+			$(cloneOne).find("#zchehao").text(textOne.zchehao);
+			$(cloneOne).find("#zdaozhan").text(textOne.zdaozhan);
+			$(cloneOne).find("#zjhzt").text(textOne.zjhzt);
             for (var i = 0; i < jsData.rspBody.length; i++) {
-                var textG = jsData.rspBody[i]
+                var textG = jsData.rspBody[i];
+                resultData.push(textG.millSheetHead);
                 var cloneRwo = $("#templteTable").clone(true);
                 $(cloneRwo).css("display", "");
                 $(cloneRwo).find().text();

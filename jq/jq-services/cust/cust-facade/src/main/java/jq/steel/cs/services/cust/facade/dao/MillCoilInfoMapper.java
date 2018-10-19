@@ -39,4 +39,9 @@ public interface MillCoilInfoMapper {
     List<CrmMillCoilInfo> getChemistryListByCoil(CrmMillCoilInfo millCoilInfo);
 
     List<MillCoilInfo> findIsTrue (MillCoilInfo record);
+
+    //    //扫描二维码,查询质证书信息和质证书下的钢卷信息以及对应的钢卷物理,化学信息
+    List<CrmMillCoilInfo> getChemistryListByByQrCode(CrmMillSheetDetailVO vo1);
+
+    List<CrmMillCoilInfo> getPhysicsListByQrCode(CrmMillSheetDetailVO vo1);
 }

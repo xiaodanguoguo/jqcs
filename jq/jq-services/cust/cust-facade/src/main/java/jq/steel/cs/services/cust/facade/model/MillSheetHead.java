@@ -53,6 +53,14 @@ public class MillSheetHead {
 
     private Integer version;
 
+    public String getZjhzt() {
+        return zjhzt;
+    }
+
+    public void setZjhzt(String zjhzt) {
+        this.zjhzt = zjhzt;
+    }
+
     private String zjhzt;   //交货状态
 
     public Long getSid() {

@@ -18,4 +18,11 @@ public interface AppCrmCoilService {
      */
     List<CrmMillCoilInfoVO> getListByMillSheet(String millSheetNo , Integer showFlag);
 
+    /**
+     * 扫描二维码,查询质证书信息和质证书下的钢卷信息以及对应的钢卷物理,化学信息
+     * @param millSheetNo
+     * @param i
+     * @return
+     */
+    List<CrmMillCoilInfoVO> getListByByQrCode(String millSheetNo, Integer showFlag);
 }

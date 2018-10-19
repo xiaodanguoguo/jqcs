@@ -71,6 +71,17 @@
     <result column="SPECS" property="specs"/>
     <result column="ZLOSMENGE" property="zlosmenge"/>
     <result column="ZJISHU" property="zJiShu"/>
+    <association property="millSheetHead" javaType="jq.steel.cs.services.cust.facade.model.MillSheetHead">
+      <result column="MILL_SHEET_NO" property="millSheetNo"/>
+      <result column="ZKUNWE" property="zkunwe"/>
+      <result column="ZCPMC" property="zcpmc"/>
+      <result column="ZPH" property="zph"/>
+      <result column="ZZXBZ" property="zzxbz"/>
+      <result column="ZCHEHAO" property="zchehao"/>
+      <result column="ZDAOZHAN" property="zdaozhan"/>
+      <result column="ZJHZT" property="zjhzt"/>
+      <result column="ZLPH" property="zlph"/>
+    </association>
     <collection property="listForMillPhysicsData"
                 ofType="jq.steel.cs.services.cust.facade.model.CrmMillPhysicsData"
                 columnPrefix="MPD_">
@@ -85,6 +96,17 @@
     <result column="SPECS" property="specs"/>
     <result column="ZLOSMENGE" property="zlosmenge"/>
     <result column="ZJISHU" property="zJiShu"/>
+    <result column="ZLPH" property="zlph"/>
+    <association property="millSheetHead" javaType="jq.steel.cs.services.cust.facade.model.MillSheetHead">
+      <result column="MILL_SHEET_NO" property="millSheetNo"/>
+      <result column="ZKUNWE" property="zkunwe"/>
+      <result column="ZCPMC" property="zcpmc"/>
+      <result column="ZPH" property="zph"/>
+      <result column="ZZXBZ" property="zzxbz"/>
+      <result column="ZCHEHAO" property="zchehao"/>
+      <result column="ZDAOZHAN" property="zdaozhan"/>
+      <result column="ZJHZT" property="zjhzt"/>
+    </association>
     <collection property="listForMillChemistryData"
                 ofType="jq.steel.cs.services.cust.facade.model.CrmMillChemistryData"
                 columnPrefix="MCD_">
@@ -541,6 +563,50 @@ FROM
       </if>
     </trim>
 
+  </select>
+
+  <select id="getChemistryListByByQrCode" resultMap="MapForCoilAndChemistry">
+    SELECT
+    msd.MILL_SHEET_NO, msd.ZKUNWE,
+    msd.ZCPMC, msd.ZPH, msd.ZZXBZ,
+    msd.ZCHEHAO,
+    msd.ZDAOZHAN, msd.ZJHZT,
+    mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE, mci.ZJISHU, mci.ZLPH,
+    mcd. SID AS MCD_SID, mcd.KURZTEXT AS MCD_KURZTEXT, mcd.ORIGINAL_INPUT AS MCD_ORIGINAL_INPUT, mcd.SHOW_FLAG
+    FROM
+    MILL_SHEET_HEAD msd
+    LEFT JOIN MILL_COIL_INFO mci ON msd.MILL_SHEET_NO = mci.MILL_SHEET_NO
+    LEFT JOIN MILL_CHEMISTRY_DATA mcd ON mci.ZCHARG = mcd.ZCHARG and msd.MILL_SHEET_NO = mcd.MILL_SHEET_NO
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="millSheetNo != null and millSheetNo != ''" >
+        and msd.MILL_SHEET_NO = #{millSheetNo}
+      </if>
+      <if test="showFlag != null and showFlag != ''" >
+        and mcd.SHOW_FLAG = #{showFlag}
+      </if>
+    </trim>
+  </select>
+
+  <select id="getPhysicsListByQrCode" resultMap="MapForCoilAndChemistry">
+    SELECT
+    msd.MILL_SHEET_NO, msd.ZKUNWE,
+    msd.ZCPMC, msd.ZPH,
+    msd.ZZXBZ, msd.ZCHEHAO,
+    msd.ZDAOZHAN, msd.ZJHZT,
+    mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE, mci.ZJISHU, mci.ZLPH,
+    mpd.SID AS MPD_SID,  mpd.KURZTEXT AS MPD_KURZTEXT, mpd.ORIGINAL_INPUT as MPD_ORIGINAL_INPUT
+    FROM
+    MILL_SHEET_HEAD msd
+    LEFT JOIN MILL_COIL_INFO mci ON msd.MILL_SHEET_NO = mci.MILL_SHEET_NO
+    LEFT JOIN MILL_PHYSICS_DATA mpd ON mpd.ZCHARG = mci.ZCHARG and msd.MILL_SHEET_NO = mpd.MILL_SHEET_NO
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="millSheetNo != null and millSheetNo != ''" >
+        and msd.MILL_SHEET_NO = #{millSheetNo}
+      </if>
+      <if test="showFlag != null and showFlag != ''" >
+        and mpd.SHOW_FLAG = #{showFlag}
+      </if>
+    </trim>
   </select>
 
 </mapper>

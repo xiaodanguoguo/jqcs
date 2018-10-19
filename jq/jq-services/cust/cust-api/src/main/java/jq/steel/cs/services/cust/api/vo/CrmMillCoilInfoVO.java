@@ -15,7 +15,11 @@ public class CrmMillCoilInfoVO implements Serializable {
 
     private String zlosmenge;   //钢卷重量
 
-    private int zJiShu;// 件数
+    private int zJiShu;         // 件数,数量
+
+    private String zlph;        //炉(批)号
+
+    private MillSheetHeadVO millSheetHead;
 
     //用于存储钢卷对应的化学数据
     private List<CrmMillChemistryDataVO> listForMillChemistryData = new ArrayList<>();
@@ -23,7 +27,18 @@ public class CrmMillCoilInfoVO implements Serializable {
     //用于存储钢卷对应的物理数据
     private List<CrmMillPhysicsDataVO> listForMillPhysicsData = new ArrayList<>();
 
+
     private int showFlag = 1;
+
+
+    public MillSheetHeadVO getMillSheetHead() { return millSheetHead; }
+
+    public void setMillSheetHead(MillSheetHeadVO millSheetHead) { this.millSheetHead = millSheetHead; }
+
+    public String getZlph() { return zlph; }
+
+    public void setZlph(String zlph) { this.zlph = zlph; }
+
 
 
     public String getState() {

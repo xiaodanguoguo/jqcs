@@ -22,6 +22,18 @@ public class CrmMillCoilInfo {
 
     private int showFlag;
 
+    private String zlph;
+
+    private MillSheetHead millSheetHead;
+
+    public String getZlph() { return zlph; }
+
+    public void setZlph(String zlph) { this.zlph = zlph; }
+
+    public MillSheetHead getMillSheetHead() { return millSheetHead; }
+
+    public void setMillSheetHead(MillSheetHead millSheetHead) { this.millSheetHead = millSheetHead; }
+
     public Long getSid() {
         return sid;
     }

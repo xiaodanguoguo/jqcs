@@ -7,6 +7,7 @@ import jq.steel.cs.services.cust.api.vo.CrmMillSheetDetailVO;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -22,4 +23,7 @@ public interface AppMillSheetHostsDetailAPI {
     @RequestMapping("/app/millsheet/findMillSheetDeatilByMillSheet")
     ServiceResponse<List<CrmMillCoilInfoVO>> getCoilDetailByMillSheet(@RequestBody JsonRequest<CrmMillSheetDetailVO> jsonRequest);
 
+
+    @RequestMapping(value = "/app/millsheet/findMillSheetDeatilByQrCode", method = RequestMethod.POST)
+    public ServiceResponse<List<CrmMillCoilInfoVO>> getCoilDetailByQrCode(@RequestBody JsonRequest<CrmMillSheetDetailVO> jsonRequest);
 }

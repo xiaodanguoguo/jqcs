@@ -46,7 +46,7 @@ public class AppMillSheetDetailController {
             vo.setMillSheetNo(str);
 
             jsonRequest.getReqBody().setShowFlag(1);
-            ServiceResponse<List<CrmMillCoilInfoVO>> coilDetailByMillSheet = appMillSheetHostsDetailAPI.getCoilDetailByMillSheet(jsonRequest);
+            ServiceResponse<List<CrmMillCoilInfoVO>> coilDetailByMillSheet = appMillSheetHostsDetailAPI.getCoilDetailByQrCode(jsonRequest);
             List<CrmMillCoilInfoVO> listAll = coilDetailByMillSheet.getRetContent();
             jsonResponse.setRspBody(listAll);
         } catch (Exception e) {
