@@ -78,6 +78,16 @@ function clsMethodLee$operate(){
             var alertBox=new clsAlertBoxCtrl();
             alertBox.Alert("请勾选将要下载的质证书","失败提示");
         }else{
+            for(var i=0;i<$("#tableList #cloneRow").length;i++){
+                var clone=$("#tableList #cloneRow")[i];
+                if($(clone).find("#chkCoding").attr("checked")){
+                    if(clone.jsonData.state=="SPLITED"){
+                        var alertBox = new clsAlertBoxCtrl();
+                        alertBox.Alert("已经拆分的不可下载！","错误提示");
+                        return;
+                    }
+                }
+            }
             var num = 0;
             for(var nI = 0; nI < $("#tableList")[0].cacheArr.length; nI++){
                 if($("#tableList")[0].cacheArr[nI].downableNum != 0){
@@ -113,6 +123,16 @@ function clsMethodLee$operate(){
             var alertBox=new clsAlertBoxCtrl();
             alertBox.Alert("请勾选将要打印的质证书","失败提示");
         }else{
+            for(var i=0;i<$("#tableList #cloneRow").length;i++){
+                var clone=$("#tableList #cloneRow")[i];
+                if($(clone).find("#chkCoding").attr("checked")){
+                    if(clone.jsonData.state=="SPLITED"){
+                        var alertBox = new clsAlertBoxCtrl();
+                        alertBox.Alert("已经拆分的不可打印！","错误提示");
+                        return;
+                    }
+                }
+            }
             var num = 0;
             for(var nI = 0; nI < $("#tableList")[0].cacheArr.length; nI++){
                 if($("#tableList")[0].cacheArr[nI].printableNum != 0){
