@@ -133,10 +133,13 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                     objectionTiBaoVO.setCreateEmpNo(list1.get(0).getCreateEmpNo());
                     objectionTiBaoVO.setLastUserTel(list1.get(0).getLastUserTel());
                     return objectionTiBaoVO;
+                }else{
+                    objectionTiBaoVO.setLastUserId(orgCode);
                 }
                 crmClaimApply.setExplain("请填写默认使用单位");
                 return objectionTiBaoVO;
             }else{
+                objectionTiBaoVO.setCustomerId(orgCode);
                 crmClaimApply.setExplain("请填写默认订货单位");
                 return objectionTiBaoVO;
 
