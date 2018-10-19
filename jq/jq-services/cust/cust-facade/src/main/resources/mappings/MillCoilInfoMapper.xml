@@ -71,6 +71,7 @@
     <result column="SPECS" property="specs"/>
     <result column="ZLOSMENGE" property="zlosmenge"/>
     <result column="ZJISHU" property="zJiShu"/>
+    <result column="ZLPH" property="zlph"/>
     <association property="millSheetHead" javaType="jq.steel.cs.services.cust.facade.model.MillSheetHead">
       <result column="MILL_SHEET_NO" property="millSheetNo"/>
       <result column="ZKUNWE" property="zkunwe"/>
@@ -80,7 +81,6 @@
       <result column="ZCHEHAO" property="zchehao"/>
       <result column="ZDAOZHAN" property="zdaozhan"/>
       <result column="ZJHZT" property="zjhzt"/>
-      <result column="ZLPH" property="zlph"/>
       <result column="NAME1" property="name"/>
     </association>
     <collection property="listForMillPhysicsData"
@@ -591,7 +591,7 @@ FROM
     </trim>
   </select>
 
-  <select id="getPhysicsListByQrCode" resultMap="MapForCoilAndChemistry">
+  <select id="getPhysicsListByQrCode" resultMap="MapForCoilAndPhysics">
     SELECT
     msd.MILL_SHEET_NO, msd.ZKUNWE,
     msd.ZCPMC, msd.ZPH,
