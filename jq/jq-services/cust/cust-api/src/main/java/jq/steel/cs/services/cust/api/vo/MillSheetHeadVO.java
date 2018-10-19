@@ -53,6 +53,17 @@ public class MillSheetHeadVO {
 
     private Integer version;
 
+    private String name;        //收货单位名称<crm_customer中的name1客户名称>
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
     public String getZjhzt() { return zjhzt; }
 
     public void setZjhzt(String zjhzt) { this.zjhzt = zjhzt; }

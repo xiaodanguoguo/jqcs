@@ -81,6 +81,7 @@
       <result column="ZDAOZHAN" property="zdaozhan"/>
       <result column="ZJHZT" property="zjhzt"/>
       <result column="ZLPH" property="zlph"/>
+      <result column="NAME1" property="name"/>
     </association>
     <collection property="listForMillPhysicsData"
                 ofType="jq.steel.cs.services.cust.facade.model.CrmMillPhysicsData"
@@ -106,6 +107,7 @@
       <result column="ZCHEHAO" property="zchehao"/>
       <result column="ZDAOZHAN" property="zdaozhan"/>
       <result column="ZJHZT" property="zjhzt"/>
+      <result column="NAME1" property="name"/>
     </association>
     <collection property="listForMillChemistryData"
                 ofType="jq.steel.cs.services.cust.facade.model.CrmMillChemistryData"
@@ -572,10 +574,12 @@ FROM
     msd.ZCHEHAO,
     msd.ZDAOZHAN, msd.ZJHZT,
     mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE, mci.ZJISHU, mci.ZLPH,
-    mcd. SID AS MCD_SID, mcd.KURZTEXT AS MCD_KURZTEXT, mcd.ORIGINAL_INPUT AS MCD_ORIGINAL_INPUT, mcd.SHOW_FLAG
+    mcd. SID AS MCD_SID, mcd.KURZTEXT AS MCD_KURZTEXT, mcd.ORIGINAL_INPUT AS MCD_ORIGINAL_INPUT, mcd.SHOW_FLAG,
+    mc.NAME1
     FROM
     MILL_SHEET_HEAD msd
     LEFT JOIN MILL_COIL_INFO mci ON msd.MILL_SHEET_NO = mci.MILL_SHEET_NO
+    LEFT JOIN MILL_CUSTOMER mc on mc.KUNNR = msd.ZKUNWE
     LEFT JOIN MILL_CHEMISTRY_DATA mcd ON mci.ZCHARG = mcd.ZCHARG and msd.MILL_SHEET_NO = mcd.MILL_SHEET_NO
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="millSheetNo != null and millSheetNo != ''" >
@@ -594,10 +598,12 @@ FROM
     msd.ZZXBZ, msd.ZCHEHAO,
     msd.ZDAOZHAN, msd.ZJHZT,
     mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE, mci.ZJISHU, mci.ZLPH,
-    mpd.SID AS MPD_SID,  mpd.KURZTEXT AS MPD_KURZTEXT, mpd.ORIGINAL_INPUT as MPD_ORIGINAL_INPUT
+    mpd.SID AS MPD_SID,  mpd.KURZTEXT AS MPD_KURZTEXT, mpd.ORIGINAL_INPUT as MPD_ORIGINAL_INPUT,
+    mc.NAME1
     FROM
     MILL_SHEET_HEAD msd
     LEFT JOIN MILL_COIL_INFO mci ON msd.MILL_SHEET_NO = mci.MILL_SHEET_NO
+    LEFT JOIN MILL_CUSTOMER mc on mc.KUNNR = msd.ZKUNWE
     LEFT JOIN MILL_PHYSICS_DATA mpd ON mpd.ZCHARG = mci.ZCHARG and msd.MILL_SHEET_NO = mpd.MILL_SHEET_NO
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="millSheetNo != null and millSheetNo != ''" >

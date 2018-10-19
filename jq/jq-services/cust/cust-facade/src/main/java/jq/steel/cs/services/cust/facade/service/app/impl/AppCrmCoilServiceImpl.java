@@ -75,6 +75,7 @@ public class AppCrmCoilServiceImpl implements AppCrmCoilService {
                 MillSheetHeadVO msh2 = new MillSheetHeadVO();
 
                 msh2.setMillSheetNo(msh1.getMillSheetNo());
+                msh2.setName(msh1.getName());
                 msh2.setZkunwe(msh1.getZkunwe());
                 msh2.setZcpmc(msh1.getZcpmc());
                 msh2.setZph(msh1.getZph());
