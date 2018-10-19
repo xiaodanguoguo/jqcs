@@ -4,6 +4,12 @@ import java.util.Date;
 
 public class CrmClaimInnerInquire {
 
+    //内部提交人
+    private String submitter;
+
+    //完成时间
+    private Date completionTime;
+
     private String acctName;
 
     //生产工艺过程调查
@@ -59,6 +65,22 @@ public class CrmClaimInnerInquire {
 
     //操作类型
     private  Integer optionType;
+
+    public String getSubmitter() {
+        return submitter;
+    }
+
+    public void setSubmitter(String submitter) {
+        this.submitter = submitter;
+    }
+
+    public Date getCompletionTime() {
+        return completionTime;
+    }
+
+    public void setCompletionTime(Date completionTime) {
+        this.completionTime = completionTime;
+    }
 
     public String getAcctName() {
         return acctName;

@@ -218,7 +218,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             //millSheetHosts1.setUpdatedBy(orgName);
             millSheetHosts1.setUpdatedDt(new Date());
             //打印完的下载不改状态
-            if (millSheetHosts1.getState().equals("PRINTED")){
+            if (url.getState().equals("PRINTED")){
                 millSheetHosts1.setState("");
             }else {
                 millSheetHosts1.setState("DOWNLOADED");

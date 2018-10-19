@@ -362,6 +362,10 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimInfo.setInquireState("INEND");
             crmClaimInfo.setClaimState("INVESTIGATION");
             int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
+
+            //记录时间和提交人
+            crmClaimInnerInquire.setSubmitter(acctName);
+            crmClaimInnerInquire.setCompletionTime(new Date());
             crmClaimInnerInquireMapper.update(crmClaimInnerInquire);
 
             //修改异议申请_用户表

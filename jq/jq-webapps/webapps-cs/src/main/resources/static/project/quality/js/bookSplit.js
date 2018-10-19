@@ -77,7 +77,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {//组件渲染数据
         if(jsonItem.millsheetType == "M"){
             jsonItem.millsheetType = "Z";
         }else if(jsonItem.millsheetType == "Z"){
-            jsonItem.millsheetType == "S";
+            jsonItem.millsheetType = "S";
         }
 
         //件次失焦操作
