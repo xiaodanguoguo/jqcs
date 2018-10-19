@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class ObjectionLedger {
+    private String IsTrack;
+
 
     private BigDecimal handlerUser;
 
@@ -103,6 +105,14 @@ public class ObjectionLedger {
     //赔偿金额（小写）
     private BigDecimal agreementAmount;
 
+
+    public String getIsTrack() {
+        return IsTrack;
+    }
+
+    public void setIsTrack(String isTrack) {
+        IsTrack = isTrack;
+    }
 
     public BigDecimal getHandlerUser() {
         return handlerUser;
