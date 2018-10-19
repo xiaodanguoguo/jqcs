@@ -9,7 +9,7 @@ html,body{
     line-height: .5rem;
     margin: 0;
     padding: 0 .1rem;
-    background: #003b90;
+    background: #3881dd;
     width: 100%;
     color: #fff;
     z-index: 1000;
@@ -25,7 +25,7 @@ html,body{
 
 .stl_scrlApp {
     color: #fff;
-    background-color: #003b90;
+    background-color: #3881dd;
     height: .36rem;
     line-height: .36rem;
     margin: .5rem 0 0 0;
@@ -43,7 +43,7 @@ html,body{
 
 .stl_scrlDetail {
     color: #fff;
-    background-color: #003b90;
+    background-color: #3881dd;
     height: .36rem;
     line-height: .36rem;
     padding: 0 .1rem;
