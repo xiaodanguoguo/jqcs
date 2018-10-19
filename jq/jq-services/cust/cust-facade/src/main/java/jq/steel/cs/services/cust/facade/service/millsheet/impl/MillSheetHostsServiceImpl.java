@@ -150,7 +150,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 millOperationHis.setOperationType("PRIVIEWED");
                 millOperationHis.setOperationIp(ip);
                 //打印完的预览不改状态  下载完的预览不改变状态
-                if (millSheetByPage.getDataState().equals("PRINTED")|| millSheetByPage.getDataState().equals("DOWNLOADED")){
+                if (millSheetByPage.getState().equals("PRINTED")|| millSheetByPage.getState().equals("DOWNLOADED") ||millSheetByPage.getState().equals("SPLITED")){
                     millSheetHosts.setState("");
                 }else {
                     millSheetHosts.setState("PRIVIEWED");
@@ -218,7 +218,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             //millSheetHosts1.setUpdatedBy(orgName);
             millSheetHosts1.setUpdatedDt(new Date());
             //打印完的下载不改状态
-            if (millSheetHosts1.getDataState().equals("PRINTED")){
+            if (millSheetHosts1.getState().equals("PRINTED")){
                 millSheetHosts1.setState("");
             }else {
                 millSheetHosts1.setState("DOWNLOADED");

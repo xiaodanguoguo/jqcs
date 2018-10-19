@@ -9,6 +9,15 @@ import java.util.Date;
 //异议统计台账
 public class ObjectionLedgerVO {
 
+
+    private BigDecimal handlerUser;
+
+    private BigDecimal handlerTime;
+
+    private BigDecimal handlerResults;
+
+    private String IsTrack;
+
     private String pd;
 
     private String at;
@@ -113,6 +122,39 @@ public class ObjectionLedgerVO {
 
     //处理周期
     private String cycle;
+
+
+    public BigDecimal getHandlerUser() {
+        return handlerUser;
+    }
+
+    public void setHandlerUser(BigDecimal handlerUser) {
+        this.handlerUser = handlerUser;
+    }
+
+    public BigDecimal getHandlerTime() {
+        return handlerTime;
+    }
+
+    public void setHandlerTime(BigDecimal handlerTime) {
+        this.handlerTime = handlerTime;
+    }
+
+    public BigDecimal getHandlerResults() {
+        return handlerResults;
+    }
+
+    public void setHandlerResults(BigDecimal handlerResults) {
+        this.handlerResults = handlerResults;
+    }
+
+    public String getIsTrack() {
+        return IsTrack;
+    }
+
+    public void setIsTrack(String isTrack) {
+        IsTrack = isTrack;
+    }
 
     public String getPd() {
         return pd;
