@@ -75,68 +75,12 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		orgInfo.setCreatedTime(new Date());
 		Long l = orgInfoMapper.insertOrgInfo(orgInfo);
 
-		// 添加默认组织角色
-		RoleGroup roleGroup = new RoleGroup();
-		roleGroup.setRoleGroupTitle("数据权限");
-		roleGroup.setIsDelete("0");
-		roleGroup.setStatus("0");
-		roleGroup.setOrgId(orgInfoId);
-		roleGroupMapper.insertSelective(roleGroup);
-
-		RoleInfo roleInfo1 = new RoleInfo();
-		roleInfo1.setRoleCode("1000");
-		roleInfo1.setRoleTitle("不锈");
-		roleInfo1.setIsDelete("0");
-		roleInfo1.setStatus("1");
-		roleInfo1.setOrgId(orgInfoId);
-		roleInfoMapper.insertSelective(roleInfo1);
-
-		AcctRoleGroupRole acctRoleGroupRole1 = new AcctRoleGroupRole();
-		acctRoleGroupRole1.setRoleGroupId(roleGroup.getRoleGroupId());
-		acctRoleGroupRole1.setRoleId(roleInfo1.getRoleId());
-		acctRoleGroupRoleMapper.insertSelective(acctRoleGroupRole1);
-
-		RoleInfo roleInfo2 = new RoleInfo();
-		roleInfo2.setRoleCode("2000");
-		roleInfo2.setRoleTitle("炼扎");
-		roleInfo2.setIsDelete("0");
-		roleInfo2.setStatus("1");
-		roleInfo2.setOrgId(orgInfoId);
-		roleInfoMapper.insertSelective(roleInfo2);
-
-		AcctRoleGroupRole acctRoleGroupRole2 = new AcctRoleGroupRole();
-		acctRoleGroupRole2.setRoleGroupId(roleGroup.getRoleGroupId());
-		acctRoleGroupRole2.setRoleId(roleInfo2.getRoleId());
-		acctRoleGroupRoleMapper.insertSelective(acctRoleGroupRole2);
-
-		RoleInfo roleInfo3 = new RoleInfo();
-		roleInfo3.setRoleCode("2200");
-		roleInfo3.setRoleTitle("碳薄厂");
-		roleInfo3.setIsDelete("0");
-		roleInfo3.setStatus("1");
-		roleInfo3.setOrgId(orgInfoId);
-		roleInfoMapper.insertSelective(roleInfo3);
-
-		AcctRoleGroupRole acctRoleGroupRole3 = new AcctRoleGroupRole();
-		acctRoleGroupRole3.setRoleGroupId(roleGroup.getRoleGroupId());
-		acctRoleGroupRole3.setRoleId(roleInfo3.getRoleId());
-		acctRoleGroupRoleMapper.insertSelective(acctRoleGroupRole3);
-
-		RoleInfo roleInfo4 = new RoleInfo();
-		roleInfo4.setRoleCode("3000");
-		roleInfo4.setRoleTitle("榆钢");
-		roleInfo4.setIsDelete("0");
-		roleInfo4.setStatus("1");
-		roleInfo4.setOrgId(orgInfoId);
-		roleInfoMapper.insertSelective(roleInfo4);
-
-		AcctRoleGroupRole acctRoleGroupRole4 = new AcctRoleGroupRole();
-		acctRoleGroupRole4.setRoleGroupId(roleGroup.getRoleGroupId());
-		acctRoleGroupRole4.setRoleId(roleInfo4.getRoleId());
-		acctRoleGroupRoleMapper.insertSelective(acctRoleGroupRole4);
+		this.addDefaultRole(orgInfoId);
 
 		return l;
 	}
+
+
 
 	/**
 	 * 查询指定长度的id最大值
@@ -324,6 +268,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		orgInfo2.setStatus(Status.START.getCode());
 		orgInfo2.setTel(orgInfo.getTel());
 		Long k = orgInfoMapper.insertOrgInfo(orgInfo2);
+		this.addDefaultRole(orgInfo2.getId());
 		messageService.sendEmailWithAttachment(SUCCESS_CODE, TITLE, messageVO, null, null);
 		return i;
 	}
@@ -419,6 +364,68 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 
 
 		return orgInfoVO;
+	}
+
+	private void addDefaultRole(String orgInfoId) {
+		// 添加默认组织角色
+		RoleGroup roleGroup = new RoleGroup();
+		roleGroup.setRoleGroupTitle("数据权限");
+		roleGroup.setIsDelete("0");
+		roleGroup.setStatus("0");
+		roleGroup.setOrgId(orgInfoId);
+		roleGroupMapper.insertSelective(roleGroup);
+
+		RoleInfo roleInfo1 = new RoleInfo();
+		roleInfo1.setRoleCode("1000");
+		roleInfo1.setRoleTitle("不锈");
+		roleInfo1.setIsDelete("0");
+		roleInfo1.setStatus("1");
+		roleInfo1.setOrgId(orgInfoId);
+		roleInfoMapper.insertSelective(roleInfo1);
+
+		AcctRoleGroupRole acctRoleGroupRole1 = new AcctRoleGroupRole();
+		acctRoleGroupRole1.setRoleGroupId(roleGroup.getRoleGroupId());
+		acctRoleGroupRole1.setRoleId(roleInfo1.getRoleId());
+		acctRoleGroupRoleMapper.insertSelective(acctRoleGroupRole1);
+
+		RoleInfo roleInfo2 = new RoleInfo();
+		roleInfo2.setRoleCode("2000");
+		roleInfo2.setRoleTitle("炼扎");
+		roleInfo2.setIsDelete("0");
+		roleInfo2.setStatus("1");
+		roleInfo2.setOrgId(orgInfoId);
+		roleInfoMapper.insertSelective(roleInfo2);
+
+		AcctRoleGroupRole acctRoleGroupRole2 = new AcctRoleGroupRole();
+		acctRoleGroupRole2.setRoleGroupId(roleGroup.getRoleGroupId());
+		acctRoleGroupRole2.setRoleId(roleInfo2.getRoleId());
+		acctRoleGroupRoleMapper.insertSelective(acctRoleGroupRole2);
+
+		RoleInfo roleInfo3 = new RoleInfo();
+		roleInfo3.setRoleCode("2200");
+		roleInfo3.setRoleTitle("碳薄");
+		roleInfo3.setIsDelete("0");
+		roleInfo3.setStatus("1");
+		roleInfo3.setOrgId(orgInfoId);
+		roleInfoMapper.insertSelective(roleInfo3);
+
+		AcctRoleGroupRole acctRoleGroupRole3 = new AcctRoleGroupRole();
+		acctRoleGroupRole3.setRoleGroupId(roleGroup.getRoleGroupId());
+		acctRoleGroupRole3.setRoleId(roleInfo3.getRoleId());
+		acctRoleGroupRoleMapper.insertSelective(acctRoleGroupRole3);
+
+		RoleInfo roleInfo4 = new RoleInfo();
+		roleInfo4.setRoleCode("3000");
+		roleInfo4.setRoleTitle("榆钢");
+		roleInfo4.setIsDelete("0");
+		roleInfo4.setStatus("1");
+		roleInfo4.setOrgId(orgInfoId);
+		roleInfoMapper.insertSelective(roleInfo4);
+
+		AcctRoleGroupRole acctRoleGroupRole4 = new AcctRoleGroupRole();
+		acctRoleGroupRole4.setRoleGroupId(roleGroup.getRoleGroupId());
+		acctRoleGroupRole4.setRoleId(roleInfo4.getRoleId());
+		acctRoleGroupRoleMapper.insertSelective(acctRoleGroupRole4);
 	}
 }
 
