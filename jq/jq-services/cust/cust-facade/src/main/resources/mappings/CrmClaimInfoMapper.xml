@@ -103,6 +103,8 @@
     <result column="HANDLER_USER" property="handlerUser"/>
     <result column="HANDLER_TIME" property="handlerTime"/>
     <result column="HANDLER_RESULTS" property="handlerResults"/>
+    <result column="DEFECT_NAME" property="defectName"/>
+    <result column="ZCPMC" property="zcpmc"/>
   </resultMap>
 
   <sql id="Base_Column_List" >
@@ -891,6 +893,7 @@
     B.HANDING_SUGGESTION,
     B.AGREEMENT_AMOUNT,
     B.ARRIVAL_TIME,
+    B.DEFECT_NAME,
     C.OBJECTION_CONFIRMATION,
     C.PRESENTATION_DATE,
     C.ADMISSIBILITY_TIME,
@@ -901,6 +904,7 @@
     E.HANDLER_TIME,
     E.HANDLER_RESULTS,
     (SELECT TYPE_NAME FROM SGAI_MD_COMMON_TYPE WHERE TYPE_DESC =F.STOREROOM_CODE) AS MILL_LINE,
+    F.ZCPMC,
     F.DEPT_CODE
     FROM
     WARRANTY.CRM_CLAIM_INFO A
@@ -921,6 +925,15 @@
       </if>
       <if test="customerName != null and customerName != ''" >
         AND A.CUSTOMER_NAME like  '%' || #{customerName} ||'%'
+      </if>
+      <if test="designation != null and designation != ''" >
+        AND A.DESIGNATION like  '%' || #{designation} ||'%'
+      </if>
+      <if test="zcpmc != null and zcpmc != ''" >
+        AND F.ZCPMC like  '%' || #{zcpmc} ||'%'
+      </if>
+      <if test="defectName != null and defectName != ''" >
+        AND B.DEFECT_NAME like  '%' || #{defectName} ||'%'
       </if>
       <if test="endDtStr != null" >
         AND TO_CHAR (C.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}

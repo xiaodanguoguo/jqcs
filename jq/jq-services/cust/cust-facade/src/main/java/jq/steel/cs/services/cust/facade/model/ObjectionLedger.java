@@ -6,6 +6,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class ObjectionLedger {
+
+    private String  defectName;
+
+    private String zcpmc;
+
     private String IsTrack;
 
 
@@ -105,6 +110,22 @@ public class ObjectionLedger {
     //赔偿金额（小写）
     private BigDecimal agreementAmount;
 
+
+    public String getDefectName() {
+        return defectName;
+    }
+
+    public void setDefectName(String defectName) {
+        this.defectName = defectName;
+    }
+
+    public String getZcpmc() {
+        return zcpmc;
+    }
+
+    public void setZcpmc(String zcpmc) {
+        this.zcpmc = zcpmc;
+    }
 
     public String getIsTrack() {
         return IsTrack;
