@@ -156,6 +156,15 @@ public class CrmProductCategoryController {
         JsonResponse<Boolean> jsonResponse = new JsonResponse<>();
 
         try {
+            String code = "";
+            List<String> codes = this.getRoleCode();
+
+            if (CollectionUtils.isNotEmpty(codes)) {
+                code = codes.get(0);
+            } else {
+                jsonResponse.setRetCode("0000004");
+                return jsonResponse;
+            }
             List<CrmProductCategoryVO> list = jsonRequest.getReqBody();
             if (CollectionUtils.isNotEmpty(list)) {
                 for (CrmProductCategoryVO crmProductCategoryVO : list) {
@@ -163,6 +172,7 @@ public class CrmProductCategoryController {
                     crmProductCategoryVO.setCreateBy(AssertContext.getAcctName());
                     crmProductCategoryVO.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
                     crmProductCategoryVO.setUpdateBy(AssertContext.getAcctName());
+                    crmProductCategoryVO.setFactory(code);
                 }
             }
             ServiceResponse<Boolean> serviceResponse = crmProductCategoryApi
