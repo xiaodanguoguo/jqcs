@@ -374,6 +374,7 @@ function clsMethodLee$operate(){
 
     //外部调查调查结束按钮
     this.forthsubmit.on("click",function () {
+        $("#followReason").removeClass("required");
         document.body.jsLee.opeDom = "forthsubmit";
         if(boxChecked()){
             var jsonParam = paramJson();
@@ -383,6 +384,7 @@ function clsMethodLee$operate(){
     });
     //外部调查跟踪按钮
     this.forthFoolow.on("click",function () {
+        $("#followReason").addClass("required");
         document.body.jsLee.opeDom = "forthFoolow";
         if(boxChecked()){
             var jsonParam = paramJson();
@@ -392,6 +394,7 @@ function clsMethodLee$operate(){
     });
     //外部调查保存按钮
     this.forthSave.on("click",function () {
+        $("#followReason").removeClass("required");
         document.body.jsLee.opeDom = "forthSave";
         if(boxChecked()){
             var jsonParam = paramJson();
@@ -710,7 +713,7 @@ function boxChecked(){
 
 //完成提交参数拼接
 function paramJson(){
-    var jsonParam = {"claimNo":"","productName":"","millSheetNo":"","customerId":"","customerName":"","custAddr":"","custEmpNo":"","custTel":"","lastUserId":"","lastUser":"","lastUserAddr":"","createEmpNo":"","lastUserTel":"","battenPlateNo":"","designation":"","used":"","contractNo":"","contractVolume":"","specs":"","originalWeight":"","orderNo":"","originalCarNo":"","contractUnitPrice":"","objectionNum":"","endProcessingTech":"","claimDesc":"","claimReason":"","rejectReason":"","productDt":"","shift":"","userRequirement":"","handingSuggestion":"","inquireInfo":"","fieldConclusion":"","claimVerdict":"","improvement":"","amountOfUse":"","proProblem":"","logisticsProcess":"","objectionConfirmation":"","salesManagerSuggests":"","productionProcessInvestigati":"","surfaceStructure":"","originalJudgementResult":"","qualityGrade":"","agreementContent":"","agreementAmount":"","arrivalTime":""};
+    var jsonParam = {"claimNo":"","productName":"","millSheetNo":"","customerId":"","customerName":"","custAddr":"","custEmpNo":"","custTel":"","lastUserId":"","lastUser":"","lastUserAddr":"","createEmpNo":"","lastUserTel":"","battenPlateNo":"","designation":"","used":"","contractNo":"","contractVolume":"","specs":"","originalWeight":"","orderNo":"","originalCarNo":"","contractUnitPrice":"","objectionNum":"","endProcessingTech":"","claimDesc":"","claimReason":"","rejectReason":"","productDt":"","shift":"","userRequirement":"","handingSuggestion":"","inquireInfo":"","fieldConclusion":"","claimVerdict":"","improvement":"","amountOfUse":"","proProblem":"","logisticsProcess":"","objectionConfirmation":"","salesManagerSuggests":"","productionProcessInvestigati":"","surfaceStructure":"","originalJudgementResult":"","qualityGrade":"","agreementContent":"","agreementAmount":"","arrivalTime":"","followReason":""};
     getValue4Desc(jsonParam,$("#submitBox")[0]);
     //上传图片
     jsonParam.filePath = document.body.jsLee.filePath.join(";");
