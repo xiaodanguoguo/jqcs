@@ -72,7 +72,6 @@ public class CrmAnnouncementController {
             jsonRequest.getReqBody().setCreateDt(new Date());
             ServiceResponse<Integer> retContent = appCrmAnnouncementAPI.save(jsonRequest);
             jsonResponse.setRspBody(retContent.getRetContent());
-            jsonResponse.setRetCode(retContent.getRetCode());
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
