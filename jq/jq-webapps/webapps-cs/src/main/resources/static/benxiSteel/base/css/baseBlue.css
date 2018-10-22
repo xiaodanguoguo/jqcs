@@ -580,7 +580,7 @@ body { font-size: 12px; font-family: "Microsoft Yahei"; color: #666; }
 
 .comUpload .uploadBtn { width: 79px; height: 59px; position: absolute; left: 0; top: 0; }
 
-.comUploadAfter .imgDelete { width: 15px; height: 16px; display: block; position: absolute; right: 0; top: 0; z-index: 2000000001; }
+.comUploadAfter .imgDelete { width: 15px; height: 16px; display: block; position: absolute; right: 0; top: 0; z-index: 21; }
 
 .comUpload[uploadtype='button'] { line-height: 30px; }
 

@@ -150,6 +150,7 @@
         <include refid="Base_Column_List" />
         from CRM_ANNOUNCEMENT
         <include refid="Base_Where_Column_List" />
+        order by AID desc
     </select>
     <sql id="Base_Where_Column_List">
         <trim prefix="where" prefixOverrides="and | or">
