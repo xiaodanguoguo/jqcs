@@ -111,6 +111,7 @@ function  saveCallBack(data) {
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         initplugPath($("#tableList")[0],"standardEditTableCtrl",this.requestUrl.path1,null,"POST");
+        $("input[type=checkbox]").attr("checked",false);
         var alertBox=new clsAlertBoxCtrl();
         if(document.body.jsLee.opeType == 1){
             alertBox.Alert("保存成功,是否返回产品维护列表","成功提示",1,"","jumpUrlTip");
