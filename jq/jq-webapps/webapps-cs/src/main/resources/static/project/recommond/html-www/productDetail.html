@@ -3,6 +3,7 @@
     <div class="detail" id="boxContent">
         <div class="detail-nav">
             <h1 class="detail-nav-name" id="productName"></h1>
+            <div class="btnLowNew fr" style="margin-right: 20px;position: relative;top: -47px;" id="returnPre">返回上一页</div>
                 <!--<ul class="detail-nav-list">
                     <li class="detail-nav-list_block"><span class="detail-nav-list_tit">时间&nbsp;&nbsp;:</span><b class="detail-nav-list_main">2016-02-02 10:41</b></li>
                     <li class="detail-nav-list_block"><span class="detail-nav-list_tit">责任人&nbsp;&nbsp;:</span><b class="detail-nav-list_main">李猛</b></li>
@@ -30,6 +31,9 @@
         limitCodeDeal($("*[limitCode]"),"limitCode");
         var pid = GetQueryString("pid");
         getAjaxResult("/product/info/introduct/detail","POST",{"pid":pid},"successCallBack(data)");
+        $("#returnPre").on("click",function () {
+            jumpUrl("productShow.html?categoryId=" + GetQueryString("categoryId"),"0000000",0);
+        });
     })
     function successCallBack(data){
         data = JSON.parse(data);
