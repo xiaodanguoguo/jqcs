@@ -197,6 +197,7 @@
         </foreach>
       </if>
     </trim>
+    order by CID DESC
   </select>
   <select id="getIntroductList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
     select
