@@ -878,9 +878,9 @@
 
 .home-Banner { position: relative; margin: 0 auto; width: 1200px; height: 255px; line-height: 255px; }
 
-.home-Banner-list { width: 1020px; padding-left: 90px; height: 170px; overflow: hidden; padding-top: 36px; }
+.home-Banner-list { width: 1020px; padding-left: 90px; height: 200px; overflow: hidden; padding-top: 36px; }
 
-.home-Banner-list .home-Banner-list-block { float: left; width: 182px; height: 170px; margin: 0 10px; border-radius: 5px; }
+.home-Banner-list .home-Banner-list-block { float: left; width: 182px; height: 200px; margin: 0 10px; border-radius: 5px; }
 
 .home-Banner-list-left { position: absolute; left: 56px; top: 100px; font-size: 70px; margin-left: -8px; color: #98b6fe; cursor: pointer; height: 55px; background: #fff; }
 

@@ -116,7 +116,7 @@ function clsMethodLee$refresh(){
 }
 
 function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
-    $(cloneRow).css("background","url('"+ jsonItem.thumbnail +"')");
+    //$(cloneRow).css("background","url('"+ jsonItem.thumbnail +"')");
     $(cloneRow).on("click",function () {
         jumpUrl("project/recommond/html-gulp-www/productDetail1.html?pid=" + jsonItem.pid,"0000000",1);
     });
