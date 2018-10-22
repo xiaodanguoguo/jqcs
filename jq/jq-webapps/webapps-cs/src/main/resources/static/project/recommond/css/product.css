@@ -6,6 +6,6 @@
 
 .product-list-box__line { margin-top: 40px; margin-left: 60px; width: 406px; }
 
-.product-list-box__name { display: inline-block; float: left; margin-right: 10px; width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; height: 40px; line-height: 40px; font-size: 24px; font-weight: bold; cursor: pointer; }
+.product-list-box__name { display: inline-block; float: left; margin-right: 10px; width: 70px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; height: 40px; line-height: 40px; font-size: 24px; font-weight: bold; cursor: pointer; }
 
-.product-list-box__paragraph { text-indent: 30px; display: inline-block; display: right; width: 235px; height: 60px; font-size: 14px; overflow: hidden; }
+.product-list-box__paragraph { /*text-indent:30px;*/ display: inline-block; width: 295px; height: 80px; font-size: 14px; overflow: hidden; }
