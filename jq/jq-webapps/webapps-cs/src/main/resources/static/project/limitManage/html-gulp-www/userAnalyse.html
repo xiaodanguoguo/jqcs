@@ -271,65 +271,63 @@
 	    	</div>
 	    	<div id="js-loader" class="og-head-maincontent">
 
-<script src="../../../plugin/highcharts/highcharts.js"></script>
-<div style="width: 100%;text-align: center;line-height: 50px;height: 50px;font-size: 20px;">满意度调查统计分析</div>
-<div id="searchBox" style="height: 50px;">
-    <span style="margin: 0 10px;">信息标题：</span>
-    <input type="text" class="inputBase" id="nnTitle">
-    <div class="btnLowNew" id="establish-Home-page" limitCode="M10301">查询</div>
-</div>
-<div>
-    <div id="container" style="min-width:400px;height:400px"></div>
-</div>
+<link rel="stylesheet" href="../css/credential_Management.css">
+    <div class="management">
+
+        <div class="management-box">
+            <div class="management-box-list">
+                <ul class="management-box-list__Content clearfix" id="searchBox">
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">日期:</span>
+                        <input class="inputBase" type="text" name="startDate" id="condstartDate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'condendDate\')}'})" />
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">至:</span>
+                        <input class="inputBase" type="text" name="condendDate" id="condendDate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'condstartDate\')}'})" />
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">用户名:</span>
+                        <input type="text" class="inputBase" id="condacctName">
+                    </li>
+                    <!--<li class="management-box-list__Every">
+                        <span class="management-box-list__Name">模块:</span>
+                        <input type="text" class="inputBase" id="condorgName">
+                    </li>-->
+                </ul>
+            </div>
+            <div class="management-box-button" style="margin-left: 800px;">
+                <div class="btnLowNew management-box-search" comType="searchBtnCtrl" cond="condstartDate,condendDate,condacctName" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
+                <div class="btnBaseCancel management-box-reset" comType="clearAllCond" parentId="searchBox" bindctrlid="condstartDate,condendDate,condacctName">重置</div>
+            </div>
+            <table id="tableList" class="table-list" comType="standardTableCtrl" templateId="templateRow" page="tcdPageCode" reqPath="/acct/records" reqParam="{}" method="POST" noData="nonData">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" width="20%">用户id</th>
+                    <th class="table-list-currentrow-theader" width="20%">用户名</th>
+                    <th class="table-list-currentrow-theader" width="20%">登陆状态</th>
+                    <th class="table-list-currentrow-theader" width="20%">操作时间</th>
+                </tr>
+                <tr class="table-list-currentrow" id="templateRow" style="display: none">
+                    <td class="table-list-currentrow-tdetail" id="rid"></td>
+                    <td class="table-list-currentrow-tdetail" id="acctName"></td>
+                    <td class="table-list-currentrow-tdetail" id="createDt"></td>
+                    <td class="table-list-currentrow-tdetail" id="recordTypeA"></td>
+                </tr>
+            </table>
+            <div id="nonData" class="noDataCon" style="display: none;width: 950px;margin-left: 28px;">
+                <i></i>
+                <p>暂无数据......</p>
+            </div>
+            <div class="tcdPageCode"></div>
+        </div>
+    </div>
 <script>
-    limitCodeDeal($("*[limitCode]"),"limitCode");
-    var jsonA = {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: '图表标题'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                    }
-                }
-            }
-        },
-        series: [{
-            name: 'Brands',
-            colorByPoint: true,
-            data: [{
-                name: '满意',
-                y: 61,
-                sliced: false,
-                selected: false
-            }, {
-                name: '基本满意',
-                y: 29
-            }, {
-                name: '不满意',
-                y: 10
-            }]
-        }]
-    };
-    jsonA.series[0].data[0].y = 10;
-    jsonA.series[0].data[1].y = 80;
-    jsonA.series[0].data[2].y = 10;
-    Highcharts.chart('container', jsonA);
+    function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
+        if(jsonItem.recordType == "1"){
+            $(cloneRow).find("#recordTypeA").html("登陆");
+        }else if(jsonItem.recordType == "2"){
+            $(cloneRow).find("#recordTypeA").html("注销");
+        }
+    }
 </script>
 
 </div>

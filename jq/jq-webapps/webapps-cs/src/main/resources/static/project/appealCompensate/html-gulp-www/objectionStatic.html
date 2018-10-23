@@ -114,7 +114,18 @@
 			}else{
                 $(".og-head-main").css("height",$("#js-loader").height()+"px");
 			}
+			//在线人数
+			getAjaxResult("/acct/getLoginCount","POST",{},"personNumCallBack(data)");
 		})
+
+		function personNumCallBack(data) {
+			data = JSON.parse(data);
+			if(data.retCode == "0000000"){
+			    if(data.rspBody){
+			    	$("#personNum").html(data.rspBody);
+				}
+			};
+        }
         //退出接口
         function quitFun(data){
             var jsData=JSON.parse(data);
@@ -194,6 +205,10 @@
 				</div>
 	            <div class="og-head-navwrap-box clearfix fr">
 					<span class="og-head-navwrap-boxList">您好，<span id="userName"></span></span>
+
+					<span class="fl" style="margin-left: 20px;">在线人数：
+						<span id="personNum">0</span>人
+					</span>
 					<p id="now_time" class="og-head-navwrap-boxList" style="width: 220px;"></p>
 				</div>
 	        </div>
@@ -212,6 +227,7 @@
 							<li class="og-head-mainlt__sasety" limitCode="M503" value="2"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/roleManage.html">角色管理</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M504" value="3"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/resourceManage.html">资源管理</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M502" value="4"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/userManage.html">人员管理</a></li>
+							<li class="og-head-mainlt__sasety" value="21"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/userAnalyse.html">用户行为分析</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M104" value="5"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/annListPreserve.html">发布公告</a></li>
 						</ul>
 	    			</li>
@@ -333,8 +349,24 @@
         <span class="serachbox-title fl">至：</span>
         <input class="inputBase serachbox-input" type="text" name="condendDt" id="condendDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'condstartDt\')}'})" />
     </li>
+    <li class="serachbox-list">
+        <span class="serachbox-title fl">产品大类：</span>
+        <select id="condsid" name="" class="inputBase submission-box-list__Select" comType="" selCode="sid" selValue="typeName" emptyValue="请选择">
+    </li>
+    <li class="serachbox-list">
+        <span class="serachbox-title fl">产品名称：</span>
+        <input type="text" class="serachbox-input fl inputBase" id="condzcpmc">
+    </li>
+    <li class="serachbox-list">
+        <span class="serachbox-title fl">牌号：</span>
+        <input type="text" class="serachbox-input fl inputBase" id="conddesignation">
+    </li>
+    <li class="serachbox-list">
+        <span class="serachbox-title fl">缺陷名称：</span>
+        <input type="text" class="serachbox-input fl inputBase" id="conddefectName">
+    </li>
     <li class="serachbox-list fr" style="margin-right: 0">
-        <div class="btnBaseCommon" comType="searchBtnCtrl" cond="condclaimNo,condclaimState,conddeptCode,customerName,condstartDt,condendDt" rule="cond" unionTableId="tableList" parentId="searchBox">搜索</div>
+        <div class="btnBaseCommon" comType="searchBtnCtrl" cond="condclaimNo,condclaimState,conddeptCode,customerName,condstartDt,condendDt,condsid,conddesignation,condzcpmc,conddefectName" rule="cond" unionTableId="tableList" parentId="searchBox">搜索</div>
         <div class="btnBaseCommon" id="export">导出</div>
     </li>
 </ul>
@@ -488,6 +520,7 @@
             enable_split_word_search: false,
             placeholder_text_single: ""
         });
+        initplugPath($("#condsid")[0],"singleSelectCtrl","/md/findItemsByTypeId",{"typeId": "MILL_BIG_TYPE"},"POST");
         $("#export").on("click",function(){
             var importParam = "name=" + JSON.stringify(jsonExprot);
             $.download(requestUrl + "/objectionLendger/export", importParam, "POST");
@@ -497,6 +530,22 @@
     function clsSearchBtnCtrl$after(jsonCond) {
         jsonExprot = jsonCond;
         return jsonCond;
+    }
+
+    //未知数组，已有接口，初始化插件;
+    function initplugPath(docm,comType,reqPath,reqParam,reqMethod){
+        if(reqPath != null){
+            $(docm).attr("reqPath",reqPath);
+        }
+        if(reqParam != null){
+            $(docm).attr("reqParam",JSON.stringify(reqParam));
+        }
+        if(reqMethod != null){
+            $(docm).attr("reqMethod",reqMethod);
+        }
+        $(docm).attr("comType",comType);
+        document.body.jsCtrl.ctrl = docm;
+        document.body.jsCtrl.init();
     }
 
 </script>

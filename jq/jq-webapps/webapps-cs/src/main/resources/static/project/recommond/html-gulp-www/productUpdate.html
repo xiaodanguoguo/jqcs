@@ -114,7 +114,18 @@
 			}else{
                 $(".og-head-main").css("height",$("#js-loader").height()+"px");
 			}
+			//在线人数
+			getAjaxResult("/acct/getLoginCount","POST",{},"personNumCallBack(data)");
 		})
+
+		function personNumCallBack(data) {
+			data = JSON.parse(data);
+			if(data.retCode == "0000000"){
+			    if(data.rspBody){
+			    	$("#personNum").html(data.rspBody);
+				}
+			};
+        }
         //退出接口
         function quitFun(data){
             var jsData=JSON.parse(data);
@@ -194,6 +205,10 @@
 				</div>
 	            <div class="og-head-navwrap-box clearfix fr">
 					<span class="og-head-navwrap-boxList">您好，<span id="userName"></span></span>
+
+					<span class="fl" style="margin-left: 20px;">在线人数：
+						<span id="personNum">0</span>人
+					</span>
 					<p id="now_time" class="og-head-navwrap-boxList" style="width: 220px;"></p>
 				</div>
 	        </div>
@@ -212,6 +227,7 @@
 							<li class="og-head-mainlt__sasety" limitCode="M503" value="2"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/roleManage.html">角色管理</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M504" value="3"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/resourceManage.html">资源管理</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M502" value="4"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/userManage.html">人员管理</a></li>
+							<li class="og-head-mainlt__sasety" value="21"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/userAnalyse.html">用户行为分析</a></li>
 							<li class="og-head-mainlt__sasety" limitCode="M104" value="5"><a href="javascript:;" href="javascript:;" acSrc="../../limitManage/html-gulp-www/annListPreserve.html">发布公告</a></li>
 						</ul>
 	    			</li>

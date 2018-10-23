@@ -77,8 +77,24 @@
         <span class="serachbox-title fl">至：</span>
         <input class="inputBase serachbox-input" type="text" name="condendDt" id="condendDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'condstartDt\')}'})" />
     </li>
+    <li class="serachbox-list">
+        <span class="serachbox-title fl">产品大类：</span>
+        <select id="condsid" name="" class="inputBase submission-box-list__Select" comType="" selCode="sid" selValue="typeName" emptyValue="请选择">
+    </li>
+    <li class="serachbox-list">
+        <span class="serachbox-title fl">产品名称：</span>
+        <input type="text" class="serachbox-input fl inputBase" id="condzcpmc">
+    </li>
+    <li class="serachbox-list">
+        <span class="serachbox-title fl">牌号：</span>
+        <input type="text" class="serachbox-input fl inputBase" id="conddesignation">
+    </li>
+    <li class="serachbox-list">
+        <span class="serachbox-title fl">缺陷名称：</span>
+        <input type="text" class="serachbox-input fl inputBase" id="conddefectName">
+    </li>
     <li class="serachbox-list fr" style="margin-right: 0">
-        <div class="btnBaseCommon" comType="searchBtnCtrl" cond="condclaimNo,condclaimState,conddeptCode,customerName,condstartDt,condendDt" rule="cond" unionTableId="tableList" parentId="searchBox">搜索</div>
+        <div class="btnBaseCommon" comType="searchBtnCtrl" cond="condclaimNo,condclaimState,conddeptCode,customerName,condstartDt,condendDt,condsid,conddesignation,condzcpmc,conddefectName" rule="cond" unionTableId="tableList" parentId="searchBox">搜索</div>
         <div class="btnBaseCommon" id="export">导出</div>
     </li>
 </ul>
@@ -232,6 +248,7 @@
             enable_split_word_search: false,
             placeholder_text_single: ""
         });
+        initplugPath($("#condsid")[0],"singleSelectCtrl","/md/findItemsByTypeId",{"typeId": "MILL_BIG_TYPE"},"POST");
         $("#export").on("click",function(){
             var importParam = "name=" + JSON.stringify(jsonExprot);
             $.download(requestUrl + "/objectionLendger/export", importParam, "POST");
@@ -241,6 +258,22 @@
     function clsSearchBtnCtrl$after(jsonCond) {
         jsonExprot = jsonCond;
         return jsonCond;
+    }
+
+    //未知数组，已有接口，初始化插件;
+    function initplugPath(docm,comType,reqPath,reqParam,reqMethod){
+        if(reqPath != null){
+            $(docm).attr("reqPath",reqPath);
+        }
+        if(reqParam != null){
+            $(docm).attr("reqParam",JSON.stringify(reqParam));
+        }
+        if(reqMethod != null){
+            $(docm).attr("reqMethod",reqMethod);
+        }
+        $(docm).attr("comType",comType);
+        document.body.jsCtrl.ctrl = docm;
+        document.body.jsCtrl.init();
     }
 
 </script>

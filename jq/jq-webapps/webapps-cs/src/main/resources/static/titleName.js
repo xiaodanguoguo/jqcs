@@ -17,6 +17,7 @@ var titleJson = {
             "roleManage.html":"角色管理",
             "accountAudit.html":"账户审核",
             "annDetailPreserve.html":"公告信息维护",
+            "userAnalyse.html":"用户行为分析",
             "annListPreserve.html":"公告维护信息-列表"
         },
         "myBussiness":{//系统管理
