@@ -1,10 +1,14 @@
 package jq.steel.cs.services.base.api.controller;
 
+import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.session.AcctLogin;
 import com.ebase.core.session.AcctSession;
+import com.ebase.core.web.json.JsonRequest;
 import jq.steel.cs.services.base.api.vo.AcctInfoVO;
+import jq.steel.cs.services.base.api.vo.CrmUserRecordVo;
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -66,4 +70,17 @@ public interface AcctAPI {
 
     @RequestMapping(value = "acct/expire",method = RequestMethod.POST)
     public ServiceResponse expire(@RequestParam(value = "authKey") String authKey);
+
+    @RequestMapping(value = "acct/getLoginCount",method = RequestMethod.POST)
+    public ServiceResponse getLoginCount();
+
+    /**
+     * @param:
+     * @return:
+     * @description:  用户记录
+     * @author: lirunze
+     * @Date: 2018/10/23
+     */
+    @RequestMapping(value = "acct/records",method = RequestMethod.POST)
+    ServiceResponse<PageDTO<CrmUserRecordVo>> getRecords(@RequestBody JsonRequest<CrmUserRecordVo> jsonRequest);
 }

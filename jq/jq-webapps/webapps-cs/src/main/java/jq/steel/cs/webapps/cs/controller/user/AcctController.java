@@ -1,6 +1,8 @@
 package jq.steel.cs.webapps.cs.controller.user;
 
+import com.ebase.core.exception.BusinessException;
 import com.ebase.core.log.SearchableLoggerFactory;
+import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.session.Acct;
 import com.ebase.core.session.AcctLogin;
@@ -8,13 +10,16 @@ import com.ebase.core.session.AcctSession;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.CookieUtil;
+import com.ebase.utils.JsonUtil;
 import com.ebase.utils.WebUtil;
 import jq.steel.cs.services.base.api.controller.AcctAPI;
 import jq.steel.cs.services.base.api.vo.AcctInfoVO;
+import jq.steel.cs.services.base.api.vo.CrmUserRecordVo;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.script.ScriptEngine;
@@ -199,6 +204,69 @@ public class AcctController {
         return jsonResponse;
     }
 
+    @RequestMapping(value = "/getLoginCount",method = RequestMethod.POST)
+    public JsonResponse<Integer> getLoginCount() {
+        LOG.info("---------------------获取当前登陆人数----------------------------");
+        JsonResponse<Integer> jsonResponse = new JsonResponse<>();
+
+        try {
+            ServiceResponse<Integer> serviceResponse = backMemberAPI.getLoginCount();
+            if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            } else {
+                if (serviceResponse.isHasError()) {
+                    jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                } else {
+                    jsonResponse.setRetCode(serviceResponse.getRetCode());
+                    jsonResponse.setRetDesc(serviceResponse.getRetMessage());
+                }
+            }
+        } catch (BusinessException e) {
+            LOG.error("获取当前登陆人数错误 = {}", e);
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        } catch (Exception e) {
+            LOG.error("获取当前登陆人数错误 = {}", e);
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+
+        return jsonResponse;
+    }
+
+    /**
+     * @param:
+     * @return:
+     * @description:  用户记录
+     * @author: lirunze
+     * @Date: 2018/10/23
+     */
+    @RequestMapping(value = "/records",method = RequestMethod.POST)
+    public JsonResponse<PageDTO<CrmUserRecordVo>> getRecords(@RequestBody JsonRequest<CrmUserRecordVo> jsonRequest) {
+        LOG.info("用户记录 = {}", JsonUtil.toJson(jsonRequest));
+        JsonResponse<PageDTO<CrmUserRecordVo>> jsonResponse = new JsonResponse<>();
+
+        try {
+            ServiceResponse<PageDTO<CrmUserRecordVo>> serviceResponse = backMemberAPI.getRecords(jsonRequest);
+            if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            } else {
+                if (serviceResponse.isHasError()) {
+                    jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                } else {
+                    jsonResponse.setRetCode(serviceResponse.getRetCode());
+                    jsonResponse.setRetDesc(serviceResponse.getRetMessage());
+                }
+            }
+        } catch (BusinessException e) {
+            LOG.error("用户记录错误 = {}", e);
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        } catch (Exception e) {
+            LOG.error("用户记录错误 = {}", e);
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+
+        return jsonResponse;
+    }
+
     private String escapeCookie(String value) throws ScriptException {
         ScriptEngineManager sem = new ScriptEngineManager();
         ScriptEngine engine = sem.getEngineByExtension("js");
@@ -206,4 +274,6 @@ public class AcctController {
 
         return result;
     }
+
+
 }

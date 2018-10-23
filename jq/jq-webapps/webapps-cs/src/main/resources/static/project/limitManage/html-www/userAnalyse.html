@@ -1,0 +1,60 @@
+@@include('../../commonNav/html/commonHeaderBlue.html')
+<link rel="stylesheet" href="../css/credential_Management.css">
+    <div class="management">
+
+        <div class="management-box">
+            <div class="management-box-list">
+                <ul class="management-box-list__Content clearfix" id="searchBox">
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">日期:</span>
+                        <input class="inputBase" type="text" name="startDate" id="condstartDate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'condendDate\')}'})" />
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">至:</span>
+                        <input class="inputBase" type="text" name="condendDate" id="condendDate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'condstartDate\')}'})" />
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">用户名:</span>
+                        <input type="text" class="inputBase" id="condacctName">
+                    </li>
+                    <!--<li class="management-box-list__Every">
+                        <span class="management-box-list__Name">模块:</span>
+                        <input type="text" class="inputBase" id="condorgName">
+                    </li>-->
+                </ul>
+            </div>
+            <div class="management-box-button" style="margin-left: 800px;">
+                <div class="btnLowNew management-box-search" comType="searchBtnCtrl" cond="condstartDate,condendDate,condacctName" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
+                <div class="btnBaseCancel management-box-reset" comType="clearAllCond" parentId="searchBox" bindctrlid="condstartDate,condendDate,condacctName">重置</div>
+            </div>
+            <table id="tableList" class="table-list" comType="standardTableCtrl" templateId="templateRow" page="tcdPageCode" reqPath="/acct/records" reqParam="{}" method="POST" noData="nonData">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" width="20%">用户id</th>
+                    <th class="table-list-currentrow-theader" width="20%">用户名</th>
+                    <th class="table-list-currentrow-theader" width="20%">登陆状态</th>
+                    <th class="table-list-currentrow-theader" width="20%">操作时间</th>
+                </tr>
+                <tr class="table-list-currentrow" id="templateRow" style="display: none">
+                    <td class="table-list-currentrow-tdetail" id="rid"></td>
+                    <td class="table-list-currentrow-tdetail" id="acctName"></td>
+                    <td class="table-list-currentrow-tdetail" id="recordTypeA"></td>
+                    <td class="table-list-currentrow-tdetail" id="createDt"></td>
+                </tr>
+            </table>
+            <div id="nonData" class="noDataCon" style="display: none;width: 950px;margin-left: 28px;">
+                <i></i>
+                <p>暂无数据......</p>
+            </div>
+            <div class="tcdPageCode"></div>
+        </div>
+    </div>
+<script>
+    function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
+        if(jsonItem.recordType == "1"){
+            $(cloneRow).find("#recordTypeA").html("登陆");
+        }else if(jsonItem.recordType == "2"){
+            $(cloneRow).find("#recordTypeA").html("注销");
+        }
+    }
+</script>
+@@include('../../commonNav/html/commonFoot.html')

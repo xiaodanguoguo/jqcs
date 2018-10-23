@@ -13,7 +13,7 @@
 </head>
 <body>
 <h4 class="stl_header">
-    <img src="logoBig.png" style="max-width:0.45rem;margin-top:0.05rem"/>酒钢集团</h4>
+    <img src="logoBig.png" style="max-width:45px;margin-top:5px"/>酒钢集团</h4>
 <h4 class="stl_scrlApp">坯板卷基本信息</h4>
 <div class="stl_appDiv" id="appDiv">
     <table class="stl_table" cellpadding="0" cellspacing="0" id="templateTableStl" style="display:none">
@@ -132,49 +132,54 @@
         var jsData=JSON.parse(data);
         var resultData = [];
         if(jsData.retCode=="0000000"){
-			var textOne = jsData.rspBody[0].millSheetHead;
-			var cloneOne = $("#templateTableStl").clone(true);
-			$(cloneOne).css("display", "");
-			$(cloneOne).find().text();
-			$("#appDiv").append(cloneOne);
-			$(cloneOne).find("#millSheetNo").text(textOne.millSheetNo);
-			$(cloneOne).find("#name").text(textOne.name);
-			$(cloneOne).find("#zcpmc").text(textOne.zcpmc);
-			$(cloneOne).find("#zph").text(textOne.zph);
-			$(cloneOne).find("#zzxbz").text(textOne.zzxbz);
-			$(cloneOne).find("#zchehao").text(textOne.zchehao);
-			$(cloneOne).find("#zdaozhan").text(textOne.zdaozhan);
-			$(cloneOne).find("#zjhzt").text(textOne.zjhzt);
-            for (var i = 0; i < jsData.rspBody.length; i++) {
-                var textG = jsData.rspBody[i];
-                resultData.push(textG.millSheetHead);
-                var cloneRwo = $("#templteTable").clone(true);
-                $(cloneRwo).css("display", "");
-                $(cloneRwo).find().text();
-                $("#DivDetail").append(cloneRwo);
-                $(cloneRwo).find("#zcharg").text(textG.zcharg);
-                $(cloneRwo).find("#specs").text(textG.specs);
-                $(cloneRwo).find("#zlosmenge").text(textG.zlosmenge);
-                $(cloneRwo).find("#zJiShu").text(textG.zJiShu);
-                for (var s = 0; s < jsData.rspBody[i].listForMillChemistryData.length; s++) {
-                    var textVal = jsData.rspBody[i].listForMillChemistryData[s];
-                    var cloneRwoTr = $("#templteTr").clone(true);
-                    $(cloneRwoTr).css("display", "");
-                    $(cloneRwoTr).find().text();
-                    $(cloneRwo).append(cloneRwoTr);
-                    $(cloneRwoTr).find("#kurztext").text(textVal.kurztext + "：");
-                    $(cloneRwoTr).find("#original_input").text(textVal.original_input);
-                }
-                for (var q = 0; q < jsData.rspBody[i].listForMillPhysicsData.length; q++) {
-                    var textValH = jsData.rspBody[i].listForMillPhysicsData[q];
-                    var cloneRwoTrH = $("#templteTrH").clone(true);
-                    $(cloneRwoTrH).css("display", "");
-                    $(cloneRwo).append(cloneRwoTr);
-                    $(cloneRwoTrH).find("#kurztext").text(textValH.kurztext + "：");
-                    $(cloneRwoTrH).find("#originalInput").text(textValH.originalInput);
+            if(jsData.rspBody==''){
+                return
+            }else{
+                var textOne = jsData.rspBody[0].millSheetHead;
+                var cloneOne = $("#templateTableStl").clone(true);
+                $(cloneOne).css("display", "");
+                $(cloneOne).find().text();
+                $("#appDiv").append(cloneOne);
+                $(cloneOne).find("#millSheetNo").text(textOne.millSheetNo);
+                $(cloneOne).find("#name").text(textOne.name);
+                $(cloneOne).find("#zcpmc").text(textOne.zcpmc);
+                $(cloneOne).find("#zph").text(textOne.zph);
+                $(cloneOne).find("#zzxbz").text(textOne.zzxbz);
+                $(cloneOne).find("#zchehao").text(textOne.zchehao);
+                $(cloneOne).find("#zdaozhan").text(textOne.zdaozhan);
+                $(cloneOne).find("#zjhzt").text(textOne.zjhzt);
+                for (var i = 0; i < jsData.rspBody.length; i++) {
+                    var textG = jsData.rspBody[i];
+                    resultData.push(textG.millSheetHead);
+                    var cloneRwo = $("#templteTable").clone(true);
+                    $(cloneRwo).css("display", "");
+                    $(cloneRwo).find().text();
+                    $("#DivDetail").append(cloneRwo);
+                    $(cloneRwo).find("#zcharg").text(textG.zcharg);
+                    $(cloneRwo).find("#specs").text(textG.specs);
+                    $(cloneRwo).find("#zlosmenge").text(textG.zlosmenge);
+                    $(cloneRwo).find("#zJiShu").text(textG.zJiShu);
+                    for (var s = 0; s < jsData.rspBody[i].listForMillChemistryData.length; s++) {
+                        var textVal = jsData.rspBody[i].listForMillChemistryData[s];
+                        var cloneRwoTr = $("#templteTr").clone(true);
+                        $(cloneRwoTr).css("display", "");
+                        $(cloneRwoTr).find().text();
+                        $(cloneRwo).append(cloneRwoTr);
+                        $(cloneRwoTr).find("#kurztext").text(textVal.kurztext + "：");
+                        $(cloneRwoTr).find("#original_input").text(textVal.original_input);
+                    }
+                    for (var q = 0; q < jsData.rspBody[i].listForMillPhysicsData.length; q++) {
+                        var textValH = jsData.rspBody[i].listForMillPhysicsData[q];
+                        var cloneRwoTrH = $("#templteTrH").clone(true);
+                        $(cloneRwoTrH).css("display", "");
+                        $(cloneRwo).append(cloneRwoTr);
+                        $(cloneRwoTrH).find("#kurztext").text(textValH.kurztext + "：");
+                        $(cloneRwoTrH).find("#originalInput").text(textValH.originalInput);
 
+                    }
                 }
             }
+
         }
 
     }

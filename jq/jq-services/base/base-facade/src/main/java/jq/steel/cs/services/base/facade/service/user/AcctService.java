@@ -1,9 +1,11 @@
 package jq.steel.cs.services.base.facade.service.user;
 
+import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.session.AcctLogin;
 import com.ebase.core.session.AcctSession;
 import jq.steel.cs.services.base.api.vo.AcctInfoVO;
+import jq.steel.cs.services.base.api.vo.CrmUserRecordVo;
 
 import java.util.Map;
 
@@ -49,4 +51,24 @@ public interface AcctService {
     Map<String, String> getAcctAuthPath(String acctId);
 
     void expire(String authKey);
+
+    /**
+     * @param:
+     * @return:
+     * @description:  当前登陆人数量
+     * @author: lirunze
+     * @Date: 2018/10/22
+     */
+    Integer getLoginCount();
+
+    /**
+     * @param:
+     * @return:
+     * @description:  注销
+     * @author: lirunze
+     * @Date: 2018/10/23
+     */
+    Boolean delUser(String sessionId);
+
+    PageDTO<CrmUserRecordVo> getRecords(CrmUserRecordVo reqBody);
 }
