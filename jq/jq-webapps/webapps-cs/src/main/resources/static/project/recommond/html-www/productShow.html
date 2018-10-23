@@ -31,7 +31,7 @@
     function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
        // $(cloneRow).find("#imgShow").css("background","url('"+ jsonItem.thumbnail +"')");
         $(cloneRow).on("click",function(){
-            jumpUrl("productDetail.html?pid="+ jsonItem.pid,"0000000",0);
+            jumpUrl("productDetail.html?pid="+ jsonItem.pid + "&categoryId=" +GetQueryString("categoryId"),"0000000",0);
         })
     }
 </script>
