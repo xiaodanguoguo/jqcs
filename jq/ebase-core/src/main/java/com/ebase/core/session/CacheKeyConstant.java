@@ -24,4 +24,7 @@ public class CacheKeyConstant {
 
     // 用户权限资源path
     public static final String ACCT_AUTH_PATH = "ACCT_AUTH_PATH|";
+
+    // 当前登陆count
+    public static final String ACCT_COUNT = "ACCT|COUNT|PC";
 }

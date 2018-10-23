@@ -49,4 +49,22 @@ public interface AcctService {
     Map<String, String> getAcctAuthPath(String acctId);
 
     void expire(String authKey);
+
+    /**
+     * @param:
+     * @return:
+     * @description:  当前登陆人数量
+     * @author: lirunze
+     * @Date: 2018/10/22
+     */
+    Integer getLoginCount();
+
+    /**
+     * @param:
+     * @return:
+     * @description:  注销
+     * @author: lirunze
+     * @Date: 2018/10/23
+     */
+    Boolean delUser(String sessionId);
 }

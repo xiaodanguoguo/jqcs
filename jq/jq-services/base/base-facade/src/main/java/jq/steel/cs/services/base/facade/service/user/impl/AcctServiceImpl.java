@@ -20,9 +20,11 @@ import jq.steel.cs.services.base.facade.common.IsDelete;
 import jq.steel.cs.services.base.facade.common.Status;
 import jq.steel.cs.services.base.facade.dao.AcctInfoMapper;
 import jq.steel.cs.services.base.facade.dao.AcctRoleRealMapper;
+import jq.steel.cs.services.base.facade.dao.CrmUserRecordMapper;
 import jq.steel.cs.services.base.facade.dao.OrgInfoMapper;
 import jq.steel.cs.services.base.facade.model.AcctInfo;
 import jq.steel.cs.services.base.facade.model.AcctRoleReal;
+import jq.steel.cs.services.base.facade.model.CrmUserRecord;
 import jq.steel.cs.services.base.facade.model.OrgInfo;
 import jq.steel.cs.services.base.facade.service.message.MessageService;
 import jq.steel.cs.services.base.facade.service.sysbasics.FunctionManageService;
@@ -34,6 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -64,6 +67,9 @@ public class AcctServiceImpl implements AcctService {
 
     @Autowired
     private AcctRoleRealMapper acctRoleRealMapper;
+
+    @Autowired
+    private CrmUserRecordMapper crmUserRecordMapper;
 
     @Autowired
     private OrgInfoMapper orgInfoMapper;
@@ -250,6 +256,15 @@ public class AcctServiceImpl implements AcctService {
                 acct.setoInfoName(orgInfo.getOrgName());
                 acct.setOrgType(orgInfo.getOrgType());
 
+                // 记录
+                CrmUserRecord crmUserRecord = new CrmUserRecord();
+                crmUserRecord.setAcctTitle(acct.getAcctTitle());
+                crmUserRecord.setAcctName(acct.getName());
+                crmUserRecord.setRecordType(1);
+                crmUserRecord.setCreateDt(new Date());
+                crmUserRecordMapper.insertSelective(crmUserRecord);
+
+
 
                 if (StringUtil.isNotEmpty(orgInfo.getSapCode())) {
                     acct.setOrgCode(orgInfo.getSapCode());
@@ -342,8 +357,56 @@ public class AcctServiceImpl implements AcctService {
 
     @Override
     public void expire(String authKey) {
+        cacheService.setMapValue(CacheKeyConstant.ACCT_COUNT, authKey, Long.valueOf(System.currentTimeMillis()).toString());
         cacheService.expire(authKey, TIME_EXPIRE);
         LOG.info("{}-------------{}",authKey, cacheService.ttl(authKey));
+    }
+
+    @Override
+    public Integer getLoginCount() {
+        Map<String, String> map = cacheService.getMap(CacheKeyConstant.ACCT_COUNT, String.class);
+
+       Integer count = 0;
+
+       if (map.isEmpty()) {
+           return count;
+       }
+
+       for (String s : map.values())  {
+           Long now = System.currentTimeMillis();
+           Long value = now - Long.valueOf(s);
+           String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(value));
+           date = StringUtil.substring(date, 14, 16);
+           Integer i = Integer.valueOf(date);
+
+           if (i >= 0 && i < 60) {
+               count++;
+           }
+       }
+
+       return count;
+    }
+
+    @Override
+    public Boolean delUser(String sessionId) {
+        String key = CacheKeyConstant.ACCT_SESSION + Base64Util.decode(sessionId);
+
+        AcctSession acctSession = cacheService.getObject(key, AcctSession.class);
+
+        Acct acct = acctSession.getAcct();
+        // 记录
+        CrmUserRecord crmUserRecord = new CrmUserRecord();
+        crmUserRecord.setAcctTitle(acct.getAcctTitle());
+        crmUserRecord.setAcctName(acct.getName());
+        crmUserRecord.setRecordType(2);
+        crmUserRecord.setCreateDt(new Date());
+        crmUserRecordMapper.insertSelective(crmUserRecord);
+
+
+        Boolean boo = cacheService.delete(key);
+        cacheService.deleteFromMap(CacheKeyConstant.ACCT_COUNT, key);
+        System.out.println(key);
+        return boo;
     }
 
 
@@ -357,7 +420,8 @@ public class AcctServiceImpl implements AcctService {
 //        String key = CacheKeyConstant.ACCT_SESSION + acctLogin.getSessionId();
         System.err.println("--------redis login cache key --------"+key+"--------------");
 
-
+        // count计数
+        cacheService.setMapValue(CacheKeyConstant.ACCT_COUNT, key, Long.valueOf(System.currentTimeMillis()).toString());
         // 用户权限
         FunctionManageVO functionManageVO = new FunctionManageVO();
         functionManageVO.setAcctId(String.valueOf(acct.getAcctId()));

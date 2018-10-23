@@ -1,5 +1,6 @@
 package jq.steel.cs.webapps.cs.controller.user;
 
+import com.ebase.core.exception.BusinessException;
 import com.ebase.core.log.SearchableLoggerFactory;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.session.Acct;
@@ -15,6 +16,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.script.ScriptEngine;
@@ -199,6 +201,34 @@ public class AcctController {
         return jsonResponse;
     }
 
+    @RequestMapping(value = "/getLoginCount",method = RequestMethod.POST)
+    public JsonResponse<Integer> getLoginCount() {
+        LOG.info("---------------------获取当前登陆人数----------------------------");
+        JsonResponse<Integer> jsonResponse = new JsonResponse<>();
+
+        try {
+            ServiceResponse<Integer> serviceResponse = backMemberAPI.getLoginCount();
+            if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            } else {
+                if (serviceResponse.isHasError()) {
+                    jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                } else {
+                    jsonResponse.setRetCode(serviceResponse.getRetCode());
+                    jsonResponse.setRetDesc(serviceResponse.getRetMessage());
+                }
+            }
+        } catch (BusinessException e) {
+            LOG.error("获取当前登陆人数错误 = {}", e);
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        } catch (Exception e) {
+            LOG.error("获取当前登陆人数错误 = {}", e);
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+
+        return jsonResponse;
+    }
+
     private String escapeCookie(String value) throws ScriptException {
         ScriptEngineManager sem = new ScriptEngineManager();
         ScriptEngine engine = sem.getEngineByExtension("js");
@@ -206,4 +236,6 @@ public class AcctController {
 
         return result;
     }
+
+
 }

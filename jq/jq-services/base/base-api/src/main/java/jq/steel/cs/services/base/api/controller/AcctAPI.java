@@ -66,4 +66,7 @@ public interface AcctAPI {
 
     @RequestMapping(value = "acct/expire",method = RequestMethod.POST)
     public ServiceResponse expire(@RequestParam(value = "authKey") String authKey);
+
+    @RequestMapping(value = "acct/getLoginCount",method = RequestMethod.POST)
+    public ServiceResponse getLoginCount();
 }

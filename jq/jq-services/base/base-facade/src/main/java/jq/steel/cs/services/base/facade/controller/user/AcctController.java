@@ -145,8 +145,8 @@ public class AcctController {
             if(sessionId == null){
                 serviceResponse.setResponseCode("0702005");
             }else{
-                String key = CacheKeyConstant.ACCT_SESSION + Base64Util.decode(sessionId);
-                Boolean boo = cacheService.delete(key);
+                Boolean boo = acctService.delUser(sessionId);
+
                 if(boo){
                     serviceResponse.setRetContent(boo);
                 }else{
@@ -163,7 +163,6 @@ public class AcctController {
 
         return serviceResponse;
     }
-
 
     /**
      * 获得用户信息
@@ -225,13 +224,29 @@ public class AcctController {
     }
 
     @RequestMapping(value = "/expire",method = RequestMethod.POST)
-    public ServiceResponse expire(@RequestParam(value = "authKey")String authKey) {
+    public ServiceResponse expire(@RequestParam(value = "authKey") String authKey) {
         ServiceResponse serviceResponse = new ServiceResponse<>();
 
         try {
             acctService.expire(authKey);
         } catch (Exception e) {
             LOG.error("重置过期时间错误 = {}", e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+
+        return serviceResponse;
+    }
+
+    @RequestMapping(value = "/getLoginCount",method = RequestMethod.POST)
+    public ServiceResponse<Integer> getLoginCount() {
+        LOG.info("---------------------获取当前登陆人数----------------------------");
+        ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
+
+        try {
+            Integer count = acctService.getLoginCount();
+            serviceResponse.setRetContent(count);
+        } catch (Exception e) {
+            LOG.error("获取当前登陆人数错误 = {}", e);
             serviceResponse.setException(new BusinessException("500"));
         }
 
