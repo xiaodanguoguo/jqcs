@@ -2,13 +2,16 @@ package jq.steel.cs.services.base.facade.controller.user;
 
 import com.ebase.core.cache.CacheService;
 import com.ebase.core.exception.BusinessException;
+import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.session.AcctLogin;
 import com.ebase.core.session.AcctSession;
 import com.ebase.core.session.CacheKeyConstant;
+import com.ebase.core.web.json.JsonRequest;
 import com.ebase.utils.JsonUtil;
 import com.ebase.utils.secret.base64.Base64Util;
 import jq.steel.cs.services.base.api.vo.AcctInfoVO;
+import jq.steel.cs.services.base.api.vo.CrmUserRecordVo;
 import jq.steel.cs.services.base.api.vo.MessageVO;
 import jq.steel.cs.services.base.facade.service.message.MessageService;
 import jq.steel.cs.services.base.facade.service.user.AcctService;
@@ -247,6 +250,29 @@ public class AcctController {
             serviceResponse.setRetContent(count);
         } catch (Exception e) {
             LOG.error("获取当前登陆人数错误 = {}", e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+
+        return serviceResponse;
+    }
+
+    /**
+     * @param:
+     * @return:
+     * @description:  用户记录
+     * @author: lirunze
+     * @Date: 2018/10/23
+     */
+    @RequestMapping(value = "/records",method = RequestMethod.POST)
+    ServiceResponse<PageDTO<CrmUserRecordVo>> getRecords(@RequestBody JsonRequest<CrmUserRecordVo> jsonRequest) {
+        LOG.info("用户记录 = {}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<PageDTO<CrmUserRecordVo>> serviceResponse = new ServiceResponse<>();
+
+        try {
+            PageDTO<CrmUserRecordVo> page = acctService.getRecords(jsonRequest.getReqBody());
+            serviceResponse.setRetContent(page);
+        } catch (Exception e) {
+            LOG.error("错误 = {}", e);
             serviceResponse.setException(new BusinessException("500"));
         }
 

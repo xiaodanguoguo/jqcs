@@ -4,16 +4,21 @@ import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.ebase.core.MD5Util;
 import com.ebase.core.StringHelper;
 import com.ebase.core.cache.CacheService;
+import com.ebase.core.page.PageDTO;
+import com.ebase.core.page.PageDTOUtil;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.session.Acct;
 import com.ebase.core.session.AcctLogin;
 import com.ebase.core.session.AcctSession;
 import com.ebase.core.session.CacheKeyConstant;
 import com.ebase.utils.BeanCopyUtil;
+import com.ebase.utils.DateFormatUtil;
+import com.ebase.utils.DateUtil;
 import com.ebase.utils.StringUtil;
 import com.ebase.utils.math.MathHelper;
 import com.ebase.utils.secret.base64.Base64Util;
 import jq.steel.cs.services.base.api.vo.AcctInfoVO;
+import jq.steel.cs.services.base.api.vo.CrmUserRecordVo;
 import jq.steel.cs.services.base.api.vo.FunctionManageVO;
 import jq.steel.cs.services.base.api.vo.MessageVO;
 import jq.steel.cs.services.base.facade.common.IsDelete;
@@ -407,6 +412,25 @@ public class AcctServiceImpl implements AcctService {
         cacheService.deleteFromMap(CacheKeyConstant.ACCT_COUNT, key);
         System.out.println(key);
         return boo;
+    }
+
+    @Override
+    public PageDTO<CrmUserRecordVo> getRecords(CrmUserRecordVo reqBody) {
+        try {
+            CrmUserRecord crmUserRecord = new CrmUserRecord();
+            BeanCopyUtil.copy(reqBody, crmUserRecord);
+            crmUserRecord.setStartDate(DateFormatUtil.getStartDateStr(DateUtil.parseDate(reqBody.getStartDate(),DateUtil.DATE_PATTERN)));
+            crmUserRecord.setEndDate(DateFormatUtil.getEndDateStr(DateUtil.parseDate(reqBody.getEndDate(), DateUtil.DATE_PATTERN)));
+            PageDTOUtil.startPage(reqBody);
+
+            List<CrmUserRecord> list = crmUserRecordMapper.getList(crmUserRecord);
+            PageDTO<CrmUserRecordVo> page = PageDTOUtil.transform(list, CrmUserRecordVo.class);
+
+            return page;
+        } finally {
+            PageDTOUtil.endPage();
+        }
+
     }
 
 

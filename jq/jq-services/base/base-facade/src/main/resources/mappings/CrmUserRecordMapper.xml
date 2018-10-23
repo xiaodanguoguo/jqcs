@@ -96,4 +96,25 @@
       RECORD_TYPE = #{recordType,jdbcType=NUMERIC}
     where RID = #{rid,jdbcType=NUMERIC}
   </update>
+
+  <select id="getList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.CrmUserRecord">
+    select
+    <include refid="Base_Column_List" />
+    from CRM_USER_RECORD
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="acctTitle != null and acctTitle != ''">
+        and ACCT_TITLE like  '%' || #{acctTitle} ||'%'
+      </if>
+      <if test="acctName != null and acctName != ''">
+        and ACCT_NAME like  '%' || #{acctName} ||'%'
+      </if>
+      <if test="startDate != null" >
+        AND TO_CHAR (CREATE_DT, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDate}
+      </if>
+      <if test="endDate != null " >
+        AND TO_CHAR (CREATE_DT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDate}
+      </if>
+    </trim>
+    order by RID desc
+  </select>
 </mapper>

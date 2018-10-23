@@ -1,10 +1,10 @@
-package jq.steel.cs.services.base.facade.model;
+package jq.steel.cs.services.base.api.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class CrmUserRecord {
+public class CrmUserRecordVo {
     private Long rid;
 
     private String acctTitle;
@@ -19,6 +19,9 @@ public class CrmUserRecord {
     private String startDate;
 
     private String endDate;
+
+    private int pageNum = 1;
+    private int pageSize = 10;
 
     public Long getRid() {
         return rid;
@@ -58,6 +61,22 @@ public class CrmUserRecord {
 
     public void setRecordType(Integer recordType) {
         this.recordType = recordType;
+    }
+
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 
     public String getStartDate() {
