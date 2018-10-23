@@ -60,7 +60,7 @@ public class AcctServiceImpl implements AcctService {
     private static String VERSION = "1";
 
 
-    private static Integer TIME_EXPIRE = 60 * 60 * 12; //12小时
+    private static Integer TIME_EXPIRE = 60 * 60; //1小时
 
     @Autowired
     private AcctInfoMapper acctInfoMapper;
