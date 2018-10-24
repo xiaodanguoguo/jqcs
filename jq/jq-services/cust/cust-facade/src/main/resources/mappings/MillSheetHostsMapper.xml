@@ -650,7 +650,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
         AND TO_CHAR (H.CREATED_DT, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
       </if>
       <if test="millSheetNo != null  and millSheetNo != ''" >
-        AND H.MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
+        AND H.MILL_SHEET_NO like  '%' || #{millSheetNo} ||'%'
       </if>
       <if test="millSheetNos != null">
         AND H.MILL_SHEET_NO  in
