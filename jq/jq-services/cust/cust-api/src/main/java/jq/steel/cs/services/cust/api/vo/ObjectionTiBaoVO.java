@@ -57,6 +57,8 @@ public class ObjectionTiBaoVO {
 
     private String customerId;
 
+    private List<String>  customerIds;
+
     private String customerName;
 
     private String custAddr;
@@ -175,6 +177,8 @@ public class ObjectionTiBaoVO {
 
     private String acctName;
 
+    private  String orgType;
+
     private  String orgCode;
 
     private  String orgName;
@@ -185,6 +189,23 @@ public class ObjectionTiBaoVO {
     private  String report;
 
     private Integer count;
+
+
+    public List<String> getCustomerIds() {
+        return customerIds;
+    }
+
+    public void setCustomerIds(List<String> customerIds) {
+        this.customerIds = customerIds;
+    }
+
+    public String getOrgType() {
+        return orgType;
+    }
+
+    public void setOrgType(String orgType) {
+        this.orgType = orgType;
+    }
 
     public String getPhone() {
         return phone;

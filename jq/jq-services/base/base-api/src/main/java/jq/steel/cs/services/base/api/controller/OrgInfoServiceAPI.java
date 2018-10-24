@@ -136,4 +136,17 @@ public interface OrgInfoServiceAPI {
 	 */
 	@RequestMapping(value = "/getOrgName", method = RequestMethod.POST)
 	ServiceResponse<OrgInfoVO> getOrgName(@RequestBody JsonRequest<OrgInfoVO> jsonRequest);
+
+
+	/**
+	 * @param:
+	 * @return:
+	 * @description: 销售公司查询他下班客户名称
+	 * @author: wushibin
+	 * @Date: 2018/10/24
+	 */
+	@RequestMapping(value = "/findOrgNameByOrgId", method = RequestMethod.POST)
+	ServiceResponse<List<OrgInfoVO>> findOrgNameByOrgId(@RequestBody String acctId);
+
+
 }

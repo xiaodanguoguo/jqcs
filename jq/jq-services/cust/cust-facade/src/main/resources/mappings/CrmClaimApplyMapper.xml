@@ -141,6 +141,12 @@
         AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
          <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
        </if>
+      <if test="customerIds != null" >
+        AND H.CUSTOMER_NAME  in
+        <foreach collection="customerIds"  index="index" close=")" open="(" item="item" separator=",">
+          #{customerIds[${index}]}
+        </foreach>
+      </if>
       <if test="customerId != null and customerId != ''" >
         AND H.CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
       </if>
