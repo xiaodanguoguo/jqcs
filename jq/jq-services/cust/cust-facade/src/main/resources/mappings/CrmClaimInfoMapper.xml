@@ -860,7 +860,7 @@
 
 
   <select id="findLedgerByPage" resultMap="BaseResultMap1" parameterType="jq.steel.cs.services.cust.facade.model.ObjectionLedger" >
-    SELECT
+    SELECT h.* from(SELECT
     A.SID,
     A.CLAIM_NO,
     A.CLAIM_STATE,
@@ -905,6 +905,9 @@
     E.HANDLER_RESULTS,
     (SELECT TYPE_NAME FROM SGAI_MD_COMMON_TYPE WHERE TYPE_DESC =F.STOREROOM_CODE) AS MILL_LINE,
     F.ZCPMC,
+    (select T.SID from sgai_md_common_type t
+    WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
+    WHERE T.TYPE_NAME=F.ZCPMC)) AS PARENT_SID,
     F.DEPT_CODE
     FROM
     WARRANTY.CRM_CLAIM_INFO A
@@ -912,36 +915,39 @@
     LEFT JOIN WARRANTY.CRM_CLAIM_APPLY C ON A.CLAIM_NO = C.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE D ON A.CLAIM_NO = D.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_COMMENTS E ON A.CLAIM_NO = E.CLAIM_NO
-    LEFT JOIN WARRANTY.MILL_SHEET_HEAD F ON A.MILL_SHEET_NO = F.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD F ON A.MILL_SHEET_NO = F.MILL_SHEET_NO ) H
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="claimNo != null and claimNo != ''" >
-        AND A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+        AND H.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
       </if>
       <if test="claimState != null and claimState != ''" >
-        AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
+        AND H.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
       </if>
       <if test="deptCode != null and deptCode != ''" >
-        AND F.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+        AND H.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
       </if>
       <if test="customerName != null and customerName != ''" >
-        AND A.CUSTOMER_NAME like  '%' || #{customerName} ||'%'
+        AND H.CUSTOMER_NAME like  '%' || #{customerName} ||'%'
       </if>
       <if test="designation != null and designation != ''" >
-        AND A.DESIGNATION like  '%' || #{designation} ||'%'
+        AND H.DESIGNATION like  '%' || #{designation} ||'%'
       </if>
       <if test="zcpmc != null and zcpmc != ''" >
-        AND F.ZCPMC like  '%' || #{zcpmc} ||'%'
+        AND H.ZCPMC like  '%' || #{zcpmc} ||'%'
+      </if>
+      <if test="sid != null and sid != ''" >
+        AND H.PARENT_SID = #{sid,jdbcType=VARCHAR}
       </if>
       <if test="defectName != null and defectName != ''" >
-        AND B.DEFECT_NAME like  '%' || #{defectName} ||'%'
+        AND H.DEFECT_NAME like  '%' || #{defectName} ||'%'
       </if>
       <if test="endDtStr != null" >
-        AND TO_CHAR (C.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
       </if>
       <if test="startDtStr != null" >
-        AND TO_CHAR (C.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+        AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
       </if>
     </trim>
-    order by A.SID desc
+    order by H.SID desc
   </select>
 </mapper>
