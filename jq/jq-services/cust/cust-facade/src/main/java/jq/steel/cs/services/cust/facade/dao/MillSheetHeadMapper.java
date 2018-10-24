@@ -20,4 +20,6 @@ public interface MillSheetHeadMapper {
     List<MillSheetHead> findMillSheetByPage(MillSheetHead record);
 
     MillSheetHead findCategoryCode(MillSheetHead record);
+
+    MillSheetHead selectByMillSheetNO(String millSheetNo);
 }

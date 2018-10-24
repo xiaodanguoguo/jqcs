@@ -6,7 +6,7 @@
     <result column="CLAIM_NO" property="claimNo" jdbcType="VARCHAR" />
     <result column="LOGISTICS_PROCESS" property="logisticsProcess" jdbcType="VARCHAR" />
     <result column="END_PROCESSING_TECH" property="endProcessingTech" jdbcType="VARCHAR" />
-    <result column="DEFECT_NAME" property="proProblem" jdbcType="VARCHAR" />
+    <result column="DEFECT_NAME" property="defectName" jdbcType="VARCHAR" />
     <result column="PRODUCT_DT" property="productDt" jdbcType="TIMESTAMP" />
     <result column="SHIFT" property="shift" jdbcType="VARCHAR" />
     <result column="FIELD_CONCLUSION" property="fieldConclusion" jdbcType="VARCHAR" />
@@ -66,8 +66,8 @@
     <result column="AGREEMENT_CONTENT" property="agreementContent" jdbcType="VARCHAR" />
     <result column="AGREEMENT_AMOUNT" property="agreementAmount" jdbcType="NUMERIC" />
 
-
-
+    <result column="INQUIRE_INFO" property="inquireInfo" />
+    <result column="ZHTH" property="zhth"/>
 
     <!--内部调查-->
     <result column="OUT_INQUIRE_FACT" property="outInquireFact" jdbcType="VARCHAR" />
@@ -124,6 +124,20 @@ WHERE
     D.FOLLOW_REASON,
     E.CREATE_BY AS INTERNAL_LNVESTIGATOR,
     E.CREATE_DT	AS INTERNAL_LNVESTIGATION_DATE,
+
+    D.LOGISTICS_PROCESS,
+    D.END_PROCESSING_TECH,
+    D.INQUIRE_INFO,
+    A.LAST_USER_ADDR,
+    D.DEFECT_NAME,
+    D.PRODUCT_DT,
+    D.USER_REQUIREMENT,
+    D.FIELD_CONCLUSION_TEXT,
+    D.HANDING_SUGGESTION,
+    D.SALES_MANAGER_SUGGESTS,
+    C.OBJECTION_CONFIRMATION,
+    F.ZHTH,
+
     (select T.TYPE_NAME from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
     WHERE T.TYPE_NAME=F.ZCPMC)) AS ZCPMC,

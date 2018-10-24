@@ -1149,4 +1149,26 @@ public class ObjectionDiaoChaVO {
     public void setProductionProcessAll(String productionProcessAll) {
         this.productionProcessAll = productionProcessAll;
     }
+
+
+
+    //------------------添加字段,10/24  lujiawei-----------------
+    private String zhth;    //合同号
+
+
+    private String agreementAmountUpper; //金额大写
+
+    public String getAgreementAmountUpper() {
+        return agreementAmountUpper;
+    }
+
+    public void setAgreementAmountUpper(String agreementAmountUpper) {
+        this.agreementAmountUpper = agreementAmountUpper;
+    }
+
+    public String getZhth() { return zhth; }
+
+    public void setZhth(String zhth) {
+        this.zhth = zhth;
+    }
 }

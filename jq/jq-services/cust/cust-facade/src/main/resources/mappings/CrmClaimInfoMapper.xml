@@ -64,6 +64,16 @@
     <result column="MEMO" property="memo"/>
     <result column="IS_TRACK" property="IsTrack"/>
     <result column="EXPIRED_REASON" property="expiredReason"/>
+
+    <result column="LOGISTICS_PROCESS" property="logisticsProcess" />
+    <result column="CLAIM_VERDICT" property="claimVerdict" />
+    <result column="AGREEMENT_CONTENT" property="agreementContent"/>
+    <result column="ZCHEHAO" property="zchehao"/>
+    <result column="ZHTH" property="zhth"/>
+    <result column="INQUIREINFO" property="inquireInfo"/>
+    <result column="AGREEMENT_AMOUNT" property="agreementAmount"/>
+    <result column="AGREEMENT_AMOUNT_UPPER" property="agreementAmountUpper"/>
+    <result column="INQUIRE_INFO" property="inquireInfo"/>
   </resultMap>
 
   <resultMap id="BaseResultMap1" type="jq.steel.cs.services.cust.facade.model.ObjectionLedger" >
@@ -732,14 +742,30 @@
     E.AGREEMENT_NAME,
     E.REJECT_REASON,
     E.AGREEMENT_STATE,
-    G.MEMO AS MEMO
+    G.MEMO AS MEMO,
+
+
+    D.CLAIM_DESC,
+    G.LOGISTICS_PROCESS,
+    G.CLAIM_VERDICT,
+    F.ZCHEHAO,
+    F.ZHTH,
+    D.END_PROCESSING_TECH,
+    I.INQUIRE_INFO,
+    E.AGREEMENT_CONTENT,
+    E.AGREEMENT_AMOUNT,
+    E.AGREEMENT_AMOUNT_UPPER,
+    D.OBJECTION_CONFIRMATION
+
     FROM
     WARRANTY.CRM_CLAIM_INFO A
     LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_APPLY D ON A.CLAIM_NO = D.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_AGREEMENT_INFO E ON A.CLAIM_NO = E.CASE_CODE
     LEFT JOIN WARRANTY.MILL_SHEET_HEAD F ON A.MILL_SHEET_NO = F.MILL_SHEET_NO
-    LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE G ON A.CLAIM_NO = G.CLAIM_NO)H
+    LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE G ON A.CLAIM_NO = G.CLAIM_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE I ON A.CLAIM_NO = I.CLAIM_NO
+    )H
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
         AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}

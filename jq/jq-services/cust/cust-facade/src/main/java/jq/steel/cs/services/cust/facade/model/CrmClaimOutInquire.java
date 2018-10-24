@@ -21,7 +21,7 @@ public class CrmClaimOutInquire {
     //协议内容
     private String agreementContent;
 
-    //赔偿金额（小写）
+    //MillSheetHeadVO（小写）
     private BigDecimal agreementAmount;
 
     private String acctName;
@@ -193,13 +193,13 @@ public class CrmClaimOutInquire {
 
     private String improvement;
 
-    private String memo;
+    private String memo;    //备注
 
-    private String fieldConclusionText;
+    private String fieldConclusionText;     //现场结论
 
     private String fieldConclusionPhoto;
 
-    private  String objectionConfirmation;
+    private  String objectionConfirmation;  //异议确认量
 
     private  String reportPictures;
 
@@ -224,21 +224,21 @@ public class CrmClaimOutInquire {
 
     private String claimNo;
 
-    private String logisticsProcess;
+    private String logisticsProcess;    //物流过程
 
-    private String endProcessingTech;
+    private String endProcessingTech;   //加工工艺及用途
 
     //private String defectName;
 
-    private Date productDt;
+    private Date productDt;     //生产日期
 
     private String shift;
 
     private String fieldConclusion;
 
-    private String userRequirement;
+    private String userRequirement;     //用户要求
 
-    private String handingSuggestion;
+    private String handingSuggestion;   //处理建议
 
     private String inquireState;
 
@@ -254,7 +254,7 @@ public class CrmClaimOutInquire {
 
     private Integer version;
 
-    private String inquireInfo;
+    private String inquireInfo; //调查事实阐述
 
     private Integer amountOfUse;
 
@@ -283,7 +283,7 @@ public class CrmClaimOutInquire {
 
     private String lastUser;
 
-    private String lastUserAddr;
+    private String lastUserAddr;    //货物所在地
 
     private String createEmpNo;
 
@@ -326,7 +326,7 @@ public class CrmClaimOutInquire {
 
     private String filePath;
 
-    private String rejectReason;
+    private String rejectReason;    //驳回原因
 
 
 
@@ -1201,5 +1201,37 @@ public class CrmClaimOutInquire {
                 ", internalLnvestigator='" + internalLnvestigator + '\'' +
                 ", internalLnvestigationDate=" + internalLnvestigationDate +
                 '}';
+    }
+
+
+
+    //------------------添加字段,10/24  lujiawei-----------------
+    //缺陷名称
+    private String defectName;
+
+    private String zhth;    //合同号
+
+    private String agreementAmountUpper; //金额大写
+
+    public String getDefectName() {
+        return defectName;
+    }
+
+    public void setDefectName(String defectName) {
+        this.defectName = defectName;
+    }
+
+    public String getAgreementAmountUpper() {
+        return agreementAmountUpper;
+    }
+
+    public void setAgreementAmountUpper(String agreementAmountUpper) {
+        this.agreementAmountUpper = agreementAmountUpper;
+    }
+
+    public String getZhth() { return zhth; }
+
+    public void setZhth(String zhth) {
+        this.zhth = zhth;
     }
 }

@@ -323,4 +323,12 @@
       VERSION = #{version,jdbcType=DECIMAL}
     where SID = #{sid,jdbcType=DECIMAL}
   </update>
+
+
+  <select id="selectByMillSheetNO" resultMap="BaseResultMap">
+    SELECT ZCHEHAO , ZHTH , ZPH , TOTAL_ZLOSMENGE
+    FROM  MILL_SHEET_HEAD
+    WHERE MILL_SHEET_NO = #{millSheetNo}
+  </select>
+
 </mapper>

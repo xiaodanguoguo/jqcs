@@ -615,4 +615,18 @@ FROM
     </trim>
   </select>
 
+
+  <select id="selectByZcharg" resultMap="BaseResultMap">
+	SELECT SPECS , ZLOSMENGE
+	FROM MILL_COIL_INFO
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="zcharg != null and zcharg != ''" >
+        and ZCHARG = #{zcharg}
+      </if>
+      <if test="millSheetNo != null and millSheetNo != ''" >
+        and MILL_SHEET_NO = #{millSheetNo}
+      </if>
+    </trim>
+  </select>
+
 </mapper>
