@@ -82,6 +82,8 @@
     <result column="SURFACE_STRUCTURE" property="surfaceStructure" jdbcType="VARCHAR" />
     <result column="PRODUCTION_PROCESS_TEXT" property="productionProcessText" jdbcType="VARCHAR" />
     <result column="PRODUCTION_PROCESS_ALL" property="productionProcessAll" jdbcType="VARCHAR" />
+    <result column="INVESTIGATION_UNIT" property="investigationUnit" jdbcType="VARCHAR" />
+    <result column="RESPONSIBILITY_UNIT" property="responsibilityUnit" jdbcType="VARCHAR" />
   </resultMap>
   <!--<resultMap id="ResultMapWithBLOBs" type="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" extends="BaseResultMap" >
     <result column="INQUIRE_INFO" property="inquireInfo" jdbcType="CLOB" />
@@ -253,6 +255,8 @@ C.PRODUCTION_PROCESS_PHOTO,
 C.QUALITY_GRADE,
 C.ORIGINAL_JUDGEMENT_RESULT,
 C.SURFACE_STRUCTURE,
+C.INVESTIGATION_UNIT,
+C.RESPONSIBILITY_UNIT,
 C.PRODUCTION_PROCESS_TEXT,
 C.PRODUCTION_PROCESS_ALL
 FROM

@@ -8,6 +8,12 @@ import java.util.List;
 
 public class ObjectionDiaoChaVO {
 
+    //调查单位
+    private String investigationUnit;
+
+    //责任单位
+    private String responsibilityUnit;
+
 
     //到达时间
     @JsonFormat(pattern="yyyy-MM-dd")
@@ -218,6 +224,23 @@ public class ObjectionDiaoChaVO {
     private String inquireState;
 
     private String memo;    //备注
+
+
+    public String getInvestigationUnit() {
+        return investigationUnit;
+    }
+
+    public void setInvestigationUnit(String investigationUnit) {
+        this.investigationUnit = investigationUnit;
+    }
+
+    public String getResponsibilityUnit() {
+        return responsibilityUnit;
+    }
+
+    public void setResponsibilityUnit(String responsibilityUnit) {
+        this.responsibilityUnit = responsibilityUnit;
+    }
 
     public String getAcctName() {
         return acctName;

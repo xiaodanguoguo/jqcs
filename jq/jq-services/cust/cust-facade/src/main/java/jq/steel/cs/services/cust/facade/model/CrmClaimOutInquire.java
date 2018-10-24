@@ -8,6 +8,12 @@ import java.util.List;
 
 public class CrmClaimOutInquire {
 
+    //调查单位
+    private String investigationUnit;
+
+    //责任单位
+    private String responsibilityUnit;
+
     //到达时间
     @JsonFormat(pattern="yyyy-MM-dd")
     private  Date arrivalTime;
@@ -44,6 +50,23 @@ public class CrmClaimOutInquire {
     private  String parentSid;
 
     private String claimState1;
+
+
+    public String getInvestigationUnit() {
+        return investigationUnit;
+    }
+
+    public void setInvestigationUnit(String investigationUnit) {
+        this.investigationUnit = investigationUnit;
+    }
+
+    public String getResponsibilityUnit() {
+        return responsibilityUnit;
+    }
+
+    public void setResponsibilityUnit(String responsibilityUnit) {
+        this.responsibilityUnit = responsibilityUnit;
+    }
 
     public Date getArrivalTime() {
         return arrivalTime;

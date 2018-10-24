@@ -134,6 +134,12 @@
       <if test="productionProcessAll != null" >
         PRODUCTION_PROCESS_ALL,
       </if>
+      <if test="investigationUnit != null" >
+        INVESTIGATION_UNIT,
+      </if>
+      <if test="responsibilityUnit != null" >
+        RESPONSIBILITY_UNIT,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="sid != null" >
@@ -200,7 +206,13 @@
         #{productionProcessText,jdbcType=VARCHAR},
       </if>
       <if test="productionProcessAll != null" >
-        #{productionProcessAll,jdbcType=VARCHAR}
+        #{productionProcessAll,jdbcType=VARCHAR},
+      </if>
+      <if test="investigationUnit != null" >
+        #{investigationUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="responsibilityUnit != null" >
+        #{responsibilityUnit,jdbcType=VARCHAR}
       </if>
     </trim>
   </insert>
@@ -246,7 +258,13 @@
       SUBMITTER = #{submitter,jdbcType=VARCHAR},
     </if>
     <if test="completionTime != null" >
-      COMPLETION_TIME= #{completionTime,jdbcType=TIMESTAMP}
+      COMPLETION_TIME= #{completionTime,jdbcType=TIMESTAMP},
+    </if>
+    <if test="investigationUnit != null" >
+      INVESTIGATION_UNIT = #{investigationUnit,jdbcType=VARCHAR},
+    </if>
+    <if test="responsibilityUnit != null" >
+      RESPONSIBILITY_UNIT= #{responsibilityUnit,jdbcType=VARCHAR}
     </if>
   </trim>
   where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
