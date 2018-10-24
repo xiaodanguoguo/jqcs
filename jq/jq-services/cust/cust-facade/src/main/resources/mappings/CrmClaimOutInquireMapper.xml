@@ -6,7 +6,7 @@
     <result column="CLAIM_NO" property="claimNo" jdbcType="VARCHAR" />
     <result column="LOGISTICS_PROCESS" property="logisticsProcess" jdbcType="VARCHAR" />
     <result column="END_PROCESSING_TECH" property="endProcessingTech" jdbcType="VARCHAR" />
-    <result column="DEFECT_NAME" property="proProblem" jdbcType="VARCHAR" />
+    <result column="DEFECT_NAME" property="defectName" jdbcType="VARCHAR" />
     <result column="PRODUCT_DT" property="productDt" jdbcType="TIMESTAMP" />
     <result column="SHIFT" property="shift" jdbcType="VARCHAR" />
     <result column="FIELD_CONCLUSION" property="fieldConclusion" jdbcType="VARCHAR" />
@@ -66,8 +66,8 @@
     <result column="AGREEMENT_CONTENT" property="agreementContent" jdbcType="VARCHAR" />
     <result column="AGREEMENT_AMOUNT" property="agreementAmount" jdbcType="NUMERIC" />
 
-
-
+    <result column="INQUIRE_INFO" property="inquireInfo" />
+    <result column="ZHTH" property="zhth"/>
 
     <!--内部调查-->
     <result column="OUT_INQUIRE_FACT" property="outInquireFact" jdbcType="VARCHAR" />
@@ -82,6 +82,8 @@
     <result column="SURFACE_STRUCTURE" property="surfaceStructure" jdbcType="VARCHAR" />
     <result column="PRODUCTION_PROCESS_TEXT" property="productionProcessText" jdbcType="VARCHAR" />
     <result column="PRODUCTION_PROCESS_ALL" property="productionProcessAll" jdbcType="VARCHAR" />
+    <result column="INVESTIGATION_UNIT" property="investigationUnit" jdbcType="VARCHAR" />
+    <result column="RESPONSIBILITY_UNIT" property="responsibilityUnit" jdbcType="VARCHAR" />
   </resultMap>
   <!--<resultMap id="ResultMapWithBLOBs" type="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" extends="BaseResultMap" >
     <result column="INQUIRE_INFO" property="inquireInfo" jdbcType="CLOB" />
@@ -122,20 +124,34 @@ WHERE
     D.FOLLOW_REASON,
     E.CREATE_BY AS INTERNAL_LNVESTIGATOR,
     E.CREATE_DT	AS INTERNAL_LNVESTIGATION_DATE,
+
+    D.LOGISTICS_PROCESS,
+    D.END_PROCESSING_TECH,
+    D.INQUIRE_INFO,
+    A.LAST_USER_ADDR,
+    D.DEFECT_NAME,
+    D.PRODUCT_DT,
+    D.USER_REQUIREMENT,
+    D.FIELD_CONCLUSION_TEXT,
+    D.HANDING_SUGGESTION,
+    D.SALES_MANAGER_SUGGESTS,
+    C.OBJECTION_CONFIRMATION,
+    F.ZHTH,
+
     (select T.TYPE_NAME from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
-    WHERE T.TYPE_NAME=E.ZCPMC)) AS ZCPMC,
+    WHERE T.TYPE_NAME=F.ZCPMC)) AS ZCPMC,
     (select T.SID from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
-    WHERE T.TYPE_NAME=E.ZCPMC)) AS PARENT_SID,
-    E.ZPH
+    WHERE T.TYPE_NAME=F.ZCPMC)) AS PARENT_SID,
+    F.ZPH
     FROM
     WARRANTY.CRM_CLAIM_INFO A
     LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_APPLY C ON A.CLAIM_NO = C.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE D ON A.CLAIM_NO = D.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE E ON A.CLAIM_NO = E.CLAIM_NO
-    LEFT JOIN WARRANTY.MILL_SHEET_HEAD E ON A.MILL_SHEET_NO = E.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD F ON A.MILL_SHEET_NO = F.MILL_SHEET_NO
     ) H
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
@@ -253,6 +269,8 @@ C.PRODUCTION_PROCESS_PHOTO,
 C.QUALITY_GRADE,
 C.ORIGINAL_JUDGEMENT_RESULT,
 C.SURFACE_STRUCTURE,
+C.INVESTIGATION_UNIT,
+C.RESPONSIBILITY_UNIT,
 C.PRODUCTION_PROCESS_TEXT,
 C.PRODUCTION_PROCESS_ALL
 FROM

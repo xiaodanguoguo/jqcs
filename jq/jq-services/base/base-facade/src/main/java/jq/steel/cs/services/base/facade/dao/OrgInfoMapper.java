@@ -43,6 +43,8 @@ public interface OrgInfoMapper {
 
 
 
+	List<OrgInfo>findOrgNameByOrgId(OrgInfo reqBody);
+
 
 
 

@@ -613,12 +613,13 @@ public class MillSheetHostsController {
             String fileName = URLEncoder.encode("酒钢客服平台用户操作手册.pdf", "UTF-8");
             //orgTypr 1销售公司 2 一级代理 3贸易商 4终端客户
             String operationManual="";
+            System.out.println("AssertContext.getOrgType()"+AssertContext.getOrgType());
             if (AssertContext.getOrgType().equals("1")){
-                  operationManual = "/data/model/酒钢客服平台用户操作手册_销售公司.pdf";
-            }else if(AssertContext.getOrgType().equals("3") || AssertContext.getOrgType().equals("2")){
-                  operationManual = "/data/model/酒钢客服平台用户操作手册_贸易商.pdf";
-            }else if (AssertContext.getOrgType().equals("4")){
-                  operationManual = "/data/model/酒钢客服平台用户操作手册_终端客户.pdf";
+                  operationManual = "/data/model/酒钢客服平台用户操作手册-销售公司-1.pdf";
+            }else if(AssertContext.getOrgType().equals("3") || AssertContext.getOrgType().equals("2")||AssertContext.getOrgType().equals("4")){
+                  operationManual = "/data/model/酒钢客服平台用户操作手册-终端客户-1.pdf";
+            }else if (AssertContext.getOrgType().equals("5")){
+                  operationManual = "/data/model/酒钢客服平台用户操作手册-全-1.pdf";
             }
 
             //配置请求头

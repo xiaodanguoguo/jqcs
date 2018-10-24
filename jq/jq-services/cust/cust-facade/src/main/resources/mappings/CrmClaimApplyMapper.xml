@@ -140,6 +140,12 @@
         AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
          <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
        </if>
+      <if test="customerIds != null" >
+        AND H.CUSTOMER_NAME  in
+        <foreach collection="customerIds"  index="index" close=")" open="(" item="item" separator=",">
+          #{customerIds[${index}]}
+        </foreach>
+      </if>
       <if test="customerId != null and customerId != ''" >
         AND H.CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
       </if>
@@ -899,6 +905,16 @@
     A.REJECT_REASON,
     A.REASONS_FOR_COMPULSORY_CLOSURE,
     A.LAST_USER_ID,
+
+    A.OBJECTION_CONFIRMATION,
+    A.BATTEN_PLATE_NO,
+    A.STEEL_TYPE,
+    A.LAST_USER_ADDR,
+    A.PRO_PROBLEM,
+    A.CUST_EMP_NO,
+    A.CUST_TEL,
+    A.SIZE_MARK,
+
     case when B.DEPT_CODE = '1000' then '不锈'
     when B.DEPT_CODE = '2000' then '炼轧'
     when B.DEPT_CODE = '2200' then '碳钢'

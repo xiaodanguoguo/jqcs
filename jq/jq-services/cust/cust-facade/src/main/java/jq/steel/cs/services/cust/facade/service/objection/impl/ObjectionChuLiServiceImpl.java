@@ -131,6 +131,7 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
         List<CrmAgreementInfo> agreementInfos =crmAgreementInfoMapper.findList(aa);
         if(agreementInfos.size()>0){
             crmAgreementInfo1.setAgreementAmount(agreementInfos.get(0).getAgreementAmount());
+            crmAgreementInfo1.setAgreementContent(agreementInfos.get(0).getAgreementContent());
         }
         BeanCopyUtil.copy(crmAgreementInfo1,reqbody);
         return reqbody;
