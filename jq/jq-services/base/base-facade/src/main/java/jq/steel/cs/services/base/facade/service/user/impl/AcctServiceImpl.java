@@ -172,6 +172,7 @@ public class AcctServiceImpl implements AcctService {
         orgInfo.setTel(acctInfoVO.getMobilePhone());
         orgInfo.setAddr(acctInfoVO.getAddress());
         orgInfo.setBukrs(acctInfoVO.getBukrs());
+        orgInfo.setCreatedTime(new Date());
         Long i = orgInfoMapper.insertOrgInfo(orgInfo);
 
         acctInfo.setoInfoId(AUDIT_CUST + orgCode);
@@ -362,7 +363,9 @@ public class AcctServiceImpl implements AcctService {
 
     @Override
     public void expire(String authKey) {
-        cacheService.setMapValue(CacheKeyConstant.ACCT_COUNT, authKey, Long.valueOf(System.currentTimeMillis()).toString());
+        AcctSession acctSession = cacheService.getObject(authKey, AcctSession.class);
+        Acct acct = acctSession.getAcct();
+        cacheService.setMapValue(CacheKeyConstant.ACCT_COUNT, acct.getAcctId().toString(), Long.valueOf(System.currentTimeMillis()).toString());
         cacheService.expire(authKey, TIME_EXPIRE);
         LOG.info("{}-------------{}",authKey, cacheService.ttl(authKey));
     }
@@ -380,13 +383,23 @@ public class AcctServiceImpl implements AcctService {
        for (String s : map.values())  {
            Long now = System.currentTimeMillis();
            Long value = now - Long.valueOf(s);
-           String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(value));
-           date = StringUtil.substring(date, 14, 16);
-           Integer i = Integer.valueOf(date);
 
-           if (i >= 0 && i < 60) {
-               count++;
+           String nowDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(now));
+           String dataDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.valueOf(s)));
+           String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.valueOf(value)));
+
+           nowDate = StringUtil.substring(nowDate,0,9);
+           String substring = StringUtil.substring(dataDate, 0, 9);
+
+           if (nowDate.equals(substring)) {
+               date = StringUtil.substring(date, 14, 16);
+               Integer i = Integer.valueOf(date);
+
+               if (i >= 0 && i < 60) {
+                   count++;
+               }
            }
+
        }
 
        return count;
@@ -409,7 +422,7 @@ public class AcctServiceImpl implements AcctService {
 
 
         Boolean boo = cacheService.delete(key);
-        cacheService.deleteFromMap(CacheKeyConstant.ACCT_COUNT, key);
+        cacheService.deleteFromMap(CacheKeyConstant.ACCT_COUNT, acct.getAcctId().toString());
         System.out.println(key);
         return boo;
     }
@@ -445,7 +458,7 @@ public class AcctServiceImpl implements AcctService {
         System.err.println("--------redis login cache key --------"+key+"--------------");
 
         // count计数
-        cacheService.setMapValue(CacheKeyConstant.ACCT_COUNT, key, Long.valueOf(System.currentTimeMillis()).toString());
+        cacheService.setMapValue(CacheKeyConstant.ACCT_COUNT, acct.getAcctId().toString(), Long.valueOf(System.currentTimeMillis()).toString());
         // 用户权限
         FunctionManageVO functionManageVO = new FunctionManageVO();
         functionManageVO.setAcctId(String.valueOf(acct.getAcctId()));
