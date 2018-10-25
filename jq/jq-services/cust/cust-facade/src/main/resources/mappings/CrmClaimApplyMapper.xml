@@ -116,7 +116,6 @@
     A.REJECT_REASON,
     A.REASONS_FOR_COMPULSORY_CLOSURE,
     A.ADMISSIBILITY_TIME,
-    A.ADMISSIBILITY_USER,
     (select name from ACCT_INFO where ACCT_ID = A.ADMISSIBILITY_USER) AS ADMISSIBILITY_USER,
     (select MOBILE_PHONE from ACCT_INFO where ACCT_ID = A.ADMISSIBILITY_USER) AS PHONE,
     B.DEPT_CODE,
@@ -141,6 +140,12 @@
         AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
          <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
        </if>
+      <if test="customerIds != null" >
+        AND H.CUSTOMER_NAME  in
+        <foreach collection="customerIds"  index="index" close=")" open="(" item="item" separator=",">
+          #{customerIds[${index}]}
+        </foreach>
+      </if>
       <if test="customerId != null and customerId != ''" >
         AND H.CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
       </if>

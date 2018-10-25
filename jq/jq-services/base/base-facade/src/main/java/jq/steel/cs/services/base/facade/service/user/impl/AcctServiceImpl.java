@@ -388,8 +388,8 @@ public class AcctServiceImpl implements AcctService {
            String dataDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.valueOf(s)));
            String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.valueOf(value)));
 
-           nowDate = StringUtil.substring(nowDate,0,9);
-           String substring = StringUtil.substring(dataDate, 0, 9);
+           nowDate = StringUtil.substring(nowDate,0,10);
+           String substring = StringUtil.substring(dataDate, 0, 10);
 
            if (nowDate.equals(substring)) {
                date = StringUtil.substring(date, 14, 16);
