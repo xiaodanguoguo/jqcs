@@ -55,6 +55,7 @@ public class AppLoginController {
                 appAcct.setAcctId(String.valueOf(acctSession.getAcct().getAcctId()));
                 appAcct.setName(acctSession.getAcct().getName());
                 appAcct.setoInfoName(acctSession.getAcct().getoInfoName());
+                appAcct.setLimitCode(acctSession.getAcct().getLimitCode());
                 appAcct.setAcctType("0");
                 // 判断是否有审核权限
                 ServiceResponse<Map<String, String>> authResponse = backMemberAPI.getAcctAuth(String.valueOf(acctSession.getAcct().getAcctId()));
