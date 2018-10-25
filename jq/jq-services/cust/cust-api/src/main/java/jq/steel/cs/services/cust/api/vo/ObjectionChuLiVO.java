@@ -205,7 +205,7 @@ public class ObjectionChuLiVO {
 
     private BigDecimal objectionNum;    //异议编号
 
-    private String claimDesc;
+    private String claimDesc;           //异议内容描述
 
     private String claimReason;
 
@@ -953,4 +953,54 @@ public class ObjectionChuLiVO {
     public void setInquireState(String inquireState) {
         this.inquireState = inquireState;
     }
+
+
+
+
+    //----------其他表额外的字段,10.24添加_lujiawei---------------------------------
+    //车号
+    private String zchehao;
+    //调查事实阐述
+    private String inquireInfo;
+
+    //原因分析及结论
+    private String claimVerdict;
+    //合同号
+    private String zhth;
+
+    public String getClaimVerdict() {
+        return claimVerdict;
+    }
+
+    public void setClaimVerdict(String claimVerdict) {
+        this.claimVerdict = claimVerdict;
+    }
+
+    public String getZhth() {
+        return zhth;
+    }
+
+    public void setZhth(String zhth) {
+        this.zhth = zhth;
+    }
+
+    public String getZchehao() {
+        return zchehao;
+    }
+
+    public void setZchehao(String zchehao) {
+        this.zchehao = zchehao;
+    }
+
+    public String getInquireInfo() {
+        return inquireInfo;
+    }
+
+    public void setInquireInfo(String inquireInfo) {
+        this.inquireInfo = inquireInfo;
+    }
+
+
+    //--------------------------------------------------------------------------
+
 }

@@ -146,7 +146,7 @@ public class CrmClaimInfo {
 
     private String endProcessingTech;
 
-    private String claimDesc;
+    private String claimDesc;   //异议内容描述
 
     private String claimReason;
 
@@ -156,7 +156,7 @@ public class CrmClaimInfo {
 
     private String checkState;
 
-    private String rejectReason;
+    private String rejectReason;    //驳回原因
 
     private String createdBy;
 
@@ -910,4 +910,94 @@ public class CrmClaimInfo {
                 ", memo='" + memo + '\'' +
                 '}';
     }
+
+
+
+    //----------其他表额外的字段,10.24添加_lujiawei---------------------------------
+
+    //物流过程
+    private String logisticsProcess;
+    //原因分析及结论
+    private String claimVerdict;
+    //协议内容
+    private String agreementContent;
+    //赔偿金额（小写）
+    private BigDecimal agreementAmount;
+    //赔偿金额（大写)
+    private String agreementAmountUpper;
+    //车号
+    private String zchehao;
+    //合同号
+    private String zhth;
+    //调查事实阐述
+    private String inquireInfo;
+
+
+    public String getLogisticsProcess() {
+        return logisticsProcess;
+    }
+
+    public void setLogisticsProcess(String logisticsProcess) {
+        this.logisticsProcess = logisticsProcess;
+    }
+
+    public String getClaimVerdict() {
+        return claimVerdict;
+    }
+
+    public void setClaimVerdict(String claimVerdict) {
+        this.claimVerdict = claimVerdict;
+    }
+
+    public String getAgreementContent() {
+        return agreementContent;
+    }
+
+    public void setAgreementContent(String agreementContent) {
+        this.agreementContent = agreementContent;
+    }
+
+    public BigDecimal getAgreementAmount() {
+        return agreementAmount;
+    }
+
+    public void setAgreementAmount(BigDecimal agreementAmount) {
+        this.agreementAmount = agreementAmount;
+    }
+
+    public String getAgreementAmountUpper() {
+        return agreementAmountUpper;
+    }
+
+    public void setAgreementAmountUpper(String agreementAmountUpper) {
+        this.agreementAmountUpper = agreementAmountUpper;
+    }
+
+    public String getZchehao() {
+        return zchehao;
+    }
+
+    public void setZchehao(String zchehao) {
+        this.zchehao = zchehao;
+    }
+
+    public String getZhth() {
+        return zhth;
+    }
+
+    public void setZhth(String zhth) {
+        this.zhth = zhth;
+    }
+
+    public String getInquireInfo() {
+        return inquireInfo;
+    }
+
+    public void setInquireInfo(String inquireInfo) {
+        this.inquireInfo = inquireInfo;
+    }
+
+
+    //----------------------------------------------------------------------------
+
 }

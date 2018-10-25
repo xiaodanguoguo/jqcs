@@ -9,7 +9,9 @@ import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
 import com.ebase.utils.excel.ExportExcelUtils;
 import feign.FeignException;
+import jq.steel.cs.services.base.api.controller.OrgInfoServiceAPI;
 import jq.steel.cs.services.base.api.controller.RoleInfoAPI;
+import jq.steel.cs.services.base.api.vo.OrgInfoVO;
 import jq.steel.cs.services.base.api.vo.RoleInfoVO;
 import jq.steel.cs.services.cust.api.controller.ObjectionTiBaoAPI;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
@@ -42,6 +44,9 @@ public class ObjectionTiBaoController {
     @Autowired
     private RoleInfoAPI roleInfoAPI;
 
+    @Autowired
+    private OrgInfoServiceAPI orgInfoServiceAPI;
+
 
     /**
      *  条件分页查询
@@ -54,6 +59,8 @@ public class ObjectionTiBaoController {
         logger.info("参数={}",JsonUtil.toJson(jsonRequest));
         JsonResponse<PageDTO<ObjectionTiBaoVO>> jsonResponse = new JsonResponse<>();
         String acctId = AssertContext.getAcctId();
+        String orgType = AssertContext.getOrgType();
+        jsonRequest.getReqBody().setOrgType(orgType);
         ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
         List<String> list = new ArrayList<>();
         for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
@@ -63,6 +70,17 @@ public class ObjectionTiBaoController {
             jsonRequest.getReqBody().setDeptCodes(list);
         }else {
             jsonRequest.getReqBody().setDeptCodes(null);
+        }
+        //销售公司下的客户名称集合
+        List<String> customers = new ArrayList<>();
+        if(orgType.equals("1")){
+            ServiceResponse<List<OrgInfoVO>>  hh = orgInfoServiceAPI.findOrgNameByOrgId(orgType);
+            for (OrgInfoVO orgInfoVO:hh.getRetContent()){
+                customers.add(orgInfoVO.getOrgName());
+            }
+        }
+        if(customers.size()>0){
+            jsonRequest.getReqBody().setCustomerIds(customers);
         }
         try {
             ServiceResponse<PageDTO<ObjectionTiBaoVO>> serviceResponse = objectionTiBaoAPI.findByPage(jsonRequest);

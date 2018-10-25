@@ -8,6 +8,8 @@ import java.util.List;
 
 public class CrmClaimApply {
 
+    private  String orgType;
+
     //审核人
     private  String auditor;
 
@@ -16,6 +18,14 @@ public class CrmClaimApply {
 
     //厂家code
     private List<String> deptCodes;
+
+    public String getOrgType() {
+        return orgType;
+    }
+
+    public void setOrgType(String orgType) {
+        this.orgType = orgType;
+    }
 
     public List<String> getDeptCodes() {
         return deptCodes;
@@ -81,6 +91,17 @@ public class CrmClaimApply {
     private String millSheetNo;
 
     private String customerId;
+
+    //
+    private List<String>  customerIds;
+
+    public List<String> getCustomerIds() {
+        return customerIds;
+    }
+
+    public void setCustomerIds(List<String> customerIds) {
+        this.customerIds = customerIds;
+    }
 
     private String customerName;
 

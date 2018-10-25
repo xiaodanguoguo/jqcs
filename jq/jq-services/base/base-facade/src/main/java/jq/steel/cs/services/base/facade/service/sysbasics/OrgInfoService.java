@@ -60,6 +60,10 @@ public interface OrgInfoService {
 	 */
 	OrgInfo selectOrgName(OrgInfoVO orgInfoVO);
 
+
+	//销售公司下查询客户名称
+	List<OrgInfoVO> findOrgNameByOrgId(OrgInfoVO orgInfoVO);
+
 	/**
 	 * @param:
 	 * @return:

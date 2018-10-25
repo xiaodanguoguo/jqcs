@@ -1,6 +1,7 @@
 package jq.steel.cs.services.cust.facade.dao;
 
 import jq.steel.cs.services.cust.api.vo.CrmMillSheetDetailVO;
+import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
 import jq.steel.cs.services.cust.facade.model.CrmMillCoilInfo;
 import jq.steel.cs.services.cust.facade.model.MillCoilInfo;
 import org.apache.ibatis.annotations.Param;
@@ -44,4 +45,7 @@ public interface MillCoilInfoMapper {
     List<CrmMillCoilInfo> getChemistryListByByQrCode(CrmMillSheetDetailVO vo1);
 
     List<CrmMillCoilInfo> getPhysicsListByQrCode(CrmMillSheetDetailVO vo1);
+
+    //通过卷号查询卷相关信息
+    MillCoilInfo selectByZcharg(MillCoilInfoVO vo);
 }

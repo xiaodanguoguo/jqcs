@@ -199,6 +199,16 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		return listOrgInfo;
 	}
 
+
+	@Override
+	public List<OrgInfoVO> findOrgNameByOrgId(OrgInfoVO orgInfoVO) {
+		OrgInfo orgInfo = new OrgInfo();
+		BeanCopyUtil.copy(orgInfoVO, orgInfo);
+		List<OrgInfo> listOrgInfo= orgInfoMapper.findOrgNameByOrgId(orgInfo);
+		List<OrgInfoVO> orgInfoVOS= BeanCopyUtil.copyList(listOrgInfo, OrgInfoVO.class);
+		return orgInfoVOS;
+	}
+
 	@Override
 	public PageDTO<OrgInfoVO> getAuditOrgList(JsonRequest<OrgInfoVO> jsonRequest) {
 		OrgInfoVO reqBody = jsonRequest.getReqBody();

@@ -498,4 +498,14 @@
 		</if>
 
 	</select>
+
+	<!--查询销售公司下所有orgName-->
+	<select id="findOrgNameByOrgId" parameterType="java.lang.String" resultMap="BaseResultMap">
+SELECT
+A.ID,
+A.ORG_NAME
+FROM
+WARRANTY.ORG_INFO A
+WHERE A.PARENT_ID like'%' || #{parentId} ||'%'
+	</select>
 </mapper>

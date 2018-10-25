@@ -124,6 +124,26 @@ public class ObjectionLedgerVO {
     private String cycle;
 
 
+    private String  defectName;
+
+    private String zcpmc;
+
+    public String getDefectName() {
+        return defectName;
+    }
+
+    public void setDefectName(String defectName) {
+        this.defectName = defectName;
+    }
+
+    public String getZcpmc() {
+        return zcpmc;
+    }
+
+    public void setZcpmc(String zcpmc) {
+        this.zcpmc = zcpmc;
+    }
+
     public BigDecimal getHandlerUser() {
         return handlerUser;
     }

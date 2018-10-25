@@ -8,6 +8,12 @@ import java.util.List;
 
 public class ObjectionDiaoChaVO {
 
+    //调查单位
+    private String investigationUnit;
+
+    //责任单位
+    private String responsibilityUnit;
+
 
     //到达时间
     @JsonFormat(pattern="yyyy-MM-dd")
@@ -218,6 +224,23 @@ public class ObjectionDiaoChaVO {
     private String inquireState;
 
     private String memo;    //备注
+
+
+    public String getInvestigationUnit() {
+        return investigationUnit;
+    }
+
+    public void setInvestigationUnit(String investigationUnit) {
+        this.investigationUnit = investigationUnit;
+    }
+
+    public String getResponsibilityUnit() {
+        return responsibilityUnit;
+    }
+
+    public void setResponsibilityUnit(String responsibilityUnit) {
+        this.responsibilityUnit = responsibilityUnit;
+    }
 
     public String getAcctName() {
         return acctName;
@@ -1125,5 +1148,27 @@ public class ObjectionDiaoChaVO {
 
     public void setProductionProcessAll(String productionProcessAll) {
         this.productionProcessAll = productionProcessAll;
+    }
+
+
+
+    //------------------添加字段,10/24  lujiawei-----------------
+    private String zhth;    //合同号
+
+
+    private String agreementAmountUpper; //金额大写
+
+    public String getAgreementAmountUpper() {
+        return agreementAmountUpper;
+    }
+
+    public void setAgreementAmountUpper(String agreementAmountUpper) {
+        this.agreementAmountUpper = agreementAmountUpper;
+    }
+
+    public String getZhth() { return zhth; }
+
+    public void setZhth(String zhth) {
+        this.zhth = zhth;
     }
 }

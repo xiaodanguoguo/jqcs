@@ -334,6 +334,30 @@ public class OrgInfoController {
 		return serviceResponse;
 	}
 
+
+	/**
+	 * @param:
+	 * @return:
+	 * @description: 销售公司下查询客户名称
+	 * @author: wushibin
+	 * @Date: 2018/10/24
+	 */
+	@RequestMapping(value = "/findOrgNameByOrgId", method = RequestMethod.POST)
+	public  ServiceResponse<List<OrgInfoVO>> findOrgNameByOrgId(@RequestBody String orgType)  {
+		ServiceResponse<List<OrgInfoVO>> serviceResponse = new ServiceResponse<>();
+		try {
+			OrgInfoVO orgInfoVO = new OrgInfoVO();
+			orgInfoVO.setOrgType(orgType);
+			List<OrgInfoVO> list= orgInfoService.findOrgNameByOrgId(orgInfoVO);
+			serviceResponse.setRetContent(list);
+		} catch (Exception e) {
+			logger.error("错误 = {}", e);
+			serviceResponse.setException(new BusinessException("500"));
+		}
+
+		return serviceResponse;
+	}
+
 	/**
 	 * @param:
 	 * @return:
