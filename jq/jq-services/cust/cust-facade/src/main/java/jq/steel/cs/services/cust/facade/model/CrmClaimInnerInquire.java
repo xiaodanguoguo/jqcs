@@ -4,6 +4,12 @@ import java.util.Date;
 
 public class CrmClaimInnerInquire {
 
+    //调查单位
+    private String investigationUnit;
+
+    //责任单位
+    private String responsibilityUnit;
+
     //内部提交人
     private String submitter;
 
@@ -65,6 +71,22 @@ public class CrmClaimInnerInquire {
 
     //操作类型
     private  Integer optionType;
+
+    public String getInvestigationUnit() {
+        return investigationUnit;
+    }
+
+    public void setInvestigationUnit(String investigationUnit) {
+        this.investigationUnit = investigationUnit;
+    }
+
+    public String getResponsibilityUnit() {
+        return responsibilityUnit;
+    }
+
+    public void setResponsibilityUnit(String responsibilityUnit) {
+        this.responsibilityUnit = responsibilityUnit;
+    }
 
     public String getSubmitter() {
         return submitter;

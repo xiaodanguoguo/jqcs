@@ -603,6 +603,31 @@ public class MillSheetHostsController {
     }
 
 
+    //查询条件校验钢卷编号是否正确
+    @RequestMapping(value = "/checkCoil",method = RequestMethod.POST)
+    public JsonResponse<MillSheetHostsVO>  checkCoil(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest){
+        logger.info("参数",JsonUtil.toJson(jsonRequest));
+        //zcharg-----批/板/卷号
+        JsonResponse<MillSheetHostsVO> jsonResponse = new JsonResponse<>();
+        try {
+
+            ServiceResponse<MillSheetHostsVO> serviceResponse = millSheetHostsAPI.checkCoil(jsonRequest);
+            if(serviceResponse.getRetContent().getTrue()){
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            }else {
+                jsonResponse.setRetCode("1111111");
+                jsonResponse.setRetDesc(serviceResponse.getRetContent().getCheckInstructions());
+            }
+
+        } catch (BusinessException e) {
+            logger.error("获取分页列表错误 = {}", e);
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+        return jsonResponse;
+    }
+
+
 
     //下载操作手册
     @RequestMapping(value = "/downOperationManual",method = RequestMethod.POST)

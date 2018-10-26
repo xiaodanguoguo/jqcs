@@ -28,6 +28,9 @@ public interface MillSheetHostsService {
     //查询是否有质证书编号
     MillSheetHostsVO findIsTrue(MillSheetHostsVO millSheetHostsVO);
 
+    //查询条件校验钢卷编号是否正确
+    MillSheetHostsVO checkCoil(MillSheetHostsVO millSheetHostsVO);
+
     //返回app端质证书下载路径
     MillSheetHostsVO getUrlForApp(JsonRequest<MillSheetHostsVO> jsonRequest);
 

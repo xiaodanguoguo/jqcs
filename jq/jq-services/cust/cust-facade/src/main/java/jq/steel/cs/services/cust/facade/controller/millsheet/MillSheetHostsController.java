@@ -160,6 +160,35 @@ public class MillSheetHostsController {
     }
 
 
+    /**
+     * 查询条件校验钢卷编号是否正确
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping("/checkCoil")
+    public ServiceResponse<MillSheetHostsVO> checkCoil(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest){
+        logger.info("参数 = {}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<MillSheetHostsVO> serviceResponse = new ServiceResponse<>();
+        try {
+            MillSheetHostsVO millSheetHostsVO = jsonRequest.getReqBody();
+            MillSheetHostsVO list = millSheetHostsService.checkCoil(millSheetHostsVO);
+            if (list.getTrue()){
+                serviceResponse.setRetContent(list);
+            }else {
+                serviceResponse.setRetContent(list);
+                serviceResponse.setRetCode("00");
+                serviceResponse.setRetMessage(list.getCheckInstructions());
+            }
+
+        }catch (BusinessException e){
+            logger.error("获取分页出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
+
+
     //返回app端质证书下载路径
     @RequestMapping(value = "/downloadForApp" , method = RequestMethod.POST)
     public ServiceResponse<MillSheetHostsVO> downloadForApp(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest){

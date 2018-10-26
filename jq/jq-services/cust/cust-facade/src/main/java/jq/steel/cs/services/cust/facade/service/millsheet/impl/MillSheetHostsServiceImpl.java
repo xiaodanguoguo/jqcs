@@ -287,6 +287,27 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     }
 
 
+    //查询条件校验钢卷编号是否正确
+    @Override
+    public MillSheetHostsVO checkCoil(MillSheetHostsVO millSheetHostsVO) {
+        //转换mdel
+        MillSheetHosts millSheetHosts = new MillSheetHosts();
+        BeanCopyUtil.copy(millSheetHostsVO,millSheetHosts);
+        List<MillSheetHosts> list =millSheetHostsMapper.findIsTrue(millSheetHosts);
+        if (list.size()>0){
+            millSheetHosts.setTrue(true);
+            list.get(0).setTrue(true);
+            BeanCopyUtil.copy(list.get(0),millSheetHostsVO);
+        }else {
+            millSheetHosts.setTrue(false);
+            millSheetHosts.setCheckInstructions("请核实质证书编号"+millSheetHostsVO.getMillSheetNo());
+            BeanCopyUtil.copy(millSheetHosts,millSheetHostsVO);
+        }
+        return millSheetHostsVO;
+    }
+
+
+
     //返回app端质证书下载路径
     public MillSheetHostsVO getUrlForApp(JsonRequest<MillSheetHostsVO> jsonRequest) {
         String millSheetNo = jsonRequest.getReqBody().getMillSheetNo();
