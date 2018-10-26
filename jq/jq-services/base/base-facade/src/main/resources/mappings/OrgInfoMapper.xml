@@ -439,7 +439,7 @@
 		org_info b on a.parent_id = b.id
 	WHERE 1 = 1
 		<choose>
-			<when test="status != null ">
+			<when test="status != null and status != '' ">
 				and a.STATUS = #{status}
 			</when>
 			<otherwise>
