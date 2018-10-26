@@ -293,14 +293,21 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
         //转换mdel
         MillSheetHosts millSheetHosts = new MillSheetHosts();
         BeanCopyUtil.copy(millSheetHostsVO,millSheetHosts);
-        List<MillSheetHosts> list =millSheetHostsMapper.findIsTrue(millSheetHosts);
+        List<MillSheetHosts> list =millSheetHostsMapper.checkCoil(millSheetHosts);
         if (list.size()>0){
-            millSheetHosts.setTrue(true);
-            list.get(0).setTrue(true);
-            BeanCopyUtil.copy(list.get(0),millSheetHostsVO);
+            List<MillSheetHosts> alist =millSheetHostsMapper.checkCoil1(millSheetHosts);
+            if(alist.size()>0){
+                millSheetHosts.setTrue(true);
+                list.get(0).setTrue(true);
+                BeanCopyUtil.copy(list.get(0),millSheetHostsVO);
+            }else {
+                millSheetHosts.setTrue(false);
+                millSheetHosts.setCheckInstructions("此批/板/卷号"+millSheetHostsVO.getZcharg()+"所在的质证书的状态不符合查询条件");
+                BeanCopyUtil.copy(millSheetHosts,millSheetHostsVO);
+            }
         }else {
             millSheetHosts.setTrue(false);
-            millSheetHosts.setCheckInstructions("请核实质证书编号"+millSheetHostsVO.getMillSheetNo());
+            millSheetHosts.setCheckInstructions("此批/板/卷号"+millSheetHostsVO.getZcharg()+"不存在");
             BeanCopyUtil.copy(millSheetHosts,millSheetHostsVO);
         }
         return millSheetHostsVO;

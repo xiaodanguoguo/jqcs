@@ -26,6 +26,12 @@ public interface MillSheetHostsMapper {
 
     List<MillSheetHosts> findIsTrue (MillSheetHosts record);
 
+    //校验checkCoil
+    List<MillSheetHosts> checkCoil (MillSheetHosts record);
+    //校验checkCoil
+    List<MillSheetHosts> checkCoil1 (MillSheetHosts record);
+
+
     //修改次数
     Integer updateNum(MillSheetHosts record);
 
