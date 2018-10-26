@@ -50,12 +50,18 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             MillCoilInfo coilInfo = new MillCoilInfo();
             coilInfo.setZcharg(millSheetHosts.getZcharg());
             List<MillCoilInfo> list = millCoilInfoMapper.findMillsheetNumber(coilInfo);
-            List<String> idall = new ArrayList<>();
-           for (int i = 0; i < list.size(); i++){
-               idall.add(list.get(i).getMillsheetNo());
-           }
+            if(list.size()>0){
+                List<String> idall = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++){
+                    idall.add(list.get(i).getMillsheetNo());
+                }
+                millSheetHosts.setMillSheetNos(idall);
+            }else {
+                List<String> idall = new ArrayList<>();
+                idall.add("-99");
+                millSheetHosts.setMillSheetNos(idall);
+            }
 
-            millSheetHosts.setMillSheetNos(idall);
         }
         if(millSheetHosts.getDeptCode()!=null&& millSheetHosts.getDeptCode()!=""){
             millSheetHosts.setDeptCodes(null);
@@ -96,12 +102,17 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 MillCoilInfo coilInfo = new MillCoilInfo();
                 coilInfo.setZcharg(millSheetHosts.getZcharg());
                 List<MillCoilInfo> list = millCoilInfoMapper.findMillsheetNumber(coilInfo);
-                List<String> idall = new ArrayList<>();
-                for (int i = 0; i < list.size(); i++){
-                    idall.add(list.get(i).getMillsheetNo());
+                if(list.size()>0){
+                    List<String> idall = new ArrayList<>();
+                    for (int i = 0; i < list.size(); i++){
+                        idall.add(list.get(i).getMillsheetNo());
+                    }
+                    millSheetHosts.setMillSheetNos(idall);
+                }else {
+                    List<String> idall = new ArrayList<>();
+                    idall.add("-99");
+                    millSheetHosts.setMillSheetNos(idall);
                 }
-
-                millSheetHosts.setMillSheetNos(idall);
             }
             if(millSheetHosts.getDeptCode()!=null&& millSheetHosts.getDeptCode()!=""){
                 millSheetHosts.setDeptCodes(null);
