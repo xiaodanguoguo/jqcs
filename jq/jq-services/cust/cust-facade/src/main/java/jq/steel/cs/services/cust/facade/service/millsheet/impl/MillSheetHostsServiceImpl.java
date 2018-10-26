@@ -220,6 +220,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
         }
         for (MillSheetHosts millSheetHosts1:millSheetHosts){
             MillSheetHosts url = millSheetHostsMapper.findUrl(millSheetHosts1);
+            millSheetHosts1.setSpecialNeed(url.getSpecialNeed());
             millSheetHosts1.setMillSheetPath(url.getMillSheetUrl()+"/"+url.getMillSheetName());
             millSheetHosts1.setMillSheetUrl(url.getMillSheetUrl());
             millSheetHosts1.setMillSheetName(url.getMillSheetName());
