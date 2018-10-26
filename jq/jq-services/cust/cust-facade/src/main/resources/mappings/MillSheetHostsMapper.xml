@@ -136,6 +136,29 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     WHERE
     A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR} AND  A.STATE IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED')
   </select>
+
+<!--校验checkCoil-->
+  <select id="checkCoil" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
+  SELECT
+  A.ZCHARG,
+  A.MILL_SHEET_NO
+  FROM
+  WARRANTY.MILL_COIL_INFO A
+  LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
+  WHERE  A.ZCHARG= #{zcharg,jdbcType=VARCHAR}
+  </select>
+
+  <!--校验checkCoil-->
+  <select id="checkCoil1" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
+    SELECT
+    A.ZCHARG,
+    A.MILL_SHEET_NO
+    FROM
+    WARRANTY.MILL_COIL_INFO A
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
+    WHERE B.STATE IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED') AND A.ZCHARG= #{zcharg,jdbcType=VARCHAR}
+  </select>
+
   <!--分页查询-->
   <select id="findMillSheetByPage" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
     SELECT
