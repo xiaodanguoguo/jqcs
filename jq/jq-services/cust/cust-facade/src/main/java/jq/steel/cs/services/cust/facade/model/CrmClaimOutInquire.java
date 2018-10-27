@@ -297,7 +297,7 @@ public class CrmClaimOutInquire {
 
     private String used;
 
-    private String contractNo;
+    private String contractNo;      //合同号
 
     private BigDecimal contractVolume;
 

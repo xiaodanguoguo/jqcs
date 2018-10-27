@@ -542,12 +542,22 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             crmClaimApply.setStartDtStr(startDtStr);
             String endDtStr = DateFormatUtil.getEndDateStr(crmClaimApply.getEndDt());
             crmClaimApply.setEndDtStr(endDtStr);
+
+            //如果是已受理的状态,就使用查询受理人和受理人电话；已驳回状态，销售驳回原因和生产驳回原因的sql。
+            if("ACCEPTANCE".equals(crmClaimApply.getClaimState())){
+                List<CrmClaimApply> crmClaimApplies = crmClaimApplyMapper.findTiBaoByPageAndAcceptanceState();
+                //转换返回对象
+                List<ObjectionTiBaoVO> objectionTiBaoVOS = BeanCopyUtil.copyList(crmClaimApplies, ObjectionTiBaoVO.class);
+                // 分页对象
+                PageDTO<ObjectionTiBaoVO> transform = PageDTOUtil.transform(objectionTiBaoVOS);
+                return transform;
+
+            }
             List<CrmClaimApply> crmClaimApplies = crmClaimApplyMapper.findTiBaoByPage(crmClaimApply);
             //转换返回对象
             List<ObjectionTiBaoVO> objectionTiBaoVOS = BeanCopyUtil.copyList(crmClaimApplies, ObjectionTiBaoVO.class);
             // 分页对象
             PageDTO<ObjectionTiBaoVO> transform = PageDTOUtil.transform(objectionTiBaoVOS);
-
 
             return transform;
 

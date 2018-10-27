@@ -137,6 +137,9 @@ WHERE
     D.SALES_MANAGER_SUGGESTS,
     C.OBJECTION_CONFIRMATION,
     F.ZHTH,
+    A.CONTRACT_NO,
+
+
 
     (select T.TYPE_NAME from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t

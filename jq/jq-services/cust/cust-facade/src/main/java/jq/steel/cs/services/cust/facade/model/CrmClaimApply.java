@@ -115,11 +115,11 @@ public class CrmClaimApply {
 
     private String lastUser;
 
-    private String lastUserAddr;
+    private String lastUserAddr;    //货物所在地
 
-    private String createEmpNo;
+    private String createEmpNo;     //联系人
 
-    private String lastUserTel;
+    private String lastUserTel;     //联系人电话
 
     private String lastUserEmail;
 
@@ -133,7 +133,7 @@ public class CrmClaimApply {
 
     private BigDecimal contractVolume;
 
-    private String sizeMark;
+    private String sizeMark;    //规格
 
     private BigDecimal originalWeight;
 
@@ -143,7 +143,7 @@ public class CrmClaimApply {
 
     private BigDecimal contractUnitPrice;
 
-    private BigDecimal objectionNum;
+    private BigDecimal objectionNum;    //异议量
 
     private String endProcessingTech;
 
@@ -838,5 +838,47 @@ public class CrmClaimApply {
                 ", objectionConfirmation='" + objectionConfirmation + '\'' +
                 ", explain='" + explain + '\'' +
                 '}';
+    }
+
+
+    //--------------------添加字段,10.27,lujiawei--------------------------
+    private String needUser ;               //受理人
+
+    private Date tibaoAdmissibilityTime ;   //受理时间
+
+    private String productionRejectReason ; //生产驳回原因
+
+    private String mobilePhone ;            //受理人电话
+
+    public String getNeedUser() {
+        return needUser;
+    }
+
+    public void setNeedUser(String needUser) {
+        this.needUser = needUser;
+    }
+
+    public Date getTibaoAdmissibilityTime() {
+        return tibaoAdmissibilityTime;
+    }
+
+    public void setTibaoAdmissibilityTime(Date tibaoAdmissibilityTime) {
+        this.tibaoAdmissibilityTime = tibaoAdmissibilityTime;
+    }
+
+    public String getProductionRejectReason() {
+        return productionRejectReason;
+    }
+
+    public void setProductionRejectReason(String productionRejectReason) {
+        this.productionRejectReason = productionRejectReason;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
     }
 }

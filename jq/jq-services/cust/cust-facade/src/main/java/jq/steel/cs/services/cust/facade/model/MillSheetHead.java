@@ -27,7 +27,7 @@ public class MillSheetHead {
 
     private String zhth;
 
-    private String zcpmc;   //产品名称
+    private String zcpmc;
 
     private String zph;     //牌号
 
@@ -54,6 +54,18 @@ public class MillSheetHead {
     private Integer version;
 
     private String name;        //收货单位名称<crm_customer中的name1客户名称>
+
+    private String sizeMark ;    //合同规格
+
+    private String productName ; //产品名称
+
+    public String getSizeMark() { return sizeMark; }
+
+    public void setSizeMark(String sizeMark) { this.sizeMark = sizeMark; }
+
+    public String getProductName() {  return productName; }
+
+    public void setProductName(String productName) { this.productName = productName; }
 
     public String getName() {
         return name;
@@ -263,5 +275,48 @@ public class MillSheetHead {
 
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+
+    //-------------------10.26,添加字段,lujiawei----
+
+    private String millBigType;     //产品大类
+
+    private String contractVolume;  //合同重量
+
+    private String originalWeight;  //原卷重量
+
+    private String originalCarNo;   //原车号
+
+    public String getMillBigType() {
+        return millBigType;
+    }
+
+    public void setMillBigType(String millBigType) {
+        this.millBigType = millBigType;
+    }
+
+    public String getContractVolume() {
+        return contractVolume;
+    }
+
+    public void setContractVolume(String contractVolume) {
+        this.contractVolume = contractVolume;
+    }
+
+    public String getOriginalWeight() {
+        return originalWeight;
+    }
+
+    public void setOriginalWeight(String originalWeight) {
+        this.originalWeight = originalWeight;
+    }
+
+    public String getOriginalCarNo() {
+        return originalCarNo;
+    }
+
+    public void setOriginalCarNo(String originalCarNo) {
+        this.originalCarNo = originalCarNo;
     }
 }

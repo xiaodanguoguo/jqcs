@@ -74,6 +74,7 @@
     <result column="AGREEMENT_AMOUNT" property="agreementAmount"/>
     <result column="AGREEMENT_AMOUNT_UPPER" property="agreementAmountUpper"/>
     <result column="INQUIRE_INFO" property="inquireInfo"/>
+    <result column="FIELD_CONCLUSION_TEXT" property="fieldConclusionText"/>
   </resultMap>
 
   <resultMap id="BaseResultMap1" type="jq.steel.cs.services.cust.facade.model.ObjectionLedger" >
@@ -755,7 +756,9 @@
     E.AGREEMENT_CONTENT,
     E.AGREEMENT_AMOUNT,
     E.AGREEMENT_AMOUNT_UPPER,
-    D.OBJECTION_CONFIRMATION
+    D.OBJECTION_CONFIRMATION,
+    D.CONTRACT_NO,
+    I.FIELD_CONCLUSION_TEXT
 
     FROM
     WARRANTY.CRM_CLAIM_INFO A

@@ -40,4 +40,7 @@ public interface CrmClaimApplyMapper {
 
     // 判断此条异议是否为已评价状态
     CrmClaimApply getByClaimNo(CrmClaimCommentsVO vo);
+
+    //如果是已受理的状态,就使用查询受理人和受理人电话；已驳回状态，销售驳回原因和生产驳回原因的sql。
+    List<CrmClaimApply> findTiBaoByPageAndAcceptanceState();
 }

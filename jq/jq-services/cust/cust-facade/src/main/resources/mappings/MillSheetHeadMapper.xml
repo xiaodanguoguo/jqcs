@@ -26,6 +26,14 @@
     <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
     <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
     <result column="VERSION" property="version" jdbcType="DECIMAL" />
+
+    <result column="SIZE_MARK" property="sizeMark"/>
+    <result column="PRODUCT_NAME" property="productName"/>
+
+    <result column="MILL_BIG_TYPE" property="millBigType"/>
+    <result column="CONTRACT_VOLUME" property="contractVolume"/>
+    <result column="ORIGINAL_WEIGHT" property="originalWeight"/>
+    <result column="ORIGINAL_CAR_NO" property="originalCarNo"/>
   </resultMap>
   <sql id="Base_Column_List" >
     SID, ZCHEHAO, MILL_SHEET_NO, ZKDAUF, ZKUNNR, ZKUNWE, ZDAOZHAN, VBELN_VL,
@@ -326,9 +334,13 @@
 
 
   <select id="selectByMillSheetNO" resultMap="BaseResultMap">
-    SELECT ZCHEHAO , ZHTH , ZPH , TOTAL_ZLOSMENGE
-    FROM  MILL_SHEET_HEAD
-    WHERE MILL_SHEET_NO = #{millSheetNo}
+    SELECT msh.ZCHEHAO , msh.ZHTH , msh.ZPH , msh.TOTAL_ZLOSMENGE ,msh.MILL_BIG_TYPE,
+     cla.SIZE_MARK , cla.PRODUCT_NAME, cla.CONTRACT_VOLUME , cla.ORIGINAL_WEIGHT , cla.ORIGINAL_CAR_NO
+    FROM  MILL_SHEET_HEAD msh
+    LEFT JOIN CRM_CLAIM_APPLY  cla ON cla.MILL_SHEET_NO = msh.MILL_SHEET_NO
+    WHERE msh.MILL_SHEET_NO = #{millSheetNo}
+    GROUP BY msh.MILL_SHEET_NO , msh.ZCHEHAO , msh.ZHTH , msh.ZPH , msh.TOTAL_ZLOSMENGE , msh.MILL_BIG_TYPE ,
+cla.size_mark , cla.PRODUCT_NAME, cla.CONTRACT_VOLUME ,CLA.SIZE_MARK , cla.ORIGINAL_WEIGHT , cla.ORIGINAL_CAR_NO
   </select>
 
 </mapper>
