@@ -261,4 +261,57 @@ public class MillSheetHeadVO {
     public void setVersion(Integer version) {
         this.version = version;
     }
+
+
+    //-------------------10.26,添加字段,lujiawei----
+
+    private String millBigType;     //产品大类
+
+    private String contractVolume;  //合同重量
+
+    private String originalWeight;  //原卷重量
+
+    private String originalCarNo;   //原车号
+
+    private String productName ; //产品名称
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getMillBigType() {
+        return millBigType;
+    }
+
+    public void setMillBigType(String millBigType) {
+        this.millBigType = millBigType;
+    }
+
+    public String getContractVolume() {
+        return contractVolume;
+    }
+
+    public void setContractVolume(String contractVolume) {
+        this.contractVolume = contractVolume;
+    }
+
+    public String getOriginalWeight() {
+        return originalWeight;
+    }
+
+    public void setOriginalWeight(String originalWeight) {
+        this.originalWeight = originalWeight;
+    }
+
+    public String getOriginalCarNo() {
+        return originalCarNo;
+    }
+
+    public void setOriginalCarNo(String originalCarNo) {
+        this.originalCarNo = originalCarNo;
+    }
 }

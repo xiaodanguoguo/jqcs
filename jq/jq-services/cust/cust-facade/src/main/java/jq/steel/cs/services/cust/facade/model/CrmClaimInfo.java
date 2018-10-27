@@ -998,6 +998,14 @@ public class CrmClaimInfo {
     }
 
 
-    //----------------------------------------------------------------------------
+    //-------------------------------添加字段,10.26,lujiawei---------------------------------------------
+    private String fieldConclusionText;     //现场结论
 
+    public String getFieldConclusionText() {
+        return fieldConclusionText;
+    }
+
+    public void setFieldConclusionText(String fieldConclusionText) {
+        this.fieldConclusionText = fieldConclusionText;
+    }
 }

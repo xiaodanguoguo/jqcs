@@ -27,7 +27,7 @@ public class MillSheetHead {
 
     private String zhth;
 
-    private String zcpmc;   //产品名称
+    private String zcpmc;
 
     private String zph;     //牌号
 
@@ -54,6 +54,18 @@ public class MillSheetHead {
     private Integer version;
 
     private String name;        //收货单位名称<crm_customer中的name1客户名称>
+
+    private String sizeMark ;    //合同规格
+
+    private String productName ; //产品名称
+
+    public String getSizeMark() { return sizeMark; }
+
+    public void setSizeMark(String sizeMark) { this.sizeMark = sizeMark; }
+
+    public String getProductName() {  return productName; }
+
+    public void setProductName(String productName) { this.productName = productName; }
 
     public String getName() {
         return name;

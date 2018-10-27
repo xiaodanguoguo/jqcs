@@ -23,7 +23,7 @@
     <result column="USED" property="used" jdbcType="VARCHAR" />
     <result column="CONTRACT_NO" property="contractNo" jdbcType="VARCHAR" />
     <result column="CONTRACT_VOLUME" property="contractVolume" jdbcType="NUMERIC" />
-    <result column="SIZE_MARK" property="specs" jdbcType="VARCHAR" />
+    <result column="SIZE_MARK" property="sizeMark" jdbcType="VARCHAR" />
     <result column="ORIGINAL_WEIGHT" property="originalWeight" jdbcType="NUMERIC" />
     <result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
     <result column="ORIGINAL_CAR_NO" property="originalCarNo" jdbcType="VARCHAR" />
@@ -61,7 +61,10 @@
 
     <result column="PARENT_SID" property="parentSid" jdbcType="NUMERIC" />
 
-
+    <result column="NEED_USER" property="needUser"/>
+    <result column="TIBAO_ADMISSIBILITY_TIME" property="tibaoAdmissibilityTime"/>
+    <result column="PRODUCTION_REJECT_REASON" property="productionRejectReason"/>
+    <result column="MOBILE_PHONE" property="mobilePhone"/>
 
 
   </resultMap>
@@ -886,6 +889,95 @@
     </trim>
   </select>
 
+  <select id="findTiBaoByPageAndAcceptanceState" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
+    SELECT * FROM
+    (
+    SELECT
+    A.CLAIM_NO,
+    A.CLAIM_STATE,
+    A.MILL_SHEET_NO,
+    A.PRODUCT_ID,
+    A.PRODUCT_NAME,
+    A.DESIGNATION,
+    A.SIZE_MARK,
+    A.ORDER_NO,
+    C.CLAIM_TYPE,
+    A.OBJECTION_NUM,
+    C.INQUIRE_STATE,
+    A.LAST_USER,
+    A.CUSTOMER_NAME,
+    A.PRESENTATION_DATE,
+    A.REJECT_REASON,
+    A.REASONS_FOR_COMPULSORY_CLOSURE,
+    A.LAST_USER_ID,
+
+    A.ADMISSIBILITY_USER AS NEED_USER,
+    A.ADMISSIBILITY_TIME AS TIBAO_ADMISSIBILITY_TIME,
+    E.REJECT_REASON AS PRODUCTION_REJECT_REASON,
+
+
+    case when B.DEPT_CODE = '1000' then '不锈'
+    when B.DEPT_CODE = '2000' then '炼轧'
+    when B.DEPT_CODE = '2200' then '碳钢'
+    when B.DEPT_CODE='3000' then '榆钢' else B.DEPT_CODE end as DEPT_CODE,
+    (select T.TYPE_NAME from sgai_md_common_type t
+    WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
+    WHERE T.TYPE_NAME=D.ZCPMC)) AS ZCPMC,
+    D.ZPH
+    FROM
+    WARRANTY.CRM_CLAIM_APPLY A
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_INFO C ON A.CLAIM_NO = C.CLAIM_NO
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="endDtStr != null" >
+        AND TO_CHAR (A.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        <!--AND  #{} &gt;= A.PRESENTATION_DATE-->
+      </if>
+      <if test="startDtStr != null" >
+        AND TO_CHAR (A.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+        <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
+      </if>
+      <if test="customerId != null and customerId != ''" >
+        AND A.CUSTOMER_ID = #{customerId,jdbcType=VARCHAR}
+      </if>
+      <if test="claimType != null and claimType != ''" >
+        AND C.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
+      </if>
+      <if test="productId != null and productId != ''" >
+        AND A.PRODUCT_ID = #{productId,jdbcType=VARCHAR}
+      </if>
+      <if test="productName != null and productName != ''" >
+        AND A.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
+      </if>
+      <if test="claimNo != null and claimNo != ''" >
+        AND A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+      </if>
+      <if test="battenPlateNo != null and battenPlateNo != ''" >
+        AND A.BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR}
+      </if>
+      <if test="claimState != null and claimState != ''" >
+        AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
+      </if>
+      <if test="manufactor != null and manufactor != ''" >
+        AND  B.DEPT_CODE = #{manufactor,jdbcType=VARCHAR}
+      </if>
+      <if test="designation != null and designation != ''" >
+        AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}
+      </if>
+      <choose>
+        <when test="claimState != null ">
+          and a.CLAIM_STATE = #{claimState}
+        </when>
+        <otherwise>
+          and a.CLAIM_STATE = 'NEW' or a.CLAIM_STATE = 'PRESENT' or a.CLAIM_STATE = 'REJECT'
+        </otherwise>
+      </choose>
+    </trim>
+    )
+    LEFT JOIN WARRANTY.ACCT_INFO F ON F.ACCT_ID = NEED_USER
+  </select>
+
   <select id="findgenzongByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
     SELECT
     A.CLAIM_NO,
@@ -913,6 +1005,9 @@
     A.PRO_PROBLEM,
     A.CUST_EMP_NO,
     A.CUST_TEL,
+    A.LAST_USER_TEL,
+    A.CREATE_EMP_NO,
+
 
     case when B.DEPT_CODE = '1000' then '不锈'
     when B.DEPT_CODE = '2000' then '炼轧'

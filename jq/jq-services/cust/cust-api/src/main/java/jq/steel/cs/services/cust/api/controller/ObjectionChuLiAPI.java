@@ -18,7 +18,7 @@ import java.util.Map;
 public interface ObjectionChuLiAPI {
 
     /**
-     *  条件分页查询
+     *  条件分页查询findByPage
      * @param  jsonRequest
      * @return
      *

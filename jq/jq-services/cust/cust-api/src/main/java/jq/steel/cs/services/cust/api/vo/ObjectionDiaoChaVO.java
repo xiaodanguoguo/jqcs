@@ -191,7 +191,7 @@ public class ObjectionDiaoChaVO {
 
     private String filePath;
 
-    private String rejectReason;
+    private String rejectReason;    //驳回原因
 
     private String createdBy;
 
