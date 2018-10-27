@@ -585,9 +585,11 @@ public class MillSheetHostsController {
                 String createPdfPath = uploadConfig.getDomain();
                 if ( serviceResponse.getRetContent().get(0).getSpecialNeed().equals("Y")){
                     System.out.println("特殊需求文档下载中");
+                    MillSheetNeedsVO millSheetNeedsVO =new MillSheetNeedsVO();
+                    millSheetNeedsVO.setMillSheetNo(serviceResponse.getRetContent().get(0).getMillSheetNo());
+                    millSheetNeedsVO.setType("1");
                     JsonRequest<MillSheetNeedsVO> jsonRequest12 = new JsonRequest<>();
-                    jsonRequest12.getReqBody().setMillSheetNo( serviceResponse.getRetContent().get(0).getMillSheetNo());
-                    jsonRequest12.getReqBody().setType("1");
+                    jsonRequest12.setReqBody(millSheetNeedsVO);
                     ServiceResponse<List<MillSheetNeedsVO>> serviceResponse1 =  millSheetNeedsAPI.findByType(jsonRequest12);
                     //远程下载
                     String millSheetUrl= serviceResponse1.getRetContent().get(0).getSpeNeedUrl();
