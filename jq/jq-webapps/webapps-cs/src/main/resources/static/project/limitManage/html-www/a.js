@@ -1,4 +1,5 @@
-//树形菜单渲染 
+
+//树形菜单渲染
 function treeCheck(){
     this.data = {};
     this.isAllChecked = null;//该属性是否把子集全选

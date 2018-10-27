@@ -1,6 +1,7 @@
 package jq.steel.cs.webapps.cs.app.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Auther: <a mailto:xuyongming@ennew.cn>xuyongming</a>
@@ -12,6 +13,7 @@ public class AppAcct implements Serializable {
     private String name;// 用户名
     private String oInfoName;//客户名称
     private String acctType;// 0普通用户、1管理员（有审核权限）
+    private List<String> limitCode;
 
     public String getSessionId() {
         return sessionId;
@@ -51,5 +53,13 @@ public class AppAcct implements Serializable {
 
     public void setAcctType(String acctType) {
         this.acctType = acctType;
+    }
+
+    public List<String> getLimitCode() {
+        return limitCode;
+    }
+
+    public void setLimitCode(List<String> limitCode) {
+        this.limitCode = limitCode;
     }
 }

@@ -50,12 +50,18 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             MillCoilInfo coilInfo = new MillCoilInfo();
             coilInfo.setZcharg(millSheetHosts.getZcharg());
             List<MillCoilInfo> list = millCoilInfoMapper.findMillsheetNumber(coilInfo);
-            List<String> idall = new ArrayList<>();
-           for (int i = 0; i < list.size(); i++){
-               idall.add(list.get(i).getMillsheetNo());
-           }
+            if(list.size()>0){
+                List<String> idall = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++){
+                    idall.add(list.get(i).getMillsheetNo());
+                }
+                millSheetHosts.setMillSheetNos(idall);
+            }else {
+                List<String> idall = new ArrayList<>();
+                idall.add("-99");
+                millSheetHosts.setMillSheetNos(idall);
+            }
 
-            millSheetHosts.setMillSheetNos(idall);
         }
         if(millSheetHosts.getDeptCode()!=null&& millSheetHosts.getDeptCode()!=""){
             millSheetHosts.setDeptCodes(null);
@@ -96,12 +102,17 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 MillCoilInfo coilInfo = new MillCoilInfo();
                 coilInfo.setZcharg(millSheetHosts.getZcharg());
                 List<MillCoilInfo> list = millCoilInfoMapper.findMillsheetNumber(coilInfo);
-                List<String> idall = new ArrayList<>();
-                for (int i = 0; i < list.size(); i++){
-                    idall.add(list.get(i).getMillsheetNo());
+                if(list.size()>0){
+                    List<String> idall = new ArrayList<>();
+                    for (int i = 0; i < list.size(); i++){
+                        idall.add(list.get(i).getMillsheetNo());
+                    }
+                    millSheetHosts.setMillSheetNos(idall);
+                }else {
+                    List<String> idall = new ArrayList<>();
+                    idall.add("-99");
+                    millSheetHosts.setMillSheetNos(idall);
                 }
-
-                millSheetHosts.setMillSheetNos(idall);
             }
             if(millSheetHosts.getDeptCode()!=null&& millSheetHosts.getDeptCode()!=""){
                 millSheetHosts.setDeptCodes(null);
@@ -209,6 +220,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
         }
         for (MillSheetHosts millSheetHosts1:millSheetHosts){
             MillSheetHosts url = millSheetHostsMapper.findUrl(millSheetHosts1);
+            millSheetHosts1.setSpecialNeed(url.getSpecialNeed());
             millSheetHosts1.setMillSheetPath(url.getMillSheetUrl()+"/"+url.getMillSheetName());
             millSheetHosts1.setMillSheetUrl(url.getMillSheetUrl());
             millSheetHosts1.setMillSheetName(url.getMillSheetName());
@@ -285,6 +297,34 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
         }
         return millSheetHostsVO;
     }
+
+
+    //查询条件校验钢卷编号是否正确
+    @Override
+    public MillSheetHostsVO checkCoil(MillSheetHostsVO millSheetHostsVO) {
+        //转换mdel
+        MillSheetHosts millSheetHosts = new MillSheetHosts();
+        BeanCopyUtil.copy(millSheetHostsVO,millSheetHosts);
+        List<MillSheetHosts> list =millSheetHostsMapper.checkCoil(millSheetHosts);
+        if (list.size()>0){
+            List<MillSheetHosts> alist =millSheetHostsMapper.checkCoil1(millSheetHosts);
+            if(alist.size()>0){
+                millSheetHosts.setTrue(true);
+                list.get(0).setTrue(true);
+                BeanCopyUtil.copy(list.get(0),millSheetHostsVO);
+            }else {
+                millSheetHosts.setTrue(false);
+                millSheetHosts.setCheckInstructions("此批/板/卷号"+millSheetHostsVO.getZcharg()+"所在的质证书的状态不符合查询条件");
+                BeanCopyUtil.copy(millSheetHosts,millSheetHostsVO);
+            }
+        }else {
+            millSheetHosts.setTrue(false);
+            millSheetHosts.setCheckInstructions("此批/板/卷号"+millSheetHostsVO.getZcharg()+"不存在");
+            BeanCopyUtil.copy(millSheetHosts,millSheetHostsVO);
+        }
+        return millSheetHostsVO;
+    }
+
 
 
     //返回app端质证书下载路径

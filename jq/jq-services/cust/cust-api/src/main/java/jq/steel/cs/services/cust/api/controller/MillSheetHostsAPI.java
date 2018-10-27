@@ -78,6 +78,16 @@ public interface MillSheetHostsAPI {
     @RequestMapping(value = "/millsheet/findIsTrue",method = RequestMethod.POST)
     ServiceResponse<MillSheetHostsVO> findIsTrue(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest);
 
+
+    /**
+     * 查询条件校验钢卷编号是否正确
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/millsheet/checkCoil",method = RequestMethod.POST)
+    ServiceResponse<MillSheetHostsVO> checkCoil(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest);
+
+
     /**
      *
      * @param jsonRequest
