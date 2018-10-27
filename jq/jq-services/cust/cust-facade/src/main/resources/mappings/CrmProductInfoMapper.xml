@@ -311,7 +311,7 @@
   </select>
   <select id="getIntroductList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductInfo" >
     select
-    <include refid="Base_Column_List" />
+    *
     from CRM_PRODUCT_INFO
     <trim prefix="WHERE" prefixOverrides="AND |OR">
       <if test="productName != null and productName != '' " >
