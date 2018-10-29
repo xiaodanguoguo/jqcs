@@ -103,7 +103,7 @@ public class AppCrmProductCategoryController {
                 List<CrmProductInfoVO> list = serviceResponse.getRetContent().getResultData();
                 if (CollectionUtils.isNotEmpty(list)) {
                     for (CrmProductInfoVO crmProductInfoVO : list) {
-                        List<String> thumbnailList = JsonUtil.parseObject(crmProductInfoVO.getProductManual(), List.class);
+                        List<String> thumbnailList = JsonUtil.parseObject(crmProductInfoVO.getThumbnail(), List.class);
 
                         List<String> thumlList = new ArrayList<>();
                         for(String str : thumbnailList){
