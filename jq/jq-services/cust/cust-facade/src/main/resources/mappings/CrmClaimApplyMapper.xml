@@ -883,7 +883,8 @@
           and a.CLAIM_STATE = #{claimState}
         </when>
         <otherwise>
-          and a.CLAIM_STATE = 'NEW' or a.CLAIM_STATE = 'PRESENT' or a.CLAIM_STATE = 'REJECT'
+          and a.CLAIM_STATE = 'NEW' or a.CLAIM_STATE = 'PRESENT'
+          or a.CLAIM_STATE = 'ACCEPTANCE' or a.CLAIM_STATE = 'REJECT'
         </otherwise>
       </choose>
     </trim>
@@ -970,7 +971,8 @@
           and a.CLAIM_STATE = #{claimState}
         </when>
         <otherwise>
-          and a.CLAIM_STATE = 'NEW' or a.CLAIM_STATE = 'PRESENT' or a.CLAIM_STATE = 'REJECT'
+          and a.CLAIM_STATE = 'NEW' or a.CLAIM_STATE = 'PRESENT'
+          or a.CLAIM_STATE = 'ACCEPTANCE' or a.CLAIM_STATE = 'REJECT'
         </otherwise>
       </choose>
     </trim>
