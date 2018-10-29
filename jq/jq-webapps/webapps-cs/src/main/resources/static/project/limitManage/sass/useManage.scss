@@ -252,7 +252,8 @@
   width: 70px;
   height: 32px;
   cursor: pointer;
-  line-height: 32px;    background-color: #fff;
+  line-height: 32px;
+  background-color: #fff;
   padding: 10px;
   color: #333;
   border: 1px solid #ccc;
@@ -273,5 +274,25 @@
 .inputBaseList{
   position: inherit;
   float: left;
+}
+
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {
+  color: #666;
+  font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+input:-moz-placeholder,textarea:-moz-placeholder {
+  color: #666;
+  font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+input::-moz-placeholder,textarea::-moz-placeholder {
+  color: #666;
+  font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+input:-ms-input-placeholder,textarea:-ms-input-placeholder {
+  color: #666;
+  font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
