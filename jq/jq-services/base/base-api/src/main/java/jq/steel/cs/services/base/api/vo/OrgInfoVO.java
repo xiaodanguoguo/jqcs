@@ -105,6 +105,9 @@ public class OrgInfoVO{
 	// 邮箱
 	private String email;
 
+	// 注册类型
+	private Integer regType;
+
 	public OrgInfoVO getParent() {
 		return parent;
 	}
@@ -263,5 +266,13 @@ public class OrgInfoVO{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Integer getRegType() {
+		return regType;
+	}
+
+	public void setRegType(Integer regType) {
+		this.regType = regType;
 	}
 }

@@ -117,7 +117,7 @@ public class AppLoginController {
 
         try{
             AcctInfoVO acctInfoVO = jsonRequest.getReqBody();
-
+            acctInfoVO.setRegType(2);
             ServiceResponse<String> response =  backMemberAPI.userRegister(acctInfoVO);
 
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode())) {

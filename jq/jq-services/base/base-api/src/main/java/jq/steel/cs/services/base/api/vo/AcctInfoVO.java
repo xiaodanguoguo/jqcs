@@ -119,6 +119,9 @@ public class AcctInfoVO {
     // 公司代码
     private String bukrs;
 
+    // 注册类型
+    private Integer regType;
+
     public String getOrgCode() {
         return orgCode;
     }
@@ -494,5 +497,13 @@ public class AcctInfoVO {
 
     public void setBukrs(String bukrs) {
         this.bukrs = bukrs;
+    }
+
+    public Integer getRegType() {
+        return regType;
+    }
+
+    public void setRegType(Integer regType) {
+        this.regType = regType;
     }
 }

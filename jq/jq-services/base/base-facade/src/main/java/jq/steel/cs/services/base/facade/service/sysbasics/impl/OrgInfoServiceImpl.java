@@ -278,8 +278,8 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		orgInfo2.setStatus(Status.START.getCode());
 		orgInfo2.setTel(orgInfo.getTel());
 		Long k = orgInfoMapper.insertOrgInfo(orgInfo2);
-		this.addDefaultRole(orgInfo2.getId());
-		messageService.sendEmailWithAttachment(SUCCESS_CODE, TITLE, messageVO, null, null);
+//		this.addDefaultRole(orgInfo2.getId());
+//		messageService.sendEmailWithAttachment(SUCCESS_CODE, TITLE, messageVO, null, null);
 		return i;
 	}
 

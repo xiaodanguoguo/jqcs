@@ -78,6 +78,9 @@ public class AcctInfo {
 
     private Long purchaseType;      //1执行采购员2寻源采购员
 
+    // 注册类型
+    private Integer regType;
+
     public Long getPurchaseType() {
         return purchaseType;
     }
@@ -357,5 +360,13 @@ public class AcctInfo {
 
     public void setOrgName(String orgName) {
         this.orgName = orgName;
+    }
+
+    public Integer getRegType() {
+        return regType;
+    }
+
+    public void setRegType(Integer regType) {
+        this.regType = regType;
     }
 }

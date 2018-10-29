@@ -21,6 +21,7 @@
     <result column="TEL" property="tel"  />
     <result column="ADDR" property="addr"  />
     <result column="EMAIL" property="email"  />
+    <result column="REG_TYPE" property="regType"  />
   </resultMap>
   
   <insert id="insertOrgInfo"  parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
@@ -40,7 +41,8 @@
 		ORG_TYPE,
 		TEL,
 		ADDR,
-		EMAIL
+		EMAIL,
+		REG_TYPE
 	)
 	VALUES
 		(
@@ -59,7 +61,8 @@
 			#{orgType},
 			#{tel},
 			#{addr},
-			#{email}
+			#{email},
+			#{regType}
 		)
 
   </insert>
@@ -433,6 +436,7 @@
 		a.TEL,
 		a.ADDR,
 		a.email,
+		a.REG_TYPE,
 		b.ORG_NAME as PARENT_NAME
  	FROM
 		org_info a left join

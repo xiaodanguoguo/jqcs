@@ -112,6 +112,9 @@ public class OrgInfo{
 
 	private String email;
 
+	// 注册类型
+	private Integer regType;
+
 	//标识
 	private Boolean isTrue;
 
@@ -282,5 +285,13 @@ public class OrgInfo{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Integer getRegType() {
+		return regType;
+	}
+
+	public void setRegType(Integer regType) {
+		this.regType = regType;
 	}
 }
