@@ -76,3 +76,11 @@
 .userNewPopup-ulListBox-list-btn { width: 70px; height: 32px; cursor: pointer; line-height: 32px; background-color: #fff; padding: 10px; color: #333; border: 1px solid #ccc; border-radius: 5px; width: 200px; display: inline-block; line-height: 20px; position: absolute; z-index: 100; -ms-word-break: break-all; word-break: break-all; text-align: left; text-align: center; border-radius: 2px; background: #2d8cf0; color: #fff; }
 
 .inputBaseList { position: inherit; float: left; }
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #666; font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+input:-moz-placeholder, textarea:-moz-placeholder { color: #666; font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+input::-moz-placeholder, textarea::-moz-placeholder { color: #666; font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+input:-ms-input-placeholder, textarea:-ms-input-placeholder { color: #666; font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif; }
