@@ -269,34 +269,35 @@
     <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
       SELECT SEQ_CRM_CLAIM_APPLY.nextval  FROM DUAL
     </selectKey>
-    insert into CRM_CLAIM_APPLY (SID, CLAIM_NO, PRODUCT_ID, 
-      PRODUCT_NAME, MILL_SHEET_NO, CUSTOMER_ID, 
-      CUSTOMER_NAME, CUST_ADDR, CUST_EMP_NO, 
-      CUST_TEL, LAST_USER_ID, LAST_USER, 
-      LAST_USER_ADDR, CREATE_EMP_NO, LAST_USER_TEL, 
-      LAST_USER_EMAIL, BATTEN_PLATE_NO, DESIGNATION, 
-      USED, CONTRACT_NO, CONTRACT_VOLUME, 
-      SIZE_MARK, ORIGINAL_WEIGHT, ORDER_NO, 
-      ORIGINAL_CAR_NO, CONTRACT_UNIT_PRICE, OBJECTION_NUM, 
-      END_PROCESSING_TECH, CLAIM_DESC, CLAIM_REASON, 
-      STEEL_TYPE, PRO_PROBLEM, PRO_DETAIL, 
-      CLAIM_STATE, FILE_PATH, REJECT_REASON, 
-      CREATED_BY, CREATED_DT, UPDATED_BY, 
+    insert into CRM_CLAIM_APPLY (SID, CLAIM_NO, PRODUCT_ID,
+      PRODUCT_NAME, MILL_SHEET_NO, CUSTOMER_ID,
+      CUSTOMER_NAME, CUST_ADDR, CUST_EMP_NO,
+      CUST_TEL, LAST_USER_ID, LAST_USER,
+      LAST_USER_ADDR, CREATE_EMP_NO, LAST_USER_TEL,
+      LAST_USER_EMAIL, BATTEN_PLATE_NO, DESIGNATION,
+      USED, CONTRACT_NO, CONTRACT_VOLUME,
+      SIZE_MARK, ORIGINAL_WEIGHT, ORDER_NO,
+      ORIGINAL_CAR_NO, CONTRACT_UNIT_PRICE, OBJECTION_NUM,
+      END_PROCESSING_TECH, CLAIM_DESC, CLAIM_REASON,
+      STEEL_TYPE, PRO_PROBLEM, PRO_DETAIL,
+      CLAIM_STATE, FILE_PATH, REJECT_REASON,
+      CREATED_BY, CREATED_DT, UPDATED_BY,
       UPDATED_DT, VERSION,DISSENTING_UNIT,ADMISSIBILITY_TIME,
       PRESENTATION_DATE,ADMISSIBILITY_USER,PRESENTATION_USER,REASONS_FOR_COMPULSORY_CLOSURE,REPORT_PICTURE,OBJECTION_CONFIRMATION)
-    values (#{sid,jdbcType=NUMERIC}, #{claimNo,jdbcType=VARCHAR}, #{productId,jdbcType=NUMERIC}, 
-      #{productName,jdbcType=VARCHAR}, #{millSheetNo,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, 
-      #{customerName,jdbcType=VARCHAR}, #{custAddr,jdbcType=VARCHAR}, #{custEmpNo,jdbcType=VARCHAR}, 
-      #{custTel,jdbcType=VARCHAR}, #{lastUserId,jdbcType=VARCHAR}, #{lastUser,jdbcType=VARCHAR}, 
-      #{lastUserAddr,jdbcType=VARCHAR}, #{createEmpNo,jdbcType=VARCHAR}, #{lastUserTel,jdbcType=VARCHAR}, 
-      #{lastUserEmail,jdbcType=VARCHAR}, #{battenPlateNo,jdbcType=VARCHAR}, #{designation,jdbcType=VARCHAR}, 
-      #{used,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, #{contractVolume,jdbcType=NUMERIC}, 
-      #{specs,jdbcType=VARCHAR}, #{originalWeight,jdbcType=NUMERIC}, #{orderNo,jdbcType=VARCHAR},
-      #{originalCarNo,jdbcType=VARCHAR}, #{contractUnitPrice,jdbcType=NUMERIC}, #{objectionNum,jdbcType=NUMERIC}, 
-      #{endProcessingTech,jdbcType=VARCHAR}, #{claimDesc,jdbcType=VARCHAR}, #{claimReason,jdbcType=VARCHAR}, 
-      #{steelType,jdbcType=VARCHAR}, #{proProblem,jdbcType=VARCHAR}, #{proDetail,jdbcType=VARCHAR}, 
-      #{claimState,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, #{rejectReason,jdbcType=VARCHAR}, 
-      #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, 
+    values (#{sid,jdbcType=NUMERIC}, #{claimNo,jdbcType=VARCHAR}, #{productId,jdbcType=NUMERIC},
+      #{productName,jdbcType=VARCHAR}, #{millSheetNo,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR},
+      #{customerName,jdbcType=VARCHAR}, #{custAddr,jdbcType=VARCHAR}, #{custEmpNo,jdbcType=VARCHAR},
+      #{custTel,jdbcType=VARCHAR}, #{lastUserId,jdbcType=VARCHAR}, #{lastUser,jdbcType=VARCHAR},
+      #{lastUserAddr,jdbcType=VARCHAR}, #{createEmpNo,jdbcType=VARCHAR}, #{lastUserTel,jdbcType=VARCHAR},
+      #{lastUserEmail,jdbcType=VARCHAR}, #{battenPlateNo,jdbcType=VARCHAR}, #{designation,jdbcType=VARCHAR},
+      #{used,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, #{contractVolume,jdbcType=NUMERIC},
+
+      #{sizeMark,jdbcType=VARCHAR}, #{originalWeight,jdbcType=NUMERIC}, #{orderNo,jdbcType=VARCHAR},
+      #{originalCarNo,jdbcType=VARCHAR}, #{contractUnitPrice,jdbcType=NUMERIC}, #{objectionNum,jdbcType=NUMERIC},
+      #{endProcessingTech,jdbcType=VARCHAR}, #{claimDesc,jdbcType=VARCHAR}, #{claimReason,jdbcType=VARCHAR},
+      #{steelType,jdbcType=VARCHAR}, #{proProblem,jdbcType=VARCHAR}, #{proDetail,jdbcType=VARCHAR},
+      #{claimState,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, #{rejectReason,jdbcType=VARCHAR},
+      #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR},
       #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC},#{dissentingUnit,jdbcType=NUMERIC},
       #{admissibilityTime,jdbcType=TIMESTAMP},#{presentationDate,jdbcType=TIMESTAMP},
       #{admissibilityUser,jdbcType=VARCHAR},#{presentationUser,jdbcType=VARCHAR},
@@ -371,7 +372,7 @@
       <if test="contractVolume != null" >
         CONTRACT_VOLUME,
       </if>
-      <if test="specs != null and specs != ''" >
+      <if test="sizeMark != null and specs != ''" >
         SIZE_MARK,
       </if>
       <if test="originalWeight != null" >
@@ -914,7 +915,7 @@
 
     A.ADMISSIBILITY_USER AS NEED_USER,
     A.ADMISSIBILITY_TIME AS TIBAO_ADMISSIBILITY_TIME,
-    E.REJECT_REASON AS PRODUCTION_REJECT_REASON,
+    C.REJECT_REASON AS PRODUCTION_REJECT_REASON,
 
 
     case when B.DEPT_CODE = '1000' then '不锈'
@@ -1009,7 +1010,7 @@
     A.CUST_TEL,
     A.LAST_USER_TEL,
     A.CREATE_EMP_NO,
-
+    A.CREATED_DT,
 
     case when B.DEPT_CODE = '1000' then '不锈'
     when B.DEPT_CODE = '2000' then '炼轧'

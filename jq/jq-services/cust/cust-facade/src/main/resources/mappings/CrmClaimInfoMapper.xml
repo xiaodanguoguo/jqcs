@@ -277,7 +277,7 @@
         CLAIM_DESC,
       </if>
       <if test="claimReason != null and claimReason != ''" >
-        CLAIM_REASON,
+        CLAIM_REASION,
       </if>
       <if test="claimState != null and claimState != ''" >
         CLAIM_STATE,

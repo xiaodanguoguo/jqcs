@@ -22,7 +22,7 @@ import java.util.Map;
 @FeignClient(value = "${ser.name.base}")
 public interface AcctAPI {
 
-    /**
+    /**userRegister
      * 账号注册
      * @param acctInfoVO
      * @return

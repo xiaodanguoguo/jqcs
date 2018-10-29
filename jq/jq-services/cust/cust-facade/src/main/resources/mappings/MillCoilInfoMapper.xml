@@ -589,6 +589,16 @@ FROM
         and mcd.SHOW_FLAG = #{showFlag}
       </if>
     </trim>
+
+    ORDER BY
+    CASE
+    WHEN  MCD_KURZTEXT = 'C'then 1
+    WHEN  MCD_KURZTEXT = 'Si'then 2
+    WHEN  MCD_KURZTEXT = 'Mn'then 3
+    WHEN  MCD_KURZTEXT = 'P'then 4
+    WHEN  MCD_KURZTEXT = 'S'then 5
+    END
+
   </select>
 
   <select id="getPhysicsListByQrCode" resultMap="MapForCoilAndPhysics">

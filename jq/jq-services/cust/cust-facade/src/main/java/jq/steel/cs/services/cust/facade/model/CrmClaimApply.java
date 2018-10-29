@@ -125,7 +125,7 @@ public class CrmClaimApply {
 
     private String battenPlateNo;
 
-    private String designation;
+    private String designation;     //产品牌号
 
     private String used;
 

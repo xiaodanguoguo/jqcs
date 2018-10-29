@@ -121,6 +121,7 @@ public class ObjectionTiBaoVO {
 
     private String createdBy;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createdDt;
 
     private String updatedBy;

@@ -306,7 +306,8 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 crmClaimApply.setCreatedBy(acctName);
                 crmClaimApply.setCustomerId(orgCode);
                 crmClaimApply.setCreatedDt(new Date());
-                Integer integer = crmClaimApplyMapper.insertSelective(crmClaimApply);
+              //  Integer integer = crmClaimApplyMapper.insertSelective(crmClaimApply);
+                Integer integer = crmClaimApplyMapper.insert(crmClaimApply);
                 //备份表
                 crmClaimApplyCopy.setClaimState("NEW");
                 crmClaimApplyCopy.setClaimNo(claimNo);

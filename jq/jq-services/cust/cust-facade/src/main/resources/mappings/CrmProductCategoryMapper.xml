@@ -201,7 +201,7 @@
   </select>
   <select id="getIntroductList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
     select
-    <include refid="Base_Column_List" />
+    *
     from CRM_PRODUCT_CATEGORY
     <trim prefix="WHERE" prefixOverrides="AND |OR">
       <if test="categoryName != null and categoryName != '' " >
