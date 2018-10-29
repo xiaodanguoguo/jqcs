@@ -1,6 +1,5 @@
 package jq.steel.cs.services.cust.facade.dao;
 
-import feign.Param;
 import jq.steel.cs.services.cust.api.vo.CrmClaimCommentsVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoCountVO;
 import jq.steel.cs.services.cust.facade.model.CrmClaimApply;
@@ -42,5 +41,5 @@ public interface CrmClaimApplyMapper {
     CrmClaimApply getByClaimNo(CrmClaimCommentsVO vo);
 
     //如果是已受理的状态,就使用查询受理人和受理人电话；已驳回状态，销售驳回原因和生产驳回原因的sql。
-    List<CrmClaimApply> findTiBaoByPageAndAcceptanceState();
+    List<CrmClaimApply> findTiBaoByPageAndAcceptanceState(CrmClaimApply apply);
 }
