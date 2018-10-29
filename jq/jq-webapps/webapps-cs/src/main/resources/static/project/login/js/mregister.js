@@ -90,6 +90,11 @@ function clsMethodLee$operate(){
         }
     });
 
+    //注册说明
+    $("#registerExplain").on("click",function(){
+        openWin("990","550","registerExplainPop",true);
+    });
+
 }
 function clsMethodLee$refresh(){
 

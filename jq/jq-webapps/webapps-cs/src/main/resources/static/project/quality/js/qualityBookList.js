@@ -489,6 +489,7 @@ function backSureCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         closePopupWin();
+        initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path7,null,"POST");
         var alertBox=new clsAlertBoxCtrl();
         alertBox.Alert("电子质证书，编号："+ document.body.jsLee.millSheetNo +"，已经回退","成功提示");
     }
