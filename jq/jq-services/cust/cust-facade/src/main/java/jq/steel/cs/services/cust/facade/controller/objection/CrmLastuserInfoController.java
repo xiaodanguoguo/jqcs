@@ -101,7 +101,7 @@ public class CrmLastuserInfoController {
      * @Date: 2018/9/13
      */
     @RequestMapping(value ="/list", method = RequestMethod.POST)
-    ServiceResponse<List<CrmLastuserInfoVO>> findunitOfUseList(JsonRequest<CrmLastuserInfoVO> jsonRequest) {
+    ServiceResponse<List<CrmLastuserInfoVO>> findunitOfUseList(@RequestBody JsonRequest<CrmLastuserInfoVO> jsonRequest) {
         logger.info("分页", JsonUtil.toJson(jsonRequest));
         ServiceResponse<List<CrmLastuserInfoVO>> serviceResponse = new ServiceResponse<>();
         try {
