@@ -163,6 +163,11 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         }else if(jsonItem.status == 5){
             $(cloneRow).find("#statusA").html("审核完成");
         }
+        if(jsonItem.regType == 1){
+            $(cloneRow).find("#regTypeA").html("PC");
+        }else if(jsonItem.regType == 2){
+            $(cloneRow).find("#regTypeA").html("APP");
+        }
         //客户类型
         if(jsonItem.orgType == 1){
             $(cloneRow).find("#orgTypeAb").html("销售公司");
