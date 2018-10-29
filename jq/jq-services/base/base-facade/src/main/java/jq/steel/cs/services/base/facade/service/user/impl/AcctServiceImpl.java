@@ -100,7 +100,7 @@ public class AcctServiceImpl implements AcctService {
         vo.setAcctTitle(acctInfoVO.getAcctTitle());
         vo.setEmail(acctInfoVO.getEmail());
         vo.setMobilePhone(acctInfoVO.getMobilePhone());
-        List<AcctInfo> acctInfos = acctInfoMapper.find(vo);
+        List<AcctInfo> acctInfos = acctInfoMapper.selectAll(BeanCopyUtil.copy(acctInfoVO, AcctInfo.class));
 
         OrgInfo orgInfo = new OrgInfo();
         orgInfo.setOrgName(acctInfoVO.getCompanyName());
