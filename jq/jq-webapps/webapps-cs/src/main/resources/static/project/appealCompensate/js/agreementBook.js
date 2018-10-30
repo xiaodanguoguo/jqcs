@@ -1,7 +1,8 @@
 function clsMethodLee(){
     this.requestUrl = {
         "path1":"/objectionChuLi/findAll",//数据回显接口
-        "path2":"/objectionChuLi/agreementUpdate"//协议书保存/提交/审核 1是保存2是提交3是驳回4是通过
+        "path2":"/objectionChuLi/agreementUpdate",//协议书保存/提交/审核 1是保存2是提交3是驳回4是通过
+        "path3":"/objectionChuLi/look"//预览接口
     };
     this.documentLee = null;
     this.claimNo = GetQueryString("claimNo") == null ? "":GetQueryString("claimNo");//异议编号
@@ -43,7 +44,7 @@ function clsMethodLee$parse(){
             //不可编辑
             ue.setDisabled();
         });
-        $("#returnPrev").show();
+        //$("#returnPrev").show();
     }else if(this.htmlType == 3){//协议书详情页面
         $("#htmlBox input").attr("disabled",true).addClass("changeGary");
         $("#htmlBox textarea").attr("disabled",true).addClass("changeGary");
@@ -52,7 +53,7 @@ function clsMethodLee$parse(){
             //不可编辑
             ue.setDisabled();
         });
-        $("#returnPrev").show();
+        //$("#returnPrev").show();
     }
     getAjaxResult(document.body.jsLee.requestUrl.path1,"POST",{"claimNo":this.claimNo},"initHtmlCallBack(data)")
     $("#claimNo").html(this.claimNo);
@@ -116,6 +117,12 @@ function clsMethodLee$operate(){
         jumpUrl("objectionDeal.html","0000000",0);
     });
 
+    //预览
+    $("*[id=firstPreview]").on("click",function(){
+        var jsonParam = {"claimNo":"","templateType":5};
+        getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",jsonParam,"firstPreviewCallBack(data)")
+    });
+
 }
 function clsMethodLee$refresh(){
 
@@ -148,6 +155,14 @@ function initHtmlCallBack(data){
             // data.rspBody.inquireInfo = '<p>123123<img style="max-width: 400px; width: 220px; height: 145px;" src="http://192.168.1.115:20183/res/2018/08/jpg/20180830105725_8759.jpg" title="abc.jpg" alt="abc.jpg" width="220" height="145"/></p>';
             ue.setContent(data.rspBody.fieldConclusion);  //赋值给UEditor
         });
+    }
+}
+
+//预览回调
+function firstPreviewCallBack(data) {
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody.report,"0000000","1");
     }
 }
 
