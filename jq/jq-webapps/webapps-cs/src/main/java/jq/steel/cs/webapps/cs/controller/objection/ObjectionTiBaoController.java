@@ -60,6 +60,7 @@ public class ObjectionTiBaoController {
         JsonResponse<PageDTO<ObjectionTiBaoVO>> jsonResponse = new JsonResponse<>();
         String acctId = AssertContext.getAcctId();
         String orgType = AssertContext.getOrgType();
+        String orgId = AssertContext.getOrgId();
         jsonRequest.getReqBody().setOrgType(orgType);
         ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
         List<String> list = new ArrayList<>();
@@ -74,7 +75,7 @@ public class ObjectionTiBaoController {
         //销售公司下的客户名称集合
         List<String> customers = new ArrayList<>();
         if(orgType.equals("1")){
-            ServiceResponse<List<OrgInfoVO>>  hh = orgInfoServiceAPI.findOrgNameByOrgId(orgType);
+            ServiceResponse<List<OrgInfoVO>>  hh = orgInfoServiceAPI.findOrgNameByOrgId(orgId);
             for (OrgInfoVO orgInfoVO:hh.getRetContent()){
                 customers.add(orgInfoVO.getOrgName());
             }

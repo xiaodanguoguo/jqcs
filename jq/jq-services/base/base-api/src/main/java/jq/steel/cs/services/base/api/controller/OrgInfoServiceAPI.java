@@ -146,7 +146,7 @@ public interface OrgInfoServiceAPI {
 	 * @Date: 2018/10/24
 	 */
 	@RequestMapping(value = "/findOrgNameByOrgId", method = RequestMethod.POST)
-	ServiceResponse<List<OrgInfoVO>> findOrgNameByOrgId(@RequestBody String acctId);
+	ServiceResponse<List<OrgInfoVO>> findOrgNameByOrgId(@RequestBody String orgId);
 
 
 }

@@ -343,11 +343,11 @@ public class OrgInfoController {
 	 * @Date: 2018/10/24
 	 */
 	@RequestMapping(value = "/findOrgNameByOrgId", method = RequestMethod.POST)
-	public  ServiceResponse<List<OrgInfoVO>> findOrgNameByOrgId(@RequestBody String orgType)  {
+	public  ServiceResponse<List<OrgInfoVO>> findOrgNameByOrgId(@RequestBody String orgId)  {
 		ServiceResponse<List<OrgInfoVO>> serviceResponse = new ServiceResponse<>();
 		try {
 			OrgInfoVO orgInfoVO = new OrgInfoVO();
-			orgInfoVO.setOrgType(orgType);
+			orgInfoVO.setParentId(orgId);
 			List<OrgInfoVO> list= orgInfoService.findOrgNameByOrgId(orgInfoVO);
 			serviceResponse.setRetContent(list);
 		} catch (Exception e) {
