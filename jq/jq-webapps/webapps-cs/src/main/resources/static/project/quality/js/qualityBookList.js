@@ -58,11 +58,17 @@ function clsMethodLee$operate(){
             var alertBox=new clsAlertBoxCtrl();
             alertBox.Alert("请勾选将要预览的质证书","失败提示");
         }else{
-            var millSheetNoArr = [];
+            /*var millSheetNoArr = [];
             for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
                 millSheetNoArr.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":1});
             }
-            getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",millSheetNoArr,"previewCallBack(data)")
+            getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",millSheetNoArr,"previewCallBack(data)")*/
+            var millSheetNoArr = [];
+            var millSheetNos = [];
+            for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
+                millSheetNoArr.push($("#tableList")[0].cacheArr[nI].millSheetNo);
+            }
+            jumpUrl("../../../generic/web/viewer1.html?file=/millsheet/preview/"+JSON.stringify(millSheetNoArr),"0000000","1");
         }
     });
     //预览弹框点击上一页下一页
