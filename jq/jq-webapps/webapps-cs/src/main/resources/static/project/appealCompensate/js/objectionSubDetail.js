@@ -16,13 +16,15 @@ function clsMethodLee(){
         "path13":"/objectionDiaoCha/updateInside",//1内部保存2内部提交
         "path14":"/orderUnit/orderUnitInsert",//订货单位新增/修改
         "path15":"/unitOfUse/unitOfUseInsert",//使用单位新增/修改
-        "path16":"/orderUnit/customerInfo"//订货单位获取当前登录人信息
+        "path16":"/orderUnit/customerInfo",//订货单位获取当前登录人信息
+        "path17":"/objectionChuLi/look"//预览接口
     };
     this.operateType = "";//操作类型 0-订货单位新增 1-订货单位编辑  2-使用单位新增  3-使用单位编辑
     this.opeDom = "";
     this.documentLee = null;
     this.htmlType = GetQueryString("htmlType");//判断页面类型0——新建 1修改 2——详情  3——销售审核  4——外部调查  5——内部调查 6-确认书审核  7-销售审核详情页面
     this.claimNo = GetQueryString("claimNo") == null ? "":GetQueryString("claimNo");//异议编号
+    this.claimNoPreview = GetQueryString("claimNo") == null ? "":GetQueryString("claimNo");//异议编号
     this.filePath = [];//异议产品图片:
     this.reportPictures = "";//质量异议报告图片:
     this.selectedMark = {//判断发生异议单位和异议类别是否选中
@@ -133,7 +135,7 @@ function clsMethodLee$parse(){
             $(".box6").remove();
             $("#submitBox input").attr("disabled",true).addClass("changeGary");
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
-            this.returnPrev.show();
+            //this.returnPrev.show();
             getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":this.claimNo,"optionType":3},"htmlInit(data)");//数据回显操作
             break;
         case 3://销售审核
@@ -222,7 +224,7 @@ function clsMethodLee$parse(){
             $(".box3:last").remove();
             $("#submitBox input").attr("disabled",true).addClass("changeGary");
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
-            this.returnPrev.show();
+            //this.returnPrev.show();
             getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":this.claimNo,"optionType":4},"htmlInit(data)");//数据回显操作
             break;
         case 8://外部调查报告详情
@@ -239,7 +241,7 @@ function clsMethodLee$parse(){
             $(".box4:last").remove();
             $("#submitBox input").attr("disabled",true).addClass("changeGary");
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
-            this.returnPrev.show();
+            //this.returnPrev.show();
             getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"claimNo":this.claimNo,"optionType":1},"htmlInit2(data)");//数据回显操作
             break;
             break;
@@ -258,7 +260,7 @@ function clsMethodLee$parse(){
             $("#parentBox").prev().html("异议投诉描述:");
             $("#submitBox input").attr("disabled",true).addClass("changeGary");
             $("#submitBox textarea").attr("disabled",true).addClass("changeGary");
-            this.returnPrev.show();
+            //this.returnPrev.show();
             getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"claimNo":this.claimNo,"optionType":2},"htmlInit2(data)");//数据回显操作
             break;
     }
@@ -325,7 +327,7 @@ function clsMethodLee$operate(){
             }else if(document.body.jsLee.htmlType == 1){//修改
                 jsonParam.optionStuts = 4;
             }
-            getAjaxResult(document.body.jsLee.requestUrl.path6,"POSt",jsonParam,"firstSaveCallBack(data)")
+            getAjaxResult(document.body.jsLee.requestUrl.path6,"POST",jsonParam,"firstSaveCallBack(data)")
         }else{
 
         }
@@ -347,7 +349,7 @@ function clsMethodLee$operate(){
         if(boxChecked()){
             var jsonParam = paramJson();
             jsonParam.optionStuts = 1;
-            getAjaxResult(document.body.jsLee.requestUrl.path6,"POSt",jsonParam,"firstSaveCallBack(data)")
+            getAjaxResult(document.body.jsLee.requestUrl.path6,"POST",jsonParam,"firstSaveCallBack(data)")
         }
     });
     //销售管理通过操作
@@ -357,7 +359,7 @@ function clsMethodLee$operate(){
         if(boxChecked()){
             var jsonParam = paramJson();
             jsonParam.optionStuts = 3;
-            getAjaxResult(document.body.jsLee.requestUrl.path6,"POSt",jsonParam,"firstSaveCallBack(data)")
+            getAjaxResult(document.body.jsLee.requestUrl.path6,"POST",jsonParam,"firstSaveCallBack(data)")
 
         }
     });
@@ -368,7 +370,7 @@ function clsMethodLee$operate(){
         if(boxChecked()){
             var jsonParam = paramJson();
             jsonParam.optionStuts = 2;
-            getAjaxResult(document.body.jsLee.requestUrl.path6,"POSt",jsonParam,"firstSaveCallBack(data)")
+            getAjaxResult(document.body.jsLee.requestUrl.path6,"POST",jsonParam,"firstSaveCallBack(data)")
         }
     });
 
@@ -379,7 +381,7 @@ function clsMethodLee$operate(){
         if(boxChecked()){
             var jsonParam = paramJson();
             jsonParam.optionType = 3;
-            getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
+            getAjaxResult(document.body.jsLee.requestUrl.path10,"POST",jsonParam,"secondSaveCallBack(data)")
         }
     });
     //外部调查跟踪按钮
@@ -389,7 +391,7 @@ function clsMethodLee$operate(){
         if(boxChecked()){
             var jsonParam = paramJson();
             jsonParam.optionType = 2;
-            getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
+            getAjaxResult(document.body.jsLee.requestUrl.path10,"POST",jsonParam,"secondSaveCallBack(data)")
         }
     });
     //外部调查保存按钮
@@ -399,7 +401,7 @@ function clsMethodLee$operate(){
         if(boxChecked()){
             var jsonParam = paramJson();
             jsonParam.optionType = 1;
-            getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
+            getAjaxResult(document.body.jsLee.requestUrl.path10,"POST",jsonParam,"secondSaveCallBack(data)")
         }
     });
     //内部调查保存按钮
@@ -408,7 +410,7 @@ function clsMethodLee$operate(){
         if(boxChecked()){
             var jsonParam = paramJson();
             jsonParam.optionType = 1;
-            getAjaxResult(document.body.jsLee.requestUrl.path13,"POSt",jsonParam,"secondSaveCallBack(data)")
+            getAjaxResult(document.body.jsLee.requestUrl.path13,"POST",jsonParam,"secondSaveCallBack(data)")
         }
     });
     //内部调查提交按钮
@@ -417,7 +419,7 @@ function clsMethodLee$operate(){
         if(boxChecked()){
             var jsonParam = paramJson();
             jsonParam.optionType = 2;
-            getAjaxResult(document.body.jsLee.requestUrl.path13,"POSt",jsonParam,"secondSaveCallBack(data)")
+            getAjaxResult(document.body.jsLee.requestUrl.path13,"POST",jsonParam,"secondSaveCallBack(data)")
         }
     });
     //确认书审核通过操作
@@ -427,7 +429,7 @@ function clsMethodLee$operate(){
         if(boxChecked()){
             var jsonParam = paramJson();
             jsonParam.optionType = 4;
-            getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
+            getAjaxResult(document.body.jsLee.requestUrl.path10,"POST",jsonParam,"secondSaveCallBack(data)")
 
         }
     });
@@ -438,7 +440,7 @@ function clsMethodLee$operate(){
         if(boxChecked()){
             var jsonParam = paramJson();
             jsonParam.optionType = 5;
-            getAjaxResult(document.body.jsLee.requestUrl.path10,"POSt",jsonParam,"secondSaveCallBack(data)")
+            getAjaxResult(document.body.jsLee.requestUrl.path10,"POST",jsonParam,"secondSaveCallBack(data)")
         }
     });
     /*//发生异议单位选中改变事件
@@ -475,19 +477,52 @@ function clsMethodLee$operate(){
 
     this.returnPrev.on("click",function () {//返回上一页
         switch (Number(document.body.jsLee.htmlType)) {
+            //判断页面类型（进行显示隐藏dom节点）0——新建 1修改 2——详情  3——销售审核  4——外部调查  5——内部调查 6-确认书审核（外部调查不可编辑）7-销售审核详情（销售审核不可编辑） 8-外部调查报告详情  9-内部调查报告详情
+            case 0://新建
+            case 1://修改
             case 2://详情
+            case 3://销售审核
                 jumpUrl("objectionSubmit.html","0000000",0);
                 break;
+            case 4://外部调查
+            case 5://内部调查
+            case 8://外部调查详情
+            case 9://内部调查详情
             case 7://销售审核详情
                 jumpUrl("objectionReasearch.html","0000000",0);
                 break;
-            case 8://外部调查详情
-                jumpUrl("objectionReasearch.html","0000000",0);
-                break;
-            case 9://内部调查详情
-                jumpUrl("objectionReasearch.html","0000000",0);
+            case 6://确认书审核
+                jumpUrl("objectionDeal.html","0000000",0);
                 break;
         }
+    });
+
+    //预览操作
+    $("#firstPreview").on("click",function(){
+        if(document.body.jsLee.claimNoPreview == ""){
+            alert("请先保存再进行预览");
+        }else{
+            var jsonParam = {"claimNo":document.body.jsLee.claimNoPreview};
+            switch (Number(document.body.jsLee.htmlType)){//类型
+                case 0:
+                    jsonParam.templateType = 1;
+                    break;
+                case 1:
+                    jsonParam.templateType = 1;
+                    break;
+                case 4:
+                    jsonParam.templateType = 2;
+                    break;
+                case 5:
+                    jsonParam.templateType = 3;
+                    break;
+                case 6:
+                    jsonParam.templateType = 4;
+                    break;
+            }
+            getAjaxResult(document.body.jsLee.requestUrl.path17,"POST",jsonParam,"firstPreviewCallBack(data)")
+        }
+
     });
 }
 function clsMethodLee$refresh(){
@@ -674,6 +709,14 @@ function battenPlateNoCheckCallBack(data){
     }
 }
 
+//预览回调
+function firstPreviewCallBack(data) {
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        jumpUrl("../../appealCompensate/html-gulp-www/pdfView.html?pdfUrl=" + data.rspBody.report,"0000000","1");
+    }
+}
+
 function boxChecked(){
     initValidate($("#submitBox")[0]);
     var valiClass=new clsValidateCtrl();
@@ -765,7 +808,7 @@ function firstSaveCallBack(data){
         garyDom(document.body.jsLee.opeDom)
         /*var alertBox=new clsAlertBoxCtrl();
         alertBox.Alert(data.retDesc,"成功提示",1,"","successJump");*/
-        jumpUrl("objectionSubmit.html","0000000",0);
+        //jumpUrl("objectionSubmit.html","0000000",0);
     }
 }
 
@@ -775,11 +818,11 @@ function secondSaveCallBack(data){
         garyDom(document.body.jsLee.opeDom)
         /*var alertBox=new clsAlertBoxCtrl();
         alertBox.Alert(data.retDesc,"成功提示",1,"","successJump2");*/
-        if(document.body.jsLee.opeDom == "sixthReject" || document.body.jsLee.opeDom == "sixthPromise"){
+        /*if(document.body.jsLee.opeDom == "sixthReject" || document.body.jsLee.opeDom == "sixthPromise"){
             jumpUrl("objectionDeal.html","0000000",0);
         }else{
             jumpUrl("objectionReasearch.html","0000000",0);
-        }
+        }*/
     }
 }
 function clsUploadCtrl$successAfter(ctrl, response)
