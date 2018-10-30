@@ -124,10 +124,16 @@
 <script>
     jsonReqHeaderData = {};
     $(function () {
+        window.onresize=function(){
+            var btn = $(window).width();
+            if(btn > 960){
+                window.location.reload();
+            }
+        }
+    });
+    function initBefore(){
         getAjaxResult("/millSheetDetail/qrCode", "post", {"millSheetNo": GetQueryString("code")}, "loginFun(data)");
-
-
-    })
+    }
     function loginFun(data) {
         var jsData=JSON.parse(data);
         var resultData = [];
