@@ -31,6 +31,9 @@ public interface CrmClaimInfoMapper {
     //导出查询
     CrmClaimInfo findByPage(CrmClaimInfo record);
 
+    //信息查询 异议确认量
+    CrmClaimInfo findInfo(CrmClaimInfo record);
+
     //分页查询
     List<CrmClaimInfo> findByPageChuLi (CrmClaimInfo record);
 

@@ -8,6 +8,9 @@ import java.util.List;
 
 public class ObjectionTiBaoVO {
 
+    //校验编码
+    private Integer checkCode;
+
     //厂家code
     private List<String> deptCodes;
 
@@ -191,6 +194,13 @@ public class ObjectionTiBaoVO {
 
     private Integer count;
 
+    public Integer getCheckCode() {
+        return checkCode;
+    }
+
+    public void setCheckCode(Integer checkCode) {
+        this.checkCode = checkCode;
+    }
 
     public List<String> getCustomerIds() {
         return customerIds;

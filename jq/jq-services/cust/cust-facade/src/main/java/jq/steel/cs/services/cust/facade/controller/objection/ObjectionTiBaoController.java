@@ -83,20 +83,22 @@ public class ObjectionTiBaoController {
      * @return
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ServiceResponse<Integer> update(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest){
+    public ServiceResponse<ObjectionTiBaoVO> update(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest){
         logger.info("参数", JsonUtil.toJson(jsonRequest));
-        ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<ObjectionTiBaoVO> serviceResponse = new ServiceResponse<>();
         try {
             ObjectionTiBaoVO objectionTiBaoVO = jsonRequest.getReqBody();
-            Integer integer= objectionTiBaoService.update(objectionTiBaoVO);
-            if(-100 == integer.intValue()){
+            ObjectionTiBaoVO objectionTiBaoVO1= objectionTiBaoService.update(objectionTiBaoVO);
+            if (objectionTiBaoVO1.getCheckCode()!=null){
+            if(-100 == objectionTiBaoVO1.getCheckCode().intValue()){
                 serviceResponse.setRetCode(ServiceResponse.FAIL_CODE);
                 serviceResponse.setRetMessage("质证书编号不存在");
-            }else if(-101 == integer.intValue()){
+            }else if(-101 == objectionTiBaoVO1.getCheckCode().intValue()){
                 serviceResponse.setRetCode(ServiceResponse.FAIL_CODE);
                 serviceResponse.setRetMessage("质证书管理单位不存在");
             }
-            serviceResponse.setRetContent(integer);
+            }
+            serviceResponse.setRetContent(objectionTiBaoVO1);
         }catch (BusinessException e){
             logger.error("获取分页出错",e);
             serviceResponse.setException(new BusinessException("500"));

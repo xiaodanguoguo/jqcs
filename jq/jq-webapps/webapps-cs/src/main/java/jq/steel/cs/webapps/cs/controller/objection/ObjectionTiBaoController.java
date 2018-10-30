@@ -154,16 +154,16 @@ public class ObjectionTiBaoController {
      *
      * */
     @RequestMapping(value = "/update",method = RequestMethod.POST)
-    public JsonResponse<Integer> update(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
+    public JsonResponse<ObjectionTiBaoVO> update(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
         logger.info("参数={}",JsonUtil.toJson(jsonRequest));
-        JsonResponse<Integer> jsonResponse = new JsonResponse<>();
+        JsonResponse<ObjectionTiBaoVO> jsonResponse = new JsonResponse<>();
         try {
             // 根据service层返回的编码做不同的操作
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
             jsonRequest.getReqBody().setPresentationUser(AssertContext.getAcctId());
             jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
-            ServiceResponse<Integer> response = objectionTiBaoAPI.update(jsonRequest);
+            ServiceResponse<ObjectionTiBaoVO> response = objectionTiBaoAPI.update(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
                 // 如果需要异常信息
