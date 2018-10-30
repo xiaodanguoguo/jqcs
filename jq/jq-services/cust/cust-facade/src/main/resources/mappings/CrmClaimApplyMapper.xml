@@ -66,7 +66,6 @@
     <result column="PRODUCTION_REJECT_REASON" property="productionRejectReason"/>
     <result column="MOBILE_PHONE" property="mobilePhone"/>
 
-
   </resultMap>
   <resultMap id="CountResultMap" type="jq.steel.cs.services.cust.api.vo.ObjectionTiBaoCountVO" >
     <result column="created" property="created"  />
@@ -830,6 +829,8 @@
     A.REJECT_REASON,
     A.REASONS_FOR_COMPULSORY_CLOSURE,
     A.LAST_USER_ID,
+    A.FILE_PATH, A.REPORT_PICTURE,
+
     case when B.DEPT_CODE = '1000' then '不锈'
     when B.DEPT_CODE = '2000' then '炼轧'
     when B.DEPT_CODE = '2200' then '碳钢'
@@ -917,6 +918,7 @@
     A.ADMISSIBILITY_TIME AS TIBAO_ADMISSIBILITY_TIME,
     C.REJECT_REASON AS PRODUCTION_REJECT_REASON,
 
+    A.FILE_PATH, A.REPORT_PICTURE,
 
     case when B.DEPT_CODE = '1000' then '不锈'
     when B.DEPT_CODE = '2000' then '炼轧'
@@ -1011,6 +1013,7 @@
     A.LAST_USER_TEL,
     A.CREATE_EMP_NO,
     A.CREATED_DT,
+    A.CONTRACT_NO,
 
     case when B.DEPT_CODE = '1000' then '不锈'
     when B.DEPT_CODE = '2000' then '炼轧'
