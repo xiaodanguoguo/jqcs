@@ -132,6 +132,12 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
         if(agreementInfos.size()>0){
             crmAgreementInfo1.setAgreementAmount(agreementInfos.get(0).getAgreementAmount());
             crmAgreementInfo1.setAgreementContent(agreementInfos.get(0).getAgreementContent());
+        }else {
+            //从CRM_CLAIM_INFO表拿取异议确认量
+            CrmClaimInfo crmClaimInfo  = new CrmClaimInfo();
+            crmClaimInfo.setClaimNo(reqbody.getClaimNo());
+            CrmClaimInfo crmClaimInfo1 = crmClaimInfoMapper.findInfo(crmClaimInfo);
+            crmAgreementInfo1.setAgreementNum(crmClaimInfo1.getObjectionNum());
         }
         BeanCopyUtil.copy(crmAgreementInfo1,reqbody);
         return reqbody;
@@ -139,7 +145,7 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
 
     /**
      * 协议书保存/提交/审核
-     * 1是保存2是提交3是驳回4是通过
+     * 1是保存2是提交3是驳回4是通过  5下载协议书文件记录操作人操作时间
      *
      * */
     @Override
@@ -180,12 +186,19 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
             crmAgreementInfo.setClaimNo(record.getClaimNo());
             Integer integer =crmAgreementInfoMapper.updateByPrimaryKeySelective(crmAgreementInfo);
             return  integer;
-        }else {
+        }else if(crmAgreementInfo.getOptionStuts()== 4){
             crmAgreementInfo.setUpdatedBy(acctName);
             crmAgreementInfo.setUpdatedDt(new Date());
             crmAgreementInfo.setAgreementState("EXAMINE");
             crmAgreementInfo.setClaimNo(record.getClaimNo());
             Integer integer =crmAgreementInfoMapper.updateByPrimaryKeySelective(crmAgreementInfo);
+            return  integer;
+        }else{
+            //协议书下载时需要记录操作时间和操作人，多次下载记录最后一次的时间。
+            CrmAgreementInfo  crmAgreementInfo1  = new CrmAgreementInfo();
+            crmAgreementInfo1.setDownloader(acctName);
+            crmAgreementInfo1.setDownloadTime(new Date());
+            Integer integer =crmAgreementInfoMapper.updateByPrimaryKeySelective(crmAgreementInfo1);
             return  integer;
         }
     }

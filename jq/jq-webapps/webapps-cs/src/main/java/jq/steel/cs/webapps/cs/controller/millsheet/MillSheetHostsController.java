@@ -145,11 +145,11 @@ public class MillSheetHostsController {
     }
     /**
      *预览 返回对象文件地址
-     * @param  jsonRequest
+     * @param
      * @return
      *
      * */
-    @RequestMapping(value = "/preview",method = RequestMethod.POST)
+    /*@RequestMapping(value = "/preview",method = RequestMethod.POST)
     public JsonResponse<List<MillSheetHostsVO>>  preview(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest){
         JsonResponse<List<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
         for (MillSheetHostsVO millSheetHostsVO: jsonRequest.getReqBody()){
@@ -263,16 +263,164 @@ public class MillSheetHostsController {
             jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
         }
         return jsonResponse;
+    }*/
+
+    /*打印减去下载次数*/
+    @RequestMapping(value = "/print",method = RequestMethod.POST)
+    public JsonResponse<List<MillSheetHostsVO>>  print(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest){
+        JsonResponse<List<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
+        for (MillSheetHostsVO millSheetHostsVO: jsonRequest.getReqBody()){
+            millSheetHostsVO.setOrgCode(AssertContext.getOrgCode());
+            millSheetHostsVO.setOrgName(AssertContext.getOrgName());
+        }
+        try {
+            ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findUrl(jsonRequest);
+          /*  String millSheetUrlL ="";
+            String createPdfPath = uploadConfig.getDomain();
+                //打印
+                if (jsonRequest.getReqBody().size()>1){
+                    //从质证书服务器获取文件到本地   重新生成文件
+                    String millSheetUrlName = "";
+                    for(MillSheetHostsVO millSheetHostsVO :serviceResponse.getRetContent()){
+                        String millSheetPath =  millSheetHostsVO.getMillSheetPath();
+                        String millSheetName =  millSheetHostsVO.getMillSheetName();
+                        millSheetUrlName += ";" + millSheetHostsVO.getMillSheetPath();
+                        String url = createPdfPath + millSheetPath;
+                        millSheetUrlL =millSheetHostsVO.getMillSheetUrl();
+                        this.saveUrlAs(url,millSheetUrlL,"GET",millSheetName);
+                        millSheetHostsVO.setMillSheetPath(url);
+                    }
+                    //合并文件
+                    millSheetUrlName = millSheetUrlName.substring(1);
+                    String savepath =this.sheetNameUrl(millSheetUrlName,millSheetUrlL);
+                    String mPath = createPdfPath+savepath;
+                    serviceResponse.getRetContent().get(0).setReport(mPath);
+                }else {
+                    //从质证书服务器获取文件到本地 返回url
+                    String millSheetPath =  serviceResponse.getRetContent().get(0).getMillSheetPath();
+                    String millSheetUrl =   serviceResponse.getRetContent().get(0).getMillSheetUrl();
+                    String url = createPdfPath + millSheetPath;
+                    String millSheetName =  serviceResponse.getRetContent().get(0).getMillSheetName();
+                    this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
+                    serviceResponse.getRetContent().get(0).setReport(url);
+                }*/
+            jsonResponse.setRspBody(serviceResponse.getRetContent());
+        } catch (BusinessException e) {
+            logger.error("获取分页列表错误 = {}", e);
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+        return jsonResponse;
     }
 
-    //打印跳转界面返回pdf文件流
-    @RequestMapping(value = "/preview1/{PARAM}")
+
+
+
+    /**
+     *预览 返回对象文件地址
+     * @param
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/preview/{PARAM}")
     public void pdfStreamHandler(HttpServletRequest request, HttpServletResponse response,@PathVariable("PARAM") String param) {
         String acctName =AssertContext.getAcctName();
         List<String> list = JsonUtil.parseObject(param, List.class);
         JsonRequest<List<String>> jsonRequest1 = new JsonRequest();
         jsonRequest1.setReqBody(list);
         logger.info("preview--------------------------------------------------" );
+        ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findUrl1(jsonRequest1);
+        String millSheetUrlL ="";
+        String createPdfPath = uploadConfig.getDomain();
+        //打印
+        if (jsonRequest1.getReqBody().size()>1){
+            //从质证书服务器获取文件到本地   重新生成文件
+            String millSheetUrlName = "";
+            for(MillSheetHostsVO millSheetHostsVO :serviceResponse.getRetContent()){
+                String millSheetPath =  millSheetHostsVO.getMillSheetPath();
+                String millSheetName =  millSheetHostsVO.getMillSheetName();
+                if (millSheetHostsVO.getSpecialNeed().equals("Y")){
+                    System.out.println("特殊需求文档下载中");
+                    JsonRequest<MillSheetNeedsVO> jsonRequest = new JsonRequest<>();
+                    MillSheetNeedsVO millSheetNeedsVO =new MillSheetNeedsVO();
+                    millSheetNeedsVO.setMillSheetNo(serviceResponse.getRetContent().get(0).getMillSheetNo());
+                    millSheetNeedsVO.setType("1");;
+                    jsonRequest.setReqBody(millSheetNeedsVO);
+                    ServiceResponse<List<MillSheetNeedsVO>> serviceResponse1 =  millSheetNeedsAPI.findByType(jsonRequest);
+                    //远程下载
+                    String millSheetUrl= serviceResponse1.getRetContent().get(0).getSpeNeedUrl();
+                    String millSheetPath1 = serviceResponse1.getRetContent().get(0).getSpeNeedUrl()+"/"+serviceResponse1.getRetContent().get(0).getSpeNeedName();
+                    String url = createPdfPath + millSheetPath1;
+                    String millSheetName1 =  serviceResponse.getRetContent().get(0).getMillSheetName();
+                    this.saveUrlAs(url,millSheetUrl,"GET",millSheetName1);
+                    millSheetUrlName += ";" + millSheetPath1;
+                }else {
+                    millSheetUrlName += ";" + millSheetHostsVO.getMillSheetPath();
+                    String url = createPdfPath + millSheetPath;
+                    millSheetUrlL =millSheetHostsVO.getMillSheetUrl();
+                    this.saveUrlAs(url,millSheetUrlL,"GET",millSheetName);
+                    millSheetHostsVO.setMillSheetPath(url);
+                }
+            }
+            //合并文件
+            millSheetUrlName = millSheetUrlName.substring(1);
+            String savepath =this.sheetNameUrl(millSheetUrlName,millSheetUrlL);
+            String mPath = createPdfPath+savepath;
+            serviceResponse.getRetContent().get(0).setReport(savepath);
+        }else {
+            if(serviceResponse.getRetContent().get(0).getSpecialNeed().equals("Y")){
+                System.out.println("特殊需求文档下载中");
+                //查询特殊需求表（质证书+type为1的）
+                MillSheetNeedsVO millSheetNeedsVO =new MillSheetNeedsVO();
+                millSheetNeedsVO.setMillSheetNo(serviceResponse.getRetContent().get(0).getMillSheetNo());
+                millSheetNeedsVO.setType("1");
+                JsonRequest<MillSheetNeedsVO> jsonRequest11 = new JsonRequest<>();
+                jsonRequest11.setReqBody(millSheetNeedsVO);
+                ServiceResponse<List<MillSheetNeedsVO>> serviceResponse1 =  millSheetNeedsAPI.findByType(jsonRequest11);
+                //远程下载
+                String millSheetUrl= serviceResponse1.getRetContent().get(0).getSpeNeedUrl();
+                String millSheetPath = serviceResponse1.getRetContent().get(0).getSpeNeedUrl()+"/"+serviceResponse1.getRetContent().get(0).getSpeNeedName();
+                String url = createPdfPath + millSheetPath;
+                String millSheetName =  serviceResponse.getRetContent().get(0).getMillSheetName();
+                this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
+                serviceResponse.getRetContent().get(0).setReport(millSheetPath);
+            }else {
+                //从质证书服务器获取文件到本地 返回url
+                String millSheetPath =  serviceResponse.getRetContent().get(0).getMillSheetPath();
+                String millSheetUrl =   serviceResponse.getRetContent().get(0).getMillSheetUrl();
+                String url = createPdfPath + millSheetPath;
+                String millSheetName =  serviceResponse.getRetContent().get(0).getMillSheetName();
+                this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
+                serviceResponse.getRetContent().get(0).setReport(millSheetPath);
+            }
+        }
+        String fPath =  serviceResponse.getRetContent().get(0).getReport();
+        File file = new File(fPath);
+        if (file.exists()){
+            byte[] data = null;
+            try {
+                FileInputStream input = new FileInputStream(file);
+                data = new byte[input.available()];
+                input.read(data);
+                response.getOutputStream().write(data);
+                input.close();
+            } catch (Exception e) {
+                logger.error("pdf文件处理异常：" + e.getMessage());
+            }
+
+        }else{
+            return;
+        }
+    }
+
+    //打印跳转界面返回pdf文件流
+    @RequestMapping(value = "/preview1/{PARAM}")
+    public void pdfStreamHandler1(HttpServletRequest request, HttpServletResponse response,@PathVariable("PARAM") String param) {
+        String acctName =AssertContext.getAcctName();
+        List<String> list = JsonUtil.parseObject(param, List.class);
+        JsonRequest<List<String>> jsonRequest1 = new JsonRequest();
+        jsonRequest1.setReqBody(list);
+        logger.info("print--------------------------------------------------" );
         ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findUrl1(jsonRequest1);
         String millSheetUrlL ="";
         String createPdfPath = uploadConfig.getDomain();

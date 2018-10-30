@@ -60,8 +60,10 @@ public class ObjectionTiBaoController {
         JsonResponse<PageDTO<ObjectionTiBaoVO>> jsonResponse = new JsonResponse<>();
         String acctId = AssertContext.getAcctId();
         String orgType = AssertContext.getOrgType();
+        String orgName = AssertContext.getOrgName();
         String orgId = AssertContext.getOrgId();
         jsonRequest.getReqBody().setOrgType(orgType);
+        jsonRequest.getReqBody().setOrgName(orgName);
         ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
         List<String> list = new ArrayList<>();
         for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
@@ -75,10 +77,12 @@ public class ObjectionTiBaoController {
         //销售公司下的客户名称集合
         List<String> customers = new ArrayList<>();
         if(orgType.equals("1")){
-            ServiceResponse<List<OrgInfoVO>>  hh = orgInfoServiceAPI.findOrgNameByOrgId(orgId);
+           /* ServiceResponse<List<OrgInfoVO>>  hh = orgInfoServiceAPI.findOrgNameByOrgId(orgId);
             for (OrgInfoVO orgInfoVO:hh.getRetContent()){
                 customers.add(orgInfoVO.getOrgName());
-            }
+            }*/
+           //设置customerid 为质证书的zkunner
+
         }
         if(customers.size()>0){
             jsonRequest.getReqBody().setCustomerIds(customers);
@@ -154,16 +158,16 @@ public class ObjectionTiBaoController {
      *
      * */
     @RequestMapping(value = "/update",method = RequestMethod.POST)
-    public JsonResponse<Integer> update(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
+    public JsonResponse<ObjectionTiBaoVO> update(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
         logger.info("参数={}",JsonUtil.toJson(jsonRequest));
-        JsonResponse<Integer> jsonResponse = new JsonResponse<>();
+        JsonResponse<ObjectionTiBaoVO> jsonResponse = new JsonResponse<>();
         try {
             // 根据service层返回的编码做不同的操作
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
             jsonRequest.getReqBody().setPresentationUser(AssertContext.getAcctId());
             jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
-            ServiceResponse<Integer> response = objectionTiBaoAPI.update(jsonRequest);
+            ServiceResponse<ObjectionTiBaoVO> response = objectionTiBaoAPI.update(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
                 // 如果需要异常信息

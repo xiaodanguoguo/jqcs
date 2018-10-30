@@ -806,6 +806,9 @@ function firstSaveCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         garyDom(document.body.jsLee.opeDom)
+        if(document.body.jsLee.htmlType == 0){
+            document.body.jsLee.claimNoPreview = data.rspBody.claimNo;
+        }
         /*var alertBox=new clsAlertBoxCtrl();
         alertBox.Alert(data.retDesc,"成功提示",1,"","successJump");*/
         //jumpUrl("objectionSubmit.html","0000000",0);

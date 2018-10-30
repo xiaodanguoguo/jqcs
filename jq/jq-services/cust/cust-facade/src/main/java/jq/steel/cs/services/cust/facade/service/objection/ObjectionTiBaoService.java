@@ -17,7 +17,7 @@ public interface ObjectionTiBaoService {
     ObjectionTiBaoVO findDetails(ObjectionTiBaoVO objectionTiBaoVO);
 
     //新增保存修改保存销售审核保存驳回通过
-    Integer update(ObjectionTiBaoVO objectionTiBaoVO);
+    ObjectionTiBaoVO update(ObjectionTiBaoVO objectionTiBaoVO);
 
     //提报删除
     Integer submit(List<ObjectionTiBaoVO> objectionTiBaoVO);

@@ -211,9 +211,9 @@ public class AppObjectionTiBaoController {
      *
      * */
     @RequestMapping(value = "/update",method = RequestMethod.POST)
-    public JsonResponse<Integer> update(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
+    public JsonResponse<ObjectionTiBaoVO> update(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
         logger.info("参数={}",JsonUtil.toJson(jsonRequest));
-        JsonResponse<Integer> jsonResponse = new JsonResponse<>();
+        JsonResponse<ObjectionTiBaoVO> jsonResponse = new JsonResponse<>();
         try {
             // 根据service层返回的编码做不同的操作
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
@@ -221,7 +221,7 @@ public class AppObjectionTiBaoController {
             if(5 == jsonRequest.getReqBody().getOptionStuts()){
                 jsonRequest.getReqBody().setCustomerId(AssertContext.getOrgCode());
             }
-            ServiceResponse<Integer> response = objectionTiBaoAPI.update(jsonRequest);
+            ServiceResponse<ObjectionTiBaoVO> response = objectionTiBaoAPI.update(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode())){
                 jsonResponse.setRspBody(response.getRetContent());
             }else if (response.isHasError()) {

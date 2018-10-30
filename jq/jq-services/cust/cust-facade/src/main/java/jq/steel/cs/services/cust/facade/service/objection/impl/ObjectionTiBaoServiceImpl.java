@@ -70,6 +70,19 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             if(crmClaimApply.getDeptCode()!=null&& crmClaimApply.getDeptCode()!=""){
                 crmClaimApply.setDeptCodes(null);
             }
+            // 如果orgType为1为销售公司设置customerid 为质证书的zkunner
+            if(crmClaimApply.getOrgType().equals("1")){
+                CrmClaimApply h = new CrmClaimApply();
+                h.setCustomerName(crmClaimApply.getOrgName());
+                List<CrmClaimApply> list =crmClaimApplyMapper.findMillSheetByCus(h);
+                if(list.size()>0){
+                    List<String> idall = new ArrayList<>();
+                    for (int i = 0; i < list.size(); i++){
+                        idall.add(list.get(i).getMillSheetNo());
+                    }
+                    crmClaimApply.setMillSheetNos(idall);
+                }
+            }
             PageDTOUtil.startPage(objectionTiBaoVO);
             String startDtStr = DateFormatUtil.getStartDateStr(crmClaimApply.getStartDt());
             crmClaimApply.setStartDtStr(startDtStr);
@@ -169,7 +182,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
     //新增修改销售审核保存驳回通过  保存数据
     @Override
     @Transactional
-    public Integer update(ObjectionTiBaoVO objectionTiBaoVO) {
+    public ObjectionTiBaoVO update(ObjectionTiBaoVO objectionTiBaoVO) {
         String orgCode = objectionTiBaoVO.getOrgCode();
         String orgName = objectionTiBaoVO.getOrgName();
         String acctName = objectionTiBaoVO.getAcctName();
@@ -197,7 +210,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 crmClaimLog.setOpMemo(crmClaimInfo.toString());
                 crmClaimLogMapper.insert(crmClaimLog);
                 Integer integer =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
-                return  integer;
+                return  objectionTiBaoVO;
             }else if(crmClaimApply.getOptionStuts()== 2){
                 CrmClaimApply h  = new CrmClaimApply();
                 h.setUpdatedDt(new Date());
@@ -221,7 +234,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 g.setClaimState("REJECT");
                 g.setRejectReason(crmClaimApply.getRejectReason());
                 Integer integer = crmClaimInfoMapper.updateByPrimaryKeySelective(g);
-                return  integer;
+                return  objectionTiBaoVO;
             }else if(crmClaimApply.getOptionStuts()== 3){
                 CrmClaimApply h  = new CrmClaimApply();
                 h.setUpdatedDt(new Date());
@@ -250,7 +263,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 g.setProProblem(crmClaimInfo.getProProblem());
                 g.setClaimType(crmClaimInfo.getClaimType());
                 Integer integer = crmClaimInfoMapper.updateByPrimaryKeySelective(g);
-                return  integer;
+                return  objectionTiBaoVO;
             }else if(crmClaimApply.getOptionStuts()== 4){
                 //日志记录
                 CrmClaimLog crmClaimLog = new CrmClaimLog();
@@ -264,7 +277,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 crmClaimApplyCopyMapper.update(crmClaimApplyCopy);
                 crmClaimApplyMapper.update(crmClaimApply);
                 Integer integer = crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
-                return  integer;
+                return  objectionTiBaoVO;
             }else if(crmClaimApply.getOptionStuts()== 5){
 
                 String millsheetNO = objectionTiBaoVO.getMillSheetNo();
@@ -273,11 +286,13 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 millSheetHosts.setMillSheetNo(millsheetNO);
                 List<MillSheetHosts> millSheetHosts1  = millSheetHostsMapper.findDeptCode(millSheetHosts);
                 if(CollectionUtils.isEmpty(millSheetHosts1)){
-                    return -100;
+                    objectionTiBaoVO.setCheckCode(-100);
+                    return objectionTiBaoVO;
                 }
                 String deptCode = millSheetHosts1.get(0).getDeptCode();
                 if(StringUtil.isEmpty(deptCode)){
-                    return  -101;
+                    objectionTiBaoVO.setCheckCode(-101);
+                    return objectionTiBaoVO;
                 }
                 Integer dissentingUnit;
                 //1000：不锈钢厂2000：炼轧厂2200：碳钢薄板厂3000：榆钢工厂
@@ -304,7 +319,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 crmClaimApply.setClaimState("NEW");
                 crmClaimApply.setClaimNo(claimNo);
                 crmClaimApply.setCreatedBy(acctName);
-                crmClaimApply.setCustomerId(orgCode);
+                //crmClaimApply.setCustomerId(orgCode);
                 crmClaimApply.setCreatedDt(new Date());
               //  Integer integer = crmClaimApplyMapper.insertSelective(crmClaimApply);
                 Integer integer = crmClaimApplyMapper.insert(crmClaimApply);
@@ -312,7 +327,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 crmClaimApplyCopy.setClaimState("NEW");
                 crmClaimApplyCopy.setClaimNo(claimNo);
                 crmClaimApplyCopy.setCreatedBy(acctName);
-                crmClaimApplyCopy.setCustomerId(orgCode);
+                //crmClaimApplyCopy.setCustomerId(orgCode);
                 crmClaimApplyCopy.setCreatedDt(new Date());
                 crmClaimApplyCopyMapper.insert(crmClaimApplyCopy);
                 //日志记录
@@ -327,16 +342,18 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                     crmClaimInfo.setClaimState("NEW");
                     crmClaimInfo.setCreatedDt(new Date());
                     crmClaimInfo.setCreatedBy(acctName);
-                    crmClaimInfo.setCustomerId(orgCode);
+                    //crmClaimInfo.setCustomerId(orgCode);
                     crmClaimInfo.setClaimNo(claimNo);
                     crmClaimInfo.setDissentingUnit(dissentingUnit);
                     Integer integer1 =crmClaimInfoMapper.insertSelective(crmClaimInfo);
-                    return  integer;
+                    objectionTiBaoVO.setClaimNo(claimNo);
+                    return  objectionTiBaoVO;
                 }
-                return  integer;
+                objectionTiBaoVO.setClaimNo(claimNo);
+                return  objectionTiBaoVO;
 
             }
-            return 00;
+            return null;
 
     }
 

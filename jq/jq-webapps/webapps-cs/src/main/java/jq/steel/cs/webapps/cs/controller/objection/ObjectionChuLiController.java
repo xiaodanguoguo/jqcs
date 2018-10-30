@@ -267,9 +267,71 @@ public class ObjectionChuLiController {
                 String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"xieyishu");
                 String hh1 = report1.replace("/data/kf_web","/res");
                 report =uploadConfig.getDomain()+hh1;
+                //协议书下载时需要记录操作时间和操作人，多次下载记录最后一次的时间。
+                jsonRequest.getReqBody().setOptionStuts(5);
+                objectionChuLiAPI.agreementUpdate(jsonRequest);
+
             }else if(jsonRequest.getReqBody().getTemplateType()==7){
                 String  pdfName = jsonRequest.getReqBody().getClaimNo() + "T.pdf";
                 String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"tongzhidan");
+                String hh1 = report1.replace("/data/kf_web","/res");
+                report =uploadConfig.getDomain()+hh1;
+            }
+            serviceResponse.getRetContent().setReport(report);
+            jsonResponse.setRspBody(serviceResponse.getRetContent());
+        } catch (BusinessException e) {
+            logger.error("打印报错", e);
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+        return jsonResponse;
+    }
+
+
+
+    /**
+     * 打印/预览 实时生成pdf并且返回url地址
+     *
+     * 1、质量异议报告--新建异议保存后，就出现预览报告按钮，可以调用异议报告模板，查看报告及数据。
+        2、外部调查报告--外部调查保存后，就出现预览报告按钮，可以调用外部调查报告模板，查看报告及数据。
+        3、内部调查报告--内部调查保存后，就出现预览报告按钮，可以调用内部调查报告模板，查看报告及数据。
+        4、确认书--确认书审核界面，加预览按钮，可以直接查看确认书报告。
+        5、协议书--协议书编辑和协议书审核界面，可以直接直接点击“预览”按钮来查看协议书模板及数据。
+     * */
+    @RequestMapping(value = "/look",method = RequestMethod.POST)
+    public JsonResponse<ObjectionChuLiVO> look(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
+        logger.info("参数", JsonUtil.toJson(jsonRequest));
+        CreatePdf createPdf = new CreatePdf();
+        String pathPattern = uploadConfig.getPathPattern();
+        JsonResponse<ObjectionChuLiVO>  jsonResponse = new JsonResponse<>();
+        String createPdfPath = uploadConfig.getModelUrl();
+        jsonRequest.getReqBody().setReport(createPdfPath);
+        try {
+            ServiceResponse<ObjectionChuLiVO> serviceResponse = objectionChuLiAPI.preview(jsonRequest);
+            String report = "";
+            if (serviceResponse.getRetContent().getTemplateType()==1){
+                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "Y.pdf";
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"yiyibaogao");
+                String hh1 = report1.replace("/data/kf_web","/res");
+                report =uploadConfig.getDomain()+hh1;
+            }else if(jsonRequest.getReqBody().getTemplateType()==2) {
+                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "W.pdf";
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"waibudiaocha");
+                String hh1 = report1.replace("/data/kf_web","/res");
+                report =uploadConfig.getDomain()+hh1;
+            }else if(jsonRequest.getReqBody().getTemplateType()==3){
+                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "N.pdf";
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"neibudiaocha");
+                String hh1 = report1.replace("/data/kf_web","/res");
+                report =uploadConfig.getDomain()+hh1;
+            }else if(jsonRequest.getReqBody().getTemplateType()==4){
+                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "Q.pdf";
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"waibudiaocha");
+                String hh1 = report1.replace("/data/kf_web","/res");
+                report =uploadConfig.getDomain()+hh1;
+            }else if(jsonRequest.getReqBody().getTemplateType()==5){
+                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "X.pdf";
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"xieyishu");
                 String hh1 = report1.replace("/data/kf_web","/res");
                 report =uploadConfig.getDomain()+hh1;
             }

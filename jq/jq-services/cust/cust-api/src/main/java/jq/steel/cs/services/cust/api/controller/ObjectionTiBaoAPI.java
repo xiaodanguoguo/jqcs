@@ -41,7 +41,7 @@ public interface ObjectionTiBaoAPI {
      * @return
      */
     @RequestMapping(value = "/objectionTiBao/update", method = RequestMethod.POST)
-    ServiceResponse<Integer> update(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest);
+    ServiceResponse<ObjectionTiBaoVO> update(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest);
 
 
 

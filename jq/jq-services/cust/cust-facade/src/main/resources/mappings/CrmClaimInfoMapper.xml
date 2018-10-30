@@ -277,7 +277,7 @@
         CLAIM_DESC,
       </if>
       <if test="claimReason != null and claimReason != ''" >
-        CLAIM_REASION,
+        CLAIM_REASON,
       </if>
       <if test="claimState != null and claimState != ''" >
         CLAIM_STATE,
@@ -706,6 +706,19 @@
 
     </trim>
   </select>
+
+
+
+  <!--查询异议确认量-->
+  <select id="findInfo" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInfo" >
+   SELECT A.OBJECTION_CONFIRMATION
+    FROM CRM_CLAIM_INFO A
+    WHERE A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+  </select>
+
+
+
+
 
   <!--异议处理查询-->
   <select id="findByPageChuLi" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInfo" >

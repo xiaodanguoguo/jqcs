@@ -5,6 +5,12 @@ import java.util.Date;
 
 public class CrmAgreementInfo {
 
+    //下载人
+    private String downloader;
+
+    //下载时间
+    private Date downloadTime;
+
     private  String objectionConfirmation;
     //投诉内容描述
     private String claimDesc;
@@ -102,6 +108,22 @@ public class CrmAgreementInfo {
 
     //协议书图片地址
     private  String  claimNoUrl;
+
+    public String getDownloader() {
+        return downloader;
+    }
+
+    public void setDownloader(String downloader) {
+        this.downloader = downloader;
+    }
+
+    public Date getDownloadTime() {
+        return downloadTime;
+    }
+
+    public void setDownloadTime(Date downloadTime) {
+        this.downloadTime = downloadTime;
+    }
 
     public String getObjectionConfirmation() {
         return objectionConfirmation;
