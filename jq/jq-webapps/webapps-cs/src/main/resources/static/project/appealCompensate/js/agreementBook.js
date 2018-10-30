@@ -119,7 +119,7 @@ function clsMethodLee$operate(){
 
     //预览
     $("*[id=firstPreview]").on("click",function(){
-        var jsonParam = {"claimNo":"","templateType":5};
+        var jsonParam = {"claimNo":document.body.jsLee.claimNo,"templateType":5};
         getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",jsonParam,"firstPreviewCallBack(data)")
     });
 
@@ -260,8 +260,10 @@ function boxChecked(){
 function operateSucCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
+        /*var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert(data.retDesc,"成功提示",1,"","successTip");*/
         var alertBox=new clsAlertBoxCtrl();
-        alertBox.Alert(data.retDesc,"成功提示",1,"","successTip");
+        alertBox.Alert(data.retDesc,"成功提示");
     }
 }
 
