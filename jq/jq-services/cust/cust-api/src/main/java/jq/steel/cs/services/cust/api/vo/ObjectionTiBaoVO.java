@@ -31,7 +31,7 @@ public class ObjectionTiBaoVO {
     private String reportPictures;
 
     //异议确认量
-    private  String objectionConfirmation;
+    private  BigDecimal objectionConfirmation;
 
     //规格
     private String specs;
@@ -250,11 +250,11 @@ public class ObjectionTiBaoVO {
         this.reportPictures = reportPictures;
     }
 
-    public String getObjectionConfirmation() {
+    public BigDecimal getObjectionConfirmation() {
         return objectionConfirmation;
     }
 
-    public void setObjectionConfirmation(String objectionConfirmation) {
+    public void setObjectionConfirmation(BigDecimal objectionConfirmation) {
         this.objectionConfirmation = objectionConfirmation;
     }
 

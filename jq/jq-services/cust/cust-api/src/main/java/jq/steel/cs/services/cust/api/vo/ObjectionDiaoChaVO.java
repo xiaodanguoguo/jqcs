@@ -307,7 +307,7 @@ public class ObjectionDiaoChaVO {
 
     private  String reportPictures;
 
-    private  String objectionConfirmation;
+    private  BigDecimal objectionConfirmation;
 
     public Date getArrivalTime() {
         return arrivalTime;
@@ -413,11 +413,11 @@ public class ObjectionDiaoChaVO {
         this.fieldConclusionPhoto = fieldConclusionPhoto;
     }
 
-    public String getObjectionConfirmation() {
+    public BigDecimal getObjectionConfirmation() {
         return objectionConfirmation;
     }
 
-    public void setObjectionConfirmation(String objectionConfirmation) {
+    public void setObjectionConfirmation(BigDecimal objectionConfirmation) {
         this.objectionConfirmation = objectionConfirmation;
     }
 

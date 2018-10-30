@@ -132,13 +132,12 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
         if(agreementInfos.size()>0){
             crmAgreementInfo1.setAgreementAmount(agreementInfos.get(0).getAgreementAmount());
             crmAgreementInfo1.setAgreementContent(agreementInfos.get(0).getAgreementContent());
-        }else {
-            //从CRM_CLAIM_INFO表拿取异议确认量
-            CrmClaimInfo crmClaimInfo  = new CrmClaimInfo();
-            crmClaimInfo.setClaimNo(reqbody.getClaimNo());
-            CrmClaimInfo crmClaimInfo1 = crmClaimInfoMapper.findInfo(crmClaimInfo);
-            crmAgreementInfo1.setAgreementNum(crmClaimInfo1.getObjectionNum());
         }
+        //从CRM_CLAIM_INFO表拿取异议确认量
+        CrmClaimInfo crmClaimInfo  = new CrmClaimInfo();
+        crmClaimInfo.setClaimNo(reqbody.getClaimNo());
+        CrmClaimInfo crmClaimInfo1 = crmClaimInfoMapper.findInfo(crmClaimInfo);
+        crmAgreementInfo1.setAgreementNum(crmClaimInfo1.getObjectionConfirmation());
         BeanCopyUtil.copy(crmAgreementInfo1,reqbody);
         return reqbody;
     }

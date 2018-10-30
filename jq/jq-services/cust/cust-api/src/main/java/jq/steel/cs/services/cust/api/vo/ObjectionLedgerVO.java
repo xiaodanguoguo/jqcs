@@ -94,7 +94,7 @@ public class ObjectionLedgerVO {
     private String handingSuggestion;
 
     //异议确认量
-    private  String objectionConfirmation;
+    private  BigDecimal objectionConfirmation;
 
     //受理时间
     @JsonFormat(pattern="yyyy-MM-dd")
@@ -496,11 +496,11 @@ public class ObjectionLedgerVO {
         this.handingSuggestion = handingSuggestion;
     }
 
-    public String getObjectionConfirmation() {
+    public BigDecimal getObjectionConfirmation() {
         return objectionConfirmation;
     }
 
-    public void setObjectionConfirmation(String objectionConfirmation) {
+    public void setObjectionConfirmation(BigDecimal objectionConfirmation) {
         this.objectionConfirmation = objectionConfirmation;
     }
 

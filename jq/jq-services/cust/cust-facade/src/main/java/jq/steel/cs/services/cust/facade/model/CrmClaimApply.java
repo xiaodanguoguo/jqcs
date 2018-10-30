@@ -226,7 +226,7 @@ public class CrmClaimApply {
     private String reportPictures;
 
     //异议确认量
-    private  String objectionConfirmation;
+    private  BigDecimal objectionConfirmation;
 
     public String getAuditor() {
         return auditor;
@@ -300,11 +300,11 @@ public class CrmClaimApply {
         this.reportPictures = reportPictures;
     }
 
-    public String getObjectionConfirmation() {
+    public BigDecimal getObjectionConfirmation() {
         return objectionConfirmation;
     }
 
-    public void setObjectionConfirmation(String objectionConfirmation) {
+    public void setObjectionConfirmation(BigDecimal objectionConfirmation) {
         this.objectionConfirmation = objectionConfirmation;
     }
 

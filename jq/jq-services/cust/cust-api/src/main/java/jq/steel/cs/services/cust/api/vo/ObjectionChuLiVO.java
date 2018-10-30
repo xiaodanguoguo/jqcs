@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ObjectionChuLiVO {
 
-    private  String objectionConfirmation;
+    private  BigDecimal objectionConfirmation;
 
     //厂家code
     private List<String> deptCodes;
@@ -45,11 +45,11 @@ public class ObjectionChuLiVO {
     //过期标识
     private String expiredSign;
 
-    public String getObjectionConfirmation() {
+    public BigDecimal getObjectionConfirmation() {
         return objectionConfirmation;
     }
 
-    public void setObjectionConfirmation(String objectionConfirmation) {
+    public void setObjectionConfirmation(BigDecimal objectionConfirmation) {
         this.objectionConfirmation = objectionConfirmation;
     }
 

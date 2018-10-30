@@ -52,7 +52,7 @@
     <result column="PRESENTATION_USER" property="presentationUser" jdbcType="VARCHAR" />
     <result column="REASONS_FOR_COMPULSORY_CLOSURE" property="reasonsForCompulsoryClosure" jdbcType="VARCHAR" />
     <result column="REPORT_PICTURE" property="reportPictures" jdbcType="VARCHAR" />
-    <result column="OBJECTION_CONFIRMATION" property="objectionConfirmation" jdbcType="VARCHAR" />
+    <result column="OBJECTION_CONFIRMATION" property="objectionConfirmation" jdbcType="NUMERIC" />
 
     <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
     <result column="INQUIRE_STATE" property="inquireState" jdbcType="VARCHAR" />

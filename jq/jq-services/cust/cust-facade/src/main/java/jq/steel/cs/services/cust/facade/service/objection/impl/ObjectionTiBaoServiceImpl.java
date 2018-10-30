@@ -70,6 +70,11 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             if(crmClaimApply.getDeptCode()!=null&& crmClaimApply.getDeptCode()!=""){
                 crmClaimApply.setDeptCodes(null);
             }
+          /*  if(crmClaimApply.getCustomerId()!=null && !crmClaimApply.getCustomerId().equals("")){
+
+            }else {
+                crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
+            }*/
             // 如果orgType为1为销售公司设置customerid 为质证书的zkunner
             if(crmClaimApply.getOrgType().equals("1")){
                 CrmClaimApply h = new CrmClaimApply();
@@ -81,6 +86,8 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                         idall.add(list.get(i).getMillSheetNo());
                     }
                     crmClaimApply.setMillSheetNos(idall);
+                }else {
+                    crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
                 }
             }
             PageDTOUtil.startPage(objectionTiBaoVO);

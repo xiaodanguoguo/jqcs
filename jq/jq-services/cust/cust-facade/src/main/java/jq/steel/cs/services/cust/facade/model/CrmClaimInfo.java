@@ -190,7 +190,7 @@ public class CrmClaimInfo {
     private String reportPictures;
 
     //异议确认量
-    private  String objectionConfirmation;
+    private  BigDecimal objectionConfirmation;
 
     //备注
     private String memo;
@@ -322,11 +322,11 @@ public class CrmClaimInfo {
         this.reportPictures = reportPictures;
     }
 
-    public String getObjectionConfirmation() {
+    public BigDecimal getObjectionConfirmation() {
         return objectionConfirmation;
     }
 
-    public void setObjectionConfirmation(String objectionConfirmation) {
+    public void setObjectionConfirmation(BigDecimal objectionConfirmation) {
         this.objectionConfirmation = objectionConfirmation;
     }
 
