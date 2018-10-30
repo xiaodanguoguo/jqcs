@@ -96,6 +96,23 @@
     where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
   </select>
 -->
+
+
+  <!--根据登录人查询质证书-->
+  <select id="findMillSheetByCus" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
+     SELECT h.* from(SELECT
+     DISTINCT
+    A.MILL_SHEET_NO,
+    (select distinct name1 from MILL_CUSTOMER where KUNNR =B.ZKUNNR) AS ZKUNNR
+    FROM
+    WARRANTY.CRM_CLAIM_APPLY A
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO) H
+    WHERE h.ZKUNNR = #{customerName,jdbcType=VARCHAR}
+  </select>
+
+
+
+
 <!--异议提报查询-->
   <select id="findByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
     SELECT h.* from(SELECT
@@ -142,10 +159,16 @@
         AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
          <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
        </if>
-      <if test="customerIds != null" >
+     <!-- <if test="customerIds != null" >
         AND H.CUSTOMER_NAME  in
         <foreach collection="customerIds"  index="index" close=")" open="(" item="item" separator=",">
           #{customerIds[${index}]}
+        </foreach>
+      </if>-->
+      <if test="millSheetNos != null">
+        AND H.MILL_SHEET_NO  in
+        <foreach collection="millSheetNos"  index="index" close=")" open="(" item="item" separator=",">
+          #{millSheetNos[${index}]}
         </foreach>
       </if>
       <if test="customerId != null and customerId != ''" >
