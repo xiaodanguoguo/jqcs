@@ -138,6 +138,29 @@ public class ObjectionChuLiController {
     }
 
     /**
+     * 预览润乾pdf
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/look",method = RequestMethod.POST)
+    public ServiceResponse<ObjectionChuLiVO> look(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
+        logger.info("参数 = {}",JsonUtil.toJson(jsonRequest));
+        ServiceResponse<ObjectionChuLiVO> serviceResponse = new ServiceResponse<>();
+        ObjectionChuLiVO reqBody = jsonRequest.getReqBody();
+        try{
+            ObjectionChuLiVO downUrl = objectionChuLiService.look(reqBody);
+            serviceResponse.setRetContent(downUrl);
+        }catch (Exception e){
+            logger.error("保存 参数 失败 error = {}",e);
+
+            throw new BusinessException("0000001");
+        }
+        return serviceResponse;
+    }
+
+
+    /**
      *  下载 返回文件流
      * @param  jsonRequest
      * @return

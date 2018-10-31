@@ -65,6 +65,16 @@ public interface ObjectionChuLiAPI {
     @RequestMapping(value = "/objectionChuLi/preview",method = RequestMethod.POST)
     ServiceResponse<ObjectionChuLiVO> preview(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest);
 
+
+    /**
+     *  预览润乾pdf
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/objectionChuLi/look",method = RequestMethod.POST)
+    ServiceResponse<ObjectionChuLiVO> look(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest);
+
     /**
      *   下载 返回文件流
      * @param  jsonRequest

@@ -23,6 +23,11 @@ public interface ObjectionChuLiService {
     //打印预览
     ObjectionChuLiVO preview(ObjectionChuLiVO record);
 
+    //预览润乾pdf
+    ObjectionChuLiVO look(ObjectionChuLiVO record);
+
+
+
     // 下载pdf
     List<ObjectionChuLiVO> download(ObjectionChuLiVO record);
 

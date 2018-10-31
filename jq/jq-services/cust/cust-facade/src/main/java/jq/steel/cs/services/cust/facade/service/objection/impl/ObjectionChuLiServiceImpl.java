@@ -197,6 +197,7 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
             CrmAgreementInfo  crmAgreementInfo1  = new CrmAgreementInfo();
             crmAgreementInfo1.setDownloader(acctName);
             crmAgreementInfo1.setDownloadTime(new Date());
+            crmAgreementInfo1.setClaimNo(record.getClaimNo());
             Integer integer =crmAgreementInfoMapper.updateByPrimaryKeySelective(crmAgreementInfo1);
             return  integer;
         }
@@ -304,6 +305,15 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
             String reportReturn = createPdf.createPdf(record.getClaimNo() ,record.getReport(),pdfName,"tongzhidan");
             record.setReport(reportReturn);*/
         }
+        return record;
+    }
+
+
+    //预览润乾pdf
+    @Override
+    public ObjectionChuLiVO look(ObjectionChuLiVO record) {
+        String report = "";
+        Integer templateType = record.getTemplateType();
         return record;
     }
 

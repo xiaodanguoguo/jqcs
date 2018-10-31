@@ -290,7 +290,7 @@ public class ObjectionChuLiController {
 
 
     /**
-     * 打印/预览 实时生成pdf并且返回url地址
+     * 预览润乾 实时生成pdf并且返回url地址
      *
      * 1、质量异议报告--新建异议保存后，就出现预览报告按钮，可以调用异议报告模板，查看报告及数据。
         2、外部调查报告--外部调查保存后，就出现预览报告按钮，可以调用外部调查报告模板，查看报告及数据。
@@ -307,9 +307,9 @@ public class ObjectionChuLiController {
         String createPdfPath = uploadConfig.getModelUrl();
         jsonRequest.getReqBody().setReport(createPdfPath);
         try {
-            ServiceResponse<ObjectionChuLiVO> serviceResponse = objectionChuLiAPI.preview(jsonRequest);
+            ServiceResponse<ObjectionChuLiVO> serviceResponse = objectionChuLiAPI.look(jsonRequest);
             String report = "";
-            if (serviceResponse.getRetContent().getTemplateType()==1){
+            if (jsonRequest.getReqBody().getTemplateType()==1){
                 String  pdfName = jsonRequest.getReqBody().getClaimNo() + "Y.pdf";
                 String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"yiyibaogao");
                 String hh1 = report1.replace("/data/kf_web","/res");
