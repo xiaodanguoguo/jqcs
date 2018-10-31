@@ -846,4 +846,11 @@ public class ObjectionTiBaoVO {
     public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
     }
+
+    //--------------------10.31,添加字段,lujiaei----------------
+    private String name ;                   //受理人姓名
+
+    public String getName() {  return name;  }
+
+    public void setName(String name) { this.name = name;  }
 }

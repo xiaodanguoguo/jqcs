@@ -57,7 +57,7 @@ public class MillSheetHosts {
     private List<String> millSheetNos;
 
 
-    private String zkdauf;//销售订单编号
+    private String zkdauf;  //销售订单编号
 
     private int isSplit;
 
@@ -137,6 +137,14 @@ public class MillSheetHosts {
 
     //客户名称
     private  String spiltCustomer;
+
+    public String getZkdauf() {
+        return zkdauf;
+    }
+
+    public void setZkdauf(String zkdauf) {
+        this.zkdauf = zkdauf;
+    }
 
     public String getFallbackReason() {
         return fallbackReason;

@@ -461,79 +461,79 @@
       <if test="productId != null" >
         PRODUCT_ID = #{productId,jdbcType=NUMERIC},
       </if>
-      <if test="productName != null and productName != ''" >
+      <if test="productName != null " >
         PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
       </if>
-      <if test="millSheetNo != null and millSheetNo != ''" >
+      <if test="millSheetNo != null " >
         MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
       </if>
-      <if test="customerId != null and customerId != ''" >
+      <if test="customerId != null " >
         CUSTOMER_ID = #{customerId,jdbcType=VARCHAR},
       </if>
-      <if test="customerName != null and customerName != ''" >
+      <if test="customerName != null " >
         CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
       </if>
-      <if test="custAddr != null and custAddr != ''" >
+      <if test="custAddr != null " >
         CUST_ADDR = #{custAddr,jdbcType=VARCHAR},
       </if>
-      <if test="custEmpNo != null and custEmpNo != ''" >
+      <if test="custEmpNo != null " >
         CUST_EMP_NO = #{custEmpNo,jdbcType=VARCHAR},
       </if>
-      <if test="custTel != null and custTel != ''" >
+      <if test="custTel != null " >
         CUST_TEL = #{custTel,jdbcType=VARCHAR},
       </if>
-      <if test="lastUserId != null and lastUserId != ''" >
+      <if test="lastUserId != null  " >
         LAST_USER_ID = #{lastUserId,jdbcType=VARCHAR},
       </if>
-      <if test="lastUser != null and lastUser != ''" >
+      <if test="lastUser != null " >
         LAST_USER = #{lastUser,jdbcType=VARCHAR},
       </if>
-      <if test="lastUserAddr != null and lastUserAddr != ''" >
+      <if test="lastUserAddr != null " >
         LAST_USER_ADDR = #{lastUserAddr,jdbcType=VARCHAR},
       </if>
-      <if test="createEmpNo != null and createEmpNo != ''" >
+      <if test="createEmpNo != null  " >
         CREATE_EMP_NO = #{createEmpNo,jdbcType=VARCHAR},
       </if>
-      <if test="lastUserTel != null and lastUserTel != ''" >
+      <if test="lastUserTel != null " >
         LAST_USER_TEL = #{lastUserTel,jdbcType=VARCHAR},
       </if>
-      <if test="lastUserEmail != null and lastUserEmail != ''" >
+      <if test="lastUserEmail != null  " >
         LAST_USER_EMAIL = #{lastUserEmail,jdbcType=VARCHAR},
       </if>
-      <if test="steelType != null and steelType != ''" >
+      <if test="steelType != null " >
         STEEL_TYPE = #{steelType,jdbcType=VARCHAR},
       </if>
-      <if test="claimType != null and claimType != ''" >
+      <if test="claimType != null " >
         CLAIM_TYPE = #{claimType,jdbcType=VARCHAR},
       </if>
-      <if test="battenPlateNo != null and battenPlateNo != ''" >
+      <if test="battenPlateNo != null " >
         BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR},
       </if>
-      <if test="proProblem != null and proProblem != ''" >
+      <if test="proProblem != null " >
         PRO_PROBLEM = #{proProblem,jdbcType=VARCHAR},
       </if>
-      <if test="designation != null and designation != ''" >
+      <if test="designation != null " >
         DESIGNATION = #{designation,jdbcType=VARCHAR},
       </if>
-      <if test="used != null and used != ''" >
+      <if test="used != null " >
         USED = #{used,jdbcType=VARCHAR},
       </if>
-      <if test="contractNo != null and contractNo != ''" >
+      <if test="contractNo != null " >
         CONTRACT_NO = #{contractNo,jdbcType=VARCHAR},
       </if>
       <if test="contractVolume != null" >
         CONTRACT_VOLUME = #{contractVolume,jdbcType=NUMERIC},
       </if>
-      <if test="specs != null and specs != ''" >
+      <if test="specs != null" >
         SIZE_MARK = #{specs,jdbcType=VARCHAR},
       </if>
       <if test="originalWeight != null" >
         ORIGINAL_WEIGHT = #{originalWeight,jdbcType=NUMERIC},
       </if>
-      <if test="orderNo != null and orderNo != ''" >
+      <if test="orderNo != null " >
         ORDER_NO = #{orderNo,jdbcType=VARCHAR},
       </if>
-      <if test="originalCarNo != null and originalCarNo != ''" >
+      <if test="originalCarNo != null " >
         ORIGINAL_CAR_NO = #{originalCarNo,jdbcType=VARCHAR},
       </if>
       <if test="contractUnitPrice != null" >
@@ -542,34 +542,34 @@
       <if test="objectionNum != null" >
         OBJECTION_NUM = #{objectionNum,jdbcType=NUMERIC},
       </if>
-      <if test="endProcessingTech != null and endProcessingTech != ''" >
+      <if test="endProcessingTech != null  " >
         END_PROCESSING_TECH = #{endProcessingTech,jdbcType=VARCHAR},
       </if>
-      <if test="claimDesc != null and claimDesc != ''" >
+      <if test="claimDesc != null  " >
         CLAIM_DESC = #{claimDesc,jdbcType=VARCHAR},
       </if>
-      <if test="claimReason != null and claimReason != ''" >
+      <if test="claimReason != null  " >
         CLAIM_REASON = #{claimReason,jdbcType=VARCHAR},
       </if>
-      <if test="claimState != null and claimState != ''" >
+      <if test="claimState != null " >
         CLAIM_STATE = #{claimState,jdbcType=VARCHAR},
       </if>
-      <if test="filePath != null and filePath != ''" >
+      <if test="filePath != null " >
         FILE_PATH = #{filePath,jdbcType=VARCHAR},
       </if>
-      <if test="checkState != null and checkState != ''" >
+      <if test="checkState != null  " >
         CHECK_STATE = #{checkState,jdbcType=VARCHAR},
       </if>
-      <if test="rejectReason != null and rejectReason != ''" >
+      <if test="rejectReason != null " >
         REJECT_REASON = #{rejectReason,jdbcType=VARCHAR},
       </if>
-      <if test="createdBy != null and createdBy != ''" >
+      <if test="createdBy != null " >
         CREATED_BY = #{createdBy,jdbcType=VARCHAR},
       </if>
       <if test="createdDt != null" >
         CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
       </if>
-      <if test="updatedBy != null and updatedBy != ''" >
+      <if test="updatedBy != null  " >
         UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
       </if>
       <if test="updatedDt != null" >
@@ -578,10 +578,10 @@
       <if test="dissentingUnit != null" >
         DISSENTING_UNIT = #{dissentingUnit,jdbcType=NUMERIC},
       </if>
-      <if test="inquireState != null and inquireState != ''" >
+      <if test="inquireState != null  " >
         INQUIRE_STATE = #{inquireState,jdbcType=VARCHAR},
       </if>
-      <if test="reportPictures != null and reportPictures != ''" >
+      <if test="reportPictures != null " >
         REPORT_PICTURE = #{reportPictures,jdbcType=VARCHAR},
       </if>
       <if test="objectionConfirmation != null" >
