@@ -88,7 +88,7 @@ public class ObjectionLedgerVO {
 
     private String logisticsProcess;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date productDt;
 
     private String handingSuggestion;
@@ -97,11 +97,11 @@ public class ObjectionLedgerVO {
     private  BigDecimal objectionConfirmation;
 
     //受理时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date admissibilityTime;
 
     //结案时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date closingTime;
 
     //结案人
@@ -117,7 +117,7 @@ public class ObjectionLedgerVO {
     private BigDecimal agreementAmount;
 
     //到达时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date arrivalTime;
 
     //处理周期

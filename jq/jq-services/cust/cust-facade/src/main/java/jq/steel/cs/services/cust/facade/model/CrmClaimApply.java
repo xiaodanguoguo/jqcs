@@ -64,7 +64,7 @@ public class CrmClaimApply {
     private String ast;
 
     //结案时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date closingTime;
 
     //结案人
@@ -203,11 +203,11 @@ public class CrmClaimApply {
     private Integer dissentingUnit;
 
     //受理时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date admissibilityTime;
 
     //提报时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date presentationDate;
 
     //受理人

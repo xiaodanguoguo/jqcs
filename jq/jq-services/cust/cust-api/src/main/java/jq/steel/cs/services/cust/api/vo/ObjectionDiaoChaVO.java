@@ -16,7 +16,7 @@ public class ObjectionDiaoChaVO {
 
 
     //到达时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private  Date arrivalTime;
 
     //协议内容
@@ -254,7 +254,7 @@ public class ObjectionDiaoChaVO {
 
     private String defectName;  //缺陷名称
 
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date productDt; //生产日期
 
     private String shift;
@@ -271,21 +271,21 @@ public class ObjectionDiaoChaVO {
     //外部调查人
     private String externalLnvestigator;
     //外部调查时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private  Date externalLnvestigationDate;
     //内部调查人
     private  String internalLnvestigator;
     //内部调查时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date internalLnvestigationDate;
 
 
     //受理时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date admissibilityTime;
 
     //提报时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date presentationDate;
 
     //受理人
