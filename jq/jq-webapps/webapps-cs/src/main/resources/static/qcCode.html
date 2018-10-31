@@ -163,6 +163,7 @@
                     $("#DivDetail").append(cloneRwo);
                     $(cloneRwo).find("#zcharg").text(textG.zcharg);
                     $(cloneRwo).find("#specs").text(textG.specs);
+                    $(cloneRwo).find("#zlph").text(textG.zlph);
                     $(cloneRwo).find("#zlosmenge").text(textG.zlosmenge);
                     $(cloneRwo).find("#zJiShu").text(textG.zJiShu);
                     for (var s = 0; s < jsData.rspBody[i].listForMillChemistryData.length; s++) {
@@ -178,7 +179,8 @@
                         var textValH = jsData.rspBody[i].listForMillPhysicsData[q];
                         var cloneRwoTrH = $("#templteTrH").clone(true);
                         $(cloneRwoTrH).css("display", "");
-                        $(cloneRwo).append(cloneRwoTr);
+						$(cloneRwoTrH).find().text();
+                        $(cloneRwo).append(cloneRwoTrH);
                         $(cloneRwoTrH).find("#kurztext").text(textValH.kurztext + "：");
                         $(cloneRwoTrH).find("#originalInput").text(textValH.originalInput);
 

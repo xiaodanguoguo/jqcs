@@ -73,6 +73,16 @@ public class MillCoilInfo {
 
     private Short version;
 
+    private String zkdauf;
+
+    public String getZkdauf() {
+        return zkdauf;
+    }
+
+    public void setZkdauf(String zkdauf) {
+        this.zkdauf = zkdauf;
+    }
+
     public String getMillSheetNo() {
         return millSheetNo;
     }

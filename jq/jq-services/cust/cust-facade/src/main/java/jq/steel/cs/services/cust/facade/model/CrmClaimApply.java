@@ -871,6 +871,12 @@ public class CrmClaimApply {
 
     private String mobilePhone ;            //受理人电话
 
+    private String name ;                   //受理人姓名
+
+    public String getName() {  return name;  }
+
+    public void setName(String name) { this.name = name;  }
+
     public String getNeedUser() {
         return needUser;
     }

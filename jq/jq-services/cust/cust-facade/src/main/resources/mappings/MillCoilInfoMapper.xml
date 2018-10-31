@@ -64,6 +64,7 @@
     <result column="ZCPMC" property="zcpmc" jdbcType="VARCHAR" />
     <result column="ZKUNNR" property="zkunnr" jdbcType="VARCHAR" />
     <result column="ZKUNWE" property="zkunwe" jdbcType="VARCHAR" />
+
   </resultMap>
 
   <resultMap id="MapForCoilAndPhysics" type="jq.steel.cs.services.cust.facade.model.CrmMillCoilInfo">
@@ -466,6 +467,7 @@ FROM
   <select id="getPhysicsListByMillSheet" resultMap="MapForCoilAndPhysics" parameterType="jq.steel.cs.services.cust.api.vo.CrmMillSheetDetailVO">
     SELECT
     msh.MILL_SHEET_NO,
+    msh.STATE,
     mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE,mci.ZJISHU,
     mpd.SID AS MPD_SID, mpd.KURZTEXT AS MPD_KURZTEXT, mpd.ORIGINAL_INPUT as MPD_ORIGINAL_INPUT
     FROM MILL_SHEET_HOSTS msh
