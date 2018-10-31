@@ -809,6 +809,8 @@ function firstSaveCallBack(data){
         if(document.body.jsLee.htmlType == 0){
             document.body.jsLee.claimNoPreview = data.rspBody.claimNo;
         }
+        var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert(data.retDesc,"成功提示");
         /*var alertBox=new clsAlertBoxCtrl();
         alertBox.Alert(data.retDesc,"成功提示",1,"","successJump");*/
         //jumpUrl("objectionSubmit.html","0000000",0);
@@ -818,7 +820,9 @@ function firstSaveCallBack(data){
 function secondSaveCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
-        garyDom(document.body.jsLee.opeDom)
+        garyDom(document.body.jsLee.opeDom);
+        var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert(data.retDesc,"成功提示",1,"","successJump");
         /*var alertBox=new clsAlertBoxCtrl();
         alertBox.Alert(data.retDesc,"成功提示",1,"","successJump2");*/
         /*if(document.body.jsLee.opeDom == "sixthReject" || document.body.jsLee.opeDom == "sixthPromise"){
