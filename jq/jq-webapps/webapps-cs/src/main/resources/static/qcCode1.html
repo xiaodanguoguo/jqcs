@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <title>信息</title>
+    <link rel="stylesheet" href="benxiSteel/css/index.css">
+    <script src="benxiSteel/base/js/jquery.js"></script>
+    <script src="benxiSteel/base/js/public.js"></script>
+    <script src="benxiSteel/base/js/docassistant.js"></script>
+    <script src="benxiSteel/base/js/config.js"></script>
+
+</head>
+<body>
+<h4 class="stl_header">
+    <img src="logoBig.png" style="max-width:45px;margin-top:5px"/>酒钢集团</h4>
+<h4 class="stl_scrlApp">坯板卷基本信息</h4>
+<div class="stl_appDiv" id="appDiv">
+    <table class="stl_table" cellpadding="0" cellspacing="0" id="templateTableStl" style="display:none">
+        <tr>
+            <td class="table_title">质证书编号：</td>
+            <td class="table_intro" id="millSheetNo"></td>
+        </tr>
+        <tr>
+            <td class="table_title">收货单位：</td>
+            <td class="table_intro" id="name"></td>
+        </tr>
+        <tr>
+            <td class="table_title">产品名称：</td>
+            <td class="table_intro"id="zcpmc"></td>
+        </tr>
+        <tr>
+            <td class="table_title">牌号：</td>
+            <td class="table_intro" id="zph"></td>
+        </tr>
+        <tr>
+            <td class="table_title">标准：</td>
+            <td class="table_intro" id="zzxbz"></td>
+        </tr>
+        <tr>
+            <td class="table_title">车号：</td>
+            <td class="table_intro"id="zchehao"></td>
+        </tr>
+        <tr>
+            <td class="table_title">到站：</td>
+            <td class="table_intro"id="zdaozhan"></td>
+        </tr>
+        <!--<tr>
+            <td class="table_title">重量：</td>
+            <td class="table_intro" id="">BJJ-金州</td>
+        </tr>-->
+        <tr>
+            <td class="table_title">交货状态：</td>
+            <td class="table_intro" id="zjhzt">冷轧</td>
+        </tr>
+        <!--<tr>
+            <td class="table_title">注释A：</td>
+            <td class="table_intro" id="">*A1 屈服强度 YIELD STRENGTH
+                *A2 抗拉强度 TENSILE STRENGTH
+                *A3 伸长率 ELONGATIO
+            </td>
+        </tr>-->
+      <!--  <tr>
+            <td class="table_title">注释B：</td>
+            <td class="table_intro"id=""></td>
+        </tr>
+        <tr>
+            <td class="table_title">注释C：</td>
+            <td class="table_intro"id=""></td>
+        </tr>-->
+    </table>
+</div>
+<h4 class="stl_scrlDetail">明细列表</h4>
+<div class="stl_DivDetail" id="DivDetail">
+    <table class="stl_table" cellpadding="0" cellspacing="0" id="templteTable" style="display:none">
+        <!--<tr>
+            <td class="table_title">轧制序号：</td>
+            <td class="table_intro"></td>
+        </tr>-->
+       <!-- <tr>
+            <td class="table_title">生产日期：</td>
+            <td class="table_intro">2018/10/04</td>
+        </tr>-->
+        <tr>
+            <td class="table_title">坯板卷号：</td>
+            <td class="table_intro" id="zcharg">8AW000390100</td>
+        </tr>
+        <tr>
+            <td class="table_title">炉(批)号：</td>
+            <td class="table_intro" id="zlph">1864912</td>
+        </tr>
+       <!-- <tr>
+            <td class="table_title">等级：</td>
+            <td class="table_intro">2</td>
+        </tr>-->
+        <tr>
+            <td class="table_title">规格：</td>
+            <td class="table_intro" id="specs">740000.0*1500.0*1.0</td>
+        </tr>
+        <tr>
+            <td class="table_title">数量：</td>
+            <td class="table_intro" id="zJiShu">1</td>
+        </tr>
+        <tr>
+            <td class="table_title">重量：</td>
+            <td class="table_intro" id="zlosmenge">8.585</td>
+        </tr>
+        <tr id="templteTr" style="display:none">
+            <td class="table_title" id="kurztext">P：</td>
+            <td class="table_intro" id="original_input">0.007</td>
+        </tr>
+        <tr id="templteTrH" style="display:none">
+            <td class="table_title" id="kurztext">P：</td>
+            <td class="table_intro" id="originalInput">0.007</td>
+        </tr>
+
+    </table>
+</div>
+
+</body>
+<script>
+    document.documentElement.style.fontSize = 2 * window.innerWidth / 7.5 + 'px';
+</script>
+<script>
+    jsonReqHeaderData = {};
+    // $(function () {
+    //         window.onresize=function(){
+    //             var btn = $(window).width();
+    //             if(btn < 960){
+    //                 window.location.reload();
+    //             }
+    //     }
+    // });
+    // function initBefore(){
+    //     getAjaxResult("/millSheetDetail/qrCode", "post", {"millSheetNo": GetQueryString("code")}, "loginFun(data)");
+    // }
+    // function loginFun(data) {
+    //     var jsData=JSON.parse(data);
+    //     var resultData = [];
+    //     if(jsData.retCode=="0000000"){
+    //         if(jsData.rspBody==''){
+    //             return
+    //         }else{
+    //             var textOne = jsData.rspBody[0].millSheetHead;
+    //             var cloneOne = $("#templateTableStl").clone(true);
+    //             $(cloneOne).css("display", "");
+    //             $(cloneOne).find().text();
+    //             $("#appDiv").append(cloneOne);
+    //             $(cloneOne).find("#millSheetNo").text(textOne.millSheetNo);
+    //             $(cloneOne).find("#name").text(textOne.name);
+    //             $(cloneOne).find("#zcpmc").text(textOne.zcpmc);
+    //             $(cloneOne).find("#zph").text(textOne.zph);
+    //             $(cloneOne).find("#zzxbz").text(textOne.zzxbz);
+    //             $(cloneOne).find("#zchehao").text(textOne.zchehao);
+    //             $(cloneOne).find("#zdaozhan").text(textOne.zdaozhan);
+    //             $(cloneOne).find("#zjhzt").text(textOne.zjhzt);
+    //             for (var i = 0; i < jsData.rspBody.length; i++) {
+    //                 var textG = jsData.rspBody[i];
+    //                 resultData.push(textG.millSheetHead);
+    //                 var cloneRwo = $("#templteTable").clone(true);
+    //                 $(cloneRwo).css("display", "");
+    //                 $(cloneRwo).find().text();
+    //                 $("#DivDetail").append(cloneRwo);
+    //                 $(cloneRwo).find("#zcharg").text(textG.zcharg);
+    //                 $(cloneRwo).find("#specs").text(textG.specs);
+    //                 $(cloneRwo).find("#zlph").text(textG.zlph);
+    //                 $(cloneRwo).find("#zlosmenge").text(textG.zlosmenge);
+    //                 $(cloneRwo).find("#zJiShu").text(textG.zJiShu);
+    //                 for (var s = 0; s < jsData.rspBody[i].listForMillChemistryData.length; s++) {
+    //                     var textVal = jsData.rspBody[i].listForMillChemistryData[s];
+    //                     var cloneRwoTr = $("#templteTr").clone(true);
+    //                     $(cloneRwoTr).css("display", "");
+    //                     $(cloneRwoTr).find().text();
+    //                     $(cloneRwo).append(cloneRwoTr);
+    //                     $(cloneRwoTr).find("#kurztext").text(textVal.kurztext + "：");
+    //                     $(cloneRwoTr).find("#original_input").text(textVal.original_input);
+    //                 }
+    //                 for (var q = 0; q < jsData.rspBody[i].listForMillPhysicsData.length; q++) {
+    //                     var textValH = jsData.rspBody[i].listForMillPhysicsData[q];
+    //                     var cloneRwoTrH = $("#templteTrH").clone(true);
+    //                     $(cloneRwoTrH).css("display", "");
+	// 					$(cloneRwoTrH).find().text();
+    //                     $(cloneRwo).append(cloneRwoTrH);
+    //                     $(cloneRwoTrH).find("#kurztext").text(textValH.kurztext + "：");
+    //                     $(cloneRwoTrH).find("#originalInput").text(textValH.originalInput);
+    //
+    //                 }
+    //             }
+    //         }
+    //
+    //     }
+    //
+    // }
+</script>
+</html>
