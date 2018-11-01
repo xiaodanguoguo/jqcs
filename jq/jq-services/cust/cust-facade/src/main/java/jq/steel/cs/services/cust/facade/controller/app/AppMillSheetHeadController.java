@@ -35,7 +35,8 @@ public class AppMillSheetHeadController {
         }
         try {
             MillSheetHeadVO mshVO = jsonRequest.getReqBody();
-            MillSheetHeadVO vo = millSheetHeadService.getSheetHeadByMillSheetNo(mshVO.getMillSheetNo());
+            //MillSheetHeadVO vo = millSheetHeadService.getSheetHeadByMillSheetNo(mshVO.getMillSheetNo());
+            MillSheetHeadVO vo = millSheetHeadService.getByMillSheetNOWithCreateOrUpdate(mshVO.getMillSheetNo());
             serviceResponse.setRetContent(vo);
         } catch (Exception e) {
             serviceResponse.setException(new BusinessException("500"));

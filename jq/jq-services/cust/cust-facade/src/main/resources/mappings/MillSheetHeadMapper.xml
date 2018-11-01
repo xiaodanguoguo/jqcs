@@ -335,12 +335,24 @@
 
   <select id="selectByMillSheetNO" resultMap="BaseResultMap">
     SELECT msh.ZCHEHAO , msh.ZHTH , msh.ZPH , msh.TOTAL_ZLOSMENGE ,msh.MILL_BIG_TYPE,
-     cla.SIZE_MARK , cla.PRODUCT_NAME, cla.CONTRACT_VOLUME , cla.ORIGINAL_WEIGHT , cla.ORIGINAL_CAR_NO
+    cla.SIZE_MARK , cla.PRODUCT_NAME, cla.CONTRACT_VOLUME , cla.ORIGINAL_WEIGHT , cla.ORIGINAL_CAR_NO
     FROM  MILL_SHEET_HEAD msh
     LEFT JOIN CRM_CLAIM_APPLY  cla ON cla.MILL_SHEET_NO = msh.MILL_SHEET_NO
-    WHERE msh.MILL_SHEET_NO = #{millSheetNo}
-    GROUP BY msh.MILL_SHEET_NO , msh.ZCHEHAO , msh.ZHTH , msh.ZPH , msh.TOTAL_ZLOSMENGE , msh.MILL_BIG_TYPE ,
-cla.size_mark , cla.PRODUCT_NAME, cla.CONTRACT_VOLUME ,CLA.SIZE_MARK , cla.ORIGINAL_WEIGHT , cla.ORIGINAL_CAR_NO
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+    <if test="millSheetNo != null and millSheetNo != ''" >
+      AND msh.MILL_SHEET_NO = #{millSheetNo}
+    </if>
+    <if test="claimNo != null and claimNo != ''"  >
+     AND cla.CLAIM_NO = #{claimNo},
+    </if>
+    </trim>
   </select>
+
+  <select id="selectByMillSheetNOWithCreateOrUpdate" resultMap="BaseResultMap">
+    select *
+    from MILL_SHEET_HEAD
+    where MILL_SHEET_NO = #{millSheetNo}
+  </select>
+
 
 </mapper>

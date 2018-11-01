@@ -32,4 +32,10 @@ public class AppMillSheetHeadServiceImpl implements AppMillSheetHeadService {
         MillCoilInfoVO mcivo = BeanCopyUtil.copy(millCoilInfo, MillCoilInfoVO.class);
         return mcivo;
     }
+
+    public MillSheetHeadVO getByMillSheetNOWithCreateOrUpdate(String millSheetNo) {
+        MillSheetHead millSheetHead = millSheetHeadMapper.selectByMillSheetNOWithCreateOrUpdate(millSheetNo);
+        MillSheetHeadVO vo = BeanCopyUtil.copy(millSheetHead, MillSheetHeadVO.class);
+        return vo;
+    }
 }

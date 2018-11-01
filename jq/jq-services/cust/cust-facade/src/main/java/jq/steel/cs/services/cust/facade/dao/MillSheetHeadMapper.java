@@ -22,4 +22,6 @@ public interface MillSheetHeadMapper {
     MillSheetHead findCategoryCode(MillSheetHead record);
 
     MillSheetHead selectByMillSheetNO(String millSheetNo);
+
+    MillSheetHead selectByMillSheetNOWithCreateOrUpdate(String millSheetNo);
 }

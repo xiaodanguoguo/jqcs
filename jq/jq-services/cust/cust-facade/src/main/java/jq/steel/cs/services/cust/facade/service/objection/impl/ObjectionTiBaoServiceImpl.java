@@ -326,7 +326,8 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 crmClaimApply.setClaimState("NEW");
                 crmClaimApply.setClaimNo(claimNo);
                 crmClaimApply.setCreatedBy(acctName);
-                //crmClaimApply.setCustomerId(orgCode);
+                crmClaimApply.setCustomerId(orgCode);
+                //crmClaimApply.setCustomerId(objectionTiBaoVO.getCustomerId());
                 crmClaimApply.setCreatedDt(new Date());
               //  Integer integer = crmClaimApplyMapper.insertSelective(crmClaimApply);
                 Integer integer = crmClaimApplyMapper.insert(crmClaimApply);
@@ -334,7 +335,8 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 crmClaimApplyCopy.setClaimState("NEW");
                 crmClaimApplyCopy.setClaimNo(claimNo);
                 crmClaimApplyCopy.setCreatedBy(acctName);
-                //crmClaimApplyCopy.setCustomerId(orgCode);
+                crmClaimApplyCopy.setCustomerId(orgCode);
+                //crmClaimApplyCopy.setCustomerId(objectionTiBaoVO.getCustomerId());
                 crmClaimApplyCopy.setCreatedDt(new Date());
                 crmClaimApplyCopyMapper.insert(crmClaimApplyCopy);
                 //日志记录
@@ -349,7 +351,8 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                     crmClaimInfo.setClaimState("NEW");
                     crmClaimInfo.setCreatedDt(new Date());
                     crmClaimInfo.setCreatedBy(acctName);
-                    //crmClaimInfo.setCustomerId(orgCode);
+                    crmClaimInfo.setCustomerId(orgCode);
+                    //crmClaimInfo.setCustomerId(objectionTiBaoVO.getCustomerId());
                     crmClaimInfo.setClaimNo(claimNo);
                     crmClaimInfo.setDissentingUnit(dissentingUnit);
                     Integer integer1 =crmClaimInfoMapper.insertSelective(crmClaimInfo);
