@@ -31,7 +31,7 @@ public class CrmClaimInfo {
     private String expiredReason;
 
     //结案时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date closingTime;
 
     //受理时间

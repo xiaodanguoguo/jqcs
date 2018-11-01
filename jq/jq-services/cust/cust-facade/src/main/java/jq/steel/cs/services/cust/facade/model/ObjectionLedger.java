@@ -24,7 +24,7 @@ public class ObjectionLedger {
     private String cycle;
 
     //到达时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date arrivalTime;
 
     //产线(生产工序)
@@ -82,7 +82,7 @@ public class ObjectionLedger {
 
     private String logisticsProcess;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date productDt;
 
     private String handingSuggestion;
@@ -91,11 +91,11 @@ public class ObjectionLedger {
     private  String objectionConfirmation;
 
     //受理时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date admissibilityTime;
 
     //结案时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date closingTime;
 
     //结案人

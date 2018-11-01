@@ -15,7 +15,7 @@ public class CrmClaimOutInquire {
     private String responsibilityUnit;
 
     //到达时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private  Date arrivalTime;
 
     //协议内容
@@ -340,7 +340,7 @@ public class CrmClaimOutInquire {
     private Date admissibilityTime;
 
     //提报时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date presentationDate;
 
     //受理人
@@ -365,12 +365,12 @@ public class CrmClaimOutInquire {
     //外部调查人
     private String externalLnvestigator;
     //外部调查时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private  Date externalLnvestigationDate;
     //内部调查人
     private  String internalLnvestigator;
     //内部调查时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date internalLnvestigationDate;
 
 

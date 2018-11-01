@@ -28,7 +28,7 @@ public class ObjectionChuLiVO {
     private String expiredReason;
 
     //结案时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date closingTime;
 
     //是否跟踪
@@ -247,11 +247,11 @@ public class ObjectionChuLiVO {
     private  String agreementPath;
 
     //受理时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date admissibilityTime;
 
     //提报时间
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date presentationDate;
 
     //受理人
@@ -284,7 +284,7 @@ public class ObjectionChuLiVO {
     private String endProcessingTech;
     private String defectName;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date productDt;
     private String shift;
 

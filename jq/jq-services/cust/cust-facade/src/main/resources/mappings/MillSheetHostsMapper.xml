@@ -25,7 +25,7 @@
     <result column="ZKUNNR" property="zkunnr" jdbcType="VARCHAR" />
     <result column="ZKUNWE" property="zkunwe" jdbcType="VARCHAR" />
     <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
-    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="LFDAT" property="createdDt" jdbcType="TIMESTAMP" />
     <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
     <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
     <result column="VERSION" property="version" jdbcType="DECIMAL" />
@@ -73,7 +73,7 @@
     <result column="ZHTH" property="zhth" jdbcType="VARCHAR" />
     <result column="ZPH" property="zph" jdbcType="VARCHAR" />
     <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
-    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="LFDAT" property="createdDt" jdbcType="TIMESTAMP" />
     <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
     <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
     <result column="VERSION" property="version" jdbcType="DECIMAL" />
@@ -167,7 +167,6 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     MFI.FALLBACK_REASON,
     case when MFS.STEP_RESULT ='Y' then '' else MFI.REJECTION_REASON end as REJECTION_REASON,
     MSO.STATE,
-    MSO.CREATED_DT,
     MSO.DATA_STATE,
     MSO.MILL_SHEET_NO_OLD,
     MSO.MILL_SHEET_NO,
@@ -187,6 +186,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     MSH.ZCHEHAO,
     MSH.ZHTH,
     MSH.ZCPMC,
+    MSH.LFDAT,
     MSH.ZPH,
     MSH.MILL_LINE,
     MSH.ZKDAUF AS ZKDAUF,
@@ -199,10 +199,10 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.MILL_FALLBACK_STEPS MFS ON MSO.MILL_SHEET_NO = MFS.MILL_SHEET_NO
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
-        AND TO_CHAR (MSO.CREATED_DT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        AND TO_CHAR (MSH.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
       </if>
       <if test="startDtStr != null" >
-        AND TO_CHAR (MSO.CREATED_DT, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+        AND TO_CHAR (MSh.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
       </if>
       <if test="millSheetNo != null  and millSheetNo != ''" >
         AND MSO.MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
@@ -636,7 +636,6 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     MFI.FALLBACK_REASON,
     case when MFS.STEP_RESULT ='Y' then '' else MFI.REJECTION_REASON end as REJECTION_REASON,
     MSO.STATE,
-    MSO.CREATED_DT,
     MSO.DATA_STATE,
     MSO.MILL_SHEET_NO_OLD,
     MSO.MILL_SHEET_NO,
@@ -656,6 +655,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     MSH.ZCHEHAO,
     MSH.ZHTH,
     MSH.ZCPMC,
+    MSH.LFDAT,
     MSH.ZPH,
     MSH.MILL_LINE,
     MSH.ZKDAUF AS ZKDAUF,
@@ -669,10 +669,10 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.MILL_FALLBACK_STEPS MFS ON MSO.MILL_SHEET_NO = MFS.MILL_SHEET_NO) h
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
-        AND TO_CHAR (H.CREATED_DT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        AND TO_CHAR (H.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
       </if>
       <if test="startDtStr != null" >
-        AND TO_CHAR (H.CREATED_DT, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+        AND TO_CHAR (H.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
       </if>
       <if test="millSheetNo != null  and millSheetNo != ''" >
         AND H.MILL_SHEET_NO like  '%' || #{millSheetNo} ||'%'

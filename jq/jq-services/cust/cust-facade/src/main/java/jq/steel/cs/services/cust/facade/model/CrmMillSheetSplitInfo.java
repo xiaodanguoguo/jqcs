@@ -54,7 +54,7 @@ public class CrmMillSheetSplitInfo {
 
     private String createdBy;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date createdDt;
 
     private String updatedBy;
