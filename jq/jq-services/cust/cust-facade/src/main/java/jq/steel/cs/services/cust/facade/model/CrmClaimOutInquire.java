@@ -256,7 +256,7 @@ public class CrmClaimOutInquire {
 
     private String inquireInfo; //调查事实阐述
 
-    private Integer amountOfUse;
+    private BigDecimal amountOfUse;
 
 
     /*********************************************************************************/
@@ -600,11 +600,11 @@ public class CrmClaimOutInquire {
         this.startDtStr = startDtStr;
     }
 
-    public Integer getAmountOfUse() {
+    public BigDecimal getAmountOfUse() {
         return amountOfUse;
     }
 
-    public void setAmountOfUse(Integer amountOfUse) {
+    public void setAmountOfUse(BigDecimal amountOfUse) {
         this.amountOfUse = amountOfUse;
     }
 
