@@ -79,6 +79,7 @@
 
   <resultMap id="BaseResultMap1" type="jq.steel.cs.services.cust.facade.model.ObjectionLedger" >
     <id column="SID" property="sid" jdbcType="NUMERIC" />
+    <result column="SIZE_MARK" property="specs" jdbcType="VARCHAR" />
     <result column="CLAIM_STATE" property="claimState" jdbcType="VARCHAR" />
     <result column="CLAIM_NO" property="claimNo" jdbcType="VARCHAR" />
     <result column="LAST_USER" property="lastUser" jdbcType="VARCHAR" />
@@ -101,7 +102,7 @@
     <result column="LOGISTICS_PROCESS" property="logisticsProcess" jdbcType="VARCHAR" />
     <result column="PRODUCT_DT" property="productDt" jdbcType="TIMESTAMP" />
     <result column="HANDING_SUGGESTION" property="handingSuggestion" jdbcType="VARCHAR" />
-    <result column="OBJECTION_CONFIRMATION" property="objectionConfirmation" jdbcType="VARCHAR" />
+    <result column="OBJECTION_CONFIRMATION" property="objectionConfirmation" jdbcType="NUMERIC" />
     <result column="ADMISSIBILITY_TIME" property="admissibilityTime" jdbcType="TIMESTAMP" />
     <result column="CLOSING_TIME" property="closingTime" jdbcType="TIMESTAMP" />
     <result column="CLOSING_USER" property="closingUser" jdbcType="VARCHAR" />
@@ -915,6 +916,7 @@
     A.LAST_USER_ADDR,
     A.END_PROCESSING_TECH,
     A.USED,
+    A.SIZE_MARK,
     A.ORIGINAL_CAR_NO,
     A.MILL_SHEET_NO,
     A.BATTEN_PLATE_NO,
@@ -922,13 +924,7 @@
     A.OBJECTION_NUM,
     A.CLAIM_REASON,
     A.PRO_PROBLEM,
-    case when A.CLAIM_TYPE = '1' then '表面外观'
-    when A.CLAIM_TYPE = '2' then '理化性能'
-    when A.CLAIM_TYPE = '3' then '加工使用'
-    when A.CLAIM_TYPE = '4' then '尺寸公差'
-    when A.CLAIM_TYPE = '5' then '实物不符'
-    when A.CLAIM_TYPE = '6' then '计量'
-    when A.CLAIM_TYPE='7' then '其他' else  A.CLAIM_TYPE end as CLAIM_TYPE,
+    A.CLAIM_TYPE,
     A.IS_TRACK,
     B.LOGISTICS_PROCESS,
     B.PRODUCT_DT,
@@ -936,7 +932,7 @@
     B.AGREEMENT_AMOUNT,
     B.ARRIVAL_TIME,
     B.DEFECT_NAME,
-    C.OBJECTION_CONFIRMATION,
+    A.OBJECTION_CONFIRMATION,
     C.PRESENTATION_DATE,
     C.ADMISSIBILITY_TIME,
     C.CLOSING_TIME,

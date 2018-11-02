@@ -9,6 +9,8 @@ import java.util.Date;
 //异议统计台账
 public class ObjectionLedgerVO {
 
+    private  String  specs;
+
 
     private BigDecimal handlerUser;
 
@@ -127,6 +129,14 @@ public class ObjectionLedgerVO {
     private String  defectName;
 
     private String zcpmc;
+
+    public String getSpecs() {
+        return specs;
+    }
+
+    public void setSpecs(String specs) {
+        this.specs = specs;
+    }
 
     public String getDefectName() {
         return defectName;

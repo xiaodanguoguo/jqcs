@@ -298,7 +298,7 @@ public class ObjectionDiaoChaVO {
     private  String reasonsForCompulsoryClosure;
 
 
-    private Integer amountOfUse;
+    private BigDecimal amountOfUse;
 
     private String manufactor;
 
@@ -590,11 +590,11 @@ public class ObjectionDiaoChaVO {
         this.startDt = startDt;
     }
 
-    public Integer getAmountOfUse() {
+    public BigDecimal getAmountOfUse() {
         return amountOfUse;
     }
 
-    public void setAmountOfUse(Integer amountOfUse) {
+    public void setAmountOfUse(BigDecimal amountOfUse) {
         this.amountOfUse = amountOfUse;
     }
 

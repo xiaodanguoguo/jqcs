@@ -23,7 +23,7 @@
     <result column="USED" property="used" jdbcType="VARCHAR" />
     <result column="CONTRACT_NO" property="contractNo" jdbcType="VARCHAR" />
     <result column="CONTRACT_VOLUME" property="contractVolume" jdbcType="NUMERIC" />
-    <result column="SIZE_MARK" property="sizeMark" jdbcType="VARCHAR" />
+    <result column="SIZE_MARK" property="specs" jdbcType="VARCHAR" />
     <result column="ORIGINAL_WEIGHT" property="originalWeight" jdbcType="NUMERIC" />
     <result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
     <result column="ORIGINAL_CAR_NO" property="originalCarNo" jdbcType="VARCHAR" />
@@ -316,7 +316,7 @@
       #{lastUserEmail,jdbcType=VARCHAR}, #{battenPlateNo,jdbcType=VARCHAR}, #{designation,jdbcType=VARCHAR},
       #{used,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, #{contractVolume,jdbcType=NUMERIC},
 
-      #{sizeMark,jdbcType=VARCHAR}, #{originalWeight,jdbcType=NUMERIC}, #{orderNo,jdbcType=VARCHAR},
+      #{specs,jdbcType=VARCHAR}, #{originalWeight,jdbcType=NUMERIC}, #{orderNo,jdbcType=VARCHAR},
       #{originalCarNo,jdbcType=VARCHAR}, #{contractUnitPrice,jdbcType=NUMERIC}, #{objectionNum,jdbcType=NUMERIC},
       #{endProcessingTech,jdbcType=VARCHAR}, #{claimDesc,jdbcType=VARCHAR}, #{claimReason,jdbcType=VARCHAR},
       #{steelType,jdbcType=VARCHAR}, #{proProblem,jdbcType=VARCHAR}, #{proDetail,jdbcType=VARCHAR},

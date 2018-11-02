@@ -199,7 +199,7 @@ public class CrmClaimOutInquire {
 
     private String fieldConclusionPhoto;
 
-    private  String objectionConfirmation;  //异议确认量
+    private  BigDecimal objectionConfirmation;  //异议确认量
 
     private  String reportPictures;
 
@@ -256,7 +256,7 @@ public class CrmClaimOutInquire {
 
     private String inquireInfo; //调查事实阐述
 
-    private Integer amountOfUse;
+    private BigDecimal amountOfUse;
 
 
     /*********************************************************************************/
@@ -496,11 +496,11 @@ public class CrmClaimOutInquire {
         this.fieldConclusionPhoto = fieldConclusionPhoto;
     }
 
-    public String getObjectionConfirmation() {
+    public BigDecimal getObjectionConfirmation() {
         return objectionConfirmation;
     }
 
-    public void setObjectionConfirmation(String objectionConfirmation) {
+    public void setObjectionConfirmation(BigDecimal objectionConfirmation) {
         this.objectionConfirmation = objectionConfirmation;
     }
 
@@ -600,11 +600,11 @@ public class CrmClaimOutInquire {
         this.startDtStr = startDtStr;
     }
 
-    public Integer getAmountOfUse() {
+    public BigDecimal getAmountOfUse() {
         return amountOfUse;
     }
 
-    public void setAmountOfUse(Integer amountOfUse) {
+    public void setAmountOfUse(BigDecimal amountOfUse) {
         this.amountOfUse = amountOfUse;
     }
 

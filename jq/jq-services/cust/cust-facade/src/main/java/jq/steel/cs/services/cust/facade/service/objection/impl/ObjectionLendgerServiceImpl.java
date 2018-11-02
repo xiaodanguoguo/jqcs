@@ -1,5 +1,6 @@
 package jq.steel.cs.services.cust.facade.service.objection.impl;
 
+import com.alibaba.druid.sql.visitor.functions.If;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.page.PageDTOUtil;
 import com.ebase.utils.BeanCopyUtil;
@@ -14,6 +15,7 @@ import jq.steel.cs.services.cust.facade.model.CrmClaimApply;
 import jq.steel.cs.services.cust.facade.model.CrmClaimInfo;
 import jq.steel.cs.services.cust.facade.model.ObjectionLedger;
 import jq.steel.cs.services.cust.facade.service.objection.ObjectionLendgerService;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -85,6 +87,8 @@ public class ObjectionLendgerServiceImpl implements ObjectionLendgerService{
                     {
                     }
                 }
+
+
                 //客户评价
                 if (objectionLedger.getHandlerUser()!=null){
                     Integer a = objectionLedger.getHandlerResults().intValue()+objectionLedger.getHandlerUser().intValue()+objectionLedger.getHandlerTime().intValue();
@@ -198,6 +202,24 @@ public class ObjectionLendgerServiceImpl implements ObjectionLendgerService{
                     objectionLedgerVO1.setCycle(""+days+"天"+hours+"小时"+minutes+"分");
                 }catch (Exception e)
                 {
+                }
+            }
+            //异议类别
+            if(objectionLedger.getClaimType()!= null){
+                if (objectionLedger.getClaimType().equals("1")){
+                    objectionLedger.setClaimType("表面外观");
+                }else if(objectionLedger.getClaimType().equals("2")){
+                    objectionLedger.setClaimType("理化性能");
+                }else if(objectionLedger.getClaimType().equals("3")){
+                    objectionLedger.setClaimType("加工使用");
+                }else if(objectionLedger.getClaimType().equals("4")){
+                    objectionLedger.setClaimType("尺寸公差");
+                }else if(objectionLedger.getClaimType().equals("5")){
+                    objectionLedger.setClaimType("实物不符");
+                }else if(objectionLedger.getClaimType().equals("6")){
+                    objectionLedger.setClaimType("计量");
+                }else if(objectionLedger.getClaimType().equals("7")){
+                    objectionLedger.setClaimType("其他");
                 }
             }
             //客户评价

@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class ObjectionLedger {
 
+    private  String  specs;
+
     private String  defectName;
 
     private String zcpmc;
@@ -88,7 +90,7 @@ public class ObjectionLedger {
     private String handingSuggestion;
 
     //异议确认量
-    private  String objectionConfirmation;
+    private  BigDecimal objectionConfirmation;
 
     //受理时间
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
@@ -110,6 +112,14 @@ public class ObjectionLedger {
     //赔偿金额（小写）
     private BigDecimal agreementAmount;
 
+
+    public String getSpecs() {
+        return specs;
+    }
+
+    public void setSpecs(String specs) {
+        this.specs = specs;
+    }
 
     public String getDefectName() {
         return defectName;
@@ -423,11 +433,11 @@ public class ObjectionLedger {
         this.handingSuggestion = handingSuggestion;
     }
 
-    public String getObjectionConfirmation() {
+    public BigDecimal getObjectionConfirmation() {
         return objectionConfirmation;
     }
 
-    public void setObjectionConfirmation(String objectionConfirmation) {
+    public void setObjectionConfirmation(BigDecimal objectionConfirmation) {
         this.objectionConfirmation = objectionConfirmation;
     }
 
