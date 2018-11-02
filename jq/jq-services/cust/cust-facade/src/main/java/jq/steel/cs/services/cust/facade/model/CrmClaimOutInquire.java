@@ -199,7 +199,7 @@ public class CrmClaimOutInquire {
 
     private String fieldConclusionPhoto;
 
-    private  String objectionConfirmation;  //异议确认量
+    private  BigDecimal objectionConfirmation;  //异议确认量
 
     private  String reportPictures;
 
@@ -496,11 +496,11 @@ public class CrmClaimOutInquire {
         this.fieldConclusionPhoto = fieldConclusionPhoto;
     }
 
-    public String getObjectionConfirmation() {
+    public BigDecimal getObjectionConfirmation() {
         return objectionConfirmation;
     }
 
-    public void setObjectionConfirmation(String objectionConfirmation) {
+    public void setObjectionConfirmation(BigDecimal objectionConfirmation) {
         this.objectionConfirmation = objectionConfirmation;
     }
 
