@@ -822,7 +822,7 @@ function secondSaveCallBack(data){
     if(data.retCode == "0000000"){
         garyDom(document.body.jsLee.opeDom);
         var alertBox=new clsAlertBoxCtrl();
-        alertBox.Alert(data.retDesc,"成功提示",1,"","successJump");
+        alertBox.Alert(data.retDesc,"成功提示");
         /*var alertBox=new clsAlertBoxCtrl();
         alertBox.Alert(data.retDesc,"成功提示",1,"","successJump2");*/
         /*if(document.body.jsLee.opeDom == "sixthReject" || document.body.jsLee.opeDom == "sixthPromise"){
