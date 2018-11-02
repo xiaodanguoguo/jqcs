@@ -251,6 +251,7 @@ public class ObjectionChuLiController {
         JsonResponse<ObjectionChuLiVO>  jsonResponse = new JsonResponse<>();
         String createPdfPath = uploadConfig.getModelUrl();
         jsonRequest.getReqBody().setReport(createPdfPath);
+        jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
         try {
             ServiceResponse<ObjectionChuLiVO> serviceResponse = objectionChuLiAPI.preview(jsonRequest);
             String report = "";
