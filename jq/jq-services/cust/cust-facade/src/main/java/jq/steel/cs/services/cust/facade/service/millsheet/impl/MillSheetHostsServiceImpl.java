@@ -220,28 +220,33 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
         }
         for (MillSheetHosts millSheetHosts1:millSheetHosts){
             MillSheetHosts url = millSheetHostsMapper.findUrl(millSheetHosts1);
-            millSheetHosts1.setSpecialNeed(url.getSpecialNeed());
-            millSheetHosts1.setMillSheetPath(url.getMillSheetUrl()+"/"+url.getMillSheetName());
-            millSheetHosts1.setMillSheetUrl(url.getMillSheetUrl());
-            millSheetHosts1.setMillSheetName(url.getMillSheetName());
-            //修改下载次数 + 状态
-            millSheetHosts1.setDownableNum(url.getDownableNum()-1);
-            millSheetHosts1.setDownNum(url.getDownNum()+1);
-            //millSheetHosts1.setUpdatedBy(orgName);
-            millSheetHosts1.setUpdatedDt(new Date());
-            //打印完的下载不改状态
-            if (url.getState().equals("PRINTED")){
-                millSheetHosts1.setState("");
-            }else {
-                millSheetHosts1.setState("DOWNLOADED");
+            String millSheetPath = url.getMillSheetUrl()+"/"+url.getMillSheetName();
+            if(millSheetPath!=null){
+                //质证书有文件
+                millSheetHosts1.setSpecialNeed(url.getSpecialNeed());
+                millSheetHosts1.setMillSheetPath(url.getMillSheetUrl()+"/"+url.getMillSheetName());
+                millSheetHosts1.setMillSheetUrl(url.getMillSheetUrl());
+                millSheetHosts1.setMillSheetName(url.getMillSheetName());
+                //修改下载次数 + 状态
+                millSheetHosts1.setDownableNum(url.getDownableNum()-1);
+                millSheetHosts1.setDownNum(url.getDownNum()+1);
+                //millSheetHosts1.setUpdatedBy(orgName);
+                millSheetHosts1.setUpdatedDt(new Date());
+                //打印完的下载不改状态
+                if (url.getState().equals("PRINTED")){
+                    millSheetHosts1.setState("");
+                }else {
+                    millSheetHosts1.setState("DOWNLOADED");
+                }
+                millSheetHostsMapper.updateNum(millSheetHosts1);
+                //日志表
+                MillOperationHis millOperationHis = new MillOperationHis();
+                millOperationHis.setMillSheetNo(millSheetHosts1.getMillSheetNo());
+                millOperationHis.setOperationType("DOWNLOADED");
+                millOperationHis.setOperationTime(new Date());
+                millOperationHisMapper.insertSelective(millOperationHis);
             }
-            millSheetHostsMapper.updateNum(millSheetHosts1);
-            //日志表
-            MillOperationHis millOperationHis = new MillOperationHis();
-            millOperationHis.setMillSheetNo(millSheetHosts1.getMillSheetNo());
-            millOperationHis.setOperationType("DOWNLOADED");
-            millOperationHis.setOperationTime(new Date());
-            millOperationHisMapper.insertSelective(millOperationHis);
+
         }
         //转换返回对象
         List<MillSheetHostsVO> millSheetHostsVOS = BeanCopyUtil.copyList(millSheetHosts, MillSheetHostsVO.class);
