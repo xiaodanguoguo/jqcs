@@ -138,13 +138,22 @@ public class MillSheetHosts {
     //客户名称
     private  String spiltCustomer;
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+    private Date lfdat;
+
+    public Date getLfdat() {
+        return lfdat;
+    }
+
+    public void setLfdat(Date lfdat) {
+        this.lfdat = lfdat;
+    }
+
     public String getZkdauf() {
         return zkdauf;
     }
 
-    public void setZkdauf(String zkdauf) {
-        this.zkdauf = zkdauf;
-    }
+    public void setZkdauf(String zkdauf) { this.zkdauf = zkdauf; }
 
     public String getFallbackReason() {
         return fallbackReason;

@@ -23,11 +23,11 @@ public class MillSheetHead {
 
     private String vbelnVl;
 
-    private Date lfdat;
+    private Date lfdat;     //发车时间
 
     private String zhth;
 
-    private String zcpmc;
+    private String zcpmc;   //产品名称
 
     private String zph;     //牌号
 
@@ -58,6 +58,7 @@ public class MillSheetHead {
     private String sizeMark ;    //合同规格
 
     private String productName ; //产品名称
+
 
     public String getSizeMark() { return sizeMark; }
 

@@ -4,6 +4,8 @@ import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import jq.steel.cs.services.cust.api.vo.CrmMillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.CrmMillSheetDetailVO;
+import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
+import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,4 +28,8 @@ public interface AppMillSheetHostsDetailAPI {
 
     @RequestMapping(value = "/app/millsheet/findMillSheetDeatilByQrCode", method = RequestMethod.POST)
     public ServiceResponse<List<CrmMillCoilInfoVO>> getCoilDetailByQrCode(@RequestBody JsonRequest<CrmMillSheetDetailVO> jsonRequest);
+
+
+    @RequestMapping(value = "/app/millsheet/getSheetMsgs" , method = RequestMethod.POST)
+    ServiceResponse<List<MillSheetHostsVO>> getSheetMsg(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest);
 }

@@ -1,6 +1,8 @@
 package jq.steel.cs.services.cust.facade.dao;
 
+import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
 import jq.steel.cs.services.cust.facade.model.MillSheetHead;
+import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
 
 import java.util.List;
 
@@ -23,5 +25,5 @@ public interface MillSheetHeadMapper {
 
     MillSheetHead selectByMillSheetNO(String millSheetNo);
 
-    MillSheetHead selectByMillSheetNOWithCreateOrUpdate(String millSheetNo);
+
 }

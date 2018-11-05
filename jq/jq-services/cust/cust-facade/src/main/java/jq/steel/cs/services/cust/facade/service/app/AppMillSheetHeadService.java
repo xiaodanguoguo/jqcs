@@ -2,6 +2,9 @@ package jq.steel.cs.services.cust.facade.service.app;
 
 import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHeadVO;
+import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
+
+import java.util.List;
 
 public interface AppMillSheetHeadService {
     /**
@@ -24,4 +27,11 @@ public interface AppMillSheetHeadService {
      * @return
      */
     MillSheetHeadVO getByMillSheetNOWithCreateOrUpdate(String millSheetNo);
+
+    /**
+     * 通过车号/批板卷号/发车时间,进行条件查询
+     * @param vo
+     * @return
+     */
+    List<MillSheetHostsVO> getSheetHostsMsg(MillCoilInfoVO vo);
 }
