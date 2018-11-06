@@ -1,5 +1,6 @@
 package jq.steel.cs.services.cust.facade.service.millsheet.impl;
 
+import com.ebase.core.exception.BusinessException;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.page.PageDTOUtil;
 import com.ebase.core.web.json.JsonRequest;
@@ -19,6 +20,7 @@ import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
 import jq.steel.cs.services.cust.facade.service.millsheet.MillSheetHostsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -358,5 +360,16 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             millSheetHostsMapper.updateNum(millSheetHosts);
         }
         return 1;
+    }
+
+    @Override
+    @Transactional
+    public void updateStateAndPrintNum(String millSheetNo) {
+
+       MillSheetHosts mshs = millSheetHostsMapper.selectByMillSheetNo(millSheetNo);
+       if(mshs.getDownableNum() == 0){
+            throw new BusinessException("质证书下载次数已经为0,不能再次下载");
+       }
+         millSheetHostsMapper.updateStateAndPrintNum(millSheetNo);
     }
 }

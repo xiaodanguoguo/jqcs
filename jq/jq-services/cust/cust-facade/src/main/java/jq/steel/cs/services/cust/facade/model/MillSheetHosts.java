@@ -141,6 +141,16 @@ public class MillSheetHosts {
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date lfdat;
 
+    private  String orgName;        //组织名称
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
     public Date getLfdat() {
         return lfdat;
     }

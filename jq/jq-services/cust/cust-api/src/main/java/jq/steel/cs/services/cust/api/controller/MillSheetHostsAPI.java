@@ -104,4 +104,5 @@ public interface MillSheetHostsAPI {
      */
     @RequestMapping(value = "/millsheet/updateNumber",method = RequestMethod.POST)
     ServiceResponse<Integer> updateNumber(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest);
+
 }

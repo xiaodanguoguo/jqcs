@@ -32,4 +32,12 @@ public interface AppMillSheetHostsDetailAPI {
 
     @RequestMapping(value = "/app/millsheet/getSheetMsgs" , method = RequestMethod.POST)
     ServiceResponse<List<MillSheetHostsVO>> getSheetMsg(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest);
+
+    /**
+     *改变质证书为已下载状态,同时减少可下载次数
+     * @param jsonRequest
+     */
+    @RequestMapping(value = "/app/millsheet/updateMillSheetHostsState",method = RequestMethod.POST)
+    public void updateMillSheetHostsState(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest);
+
 }

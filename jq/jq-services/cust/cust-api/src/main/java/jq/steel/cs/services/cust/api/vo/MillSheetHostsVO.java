@@ -145,7 +145,7 @@ public class MillSheetHostsVO implements Serializable {
 
     private  String orgCode;
 
-    private  String orgName;
+    private  String orgName;        //组织名称
 
     //客户名称
     private  String spiltCustomer;

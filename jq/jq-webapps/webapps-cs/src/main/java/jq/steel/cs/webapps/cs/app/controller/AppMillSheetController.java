@@ -7,6 +7,7 @@ import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
 import jq.steel.cs.services.cust.api.controller.MillSheetHostsAPI;
+import jq.steel.cs.services.cust.api.controller.app.AppMillSheetHostsDetailAPI;
 import jq.steel.cs.services.cust.api.vo.MillSheetDownloadVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.webapps.cs.controller.file.UploadConfig;
@@ -27,7 +28,8 @@ public class AppMillSheetController {
     UploadConfig uploadConfig;
     @Autowired
     private MillSheetHostsAPI millSheetHostsAPI;
-
+    @Autowired
+    private AppMillSheetHostsDetailAPI appMillSheetHostsDetailAPI;
     /**
      * App端质证书下载
      *
@@ -45,6 +47,9 @@ public class AppMillSheetController {
             return jsrp;
         }
         try {
+            //修改质证书状态为已下载,同时减少可打印的次数
+            appMillSheetHostsDetailAPI.updateMillSheetHostsState(jsonRequest);
+
             ServiceResponse<MillSheetHostsVO> srpVO = millSheetHostsAPI.downloadForApp(jsonRequest);
             MillSheetHostsVO vo = srpVO.getRetContent();
             String millSheetUrl = vo.getMillSheetUrl();
@@ -57,6 +62,7 @@ public class AppMillSheetController {
             }
             jsrp.setRspBody(downloadVO);
             jsrp.setRetCode(JsonResponse.SUCCESS);
+
             return jsrp;
         } catch (BusinessException e) {
             logger.error("下载报错", e);

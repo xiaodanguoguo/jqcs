@@ -11,6 +11,7 @@ import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.services.cust.facade.service.app.AppCrmCoilService;
 import jq.steel.cs.services.cust.facade.service.app.AppMillSheetHeadService;
+import jq.steel.cs.services.cust.facade.service.millsheet.MillSheetHostsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,8 @@ public class AppMillSheetHostsDetailController {
     private AppCrmCoilService appCrmCoilService;
     @Autowired
     private AppMillSheetHeadService millSheetHeadService;
+    @Autowired
+    private MillSheetHostsService millSheetHostsService;
 
     /**
      * 通过质证书信息,查询对应的钢卷信息以及对应的钢卷物理,化学信息
@@ -106,6 +109,15 @@ public class AppMillSheetHostsDetailController {
             logger.error("错误 = {}", e);
         }
         return serviceResponse;
+    }
+
+    /**
+     *改变质证书为已下载状态,同时减少可下载次数
+     * @param jsonRequest
+     */
+    @RequestMapping(value = "/updateMillSheetHostsState",method = RequestMethod.POST)
+    public void updateMillSheetHostsState(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest){
+         millSheetHostsService.updateStateAndPrintNum(jsonRequest.getReqBody().getMillSheetNo());
     }
 
 }

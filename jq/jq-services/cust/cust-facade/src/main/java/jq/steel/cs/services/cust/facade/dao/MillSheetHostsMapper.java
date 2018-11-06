@@ -46,4 +46,8 @@ public interface MillSheetHostsMapper {
     List<MillSheetHosts> getSheetHostsMsg(MillCoilInfoVO vo);
 
     MillSheetHead selectByMillSheetNOWithCreateOrUpdate(String millSheetNo);
+
+    Integer updateStateAndPrintNum(String millSheetNo);
+
+    MillSheetHosts selectByMillSheetNo(String millSheetNo);
 }

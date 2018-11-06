@@ -22,7 +22,7 @@ public class MillCoilInfoVO implements Serializable {
 
     private  String orgCode;
 
-    private  String orgName;
+    private  String orgName;    //当前账户对应的组织名称
 
     private int pageNum = 1;
 

@@ -36,4 +36,6 @@ public interface MillSheetHostsService {
 
     //修改打印次数下载次数
     Integer updateNumber(List<MillSheetHostsVO> millSheetHostsVO);
+
+    void updateStateAndPrintNum(String millSheetNo);
 }
