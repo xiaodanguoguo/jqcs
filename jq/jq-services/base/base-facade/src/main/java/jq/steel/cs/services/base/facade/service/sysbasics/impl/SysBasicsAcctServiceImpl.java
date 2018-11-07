@@ -556,7 +556,11 @@ public class SysBasicsAcctServiceImpl implements SysBasicsAcctService {
                 }
             }
             //用户表修改
-            acctInfo.setAcctPassword(Md5Util.encrpt(acctInfo.getAcctPassword()));
+            AcctInfo acctInfo1 = acctInfoMapper.selectByLogin(acctInfo.getAcctTitle());
+            if (!acctInfo.getAcctPassword().equals(acctInfo1.getAcctPassword())) {
+                acctInfo.setAcctPassword(Md5Util.encrpt(acctInfo.getAcctPassword()));
+            }
+
             this.acctInfoMapper.updateByPrimaryKeySelective(acctInfo);
             List<Long> roleIds = reqBody.getRoleIds();
             AcctRoleReal acctRoleReal = new AcctRoleReal();
