@@ -74,7 +74,7 @@ public class MillSheetHostsVO implements Serializable {
 
     private Long sid;
 
-    private String state;
+    private String state;       //质证书状态
 
     private String dataState;
 
@@ -137,7 +137,7 @@ public class MillSheetHostsVO implements Serializable {
     //校验结果
     private Boolean isTrue;
 
-    //zcpmc
+    //产品名称
     private  String zcpmc;
 
     //批/板/卷号
@@ -145,12 +145,51 @@ public class MillSheetHostsVO implements Serializable {
 
     private  String orgCode;
 
-    private  String orgName;
+    private  String orgName;        //组织名称
 
     //客户名称
     private  String spiltCustomer;
 
     private  String productName;
+
+    private Date lfdat;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date startDtStr; //开始时间
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date endDtStr;  //结束时间
+
+    public String getZkdauf() {
+        return zkdauf;
+    }
+
+    public void setZkdauf(String zkdauf) {
+        this.zkdauf = zkdauf;
+    }
+
+    public Date getLfdat() {
+        return lfdat;
+    }
+
+    public void setLfdat(Date lfdat) {
+        this.lfdat = lfdat;
+    }
+
+    public Date getStartDtStr() {
+        return startDtStr;
+    }
+
+    public void setStartDtStr(Date startDtStr) {
+        this.startDtStr = startDtStr;
+    }
+
+    public Date getEndDtStr() {
+        return endDtStr;
+    }
+
+    public void setEndDtStr(Date endDtStr) {
+        this.endDtStr = endDtStr;
+    }
 
     public String getFallbackReason() {
         return fallbackReason;
@@ -191,10 +230,6 @@ public class MillSheetHostsVO implements Serializable {
     public void setZkunnrs(String zkunnrs) {
         this.zkunnrs = zkunnrs;
     }
-
-    public String getzkdauf() {  return zkdauf; }
-
-    public void setzkdauf(String zkdauf) {  this.zkdauf = zkdauf; }
 
     public String getReport() {
         return report;

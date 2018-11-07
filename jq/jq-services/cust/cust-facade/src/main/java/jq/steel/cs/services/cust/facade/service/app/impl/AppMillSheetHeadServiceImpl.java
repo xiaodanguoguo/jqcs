@@ -3,14 +3,19 @@ package jq.steel.cs.services.cust.facade.service.app.impl;
 import com.ebase.utils.BeanCopyUtil;
 import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHeadVO;
+import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.services.cust.facade.dao.MillCoilInfoMapper;
 import jq.steel.cs.services.cust.facade.dao.MillSheetHeadMapper;
+import jq.steel.cs.services.cust.facade.dao.MillSheetHostsMapper;
 import jq.steel.cs.services.cust.facade.model.MillCoilInfo;
 import jq.steel.cs.services.cust.facade.model.MillSheetHead;
+import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
 import jq.steel.cs.services.cust.facade.service.app.AppMillSheetHeadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -20,6 +25,9 @@ public class AppMillSheetHeadServiceImpl implements AppMillSheetHeadService {
     private MillSheetHeadMapper millSheetHeadMapper;
     @Autowired
     private MillCoilInfoMapper millCoilInfoMapper;
+    @Autowired
+    private MillSheetHostsMapper millSheetHostsMapper;
+
 
     public MillSheetHeadVO getSheetHeadByMillSheetNo(String millSheetNo) {
         MillSheetHead millSheetHead = millSheetHeadMapper.selectByMillSheetNO(millSheetNo);
@@ -34,8 +42,15 @@ public class AppMillSheetHeadServiceImpl implements AppMillSheetHeadService {
     }
 
     public MillSheetHeadVO getByMillSheetNOWithCreateOrUpdate(String millSheetNo) {
-        MillSheetHead millSheetHead = millSheetHeadMapper.selectByMillSheetNOWithCreateOrUpdate(millSheetNo);
+        MillSheetHead millSheetHead = millSheetHostsMapper.selectByMillSheetNOWithCreateOrUpdate(millSheetNo);
         MillSheetHeadVO vo = BeanCopyUtil.copy(millSheetHead, MillSheetHeadVO.class);
         return vo;
+    }
+
+    @Override
+    public List<MillSheetHostsVO> getSheetHostsMsg(MillCoilInfoVO vo) {
+        List<MillSheetHosts> mshs = millSheetHostsMapper.getSheetHostsMsg(vo);
+        List<MillSheetHostsVO> vos = BeanCopyUtil.copyList(mshs, MillSheetHostsVO.class);
+        return vos;
     }
 }

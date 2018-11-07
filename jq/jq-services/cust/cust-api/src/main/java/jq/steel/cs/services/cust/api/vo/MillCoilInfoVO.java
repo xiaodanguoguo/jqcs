@@ -22,7 +22,7 @@ public class MillCoilInfoVO implements Serializable {
 
     private  String orgCode;
 
-    private  String orgName;
+    private  String orgName;    //当前账户对应的组织名称
 
     private int pageNum = 1;
 
@@ -35,11 +35,13 @@ public class MillCoilInfoVO implements Serializable {
     private String zkunwe;
     private Long sid;
 
-    private String zchehao;
+    private String zchehao;     //车号
+
+    private String zcharg;      //批板卷号
+
+    private Date lfdat;         //发车时间
 
     private String zlph;
-
-    private String zcharg;
 
     private String specs;
 
@@ -63,7 +65,7 @@ public class MillCoilInfoVO implements Serializable {
 
     private String zjhzt;
 
-    private String millsheetNo;
+    private String millsheetNo; //质证书编号
 
     private String zbmjd;
 
@@ -83,6 +85,44 @@ public class MillCoilInfoVO implements Serializable {
     private Date updatedDt;
 
     private Short version;
+
+    private String startDtStr; //开始时间
+
+    private String endDtStr;  //结束时间
+
+    private String zkdauf;
+
+    public String getZkdauf() {
+        return zkdauf;
+    }
+
+    public void setZkdauf(String zkdauf) {
+        this.zkdauf = zkdauf;
+    }
+
+    public String getStartDtStr() {
+        return startDtStr;
+    }
+
+    public void setStartDtStr(String startDtStr) {
+        this.startDtStr = startDtStr;
+    }
+
+    public String getEndDtStr() {
+        return endDtStr;
+    }
+
+    public void setEndDtStr(String endDtStr) {
+        this.endDtStr = endDtStr;
+    }
+
+    public Date getLfdat() {
+        return lfdat;
+    }
+
+    public void setLfdat(Date lfdat) {
+        this.lfdat = lfdat;
+    }
 
     public String getMillSheetNo() {
         return millSheetNo;

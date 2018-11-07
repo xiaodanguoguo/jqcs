@@ -1,5 +1,7 @@
 package jq.steel.cs.services.cust.facade.dao;
 
+import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
+import jq.steel.cs.services.cust.facade.model.MillSheetHead;
 import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
 import java.util.List;
 
@@ -39,4 +41,13 @@ public interface MillSheetHostsMapper {
 
     //返回app端质证书下载路径
     MillSheetHosts getUrlForApp(String millSheetNo);
+
+    //APP质证书条件查询
+    List<MillSheetHosts> getSheetHostsMsg(MillCoilInfoVO vo);
+
+    MillSheetHead selectByMillSheetNOWithCreateOrUpdate(String millSheetNo);
+
+    Integer updateStateAndPrintNum(String millSheetNo);
+
+    MillSheetHosts selectByMillSheetNo(String millSheetNo);
 }

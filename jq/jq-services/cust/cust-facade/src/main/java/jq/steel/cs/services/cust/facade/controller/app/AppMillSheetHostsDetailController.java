@@ -7,8 +7,11 @@ import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import jq.steel.cs.services.cust.api.vo.CrmMillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.CrmMillSheetDetailVO;
+import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.services.cust.facade.service.app.AppCrmCoilService;
+import jq.steel.cs.services.cust.facade.service.app.AppMillSheetHeadService;
+import jq.steel.cs.services.cust.facade.service.millsheet.MillSheetHostsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,10 @@ public class AppMillSheetHostsDetailController {
     private final static Logger logger = LoggerFactory.getLogger(AppMillSheetHostsDetailController.class);
     @Autowired
     private AppCrmCoilService appCrmCoilService;
+    @Autowired
+    private AppMillSheetHeadService millSheetHeadService;
+    @Autowired
+    private MillSheetHostsService millSheetHostsService;
 
     /**
      * 通过质证书信息,查询对应的钢卷信息以及对应的钢卷物理,化学信息
@@ -79,6 +86,38 @@ public class AppMillSheetHostsDetailController {
             logger.error("错误 = {}", e);
         }
         return serviceResponse;
+    }
+
+    /**
+     * 通过车号/批板卷号/发车时间,进行条件查询
+     */
+    @RequestMapping(value = "/getSheetMsgs", method = RequestMethod.POST)
+    public ServiceResponse<List<MillSheetHostsVO>> getSheetMsg(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest) {
+        ServiceResponse<List<MillSheetHostsVO>> serviceResponse = new ServiceResponse<>();
+        if (jsonRequest == null) {
+            serviceResponse.setException(new BusinessException("非法操作"));
+            return serviceResponse;
+        }
+        try {
+            MillCoilInfoVO vo = jsonRequest.getReqBody();
+            List<MillSheetHostsVO> listAll = millSheetHeadService.getSheetHostsMsg(vo);
+            /*PageDTO<CrmMillCoilInfoVO> pageDTO = new PageDTO<>();
+            pageDTO.setResultData(listAll);*/
+            serviceResponse.setRetContent(listAll);
+        } catch (Exception e) {
+            serviceResponse.setException(new BusinessException("500"));
+            logger.error("错误 = {}", e);
+        }
+        return serviceResponse;
+    }
+
+    /**
+     *改变质证书为已下载状态,同时减少可下载次数
+     * @param jsonRequest
+     */
+    @RequestMapping(value = "/updateMillSheetHostsState",method = RequestMethod.POST)
+    public void updateMillSheetHostsState(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest){
+         millSheetHostsService.updateStateAndPrintNum(jsonRequest.getReqBody().getMillSheetNo());
     }
 
 }

@@ -138,13 +138,32 @@ public class MillSheetHosts {
     //客户名称
     private  String spiltCustomer;
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+    private Date lfdat;
+
+    private  String orgName;        //组织名称
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
+    public Date getLfdat() {
+        return lfdat;
+    }
+
+    public void setLfdat(Date lfdat) {
+        this.lfdat = lfdat;
+    }
+
     public String getZkdauf() {
         return zkdauf;
     }
 
-    public void setZkdauf(String zkdauf) {
-        this.zkdauf = zkdauf;
-    }
+    public void setZkdauf(String zkdauf) { this.zkdauf = zkdauf; }
 
     public String getFallbackReason() {
         return fallbackReason;

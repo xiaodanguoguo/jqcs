@@ -85,9 +85,36 @@
 
     <result column="ZKDAUF" property="zkdauf"/>
 
+    <result column="LFDAT" property="lfdat"/>
+
   </resultMap>
 
-
+  <resultMap id="MillSheetHeadResultMap" type="jq.steel.cs.services.cust.facade.model.MillSheetHead" >
+    <id column="SID" property="sid" jdbcType="DECIMAL" />
+    <result column="ZCHEHAO" property="zchehao" jdbcType="VARCHAR" />
+    <result column="ZCHARG" property="zcharg" jdbcType="VARCHAR" />
+    <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
+    <result column="ZKDAUF" property="zkdauf" jdbcType="VARCHAR" />
+    <result column="ZKUNNR" property="zkunnr" jdbcType="VARCHAR" />
+    <result column="ZKUNWE" property="zkunwe" jdbcType="VARCHAR" />
+    <result column="ZDAOZHAN" property="zdaozhan" jdbcType="VARCHAR" />
+    <result column="VBELN_VL" property="vbelnVl" jdbcType="VARCHAR" />
+    <result column="LFDAT" property="lfdat" jdbcType="TIMESTAMP" />
+    <result column="ZHTH" property="zhth" jdbcType="VARCHAR" />
+    <result column="ZCPMC" property="productName" jdbcType="VARCHAR" />
+    <result column="ZPH" property="zph" jdbcType="VARCHAR" />
+    <result column="ZZXBZ" property="zzxbz" jdbcType="VARCHAR" />
+    <result column="ZFJSM" property="zfjsm" jdbcType="VARCHAR" />
+    <result column="TOTAL_ZJISHU" property="totalZjishu" jdbcType="DECIMAL" />
+    <result column="TOTAL_ZLOSMENGE" property="totalZlosmenge" jdbcType="DECIMAL" />
+    <result column="ZJISHU_UNIT" property="zjishuUnit" jdbcType="VARCHAR" />
+    <result column="ZMEINS" property="zmeins" jdbcType="VARCHAR" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
 
   <!--异议提报插入异议单位-->
   <select id="findDeptCode" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
@@ -262,6 +289,9 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
           AND MSO.STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED','SPLITED')
         </otherwise>
       </choose>
+      <if test="orgName != null  and orgName != ''" >
+        AND MSH.SPILT_CUSTOMER = #{orgName}
+      </if>
     </trim>
     order by MSO.SID desc
   </select>
@@ -734,5 +764,73 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       </choose>
     </trim>
     order by H.SID desc
+  </select>
+
+  <select id="getSheetHostsMsg" resultMap="FullMap">
+    SELECT
+    mss.STATE,
+    msd.ZCPMC, msd.MILL_SHEET_NO, msd.ZPH, msd.ZKDAUF, msd.LFDAT
+    FROM MILL_SHEET_HOSTS mss
+    LEFT JOIN MILL_SHEET_HEAD msd ON MSD.MILL_SHEET_NO = MSS.MILL_SHEET_NO
+    <if test="zcharg != null and zcharg != ''">
+      WHERE msd.MILL_SHEET_NO =
+    (
+      SELECT
+      mco.MILL_SHEET_NO
+      FROM MILL_COIL_INFO mco
+      WHERE mco.ZCHARG= #{zcharg}
+      GROUP BY mco.MILL_SHEET_NO
+    )
+    </if>
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="orgCode != null and orgCode != ''">
+        AND msd.ZKUNNR= #{orgCode}
+      </if>
+
+    <if test="zchehao != null and zchehao != ''">
+      AND msd.ZCHEHAO= #{zchehao}
+    </if>
+    <if test="lfdat != null  and lfdat != ''" >
+      AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd') = #{lfdat}
+    </if>
+
+      <if test="startDtStr != null and startDtStr != '' " >
+        AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd hh24:mi:ss') >= #{startDtStr}
+      </if>
+      <if test="endDtStr != null and endDtStr != '' " >
+        AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+      </if>
+
+    <if test="millSheetNo != null and millSheetNo != '' ">
+      AND mss.MILL_SHEET_NO like  '%' || #{millSheetNo} ||'%'
+    </if>
+
+      <if test="orgName != null and orgName != '' ">
+        AND msd.SPILT_CUSTOMER = #{orgName}
+      </if>
+    </trim>
+    AND mss.STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED','SPLITED')
+  </select>
+
+  <select id="selectByMillSheetNOWithCreateOrUpdate" resultMap="MillSheetHeadResultMap">
+    SELECT *
+    FROM MILL_SHEET_HEAD
+    WHERE MILL_SHEET_NO = #{millSheetNo}
+  </select>
+
+
+  <select id="updateStateAndPrintNum" resultType="java.lang.Integer">
+    UPDATE MILL_SHEET_HOSTS
+    SET
+    STATE='DOWNLOAD',
+    DOWNABLE_NUM = DOWNABLE_NUM - 1
+    WHERE
+    MILL_SHEET_NO = #{millSheetNo}
+  </select>
+
+  <select id="selectByMillSheetNo" resultMap="BaseResultMap">
+    SELECT *
+    FROM MILL_SHEET_HOSTS
+    WHERE MILL_SHEET_NO = #{MILLSHEETNO}
   </select>
 </mapper>
