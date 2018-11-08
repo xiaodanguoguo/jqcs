@@ -346,6 +346,7 @@ public class MillSheetHostsController {
                     hh.setMillSheetNo(list.get(0));
                     hh.setOrgCode(AssertContext.getOrgCode());
                     hh.setOrgName(AssertContext.getOrgName());
+                    hh.setAcctName(AssertContext.getAcctName());
                     hh.setOperationType(1);
                     list1.add(hh);
                     gg.setReqBody(list1);
@@ -720,6 +721,18 @@ public class MillSheetHostsController {
             String millSheetPath ="";
             if (serviceResponse.getRetContent().size()>1){
                 for(MillSheetHostsVO millSheetHostsVO :serviceResponse.getRetContent()){
+
+                    //下载记录日志
+                    JsonRequest<List<MillSheetHostsVO>> hh = new JsonRequest<>();
+                    List<MillSheetHostsVO> list1 =new  ArrayList<MillSheetHostsVO>();
+                    MillSheetHostsVO gg = new MillSheetHostsVO();
+                    gg.setMillSheetNo(millSheetHostsVO.getMillSheetNo());
+                    gg.setAcctName(AssertContext.getAcctName());
+                    gg.setOperationType(3);
+                    list1.add(gg);
+                    hh.setReqBody(list1);
+                    millSheetHostsAPI.findUrl(hh);
+
                     if (millSheetHostsVO.getSpecialNeed().equals("Y")){
                         System.out.println("特殊需求文档下载中");
                         String createPdfPath = uploadConfig.getDomain();
@@ -759,6 +772,18 @@ public class MillSheetHostsController {
                 millSheetPath = "zhibaoshu.zip";
 
             }else {
+
+                //下载记录日志
+                JsonRequest<List<MillSheetHostsVO>> hh = new JsonRequest<>();
+                List<MillSheetHostsVO> list1 =new  ArrayList<MillSheetHostsVO>();
+                MillSheetHostsVO millSheetHostsVO = new MillSheetHostsVO();
+                millSheetHostsVO.setMillSheetNo(serviceResponse.getRetContent().get(0).getMillSheetNo());
+                millSheetHostsVO.setAcctName(AssertContext.getAcctName());
+                millSheetHostsVO.setOperationType(3);
+                list1.add(millSheetHostsVO);
+                hh.setReqBody(list1);
+                millSheetHostsAPI.findUrl(hh);
+
                 //单个文件下载
                 String createPdfPath = uploadConfig.getDomain();
                 if ( serviceResponse.getRetContent().get(0).getSpecialNeed().equals("Y")){
