@@ -13,7 +13,7 @@
     <result column="VBELN_VL" property="vbelnVl" jdbcType="VARCHAR" />
     <result column="LFDAT" property="lfdat" jdbcType="TIMESTAMP" />
     <result column="ZHTH" property="zhth" jdbcType="VARCHAR" />
-    <result column="ZCPMC" property="productName" jdbcType="VARCHAR" />
+    <result column="ZCPMC" property="zcpmc" jdbcType="VARCHAR" />
     <result column="ZPH" property="zph" jdbcType="VARCHAR" />
     <result column="ZZXBZ" property="zzxbz" jdbcType="VARCHAR" />
     <result column="ZFJSM" property="zfjsm" jdbcType="VARCHAR" />
