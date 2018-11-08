@@ -822,8 +822,9 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
   <select id="updateStateAndPrintNum" resultType="java.lang.Integer">
     UPDATE MILL_SHEET_HOSTS
     SET
-    STATE='DOWNLOAD',
-    DOWNABLE_NUM = DOWNABLE_NUM - 1
+    STATE='DOWNLOADED',
+    DOWNABLE_NUM = DOWNABLE_NUM - 1,
+    DOWN_NUM = DOWN_NUM + 1
     WHERE
     MILL_SHEET_NO = #{millSheetNo}
   </select>
