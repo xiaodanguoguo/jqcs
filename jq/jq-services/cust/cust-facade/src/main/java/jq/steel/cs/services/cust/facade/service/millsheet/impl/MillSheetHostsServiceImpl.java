@@ -159,7 +159,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             millOperationHis.setMillSheetNo(millSheetHostsVO.getMillSheetNo());
             if(millSheetHosts.getOperationType().equals(1)){
                 //1是预览  2是打印
-                millOperationHis.setOperator(millSheetHostsVO.getOrgCode());
+                millOperationHis.setOperator(millSheetHostsVO.getAcctName());
                 millOperationHis.setOperationType("PRIVIEWED");
                 millOperationHis.setOperationIp(ip);
                 //打印完的预览不改状态  下载完的预览不改变状态
@@ -168,14 +168,19 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 }else {
                     millSheetHosts.setState("PRIVIEWED");
                 }
-            }else {
+            }else  if(millSheetHosts.getOperationType().equals(2)) {
                 //减少打印次数
                 millOperationHis.setOperationType("PRINTED");
-                millOperationHis.setOperator(millSheetHostsVO.getOrgCode());
+                millOperationHis.setOperator(millSheetHostsVO.getAcctName());
                 millOperationHis.setOperationIp(ip);
                 millSheetHosts.setState("PRINTED");
                 millSheetHosts.setPrintableNum(millSheetByPage.getPrintableNum()-1);
                 millSheetHosts.setPrintedNum(millSheetByPage.getPrintedNum()+1);
+            }else{
+                //3下载只进行记录日志，次数下载在findDownUrl方法内
+                millOperationHis.setOperationType("DOWNLOADED");
+                millOperationHis.setOperator(millSheetHostsVO.getAcctName());
+                millOperationHis.setOperationIp(ip);
             }
             millOperationHis.setOperationTime(new Date());
             millOperationHisMapper.insertSelective(millOperationHis);
@@ -242,11 +247,11 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 }
                 millSheetHostsMapper.updateNum(millSheetHosts1);
                 //日志表
-                MillOperationHis millOperationHis = new MillOperationHis();
+              /*  MillOperationHis millOperationHis = new MillOperationHis();
                 millOperationHis.setMillSheetNo(millSheetHosts1.getMillSheetNo());
                 millOperationHis.setOperationType("DOWNLOADED");
                 millOperationHis.setOperationTime(new Date());
-                millOperationHisMapper.insertSelective(millOperationHis);
+                millOperationHisMapper.insertSelective(millOperationHis);*/
             }
 
         }

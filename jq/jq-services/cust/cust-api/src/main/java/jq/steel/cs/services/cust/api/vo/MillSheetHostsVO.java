@@ -9,6 +9,8 @@ import java.util.List;
 
 public class MillSheetHostsVO implements Serializable {
 
+    private String acctName;
+
     //回退原因
     private String fallbackReason;
 
@@ -158,6 +160,15 @@ public class MillSheetHostsVO implements Serializable {
     private Date startDtStr; //开始时间
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date endDtStr;  //结束时间
+
+
+    public String getAcctName() {
+        return acctName;
+    }
+
+    public void setAcctName(String acctName) {
+        this.acctName = acctName;
+    }
 
     public String getZkdauf() {
         return zkdauf;

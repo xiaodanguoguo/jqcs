@@ -343,7 +343,7 @@
       AND msh.MILL_SHEET_NO = #{millSheetNo}
     </if>
     <if test="claimNo != null and claimNo != ''"  >
-     AND cla.CLAIM_NO = #{claimNo},
+     AND cla.CLAIM_NO = #{claimNo}
     </if>
     </trim>
   </select>
