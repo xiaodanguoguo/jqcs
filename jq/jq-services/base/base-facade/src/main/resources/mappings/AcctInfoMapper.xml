@@ -798,6 +798,12 @@ and arp.role_id is not null )
     from acct_info
     where ACCT_TITLE = #{acctId} and IS_DELETE = 0 and STATUS = 1
   </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select
+    <include refid="Base_Column_List" />
+    from acct_info
+    where acct_id = #{acctId} and IS_DELETE = 0 and STATUS = 1
+  </select>
   <select id="findByOrgId" parameterType="java.lang.String" resultMap="BaseResultMap">
       select
     <include refid="Base_Column_List" />
