@@ -35,6 +35,10 @@
     delete from role_group
     where ROLE_GROUP_ID = #{roleGroupId}
   </delete>
+  <delete id="deleteByOrgId" parameterType="java.lang.String" >
+    delete from role_group
+    where ORG_ID = #{orgId}
+  </delete>
   <insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.RoleGroup" >
     <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="roleGroupId">
       SELECT SEQ_ROLE_GROUP.nextval AS roleGroupId FROM dual

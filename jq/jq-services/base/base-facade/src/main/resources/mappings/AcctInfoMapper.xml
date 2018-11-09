@@ -124,12 +124,6 @@
     MOBILE_PHONE, EMAIL, REGISTER_TIME, LAST_LOGIN_TIME, IS_DELETE, UPDATED_BY, UPDATED_TIME,
     STATUS, START_TIME, ENT_TIME, A_COMPANY_ID,O_INFO_ID,O_INFO_NAME,ACCT_TYPE
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select
-    <include refid="Base_Column_List" />
-    from acct_info
-    where ACCT_ID = #{acctId}  and is_delete = 0
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from acct_info
     where ACCT_ID = #{acctId}
@@ -798,11 +792,11 @@ and arp.role_id is not null )
     from acct_info
     where ACCT_TITLE = #{acctId} and IS_DELETE = 0 and STATUS = 1
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
       select
     <include refid="Base_Column_List" />
     from acct_info
-    where acct_id = #{acctId} and IS_DELETE = 0 and STATUS = 1
+    where ACCT_ID = #{acctId} and IS_DELETE = 0 and STATUS = 1
   </select>
   <select id="findByOrgId" parameterType="java.lang.String" resultMap="BaseResultMap">
       select
