@@ -104,6 +104,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	 * 有：不准删除并抛出异常提示      没有：可以删除
 	 */
 	@Override
+	@Transactional
 	public Integer removeOrgInfo(OrgInfo orgInfo) {
 		//需要删除的组织id集合，如果有返回需要删除的组织，如果没有返回空
 		List<String> cascadeDeletionOrgInfo = cascadeDeletionOrgInfo(orgInfo);
@@ -114,6 +115,8 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		int i = 0;
 		if(a == 0) {
 			i = orgInfoMapper.deleteOrgInfo(cascadeDeletionOrgInfo);
+			roleGroupMapper.deleteByOrgId(orgInfo.getId());
+			roleInfoMapper.deleteByOrgId(orgInfo.getId());
 		}
 		return i;
 	}

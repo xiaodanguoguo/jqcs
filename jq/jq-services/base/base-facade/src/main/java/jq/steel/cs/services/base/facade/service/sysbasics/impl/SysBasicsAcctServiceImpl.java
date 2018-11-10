@@ -556,7 +556,7 @@ public class SysBasicsAcctServiceImpl implements SysBasicsAcctService {
                 }
             }
             //用户表修改
-            AcctInfo acctInfo1 = acctInfoMapper.selectByLogin(acctInfo.getAcctTitle());
+            AcctInfo acctInfo1 = acctInfoMapper.selectByPrimaryKey(acctInfo.getAcctId());
             if (!acctInfo.getAcctPassword().equals(acctInfo1.getAcctPassword())) {
                 acctInfo.setAcctPassword(Md5Util.encrpt(acctInfo.getAcctPassword()));
             }

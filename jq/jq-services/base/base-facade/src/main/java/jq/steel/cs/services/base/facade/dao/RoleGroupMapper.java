@@ -35,4 +35,6 @@ public interface RoleGroupMapper {
     List<RoleGroup> findRoleInfoId(RoleGroup record);
 
     List<RoleGroup> findAcctId(RoleGroup record);
+
+    int deleteByOrgId(String id);
 }
