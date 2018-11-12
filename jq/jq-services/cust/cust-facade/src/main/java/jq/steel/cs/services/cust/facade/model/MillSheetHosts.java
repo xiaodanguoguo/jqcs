@@ -9,6 +9,8 @@ import java.util.List;
 
 public class MillSheetHosts {
 
+    private String acctName;
+
     //回退原因
     private String fallbackReason;
 
@@ -142,6 +144,15 @@ public class MillSheetHosts {
     private Date lfdat;
 
     private  String orgName;        //组织名称
+
+
+    public String getAcctName() {
+        return acctName;
+    }
+
+    public void setAcctName(String acctName) {
+        this.acctName = acctName;
+    }
 
     public String getOrgName() {
         return orgName;

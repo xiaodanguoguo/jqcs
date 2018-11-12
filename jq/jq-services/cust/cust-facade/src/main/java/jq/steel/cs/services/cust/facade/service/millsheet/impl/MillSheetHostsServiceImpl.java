@@ -157,9 +157,9 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             //添加日志操作记录
             MillOperationHis millOperationHis = new MillOperationHis();
             millOperationHis.setMillSheetNo(millSheetHostsVO.getMillSheetNo());
+            millOperationHis.setOperator(millSheetHostsVO.getAcctName());
             if(millSheetHosts.getOperationType().equals(1)){
                 //1是预览  2是打印
-                millOperationHis.setOperator(millSheetHostsVO.getAcctName());
                 millOperationHis.setOperationType("PRIVIEWED");
                 millOperationHis.setOperationIp(ip);
                 //打印完的预览不改状态  下载完的预览不改变状态
@@ -171,7 +171,6 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             }else  if(millSheetHosts.getOperationType().equals(2)) {
                 //减少打印次数
                 millOperationHis.setOperationType("PRINTED");
-                millOperationHis.setOperator(millSheetHostsVO.getAcctName());
                 millOperationHis.setOperationIp(ip);
                 millSheetHosts.setState("PRINTED");
                 millSheetHosts.setPrintableNum(millSheetByPage.getPrintableNum()-1);
@@ -179,7 +178,6 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             }else{
                 //3下载只进行记录日志，次数下载在findDownUrl方法内
                 millOperationHis.setOperationType("DOWNLOADED");
-                millOperationHis.setOperator(millSheetHostsVO.getAcctName());
                 millOperationHis.setOperationIp(ip);
             }
             millOperationHis.setOperationTime(new Date());

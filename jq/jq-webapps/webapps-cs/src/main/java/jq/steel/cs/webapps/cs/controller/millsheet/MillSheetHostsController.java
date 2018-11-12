@@ -272,6 +272,7 @@ public class MillSheetHostsController {
         for (MillSheetHostsVO millSheetHostsVO: jsonRequest.getReqBody()){
             millSheetHostsVO.setOrgCode(AssertContext.getOrgCode());
             millSheetHostsVO.setOrgName(AssertContext.getOrgName());
+            millSheetHostsVO.setAcctName(AssertContext.getAcctName());
         }
         try {
             ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findUrl(jsonRequest);
@@ -394,6 +395,7 @@ public class MillSheetHostsController {
                 millSheetHostsVO.setOrgCode(AssertContext.getOrgCode());
                 millSheetHostsVO.setOrgName(AssertContext.getOrgName());
                 millSheetHostsVO.setOperationType(1);
+                millSheetHostsVO.setAcctName(AssertContext.getAcctName());
                 list1.add(millSheetHostsVO);
                 jsonRequest.setReqBody(list1);
                 millSheetHostsAPI.findUrl(jsonRequest);
