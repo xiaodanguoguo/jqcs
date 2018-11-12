@@ -82,6 +82,7 @@
     <result column="MILL_LINE" property="millLine"/>
     <result column="FALLBACK_REASON" property="fallbackReason"/>
     <result column="REJECTION_REASON" property="rejectionReason"/>
+    <result column="JC_FLAG" property="jcFlag"/>
 
     <result column="ZKDAUF" property="zkdauf"/>
 
@@ -210,6 +211,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     MSO.MILL_SHEET_TYPE,
     MSO.SURPLUS_BATCH,
     MSO.ZKUNWE,
+    MSO.JC_FLAG,
     MSH.ZCHEHAO,
     MSH.ZHTH,
     MSH.ZCPMC,
@@ -682,6 +684,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     MSO.MILL_SHEET_TYPE,
     MSO.SURPLUS_BATCH,
     MSO.ZKUNWE,
+    MSO.JC_FLAG,
     MSH.ZCHEHAO,
     MSH.ZHTH,
     MSH.ZCPMC,

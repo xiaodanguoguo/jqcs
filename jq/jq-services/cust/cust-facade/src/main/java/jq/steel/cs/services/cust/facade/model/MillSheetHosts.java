@@ -9,6 +9,10 @@ import java.util.List;
 
 public class MillSheetHosts {
 
+
+    //建材0;非建材1
+    private String jcFlag;
+
     private String acctName;
 
     //回退原因
@@ -145,6 +149,13 @@ public class MillSheetHosts {
 
     private  String orgName;        //组织名称
 
+    public String getJcFlag() {
+        return jcFlag;
+    }
+
+    public void setJcFlag(String jcFlag) {
+        this.jcFlag = jcFlag;
+    }
 
     public String getAcctName() {
         return acctName;

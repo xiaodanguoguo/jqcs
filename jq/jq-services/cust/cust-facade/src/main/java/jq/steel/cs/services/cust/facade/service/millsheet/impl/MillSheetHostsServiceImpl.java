@@ -157,6 +157,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             //添加日志操作记录
             MillOperationHis millOperationHis = new MillOperationHis();
             millOperationHis.setMillSheetNo(millSheetHostsVO.getMillSheetNo());
+            System.out.println("*******************************"+millSheetHostsVO.getAcctName()+"************************");
             millOperationHis.setOperator(millSheetHostsVO.getAcctName());
             if(millSheetHosts.getOperationType().equals(1)){
                 //1是预览  2是打印
