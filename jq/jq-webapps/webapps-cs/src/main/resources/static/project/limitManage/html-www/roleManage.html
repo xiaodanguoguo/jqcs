@@ -614,6 +614,12 @@
                             }else{
                                // setValue4Desc($(this).parent("li")[0].data, $("#detailRow")[0])
                                setValueGlobal($(this).parent("li")[0].data, $("#detailRow")[0])
+                                if(Number($(this).parent("li")[0].data.roleCode) && getCookie("acctType") != 0){
+                                    $("#checkRole").hide();
+                                }else{
+                                    $("#checkRole").show();
+
+                                }
                             }
                          })
 
