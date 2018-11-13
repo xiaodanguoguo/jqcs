@@ -147,6 +147,8 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     @Override
     public List<MillSheetHostsVO> findUrl(List<MillSheetHostsVO> millSheetHostsVOS,HttpServletRequest request) {
         String ip=request.getRemoteAddr();
+        String acctName = millSheetHostsVOS.get(0).getAcctName();
+        System.out.println("*******************************"+acctName+"************************");
         for(MillSheetHostsVO millSheetHostsVO:millSheetHostsVOS){
             //转换mdel
             MillSheetHosts millSheetHosts = new MillSheetHosts();
@@ -157,8 +159,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             //添加日志操作记录
             MillOperationHis millOperationHis = new MillOperationHis();
             millOperationHis.setMillSheetNo(millSheetHostsVO.getMillSheetNo());
-            System.out.println("*******************************"+millSheetHostsVO.getAcctName()+"************************");
-            millOperationHis.setOperator(millSheetHostsVO.getAcctName());
+            millOperationHis.setOperator(acctName);
             if(millSheetHosts.getOperationType().equals(1)){
                 //1是预览  2是打印
                 millOperationHis.setOperationType("PRIVIEWED");
@@ -349,18 +350,33 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
 
     //修改打印次数下载次数
     @Override
-    public Integer updateNumber(List<MillSheetHostsVO> record) {
+    public Integer updateNumber(List<MillSheetHostsVO> record,HttpServletRequest request) {
+        String ip=request.getRemoteAddr();
+        String acctName =record.get(0).getAcctName();
         for(MillSheetHostsVO millSheetHostsVO:record){
             //转换mdel
             MillSheetHosts millSheetHosts = new MillSheetHosts();
             BeanCopyUtil.copy(millSheetHostsVO,millSheetHosts);
             MillSheetHosts millSheetByPage = millSheetHostsMapper.findUrl(millSheetHosts);
+            //日志表
+            MillOperationHis millOperationHis = new MillOperationHis();
+            millOperationHis.setMillSheetNo(millSheetHostsVO.getMillSheetNo());
+            millOperationHis.setOperationTime(new Date());
+            millOperationHis.setOperationIp(ip);
+            millOperationHis.setOperator(acctName);
             if(millSheetHosts.getOperationType().equals(1)){
                 //1是打印次数修改  2是下载次数修改
                 millSheetHosts.setPrintableNum(millSheetByPage.getPrintableNum()+1);
+
+                millOperationHis.setOperationType("PRINTING");
+                millOperationHis.setOperationTime(new Date());
+                millOperationHis.setContent("打印次数加1");
             }else {
                 millSheetHosts.setDownableNum(millSheetByPage.getDownableNum()+1);
+                millOperationHis.setOperationType("DOWNLOADS");
+                millOperationHis.setContent("下载次数加1");
             }
+            millOperationHisMapper.insertSelective(millOperationHis);
             millSheetHostsMapper.updateNum(millSheetHosts);
         }
         return 1;

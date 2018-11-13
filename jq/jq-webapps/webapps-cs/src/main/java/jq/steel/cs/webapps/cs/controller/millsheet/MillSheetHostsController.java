@@ -1002,6 +1002,7 @@ public class MillSheetHostsController {
         for (MillSheetHostsVO millSheetHostsVO: jsonRequest.getReqBody()){
             millSheetHostsVO.setOrgCode(AssertContext.getOrgCode());
             millSheetHostsVO.setOrgName(AssertContext.getOrgName());
+            millSheetHostsVO.setAcctName(AssertContext.getAcctName());
         }
         try {
             ServiceResponse<Integer> serviceResponse = millSheetHostsAPI.updateNumber(jsonRequest);
