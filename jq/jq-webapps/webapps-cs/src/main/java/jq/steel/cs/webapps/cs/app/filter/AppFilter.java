@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.ebase.core.AssertContext;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.session.AcctSession;
-import com.ebase.core.session.CacheKeyConstant;
 import com.ebase.core.session.User;
 import com.ebase.core.session.UserSession;
 import com.ebase.core.web.json.JsonHeader;
@@ -109,10 +108,6 @@ public class AppFilter implements Filter {
 
                             UserSession userSession = convert(acctSession);
                             AssertContext.init(userSession);
-
-                            String authKey = CacheKeyConstant.ACCT_SESSION  + httpRequest.getSession().getId() + WebUtil.getClientType(httpRequest);
-                            // 重置过期时间
-                            acctAPI.expire(authKey);
 
                         }
                     }

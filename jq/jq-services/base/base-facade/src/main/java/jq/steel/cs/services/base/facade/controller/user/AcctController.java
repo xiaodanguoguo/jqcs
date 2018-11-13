@@ -121,8 +121,11 @@ public class AcctController {
 
                 String key = CacheKeyConstant.ACCT_SESSION + Base64Util.decode(sessionId);
                 System.err.println("-------getCacheUser key-------"+key+"---------");
-
                 AcctSession acctSession = cacheService.getObject(key, AcctSession.class);
+                // 重置过期时间
+                if (acctSession != null) {
+                    expire(key);
+                }
 
                 serviceResponse.setRetContent(acctSession);
             }
