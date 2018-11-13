@@ -242,6 +242,12 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
           #{millSheetNos[${index}]}
         </foreach>
       </if>
+      <if test="noMillSheetNos != null">
+        AND MSO.MILL_SHEET_NO NOT in
+        <foreach collection="noMillSheetNos"  index="index" close=")" open="(" item="item" separator=",">
+          #{noMillSheetNos[${index}]}
+        </foreach>
+      </if>
       <if test="zchehao != null and zchehao != ''" >
         AND MSH.ZCHEHAO = #{zchehao,jdbcType=VARCHAR}
       </if>
@@ -714,6 +720,12 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
         AND H.MILL_SHEET_NO  in
         <foreach collection="millSheetNos"  index="index" close=")" open="(" item="item" separator=",">
           #{millSheetNos[${index}]}
+        </foreach>
+      </if>
+      <if test="noMillSheetNos != null">
+        AND H.MILL_SHEET_NO NOT in
+        <foreach collection="noMillSheetNos"  index="index" close=")" open="(" item="item" separator=",">
+          #{noMillSheetNos[${index}]}
         </foreach>
       </if>
       <if test="zchehao != null and zchehao != ''" >

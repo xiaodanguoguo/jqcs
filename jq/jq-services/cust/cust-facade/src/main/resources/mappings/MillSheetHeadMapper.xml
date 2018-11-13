@@ -47,6 +47,13 @@
     where SID = #{sid,jdbcType=DECIMAL}
   </select>
 
+
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHead" >
+    select
+    <include refid="Base_Column_List" />
+    from MILL_SHEET_HEAD
+  </select>
+
   <select id="findCategoryCode" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHead" >
     select
     <include refid="Base_Column_List" />
