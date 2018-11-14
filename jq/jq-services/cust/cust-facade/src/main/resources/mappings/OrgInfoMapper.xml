@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.OrgInfoMapper" >
+
+
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.OrgInfo" >
+    <id column="ID" property="id" />
+    <result column="ORG_CODE" property="orgCode" />
+    <result column="ORG_NAME" property="orgName" />
+    <result column="PARENT_ID" property="parentId" />
+    <result column="PARENT_NAME" property="parentName" />
+    <result column="REMARK" property="remark" />
+    <result column="STATUS" property="status" />
+    <result column="CREATED_BY" property="createdBy" />
+    <result column="CREATED_TIME" property="createdTime"  />
+    <result column="UPDATED_BY" property="updatedBy" />
+    <result column="UPDATED_TIME" property="updatedTime"  />
+    <result column="SAP_CODE" property="sapCode"  />
+    <result column="BUKRS" property="bukrs"  />
+    <result column="ORG_TYPE" property="orgType"  />
+    <result column="TEL" property="tel"  />
+    <result column="ADDR" property="addr"  />
+    <result column="EMAIL" property="email"  />
+    <result column="REG_TYPE" property="regType"  />
+  </resultMap>
+  
+  <select id="findIdByOrgName" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.OrgInfo">
+  	SELECT
+		ID,
+		ORG_CODE,
+		ORG_NAME,
+		PARENT_ID,
+		REMARK,
+		STATUS,
+		CREATED_BY,
+		CREATED_TIME,
+		UPDATED_BY,
+		UPDATED_TIME,
+		SAP_CODE,
+		BUKRS,
+		ORG_TYPE,
+		TEL,
+		ADDR,
+		email
+	FROM
+		org_info
+	WHERE
+		ORG_NAME = #{orgName}
+  </select>
+</mapper>

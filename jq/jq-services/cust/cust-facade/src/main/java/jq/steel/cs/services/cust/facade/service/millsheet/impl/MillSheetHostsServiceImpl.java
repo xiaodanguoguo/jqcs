@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MillSheetHostsServiceImpl implements MillSheetHostsService{
@@ -35,6 +36,10 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     private MillOperationHisMapper millOperationHisMapper;
     @Autowired
     private MillSheetHeadMapper millSheetHeadMapper;
+    @Autowired
+    private OrgInfoMapper orgInfoMapper;
+    @Autowired
+    private AcctInfoMapper acctInfoMapper;
 
     //分页查询（质证书已经拆分给其他用户并且该用户在客服平台有账号的，则本级不能再对该质证书进行打印、下载操作。如拆分出来的质证书接受单位在平台中没有对应的账号，本级还可以对该质证书进行下载和打印操作）
     @Override
@@ -95,7 +100,6 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 }else {
                     millSheetHosts2.setIsSplit(0);
                 }
-
                 //判断是否允许下载(建材类不让下载)
                 if(millSheetHosts2.getJcFlag()==0){
                     millSheetHosts2.setIsAllow("N");
@@ -105,7 +109,21 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                                 millSheetHosts2.setIsAllow("Y");
                             }else {
                                 //查询拆分单位下是否有账号有的话不让下载 没有的话让下载打印
-                               // millSheetHosts2.getSpiltCustomer()
+                                OrgInfo orgInfo = new OrgInfo();
+                                orgInfo.setOrgName(millSheetHosts2.getSpiltCustomer());
+                                List<OrgInfo> list =orgInfoMapper.findIdByOrgName(orgInfo);
+                                if(list.size()>0){
+                                    AcctInfo acctInfo = new AcctInfo();
+                                    acctInfo.setoInfoId(list.get(0).getId());
+                                    List<AcctInfo> acctInfos =acctInfoMapper.findNameByorgId(acctInfo);
+                                    if (acctInfos.size()>0){
+                                        millSheetHosts2.setIsAllow("N");
+                                    }else {
+                                        millSheetHosts2.setIsAllow("Y");
+                                    }
+                                }else{
+                                    millSheetHosts2.setIsAllow("N");
+                                }
                             }
                     }else {
                         millSheetHosts2.setIsAllow("Y");

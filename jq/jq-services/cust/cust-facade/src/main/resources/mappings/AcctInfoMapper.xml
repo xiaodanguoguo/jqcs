@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.AcctInfoMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.AcctInfo" >
+    <id column="ACCT_ID" property="acctId" />
+    <result column="ENT_ID" property="entId" />
+    <result column="LOGIN_SOURCE" property="loginSource" />
+    <result column="ACCT_TITLE" property="acctTitle" />
+    <result column="ACCT_PASSWORD" property="acctPassword" />
+    <result column="ACCT_CODE" property="acctCode" />
+    <result column="NAME" property="name" />
+    <result column="DEPT" property="dept" />
+    <result column="MOBILE_PHONE" property="mobilePhone" />
+    <result column="EMAIL" property="email" />
+    <result column="REGISTER_TIME" property="registerTime"  />
+    <result column="LAST_LOGIN_TIME" property="lastLoginTime"  />
+    <result column="IS_DELETE" property="isDelete"  />
+    <result column="UPDATED_BY" property="updatedBy" />
+    <result column="UPDATED_TIME" property="updatedTime"  />
+    <result column="STATUS" property="status"  />
+    <result column="START_TIME" property="startTime"  />
+    <result column="ENT_TIME" property="entTime"  />
+    <result column="A_COMPANY_ID" property="aCompanyId" />
+    <result column="O_INFO_ID" property="oInfoId" />
+    <result column="orgTitle" property="orgTitle" />
+    <result column="ORG_ID" property="orgId"/>
+    <result column="ACCT_TYPE" property="acctType" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ACCT_ID, ENT_ID, LOGIN_SOURCE, ACCT_TITLE, ACCT_PASSWORD, ACCT_CODE, NAME, DEPT,
+    MOBILE_PHONE, EMAIL, REGISTER_TIME, LAST_LOGIN_TIME, IS_DELETE, UPDATED_BY, UPDATED_TIME,
+    STATUS, START_TIME, ENT_TIME, A_COMPANY_ID,O_INFO_ID,O_INFO_NAME,ACCT_TYPE
+  </sql>
+
+  <select id="findNameByorgId"  parameterType="jq.steel.cs.services.cust.facade.model.AcctInfo" resultMap="BaseResultMap">
+    select
+    ACCT_ID, ENT_ID, LOGIN_SOURCE, ACCT_TITLE, ACCT_PASSWORD, ACCT_CODE, NAME, DEPT,
+    MOBILE_PHONE, EMAIL, REGISTER_TIME, LAST_LOGIN_TIME, IS_DELETE, UPDATED_BY, UPDATED_TIME,
+    STATUS, START_TIME, ENT_TIME, A_COMPANY_ID,O_INFO_ID,O_INFO_NAME,ACCT_TYPE
+    from acct_info
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+        <if test="acctTitle != null" >
+          AND O_INFO_ID = #{oInfoId}
+        </if>
+    </trim>
+  </select>
+</mapper>
