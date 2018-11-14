@@ -35,7 +35,7 @@ public interface MillSheetHostsService {
     MillSheetHostsVO getUrlForApp(JsonRequest<MillSheetHostsVO> jsonRequest);
 
     //修改打印次数下载次数
-    Integer updateNumber(List<MillSheetHostsVO> millSheetHostsVO);
+    Integer updateNumber(List<MillSheetHostsVO> millSheetHostsVO,HttpServletRequest request);
 
     void updateStateAndPrintNum(String millSheetNo);
 }

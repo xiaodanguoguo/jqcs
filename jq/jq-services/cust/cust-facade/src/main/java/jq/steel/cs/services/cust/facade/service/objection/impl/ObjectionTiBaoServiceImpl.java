@@ -302,15 +302,15 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                     return objectionTiBaoVO;
                 }
                 Integer dissentingUnit;
-                //1000：不锈钢厂2000：炼轧厂2200：碳钢薄板厂3000：榆钢工厂
+                //1000：3不锈钢厂2000：1炼轧厂2200：2碳钢薄板厂3000：4榆钢工厂
                 if (deptCode.equals("1000")){
                     dissentingUnit=3;
                 }else if(deptCode.equals("2000")){
                     dissentingUnit=1;
                 }else if (deptCode.equals("3000")){
-                    dissentingUnit=2;
-                }else {
                     dissentingUnit=4;
+                }else {
+                    dissentingUnit=2;
                 }
                 //获取head表产品名称
                 MillSheetHead millSheetHead = new MillSheetHead();

@@ -9,6 +9,23 @@ import java.util.List;
 
 public class MillSheetHosts {
 
+
+    //建材0;非建材1
+    private String jcFlag;
+
+    //虚拟质证书
+    private List<String> noMillSheetNos;
+
+    public List<String> getNoMillSheetNos() {
+        return noMillSheetNos;
+    }
+
+    public void setNoMillSheetNos(List<String> noMillSheetNos) {
+        this.noMillSheetNos = noMillSheetNos;
+    }
+
+    private String acctName;
+
     //回退原因
     private String fallbackReason;
 
@@ -142,6 +159,22 @@ public class MillSheetHosts {
     private Date lfdat;
 
     private  String orgName;        //组织名称
+
+    public String getJcFlag() {
+        return jcFlag;
+    }
+
+    public void setJcFlag(String jcFlag) {
+        this.jcFlag = jcFlag;
+    }
+
+    public String getAcctName() {
+        return acctName;
+    }
+
+    public void setAcctName(String acctName) {
+        this.acctName = acctName;
+    }
 
     public String getOrgName() {
         return orgName;

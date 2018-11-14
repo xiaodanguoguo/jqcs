@@ -7,6 +7,18 @@ import java.util.Date;
 
 public class ObjectionLedger {
 
+    //新建状态的数据要在该界面中屏蔽掉。标识字段
+    private String flag;
+
+    //异议量总数
+    private  BigDecimal objectionNumCount;
+
+    //确认量总数
+    private  BigDecimal objectionConfirmationCount;
+
+    //赔偿金额总数
+    private  BigDecimal agreementAmountCount;
+
     private  String  specs;
 
     private String  defectName;
@@ -112,6 +124,29 @@ public class ObjectionLedger {
     //赔偿金额（小写）
     private BigDecimal agreementAmount;
 
+    public BigDecimal getObjectionNumCount() {
+        return objectionNumCount;
+    }
+
+    public void setObjectionNumCount(BigDecimal objectionNumCount) {
+        this.objectionNumCount = objectionNumCount;
+    }
+
+    public BigDecimal getObjectionConfirmationCount() {
+        return objectionConfirmationCount;
+    }
+
+    public void setObjectionConfirmationCount(BigDecimal objectionConfirmationCount) {
+        this.objectionConfirmationCount = objectionConfirmationCount;
+    }
+
+    public BigDecimal getAgreementAmountCount() {
+        return agreementAmountCount;
+    }
+
+    public void setAgreementAmountCount(BigDecimal agreementAmountCount) {
+        this.agreementAmountCount = agreementAmountCount;
+    }
 
     public String getSpecs() {
         return specs;
@@ -471,5 +506,13 @@ public class ObjectionLedger {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 }

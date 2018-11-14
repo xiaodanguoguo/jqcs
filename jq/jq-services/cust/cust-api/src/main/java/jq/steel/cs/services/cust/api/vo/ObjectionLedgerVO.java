@@ -9,6 +9,16 @@ import java.util.Date;
 //异议统计台账
 public class ObjectionLedgerVO {
 
+
+    //异议量总数
+    private  BigDecimal objectionNumCount;
+
+    //确认量总数
+    private  BigDecimal objectionConfirmationCount;
+
+    //赔偿金额总数
+    private  BigDecimal agreementAmountCount;
+
     private  String  specs;
 
 
@@ -129,6 +139,31 @@ public class ObjectionLedgerVO {
     private String  defectName;
 
     private String zcpmc;
+
+
+    public BigDecimal getObjectionNumCount() {
+        return objectionNumCount;
+    }
+
+    public void setObjectionNumCount(BigDecimal objectionNumCount) {
+        this.objectionNumCount = objectionNumCount;
+    }
+
+    public BigDecimal getObjectionConfirmationCount() {
+        return objectionConfirmationCount;
+    }
+
+    public void setObjectionConfirmationCount(BigDecimal objectionConfirmationCount) {
+        this.objectionConfirmationCount = objectionConfirmationCount;
+    }
+
+    public BigDecimal getAgreementAmountCount() {
+        return agreementAmountCount;
+    }
+
+    public void setAgreementAmountCount(BigDecimal agreementAmountCount) {
+        this.agreementAmountCount = agreementAmountCount;
+    }
 
     public String getSpecs() {
         return specs;

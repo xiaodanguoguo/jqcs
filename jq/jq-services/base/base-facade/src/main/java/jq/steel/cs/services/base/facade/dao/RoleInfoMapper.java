@@ -46,4 +46,6 @@ public interface RoleInfoMapper {
 
     //查询当前用户的rolecode
     List<RoleInfo> getRoleCodeByAcctId(String acctId);
+
+    int deleteByOrgId(String id);
 }

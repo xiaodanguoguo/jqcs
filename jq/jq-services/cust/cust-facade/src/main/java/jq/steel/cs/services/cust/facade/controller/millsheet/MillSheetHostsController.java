@@ -205,10 +205,10 @@ public class MillSheetHostsController {
      *
      * */
     @RequestMapping(value = "/updateNumber",method = RequestMethod.POST)
-    public ServiceResponse<Integer>  updateNumber(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest){
+    public ServiceResponse<Integer>  updateNumber(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest,HttpServletRequest request){
         ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
         try {
-            Integer integer = millSheetHostsService.updateNumber(jsonRequest.getReqBody());
+            Integer integer = millSheetHostsService.updateNumber(jsonRequest.getReqBody(),request);
             serviceResponse.setRetContent(integer);
         }catch (BusinessException e){
             logger.error("出错",e);

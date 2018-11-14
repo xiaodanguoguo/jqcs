@@ -929,7 +929,7 @@
     B.LOGISTICS_PROCESS,
     B.PRODUCT_DT,
     B.HANDING_SUGGESTION,
-    B.AGREEMENT_AMOUNT,
+    G.AGREEMENT_AMOUNT,
     B.ARRIVAL_TIME,
     B.DEFECT_NAME,
     A.OBJECTION_CONFIRMATION,
@@ -953,6 +953,7 @@
     LEFT JOIN WARRANTY.CRM_CLAIM_APPLY C ON A.CLAIM_NO = C.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE D ON A.CLAIM_NO = D.CLAIM_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_COMMENTS E ON A.CLAIM_NO = E.CLAIM_NO
+    LEFT JOIN WARRANTY.CRM_AGREEMENT_INFO G ON A.CLAIM_NO = G.CASE_CODE
     LEFT JOIN WARRANTY.MILL_SHEET_HEAD F ON A.MILL_SHEET_NO = F.MILL_SHEET_NO ) H
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="claimNo != null and claimNo != ''" >
@@ -984,6 +985,9 @@
       </if>
       <if test="startDtStr != null" >
         AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+      </if>
+      <if test="flag != null" >
+        AND  H.CLAIM_STATE NOT IN ('NEW')
       </if>
     </trim>
     order by H.SID desc

@@ -272,6 +272,7 @@ public class MillSheetHostsController {
         for (MillSheetHostsVO millSheetHostsVO: jsonRequest.getReqBody()){
             millSheetHostsVO.setOrgCode(AssertContext.getOrgCode());
             millSheetHostsVO.setOrgName(AssertContext.getOrgName());
+            millSheetHostsVO.setAcctName(AssertContext.getAcctName());
         }
         try {
             ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findUrl(jsonRequest);
@@ -394,6 +395,7 @@ public class MillSheetHostsController {
                 millSheetHostsVO.setOrgCode(AssertContext.getOrgCode());
                 millSheetHostsVO.setOrgName(AssertContext.getOrgName());
                 millSheetHostsVO.setOperationType(1);
+                millSheetHostsVO.setAcctName(AssertContext.getAcctName());
                 list1.add(millSheetHostsVO);
                 jsonRequest.setReqBody(list1);
                 millSheetHostsAPI.findUrl(jsonRequest);
@@ -716,12 +718,10 @@ public class MillSheetHostsController {
             jsonRequest1.setReqBody(list);
             String orgName = AssertContext.getOrgName();
             String orgCode = AssertContext.getOrgCode();
-            //ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.downFile(jsonRequest1);
             ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.downFile(jsonRequest1);
             String millSheetPath ="";
             if (serviceResponse.getRetContent().size()>1){
                 for(MillSheetHostsVO millSheetHostsVO :serviceResponse.getRetContent()){
-
                     //下载记录日志
                     JsonRequest<List<MillSheetHostsVO>> hh = new JsonRequest<>();
                     List<MillSheetHostsVO> list1 =new  ArrayList<MillSheetHostsVO>();
@@ -805,15 +805,18 @@ public class MillSheetHostsController {
                     String  millSheetName = serviceResponse.getRetContent().get(0).getMillSheetName();
                     response.setHeader("Content-Disposition", "attachment;fileName="+millSheetName);
                 }else {
-                    String millSheetPathA =  serviceResponse.getRetContent().get(0).getMillSheetPath();
-                    String url = createPdfPath + millSheetPathA;
-                    String millSheetUrl = serviceResponse.getRetContent().get(0).getMillSheetUrl();
-                    String fileName =  serviceResponse.getRetContent().get(0).getMillSheetName();
-                    this.saveUrlAs(url,millSheetUrl,"GET",fileName);
-                    //配置请求头
-                    millSheetPath = serviceResponse.getRetContent().get(0).getMillSheetPath();
-                    String  millSheetName = serviceResponse.getRetContent().get(0).getMillSheetName();
-                    response.setHeader("Content-Disposition", "attachment;fileName="+millSheetName);
+                    //质证书拆分后没有给客服PDF,下载报错，状态还修改为"已下载“有问题。
+                    if( serviceResponse.getRetContent().get(0).getMillSheetName()!=null &&  serviceResponse.getRetContent().get(0).getMillSheetUrl()!=null) {
+                        String millSheetPathA = serviceResponse.getRetContent().get(0).getMillSheetPath();
+                        String url = createPdfPath + millSheetPathA;
+                        String millSheetUrl = serviceResponse.getRetContent().get(0).getMillSheetUrl();
+                        String fileName = serviceResponse.getRetContent().get(0).getMillSheetName();
+                        this.saveUrlAs(url, millSheetUrl, "GET", fileName);
+                        //配置请求头
+                        millSheetPath = serviceResponse.getRetContent().get(0).getMillSheetPath();
+                        String millSheetName = serviceResponse.getRetContent().get(0).getMillSheetName();
+                        response.setHeader("Content-Disposition", "attachment;fileName=" + millSheetName);
+                    }
                 }
             }
             //String path = servletContex.getRealPath("/");
@@ -1000,6 +1003,7 @@ public class MillSheetHostsController {
         for (MillSheetHostsVO millSheetHostsVO: jsonRequest.getReqBody()){
             millSheetHostsVO.setOrgCode(AssertContext.getOrgCode());
             millSheetHostsVO.setOrgName(AssertContext.getOrgName());
+            millSheetHostsVO.setAcctName(AssertContext.getAcctName());
         }
         try {
             ServiceResponse<Integer> serviceResponse = millSheetHostsAPI.updateNumber(jsonRequest);

@@ -263,7 +263,7 @@
 						<a class="og-head-mainlt__sidebar--shrink " href="javascript:;"><i class="arrow-up"></i><span class="arrow-span">产品推荐</span></a>
 						<ul class="menu-ul">
 							<li class="og-head-mainlt__sasety" limitCode="M401" value="17"><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/productNewsList.html">产品推荐信息维护</a></li>
-							<li class="og-head-mainlt__sasety" limitCode="M402"  value="18"><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/proTypeList.html">按品种分类</a></li>
+							<li class="og-head-mainlt__sasety" limitCode="M402"  value="18"><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/proTypeList.html">产品展示</a></li>
 							<!--<li class="og-head-mainlt__sasety" limitCode=""><a href="javascript:;" href="javascript:;" acSrc="../../recommond/html-gulp-www/productNewsList.html">按用途分类</a></li>-->
 						</ul>
 					</li>
@@ -886,6 +886,12 @@
                             }else{
                                // setValue4Desc($(this).parent("li")[0].data, $("#detailRow")[0])
                                setValueGlobal($(this).parent("li")[0].data, $("#detailRow")[0])
+                                if(Number($(this).parent("li")[0].data.roleCode) && getCookie("acctType") != 0){
+                                    $("#checkRole").hide();
+                                }else{
+                                    $("#checkRole").show();
+
+                                }
                             }
                          })
 

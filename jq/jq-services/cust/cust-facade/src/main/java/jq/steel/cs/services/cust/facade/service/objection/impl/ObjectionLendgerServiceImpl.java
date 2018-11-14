@@ -47,11 +47,16 @@ public class ObjectionLendgerServiceImpl implements ObjectionLendgerService{
             objectionLedger.setStartDtStr(startDtStr);
             String endDtStr = DateFormatUtil.getEndDateStr(objectionLedger.getEndDt());
             objectionLedger.setEndDtStr(endDtStr);
+            //新建状态的数据要在该界面中屏蔽掉。
+            objectionLedger.setFlag("1");
             List<ObjectionLedger> ledgerList = crmClaimInfoMapper.findLedgerByPage(objectionLedger);
             //转换返回对象
             List<ObjectionLedgerVO> objectionLedgerVOS = BeanCopyUtil.copyList(ledgerList, ObjectionLedgerVO.class);
             // 分页对象
             PageDTO<ObjectionLedgerVO> transform = PageDTOUtil.transform(objectionLedgerVOS);
+            BigDecimal bigDecimal1= new BigDecimal(0);
+            BigDecimal bigDecimal2= new BigDecimal(0);
+            BigDecimal bigDecimal3= new BigDecimal(0);
             //判断过期原因是否为空然后设置是否可以上传协议书
             for (ObjectionLedgerVO objectionLedgerVO1:transform.getResultData()) {
                 objectionLedger = new ObjectionLedger();
@@ -105,7 +110,25 @@ public class ObjectionLendgerServiceImpl implements ObjectionLendgerService{
                         objectionLedgerVO1.setEvaluate("很不满意");
                     }
                 }
+
+                //质量异议台账最下面一行需要对数量和金额、重量进行汇总统计。按照查询条件进行汇总统计。
+                if (objectionLedgerVO1.getObjectionNum()!=null){
+                    bigDecimal1=bigDecimal1.add(objectionLedgerVO1.getObjectionNum());
+                }
+                if (objectionLedgerVO1.getObjectionConfirmation()!=null){
+                    bigDecimal2=bigDecimal2.add(objectionLedgerVO1.getObjectionConfirmation());
+                }
+                if (objectionLedgerVO1.getAgreementAmount()!=null){
+                    bigDecimal3=bigDecimal3.add(objectionLedgerVO1.getAgreementAmount());
+                }
+
             }
+            for (ObjectionLedgerVO objectionLedgerVO1:transform.getResultData()) {
+                objectionLedgerVO1.setObjectionNumCount(bigDecimal1);
+                objectionLedgerVO1.setObjectionConfirmationCount(bigDecimal2);
+                objectionLedgerVO1.setAgreementAmountCount(bigDecimal3);
+            }
+
 
 
             return transform;
