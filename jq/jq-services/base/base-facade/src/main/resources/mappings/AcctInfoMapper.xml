@@ -830,10 +830,11 @@ and arp.role_id is not null )
     select
     <include refid="Base_Column_List" />
     from acct_info
-    where is_delete = 0 and status = 1
-    <if test="acctTitle != null"> and ACCT_TITLE = #{acctTitle}</if>
-    <if test="mobilePhone != null"> or MOBILE_PHONE = #{mobilePhone} </if>
-    <if test="email != null"> or EMAIL = #{email} </if>
+    where 1 = 1
+    and (ACCT_TITLE = #{acctTitle}
+    or MOBILE_PHONE = #{mobilePhone}
+    or EMAIL = #{email} )
+    and (is_delete = 0 and status = 1)
   </select>
 
 </mapper>
