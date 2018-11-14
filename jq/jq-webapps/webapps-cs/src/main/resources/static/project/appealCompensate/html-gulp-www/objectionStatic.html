@@ -317,7 +317,7 @@
         <span class="serachbox-title fl">异议状态：</span>
         <select id="condclaimState" name="" class="inputBase submission-box-list__Select">
             <option value="">请选择</option>
-            <option value="NEW">新建</option>
+            <!--<option value="NEW">新建</option>-->
             <option value="PRESENT">已提报</option>
             <option value="ADOPT">销售审核通过</option>
             <option value="ACCEPTANCE">已受理</option>
@@ -329,7 +329,7 @@
         </select>
     </li>
     <li class="serachbox-list">
-        <span class="serachbox-title fl">投诉单位：</span>
+        <span class="serachbox-title fl">生产单位：</span>
         <select type="text" class="inputBase" id="conddeptCode">
             <option value="">请选择</option>
             <option value="2000">炼轧</option>
@@ -373,8 +373,9 @@
     </li>
 </ul>
 <div class="objectionStatic">
-    <table class="objSta-table table-list" id="tableList" comType="standardTableCtrl" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="/objectionLendger/findLedgerByPage" reqParam="{}" method="POST" noData="nonData" >
+    <table class="objSta-table table-list" id="tableList" comType="standardTableCtrl" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="/objectionLendger/findLedgerByPage" reqParam="{}" method="POST" noData="nonData" idx="indexNum">
         <tr class="table-list-currentrow">
+            <th class="table-list-currentrow-theader" style="width:1%">序号</th>
             <th class="table-list-currentrow-theader" style="width: 2%">质量投诉编号</th>
             <th class="table-list-currentrow-theader" style="width: 1%">异议状态</th>
             <th class="table-list-currentrow-theader" style="width: 3%">使用客户</th>
@@ -409,6 +410,7 @@
             <th class="table-list-currentrow-theader" style="width: 5%">客户评价</th>
         </tr>
         <tr class="table-list-currentrow" id="templateRow" style="display: none;">
+            <td class="table-list-currentrow-tdetail" id="indexNum"></td>
             <td class="table-list-currentrow-tdetail" id="claimNo"></td>
             <td class="table-list-currentrow-tdetail" id="claimStateA"></td>
             <td class="table-list-currentrow-tdetail" id="lastUser"></td>
@@ -441,6 +443,18 @@
             <td class="table-list-currentrow-tdetail" id="cycle"></td>
             <td class="table-list-currentrow-tdetail" id="memo"></td>
             <td class="table-list-currentrow-tdetail" id="evaluate"></td>
+        </tr>
+        <tr class="table-list-currentrow">
+            <td class="table-list-currentrow-tdetail" id="indexNum" colspan="33">
+                <div class="clearfix" style="width: 950px;padding-right: 20px">
+                    <span class="fr" style="margin-right: 10px;" id="agreementAmountCount"></span>
+                    <span class="fr" style="margin-right: 5px;">赔偿金额:</span>
+                    <span class="fr" style="margin-right: 10px;" id="objectionConfirmationCount"></span>
+                    <span class="fr" style="margin-right: 5px;">确认量总数:</span>
+                    <span class="fr" style="margin-right: 10px;" id="objectionNumCount"></span>
+                    <span class="fr" style="margin-right: 5px;">异议量总数:</span>
+                </div>
+            </td>
         </tr>
     </table>
     <div id="nonData" class="noDataCon" style="display: none">
@@ -508,6 +522,10 @@
                 $(cloneRow).find("#claimTypeA").html("已评价");
                 break;
         }
+        //
+        $("#agreementAmountCount").html(jsonItem.agreementAmountCount);
+        $("#objectionConfirmationCount").html(jsonItem.objectionConfirmationCount);
+        $("#objectionNumCount").html(jsonItem.objectionNumCount);
     }
     $(function(){
         limitCodeDeal($("*[limitCode]"),"limitCode");

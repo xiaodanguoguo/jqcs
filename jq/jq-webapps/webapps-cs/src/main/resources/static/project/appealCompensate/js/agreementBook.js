@@ -5,6 +5,7 @@ function clsMethodLee(){
         "path3":"/objectionChuLi/look"//预览接口
     };
     this.documentLee = null;
+    this.opeDom = "";
     this.claimNo = GetQueryString("claimNo") == null ? "":GetQueryString("claimNo");//异议编号
     this.htmlType = GetQueryString("htmlType");//页面类型 1-编辑  2——审核
     this.init = clsMethodLee$init;//初始化页面的展示内容,绑定dom节点
@@ -68,6 +69,7 @@ function clsMethodLee$parse(){
 function clsMethodLee$operate(){
     //编辑页面保存操作
     this.firstSave.on("click",function(){
+        document.body.jsLee.opeDom = "firstSave";
         if(boxChecked()){
             var jsonParam = paramJson();
             jsonParam.optionStuts = 1;
@@ -76,6 +78,7 @@ function clsMethodLee$operate(){
     });
     //编辑页面提交操作
     this.firstSubmit.on("click",function(){
+        document.body.jsLee.opeDom = "firstSubmit";
         if(boxChecked()){
             var jsonParam = paramJson();
             jsonParam.optionStuts = 2;
@@ -84,6 +87,7 @@ function clsMethodLee$operate(){
     });
     //审核页面拒绝操作
     this.secondReject.on("click",function(){
+        document.body.jsLee.opeDom = "secondReject";
         $("#rejectReason").addClass("required");
         if(boxChecked()){
             var jsonParam = paramJson();
@@ -93,6 +97,7 @@ function clsMethodLee$operate(){
     });
     //审核页面通过操作
     this.secondPromise.on("click",function(){
+        document.body.jsLee.opeDom = "secondPromise";
         $("#rejectReason").removeClass("required");
         if(boxChecked()){
             var jsonParam = paramJson();
@@ -260,6 +265,7 @@ function boxChecked(){
 function operateSucCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
+        garyDom(document.body.jsLee.opeDom);
         /*var alertBox=new clsAlertBoxCtrl();
         alertBox.Alert(data.retDesc,"成功提示",1,"","successTip");*/
         var alertBox=new clsAlertBoxCtrl();
@@ -288,6 +294,10 @@ function checkWords(a,len){
         a.value=a.value.substring(0,len);
     }
     $(a).next().find("i:first").html(len - a.value.length);
+}
+
+function garyDom(src){//按钮操作后置灰
+    document.body.jsLee[src].attr("disabled",true).addClass("changeGary");
 }
 
 

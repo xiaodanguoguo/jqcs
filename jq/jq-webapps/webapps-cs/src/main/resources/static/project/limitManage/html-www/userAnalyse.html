@@ -49,6 +49,9 @@
         </div>
     </div>
 <script>
+    $(function(){
+        limitCodeDeal($("*[limitCode]"),"limitCode");
+    })
     function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         if(jsonItem.recordType == "1"){
             $(cloneRow).find("#recordTypeA").html("登陆");
