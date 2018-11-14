@@ -26,7 +26,7 @@ public class MdCommonTypeController {
 	private MdCommonTypeAPI mdCommonTypeAPI;
 	
 
-	//诉赔提报界面校验质证书编号是否正确
+	//产品大类下拉接口
 	@RequestMapping(value = "/findItemsByTypeId",method = RequestMethod.POST)
 	public JsonResponse<List<MdCommonTypeVO>> findItemsByTypeId(@RequestBody JsonRequest<MdCommonTypeVO> jsonRequest){
 		JsonResponse<List<MdCommonTypeVO>> jsonResponse = new JsonResponse<>();
