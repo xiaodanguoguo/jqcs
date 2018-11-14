@@ -7,6 +7,9 @@ import java.util.Date;
 
 public class ObjectionLedger {
 
+    //新建状态的数据要在该界面中屏蔽掉。标识字段
+    private String flag;
+
     private  String  specs;
 
     private String  defectName;
@@ -471,5 +474,13 @@ public class ObjectionLedger {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 }

@@ -986,6 +986,9 @@
       <if test="startDtStr != null" >
         AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
       </if>
+      <if test="flag != null" >
+        AND  H.CLAIM_STATE NOT IN ('NEW')
+      </if>
     </trim>
     order by H.SID desc
   </select>
