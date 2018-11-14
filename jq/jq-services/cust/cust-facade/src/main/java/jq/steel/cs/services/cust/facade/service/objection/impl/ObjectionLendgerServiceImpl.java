@@ -47,6 +47,8 @@ public class ObjectionLendgerServiceImpl implements ObjectionLendgerService{
             objectionLedger.setStartDtStr(startDtStr);
             String endDtStr = DateFormatUtil.getEndDateStr(objectionLedger.getEndDt());
             objectionLedger.setEndDtStr(endDtStr);
+            //新建状态的数据要在该界面中屏蔽掉。
+            objectionLedger.setFlag("1");
             List<ObjectionLedger> ledgerList = crmClaimInfoMapper.findLedgerByPage(objectionLedger);
             //转换返回对象
             List<ObjectionLedgerVO> objectionLedgerVOS = BeanCopyUtil.copyList(ledgerList, ObjectionLedgerVO.class);

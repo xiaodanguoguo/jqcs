@@ -25,5 +25,6 @@ public interface MillSheetHeadMapper {
 
     MillSheetHead selectByMillSheetNO(String millSheetNo);
 
+    List<MillSheetHead>  selectAll(MillSheetHead record);
 
 }
