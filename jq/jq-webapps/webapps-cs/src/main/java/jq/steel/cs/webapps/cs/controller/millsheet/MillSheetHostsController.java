@@ -79,7 +79,8 @@ public class MillSheetHostsController {
         }else {
             jsonRequest.getReqBody().setDeptCodes(null);
         }
-
+        //组织名称
+        jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
         try {
         ServiceResponse<PageDTO<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findMillSheetByPage(jsonRequest);
         if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
@@ -122,7 +123,8 @@ public class MillSheetHostsController {
         }else {
             jsonRequest.getReqBody().setDeptCodes(null);
         }
-
+        //组织名称
+        jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
         try {
             ServiceResponse<PageDTO<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findMillSheetByPage1(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {

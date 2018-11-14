@@ -11,7 +11,10 @@ public class MillSheetHostsVO implements Serializable {
 
 
     //建材0;非建材1
-    private String jcFlag;
+    private Integer jcFlag;
+
+    //是否允许下载打印
+    private String isAllow;
 
     private String acctName;
 
@@ -165,11 +168,20 @@ public class MillSheetHostsVO implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss" ,timezone = "GMT+8")
     private Date endDtStr;  //结束时间
 
-    public String getJcFlag() {
+
+    public String getIsAllow() {
+        return isAllow;
+    }
+
+    public void setIsAllow(String isAllow) {
+        this.isAllow = isAllow;
+    }
+
+    public Integer getJcFlag() {
         return jcFlag;
     }
 
-    public void setJcFlag(String jcFlag) {
+    public void setJcFlag(Integer jcFlag) {
         this.jcFlag = jcFlag;
     }
 

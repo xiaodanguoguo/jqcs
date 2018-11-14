@@ -9,9 +9,8 @@ import java.util.List;
 
 public class MillSheetHosts {
 
-
     //建材0;非建材1
-    private String jcFlag;
+    private Integer jcFlag;
 
     //虚拟质证书
     private List<String> noMillSheetNos;
@@ -160,11 +159,22 @@ public class MillSheetHosts {
 
     private  String orgName;        //组织名称
 
-    public String getJcFlag() {
+    //是否允许下载打印
+    private String isAllow;
+
+    public String getIsAllow() {
+        return isAllow;
+    }
+
+    public void setIsAllow(String isAllow) {
+        this.isAllow = isAllow;
+    }
+
+    public Integer getJcFlag() {
         return jcFlag;
     }
 
-    public void setJcFlag(String jcFlag) {
+    public void setJcFlag(Integer jcFlag) {
         this.jcFlag = jcFlag;
     }
 

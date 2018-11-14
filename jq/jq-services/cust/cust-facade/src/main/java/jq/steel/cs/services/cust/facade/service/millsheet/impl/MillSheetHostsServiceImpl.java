@@ -36,9 +36,10 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     @Autowired
     private MillSheetHeadMapper millSheetHeadMapper;
 
-    //分页查询
+    //分页查询（质证书已经拆分给其他用户并且该用户在客服平台有账号的，则本级不能再对该质证书进行打印、下载操作。如拆分出来的质证书接受单位在平台中没有对应的账号，本级还可以对该质证书进行下载和打印操作）
     @Override
     public PageDTO<MillSheetHostsVO> findMillSheetByPage(MillSheetHostsVO millSheetHostsVO) {
+        String orgName = millSheetHostsVO.getOrgName();
         try {
         //转换mdel
         MillSheetHosts millSheetHosts = new MillSheetHosts();
@@ -93,6 +94,23 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                     millSheetHosts2.setIsSplit(1);
                 }else {
                     millSheetHosts2.setIsSplit(0);
+                }
+
+                //判断是否允许下载(建材类不让下载)
+                if(millSheetHosts2.getJcFlag()==0){
+                    millSheetHosts2.setIsAllow("N");
+                }else {
+                    if (millSheetHosts2.getMillSheetType().equals("Z")||millSheetHosts2.getMillSheetType().equals("S")){
+                            if (millSheetHosts2.getSpiltCustomer().equals(orgName)){
+                                millSheetHosts2.setIsAllow("Y");
+                            }else {
+                                //查询拆分单位下是否有账号有的话不让下载 没有的话让下载打印
+                               // millSheetHosts2.getSpiltCustomer()
+                            }
+                    }else {
+                        millSheetHosts2.setIsAllow("Y");
+                    }
+
                 }
             }
         return transform;
