@@ -185,7 +185,7 @@ public class ObjectionTiBaoVO {
 
     private  String orgCode;
 
-    private  String orgName;
+    private  String orgName;           //当前用户对应的组织
 
     private  String agreementName;
 

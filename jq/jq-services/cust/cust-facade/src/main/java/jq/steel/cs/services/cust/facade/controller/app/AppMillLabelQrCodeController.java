@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * @ClassName:      AppMillLabelQrCodeController
- * @Description:    通过二维码查询标签信息
+ * @Description:    实物标签-->通过二维码查询标签信息
  * @Author:         lujiawei
  * @CreateDate:     2018/9/19 13:30
  */

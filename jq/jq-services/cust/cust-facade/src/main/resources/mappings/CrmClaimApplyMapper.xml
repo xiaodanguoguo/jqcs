@@ -856,6 +856,8 @@
     A.LAST_USER_ID,
     A.FILE_PATH, A.REPORT_PICTURE,
 
+    D.SPILT_CUSTOMER,
+
     case when B.DEPT_CODE = '1000' then '不锈'
     when B.DEPT_CODE = '2000' then '炼轧'
     when B.DEPT_CODE = '2200' then '碳钢'
@@ -905,6 +907,9 @@
       <if test="designation != null and designation != ''" >
         AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}
       </if>
+      <if test="orgName != null and orgName != ''" >
+        AND D.SPILT_CUSTOMER = #{orgName}
+      </if>
       <choose>
         <when test="claimState != null ">
           and a.CLAIM_STATE = #{claimState}
@@ -944,6 +949,8 @@
     C.REJECT_REASON AS PRODUCTION_REJECT_REASON,
 
     A.FILE_PATH, A.REPORT_PICTURE,
+
+    D.SPILT_CUSTOMER,
 
     case when B.DEPT_CODE = '1000' then '不锈'
     when B.DEPT_CODE = '2000' then '炼轧'
@@ -1006,6 +1013,7 @@
     </trim>
     )
     LEFT JOIN WARRANTY.ACCT_INFO F ON F.ACCT_ID = NEED_USER
+    WHERE SPILT_CUSTOMER = #{orgName}
   </select>
 
   <select id="findgenzongByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
@@ -1043,6 +1051,9 @@
     A.CREATED_DT,
     A.CONTRACT_NO,
     ADMISSIBILITY_USER AS NEED_USER,
+
+    D.SPILT_CUSTOMER,
+
     case when B.DEPT_CODE = '1000' then '不锈'
     when B.DEPT_CODE = '2000' then '炼轧'
     when B.DEPT_CODE = '2200' then '碳钢'
@@ -1095,6 +1106,7 @@
       <if test="deptCode != null and deptCode != ''" >
         AND B.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
       </if>
+
       <choose>
         <when test="claimState != null ">
           and a.CLAIM_STATE = #{claimState}
@@ -1107,6 +1119,7 @@
       </choose>
     </trim>)
     LEFT JOIN WARRANTY.ACCT_INFO F ON F.ACCT_ID = NEED_USER
+    WHERE SPILT_CUSTOMER = #{orgName}
   </select>
 
   <!--根据claimNo查询-->

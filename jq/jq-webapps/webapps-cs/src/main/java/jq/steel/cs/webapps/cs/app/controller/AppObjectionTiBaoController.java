@@ -110,6 +110,7 @@ public class AppObjectionTiBaoController {
         logger.info("参数={}",JsonUtil.toJson(jsonRequest));
         JsonResponse<PageDTO<ObjectionTiBaoVO>> jsonResponse = new JsonResponse<>();
         try {
+            jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
             ServiceResponse<PageDTO<ObjectionTiBaoVO>> serviceResponse = objectionTiBaoAPI.findTiBaoByPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
@@ -141,6 +142,7 @@ public class AppObjectionTiBaoController {
         logger.info("参数={}",JsonUtil.toJson(jsonRequest));
         JsonResponse<PageDTO<ObjectionTiBaoVO>> jsonResponse = new JsonResponse<>();
         try {
+            jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
             ServiceResponse<PageDTO<ObjectionTiBaoVO>> serviceResponse = objectionTiBaoAPI.findgenzongByPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());

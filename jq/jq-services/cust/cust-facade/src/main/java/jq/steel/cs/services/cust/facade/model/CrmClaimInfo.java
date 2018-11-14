@@ -116,11 +116,11 @@ public class CrmClaimInfo {
 
     private String steelType;
 
-    private String claimType;
+    private String claimType;       //异议类型
 
     private String battenPlateNo;
 
-    private String proProblem;
+    private String proProblem;      //产品问题
 
     private String designation;
 

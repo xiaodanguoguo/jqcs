@@ -49,8 +49,14 @@ public class AppMillSheetHeadServiceImpl implements AppMillSheetHeadService {
 
     @Override
     public List<MillSheetHostsVO> getSheetHostsMsg(MillCoilInfoVO vo) {
-        List<MillSheetHosts> mshs = millSheetHostsMapper.getSheetHostsMsg(vo);
-        List<MillSheetHostsVO> vos = BeanCopyUtil.copyList(mshs, MillSheetHostsVO.class);
-        return vos;
+        if(vo.getZcharg() != null && !("".equals(vo.getZcharg().trim()))){
+            List<MillSheetHosts> mshs = millSheetHostsMapper.getSheetHostsMsgHaveZcharg(vo);
+            List<MillSheetHostsVO> vos = BeanCopyUtil.copyList(mshs, MillSheetHostsVO.class);
+            return vos;
+        }else {
+            List<MillSheetHosts> mshs = millSheetHostsMapper.getSheetHostsMsgNoZcharg(vo);
+            List<MillSheetHostsVO> vos = BeanCopyUtil.copyList(mshs, MillSheetHostsVO.class);
+            return vos;
+        }
     }
 }

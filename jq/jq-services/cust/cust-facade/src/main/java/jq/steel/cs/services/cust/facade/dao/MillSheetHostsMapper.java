@@ -43,11 +43,13 @@ public interface MillSheetHostsMapper {
     MillSheetHosts getUrlForApp(String millSheetNo);
 
     //APP质证书条件查询
-    List<MillSheetHosts> getSheetHostsMsg(MillCoilInfoVO vo);
+    List<MillSheetHosts> getSheetHostsMsgHaveZcharg(MillCoilInfoVO vo);
 
     MillSheetHead selectByMillSheetNOWithCreateOrUpdate(String millSheetNo);
 
     Integer updateStateAndPrintNum(String millSheetNo);
 
     MillSheetHosts selectByMillSheetNo(String millSheetNo);
+
+    List<MillSheetHosts> getSheetHostsMsgNoZcharg(MillCoilInfoVO vo);
 }
