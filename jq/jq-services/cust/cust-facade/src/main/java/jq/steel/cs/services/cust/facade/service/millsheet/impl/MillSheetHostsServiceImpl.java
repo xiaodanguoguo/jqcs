@@ -250,8 +250,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
         }
         for (MillSheetHosts millSheetHosts1:millSheetHosts){
             MillSheetHosts url = millSheetHostsMapper.findUrl(millSheetHosts1);
-            String millSheetPath = url.getMillSheetUrl()+"/"+url.getMillSheetName();
-            if(millSheetPath!=null){
+            if( url.getMillSheetUrl()!=null&&url.getMillSheetName()!=null){
                 //质证书有文件
                 millSheetHosts1.setSpecialNeed(url.getSpecialNeed());
                 millSheetHosts1.setMillSheetPath(url.getMillSheetUrl()+"/"+url.getMillSheetName());
