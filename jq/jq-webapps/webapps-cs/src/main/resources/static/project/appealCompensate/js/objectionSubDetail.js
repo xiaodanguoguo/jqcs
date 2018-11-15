@@ -677,11 +677,17 @@ function htmlInit2(data){//数据回显回调
                 ue.ready(function() {
                     //不可编辑
                     ue.setDisabled();
+                    UE.dom.domUtils.setStyles(ue.body, {
+                        'opacity': 0.3,'filter': 'alpha(opacity=30)'
+                    });
                 });
                 var ue2 = UE.getEditor('editor2');
                 ue2.ready(function() {
                     //不可编辑
                     ue2.setDisabled();
+                    UE.dom.domUtils.setStyles(ue2.body, {
+                        'opacity': 0.3,'filter': 'alpha(opacity=30)'
+                    });
                 });
             }
         }else if(document.body.jsLee.htmlType == 5 || document.body.jsLee.htmlType == 9){//内部调查  或者内部调查报告详情
@@ -698,6 +704,9 @@ function htmlInit2(data){//数据回显回调
                 ue.ready(function() {
                     //不可编辑
                     ue.setDisabled();
+                    UE.dom.domUtils.setStyles(ue.body, {
+                        'opacity': 0.3,'filter': 'alpha(opacity=30)'
+                    });
                 });
             }
         }else if(document.body.jsLee.htmlType == 6){//确认书审核

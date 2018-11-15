@@ -44,6 +44,9 @@ function clsMethodLee$parse(){
         ue.ready(function() {
             //不可编辑
             ue.setDisabled();
+            UE.dom.domUtils.setStyles(ue.body, {
+                'opacity': 0.3,'filter': 'alpha(opacity=30)'
+            });
         });
         //$("#returnPrev").show();
     }else if(this.htmlType == 3){//协议书详情页面
@@ -131,7 +134,6 @@ function clsMethodLee$operate(){
         var jsonParam = {"claimNo":document.body.jsLee.claimNo,"templateType":5};
         getAjaxResult(document.body.jsLee.requestUrl.path3,"POST",jsonParam,"firstPreviewCallBack(data)")
     });
-
 }
 function clsMethodLee$refresh(){
 
