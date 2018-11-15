@@ -141,7 +141,23 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
         String[] strs = str.split("\n");
         int l = strs.length;
         MillLabelVO vo = new MillLabelVO();
-        for (int i = 1; i < l; i++) {
+        for (int i = 0; i < l; i++) {
+            //操作员id
+            if(i == 0){
+                //通过判断数字型字符串的长度获取到某一字符串中的数字
+                String operatorId = strs[i];
+                operatorId = operatorId.trim();
+                String str2 = "";
+                if(str != null && !"".equals(str)){
+                    for(int j = 0 ; j < operatorId.length() ; j++){
+                        if(operatorId.charAt(j) >= 48 && operatorId.charAt(j) <= 57){
+                            str2+= operatorId.charAt(j);
+                        }
+                    }
+                }
+                String str3 = str2.substring(1);
+                vo.setOperatorId(str3);
+            }
             //生产时间
             if (i == 1) {
                 String strDate = strs[i];
@@ -165,23 +181,26 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
                 vo.setZcharg(strZcharg2);
             }
         }
-        MillLabel millLabel = millLabelMapper.queryByQrcode(vo);
+        List<MillLabel> millLabels = millLabelMapper.queryByQrcode(vo);
 
-        CrmMillCoilInfo crmMillCoilInfo = new CrmMillCoilInfo();
         //假信息,如果没有对应数据返回一个状态
-        CrmMillCoilInfoVO crmMillCoilInfoVO = BeanCopyUtil.copy(crmMillCoilInfo, CrmMillCoilInfoVO.class);
-        if (millLabel == null) {
+        if (millLabels == null) {
+            CrmMillCoilInfoVO crmMillCoilInfoVO = new CrmMillCoilInfoVO();
             crmMillCoilInfoVO.setState("0");
             List<CrmMillCoilInfoVO> list = new ArrayList<>();
             list.add(crmMillCoilInfoVO);
             return list;
         }
         //真信息,如果有数据执行另外一条sql,用于返回质证书结构化数据
-        crmMillCoilInfoVO.setZcharg(millLabel.getZcharg());
-        crmMillCoilInfoVO.setShowFlag(1);
-        List<CrmMillCoilInfoVO> list = millCoilInfoService.getCoilDetail(crmMillCoilInfoVO);
-        for (CrmMillCoilInfoVO voForList : list) {
-            voForList.setState("1");
+        List<CrmMillCoilInfoVO> list = new ArrayList<>();
+        for (MillLabel MillLabel : millLabels) {
+            CrmMillCoilInfoVO crmMillCoilInfoVO = new CrmMillCoilInfoVO();
+            crmMillCoilInfoVO.setZcharg(MillLabel.getZcharg());
+            crmMillCoilInfoVO.setShowFlag(1);
+            list = millCoilInfoService.getCoilDetail(crmMillCoilInfoVO);
+            for (CrmMillCoilInfoVO voForList : list) {
+                voForList.setState("1");
+            }
         }
         return list;
     }

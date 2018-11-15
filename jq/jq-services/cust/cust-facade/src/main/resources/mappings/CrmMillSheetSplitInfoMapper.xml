@@ -211,4 +211,21 @@ SPLIT_APPLY_ID = #{splitApplyId,jdbcType=NUMERIC}
     #{inspiltCustomer,mode=IN,jdbcType=VARCHAR}
     )     																							 			  #{seqDate,mode=OUT,jdbcType=VARCHAR})}
   </select >
+
+
+  <select id="findMillSheetForSaleCompany" resultMap="BaseResultMap">
+   SELECT
+    cmsi.SPLIT_APPLY_ID, cmsi.MILLSHEET_DETAIL_ID, cmsi.CREATED_BY, cmsi.CREATED_DT, cmsi.UPDATED_BY,
+    cmsi.UPDATED_DT, cmsi.VERSION, cmsi.MILLSHEET_NO, cmsi.FATHER_MILLSHEET_NO, cmsi.QUALITY_CERTIFICATE_TYPE,
+    cmsi.SALE_PARTY, cmsi.CREATION_TIME, cmsi.FURNACE_NUMBER, cmsi.ZJISHU, cmsi.WEIGHT,
+    cmsi.LICENSE_NUMBER, cmsi.PRODUCT_CATEGORY, cmsi.SPECIFICATIONS
+    FROM CRM_MILL_SHEET_SPLIT_INFO cmsi
+    INNER JOIN MILL_SHEET_HEAD  MSH ON MSH.MILL_SHEET_NO = cmsi.MILLSHEET_NO
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="saleParty != null and saleParty !=''" >
+        AND cmsi.SALE_PARTY = #{saleParty}
+      </if>
+    </trim>
+  </select>
+
 </mapper>

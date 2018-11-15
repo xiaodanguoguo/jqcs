@@ -11,6 +11,7 @@ import com.ebase.utils.JsonUtil;
 import jq.steel.cs.services.cust.api.controller.MillCoilInfoAPI;
 import jq.steel.cs.services.cust.api.controller.app.MillSheetHeadAPI;
 import jq.steel.cs.services.cust.api.vo.CrmMillCoilInfoVO;
+import jq.steel.cs.services.cust.api.vo.CrmMillSheetSplitInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHeadVO;
 import org.slf4j.Logger;
@@ -47,6 +48,7 @@ public class AppMillSheetHeadController {
             MillSheetHeadVO retContent = srVO.getRetContent();
             jsonResponse.setRspBody(retContent);
         } catch (BusinessException e) {
+            e.printStackTrace();
             logger.error("查询质证书信息 = {}", e);
             jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
         }
@@ -63,7 +65,27 @@ public class AppMillSheetHeadController {
             MillCoilInfoVO retContent = srVO.getRetContent();
             jsonResponse.setRspBody(retContent);
         } catch (BusinessException e) {
+            e.printStackTrace();
             logger.error("获取钢卷相关信息 = {}", e);
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+        return jsonResponse;
+    }
+
+
+    @RequestMapping(value = {"/findMillSheetBySC"}, method = RequestMethod.POST)
+    public JsonResponse<CrmMillSheetSplitInfoVO> findMillSheetBySaleCompany(@RequestBody JsonRequest<CrmMillSheetSplitInfoVO> jsonRequest) {
+        JsonResponse<CrmMillSheetSplitInfoVO> jsonResponse = new JsonResponse<>();
+        logger.info("销售公司质证书 = {}", JsonUtil.toJson(jsonRequest));
+
+        try {
+            jsonRequest.getReqBody().setSaleParty(AssertContext.getOrgName());
+            ServiceResponse<CrmMillSheetSplitInfoVO> srVO = millSheetHeadAPI.findMillSheetForSaleCompany(jsonRequest);
+            CrmMillSheetSplitInfoVO retContent = srVO.getRetContent();
+            jsonResponse.setRspBody(retContent);
+        } catch (BusinessException e) {
+            e.printStackTrace();
+            logger.error("销售公司质证书 = {}", e);
             jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
         }
         return jsonResponse;

@@ -22,7 +22,7 @@ public interface MillLabelMapper {
     List<MillLabel> select(MillLabel record);
 
     //根据二维码信息查询数据
-    MillLabel queryByQrcode(MillLabelVO vo);
+    List<MillLabel> queryByQrcode(MillLabelVO vo);
     //用于返回质证书结构化数据
     MillSheetHosts querSheeltHostsBymillLabe(MillLabel millLabel);
 }
