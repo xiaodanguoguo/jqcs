@@ -182,6 +182,7 @@
             $("#addReInp").val($("#fotTable")[0].jsonData.orgName);
             $("#memoInp").val($("#fotTable")[0].jsonData.remark);
             $("#inputAnswer #orgType").val($("#fotTable")[0].jsonData.orgType);
+            $("#inputAnswer #orgType").trigger("chosen:updated")
             $("#inputAnswer #sapCode").val($("#fotTable")[0].jsonData.sapCode);
             $("#inputAnswer #tel").val($("#fotTable")[0].jsonData.tel);
             $("#inputAnswer #addr").val($("#fotTable")[0].jsonData.addr);
