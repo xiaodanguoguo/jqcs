@@ -99,10 +99,14 @@ function clsMethodLee$operate(){
     this.secondPromise.on("click",function(){
         document.body.jsLee.opeDom = "secondPromise";
         $("#rejectReason").removeClass("required");
-        if(boxChecked()){
+        if(boxChecked() && !$("#rejectReason").val()){
             var jsonParam = paramJson();
             jsonParam.optionStuts = 4;
             getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",jsonParam,"operateSucCallBack(data)")
+        }else if($("#rejectReason").val()){
+            showErrInfoByCustomDiv($("#rejectReason")[0],"请清空驳回原因！");
+            /*var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert("请清空驳回原因！","失败提示");*/
         }
     });
     //金额输入校验

@@ -356,11 +356,15 @@ function clsMethodLee$operate(){
     this.thirdPromise.on("click",function(){
         document.body.jsLee.opeDom = "thirdPromise";
         $("#rejectReason").removeClass("required");
-        if(boxChecked()){
+        if(boxChecked() && !$("#rejectReason").val()){
             var jsonParam = paramJson();
             jsonParam.optionStuts = 3;
             getAjaxResult(document.body.jsLee.requestUrl.path6,"POST",jsonParam,"firstSaveCallBack(data)")
 
+        }else if($("#rejectReason").val()){
+            showErrInfoByCustomDiv($("#rejectReason")[0],"请清空驳回原因！");
+            /*var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert("请清空驳回原因！","失败提示");*/
         }
     });
     //销售管理驳回操作
@@ -426,11 +430,15 @@ function clsMethodLee$operate(){
     this.sixthPromise.on("click",function(){
         document.body.jsLee.opeDom = "sixthPromise";
         $("#rejectReason").removeClass("required");
-        if(boxChecked()){
+        if(boxChecked() && !$("#rejectReason").val()){
             var jsonParam = paramJson();
             jsonParam.optionType = 4;
             getAjaxResult(document.body.jsLee.requestUrl.path10,"POST",jsonParam,"secondSaveCallBack(data)")
 
+        }else if($("#rejectReason").val()){
+            showErrInfoByCustomDiv($("#rejectReason")[0],"请清空驳回原因！");
+            /*var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert("请清空驳回原因！","失败提示");*/
         }
     });
     //确认书审核驳回操作
@@ -664,6 +672,18 @@ function htmlInit2(data){//数据回显回调
             ue2.ready(function() {//编辑器初始化完成再赋值
                 ue2.setContent(data.rspBody.fieldConclusion);  //赋值给UEditor
             });
+            if(document.body.jsLee.htmlType == 8){
+                var ue = UE.getEditor('editor');
+                ue.ready(function() {
+                    //不可编辑
+                    ue.setDisabled();
+                });
+                var ue2 = UE.getEditor('editor2');
+                ue2.ready(function() {
+                    //不可编辑
+                    ue2.setDisabled();
+                });
+            }
         }else if(document.body.jsLee.htmlType == 5 || document.body.jsLee.htmlType == 9){//内部调查  或者内部调查报告详情
             //富文本数据回显
             var ue = UE.getEditor('editor');
@@ -673,6 +693,13 @@ function htmlInit2(data){//数据回显回调
                 }
                 ue.setContent(data.rspBody.productionProcessAll);  //赋值给UEditor
             });
+            if(document.body.jsLee.htmlType == 9){
+                var ue = UE.getEditor('editor');
+                ue.ready(function() {
+                    //不可编辑
+                    ue.setDisabled();
+                });
+            }
         }else if(document.body.jsLee.htmlType == 6){//确认书审核
             //富文本数据回显
             var ue = UE.getEditor('editor');
