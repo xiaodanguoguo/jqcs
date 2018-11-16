@@ -1,12 +1,15 @@
 package jq.steel.cs.services.cust.facade.service.app.impl;
 
 import com.ebase.utils.BeanCopyUtil;
+import jq.steel.cs.services.cust.api.vo.CrmMillSheetSplitInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHeadVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
+import jq.steel.cs.services.cust.facade.dao.CrmMillSheetSplitInfoMapper;
 import jq.steel.cs.services.cust.facade.dao.MillCoilInfoMapper;
 import jq.steel.cs.services.cust.facade.dao.MillSheetHeadMapper;
 import jq.steel.cs.services.cust.facade.dao.MillSheetHostsMapper;
+import jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitInfo;
 import jq.steel.cs.services.cust.facade.model.MillCoilInfo;
 import jq.steel.cs.services.cust.facade.model.MillSheetHead;
 import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
@@ -27,7 +30,8 @@ public class AppMillSheetHeadServiceImpl implements AppMillSheetHeadService {
     private MillCoilInfoMapper millCoilInfoMapper;
     @Autowired
     private MillSheetHostsMapper millSheetHostsMapper;
-
+    @Autowired
+    private CrmMillSheetSplitInfoMapper crmMillSheetSplitInfoMapper;
 
     public MillSheetHeadVO getSheetHeadByMillSheetNo(String millSheetNo) {
         MillSheetHead millSheetHead = millSheetHeadMapper.selectByMillSheetNO(millSheetNo);
@@ -58,5 +62,13 @@ public class AppMillSheetHeadServiceImpl implements AppMillSheetHeadService {
             List<MillSheetHostsVO> vos = BeanCopyUtil.copyList(mshs, MillSheetHostsVO.class);
             return vos;
         }
+    }
+
+    @Override
+    public List<CrmMillSheetSplitInfoVO> getMillSheetForSaleCompany(CrmMillSheetSplitInfoVO vo) {
+
+        List<CrmMillSheetSplitInfo> models = crmMillSheetSplitInfoMapper.findMillSheetForSaleCompany(vo);
+        List<CrmMillSheetSplitInfoVO> vos = BeanCopyUtil.copyList(models, CrmMillSheetSplitInfoVO.class);
+        return vos;
     }
 }

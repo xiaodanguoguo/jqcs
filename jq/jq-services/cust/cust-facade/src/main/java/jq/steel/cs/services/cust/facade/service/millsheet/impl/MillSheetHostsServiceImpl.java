@@ -100,11 +100,12 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 }else {
                     millSheetHosts2.setIsSplit(0);
                 }
-                //判断是否允许下载(建材类不让下载)
-                if(millSheetHosts2.getJcFlag()==0){
-                    millSheetHosts2.setIsAllow("N");
-                }else {
-                    if (millSheetHosts2.getMillSheetType().equals("Z")||millSheetHosts2.getMillSheetType().equals("S")){
+                if(millSheetHosts2.getJcFlag()!=null){
+                    //判断是否允许下载(建材类不让下载)
+                    if(millSheetHosts2.getJcFlag()==0){
+                        millSheetHosts2.setIsAllow("N");
+                    }else {
+                        if (millSheetHosts2.getMillSheetType().equals("Z")||millSheetHosts2.getMillSheetType().equals("S")){
                             if (millSheetHosts2.getSpiltCustomer().equals(orgName)){
                                 millSheetHosts2.setIsAllow("Y");
                             }else {
@@ -125,11 +126,13 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                                     millSheetHosts2.setIsAllow("N");
                                 }
                             }
-                    }else {
-                        millSheetHosts2.setIsAllow("Y");
-                    }
+                        }else {
+                            millSheetHosts2.setIsAllow("Y");
+                        }
 
+                    }
                 }
+
             }
         return transform;
 

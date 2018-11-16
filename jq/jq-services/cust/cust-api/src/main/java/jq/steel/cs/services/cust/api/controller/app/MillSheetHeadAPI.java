@@ -3,6 +3,7 @@ package jq.steel.cs.services.cust.api.controller.app;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
+import jq.steel.cs.services.cust.api.vo.CrmMillSheetSplitInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHeadVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
@@ -24,4 +25,7 @@ public interface MillSheetHeadAPI {
     @RequestMapping(value = "/app/millsheetHead/findCoilByZcharg", method = RequestMethod.POST)
     public ServiceResponse<MillCoilInfoVO> getCoilByZcharg(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest);
 
+
+    @RequestMapping(value = "/app/millsheetHead/findMillSheetBySaleCompany", method = RequestMethod.POST)
+    public ServiceResponse<CrmMillSheetSplitInfoVO> findMillSheetForSaleCompany(@RequestBody JsonRequest<CrmMillSheetSplitInfoVO> jsonRequest);
 }

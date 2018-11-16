@@ -79,7 +79,6 @@ public interface AppMillLabelAPI {
 
 	/**
 	 * 标签扫描验真,返回质证书结构化数据
-	 * 参数：opt insert、update、delete
 	 * @param jsonRequest
 	 * @return
 	 */

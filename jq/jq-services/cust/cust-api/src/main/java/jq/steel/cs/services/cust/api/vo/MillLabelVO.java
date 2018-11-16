@@ -15,9 +15,9 @@ public class MillLabelVO implements Serializable {
 
     private String zcpmc;
 
-    private String zcharg;
+    private String zcharg;              //批次
 
-    private String zph;                //牌号
+    private String zph;                 //牌号
 
     private String specs;               //规格
 
@@ -31,7 +31,7 @@ public class MillLabelVO implements Serializable {
 
     private Short supportNumber;
 
-    private String operatorId;
+    private String operatorId;          //作业员ID
 
     private Date operationTime;
 
