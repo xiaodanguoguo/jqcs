@@ -376,6 +376,7 @@
                             <span class="btnLowImgCom" id="strongSplit" style="display:none;" limitCode="M20204">强制拆分</span>
                             <span class="btnLowImgCom" id="historySplit" style="display:none;" limitCode="M20205">拆分历史</span>
                             <span class="btnLowImgCom" id="applyBack" style="display:none;">申请回退</span>
+                            <span class="btnLowImgCom" id="repealOpe" style="display:none;">撤销</span>
                         </td>
                         <td class="table-list-currentrow-tdetail" style="text-align: center"><input type="checkbox" id="chkCoding" class="clsChk"></td>
                         <td class="table-list-currentrow-tdetail" id="millSheetNo" style="text-align: center;"></td>
@@ -437,6 +438,24 @@
         <div class="">
             <div id="rejectSureOpe" class="btnBaseCommon product-save" style="margin-left: 236px;margin-right: 20px;margin-top: 10px;">确定</div>
             <div id="rejectCancelOpe" class="btnBaseCancel product-submit">取消</div>
+        </div>
+    </div>
+</div>
+<div id="repealOpePopup" class="popup gc_box" style="display:none">
+    <div class="title" style="">
+        <h2>请输入撤销原因</h2>
+        <div>
+            <a class="min" href=" " title="最小化" style="display:none;"></a>
+            <a class="max" href="javascript:;" title="最大化" style="display:none;"></a>
+            <a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+            <a class="close" href="javascript:;" title="关闭" style="display:block;"></a>
+        </div>
+    </div>
+    <div class="content">
+        <textarea id="repealText" type="text" class="content-Input required isLengthOf" v_minlength="5" v_maxlength="30" islengthofmsg="请输入5-30个字" placeholder="请输入5-30个字" style="resize: none;width: 340px;height: 130px;border: 1px solid #e5e5e5;border-radius: 5px;margin-left: 7px;"></textarea>
+        <div class="">
+            <div id="repealSureOpe" class="btnBaseCommon product-save" style="margin-left: 236px;margin-right: 20px;margin-top: 10px;">确定</div>
+            <div id="repealCancelOpe" class="btnBaseCancel product-submit">取消</div>
         </div>
     </div>
 </div>
