@@ -768,7 +768,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
             </otherwise>
           </choose>-->
       <if test="millLine != null and millLine != ''" >
-        AND H.MILL_LINE = #{millLine,jdbcType=VARCHAR}
+        AND H.MILL_LINE like  '%' || #{millLine} ||'%'
       </if>
       <choose>
         <when test="states !=null and states != ''">
