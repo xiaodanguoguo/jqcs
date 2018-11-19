@@ -9,6 +9,8 @@ import java.util.List;
 
 public class MillSheetHostsVO implements Serializable {
 
+    //下级质证书编号；
+    private String lowerMillSheetNos;
 
     //建材0;非建材1
     private Integer jcFlag;
@@ -168,6 +170,14 @@ public class MillSheetHostsVO implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss" ,timezone = "GMT+8")
     private Date endDtStr;  //结束时间
 
+
+    public String getLowerMillSheetNos() {
+        return lowerMillSheetNos;
+    }
+
+    public void setLowerMillSheetNos(String lowerMillSheetNos) {
+        this.lowerMillSheetNos = lowerMillSheetNos;
+    }
 
     public String getIsAllow() {
         return isAllow;

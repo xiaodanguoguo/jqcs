@@ -27,4 +27,6 @@ public interface MillSheetHeadMapper {
 
     List<MillSheetHead>  selectAll(MillSheetHead record);
 
+    //删除拆分撤销数据
+    void  deleteMillSheetNo(MillSheetHead re);
 }

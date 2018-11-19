@@ -7,16 +7,12 @@ import java.util.Date;
 
 public class CrmMillSheetSplitInfo {
 
+
+    private String status;
+
     //送达方
     private  String shipToParty;
 
-    public String getShipToParty() {
-        return shipToParty;
-    }
-
-    public void setShipToParty(String shipToParty) {
-        this.shipToParty = shipToParty;
-    }
 
     //zchehao
     private String zchehao;
@@ -85,6 +81,22 @@ public class CrmMillSheetSplitInfo {
     private String productCategory;
 
     private String specifications;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getShipToParty() {
+        return shipToParty;
+    }
+
+    public void setShipToParty(String shipToParty) {
+        this.shipToParty = shipToParty;
+    }
 
     public String getMillsheetType() {
         return millsheetType;

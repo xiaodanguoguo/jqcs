@@ -105,4 +105,12 @@ public interface MillSheetHostsAPI {
     @RequestMapping(value = "/millsheet/updateNumber",method = RequestMethod.POST)
     ServiceResponse<Integer> updateNumber(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest);
 
+    /**
+     * 拆分撤销
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/millsheet/revoke",method = RequestMethod.POST)
+    ServiceResponse<Integer> revoke(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest);
+
 }

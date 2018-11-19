@@ -32,14 +32,16 @@ SPLIT_APPLY_ID,
 MILLSHEET_NO
 FROM
 CRM_MILL_SHEET_SPLIT_APPLY
-WHERE FATHER_MILLSHEET_NO=#{millsheetNo,jdbcType=VARCHAR}
+WHERE FATHER_MILLSHEET_NO=#{millsheetNo,jdbcType=VARCHAR} AND STATUS=#{status,jdbcType=VARCHAR}
   </select>
+  <!--查询有效的拆分数据-->
   <select id="findFmillSheet" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitApply">
     SELECT
-    CRM_MILL_SHEET_SPLIT_APPLY.SPLIT_APPLY_ID
+    CRM_MILL_SHEET_SPLIT_APPLY.SPLIT_APPLY_ID,
+     CRM_MILL_SHEET_SPLIT_APPLY.MILLSHEET_NO
     FROM
     CRM_MILL_SHEET_SPLIT_APPLY
-    WHERE FATHER_MILLSHEET_NO=#{millSheetNo,jdbcType=VARCHAR}
+    WHERE FATHER_MILLSHEET_NO=#{millSheetNo,jdbcType=VARCHAR} AND STATUS=#{status,jdbcType=VARCHAR}
   </select>
 
   <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitApply" >
@@ -151,4 +153,24 @@ WHERE FATHER_MILLSHEET_NO=#{millsheetNo,jdbcType=VARCHAR}
       </if>
     </trim>
   </insert>
+
+
+
+
+  <update id="updateStatus" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitApply">
+    update CRM_MILL_SHEET_SPLIT_APPLY
+    <trim suffixOverrides=",">
+      set version = version + 1,
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null and status != ''" >
+        STATUS =#{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    where SPLIT_APPLY_ID = #{splitApplyId,jdbcType=NUMERIC}
+  </update>
 </mapper>

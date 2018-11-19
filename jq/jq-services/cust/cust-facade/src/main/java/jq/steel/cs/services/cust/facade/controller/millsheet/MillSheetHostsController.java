@@ -217,4 +217,25 @@ public class MillSheetHostsController {
         return  serviceResponse;
     }
 
+
+
+    /**
+     * 拆分撤销
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/revoke",method = RequestMethod.POST)
+    public ServiceResponse<Integer>  revoke(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest,HttpServletRequest request){
+        ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
+        try {
+            Integer integer = millSheetHostsService.revoke(jsonRequest.getReqBody(),request);
+            serviceResponse.setRetContent(integer);
+        }catch (BusinessException e){
+            logger.error("出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
 }

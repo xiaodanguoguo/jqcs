@@ -75,6 +75,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         crmMillSheetSplitApply1.setZkunnr(crmMillSheetSplitInfoList.get(0).getZkunnr());
         crmMillSheetSplitApply1.setZcpmc(crmMillSheetSplitInfoList.get(0).getZcpmc());
         crmMillSheetSplitApply1.setSpiltCustomer(crmMillSheetSplitInfoList.get(0).getSpiltCustomer());
+        crmMillSheetSplitApply1.setStatus("1");
         crmMillSheetSplitApplyMapper.insertSelective(crmMillSheetSplitApply1);
         //添加明细表数据
         for (CrmMillSheetSplitInfo crmMillSheetSplitInfo:crmMillSheetSplitInfoList){
@@ -89,6 +90,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             crmMillSheetSplitInfo.setZcpmc(crmMillSheetSplitInfo.getZcpmc());
             crmMillSheetSplitInfo.setSpecs(crmMillSheetSplitInfo.getSpecs());
             crmMillSheetSplitInfo.setZchehao(crmMillSheetSplitInfo.getZchehao());
+            crmMillSheetSplitInfo.setStatus("1");
             crmMillSheetSplitInfoMapper.insertSelective(crmMillSheetSplitInfo);
             //调用存储过程
            Map<String,Object> map = new HashMap<String,Object>();
@@ -170,7 +172,9 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         MillCoilInfo coilInfo = new MillCoilInfo();
         coilInfo.setMillsheetNo(crmMillSheetSplitDetailVO.getMillSheetNo());
         CrmMillSheetSplitApply crmMillSheetSplitApply = new CrmMillSheetSplitApply();
-        crmMillSheetSplitApply.setMillsheetNo(crmMillSheetSplitDetailVO.getMillSheetNo());CrmMillSheetSplitInfo crmMillSheetSplitInfo = new CrmMillSheetSplitInfo();
+        crmMillSheetSplitApply.setMillsheetNo(crmMillSheetSplitDetailVO.getMillSheetNo());
+        crmMillSheetSplitApply.setStatus("1");
+        CrmMillSheetSplitInfo crmMillSheetSplitInfo = new CrmMillSheetSplitInfo();
         crmMillSheetSplitInfo.setMillsheetNo(crmMillSheetSplitDetailVO.getMillSheetNo());
 
         //查询钢卷数据
@@ -186,6 +190,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             for (CrmMillSheetSplitApply crmMillSheetSplitApply1 : crmMillSheetSplitApplies){
                 CrmMillSheetSplitInfo crmMillSheetSplitInfo1  = new CrmMillSheetSplitInfo();
                 crmMillSheetSplitInfo1.setSplitApplyId(crmMillSheetSplitApply1.getSplitApplyId());
+                crmMillSheetSplitInfo1.setStatus("1");
                 List<CrmMillSheetSplitInfo> crmMillSheetSplitInfos =crmMillSheetSplitInfoMapper.findByParams(crmMillSheetSplitInfo1);
                 for (CrmMillSheetSplitInfo crmMillSheetSplitInfo2 :crmMillSheetSplitInfos){
                     //主表送达方给子表送达方

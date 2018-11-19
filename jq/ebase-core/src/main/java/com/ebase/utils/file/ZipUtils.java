@@ -138,15 +138,15 @@ public class ZipUtils {
 
     public static void main(String[] args) throws Exception {
         /** 测试压缩方法1  */
-     /*   FileOutputStream fos1 = new FileOutputStream(new File("E:/mytest01.zip"));
-        ZipUtils.toZip("E:/gg", fos1,true);*/
+        FileOutputStream fos1 = new FileOutputStream(new File("E:/mytest01.zip"));
+        ZipUtils.toZip("E:/gg/hh", fos1,true);
 
         /** 测试压缩方法2  */
-        List<File> fileList = new ArrayList<>();
+     /*   List<File> fileList = new ArrayList<>();
         fileList.add(new File("E:/gg/1111.pdf"));
-        //fileList.add(new File("E:/gg/180509U0011.pdf"));
+        fileList.add(new File("E:/gg/180509U0011.pdf"));
         FileOutputStream fos2 = new FileOutputStream(new File("E:/mytest02.zip"));
-        ZipUtils.toZip1(fileList, fos2,"E:/gg","111");
+        ZipUtils.toZip1(fileList, fos2,"E:/gg","111");*/
     }
 
 

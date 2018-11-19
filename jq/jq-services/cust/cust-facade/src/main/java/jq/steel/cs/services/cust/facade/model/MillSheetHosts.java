@@ -9,6 +9,9 @@ import java.util.List;
 
 public class MillSheetHosts {
 
+    //下级质证书编号；
+    private String lowerMillSheetNos;
+
     //建材0;非建材1
     private Integer jcFlag;
 
@@ -161,6 +164,14 @@ public class MillSheetHosts {
 
     //是否允许下载打印
     private String isAllow;
+
+    public String getLowerMillSheetNos() {
+        return lowerMillSheetNos;
+    }
+
+    public void setLowerMillSheetNos(String lowerMillSheetNos) {
+        this.lowerMillSheetNos = lowerMillSheetNos;
+    }
 
     public String getIsAllow() {
         return isAllow;
