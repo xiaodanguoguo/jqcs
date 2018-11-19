@@ -49,6 +49,8 @@ function clsMethodLee$parse(){
         enable_split_word_search: false,
         placeholder_text_single: '请选择'
     });
+    //$("#condmillLine").attr("reqParam",JSON.stringify({'typeId': 'MILL_LINE'}));
+    initplugPath($("#condmillLine")[0],"singleSelectCtrl","/md/findItemsByTypeId",{"typeId":"MILL_LINE"},"POST");
     this.operate();
 }
 
@@ -210,6 +212,17 @@ function clsMethodLee$operate(){
             getAjaxResult(document.body.jsLee.requestUrl.path5,"POST",millSheetNoArr,"jiaOneCallBack(data)")
         }
     });
+
+    //撤销取消
+    $("#repealCancelOpe").on("click",function(){
+        closePopupWin();
+    });
+    //撤销确认操作
+    $("#repealSureOpe").on("click",function(){
+        $("#repealText").val();
+        getAjaxResult(document.body.jsLee.requestUrl.path123,"POST",{},"repealSureCallBack(data)")
+    });
+    
 }
 function clsMethodLee$refresh(){
 
@@ -273,6 +286,9 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {//插件渲染操作
             $(cloneRow).find("#commonSplit").show();
             break;
     }
+    if((jsonItem.millSheetType == "Z" || jsonItem.millSheetType == "S") && statsBook != "SPLITED"){
+        $(cloneRow).find("#repealOpe").show();
+    }
     if(statsBook == "EXAMINED" || statsBook == "DOWNLOADED" || statsBook == "PRIVIEWED" || statsBook == "PRINTED"){
         $(cloneRow).find("#applyBack").show();
     }
@@ -303,6 +319,15 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {//插件渲染操作
         openWin('360', '245', 'applyBackPopup', true);
         $("#rejectText").val("");
         document.body.jsLee.millSheetNo = jsonItem.millSheetNo;
+    });
+    //撤销操作
+    $(cloneRow).find("#repealOpe").on("click",function(){
+        if(jsonItem.state == "EXAMINED"){//如果为“已审核”则直接撤销
+            var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert("是否撤销","警告提示",1,"","repealOpeTip");
+        }else{//如果状态为“已预览、已下载和已打印”状态则需要和用户线下沟通后，录入撤销原因，然后才能够撤销.
+            openWin('360', '245', 'repealOpePopup', true);
+        }
     });
 };
 
@@ -463,6 +488,8 @@ function clsAlertBoxCtrl$sure() {//成功弹框确定
         }
         getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",millSheetNoArr,"printOpeCallBack(data)");
         closePopupWin();
+    }else if(this.id == "repealOpeTip"){
+        getAjaxResult()
     }
 }
 
@@ -536,6 +563,18 @@ function getNowFormatDate() {
         /*+ " " + date.getHours() + seperator2 + date.getMinutes()
         + seperator2 + date.getSeconds();*/
     return currentdate;
+}
+
+//撤销成功回调函数
+function repealSureCallBack(data){
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        if(window.location.href.indexOf("qualityBookList2") != -1){
+            initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path7,null,"POST");
+        }else{
+            initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+        }
+    }
 }
 
 $(function(){
