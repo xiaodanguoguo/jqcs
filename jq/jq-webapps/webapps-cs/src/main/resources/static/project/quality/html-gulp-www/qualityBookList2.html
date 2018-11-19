@@ -332,7 +332,9 @@
                     </li>
                     <li class="management-box-list__Every">
                         <span class="management-box-list__Name">产线:</span>
-                        <input type="text" class="inputBase" id="condmillLine">
+                        <!--<input type="text" class="inputBase" id="condmillLine">-->
+                        <select type="text" class="inputBase" id="condmillLine" comType="" reqPath="/md/findItemsByTypeId" reqParam="{'typeId': 'MILL_LINE'}" selCode="typeId" selValue="typeName" emptyValue="请选择">
+                        </select>
                     </li>
                     <li class="management-box-list__Every">
                         <span class="management-box-list__Name">质证书状态:</span>
