@@ -25,6 +25,10 @@
     <result column="orgTitle" property="orgTitle" />
     <result column="ORG_ID" property="orgId"/>
     <result column="ACCT_TYPE" property="acctType" />
+
+    <result column="CREATE_BY" property="createBy" />
+    <result column="CREATE_TIME" property="createTime" />
+
     <association property="companyInfo" javaType="jq.steel.cs.services.base.facade.model.CompanyInfo">
       <id column="COMPANY_ID" property="companyId" />
       <result column="COMPANY_NAME" property="companyName" />
@@ -671,6 +675,10 @@
     acct.status,
     acct.o_info_id,
     acct.acct_type,
+
+    acct.CREATE_BY,
+    acct.CREATE_TIME,
+
     o.org_name AS orgtitle
     FROM
     acct_info acct
