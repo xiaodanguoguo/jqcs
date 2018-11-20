@@ -8,6 +8,9 @@ import java.util.List;
 
 public class CrmMillSheetSplitApply {
 
+
+    private  String millSheetNo;
+
     //规格
     private  String specs;
     //车号
@@ -72,6 +75,14 @@ public class CrmMillSheetSplitApply {
 
     //订货单位
     private  String spiltCustomer;
+
+    public String getMillSheetNo() {
+        return millSheetNo;
+    }
+
+    public void setMillSheetNo(String millSheetNo) {
+        this.millSheetNo = millSheetNo;
+    }
 
     public String getSpecs() {
         return specs;

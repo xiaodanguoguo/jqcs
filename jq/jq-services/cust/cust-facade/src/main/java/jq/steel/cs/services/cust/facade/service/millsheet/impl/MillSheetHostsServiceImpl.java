@@ -154,6 +154,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     //分页查询（酒钢）
     @Override
     public PageDTO<MillSheetHostsVO> findMillSheetByPage1(MillSheetHostsVO millSheetHostsVO) {
+        String orgName = millSheetHostsVO.getOrgName();
         try {
             //转换mdel
             MillSheetHosts millSheetHosts = new MillSheetHosts();
@@ -215,6 +216,38 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                     millSheetHosts2.setLowerMillSheetNos(lowerMillSheetNos);
                 }else {
                     millSheetHosts2.setIsSplit(0);
+                }
+                if(millSheetHosts2.getJcFlag()!=null){
+                    //判断是否允许下载(建材类不让下载)
+                    if(millSheetHosts2.getJcFlag()==0){
+                        millSheetHosts2.setIsAllow("N");
+                    }else {
+                        if (millSheetHosts2.getMillSheetType().equals("Z")||millSheetHosts2.getMillSheetType().equals("S")){
+                            if (millSheetHosts2.getSpiltCustomer().equals(orgName)){
+                                millSheetHosts2.setIsAllow("Y");
+                            }else {
+                                //查询拆分单位下是否有账号有的话不让下载 没有的话让下载打印
+                                OrgInfo orgInfo = new OrgInfo();
+                                orgInfo.setOrgName(millSheetHosts2.getSpiltCustomer());
+                                List<OrgInfo> list =orgInfoMapper.findIdByOrgName(orgInfo);
+                                if(list.size()>0){
+                                    AcctInfo acctInfo = new AcctInfo();
+                                    acctInfo.setoInfoId(list.get(0).getId());
+                                    List<AcctInfo> acctInfos =acctInfoMapper.findNameByorgId(acctInfo);
+                                    if (acctInfos.size()>0){
+                                        millSheetHosts2.setIsAllow("N");
+                                    }else {
+                                        millSheetHosts2.setIsAllow("Y");
+                                    }
+                                }else{
+                                    millSheetHosts2.setIsAllow("N");
+                                }
+                            }
+                        }else {
+                            millSheetHosts2.setIsAllow("Y");
+                        }
+
+                    }
                 }
             }
             return transform;
