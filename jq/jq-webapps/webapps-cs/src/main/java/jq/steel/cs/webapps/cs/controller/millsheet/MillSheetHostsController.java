@@ -712,8 +712,9 @@ public class MillSheetHostsController {
 
                     if (millSheetHostsVO.getSpecialNeed().equals("Y")){
                         String createPdfPath = uploadConfig.getDomain();
-                        //质证书下载
+                        //质证书复制
                         String millSheetPathB =  millSheetHostsVO.getMillSheetPath();
+                        this.copyFile(millSheetPathB,"/millSheet/"+millSheetHostsVO.getMillSheetNo()+"/"+ millSheetHostsVO.getMillSheetName());
                         //复制文件
                         this.copyFile(millSheetPathB,"/millSheet/"+millSheetHostsVO.getMillSheetNo()+"/"+ millSheetHostsVO.getMillSheetName());
                         MillSheetNeedsVO millSheetNeedsVO =new MillSheetNeedsVO();
