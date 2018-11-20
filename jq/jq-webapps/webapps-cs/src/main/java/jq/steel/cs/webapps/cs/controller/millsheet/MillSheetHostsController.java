@@ -696,7 +696,7 @@ public class MillSheetHostsController {
             if (serviceResponse.getRetContent().size()>1){
                 for(MillSheetHostsVO millSheetHostsVO :serviceResponse.getRetContent()){
                     //创建文件夹到目录下
-                    File dir = new File("/temp/"+millSheetHostsVO.getMillSheetNo());
+                    File dir = new File("/millSheet/"+millSheetHostsVO.getMillSheetNo());
                     dir.setWritable(true, false);
                     dir.mkdirs();
                     //下载记录日志
@@ -711,8 +711,11 @@ public class MillSheetHostsController {
                     millSheetHostsAPI.findUrl(hh);
 
                     if (millSheetHostsVO.getSpecialNeed().equals("Y")){
-                        System.out.println("特殊需求文档下载中");
                         String createPdfPath = uploadConfig.getDomain();
+                        //质证书下载
+                        String millSheetPathB =  millSheetHostsVO.getMillSheetPath();
+                        //复制文件
+                        this.copyFile(millSheetPathB,"/millSheet/"+millSheetHostsVO.getMillSheetNo()+"/"+ millSheetHostsVO.getMillSheetName());
                         MillSheetNeedsVO millSheetNeedsVO =new MillSheetNeedsVO();
                         millSheetNeedsVO.setMillSheetNo(serviceResponse.getRetContent().get(0).getMillSheetNo());
                         millSheetNeedsVO.setType("2");
@@ -735,7 +738,7 @@ public class MillSheetHostsController {
                         String millSheetUrl = serviceResponse.getRetContent().get(0).getMillSheetUrl();
                        // this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
                         //复制文件
-                        this.copyFile(millSheetPathB,"/temp/"+serviceResponse.getRetContent().get(0).getMillSheetNo()+"/"+ serviceResponse.getRetContent().get(0).getMillSheetName());
+                        this.copyFile(millSheetPathB,"/millSheet/"+millSheetHostsVO.getMillSheetNo()+"/"+ millSheetHostsVO.getMillSheetName());
                     }
                 }
                /* List<File> fileList = new ArrayList<>();
@@ -745,9 +748,9 @@ public class MillSheetHostsController {
                 try {
                     response.setHeader("Content-Disposition", "attachment;fileName="+"zhibaoshu.zip");
                     FileOutputStream fos2 = new FileOutputStream(new File("zhibaoshu.zip"));
-                    ZipUtils.toZip("/temp", fos2,true);
-                    System.out.println("删除文件夹/temp");
-                    this.delFolder("/temp");
+                    ZipUtils.toZip("/millSheet", fos2,true);
+                    System.out.println("删除文件夹/millSheet");
+                    //this.delFolder("/temp");
                 }catch (Exception e){
                     e.printStackTrace();
                 }
