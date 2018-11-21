@@ -125,7 +125,7 @@ public class ObjectionJieAnServiceImpl implements ObjectionJieAnService{
         crmClaimInfo.setClaimNo(record.getClaimNo());
         crmClaimInfo.setExpiredReason(record.getExpiredReason());
         //录入原因之后标识置为“”
-        crmClaimInfo.setExpiredSign("");
+        crmClaimInfo.setExpiredSign("1");
         crmClaimInfo.setUpdatedDt(new Date());
         crmClaimInfo.setUpdatedBy(acctName);
         crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
