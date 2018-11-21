@@ -9,6 +9,10 @@ import java.util.List;
 
 public class MillSheetHosts {
 
+
+    //撤销原因
+    private String causeOfRevocation;
+
     //下级质证书编号；
     private String lowerMillSheetNos;
 
@@ -17,6 +21,14 @@ public class MillSheetHosts {
 
     //虚拟质证书
     private List<String> noMillSheetNos;
+
+    public String getCauseOfRevocation() {
+        return causeOfRevocation;
+    }
+
+    public void setCauseOfRevocation(String causeOfRevocation) {
+        this.causeOfRevocation = causeOfRevocation;
+    }
 
     public List<String> getNoMillSheetNos() {
         return noMillSheetNos;
