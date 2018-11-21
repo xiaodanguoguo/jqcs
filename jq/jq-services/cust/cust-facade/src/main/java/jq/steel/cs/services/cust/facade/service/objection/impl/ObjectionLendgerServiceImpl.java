@@ -43,7 +43,7 @@ public class ObjectionLendgerServiceImpl implements ObjectionLendgerService{
             ObjectionLedger objectionLedger  = new ObjectionLedger();
             BeanCopyUtil.copy(objectionLedgerVO,objectionLedger);
             if(objectionLedger.getDeptCode()!=null&& objectionLedger.getDeptCode()!=""){
-                objectionLedger.setDeptCodes(null);
+                //objectionLedger.setDeptCodes(null);
             }
             PageDTOUtil.startPage(objectionLedgerVO);
             String startDtStr = DateFormatUtil.getStartDateStr(objectionLedger.getStartDt());
