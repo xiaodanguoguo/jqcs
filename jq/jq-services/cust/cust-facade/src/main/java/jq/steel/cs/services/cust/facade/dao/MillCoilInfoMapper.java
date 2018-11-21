@@ -48,4 +48,14 @@ public interface MillCoilInfoMapper {
 
     //通过卷号查询卷相关信息
     MillCoilInfo selectByZcharg(MillCoilInfoVO vo);
+
+    //拆分撤销查询
+    MillCoilInfo findDate(MillCoilInfo record);
+
+
+    //修改剩余重量剩余件数
+    void updateDate(MillCoilInfo record);
+
+    //删除拆分质证书
+    void deleteMillSheetNo(MillCoilInfo record);
 }

@@ -75,6 +75,7 @@
     <result column="AGREEMENT_AMOUNT_UPPER" property="agreementAmountUpper"/>
     <result column="INQUIRE_INFO" property="inquireInfo"/>
     <result column="FIELD_CONCLUSION_TEXT" property="fieldConclusionText"/>
+    <result column="EXPIRED_SIGN" property="expiredSign"/>
   </resultMap>
 
   <resultMap id="BaseResultMap1" type="jq.steel.cs.services.cust.facade.model.ObjectionLedger" >
@@ -740,6 +741,7 @@
     A.INQUIRE_STATE,
     A.LAST_USER,
     A.CUSTOMER_NAME,
+    A.EXPIRED_SIGN,
     B.DEPT_CODE,
     (select T.TYPE_NAME from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t

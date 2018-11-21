@@ -16,9 +16,13 @@ public interface CrmMillSheetSplitApplyMapper {
 
     List<CrmMillSheetSplitApply> find(CrmMillSheetSplitApply record);
 
-    List<CrmMillSheetSplitApply> findFmillSheet(MillSheetHosts record);
+    List<CrmMillSheetSplitApply> findFmillSheet(CrmMillSheetSplitApply record);
 
     //存储过程
     void getDynamicSeq(Map<String,Object> map);
+
+
+
+    void updateStatus(CrmMillSheetSplitApply record);
 
 }

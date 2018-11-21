@@ -103,22 +103,63 @@ function clsMethodLee$operate(){
                 }
             }
             if(num == $("#tableList")[0].cacheArr.length){
-                var millSheetNoArr = [];
-                for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
-                    millSheetNoArr.push($("#tableList")[0].cacheArr[nI].millSheetNo);
-                }
-                var importParam = "name=" + JSON.stringify(millSheetNoArr);
-                $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
-                $("#tableList")[0].cacheArr = [];
-                setTimeout(function(){
-                    $("#tableList")[0].cacheArr = [];
-                    //initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
-                    if(window.location.href.indexOf("qualityBookList2") != -1){
-                        initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path7,null,"POST");
-                    }else{
-                        initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+                if(window.location.href.indexOf("qualityBookList2") != -1){
+                    var milName = "";
+                    for(var lmI = 0; lmI < $("#tableList")[0].cacheArr.length; lmI++){
+                        if($("#tableList")[0].cacheArr[lmI].jcFlag == 0){//jcFlag（number类型）是否是0提示‘建材类不让下载’ 如果是1 再判断字段查询返回的字段isAllow（string类型）
+                            milName += milName ? $("#tableList")[0].cacheArr[lmI].millSheetNo : "," + $("#tableList")[0].cacheArr[lmI].millSheetNo;
+                        }
                     }
-                },2000);
+                    if(milName){//说明质证书不能下载
+                        var alertBox = new clsAlertBoxCtrl();
+                        alertBox.Alert("质证书编号为：" + milName + "。建材类不让下载","错误提示");
+                    }else{
+                        var milName2 = "";
+                        for(var lnI = 0; lnI < $("#tableList")[0].cacheArr.length; lnI++){
+                            if($("#tableList")[0].cacheArr[lnI].isAllow == "N"){//jcFlag（number类型）是否是0提示‘建材类不让下载’ 如果是1 再判断字段查询返回的字段isAllow（string类型）
+                                milName2 += milName2 ? $("#tableList")[0].cacheArr[lnI].millSheetNo : "," + $("#tableList")[0].cacheArr[lnI].millSheetNo;
+                            }
+                        }
+                        if(milName2){//说明质证书不能下载
+                            var alertBox = new clsAlertBoxCtrl();
+                            alertBox.Alert("质证书编号为：" + milName + "。您无权下载","错误提示");
+                        }else{
+                            var millSheetNoArr = [];
+                            for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
+                                millSheetNoArr.push($("#tableList")[0].cacheArr[nI].millSheetNo);
+                            }
+                            var importParam = "name=" + JSON.stringify(millSheetNoArr);
+                            $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
+                            $("#tableList")[0].cacheArr = [];
+                            setTimeout(function(){
+                                $("#tableList")[0].cacheArr = [];
+                                //initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+                                if(window.location.href.indexOf("qualityBookList2") != -1){
+                                    initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path7,null,"POST");
+                                }else{
+                                    initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+                                }
+                            },2000);
+                        }
+                    }
+                }else{
+                    var millSheetNoArr = [];
+                    for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
+                        millSheetNoArr.push($("#tableList")[0].cacheArr[nI].millSheetNo);
+                    }
+                    var importParam = "name=" + JSON.stringify(millSheetNoArr);
+                    $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
+                    $("#tableList")[0].cacheArr = [];
+                    setTimeout(function(){
+                        $("#tableList")[0].cacheArr = [];
+                        //initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+                        if(window.location.href.indexOf("qualityBookList2") != -1){
+                            initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path7,null,"POST");
+                        }else{
+                            initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+                        }
+                    },2000);
+                }
             }else{
                 var alertBox = new clsAlertBoxCtrl();
                 alertBox.Alert("存在下载次数已为0的质证书，请取消勾选！","错误提示");
@@ -148,22 +189,53 @@ function clsMethodLee$operate(){
                 }
             }
             if(num == $("#tableList")[0].cacheArr.length){
-                var millSheetNoArr = [];
-                var millSheetNos = [];
-                for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
-                    millSheetNoArr.push($("#tableList")[0].cacheArr[nI].millSheetNo);
-                    millSheetNos.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":2});
+                if(window.location.href.indexOf("qualityBookList2") != -1) {
+                    var milName = "";
+                    for (var lmI = 0; lmI < $("#tableList")[0].cacheArr.length; lmI++) {
+                        if ($("#tableList")[0].cacheArr[lmI].isAllow == "N") {//isAllow（string类型）  如果是‘Y’ 允许打印   如果是'N' 提示  ‘此质证书您无权打印’
+                            milName += milName ? $("#tableList")[0].cacheArr[lmI].millSheetNo : "," + $("#tableList")[0].cacheArr[lmI].millSheetNo;
+                        }
+                    }
+                    if (milName) {//说明质证书不能下载
+                        var alertBox = new clsAlertBoxCtrl();
+                        alertBox.Alert("质证书编号为：" + milName + "。您无权打印", "错误提示");
+                    } else {
+                        var millSheetNoArr = [];
+                        var millSheetNos = [];
+                        for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
+                            millSheetNoArr.push($("#tableList")[0].cacheArr[nI].millSheetNo);
+                            millSheetNos.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":2});
+                        }
+
+                        //getAjaxResult(document.body.jsLee.requestUrl.path8,"POST",millSheetNoArr,"printOpeCallBack(data)");
+                        if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
+                            window.localStorage.millSheetNos = JSON.stringify(millSheetNos);
+                        }else{
+                            setCookie("millSheetNos",escape(JSON.stringify(millSheetNos)));
+                        }
+                        jumpUrl("../../../generic/web/viewer.html?file=/millsheet/preview1/"+JSON.stringify(millSheetNoArr),"0000000","1");
+                        /*var alertBox = new clsAlertBoxCtrl();
+                        alertBox.Alert("确认打印？打印次数减一","警告提示",1,"","printOpeTip");*/
+                    }
+                }else{
+                    var millSheetNoArr = [];
+                    var millSheetNos = [];
+                    for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
+                        millSheetNoArr.push($("#tableList")[0].cacheArr[nI].millSheetNo);
+                        millSheetNos.push({"millSheetNo":$("#tableList")[0].cacheArr[nI].millSheetNo,"operationType":2});
+                    }
+
+                    //getAjaxResult(document.body.jsLee.requestUrl.path8,"POST",millSheetNoArr,"printOpeCallBack(data)");
+                    if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
+                        window.localStorage.millSheetNos = JSON.stringify(millSheetNos);
+                    }else{
+                        setCookie("millSheetNos",escape(JSON.stringify(millSheetNos)));
+                    }
+                    jumpUrl("../../../generic/web/viewer.html?file=/millsheet/preview1/"+JSON.stringify(millSheetNoArr),"0000000","1");
+                    /*var alertBox = new clsAlertBoxCtrl();
+                    alertBox.Alert("确认打印？打印次数减一","警告提示",1,"","printOpeTip");*/
                 }
 
-                //getAjaxResult(document.body.jsLee.requestUrl.path8,"POST",millSheetNoArr,"printOpeCallBack(data)");
-                if(window.Storage && window.localStorage && window.localStorage instanceof Storage){
-                    window.localStorage.millSheetNos = JSON.stringify(millSheetNos);
-                }else{
-                    setCookie("millSheetNos",escape(JSON.stringify(millSheetNos)));
-                }
-                jumpUrl("../../../generic/web/viewer.html?file=/millsheet/preview1/"+JSON.stringify(millSheetNoArr),"0000000","1");
-                /*var alertBox = new clsAlertBoxCtrl();
-                alertBox.Alert("确认打印？打印次数减一","警告提示",1,"","printOpeTip");*/
             }else{
                 var alertBox = new clsAlertBoxCtrl();
                 alertBox.Alert("存在打印次数已为0的质证书，请取消勾选！","错误提示");

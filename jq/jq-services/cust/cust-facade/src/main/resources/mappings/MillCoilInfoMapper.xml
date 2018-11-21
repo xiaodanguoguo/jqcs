@@ -641,4 +641,48 @@ FROM
     </trim>
   </select>
 
+
+
+  <select id="findDate" resultMap="BaseResultMap">
+    SELECT MILL_SHEET_NO,
+            ZCHARG,
+            SPECS,
+            SURPLUS_ZLOSMENGE AS ZLOSMENGE,
+            SURPLUS_ZJISHU AS ZJISHU
+    FROM MILL_COIL_INFO
+    WHERE
+    MILL_SHEET_NO = #{millSheetNo}
+        and ZCHARG = #{zcharg}
+        and SPECS = #{specs}
+  </select>
+
+
+  <update id="updateDate" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo" >
+    update MILL_COIL_INFO
+    <trim suffixOverrides=",">
+      set version = version + 1,
+      <if test="zjishu != null">
+        SURPLUS_ZJISHU = #{zlosmenge,jdbcType=DECIMAL},
+      </if>
+      <if test="zlosmenge != null">
+        SURPLUS_ZLOSMENGE = #{zlosmenge,jdbcType=DECIMAL},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    WHERE
+    MILL_SHEET_NO = #{millSheetNo}
+    and ZCHARG = #{zcharg}
+    and SPECS = #{specs}
+  </update>
+
+
+  <delete id="deleteMillSheetNo" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo" >
+    delete from MILL_COIL_INFO
+    where MILL_SHEET_NO = #{millSheetNo}
+  </delete>
 </mapper>

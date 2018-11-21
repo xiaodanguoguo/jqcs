@@ -52,4 +52,7 @@ public interface MillSheetHostsMapper {
     MillSheetHosts selectByMillSheetNo(String millSheetNo);
 
     List<MillSheetHosts> getSheetHostsMsgNoZcharg(MillCoilInfoVO vo);
+
+    //删除拆分撤销数据
+    void  deleteMillSheetNo(MillSheetHosts re);
 }

@@ -6,20 +6,20 @@ import com.ebase.core.page.PageDTOUtil;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.utils.BeanCopyUtil;
 import com.ebase.utils.DateFormatUtil;
+import com.ebase.utils.math.MathHelper;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.services.cust.facade.dao.*;
 import jq.steel.cs.services.cust.facade.model.*;
 import jq.steel.cs.services.cust.facade.service.millsheet.MillSheetHostsService;
-import org.apache.velocity.runtime.directive.Foreach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class MillSheetHostsServiceImpl implements MillSheetHostsService{
@@ -40,6 +40,8 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     private OrgInfoMapper orgInfoMapper;
     @Autowired
     private AcctInfoMapper acctInfoMapper;
+    @Autowired
+    private CrmMillSheetSplitInfoMapper crmMillSheetSplitInfoMapper;
 
     //分页查询（质证书已经拆分给其他用户并且该用户在客服平台有账号的，则本级不能再对该质证书进行打印、下载操作。如拆分出来的质证书接受单位在平台中没有对应的账号，本级还可以对该质证书进行下载和打印操作）
     @Override
@@ -92,11 +94,19 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
         // 分页对象
         PageDTO<MillSheetHostsVO> transform = PageDTOUtil.transform(millSheetByPage, MillSheetHostsVO.class);
             for (MillSheetHostsVO millSheetHosts2:transform.getResultData()){
-                millSheetHosts = new MillSheetHosts();
-                BeanCopyUtil.copy(millSheetHosts2, millSheetHosts);
-                List<CrmMillSheetSplitApply> crmMillSheetSplitApplies = crmMillSheetSplitApplyMapper.findFmillSheet(millSheetHosts);
+                CrmMillSheetSplitApply crmMillSheetSplitApply  = new CrmMillSheetSplitApply();
+                crmMillSheetSplitApply.setMillsheetNo(millSheetHosts2.getMillSheetNo());
+                crmMillSheetSplitApply.setStatus("1");
+                List<CrmMillSheetSplitApply> crmMillSheetSplitApplies = crmMillSheetSplitApplyMapper.findFmillSheet(crmMillSheetSplitApply);
                 if (crmMillSheetSplitApplies.size()>0){
                     millSheetHosts2.setIsSplit(1);
+                    String lowerMillSheetNos ="";
+                    for (int i = 0; i < crmMillSheetSplitApplies.size(); i++) {
+                        //已拆分的需要返回给前台哪些下级质证书需要撤销
+                        String shuxing =crmMillSheetSplitApplies.get(i).getFatherMillsheetNo();
+                        lowerMillSheetNos+=","+shuxing;
+                    }
+                    millSheetHosts2.setLowerMillSheetNos(lowerMillSheetNos);
                 }else {
                     millSheetHosts2.setIsSplit(0);
                 }
@@ -144,6 +154,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     //分页查询（酒钢）
     @Override
     public PageDTO<MillSheetHostsVO> findMillSheetByPage1(MillSheetHostsVO millSheetHostsVO) {
+        String orgName = millSheetHostsVO.getOrgName();
         try {
             //转换mdel
             MillSheetHosts millSheetHosts = new MillSheetHosts();
@@ -190,13 +201,53 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             // 分页对象
             PageDTO<MillSheetHostsVO> transform = PageDTOUtil.transform(millSheetByPage, MillSheetHostsVO.class);
             for (MillSheetHostsVO millSheetHosts2:transform.getResultData()){
-                millSheetHosts = new MillSheetHosts();
-                BeanCopyUtil.copy(millSheetHosts2, millSheetHosts);
-                List<CrmMillSheetSplitApply> crmMillSheetSplitApplies = crmMillSheetSplitApplyMapper.findFmillSheet(millSheetHosts);
+                CrmMillSheetSplitApply crmMillSheetSplitApply  = new CrmMillSheetSplitApply();
+                crmMillSheetSplitApply.setMillsheetNo(millSheetHosts2.getMillSheetNo());
+                crmMillSheetSplitApply.setStatus("1");
+                List<CrmMillSheetSplitApply> crmMillSheetSplitApplies = crmMillSheetSplitApplyMapper.findFmillSheet(crmMillSheetSplitApply);
                 if (crmMillSheetSplitApplies.size()>0){
                     millSheetHosts2.setIsSplit(1);
+                    String lowerMillSheetNos ="";
+                    for (int i = 0; i < crmMillSheetSplitApplies.size(); i++) {
+                        //已拆分的需要返回给前台哪些下级质证书需要撤销
+                        String shuxing =crmMillSheetSplitApplies.get(i).getFatherMillsheetNo();
+                        lowerMillSheetNos+=","+shuxing;
+                    }
+                    millSheetHosts2.setLowerMillSheetNos(lowerMillSheetNos);
                 }else {
                     millSheetHosts2.setIsSplit(0);
+                }
+                if(millSheetHosts2.getJcFlag()!=null){
+                    //判断是否允许下载(建材类不让下载)
+                    if(millSheetHosts2.getJcFlag()==0){
+                        millSheetHosts2.setIsAllow("N");
+                    }else {
+                        if (millSheetHosts2.getMillSheetType().equals("Z")||millSheetHosts2.getMillSheetType().equals("S")){
+                            if (millSheetHosts2.getSpiltCustomer().equals(orgName)){
+                                millSheetHosts2.setIsAllow("Y");
+                            }else {
+                                //查询拆分单位下是否有账号有的话不让下载 没有的话让下载打印
+                                OrgInfo orgInfo = new OrgInfo();
+                                orgInfo.setOrgName(millSheetHosts2.getSpiltCustomer());
+                                List<OrgInfo> list =orgInfoMapper.findIdByOrgName(orgInfo);
+                                if(list.size()>0){
+                                    AcctInfo acctInfo = new AcctInfo();
+                                    acctInfo.setoInfoId(list.get(0).getId());
+                                    List<AcctInfo> acctInfos =acctInfoMapper.findNameByorgId(acctInfo);
+                                    if (acctInfos.size()>0){
+                                        millSheetHosts2.setIsAllow("N");
+                                    }else {
+                                        millSheetHosts2.setIsAllow("Y");
+                                    }
+                                }else{
+                                    millSheetHosts2.setIsAllow("N");
+                                }
+                            }
+                        }else {
+                            millSheetHosts2.setIsAllow("Y");
+                        }
+
+                    }
                 }
             }
             return transform;
@@ -452,5 +503,71 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             throw new BusinessException("质证书下载次数已经为0,不能再次下载");
        }
          millSheetHostsMapper.updateStateAndPrintNum(millSheetNo);
+    }
+
+    //拆分撤销
+    @Override
+    public Integer revoke(List<MillSheetHostsVO> record,HttpServletRequest request) {
+        String ip=request.getRemoteAddr();
+        String acctName =record.get(0).getAcctName();
+        //查询CRM_MILL_SHEET_SPLIT_APPLY表遍历集合然后查询CRM_MILL_SHEET_SPLIT_INFO遍历修改coilinfo表信息
+        // 删除host表 head表coilinfo表有关下级质证书的信息  拆分数据状态修改为0  并记录日志（撤销多少件）    最后修改此质证书状态为已预览
+        for(MillSheetHostsVO millSheetHostsVO:record){
+            CrmMillSheetSplitApply crmMillSheetSplitApply = new CrmMillSheetSplitApply();
+            crmMillSheetSplitApply.setMillsheetNo(millSheetHostsVO.getMillSheetNo());
+            crmMillSheetSplitApply.setStatus("1");
+            List<CrmMillSheetSplitApply> crmMillSheetSplitApplies = crmMillSheetSplitApplyMapper.findFmillSheet(crmMillSheetSplitApply);
+            for (CrmMillSheetSplitApply crmMillSheetSplitApply1:crmMillSheetSplitApplies){
+                CrmMillSheetSplitInfo crmMillSheetSplitInfo = new CrmMillSheetSplitInfo();
+                crmMillSheetSplitInfo.setSplitApplyId(crmMillSheetSplitApply1.getSplitApplyId());
+                List<CrmMillSheetSplitInfo> crmMillSheetSplitInfos =crmMillSheetSplitInfoMapper.findByParams(crmMillSheetSplitInfo);
+                for(CrmMillSheetSplitInfo crmMillSheetSplitInfo1:crmMillSheetSplitInfos){
+                    MillCoilInfo millCoilInfo = new MillCoilInfo();
+                    //批次  规格  质证书
+                    millCoilInfo.setMillSheetNo(crmMillSheetSplitInfo1.getMillsheetNo());
+                    millCoilInfo.setZcharg(crmMillSheetSplitInfo1.getZcharg());
+                    millCoilInfo.setSpecs(crmMillSheetSplitInfo1.getSpecs());
+                    MillCoilInfo millCoilInfo1 = millCoilInfoMapper.findDate(millCoilInfo);
+                    millCoilInfo.setUpdatedBy(acctName);
+                    millCoilInfo.setUpdatedDt(new Date());
+                    //剩余件数+拆分件数
+                    millCoilInfo.setZjishu(millCoilInfo1.getZjishu()+crmMillSheetSplitInfo1.getZjishu());
+                    BigDecimal bigDecimal = MathHelper.add(millCoilInfo1.getZlosmenge(),crmMillSheetSplitInfo1.getZlosmenge());
+                    millCoilInfo.setZlosmenge(bigDecimal);
+                    millCoilInfoMapper.updateDate(millCoilInfo);
+                    //修改拆分数据
+                    crmMillSheetSplitInfo1.setUpdatedBy(acctName);
+                    crmMillSheetSplitInfo1.setUpdatedDt(new Date());
+                    crmMillSheetSplitInfo1.setStatus("0");
+                    crmMillSheetSplitInfoMapper.updateStatus(crmMillSheetSplitInfo1);
+                }
+                //修改拆分数据
+                crmMillSheetSplitApply1.setStatus("0");
+                crmMillSheetSplitApply1.setUpdatedBy(acctName);
+                crmMillSheetSplitApply1.setUpdatedDt(new Date());
+                crmMillSheetSplitApplyMapper.updateStatus(crmMillSheetSplitApply1);
+                //删除数据
+                MillCoilInfo coilInfo = new MillCoilInfo();
+                coilInfo.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millCoilInfoMapper.deleteMillSheetNo(coilInfo);
+                MillSheetHosts millSheetHosts =new MillSheetHosts();
+                millSheetHosts.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millSheetHostsMapper.deleteMillSheetNo(millSheetHosts);
+                MillSheetHead millSheetHead = new MillSheetHead();
+                millSheetHead.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millSheetHeadMapper.deleteMillSheetNo(millSheetHead);
+            }
+            //日志表
+            MillOperationHis millOperationHis = new MillOperationHis();
+            millOperationHis.setMillSheetNo(millSheetHostsVO.getMillSheetNo());
+            millOperationHis.setOperationTime(new Date());
+            millOperationHis.setOperationIp(ip);
+            millOperationHis.setOperator(acctName);
+            millOperationHis.setOperationType("REVOKE");
+            millOperationHis.setOperationTime(new Date());
+            millOperationHis.setContent("");
+            millOperationHisMapper.insertSelective(millOperationHis);
+        }
+        return 1;
     }
 }

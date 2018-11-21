@@ -17,4 +17,6 @@ public interface CrmMillSheetSplitInfoMapper {
     void getDynamicSeq(Map<String,Object> map);
 
     List<CrmMillSheetSplitInfo> findMillSheetForSaleCompany(CrmMillSheetSplitInfoVO vo);
+
+    void  updateStatus(CrmMillSheetSplitInfo record);
 }

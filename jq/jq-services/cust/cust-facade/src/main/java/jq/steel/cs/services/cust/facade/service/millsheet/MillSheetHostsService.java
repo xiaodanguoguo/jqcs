@@ -38,4 +38,8 @@ public interface MillSheetHostsService {
     Integer updateNumber(List<MillSheetHostsVO> millSheetHostsVO,HttpServletRequest request);
 
     void updateStateAndPrintNum(String millSheetNo);
+
+    //拆分撤销
+    Integer revoke(List<MillSheetHostsVO> millSheetHostsVO,HttpServletRequest request);
+
 }
