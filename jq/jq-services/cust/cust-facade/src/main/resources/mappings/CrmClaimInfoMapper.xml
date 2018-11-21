@@ -967,6 +967,12 @@
       <if test="deptCode != null and deptCode != ''" >
         AND H.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
       </if>
+      <if test="deptCodes != null" >
+        AND H.DEPT_CODE  in
+        <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
+          #{deptCodes[${index}]}
+        </foreach>
+      </if>
       <if test="customerName != null and customerName != ''" >
         AND H.CUSTOMER_NAME like  '%' || #{customerName} ||'%'
       </if>

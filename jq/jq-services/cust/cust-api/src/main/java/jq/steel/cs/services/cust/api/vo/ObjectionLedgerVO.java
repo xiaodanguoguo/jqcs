@@ -5,9 +5,21 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 //异议统计台账
 public class ObjectionLedgerVO {
+
+    //厂家code
+    private List<String> deptCodes;
+
+    public List<String> getDeptCodes() {
+        return deptCodes;
+    }
+
+    public void setDeptCodes(List<String> deptCodes) {
+        this.deptCodes = deptCodes;
+    }
 
 
     //异议量总数
