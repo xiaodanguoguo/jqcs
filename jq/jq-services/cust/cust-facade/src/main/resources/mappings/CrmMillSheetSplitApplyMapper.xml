@@ -33,7 +33,7 @@ MILLSHEET_NO
 FROM
 CRM_MILL_SHEET_SPLIT_APPLY
 WHERE FATHER_MILLSHEET_NO=#{millsheetNo,jdbcType=VARCHAR} AND STATUS=#{status,jdbcType=VARCHAR}
-  </select>
+  </select>XS`
   <!--查询有效的拆分数据-->
   <select id="findFmillSheet" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitApply">
     SELECT
