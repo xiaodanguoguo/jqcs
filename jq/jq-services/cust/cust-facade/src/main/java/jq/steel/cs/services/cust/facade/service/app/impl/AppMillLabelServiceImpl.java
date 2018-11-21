@@ -1,5 +1,6 @@
 package jq.steel.cs.services.cust.facade.service.app.impl;
 
+import com.ebase.core.exception.BusinessException;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.BeanCopyUtil;
@@ -133,6 +134,7 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
      * 根据二维码信息查询数据
      *
      * @param jsonRequest " 榆中县 04 甲\n2017-07-15 13:17\nHRB400E\nф14\n170708101  46\n123支"
+     *                    "  2 甲\n2018-11-19 12:21\n\n热轧带肋钢筋\nHRB400E\nΦ10\nN8111515  8\n"
      * @return
      */
     @Transactional(readOnly = true)
@@ -155,8 +157,13 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
                         }
                     }
                 }
-                String str3 = str2.substring(1);
-                vo.setOperatorId(str3);
+                int index = str2.lastIndexOf("0");
+                if(index == 0){
+                    String str3 = str2.substring(1);
+                    vo.setOperatorId(str3);
+                }else{
+                    vo.setOperatorId(str2);
+                }
             }
             //生产时间
             if (i == 1) {
@@ -164,25 +171,35 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
                 vo.setProductionTimeStr(strDate);
             }
             //牌号
-            if (i == 2) {
+            if (i == 4) {
                 String strZph = strs[i];
                 vo.setZph(strZph);
             }
             //规格
-            if (i == 3) {
+            if (i == 5) {
                 String strSpecs = strs[i];
                 vo.setSpecs(strSpecs);
             }
-            //批次/卷号
-            if (i == 4) {
+            //批次
+            if (i == 6) {
                 String strZcharg1 = strs[i];
                 String[] strs2 = strZcharg1.split("  ");
-                String strZcharg2 = strs2[0];
-                vo.setZcharg(strZcharg2);
+                vo.setZcharg(strs2[0]);
+                //卷号
+                vo.setCoilId(strs2[1]);
             }
         }
-        List<MillLabel> millLabels = millLabelMapper.queryByQrcode(vo);
 
+        if(vo.getOperatorId() == null
+                || vo.getProductionTimeStr() == null
+                || vo.getZph() == null
+                || vo.getSpecs() == null
+                || vo.getZcharg() == null
+                || vo.getCoilId() == null
+        ){
+            throw new BusinessException("此二维码信息有误");
+        }
+        List<MillLabel> millLabels = millLabelMapper.queryByQrcode(vo);
         //假信息,如果没有对应数据返回一个状态
         if (millLabels == null) {
             CrmMillCoilInfoVO crmMillCoilInfoVO = new CrmMillCoilInfoVO();

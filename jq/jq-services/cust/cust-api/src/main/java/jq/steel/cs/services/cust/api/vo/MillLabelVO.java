@@ -27,7 +27,7 @@ public class MillLabelVO implements Serializable {
 
     private BigDecimal inputZlosmenge;
 
-    private String coilId;
+    private String coilId;              //卷号
 
     private Short supportNumber;
 

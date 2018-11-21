@@ -65,7 +65,7 @@ public class ObjectionTiBaoController {
         jsonRequest.getReqBody().setOrgType(orgType);
         jsonRequest.getReqBody().setOrgName(orgName);
         ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
-        List<String> list = new ArrayList<>();
+         List<String> list = new ArrayList<>();
         for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
             list.add(roleInfoVO.getRoleCode());
         }

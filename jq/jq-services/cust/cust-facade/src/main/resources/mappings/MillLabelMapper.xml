@@ -379,6 +379,7 @@
               and SPECS = #{specs}
               and ZCHARG = #{zcharg}
               and OPERATOR_ID = #{operatorId}
+              and COIL_ID  =#{coilId}
     </select>
 
     <!--用于返回质证书结构化数据-->

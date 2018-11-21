@@ -559,7 +559,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
         return vo;
     }
 
-    @Override
+/*    @Override
     public PageDTO<ObjectionTiBaoVO> findTiBaoByPage(ObjectionTiBaoVO objectionTiBaoVO) {
         try {
             //转换mdel
@@ -586,6 +586,68 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             List<ObjectionTiBaoVO> objectionTiBaoVOS = BeanCopyUtil.copyList(crmClaimApplies, ObjectionTiBaoVO.class);
             // 分页对象
             PageDTO<ObjectionTiBaoVO> transform = PageDTOUtil.transform(objectionTiBaoVOS);
+
+            return transform;
+
+        }finally {
+            PageDTOUtil.endPage();
+        }
+    }*/
+
+
+    @Override
+    public PageDTO<ObjectionTiBaoVO> findTiBaoByPage(ObjectionTiBaoVO objectionTiBaoVO) {
+        try {
+            //转换mdel
+            CrmClaimApply crmClaimApply  = new CrmClaimApply();
+            BeanCopyUtil.copy(objectionTiBaoVO,crmClaimApply);
+            if(crmClaimApply.getDeptCode()!=null&& crmClaimApply.getDeptCode()!=""){
+                crmClaimApply.setDeptCodes(null);
+            }
+          /*  if(crmClaimApply.getCustomerId()!=null && !crmClaimApply.getCustomerId().equals("")){
+
+            }else {
+                crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
+            }*/
+            // 如果orgType为1为销售公司设置customerid 为质证书的zkunner
+            if(crmClaimApply.getOrgType().equals("1")){
+                CrmClaimApply h = new CrmClaimApply();
+                h.setCustomerName(crmClaimApply.getOrgName());
+                List<CrmClaimApply> list =crmClaimApplyMapper.findMillSheetByCusForApp(h);
+                if(list.size()>0){
+                    List<String> idall = new ArrayList<>();
+                    for (int i = 0; i < list.size(); i++){
+                        idall.add(list.get(i).getMillSheetNo());
+                    }
+                    crmClaimApply.setMillSheetNos(idall);
+                }else {
+                    crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
+                }
+            }
+            PageDTOUtil.startPage(objectionTiBaoVO);
+            String startDtStr = DateFormatUtil.getStartDateStr(crmClaimApply.getStartDt());
+            crmClaimApply.setStartDtStr(startDtStr);
+            String endDtStr = DateFormatUtil.getEndDateStr(crmClaimApply.getEndDt());
+            crmClaimApply.setEndDtStr(endDtStr);
+            List<CrmClaimApply> crmClaimApplies = crmClaimApplyMapper.findByPageForApp(crmClaimApply);
+            //转换返回对象
+            List<ObjectionTiBaoVO> objectionTiBaoVOS = BeanCopyUtil.copyList(crmClaimApplies, ObjectionTiBaoVO.class);
+            // 分页对象
+            PageDTO<ObjectionTiBaoVO> transform = PageDTOUtil.transform(objectionTiBaoVOS);
+            for (ObjectionTiBaoVO objectionTiBaoVO1:transform.getResultData()){
+                crmClaimApply = new CrmClaimApply();
+                BeanCopyUtil.copy(objectionTiBaoVO1, crmClaimApply);
+                if(crmClaimApply.getDeptCode().equals("1000")){
+                    objectionTiBaoVO1.setDeptCode("不锈");
+                }else if(crmClaimApply.getDeptCode().equals("2000")){
+                    objectionTiBaoVO1.setDeptCode("炼轧");
+                }else if(crmClaimApply.getDeptCode().equals("2200")){
+                    objectionTiBaoVO1.setDeptCode("碳钢");
+                }else if(crmClaimApply.getDeptCode().equals("3000")){
+                    objectionTiBaoVO1.setDeptCode("榆钢");
+                }
+
+            }
 
             return transform;
 

@@ -45,4 +45,8 @@ public interface CrmClaimApplyMapper {
 
 
     List<CrmClaimApply> findMillSheetByCus(CrmClaimApply apply);
+    //app
+    List<CrmClaimApply> findMillSheetByCusForApp(CrmClaimApply h);
+    //app
+    List<CrmClaimApply> findByPageForApp(CrmClaimApply crmClaimApply);
 }

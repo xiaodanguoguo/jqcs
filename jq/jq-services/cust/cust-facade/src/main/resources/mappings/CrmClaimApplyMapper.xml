@@ -113,9 +113,22 @@
   </select>
 
 
+  <!--根据登录人查询质证书-->
+  <select id="findMillSheetByCusForApp" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
+     SELECT h.* from(SELECT
+     DISTINCT
+    A.MILL_SHEET_NO,
+    (select distinct name1 from MILL_CUSTOMER where KUNNR =B.ZKUNNR) AS ZKUNNR
+    FROM
+    WARRANTY.CRM_CLAIM_APPLY A
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO) H
+    WHERE h.ZKUNNR = #{customerName,jdbcType=VARCHAR}
+  </select>
 
 
-<!--异议提报查询-->
+
+
+  <!--异议提报查询-->
   <select id="findByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
     SELECT h.* from(SELECT
     A.SID,
@@ -218,6 +231,118 @@
     </trim>
     order by H.SID desc
   </select>
+
+
+  <!--异议提报查询-->
+  <select id="findByPageForApp" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
+    SELECT h.* from(SELECT
+    A.SID,
+    A.CLAIM_NO,
+    A.CLAIM_STATE,
+    A.MILL_SHEET_NO,
+    A.PRODUCT_ID,
+    A.CUSTOMER_ID,
+    A.CUSTOMER_NAME,
+    A.BATTEN_PLATE_NO,
+    A.PRODUCT_NAME,
+    A.DESIGNATION,
+    A.SIZE_MARK,
+    C.CLAIM_TYPE,
+    A.OBJECTION_NUM,
+    C.INQUIRE_STATE,
+    A.LAST_USER,
+    A.PRESENTATION_DATE,
+    A.REJECT_REASON,
+    A.REASONS_FOR_COMPULSORY_CLOSURE,
+    A.ADMISSIBILITY_TIME,
+
+    A.ORDER_NO,
+    A.LAST_USER_ID,
+    A.FILE_PATH, A.REPORT_PICTURE,
+    D.SPILT_CUSTOMER,
+
+    (select name from ACCT_INFO where ACCT_ID = A.ADMISSIBILITY_USER) AS ADMISSIBILITY_USER,
+    (select MOBILE_PHONE from ACCT_INFO where ACCT_ID = A.ADMISSIBILITY_USER) AS PHONE,
+    B.DEPT_CODE,
+    (select T.TYPE_NAME from sgai_md_common_type t
+    WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
+    WHERE T.TYPE_NAME=D.ZCPMC)) AS ZCPMC,
+    (select T.SID from sgai_md_common_type t
+    WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
+    WHERE T.TYPE_NAME=D.ZCPMC)) AS PARENT_SID,
+    D.ZPH
+    FROM
+    WARRANTY.CRM_CLAIM_APPLY A
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_INFO C ON A.CLAIM_NO = C.CLAIM_NO
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO ) H
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="endDtStr != null" >
+        AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        <!--AND  #{} &gt;= A.PRESENTATION_DATE-->
+      </if>
+      <if test="startDtStr != null" >
+        AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+        <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
+      </if>
+      <!-- <if test="customerIds != null" >
+         AND H.CUSTOMER_NAME  in
+         <foreach collection="customerIds"  index="index" close=")" open="(" item="item" separator=",">
+           #{customerIds[${index}]}
+         </foreach>
+       </if>-->
+      <if test="millSheetNos != null">
+        AND H.MILL_SHEET_NO  in
+        <foreach collection="millSheetNos"  index="index" close=")" open="(" item="item" separator=",">
+          #{millSheetNos[${index}]}
+        </foreach>
+      </if>
+      <if test="customerId != null and customerId != ''" >
+        AND H.CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
+      </if>
+      <if test="sid != null and sid != ''" >
+        AND H.PARENT_SID = #{sid,jdbcType=VARCHAR}
+      </if>
+      <if test="claimType != null and claimType != ''" >
+        AND H.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
+      </if>
+      <if test="productId != null" >
+        AND H.PRODUCT_ID = #{productId,jdbcType=NUMERIC}
+      </if>
+      <if test="productName != null and productName != ''" >
+        AND H.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
+      </if>
+      <if test="claimNo != null and claimNo != ''" >
+        AND H.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+      </if>
+      <if test="battenPlateNo != null and battenPlateNo != ''" >
+        AND H.BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR}
+      </if>
+      <if test="claimState != null and claimState != ''" >
+        AND H.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
+      </if>
+      <if test="deptCode != null and deptCode != ''" >
+        AND H.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+      </if>
+      <if test="deptCodes != null" >
+        AND H.DEPT_CODE  in
+        <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
+          #{deptCodes[${index}]}
+        </foreach>
+      </if>
+      <!--<if test="manufactor != null and manufactor != ''" >
+        AND  H.DEPT_CODE = #{manufactor,jdbcType=VARCHAR}
+      </if>-->
+      <if test="designation != null and designation != ''" >
+        AND H.DESIGNATION = #{designation,jdbcType=VARCHAR}
+      </if>
+      <if test="claimState != null and claimState != ''" >
+        AND H.CLAIM_STATE = #{claimState}
+      </if>
+    </trim>
+    order by H.SID desc
+  </select>
+
 
 <!--导出查询-->
   <select id="findByParams" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
