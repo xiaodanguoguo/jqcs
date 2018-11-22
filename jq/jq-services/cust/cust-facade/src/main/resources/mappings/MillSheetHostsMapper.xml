@@ -301,6 +301,9 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       <if test="orgName != null  and orgName != ''" >
         AND MSH.SPILT_CUSTOMER = #{orgName}
       </if>
+      <if test="millSheetType != null  and millSheetType != ''" >
+        AND MSO.MILL_SHEET_TYPE = #{millSheetType}
+      </if>
     </trim>
     order by MSO.SID desc
   </select>
@@ -749,6 +752,9 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       </if>
       <if test="deptCode != null and deptCode != ''" >
         AND H.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+      </if>
+      <if test="millSheetType != null  and millSheetType != ''" >
+        AND H.MILL_SHEET_TYPE = #{millSheetType}
       </if>
       <if test="deptCodes != null" >
         AND H.DEPT_CODE  in
