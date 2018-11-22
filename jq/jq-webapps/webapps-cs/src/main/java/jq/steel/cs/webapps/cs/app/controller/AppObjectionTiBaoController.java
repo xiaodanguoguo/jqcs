@@ -77,11 +77,11 @@ public class AppObjectionTiBaoController {
             ObjectionTiBaoVO objectionTiBaoVO = new ObjectionTiBaoVO();
             objectionTiBaoVO.setCustomerId(AssertContext.getOrgCode());
             // 判断是否有审核权限
-            ServiceResponse<Map<String, String>> authResponse = backMemberAPI.getAcctAuth(AssertContext.getAcctId());
-            Map<String, String> map = authResponse.getRetContent();
-            if(map.get("50") != null){
-                objectionTiBaoVO.setCustomerId(null);
-            }
+//            ServiceResponse<Map<String, String>> authResponse = backMemberAPI.getAcctAuth(AssertContext.getAcctId());
+//            Map<String, String> map = authResponse.getRetContent();
+//            if(map.get("50") != null){
+//                objectionTiBaoVO.setCustomerId(null);
+//            }
 
             jsonRequest.setReqBody(objectionTiBaoVO);
 

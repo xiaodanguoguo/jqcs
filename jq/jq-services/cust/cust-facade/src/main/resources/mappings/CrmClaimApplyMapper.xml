@@ -275,7 +275,7 @@
     WARRANTY.CRM_CLAIM_APPLY A
     LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.CRM_CLAIM_INFO C ON A.CLAIM_NO = C.CLAIM_NO
-    LEFT JOIN WARRANTY.MILL_SHEET_HEAD D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO ) H
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO) H
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
         AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
@@ -336,9 +336,22 @@
       <if test="designation != null and designation != ''" >
         AND H.DESIGNATION = #{designation,jdbcType=VARCHAR}
       </if>
-      <if test="claimState != null and claimState != ''" >
+     <!-- <if test="claimState != null and claimState != ''" >
         AND H.CLAIM_STATE = #{claimState}
-      </if>
+      </if>-->
+
+
+      <choose>
+        <when test="claimState != null and claimState != ''">
+          and H.CLAIM_STATE = #{claimState}
+        </when>
+        <otherwise>
+          and H.CLAIM_STATE = 'NEW' or H.CLAIM_STATE = 'PRESENT'
+          or H.CLAIM_STATE = 'ACCEPTANCE' or H.CLAIM_STATE = 'REJECT'
+        </otherwise>
+      </choose>
+
+
     </trim>
     order by H.SID desc
   </select>

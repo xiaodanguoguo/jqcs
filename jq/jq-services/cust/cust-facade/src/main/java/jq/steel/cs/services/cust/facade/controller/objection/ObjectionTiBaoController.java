@@ -237,6 +237,7 @@ public class ObjectionTiBaoController {
         try {
             CrmClaimApply crmClaimApply = new CrmClaimApply();
             crmClaimApply.setCreatedBy(jsonRequest.getReqBody().getCreatedBy());
+            crmClaimApply.setCustomerId(jsonRequest.getReqBody().getCustomerId());
 
             ObjectionTiBaoCountVO vo = objectionTiBaoService.getCount(crmClaimApply);
             serviceResponse.setRetContent(vo);
