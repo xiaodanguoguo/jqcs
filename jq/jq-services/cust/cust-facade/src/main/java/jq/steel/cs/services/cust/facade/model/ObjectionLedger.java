@@ -4,8 +4,21 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class ObjectionLedger {
+
+    //厂家code
+    private List<String> deptCodes;
+
+    public List<String> getDeptCodes() {
+        return deptCodes;
+    }
+
+    public void setDeptCodes(List<String> deptCodes) {
+        this.deptCodes = deptCodes;
+    }
+
 
     //新建状态的数据要在该界面中屏蔽掉。标识字段
     private String flag;

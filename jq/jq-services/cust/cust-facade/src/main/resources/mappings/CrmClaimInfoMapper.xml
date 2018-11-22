@@ -948,7 +948,8 @@
     (select T.SID from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
     WHERE T.TYPE_NAME=F.ZCPMC)) AS PARENT_SID,
-    F.DEPT_CODE
+    F.DEPT_CODE,
+    F.DEPT_CODE as DEPTS
     FROM
     WARRANTY.CRM_CLAIM_INFO A
     LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE B ON A.CLAIM_NO = B.CLAIM_NO
@@ -966,6 +967,12 @@
       </if>
       <if test="deptCode != null and deptCode != ''" >
         AND H.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+      </if>
+      <if test="deptCodes != null" >
+        AND H.DEPTS  in
+        <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
+          #{deptCodes[${index}]}
+        </foreach>
       </if>
       <if test="customerName != null and customerName != ''" >
         AND H.CUSTOMER_NAME like  '%' || #{customerName} ||'%'

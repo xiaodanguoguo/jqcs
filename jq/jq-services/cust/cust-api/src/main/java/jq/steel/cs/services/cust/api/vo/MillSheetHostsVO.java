@@ -9,6 +9,9 @@ import java.util.List;
 
 public class MillSheetHostsVO implements Serializable {
 
+    //撤销原因
+    private String causeOfRevocation;
+
     //下级质证书编号；
     private String lowerMillSheetNos;
 
@@ -28,6 +31,14 @@ public class MillSheetHostsVO implements Serializable {
 
     //厂家code
     private List<String> deptCodes;
+
+    public String getCauseOfRevocation() {
+        return causeOfRevocation;
+    }
+
+    public void setCauseOfRevocation(String causeOfRevocation) {
+        this.causeOfRevocation = causeOfRevocation;
+    }
 
     public List<String> getDeptCodes() {
         return deptCodes;
@@ -130,7 +141,7 @@ public class MillSheetHostsVO implements Serializable {
 
     private String createdBy;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date createdDt;
 
     private String updatedBy;

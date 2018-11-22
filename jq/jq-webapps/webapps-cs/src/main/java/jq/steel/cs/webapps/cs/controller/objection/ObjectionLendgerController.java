@@ -1,5 +1,6 @@
 package jq.steel.cs.webapps.cs.controller.objection;
 
+import com.ebase.core.AssertContext;
 import com.ebase.core.exception.BusinessException;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
@@ -8,6 +9,8 @@ import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
 import com.ebase.utils.excel.ExportExcelUtils;
 import feign.FeignException;
+import jq.steel.cs.services.base.api.controller.RoleInfoAPI;
+import jq.steel.cs.services.base.api.vo.RoleInfoVO;
 import jq.steel.cs.services.cust.api.controller.ObjectionLendgerAPI;
 import jq.steel.cs.services.cust.api.vo.ObjectionLedgerVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
@@ -28,6 +31,8 @@ public class ObjectionLendgerController {
 
     @Autowired
     private ObjectionLendgerAPI objectionLendgerAPI;
+    @Autowired
+    private RoleInfoAPI roleInfoAPI;
 
 
 
@@ -41,6 +46,17 @@ public class ObjectionLendgerController {
     public JsonResponse<PageDTO<ObjectionLedgerVO>> findLedgerByPage(@RequestBody JsonRequest<ObjectionLedgerVO> jsonRequest){
         logger.info("参数={}", JsonUtil.toJson(jsonRequest));
         JsonResponse<PageDTO<ObjectionLedgerVO>> jsonResponse = new JsonResponse<>();
+        String acctId = AssertContext.getAcctId();
+        ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+        List<String> list = new ArrayList<>();
+        for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+            list.add(roleInfoVO.getRoleCode());
+        }
+        if (list.size()>0){
+            jsonRequest.getReqBody().setDeptCodes(list);
+        }else {
+            jsonRequest.getReqBody().setDeptCodes(null);
+        }
         try {
             ServiceResponse<PageDTO<ObjectionLedgerVO>> serviceResponse = objectionLendgerAPI.findLedgerByPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {

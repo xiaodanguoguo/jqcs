@@ -8,6 +8,7 @@ function clsMethodLee(){
         "path6":"/",//增加下载次数接口
         "path7":"/millsheet/findMillSheetByPage1",//初始list列表
         "path8":"/millsheet/preview1",//预览接口
+        "path9":"//millsheet/revoke"//撤销接口
     };
     this.documentLee = null;
     this.millSheetNo = "";//回退millSheetNo主键
@@ -291,8 +292,8 @@ function clsMethodLee$operate(){
     });
     //撤销确认操作
     $("#repealSureOpe").on("click",function(){
-        $("#repealText").val();
-        getAjaxResult(document.body.jsLee.requestUrl.path123,"POST",{},"repealSureCallBack(data)")
+        var paramJson = {"millSheetNo":document.body.jsLee.millSheetNo,"causeOfRevocation":$("#repealText").val()};
+        getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",paramJson,"repealSureCallBack(data)")
     });
     
 }
@@ -394,6 +395,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {//插件渲染操作
     });
     //撤销操作
     $(cloneRow).find("#repealOpe").on("click",function(){
+        document.body.jsLee.millSheetNo = jsonItem.millSheetNo;
         if(jsonItem.state == "EXAMINED"){//如果为“已审核”则直接撤销
             var alertBox=new clsAlertBoxCtrl();
             alertBox.Alert("是否撤销","警告提示",1,"","repealOpeTip");
@@ -525,7 +527,7 @@ function getContentCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         if(data.rspBody){
-            if(data.rspBody.acctType != 5){
+            if((data.rspBody.acctType != 5 && window.location.href.indexOf("qualityBookList2") == -1) || ((data.rspBody.acctType != 5 || data.rspBody.acctType != 1) && window.location.href.indexOf("qualityBookList2") != -1)){
                 $("#condzkunnr").val(data.rspBody.orgName).attr("disabled",true).addClass("changeGary");
                 $("*[comType=clearAllCond]").attr("bindCtrlId","condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph");
                 $("*[comType=clearAllCond]")[0].jsCtrl.bindCtrlId = "condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph";
@@ -561,7 +563,7 @@ function clsAlertBoxCtrl$sure() {//成功弹框确定
         getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",millSheetNoArr,"printOpeCallBack(data)");
         closePopupWin();
     }else if(this.id == "repealOpeTip"){
-        getAjaxResult()
+        getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",{"millSheetNo":document.body.jsLee.millSheetNo},"repealSureCallBack(data)");
     }
 }
 
@@ -641,6 +643,7 @@ function getNowFormatDate() {
 function repealSureCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
+        closePopupWin();
         if(window.location.href.indexOf("qualityBookList2") != -1){
             initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path7,null,"POST");
         }else{

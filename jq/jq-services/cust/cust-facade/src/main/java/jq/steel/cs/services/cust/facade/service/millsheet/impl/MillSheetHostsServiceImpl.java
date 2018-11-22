@@ -517,10 +517,12 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             crmMillSheetSplitApply.setMillsheetNo(millSheetHostsVO.getMillSheetNo());
             crmMillSheetSplitApply.setStatus("1");
             List<CrmMillSheetSplitApply> crmMillSheetSplitApplies = crmMillSheetSplitApplyMapper.findFmillSheet(crmMillSheetSplitApply);
+            String content = "";
             for (CrmMillSheetSplitApply crmMillSheetSplitApply1:crmMillSheetSplitApplies){
                 CrmMillSheetSplitInfo crmMillSheetSplitInfo = new CrmMillSheetSplitInfo();
                 crmMillSheetSplitInfo.setSplitApplyId(crmMillSheetSplitApply1.getSplitApplyId());
                 List<CrmMillSheetSplitInfo> crmMillSheetSplitInfos =crmMillSheetSplitInfoMapper.findByParams(crmMillSheetSplitInfo);
+
                 for(CrmMillSheetSplitInfo crmMillSheetSplitInfo1:crmMillSheetSplitInfos){
                     MillCoilInfo millCoilInfo = new MillCoilInfo();
                     //批次  规格  质证书
@@ -540,6 +542,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                     crmMillSheetSplitInfo1.setUpdatedDt(new Date());
                     crmMillSheetSplitInfo1.setStatus("0");
                     crmMillSheetSplitInfoMapper.updateStatus(crmMillSheetSplitInfo1);
+                    content+=","+"批/板/卷号"+crmMillSheetSplitInfo1.getZcharg()+"撤销拆分"+crmMillSheetSplitInfo1.getZjishu()+"件";
                 }
                 //修改拆分数据
                 crmMillSheetSplitApply1.setStatus("0");
@@ -565,8 +568,16 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             millOperationHis.setOperator(acctName);
             millOperationHis.setOperationType("REVOKE");
             millOperationHis.setOperationTime(new Date());
-            millOperationHis.setContent("");
+            millOperationHis.setContent(content.substring(1));
             millOperationHisMapper.insertSelective(millOperationHis);
+
+            MillSheetHosts millSheetHosts =new MillSheetHosts();
+            millSheetHosts.setMillSheetNo(millSheetHostsVO.getMillSheetNo());
+            millSheetHosts.setUpdatedDt(new Date());
+            millSheetHosts.setUpdatedBy(acctName);
+            millSheetHosts.setState("PRIVIEWED");
+            millSheetHostsMapper.updateNum(millSheetHosts);
+
         }
         return 1;
     }
