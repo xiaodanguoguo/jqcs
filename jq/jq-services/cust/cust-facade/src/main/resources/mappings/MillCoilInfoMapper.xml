@@ -172,11 +172,21 @@ FROM
     CREATED_DT, UPDATED_BY, UPDATED_DT, VERSION
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from MILL_COIL_INFO
     where SID = #{sid,jdbcType=DECIMAL}
   </select>
+
+  <select id="selectZchargs" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo" >
+   SELECT
+ZCHARG,
+MILL_SHEET_NO
+FROM
+MILL_COIL_INFO
+    where MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from MILL_COIL_INFO
     where SID = #{sid,jdbcType=DECIMAL}

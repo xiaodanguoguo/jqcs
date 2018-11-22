@@ -4,9 +4,11 @@ import com.ebase.core.AssertContext;
 import com.ebase.utils.BeanCopyUtil;
 import jq.steel.cs.services.cust.api.vo.MillSecurityInfoVO;
 import jq.steel.cs.services.cust.facade.dao.CrmMillSheetCheckLogMapper;
+import jq.steel.cs.services.cust.facade.dao.MillCoilInfoMapper;
 import jq.steel.cs.services.cust.facade.dao.MillSecurityInfoMapper;
 import jq.steel.cs.services.cust.facade.dao.MillSheetHostsMapper;
 import jq.steel.cs.services.cust.facade.model.CrmMillSheetCheckLog;
+import jq.steel.cs.services.cust.facade.model.MillCoilInfo;
 import jq.steel.cs.services.cust.facade.model.MillSecurityInfo;
 import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
 import jq.steel.cs.services.cust.facade.service.millsheet.MillSecurityInfoService;
@@ -17,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
-//import com.esa2000.PfxSignShell;
 
 @Service
 public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
@@ -28,6 +29,8 @@ public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
     private MillSheetHostsMapper millSheetHostsMapper;
     @Autowired
     private CrmMillSheetCheckLogMapper crmMillSheetCheckLogMapper;
+    @Autowired
+    private MillCoilInfoMapper millCoilInfoMapper;
 
     @Override
     public MillSecurityInfoVO fangWeiMa(MillSecurityInfoVO millSecurityInfoVO,HttpServletRequest request) {
@@ -55,7 +58,6 @@ public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
                 int coCheckNum = millSecurityInfos.get(0).getCoCheckNum()+1;
                 int checkNum = millSecurityInfos.get(0).getCheckNum()+1;
                 //判断是否登录来区别首页验证与系统内验证
-              /*  if(orgCode!=null){*/
                     if(millSecurityInfos.get(0).getCheckNum()>=millSecurityInfos.get(0).getCheckNumMax()){
                         millSecurityInfoVO.setExplain("此质证书超过验证次数");
                     }else{
@@ -63,20 +65,16 @@ public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
                         millSecurityInfo.setUpdatedDt(new Date());
                         millSecurityInfo.setCheckNum((short) checkNum);
                         millSecurityInfoMapper.updateByPrimaryKeySelective(millSecurityInfo);
-                        millSecurityInfoVO.setExplain("此质证书"+millSecurityInfos.get(0).getMillSheetNo()+"已成功验证"+checkNum+"次");
+                        //展示质证书上批/板/卷号
+                        String zcharg = "";
+                        MillCoilInfo millCoilInfo = new MillCoilInfo();
+                        millCoilInfo.setMillSheetNo(millSecurityInfos.get(0).getMillSheetNo());
+                        List<MillCoilInfo> millCoilInfos = millCoilInfoMapper.selectZchargs(millCoilInfo);
+                        for (MillCoilInfo millCoilInfo1:millCoilInfos){
+                            zcharg+=","+millCoilInfo1.getZcharg();
+                        }
+                        millSecurityInfoVO.setExplain("此质证书"+millSecurityInfos.get(0).getMillSheetNo()+"已成功验证"+checkNum+"次;批/板/卷号信息为"+zcharg.substring(1));
                     }
-              /*  }else {
-                    if(millSecurityInfos.get(0).getCheckNum()>=millSecurityInfos.get(0).getCheckNumMax()){
-                        millSecurityInfoVO.setExplain("此质证书超过验证次数");
-                    }else{
-                        millSecurityInfo.setUpdatedBy(AssertContext.getAcctName());
-                        millSecurityInfo.setUpdatedDt(new Date());
-                        millSecurityInfo.setCheckNum((short) checkNum);
-                        millSecurityInfoMapper.updateByPrimaryKeySelective(millSecurityInfo);
-                        millSecurityInfoVO.setExplain("此质证书"+millSecurityInfos.get(0).getMillSheetNo()+"已成功验证"+checkNum+"次");
-                    }
-                }*/
-
             }else {
                 millSecurityInfoVO.setExplain("此质证书防伪码"+millSecurityInfoVO.getSecurityCode()+"有误");
             }
@@ -123,7 +121,15 @@ public class MillSecurityInfoServiceImpl implements MillSecurityInfoService {
                         millSecurityInfo.setUpdatedDt(new Date());
                         millSecurityInfo.setCoCheckNum((short) coCheckNum);
                         millSecurityInfoMapper.updateByPrimaryKeySelective(millSecurityInfo);
-                        millSecurityInfoVO.setExplain("此质证书"+millSecurityInfos.get(0).getMillSheetNo()+"已成功验证"+coCheckNum+"次");
+                        //展示质证书上批/板/卷号
+                        String zcharg = "";
+                        MillCoilInfo millCoilInfo = new MillCoilInfo();
+                        millCoilInfo.setMillSheetNo(millSecurityInfos.get(0).getMillSheetNo());
+                        List<MillCoilInfo> millCoilInfos = millCoilInfoMapper.selectZchargs(millCoilInfo);
+                        for (MillCoilInfo millCoilInfo1:millCoilInfos){
+                            zcharg+=","+millCoilInfo1.getZcharg();
+                        }
+                        millSecurityInfoVO.setExplain("此质证书"+millSecurityInfos.get(0).getMillSheetNo()+"已成功验证"+coCheckNum+"次;批/板/卷号信息为"+zcharg.substring(1));
                     }
 
             }else {

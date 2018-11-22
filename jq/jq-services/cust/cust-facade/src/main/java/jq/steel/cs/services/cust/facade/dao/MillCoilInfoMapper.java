@@ -17,6 +17,8 @@ public interface MillCoilInfoMapper {
 
     MillCoilInfo selectByPrimaryKey(Long sid);
 
+    List<MillCoilInfo>  selectZchargs(MillCoilInfo record);
+
     int updateByPrimaryKeySelective(MillCoilInfo record);
 
     int updateByPrimaryKey(MillCoilInfo record);
