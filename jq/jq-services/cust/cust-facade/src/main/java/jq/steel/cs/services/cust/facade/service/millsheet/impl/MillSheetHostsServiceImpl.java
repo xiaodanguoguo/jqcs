@@ -120,9 +120,14 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 List<MillCoilInfo> millCoilInfos = millCoilInfoMapper.findCoil(millCoilInfo);
                 for (MillCoilInfo millCoilInfo1 :millCoilInfos){
                     zjishu=zjishu+millCoilInfo1.getZjishu();
-                    surplusZjishu=surplusZjishu.add(millCoilInfo1.getSurplusZjishu());
+                    if(millCoilInfo1.getSurplusZjishu()!=null){
+                        surplusZjishu=surplusZjishu.add(millCoilInfo1.getSurplusZjishu());
+                    }
                     zlosmenge=zlosmenge.add(millCoilInfo1.getZlosmenge());
-                    surplusZlosmenge=surplusZlosmenge.add(millCoilInfo1.getSurplusZlosmenge());
+                    if(millCoilInfo1.getSurplusZlosmenge()!=null){
+                        surplusZlosmenge=surplusZlosmenge.add(millCoilInfo1.getSurplusZlosmenge());
+                    }
+
                 }
                 millSheetHosts2.setZjishu(zjishu);
                 millSheetHosts2.setSurplusZjishu(surplusZjishu);
@@ -247,9 +252,14 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 List<MillCoilInfo> millCoilInfos = millCoilInfoMapper.findCoil(millCoilInfo);
                 for (MillCoilInfo millCoilInfo1 :millCoilInfos){
                     zjishu=zjishu+millCoilInfo1.getZjishu();
-                    surplusZjishu=surplusZjishu.add(millCoilInfo1.getSurplusZjishu());
+                    if(millCoilInfo1.getSurplusZjishu()!=null){
+                        surplusZjishu=surplusZjishu.add(millCoilInfo1.getSurplusZjishu());
+                    }
                     zlosmenge=zlosmenge.add(millCoilInfo1.getZlosmenge());
-                    surplusZlosmenge=surplusZlosmenge.add(millCoilInfo1.getSurplusZlosmenge());
+                    if(millCoilInfo1.getSurplusZlosmenge()!=null){
+                        surplusZlosmenge=surplusZlosmenge.add(millCoilInfo1.getSurplusZlosmenge());
+                    }
+
                 }
                 millSheetHosts2.setZjishu(zjishu);
                 millSheetHosts2.setSurplusZjishu(surplusZjishu);
