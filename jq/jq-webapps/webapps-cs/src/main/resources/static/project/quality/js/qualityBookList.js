@@ -8,7 +8,7 @@ function clsMethodLee(){
         "path6":"/",//增加下载次数接口
         "path7":"/millsheet/findMillSheetByPage1",//初始list列表
         "path8":"/millsheet/preview1",//预览接口
-        "path9":"//millsheet/revoke"//撤销接口
+        "path9":"/millsheet/revoke"//撤销接口
     };
     this.documentLee = null;
     this.millSheetNo = "";//回退millSheetNo主键
