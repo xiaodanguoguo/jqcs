@@ -161,7 +161,7 @@ SURPLUS_ZLOSMENGE,
 MILL_SHEET_NO
 FROM
 WARRANTY.MILL_COIL_INFO
-    WHERE MILL_SHEET_NO = #{millsheetNo,jdbcType=VARCHAR}
+    WHERE MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
   </select>
 
 
