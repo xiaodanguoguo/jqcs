@@ -6,6 +6,29 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class MillCoilInfo {
+
+    //剩余件数
+    private BigDecimal surplusZjishu;
+
+    //剩余重量
+    private BigDecimal surplusZlosmenge;
+
+    public BigDecimal getSurplusZjishu() {
+        return surplusZjishu;
+    }
+
+    public void setSurplusZjishu(BigDecimal surplusZjishu) {
+        this.surplusZjishu = surplusZjishu;
+    }
+
+    public BigDecimal getSurplusZlosmenge() {
+        return surplusZlosmenge;
+    }
+
+    public void setSurplusZlosmenge(BigDecimal surplusZlosmenge) {
+        this.surplusZlosmenge = surplusZlosmenge;
+    }
+
     //异议提报界面输入的millSheetNo
     private  String millSheetNo;
 

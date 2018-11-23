@@ -110,6 +110,24 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 }else {
                     millSheetHosts2.setIsSplit(0);
                 }
+                //原件次 剩余件次  原重量 剩余重量
+                Long zjishu=new Long(0);;
+                BigDecimal surplusZjishu= new BigDecimal(0);
+                BigDecimal zlosmenge= new BigDecimal(0);
+                BigDecimal surplusZlosmenge= new BigDecimal(0);
+                MillCoilInfo millCoilInfo = new MillCoilInfo();
+                millCoilInfo.setMillSheetNo(millSheetHosts2.getMillSheetNo());
+                List<MillCoilInfo> millCoilInfos = millCoilInfoMapper.findCoil(millCoilInfo);
+                for (MillCoilInfo millCoilInfo1 :millCoilInfos){
+                    zjishu=zjishu+millCoilInfo1.getZjishu();
+                    surplusZjishu=surplusZjishu.add(millCoilInfo1.getSurplusZjishu());
+                    zlosmenge=zlosmenge.add(millCoilInfo1.getZlosmenge());
+                    surplusZlosmenge=surplusZlosmenge.add(millCoilInfo1.getSurplusZlosmenge());
+                }
+                millSheetHosts2.setZjishu(zjishu);
+                millSheetHosts2.setSurplusZjishu(surplusZjishu);
+                millSheetHosts2.setZlosmenge(zlosmenge);
+                millSheetHosts2.setSurplusZlosmenge(surplusZlosmenge);
                 if(millSheetHosts2.getJcFlag()!=null){
                     //判断是否允许下载(建材类不让下载)
                     if(millSheetHosts2.getJcFlag()==0){
@@ -210,13 +228,34 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                     String lowerMillSheetNos ="";
                     for (int i = 0; i < crmMillSheetSplitApplies.size(); i++) {
                         //已拆分的需要返回给前台哪些下级质证书需要撤销
-                        String shuxing =crmMillSheetSplitApplies.get(i).getFatherMillsheetNo();
-                        lowerMillSheetNos+=","+shuxing;
+                        if(crmMillSheetSplitApplies.get(i).getMillsheetNo()!=null){
+                            String shuxing =crmMillSheetSplitApplies.get(i).getMillsheetNo();
+                            lowerMillSheetNos+=","+shuxing;
+                        }
                     }
-                    millSheetHosts2.setLowerMillSheetNos(lowerMillSheetNos);
+                    millSheetHosts2.setLowerMillSheetNos(lowerMillSheetNos.substring(1));
                 }else {
                     millSheetHosts2.setIsSplit(0);
                 }
+                //原件次 剩余件次  原重量 剩余重量
+                Long zjishu=new Long(0);;
+                BigDecimal surplusZjishu= new BigDecimal(0);
+                BigDecimal zlosmenge= new BigDecimal(0);
+                BigDecimal surplusZlosmenge= new BigDecimal(0);
+                MillCoilInfo millCoilInfo = new MillCoilInfo();
+                millCoilInfo.setMillSheetNo(millSheetHosts2.getMillSheetNo());
+                List<MillCoilInfo> millCoilInfos = millCoilInfoMapper.findCoil(millCoilInfo);
+                for (MillCoilInfo millCoilInfo1 :millCoilInfos){
+                    zjishu=zjishu+millCoilInfo1.getZjishu();
+                    surplusZjishu=surplusZjishu.add(millCoilInfo1.getSurplusZjishu());
+                    zlosmenge=zlosmenge.add(millCoilInfo1.getZlosmenge());
+                    surplusZlosmenge=surplusZlosmenge.add(millCoilInfo1.getSurplusZlosmenge());
+                }
+                millSheetHosts2.setZjishu(zjishu);
+                millSheetHosts2.setSurplusZjishu(surplusZjishu);
+                millSheetHosts2.setZlosmenge(zlosmenge);
+                millSheetHosts2.setSurplusZlosmenge(surplusZlosmenge);
+
                 if(millSheetHosts2.getJcFlag()!=null){
                     //判断是否允许下载(建材类不让下载)
                     if(millSheetHosts2.getJcFlag()==0){

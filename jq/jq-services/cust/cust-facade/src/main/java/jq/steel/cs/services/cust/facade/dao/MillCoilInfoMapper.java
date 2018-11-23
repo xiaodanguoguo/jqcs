@@ -48,6 +48,9 @@ public interface MillCoilInfoMapper {
 
     List<CrmMillCoilInfo> getPhysicsListByQrCode(CrmMillSheetDetailVO vo1);
 
+
+    List<MillCoilInfo> findCoil(MillCoilInfo millCoilInfo);
+
     //通过卷号查询卷相关信息
     MillCoilInfo selectByZcharg(MillCoilInfoVO vo);
 

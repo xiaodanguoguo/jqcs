@@ -9,6 +9,18 @@ import java.util.List;
 
 public class MillSheetHostsVO implements Serializable {
 
+    //原件次
+    private Long zjishu;
+
+    // 剩余件次
+    private BigDecimal surplusZjishu;
+
+    // 原重量
+    private BigDecimal zlosmenge;
+
+    // 剩余重量
+    private BigDecimal surplusZlosmenge;
+
     //撤销原因
     private String causeOfRevocation;
 
@@ -31,6 +43,38 @@ public class MillSheetHostsVO implements Serializable {
 
     //厂家code
     private List<String> deptCodes;
+
+    public Long getZjishu() {
+        return zjishu;
+    }
+
+    public void setZjishu(Long zjishu) {
+        this.zjishu = zjishu;
+    }
+
+    public BigDecimal getSurplusZjishu() {
+        return surplusZjishu;
+    }
+
+    public void setSurplusZjishu(BigDecimal surplusZjishu) {
+        this.surplusZjishu = surplusZjishu;
+    }
+
+    public BigDecimal getZlosmenge() {
+        return zlosmenge;
+    }
+
+    public void setZlosmenge(BigDecimal zlosmenge) {
+        this.zlosmenge = zlosmenge;
+    }
+
+    public BigDecimal getSurplusZlosmenge() {
+        return surplusZlosmenge;
+    }
+
+    public void setSurplusZlosmenge(BigDecimal surplusZlosmenge) {
+        this.surplusZlosmenge = surplusZlosmenge;
+    }
 
     public String getCauseOfRevocation() {
         return causeOfRevocation;
