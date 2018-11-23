@@ -50,6 +50,13 @@ function clsMethodLee$parse(){
         enable_split_word_search: false,
         placeholder_text_single: '请选择'
     });
+    $("#condmillSheetType").chosen({
+        //disable_search_threshold: 5,
+        no_results_text: "没有匹配结果!",
+        width:"122px",
+        enable_split_word_search: false,
+        placeholder_text_single: '请选择'
+    });
     //$("#condmillLine").attr("reqParam",JSON.stringify({'typeId': 'MILL_LINE'}));
     initplugPath($("#condmillLine")[0],"singleSelectCtrl","/md/findItemsByTypeId",{"typeId":"MILL_LINE"},"POST");
     this.operate();

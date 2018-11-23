@@ -336,16 +336,25 @@
                             <option value="SPLITED">已拆分</option>-->
                         </select>
                     </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">质证书类型:</span>
+                        <select type="text" class="inputBase" id="condmillSheetType">
+                            <option value="">请选择</option>
+                            <option value="M">M</option>
+                            <option value="Z">Z</option>
+                            <option value="S">S</option>
+                        </select>
+                    </li>
                 </ul>
             </div>
             <div class="management-box-button">
-                <div class="btnLowNew management-box-search" comType="searchBtnCtrl" cond="condzkunnr,condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
+                <div class="btnLowNew management-box-search" comType="searchBtnCtrl" cond="condzkunnr,condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condmillSheetType" rule="cond" unionTableId="tableList" parentId="searchBox">查询</div>
                 <div class="btnLowNew management-box-preview" id="previewOpe" limitCode="M20207">预览</div>
                 <div class="btnLowNew management-box-print" id="printOpe" limitCode="M20201">打印</div>
                 <div class="btnLowNew management-box-print" id="downLoadOpe" limitCode="M20202">下载</div>
                 <div class="btnLowNew management-box-print" id="printJiaOpe" limitCode="M20209">打印次数+1</div>
                 <div class="btnLowNew management-box-print" id="downLoadJiaOpe" limitCode="M20208">下载次数+1</div>
-                <div class="btnBaseCancel management-box-reset" comType="clearAllCond" parentId="searchBox" bindCtrlId="condzkunnr,condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates"  limitCode="M20206">重置</div>
+                <div class="btnBaseCancel management-box-reset" comType="clearAllCond" parentId="searchBox" bindCtrlId="condzkunnr,condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condmillSheetType"  limitCode="M20206">重置</div>
                 <!--<div class="btnLowNew management-box-apply">拆分申请</div>
                 <div class="btnLowNew management-box-split">强制拆分</div>-->
             </div>
@@ -360,6 +369,7 @@
                         <th class="table-list-currentrow-theader" width="5%">质证书类别</th>
                         <th class="table-list-currentrow-theader" width="5%">质证书状态</th>
                         <th class="table-list-currentrow-theader" width="18%">售达方</th>
+                        <th class="table-list-currentrow-theader" width="18%">送达方</th>
                         <th class="table-list-currentrow-theader" width="10%">发车时间</th>
                         <th class="table-list-currentrow-theader" width="12%">车号</th>
                         <th class="table-list-currentrow-theader" width="12%">产品名称</th>
@@ -384,6 +394,7 @@
                         <td class="table-list-currentrow-tdetail" id="millSheetType" style="text-align: center"></td>
                         <td class="table-list-currentrow-tdetail" id="stateName" style="text-align: center"></td>
                         <td class="table-list-currentrow-tdetail" id="zkunnr"></td>
+                        <td class="table-list-currentrow-tdetail" id="spiltCustomer"></td>
                         <td class="table-list-currentrow-tdetail" id="createdDt" style="text-align: center"></td>
                         <td class="table-list-currentrow-tdetail" id="zchehao" style="text-align: center"></td>
                         <td class="table-list-currentrow-tdetail" id="zcpmc"></td>
