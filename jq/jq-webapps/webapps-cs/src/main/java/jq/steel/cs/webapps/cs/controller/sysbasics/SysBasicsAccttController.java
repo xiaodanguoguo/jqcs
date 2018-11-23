@@ -453,6 +453,8 @@ public class SysBasicsAccttController {
             } else {
                 jsonRequest.getReqBody().setAcctType(2L);
             }
+            String acctName = AssertContext.getAcctName();
+            jsonRequest.getReqBody().setCreatedBy(acctName);
             jsonResponse = sysAccInfoAPI.sysAcctAddUser(jsonRequest);
         }catch (BusinessException e){
             jsonResponse.setRetCode(e.getErrorCode());

@@ -37,6 +37,7 @@ import org.springframework.util.StringUtils;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -495,6 +496,8 @@ public class SysBasicsAcctServiceImpl implements SysBasicsAcctService {
             acctInfo.setStatus((byte)1);
             acctInfo.setIsDelete((byte)0);
             acctInfo.setAcctPassword(Md5Util.encrpt(acctInfo.getAcctPassword()));
+            acctInfo.setCreateTime(new Date());
+            acctInfo.setCreateBy(reqBody.getCreatedBy());
 //            if(StringUtils.isEmpty(acctInfo.getoInfoId())) {
 //                String id=getOrgInfoId();
 //                OrgInfo orgInfo=new OrgInfo();

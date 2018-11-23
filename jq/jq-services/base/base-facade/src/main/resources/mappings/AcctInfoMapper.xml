@@ -487,6 +487,9 @@
 
       <if test="acctType != null"> ACCT_TYPE, </if>
 
+      <if test="createBy != null"> CREATE_BY, </if>
+
+      <if test="createTime != null"> CREATE_TIME, </if>
     </trim>
 
 
@@ -535,6 +538,10 @@
       <if test="oInfoName != null"> #{oInfoName}, </if>
 
       <if test="acctType != null"> #{acctType}, </if>
+
+      <if test="createBy != null"> #{createBy}, </if>
+
+      <if test="createTime != null"> #{createTime}, </if>
 
     </trim>
 
