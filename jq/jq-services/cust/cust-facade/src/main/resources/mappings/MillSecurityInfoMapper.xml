@@ -27,9 +27,9 @@
     A.*
     FROM
     WARRANTY.MILL_SECURITY_INFO A
-    INNER JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     where A.MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR} AND A.SECURITY_CODE = #{securityCode,jdbcType=VARCHAR} AND
-    B.STATE IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED')
+    B.STATE IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED','SPLITED')
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 

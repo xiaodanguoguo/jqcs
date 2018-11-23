@@ -412,7 +412,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     FROM
     WARRANTY.MILL_SHEET_HOSTS A
     WHERE
-    A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR}
+    A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR} AND A.STATE IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED','SPLITED')
   </select>
 
   <select id="findUrlList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
