@@ -111,6 +111,6 @@ public interface MillSheetHostsAPI {
      * @return
      */
     @RequestMapping(value = "/millsheet/revoke",method = RequestMethod.POST)
-    ServiceResponse<Integer> revoke(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest);
+    ServiceResponse<Integer> revoke(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest);
 
 }

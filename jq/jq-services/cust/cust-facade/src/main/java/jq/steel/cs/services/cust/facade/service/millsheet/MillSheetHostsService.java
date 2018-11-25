@@ -40,6 +40,6 @@ public interface MillSheetHostsService {
     void updateStateAndPrintNum(String millSheetNo);
 
     //拆分撤销
-    Integer revoke(List<MillSheetHostsVO> millSheetHostsVO,HttpServletRequest request);
+    Integer revoke(MillSheetHostsVO millSheetHostsVO,HttpServletRequest request);
 
 }

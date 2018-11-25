@@ -1034,13 +1034,12 @@ public class MillSheetHostsController {
 
     //拆分撤销
     @RequestMapping(value = "/revoke",method = RequestMethod.POST)
-    public JsonResponse<Integer>  revoke(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest){
+    public JsonResponse<Integer>  revoke(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest){
         JsonResponse<Integer> jsonResponse = new JsonResponse<>();
-        for (MillSheetHostsVO millSheetHostsVO: jsonRequest.getReqBody()){
-            millSheetHostsVO.setOrgCode(AssertContext.getOrgCode());
-            millSheetHostsVO.setOrgName(AssertContext.getOrgName());
-            millSheetHostsVO.setAcctName(AssertContext.getAcctName());
-        }
+        jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
+        jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+        jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
+
         try {
             ServiceResponse<Integer> serviceResponse = millSheetHostsAPI.revoke(jsonRequest);
             jsonResponse.setRspBody(serviceResponse.getRetContent());

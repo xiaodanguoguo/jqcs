@@ -226,7 +226,7 @@ public class MillSheetHostsController {
      *
      * */
     @RequestMapping(value = "/revoke",method = RequestMethod.POST)
-    public ServiceResponse<Integer>  revoke(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest,HttpServletRequest request){
+    public ServiceResponse<Integer>  revoke(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest,HttpServletRequest request){
         ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
         try {
             Integer integer = millSheetHostsService.revoke(jsonRequest.getReqBody(),request);
