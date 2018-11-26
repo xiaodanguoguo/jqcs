@@ -19,6 +19,7 @@ function clsMethodLee(){
     };
     this.acctType = ""; 
     this.userAcctId = "";
+    this.orgNameJumpUser = GetQueryString("orgNameJumpUser") == null ? "" : unescape(GetQueryString("orgNameJumpUser"));
     this.useNewOrEdit = 0;//0-新建，1-编辑
     this.submitJson = {};//新建用户参数;
     this.cacheJson = {};//用户列表删除，禁用  缓存当前标示;
@@ -76,7 +77,14 @@ function clsMethodLee$parse(){
     }
     jsonParam.acctType = document.body.jsLee.acctType;
     jsonParam.oInfoId = document.body.jsLee.userId;
-    initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,jsonParam,"POST");
+    if(this.orgNameJumpUser){//组织跳转过来
+        $("#condorgTitle").val(orgNameJumpUser);
+        jsonParam.orgTitle = orgNameJumpUser;
+        initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,jsonParam,"POST");
+    }else{
+        initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,jsonParam,"POST");
+    }
+
     $("#acctType").chosen({
         no_results_text: "暂无结果",
         width: "180PX",

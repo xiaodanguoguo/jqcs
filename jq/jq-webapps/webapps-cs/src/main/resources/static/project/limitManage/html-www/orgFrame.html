@@ -15,6 +15,7 @@
     }
 </style>
 <script>
+    var orgNameJumpUser = "";
     function tissueAdmin(){
         this.init=tissueInit;
         this.incident=tissueIncident;
@@ -113,6 +114,7 @@
             }
 
             $(this).css({"color":"#6390f3"});
+            orgNameJumpUser = $(this).html();
             $("#fotTable").css("display","")
             getAjaxResult("/orgInfo/getOrgInfo","post",{"id":$(this).parents('li')[0].data.id},"initTissue(data)");
         })
@@ -202,6 +204,9 @@
                 case "3":url="/project/limitManage/html-gulp-www/resourceManage.html";break;
             }
             window.open(encodeURI(url+"?orgId="+$(this).parents("#fotTable")[0].jsonData.id+"&orgName="+$(this).parents("#fotTable")[0].jsonData.orgName))
+        })
+        $(".orgNameJumpUser").on("click",function () {
+            jumpUrl("userManage.html?" + escape(orgNameJumpUser),"0000000",1);
         })
         $("#addReInpDiv #sapCode").on("change",function(){
             getAjaxResult("/orgInfo/getOrgName","POST",{"sapCode":$(this).val()},"orgCodeCheckCallBack(data)")
@@ -539,6 +544,7 @@
                         <li style="display:none"><span>是否：</span><a href="javascript:;" id="stateU"></a></li>
 
                         <li limitCode="M50105"><span>查看角色：</span><a href="javascript:;" class="relevance" rel="2">查看角色</a></li>
+                        <li><span>查看人员：</span><a href="javascript:;" class="viewUserMange">查看人员</a></li>
                         <!--<li><span>查看资源：</span><a href="javascript:;" class="relevance" rel="3">查看资源</a></li>-->
                         <!--<li class="font-ul-explain"><span class="explain-span">说明:</span><span></span></li>-->
                     </ul>
