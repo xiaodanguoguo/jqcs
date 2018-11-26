@@ -389,7 +389,7 @@
                 })
 
                 $("#looptree2").on("click",".cloneTreeA",function(){
-                    roleTypeA = $(this).parents(".collapsable:first")[0].data.roleType;
+
                     $("#looptree2 a").removeClass("domTreeActive");
                     $(this).addClass("domTreeActive");
 
@@ -603,7 +603,7 @@
                         a.loopLoad({"data":data, "parentDom":$("#"+id), "isNeedCheck":isNeedCheck, "parentId":id});
 
                         $("#looptree .cloneTreeA").click(function(){
-
+                            roleTypeA = $(this).parent("li")[0].data.roleType;
                             var parentData = $(this).parent("li")[0].data;
 
                             $(".resourceAd-con-left a").removeClass("domTreeActive");
