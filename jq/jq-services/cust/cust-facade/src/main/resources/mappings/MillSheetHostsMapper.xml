@@ -882,4 +882,9 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     FROM MILL_SHEET_HOSTS
     WHERE MILL_SHEET_NO = #{MILLSHEETNO}
   </select>
+
+  <delete id="deleteMillSheetNo" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts" >
+    delete from MILL_SHEET_HOSTS
+    where MILL_SHEET_NO = #{millSheetNo}
+  </delete>
 </mapper>

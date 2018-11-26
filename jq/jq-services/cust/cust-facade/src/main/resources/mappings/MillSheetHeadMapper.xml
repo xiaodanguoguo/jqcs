@@ -355,4 +355,10 @@
     </trim>
   </select>
 
+
+  <delete id="deleteMillSheetNo" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHead" >
+    delete from MILL_SHEET_HEAD
+    where MILL_SHEET_NO = #{millSheetNo}
+  </delete>
+
 </mapper>

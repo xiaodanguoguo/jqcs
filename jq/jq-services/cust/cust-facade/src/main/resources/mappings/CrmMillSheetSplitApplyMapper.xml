@@ -34,7 +34,7 @@ FROM
 CRM_MILL_SHEET_SPLIT_APPLY
 WHERE FATHER_MILLSHEET_NO=#{millsheetNo,jdbcType=VARCHAR} AND STATUS=#{status,jdbcType=VARCHAR}
   </select>
-  <!--查询有效的拆分数据-->
+
   <select id="findFmillSheet" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitApply">
     SELECT
     CRM_MILL_SHEET_SPLIT_APPLY.SPLIT_APPLY_ID,
@@ -42,6 +42,17 @@ WHERE FATHER_MILLSHEET_NO=#{millsheetNo,jdbcType=VARCHAR} AND STATUS=#{status,jd
     FROM
     CRM_MILL_SHEET_SPLIT_APPLY
     WHERE FATHER_MILLSHEET_NO=#{millsheetNo,jdbcType=VARCHAR} AND STATUS=#{status,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="findInfo" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitApply">
+    SELECT
+    CRM_MILL_SHEET_SPLIT_APPLY.SPLIT_APPLY_ID,
+    CRM_MILL_SHEET_SPLIT_APPLY.MILLSHEET_NO,
+     CRM_MILL_SHEET_SPLIT_APPLY.FATHER_MILLSHEET_NO
+    FROM
+    CRM_MILL_SHEET_SPLIT_APPLY
+    WHERE MILLSHEET_NO=#{millsheetNo,jdbcType=VARCHAR} AND STATUS=#{status,jdbcType=VARCHAR}
   </select>
 
   <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitApply" >

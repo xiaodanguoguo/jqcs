@@ -555,17 +555,22 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     }
 
     //拆分撤销
+    /*质证书拆分界面，拆分出来的子/孙级别质证书需要有撤销的功能。
+建议做法如下：
+1、在质证书管理的两个界面新增“撤销”按钮，当质证书类别为Z和S时，且状态不为“已拆分”才出现。
+2、当操作撤销子/孙证书的时候，需要判断子/孙质证书的状态，如果为“已审核”则直接撤销。如果状态为“已预览、已下载和已打印”状态则需要和用户线下沟通后，录入撤销原因，然后才能够撤销。如果为“已拆分”则不能操作撤销，并提示“已拆分状态的质证书不能够撤销，如要撤销，请先将下级质证书撤销后再操作。”
+3、撤销操作成功后，需要判断质证书的类别，是Z还是S,本级质证书有几个，需要先从底层开始逐级撤销，撤销后，该Z/S级质证书的量需要返回到M/Z级质证书上。注意如果是本级最后一张质证书发生了撤销，则需要对应的M级质证书的状态修改为“已预览”状态。*/
     @Override
     public Integer revoke(MillSheetHostsVO record,HttpServletRequest request) {
         String ip=request.getRemoteAddr();
         String acctName =record.getAcctName();
-        //查询CRM_MILL_SHEET_SPLIT_APPLY表遍历集合然后查询CRM_MILL_SHEET_SPLIT_INFO遍历修改coilinfo表信息
+        //查询CRM_MILL_SHEET_SPLIT_APPLY表遍历集合然后查询CRM_MILL_SHEET_SPLIT_INFO遍历修改父亲coilinfo表信息
         // 删除host表 head表coilinfo表有关下级质证书的信息  拆分数据状态修改为0  并记录日志（撤销多少件）    最后修改此质证书状态为已预览
 
             CrmMillSheetSplitApply crmMillSheetSplitApply = new CrmMillSheetSplitApply();
             crmMillSheetSplitApply.setMillsheetNo(record.getMillSheetNo());
             crmMillSheetSplitApply.setStatus("1");
-            List<CrmMillSheetSplitApply> crmMillSheetSplitApplies = crmMillSheetSplitApplyMapper.findFmillSheet(crmMillSheetSplitApply);
+            List<CrmMillSheetSplitApply> crmMillSheetSplitApplies = crmMillSheetSplitApplyMapper.findInfo(crmMillSheetSplitApply);
             String content = "";
             for (CrmMillSheetSplitApply crmMillSheetSplitApply1:crmMillSheetSplitApplies){
                 CrmMillSheetSplitInfo crmMillSheetSplitInfo = new CrmMillSheetSplitInfo();
@@ -575,7 +580,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 for(CrmMillSheetSplitInfo crmMillSheetSplitInfo1:crmMillSheetSplitInfos){
                     MillCoilInfo millCoilInfo = new MillCoilInfo();
                     //批次  规格  质证书
-                    millCoilInfo.setMillSheetNo(crmMillSheetSplitInfo1.getMillsheetNo());
+                    millCoilInfo.setMillSheetNo(crmMillSheetSplitInfo1.getFatherMillsheetNo());
                     millCoilInfo.setZcharg(crmMillSheetSplitInfo1.getZcharg());
                     millCoilInfo.setSpecs(crmMillSheetSplitInfo1.getSpecs());
                     MillCoilInfo millCoilInfo1 = millCoilInfoMapper.findDate(millCoilInfo);
@@ -608,6 +613,35 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 MillSheetHead millSheetHead = new MillSheetHead();
                 millSheetHead.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
                 millSheetHeadMapper.deleteMillSheetNo(millSheetHead);
+
+                //判断是否
+                CrmMillSheetSplitInfo gg = new CrmMillSheetSplitInfo();
+                gg.setStatus("1");
+                gg.setFatherMillsheetNo(crmMillSheetSplitApply1.getFatherMillsheetNo());
+                gg.setMillsheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                List crmMillSheetSplitInfoMapperDate =crmMillSheetSplitInfoMapper.findDate(gg);
+                if(crmMillSheetSplitInfoMapperDate.size()>0){
+
+                }else{
+                    MillSheetHosts hh =new MillSheetHosts();
+                    hh.setMillSheetNo(crmMillSheetSplitApply1.getFatherMillsheetNo());
+                    hh.setUpdatedDt(new Date());
+                    hh.setUpdatedBy(acctName);
+                    hh.setState("PRIVIEWED");
+                    millSheetHostsMapper.updateNum(hh);
+
+                    //日志表
+                    MillOperationHis millOperationHis = new MillOperationHis();
+                    millOperationHis.setMillSheetNo(crmMillSheetSplitApply1.getFatherMillsheetNo());
+                    millOperationHis.setOperationTime(new Date());
+                    millOperationHis.setOperationIp(ip);
+                    millOperationHis.setOperator(acctName);
+                    millOperationHis.setOperationType("REVOKE");
+                    millOperationHis.setOperationTime(new Date());
+                    millOperationHis.setContent("撤销子质证书之后修改质证书状态为已预览");
+                    millOperationHisMapper.insertSelective(millOperationHis);
+                }
+
             }
             //日志表
             MillOperationHis millOperationHis = new MillOperationHis();
@@ -619,13 +653,6 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             millOperationHis.setOperationTime(new Date());
             millOperationHis.setContent(content);
             millOperationHisMapper.insertSelective(millOperationHis);
-
-            MillSheetHosts millSheetHosts =new MillSheetHosts();
-            millSheetHosts.setMillSheetNo(record.getMillSheetNo());
-            millSheetHosts.setUpdatedDt(new Date());
-            millSheetHosts.setUpdatedBy(acctName);
-            millSheetHosts.setState("PRIVIEWED");
-            millSheetHostsMapper.updateNum(millSheetHosts);
         return 1;
     }
 }
