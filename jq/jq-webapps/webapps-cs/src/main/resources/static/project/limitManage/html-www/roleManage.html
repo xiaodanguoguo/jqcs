@@ -17,13 +17,13 @@
         }
     </style>
     <script>
+        var roleTypeA = "";
         //var globalFunctionId = "";
         var globalRuleOrRulesId = {}
         var orgId = GetQueryString("orgId");//组织id
         var orgName = decodeURI(GetQueryString("orgName"));//组织名称====中文转义
         $(function(){
-
-
+            $("#orgType").attr("initValue","").trigger('chosen:updated');
             limitCodeDeal($("*[limitCode]"),"limitCode");
             
             /***************************选择组织开始*************************/
@@ -96,6 +96,10 @@
 
                 //复现初始化组织信息
                 //showOrganization($("#detailRow")[0].data);
+
+                if(getCookie("acctType") == 0){//超级管理员
+                    $("#orgTypeBox").show();
+                }
             });
             $("#creatRule").click(function(){
                 initValidate($("#resourchSe")[0]);
@@ -114,6 +118,9 @@
                         var roleGroupId = "";
                     }
                     var reqParam = {"opt":"insert","roleTitle":$("#resourchSe #roleTitle").val(),"roleGroupId":roleGroupId,"orgId":orgId,"status":status,"roleCode":$("#resourchSe #roleCode").val()};
+                    if(getCookie("acctType") == 0){//超级管理员需要加入roleType
+                        reqParam.roleType = $("#orgType option:selected").val();
+                    }
                     getAjaxResult("/roleInfo/InsertRoleInfo", "post", reqParam, 'delOrSavePermission(data)');
                 }
             })
@@ -149,6 +156,10 @@
 
                     //复现初始化组织信息
                     //showOrganization($("#detailRow")[0].data);
+                    if(getCookie("acctType") == 0){//超级管理员
+                        $("#orgTypeBox").show();
+                        $("#orgType").attr("initValue",roleTypeA).trigger('chosen:updated');
+                    }
 
 
                 }else if($("#detailRow1").css("display") == "block"){//角色组
@@ -179,7 +190,11 @@
                 }
                 if(data){
                     reqParam = {"opt":"update","roleGroupId":$("#detailRow")[0].data.roleGroupId,"orgId":orgId,"roleId":data.roleId,"roleTitle":$("#resourchSe #roleTitle").val(),"status":status,"roleCode":$("#resourchSe #roleCode").val()}
+                    if(getCookie("acctType") == 0){//超级管理员需要加入roleType
+                        reqParam.roleType = $("#orgType option:selected").val();
+                    }
                 };
+
 
                 initValidate($("#resourchSe1")[0]);
                 var obj = new clsValidateCtrl();  
@@ -364,7 +379,7 @@
                 })
 
                 $("#looptree2").on("click",".cloneTreeA",function(){
-
+                    roleTypeA = $(this).parents(".collapsable:first")[0].data.roleType;
                     $("#looptree2 a").removeClass("domTreeActive");
                     $(this).addClass("domTreeActive");
 
@@ -755,6 +770,14 @@
             <ul class="resourchSe-ul">
                 <li><label>名称：</label><input type="text" class="required" id="roleTitle"/></li>
                 <li><label>角色编码：</label><input type="text" class="" id="roleCode"/></li>
+                <li id="orgTypeBox" style="display: none"><label>角色类型：</label><select type="text" class="" id="orgType" selCode="orgTypeCode" selValue="orgTypeName" style="width:157px">
+                    <option value="">请选择</option>
+                    <option value="1">销售公司</option>
+                    <option value="2">一级代理</option>
+                    <option value="3">贸易商</option>
+                    <option value="4">终端客户</option>
+                    <option value="5">酒钢机构</option>
+                </select></li>
                 <li style="position:relative;display:none"><label>选择组织：</label><!-- <input type="text" id="orgId"/> -->
 
 
