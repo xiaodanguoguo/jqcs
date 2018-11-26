@@ -23,6 +23,13 @@
         var orgId = GetQueryString("orgId");//组织id
         var orgName = decodeURI(GetQueryString("orgName"));//组织名称====中文转义
         $(function(){
+            $("#orgType").chosen({
+                no_results_text: "暂无结果",
+                width: "180PX",
+                enable_split_word_search: false,
+                placeholder_text_single: ""
+            });
+            //$("#condstatus").trigger('chosen:updated');
             $("#orgType").attr("initValue","").trigger('chosen:updated');
             limitCodeDeal($("*[limitCode]"),"limitCode");
             
