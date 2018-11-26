@@ -770,13 +770,13 @@ function boxChecked(){
             return false;
         }
     }else if(document.body.jsLee.htmlType == 5){//内部调查
-        if(!valiClass.validateAll4Ctrl($("#submitBox")[0]) || !document.body.jsLee.selectedMark.selMark2 || !UE.getEditor('editor').getContent()){
+        if(!valiClass.validateAll4Ctrl($("#submitBox")[0]) || !document.body.jsLee.selectedMark.selMark2 /*|| !UE.getEditor('editor').getContent()*/){
             if(!document.body.jsLee.selectedMark.selMark2){
                 showErrInfoByCustomDiv($("#claimTypeA")[0],"请选择异议类别!");
             }
-            if(!UE.getEditor('editor').getContent()){
+            /*if(!UE.getEditor('editor').getContent()){
                 showErrInfoByCustomDiv($("#productionProcessAllA")[0],"请输入生产工艺过程调查!");
-            }
+            }*/
             return false;
         }
     }else{
