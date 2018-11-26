@@ -41,8 +41,32 @@ SPECIFICATIONS
 FROM
 CRM_MILL_SHEET_SPLIT_INFO
 WHERE
-SPLIT_APPLY_ID = #{splitApplyId,jdbcType=NUMERIC} AND STATUS=#{status,jdbcType=VARCHAR}
+SPLIT_APPLY_ID = #{splitApplyId,jdbcType=NUMERIC}
   </select>
+
+  <select id="findDate" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitInfo">
+    SELECT
+    MILLSHEET_DETAIL_ID,
+    CREATED_BY,
+    CREATED_DT,
+    MILLSHEET_NO,
+    FATHER_MILLSHEET_NO,
+    QUALITY_CERTIFICATE_TYPE,
+    SALE_PARTY,
+    CREATION_TIME,
+    FURNACE_NUMBER,
+    ZJISHU,
+    WEIGHT,
+    LICENSE_NUMBER,
+    PRODUCT_CATEGORY,
+    SPECIFICATIONS
+    FROM
+    CRM_MILL_SHEET_SPLIT_INFO
+    WHERE
+    FATHER_MILLSHEET_NO = #{fatherMillsheetNo,jdbcType=VARCHAR}  AND STATUS=#{status,jdbcType=VARCHAR} AND MILLSHEET_NO NOT IN (#{millsheetNo})
+  </select>
+
+
 
   <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitInfo" >
     <selectKey resultType="java.lang.Long" keyProperty="millsheetDetailId" order="BEFORE" >

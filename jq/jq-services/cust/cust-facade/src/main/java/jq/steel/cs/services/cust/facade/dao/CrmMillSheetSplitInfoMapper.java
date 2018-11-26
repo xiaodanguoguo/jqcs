@@ -19,4 +19,6 @@ public interface CrmMillSheetSplitInfoMapper {
     List<CrmMillSheetSplitInfo> findMillSheetForSaleCompany(CrmMillSheetSplitInfoVO vo);
 
     void  updateStatus(CrmMillSheetSplitInfo record);
+
+    List<CrmMillSheetSplitInfo> findDate(CrmMillSheetSplitInfo record);
 }

@@ -692,7 +692,7 @@ MILL_COIL_INFO
     <trim suffixOverrides=",">
       set version = version + 1,
       <if test="zjishu != null">
-        SURPLUS_ZJISHU = #{zlosmenge,jdbcType=DECIMAL},
+        SURPLUS_ZJISHU = #{zjishu,jdbcType=DECIMAL},
       </if>
       <if test="zlosmenge != null">
         SURPLUS_ZLOSMENGE = #{zlosmenge,jdbcType=DECIMAL},
