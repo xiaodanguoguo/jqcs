@@ -78,8 +78,8 @@ function clsMethodLee$parse(){
     jsonParam.acctType = document.body.jsLee.acctType;
     jsonParam.oInfoId = document.body.jsLee.userId;
     if(this.orgNameJumpUser){//组织跳转过来
-        $("#condorgTitle").val(orgNameJumpUser);
-        jsonParam.orgTitle = orgNameJumpUser;
+        $("#condorgTitle").val(this.orgNameJumpUser);
+        jsonParam.orgTitle = this.orgNameJumpUser;
         initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,jsonParam,"POST");
     }else{
         initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,jsonParam,"POST");
