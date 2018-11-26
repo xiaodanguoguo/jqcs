@@ -168,7 +168,8 @@
                     //showOrganization($("#detailRow")[0].data);
                     if(getCookie("acctType") == 0){//超级管理员
                         $("#orgTypeBox").show();
-                        $("#orgType").attr("initValue",roleTypeA).trigger('chosen:updated');
+                        $("#orgType option[value="+roleTypeA+"]").prop("selected",true).trigger('chosen:updated');
+                        //$("#orgType").attr("initValue",roleTypeA).trigger('chosen:updated');
                     }
 
 
