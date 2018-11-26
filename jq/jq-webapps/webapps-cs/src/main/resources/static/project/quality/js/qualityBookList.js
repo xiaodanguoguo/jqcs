@@ -406,6 +406,9 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {//插件渲染操作
         if(jsonItem.state == "EXAMINED"){//如果为“已审核”则直接撤销
             var alertBox=new clsAlertBoxCtrl();
             alertBox.Alert("是否撤销","警告提示",1,"","repealOpeTip");
+        }else if(jsonItem.state == "SPLITED"){//如果为“已拆分”则不能操作撤销，并提示“已拆分状态的质证书不能够撤销，如要撤销，请先将下级质证书撤销后再操作."
+            var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert("已拆分状态的质证书不能够撤销，如要撤销，请先将下级质证书("+ jsonItem.lowerMillSheetNos +")撤销后再操作","警告提示");
         }else{//如果状态为“已预览、已下载和已打印”状态则需要和用户线下沟通后，录入撤销原因，然后才能够撤销.
             openWin('360', '245', 'repealOpePopup', true);
         }
