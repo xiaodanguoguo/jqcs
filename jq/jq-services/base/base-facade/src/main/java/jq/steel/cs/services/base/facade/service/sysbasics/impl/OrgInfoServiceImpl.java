@@ -11,21 +11,14 @@ import jq.steel.cs.services.base.api.vo.MessageVO;
 import jq.steel.cs.services.base.api.vo.OrgInfoVO;
 import jq.steel.cs.services.base.facade.common.IsDelete;
 import jq.steel.cs.services.base.facade.common.Status;
-import jq.steel.cs.services.base.facade.dao.AcctInfoMapper;
-import jq.steel.cs.services.base.facade.dao.AcctRoleGroupRoleMapper;
-import jq.steel.cs.services.base.facade.dao.OrgInfoMapper;
-import jq.steel.cs.services.base.facade.dao.RoleGroupMapper;
-import jq.steel.cs.services.base.facade.dao.RoleInfoMapper;
-import jq.steel.cs.services.base.facade.model.AcctInfo;
-import jq.steel.cs.services.base.facade.model.AcctRoleGroupRole;
-import jq.steel.cs.services.base.facade.model.OrgInfo;
-import jq.steel.cs.services.base.facade.model.RoleGroup;
-import jq.steel.cs.services.base.facade.model.RoleInfo;
+import jq.steel.cs.services.base.facade.dao.*;
+import jq.steel.cs.services.base.facade.model.*;
 import jq.steel.cs.services.base.facade.service.message.MessageService;
 import jq.steel.cs.services.base.facade.service.sysbasics.OrgInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -41,6 +34,9 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	private OrgInfoMapper orgInfoMapper;
 
 	@Autowired
+	private AcctOperPrivRelaMapper acctOperPrivRelaMapper;
+
+	@Autowired
 	private AcctInfoMapper acctInfoMapper;
 
 	@Autowired
@@ -53,17 +49,20 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	private AcctRoleGroupRoleMapper acctRoleGroupRoleMapper;
 
 	@Autowired
-    private MessageService messageService;
+	private FunctionManageMapper functionManageMapper;
 
-    private static String TITLE = "酒钢客服系统注册成功通知";
+	@Autowired
+	private MessageService messageService;
 
-    private static String SUCCESS_CODE = "shcg";
+	private static String TITLE = "酒钢客服系统注册成功通知";
 
-    private static String FAILE_CODE = "shsb";
+	private static String SUCCESS_CODE = "shcg";
+
+	private static String FAILE_CODE = "shsb";
 
 	private static String AUDIT_CUST = "1000";
 
-    /**
+	/**
 	 * 组织机构信息添加
 	 * 传入父类ParentId添加子类OrgCode
 	 */
@@ -240,17 +239,17 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	@Override
 	@Transactional
 	public Integer getAuditOrg(OrgInfoVO orgInfoVO) {
-	    // 通过客户id获取用户信息
-        AcctInfo acctInfo = acctInfoMapper.findByOrgId(orgInfoVO.getId());
-        OrgInfo record = new OrgInfo();
-        record.setParentId(orgInfoVO.getParentId());
-        OrgInfo orgInfo = orgInfoMapper.getOrgInfo(record);
-        // 发邮件
-        MessageVO messageVO = new MessageVO();
-        messageVO.setDestination(acctInfo.getEmail());
-        Map<String, Object> map = new HashMap<>();
-        map.put("username", acctInfo.getAcctTitle());
-        messageVO.setVariables(map);
+		// 通过客户id获取用户信息
+		AcctInfo acctInfo = acctInfoMapper.findByOrgId(orgInfoVO.getId());
+		OrgInfo record = new OrgInfo();
+		record.setParentId(orgInfoVO.getParentId());
+		OrgInfo orgInfo = orgInfoMapper.getOrgInfo(record);
+		// 发邮件
+		MessageVO messageVO = new MessageVO();
+		messageVO.setDestination(acctInfo.getEmail());
+		Map<String, Object> map = new HashMap<>();
+		map.put("username", acctInfo.getAcctTitle());
+		messageVO.setVariables(map);
 
 		String orgId = getOrgInfoId(orgInfoVO.getParentId());
 		acctInfo.setoInfoId(orgId);
@@ -267,7 +266,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 //
 //            messageService.sendEmailWithAttachment(FAILE_CODE, TITLE, messageVO, null, null);
 //        }
-        int i = acctInfoMapper.updateByPrimaryKeySelective(acctInfo);
+		int i = acctInfoMapper.updateByPrimaryKeySelective(acctInfo);
 
 		OrgInfo orgInfo1 = new OrgInfo();
 		BeanCopyUtil.copy(orgInfoVO, orgInfo1);
@@ -439,6 +438,59 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		acctRoleGroupRole4.setRoleGroupId(roleGroup.getRoleGroupId());
 		acctRoleGroupRole4.setRoleId(roleInfo4.getRoleId());
 		acctRoleGroupRoleMapper.insertSelective(acctRoleGroupRole4);
+
+		OrgInfo orgType=new OrgInfo();
+		orgType.setParentId(orgInfoId);
+		OrgInfo orgInfo=orgInfoMapper.getOrgInfo(orgType);
+		RoleInfo roleInfo=new RoleInfo();
+		if (!StringUtils.isEmpty(orgInfo)) {
+			if(orgInfo.getOrgType()=="1" || orgInfo.getOrgType().equals("1")){
+				roleInfo.setRoleType(Byte.valueOf("1"));
+				List<RoleInfo> listone=roleInfoMapper.selectRoleType(roleInfo);
+				addOrgInfoRole(listone,orgInfoId);
+			}
+
+			if(orgInfo.getOrgType()=="2" || orgInfo.getOrgType().equals("2")){
+				roleInfo.setRoleType(Byte.valueOf("2"));
+				List<RoleInfo> listtwo=roleInfoMapper.selectRoleType(roleInfo);
+				addOrgInfoRole(listtwo,orgInfoId);
+			}
+
+			if(orgInfo.getOrgType()=="3" || orgInfo.getOrgType().equals("3")){
+				roleInfo.setRoleType(Byte.valueOf("3"));
+				List<RoleInfo> listthree=roleInfoMapper.selectRoleType(roleInfo);
+				addOrgInfoRole(listthree,orgInfoId);
+			}
+
+			if(orgInfo.getOrgType()=="4" || orgInfo.getOrgType().equals("4")){
+				roleInfo.setRoleType(Byte.valueOf("4"));
+				List<RoleInfo> listfour=roleInfoMapper.selectRoleType(roleInfo);
+				addOrgInfoRole(listfour,orgInfoId);
+			}
+		}
+
+	}
+
+	private void addOrgInfoRole(List<RoleInfo> listone,String orgInfoId) {
+		for(int one=0;one<listone.size();one++){
+			FunctionManage functionManage=new FunctionManage();
+			RoleInfo roleInfo5 = new RoleInfo();
+			roleInfo5.setRoleCode(listone.get(one).getRoleCode());
+			roleInfo5.setRoleTitle(listone.get(one).getRoleTitle());
+			roleInfo5.setIsDelete("0");
+			roleInfo5.setStatus("1");
+			roleInfo5.setOrgId(orgInfoId);
+			roleInfoMapper.insertSelective(roleInfo5);
+			functionManage.setRoleId(listone.get(one).getRoleId());
+			List<FunctionManage> list = functionManageMapper.findRoleId(functionManage);
+			for(int i=0;i<list.size();i++){
+				AcctOperPrivRela acctOperPrivRela=new AcctOperPrivRela();
+				acctOperPrivRela.setFunctionId(list.get(i).getFunctionId());
+				acctOperPrivRela.setRoleId(roleInfo5.getRoleId());
+				//添加角色与功能的关联
+				acctOperPrivRelaMapper.insertSelective(acctOperPrivRela);
+			}
+		}
 	}
 }
 

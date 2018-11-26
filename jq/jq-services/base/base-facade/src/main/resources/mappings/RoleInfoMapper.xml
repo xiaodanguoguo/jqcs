@@ -281,6 +281,14 @@
   </select>
 
 
+  <select id="selectRoleType" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.RoleInfo">
+    select r.* from role_info r
+    where r.is_delete=0
+    <if test="roleType != null and roleType != '' ">
+      AND r.role_type = #{roleType}
+    </if>
+  </select>
+
   <select id="findGroupId" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.RoleInfo">
     select rg.ROLE_GROUP_ID,r.* from role_info r
     LEFT JOIN acct_role_group_role ar on ar.role_id=r.role_id
@@ -315,7 +323,7 @@
   </select>
 
   <select id="roleInfoTree" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.RoleInfo">
-    select r.*,'角色' as orRole from role_info r
+    select r.*,'角色' as orRole,r.role_type from role_info r
     LEFT JOIN acct_role_group_role ar on ar.role_id=r.role_id
     LEFT JOIN role_group rg on rg.role_group_id=ar.role_group_id
     where r.is_delete=0

@@ -300,9 +300,9 @@
       <if test="customerId != null and customerId != ''" >
         AND H.CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
       </if>
-      <if test="sid != null and sid != ''" >
+      <!--<if test="sid != null and sid != ''" >
         AND H.PARENT_SID = #{sid,jdbcType=VARCHAR}
-      </if>
+      </if>-->
       <if test="claimType != null and claimType != ''" >
         AND H.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
       </if>

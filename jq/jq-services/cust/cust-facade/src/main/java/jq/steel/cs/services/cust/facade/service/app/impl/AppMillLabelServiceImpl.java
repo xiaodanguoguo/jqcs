@@ -157,13 +157,15 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
                         }
                     }
                 }
-                int index = str2.lastIndexOf("0");
+               /* int index = str2.lastIndexOf("0");
                 if(index == 0){
                     String str3 = str2.substring(1);
                     vo.setOperatorId(str3);
                 }else{
                     vo.setOperatorId(str2);
-                }
+                }*/
+              //  String str3 = str2.substring(1);
+                vo.setOperatorId(str2);
             }
             //生产时间
             if (i == 1) {
@@ -171,17 +173,17 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
                 vo.setProductionTimeStr(strDate);
             }
             //牌号
-            if (i == 4) {
+            if (i == 2) {
                 String strZph = strs[i];
                 vo.setZph(strZph);
             }
             //规格
-            if (i == 5) {
+            if (i == 3) {
                 String strSpecs = strs[i];
                 vo.setSpecs(strSpecs);
             }
             //批次
-            if (i == 6) {
+            if (i == 4) {
                 String strZcharg1 = strs[i];
                 String[] strs2 = strZcharg1.split("  ");
                 vo.setZcharg(strs2[0]);

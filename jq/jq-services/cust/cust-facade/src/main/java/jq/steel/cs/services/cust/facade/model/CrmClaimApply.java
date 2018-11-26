@@ -908,4 +908,9 @@ public class CrmClaimApply {
     public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
     }
+    //----------移除deptCode和deptCodes<APP用>----------
+    public void removeDeptCodeAndDeptCodes(){
+        this.deptCode = null;
+        this.deptCodes = null;
+    }
 }

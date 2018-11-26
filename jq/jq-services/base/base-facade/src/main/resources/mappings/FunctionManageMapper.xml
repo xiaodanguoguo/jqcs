@@ -238,6 +238,17 @@
   </update>
 
 
+  <select id="findRoleId" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.FunctionManage">
+    select f.* from function_manage f
+    left join acct_oper_priv_rela a on a.function_id=f.function_id
+    where f.is_delete=0 and a.role_id is not null
+    <if test="roleId != null and roleId != '' ">
+      AND a.role_id = #{roleId}
+    </if>
+
+  </select>
+
+
   <select id="findPath" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.FunctionManage">
     select f2.* from ( select
     f.*

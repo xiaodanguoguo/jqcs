@@ -21,6 +21,8 @@ public interface FunctionManageMapper {
 
     List<FunctionManage> findRoleThree(FunctionManage functionManage);
 
+    List<FunctionManage> findRoleId(FunctionManage functionManage);
+
     List<FunctionManage> find(FunctionManage functionManage);
 
     List<FunctionManage> findThree(FunctionManage functionManage);

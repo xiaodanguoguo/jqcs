@@ -3,28 +3,28 @@
 <mapper namespace="jq.steel.cs.services.base.facade.dao.OrgInfoMapper" >
 
 
-  <resultMap id="BaseResultMap" type="jq.steel.cs.services.base.facade.model.OrgInfo" >
-    <id column="ID" property="id" />
-    <result column="ORG_CODE" property="orgCode" />
-    <result column="ORG_NAME" property="orgName" />
-    <result column="PARENT_ID" property="parentId" />
-    <result column="PARENT_NAME" property="parentName" />
-    <result column="REMARK" property="remark" />
-    <result column="STATUS" property="status" />
-    <result column="CREATED_BY" property="createdBy" />
-    <result column="CREATED_TIME" property="createdTime"  />
-    <result column="UPDATED_BY" property="updatedBy" />
-    <result column="UPDATED_TIME" property="updatedTime"  />
-    <result column="SAP_CODE" property="sapCode"  />
-    <result column="BUKRS" property="bukrs"  />
-    <result column="ORG_TYPE" property="orgType"  />
-    <result column="TEL" property="tel"  />
-    <result column="ADDR" property="addr"  />
-    <result column="EMAIL" property="email"  />
-    <result column="REG_TYPE" property="regType"  />
-  </resultMap>
-  
-  <insert id="insertOrgInfo"  parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
+	<resultMap id="BaseResultMap" type="jq.steel.cs.services.base.facade.model.OrgInfo" >
+		<id column="ID" property="id" />
+		<result column="ORG_CODE" property="orgCode" />
+		<result column="ORG_NAME" property="orgName" />
+		<result column="PARENT_ID" property="parentId" />
+		<result column="PARENT_NAME" property="parentName" />
+		<result column="REMARK" property="remark" />
+		<result column="STATUS" property="status" />
+		<result column="CREATED_BY" property="createdBy" />
+		<result column="CREATED_TIME" property="createdTime"  />
+		<result column="UPDATED_BY" property="updatedBy" />
+		<result column="UPDATED_TIME" property="updatedTime"  />
+		<result column="SAP_CODE" property="sapCode"  />
+		<result column="BUKRS" property="bukrs"  />
+		<result column="ORG_TYPE" property="orgType"  />
+		<result column="TEL" property="tel"  />
+		<result column="ADDR" property="addr"  />
+		<result column="EMAIL" property="email"  />
+		<result column="REG_TYPE" property="regType"  />
+	</resultMap>
+
+	<insert id="insertOrgInfo"  parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
   	INSERT INTO org_info (
   		ID,
 		ORG_CODE,
@@ -66,64 +66,79 @@
 		)
 
   </insert>
-  
-  <update id="updateOrgInfo" parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
-  	UPDATE org_info
-  	<set >
-      <if test="orgCode != null" >
-        ORG_CODE = #{orgCode},
-      </if>
-      <if test="orgName != null" >
-        ORG_NAME = #{orgName},
-      </if>
-      <if test="parentId != null" >
-         PARENT_ID = #{parentId},
-      </if>
-      <if test="remark != null" >
-        REMARK = #{remark},
-      </if>
-      <if test="status != null" >
-        STATUS = #{status},
-      </if>
-      <if test="createdBy != null" >
-        CREATED_BY = #{createdBy},
-      </if>
-      <if test="createdTime != null" >
-        CREATED_TIME = #{createdTime},
-      </if>
-      <if test="updatedBy != null" >
-        UPDATED_BY = #{updatedBy},
-      </if>
-      <if test="updatedTime != null" >
-        UPDATED_TIME = #{updatedTime},
-      </if>
-		<if test="sapCode != null" >
-			SAP_CODE = #{sapCode},
-		</if>
-		<if test="bukrs != null" >
-			BUKRS = #{bukrs},
-		</if>
-		<if test="orgType != null" >
-			ORG_TYPE = #{orgType},
-		</if>
-		<if test="tel != null" >
-			TEL = #{tel},
-		</if>
-		<if test="addr != null" >
-			ADDR = #{addr},
-		</if>
-		<if test="email != null" >
-			EMAIL = #{email}
-		</if>
-    </set>
-    where ID = #{id}
-  </update>
-  
-  <select id="queryChildOrgInfo" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
+
+	<update id="updateOrgInfo" parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
+		UPDATE org_info
+		<set >
+			<if test="orgCode != null" >
+				ORG_CODE = #{orgCode},
+			</if>
+			<if test="orgName != null" >
+				ORG_NAME = #{orgName},
+			</if>
+			<if test="parentId != null" >
+				PARENT_ID = #{parentId},
+			</if>
+			<if test="remark != null" >
+				REMARK = #{remark},
+			</if>
+			<if test="status != null" >
+				STATUS = #{status},
+			</if>
+			<if test="createdBy != null" >
+				CREATED_BY = #{createdBy},
+			</if>
+			<if test="createdTime != null" >
+				CREATED_TIME = #{createdTime},
+			</if>
+			<if test="updatedBy != null" >
+				UPDATED_BY = #{updatedBy},
+			</if>
+			<if test="updatedTime != null" >
+				UPDATED_TIME = #{updatedTime},
+			</if>
+			<if test="sapCode != null" >
+				SAP_CODE = #{sapCode},
+			</if>
+			<if test="bukrs != null" >
+				BUKRS = #{bukrs},
+			</if>
+			<if test="orgType != null" >
+				ORG_TYPE = #{orgType},
+			</if>
+			<if test="tel != null" >
+				TEL = #{tel},
+			</if>
+			<if test="addr != null" >
+				ADDR = #{addr},
+			</if>
+			<if test="email != null" >
+				EMAIL = #{email}
+			</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+	<select id="queryChildOrgInfo" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
   	SELECT
 		ID,
 		ORG_CODE,
-		ORG_NAME,
+
+		CONCAT (
+    ORG_NAME,
+    CASE
+    WHEN ORG_TYPE=1
+    then '--销售公司'
+    WHEN ORG_TYPE=2
+    then '--一级代理'
+    WHEN ORG_TYPE=3
+    then '--贸易商'
+    WHEN ORG_TYPE=4
+    then '--终端客户'
+    WHEN ORG_TYPE=5
+    then '--酒钢机构'
+    END
+    ) AS ORG_NAME,
 		PARENT_ID,
 		REMARK,
 		STATUS,
@@ -142,20 +157,21 @@
 	WHERE
 		ID LIKE CONCAT( #{parentId}, '%')
 		and STATUS != 2 and STATUS != 3 AND status != 4
+		order by parent_id,ORG_TYPE
   </select>
-  
-  <delete id="deleteOrgInfo" parameterType="java.lang.String">
-  	DELETE
-	FROM
+
+	<delete id="deleteOrgInfo" parameterType="java.lang.String">
+		DELETE
+		FROM
 		org_info
-	WHERE
+		WHERE
 		ID IN
-	<foreach item="id" collection="cascadeDeletionOrgInfo" open="(" separator="," close=")">
-		#{id}
-	</foreach>
-  </delete>
-  
-  <select id="selectListOrgInfoAll" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
+		<foreach item="id" collection="cascadeDeletionOrgInfo" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="selectListOrgInfoAll" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
   	SELECT
 		ID,
 		ORG_CODE,
@@ -177,17 +193,17 @@
 	WHERE
 		ID = #{id2}
   </select>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <select id="selectOrgInfo" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
+
+
+
+
+
+
+
+
+
+
+	<select id="selectOrgInfo" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
   	SELECT
 		ID,
 		ORG_CODE,
@@ -255,8 +271,8 @@
 		WHERE
 		ID = #{parentId,jdbcType=INTEGER}
 	</select>
-  
-  <select id="selectListOrgInfo" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
+
+	<select id="selectListOrgInfo" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
     SELECT
 		ID,
 		ORG_CODE,
@@ -296,10 +312,10 @@
 		EMAIL
 	  FROM org_info WHERE ID =#{id}
 	</select>
-  
-  
-  
-  <select id="getChildOrgInfo" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.OrgInfo" >
+
+
+
+	<select id="getChildOrgInfo" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.OrgInfo" >
   	SELECT
 		ID,
 		ORG_CODE,
@@ -322,8 +338,8 @@
 		PARENT_ID = #{id}
 		and status != 2 and status !=5 and status != 4
   </select>
-  
-  <select id="getOrgInfoId" resultType="java.lang.String">
+
+	<select id="getOrgInfoId" resultType="java.lang.String">
   	SELECT
 		MAX(ID) ID
 	FROM
@@ -331,8 +347,8 @@
 	WHERE
 		PARENT_ID = #{id}
   </select >
-  
-  <select id="getOrgInfoIdAll" resultType="java.lang.String" parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
+
+	<select id="getOrgInfoIdAll" resultType="java.lang.String" parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
   	SELECT
 	 ID
 	FROM
@@ -340,8 +356,8 @@
 	WHERE
 		ID LIKE CONCAT( #{id}, '%')
   </select>
-  
-  <select id="getMaterielOrginfo" resultMap="BaseResultMap" resultType="java.lang.String" >
+
+	<select id="getMaterielOrginfo" resultMap="BaseResultMap" resultType="java.lang.String" >
     SELECT
 	    ID,
 		ORG_CODE,
@@ -362,8 +378,8 @@
 	WHERE
 		ID LIKE CONCAT( #{acctInfoId}, '%')
   </select>
-  
-  <select id="getOrgInfo" resultType="jq.steel.cs.services.base.facade.model.OrgInfo"  parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
+
+	<select id="getOrgInfo" resultType="jq.steel.cs.services.base.facade.model.OrgInfo"  parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
   	SELECT
 		ID,
 		ORG_CODE,
@@ -385,8 +401,8 @@
 	WHERE
 		ID = #{parentId}
   </select>
-  
-  <select id="getOrgInfoName" resultType="java.lang.String" parameterType="java.lang.String">
+
+	<select id="getOrgInfoName" resultType="java.lang.String" parameterType="java.lang.String">
   	SELECT
 		ID
 	FROM
@@ -420,7 +436,7 @@
 	</select>
 
 	<select id="selectAuditOrg"  resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
-  	SELECT
+		SELECT
 		a.ID,
 		a.ORG_CODE,
 		a.ORG_NAME,
@@ -438,10 +454,10 @@
 		a.email,
 		a.REG_TYPE,
 		b.ORG_NAME as PARENT_NAME
- 	FROM
+		FROM
 		org_info a left join
 		org_info b on a.parent_id = b.id
-	WHERE 1 = 1
+		WHERE 1 = 1
 		<choose>
 			<when test="status != null and status != '' ">
 				and a.STATUS = #{status}
@@ -454,7 +470,7 @@
 			and a.ORG_NAME LIKE '%' || #{orgName} ||'%'
 		</if>
 		order by a.CREATED_TIME desc
-  </select>
+	</select>
 
 
 	<select id="selectOrgName" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">

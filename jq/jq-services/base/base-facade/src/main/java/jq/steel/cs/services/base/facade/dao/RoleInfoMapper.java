@@ -20,6 +20,8 @@ public interface RoleInfoMapper {
 
     List<RoleInfo> find(RoleInfo roleInfo);
 
+    List<RoleInfo> selectRoleType(RoleInfo roleInfo);
+
     List<RoleInfo> findAll(RoleInfo roleInfo);
 
     List<RoleInfo> findAllLike(RoleInfo roleInfo);

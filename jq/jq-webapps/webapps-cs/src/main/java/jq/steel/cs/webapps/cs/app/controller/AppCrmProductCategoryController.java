@@ -111,7 +111,11 @@ public class AppCrmProductCategoryController {
                             thumlList.add(str);
                         }
                         crmProductInfoVO.setThumbnailList(thumlList);
-                        crmProductInfoVO.setThumbnail(thumlList.get(0));
+                        if(thumlList.size()>0){
+                            crmProductInfoVO.setThumbnail(thumlList.get(0));
+                        }else {
+                            crmProductInfoVO.setThumbnail("");
+                        }
                     }
                 }
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
