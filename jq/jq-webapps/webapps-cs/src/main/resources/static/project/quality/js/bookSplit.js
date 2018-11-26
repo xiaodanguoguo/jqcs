@@ -223,8 +223,8 @@ function blurCheck(dom,doms,markRow){//dom当前事件节点，doms所有这个�
         if(dom.val() == "" || dom.val() == null) {
             numNext = 0;
         }
-        dom.parents("#cloneRow").find("#zlosmenge").val((unitPrice * parseFloat(numNext)).toFixed(2));
-        domMain.parents("#cloneRow").find("#zlosmenge").html((weightTotal - unitPrice*parseFloat(numNext)).toFixed(2));
+        dom.parents("#cloneRow").find("#zlosmenge").val((unitPrice * parseFloat(numNext)).toFixed(3));
+        domMain.parents("#cloneRow").find("#zlosmenge").html((weightTotal - unitPrice*parseFloat(numNext)).toFixed(3));
     }
 }
 
