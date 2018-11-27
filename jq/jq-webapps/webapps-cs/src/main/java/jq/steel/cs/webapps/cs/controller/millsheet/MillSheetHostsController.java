@@ -1007,6 +1007,58 @@ public class MillSheetHostsController {
     }
 
 
+
+    //下载操作手册
+    @RequestMapping(value = "/downModel", method = RequestMethod.POST)
+    public void downModel(@RequestParam("name") String jsonRequest, HttpServletResponse response) {
+        try {
+            String fileName = URLEncoder.encode("客服系统质证书拆分批量导入模板.xls", "UTF-8");
+            String operationManual = "";
+            operationManual = "/data/model/客服系统质证书拆分批量导入模板1.0.xls";
+            //配置请求头
+            response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
+            //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
+            response.setContentType("multipart/form-data");
+            //2.设置文件头：最后一个参数是设置下载文件名(假如我们叫zms.jpg,这里是设置名称)
+            ServletOutputStream out = null;
+            FileInputStream inputStream = null;
+            File file = new File(operationManual);
+            try {
+                inputStream = new FileInputStream(file);
+                //3.通过response获取ServletOutputStream对象(out)
+                out = response.getOutputStream();
+                int b = 0;
+                byte[] buffer = new byte[512];
+                while (b != -1) {
+                    b = inputStream.read(buffer);
+                    if (b != -1) {
+                        out.write(buffer, 0, b);//4.写到输出流(out)中
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (inputStream != null) {
+                        inputStream.close();
+                    }
+                    if (out != null) {
+                        out.close();
+                        out.flush();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (BusinessException e) {
+            logger.error("下载报错", e);
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     /**
      * 打印次数/下载次数+1
      * @param  jsonRequest
