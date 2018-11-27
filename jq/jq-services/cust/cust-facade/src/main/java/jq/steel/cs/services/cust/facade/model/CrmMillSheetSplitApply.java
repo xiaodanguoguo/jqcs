@@ -76,6 +76,16 @@ public class CrmMillSheetSplitApply {
     //订货单位
     private  String spiltCustomer;
 
+    private String acctName;
+
+    public String getAcctName() {
+        return acctName;
+    }
+
+    public void setAcctName(String acctName) {
+        this.acctName = acctName;
+    }
+
     public String getMillSheetNo() {
         return millSheetNo;
     }

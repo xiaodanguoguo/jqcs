@@ -82,6 +82,16 @@ public class CrmMillSheetSplitInfo {
 
     private String specifications;
 
+    private String acctName;
+
+    public String getAcctName() {
+        return acctName;
+    }
+
+    public void setAcctName(String acctName) {
+        this.acctName = acctName;
+    }
+
     public String getStatus() {
         return status;
     }
