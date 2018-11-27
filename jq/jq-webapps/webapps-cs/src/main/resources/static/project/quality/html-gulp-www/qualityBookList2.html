@@ -277,8 +277,22 @@
         margin-left: 0;
         width:122px;
     }
+    .management-box .management-box-button #exportBatch{
+        display: inline-block!important;
+    }
 </style>
 <script src="../js/qualityBookList.js"></script>
+<script>
+    $(function(){
+        $("#downloadBatch").on("click",function(){
+            var importParam = "name=";
+            $.download(requestUrl + "/millsheet/downModel", importParam, "POST");
+        });
+        $("#exportBatch").on("click",function(){
+
+        });
+    });
+</script>
     <div class="management">
        <!-- <div class="management-title">
             <div class="btnLowNew management-Home-page">首页</div>
@@ -370,6 +384,8 @@
                 <div class="btnLowNew management-box-print" id="downLoadOpe" limitCode="M20405">下载</div>
                 <div class="btnLowNew management-box-print" id="printJiaOpe" limitCode="M20409">打印次数+1</div>
                 <div class="btnLowNew management-box-print" id="downLoadJiaOpe" limitCode="M20408">下载次数+1</div>
+                <div class="btnLowNew management-box-print" id="downloadBatch">下载批导拆分模板</div>
+                <div class="btnLowNew management-box-print" id="exportBatch" comType="uploadCtrl" uploadType="button" uploadTypeVal="上传协议书图片" reqPath="/split/upload" uploadSize='{"w":"92","h":"26"}' filetype="custom" fileExt="xls|xlsx|xlsm" style="display: inline-block!important;">上传批导拆分数据</div>
                 <div class="btnBaseCancel management-box-reset" comType="clearAllCond" parentId="searchBox" bindCtrlId="condzkunnr,condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condzkunnrs,conddeptCode,condmillLine,condmillSheetType"  limitCode="M20402">重置</div>
                 <!--<div class="btnLowNew management-box-apply">拆分申请</div>
                 <div class="btnLowNew management-box-split">强制拆分</div>-->
