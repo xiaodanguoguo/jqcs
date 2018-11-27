@@ -1,7 +1,12 @@
 $(function(){
     limitCodeDeal($("*[limitCode]"),"limitCode");
     $("#returnBookList").on("click",function(){//返回质证书管理操作
-        jumpUrl("qualityBookList.html","0000000",0);
+        if(GetQueryString("jumpType") == 1){
+            jumpUrl("qualityBookList2.html","0000000",0);
+        }else{
+            jumpUrl("qualityBookList.html","0000000",0);
+
+        }
     });
     var paramJson = {"millSheetNo":GetQueryString("millSheetNo")};
     getAjaxResult("/split/splitFindAll","POST",paramJson,"historyInitCallBack(data)")

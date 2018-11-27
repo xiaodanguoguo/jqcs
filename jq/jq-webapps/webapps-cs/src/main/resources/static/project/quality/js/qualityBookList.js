@@ -392,7 +392,11 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {//插件渲染操作
     });
     //拆分历史查看操作
     $(cloneRow).find("#historySplit").on("click",function(){
-        jumpUrl("historySplit.html?millSheetNo=" + jsonItem.millSheetNo,"0000000",1);
+        if(window.location.href.indexOf("qualityBookList2") != -1){
+            jumpUrl("historySplit.html?millSheetNo=" + jsonItem.millSheetNo,"0000000",1);
+        }else{
+            jumpUrl("historySplit.html?jumpType=1&&millSheetNo=" + jsonItem.millSheetNo,"0000000",1);
+        }
     });
     //申请回退
     $(cloneRow).find("#applyBack").on("click",function(){
