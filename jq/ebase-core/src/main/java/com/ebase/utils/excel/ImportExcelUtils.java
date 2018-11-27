@@ -4,24 +4,18 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -591,5 +585,84 @@ public class ImportExcelUtils {
 		}
 
 		return strCell;
+	}
+
+
+	//springboot整合poi读取excel数据
+	public static Map<Integer, Map<Integer,Object>> readExcelContentz(MultipartFile file) throws Exception{
+		Map<Integer, Map<Integer, Object>> content = new HashMap<Integer, Map<Integer, Object>>();
+		// 上传文件名
+		Workbook wb = getWb(file);
+		if (wb == null) {
+			throw new Exception("Workbook对象为空！");
+		}
+		Sheet sheet = wb.getSheetAt(0);
+		// 得到总行数
+		int rowNum = sheet.getLastRowNum();
+		Row row = sheet.getRow(0);
+		int colNum = row.getPhysicalNumberOfCells();
+		// 正文内容应该从第二行开始,第一行为表头的标题
+		for (int i = 0; i <= rowNum; i++) {
+			row = sheet.getRow(i);
+			int j = 0;
+			Map<Integer, Object> cellValue = new HashMap<Integer, Object>();
+			while (j < colNum) {
+				Object obj = getCellFormatValue(row.getCell(j));
+				cellValue.put(j, obj);
+				j++;
+			}
+			content.put(i, cellValue);
+
+		}
+		return content;
+	}
+	//根据Cell类型设置数据
+	private static Object getCellFormatValue(Cell cell) {
+		Object cellvalue = "";
+		if (cell != null) {
+			switch (cell.getCellType()) {
+				case Cell.CELL_TYPE_NUMERIC:
+				case Cell.CELL_TYPE_FORMULA: {
+					if (DateUtil.isCellDateFormatted(cell)) {
+						Date date = cell.getDateCellValue();
+						cellvalue = date;
+					} else {
+						cellvalue = String.valueOf(cell.getNumericCellValue());
+					}
+					break;
+				}
+				case Cell.CELL_TYPE_STRING:
+					cellvalue = cell.getRichStringCellValue().getString();
+					break;
+				default:
+					cellvalue = "";
+			}
+		} else {
+			cellvalue = "";
+		}
+		return cellvalue;
+	}
+
+	private static Workbook getWb(MultipartFile mf){
+		String filepath = mf.getOriginalFilename();
+		String ext = filepath.substring(filepath.lastIndexOf("."));
+		Workbook wb = null;
+		try {
+			InputStream is = mf.getInputStream();
+			if(".xls".equals(ext)){
+				wb = new HSSFWorkbook(is);
+			}else if(".xlsx".equals(ext)){
+				wb = new XSSFWorkbook(is);
+			}else{
+				wb=null;
+			}
+		} catch (FileNotFoundException e) {
+			//logger.error("FileNotFoundException", e);
+			e.printStackTrace();
+		} catch (IOException e) {
+			//logger.error("IOException", e);
+			e.printStackTrace();
+		}
+		return wb;
 	}
 }
