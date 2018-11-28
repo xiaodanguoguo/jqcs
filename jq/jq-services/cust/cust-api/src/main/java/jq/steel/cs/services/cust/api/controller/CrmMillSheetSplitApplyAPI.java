@@ -31,4 +31,14 @@ public interface CrmMillSheetSplitApplyAPI {
      * */
     @RequestMapping(value = "/split/splitFindAll",method = RequestMethod.POST)
     ServiceResponse<List<CrmMillSheetSplitDetailVO>> splitFindAll(@RequestBody JsonRequest<CrmMillSheetSplitDetailVO> jsonRequest);
+
+
+
+    /**
+     *  批量拆分
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/split/splitInsertAll",method = RequestMethod.POST)
+    ServiceResponse<CrmMillSheetSplitApplyVO> splitInsertAll(@RequestBody JsonRequest<List<CrmMillSheetSplitApplyVO>> jsonRequest);
 }

@@ -81,7 +81,9 @@ public class CrmMillSheetSplitApplyController {
 
     @PostMapping("/upload")
     public JsonResponse<CrmMillSheetSplitApplyVO> upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
+        JsonRequest<List<CrmMillSheetSplitApplyVO>> jsonRequest = new JsonRequest<>();
         JsonResponse<CrmMillSheetSplitApplyVO> jsonResponse = new JsonResponse<CrmMillSheetSplitApplyVO>();
+
         if (null != file) {
             try {
                 Map<Integer, Map<Integer, Object>> map = new HashMap<>();
@@ -97,6 +99,7 @@ public class CrmMillSheetSplitApplyController {
                                 for (int j = 0; j < mapItem.size(); j++) {
                                     arrayList.add(map.get(i).get(j));
                                 }
+                                crmMillSheetSplitApplyVO.setAcctName(AssertContext.getAcctName());
                                 crmMillSheetSplitApplyVO.setMillsheetNo((String) arrayList.get(0));
                                 crmMillSheetSplitApplyVO.setZchehao((String) arrayList.get(1));
                                 crmMillSheetSplitApplyVO.setZjishu(Long.valueOf((String) arrayList.get(2)));
@@ -109,6 +112,14 @@ public class CrmMillSheetSplitApplyController {
                                 return jsonResponse;
                             }
                             applyVOS.add(crmMillSheetSplitApplyVO);
+                        }
+                        jsonRequest.setReqBody(applyVOS);
+                        ServiceResponse<CrmMillSheetSplitApplyVO> serviceResponse = crmMillSheetSplitApplyAPI.splitInsertAll(jsonRequest);
+                        if (serviceResponse.getRetContent().getCode()>0){
+                            jsonResponse.setRspBody(serviceResponse.getRetContent());
+                        }else {
+                            jsonResponse.setRetCode("0000001");
+                            jsonResponse.setRetDesc("请在模板中输入有效数据");
                         }
 
                     } else {

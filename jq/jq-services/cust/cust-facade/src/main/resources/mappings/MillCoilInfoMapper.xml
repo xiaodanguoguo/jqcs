@@ -147,6 +147,34 @@ FROM
   </select>
 
 
+  <select id="findInfo" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo">
+    SELECT
+    A.SID,
+    A.CREATED_DT,
+    A.MILL_SHEET_NO,
+    A.ZCHARG,
+    A.SPECS,
+    B.MILL_SHEET_TYPE,
+    B.SPLIT_MAX_VALUE,
+    A.ZCHEHAO,
+    C.ZCPMC,
+    A.ZJISHU_UNIT,
+    (select distinct name1 from MILL_CUSTOMER where KUNNR = B.ZKUNNR) AS ZKUNNR,
+    (select distinct name1 from MILL_CUSTOMER where KUNNR = B.ZKUNWE) AS ZKUNWE,
+    A.ZLPH,
+    B.SURPLUS_BATCH,
+    A.ZJISHU,
+    A.ZLOSMENGE,
+    A.SURPLUS_ZJISHU,
+    A.SURPLUS_ZLOSMENGE
+    FROM
+    WARRANTY.MILL_COIL_INFO A
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD C ON A.MILL_SHEET_NO = C.MILL_SHEET_NO
+    WHERE A.MILL_SHEET_NO = #{millsheetNo,jdbcType=VARCHAR} AND  A.ZCHARG= #{zcharg,jdbcType=VARCHAR}  AND  A.SPECS = #{specs}
+  </select>
+
+
 
   <select id="findCoil" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo">
     SELECT
@@ -163,6 +191,23 @@ FROM
 WARRANTY.MILL_COIL_INFO
     WHERE MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
   </select>
+
+  <!--拆分校验是否有此卷-->
+  <select id="findVolume" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo">
+    SELECT
+    ZCHEHAO,
+    ZCHARG,
+    SPECS,
+    ZJISHU,
+    ZLOSMENGE,
+    SURPLUS_ZJISHU,
+    SURPLUS_ZLOSMENGE,
+    MILL_SHEET_NO
+    FROM
+    WARRANTY.MILL_COIL_INFO
+    WHERE MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR} AND ZCHARG= #{zcharg,jdbcType=VARCHAR}  AND SPECS = #{specs}
+  </select>
+
 
 
 

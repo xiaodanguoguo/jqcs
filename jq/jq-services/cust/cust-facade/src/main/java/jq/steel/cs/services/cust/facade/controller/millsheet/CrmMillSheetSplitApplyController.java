@@ -69,4 +69,25 @@ public class CrmMillSheetSplitApplyController {
 
     }
 
+
+    /**
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping("/splitInsertAll")
+    public ServiceResponse<CrmMillSheetSplitApplyVO> splitInsertAll(@RequestBody JsonRequest<List<CrmMillSheetSplitApplyVO>> jsonRequest) {
+        logger.info("保存 参数 = {}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<CrmMillSheetSplitApplyVO> serviceResponse = new ServiceResponse<>();
+        List<CrmMillSheetSplitApplyVO> reqBody = jsonRequest.getReqBody();
+        try {
+            CrmMillSheetSplitApplyVO downUrl = crmMillSheetSplitApplyService.splitInsertAll(reqBody);
+            serviceResponse.setRetContent(downUrl);
+            return serviceResponse;
+        } catch (Exception e) {
+            logger.error("保存 参数 失败 error = {}", e);
+
+            throw new BusinessException("500");
+        }
+    }
+
 }

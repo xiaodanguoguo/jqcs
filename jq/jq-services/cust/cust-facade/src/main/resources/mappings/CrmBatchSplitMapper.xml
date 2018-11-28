@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.CrmBatchSplitMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.CrmBatchSplit" >
+    <result column="SID" property="sid" jdbcType="DECIMAL" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="MILLSHEET_NO" property="millsheetNo" jdbcType="VARCHAR" />
+    <result column="ZCHEHAO" property="zchehao" jdbcType="VARCHAR" />
+    <result column="ZJISHU" property="zjishu" jdbcType="DECIMAL" />
+    <result column="ZCHARG" property="zcharg" jdbcType="VARCHAR" />
+    <result column="SPECS" property="specs" jdbcType="VARCHAR" />
+    <result column="SPILT_CUSTOMER" property="spiltCustomer" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmBatchSplit" >
+    insert into CRM_BATCH_SPLIT (SID, CREATED_BY, CREATED_DT, 
+      UPDATED_BY, UPDATED_DT, VERSION, 
+      MILLSHEET_NO, ZCHEHAO, ZJISHU, 
+      ZCHARG, SPECS, SPILT_CUSTOMER
+      )
+    values (#{sid,jdbcType=DECIMAL}, #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL}, 
+      #{millsheetNo,jdbcType=VARCHAR}, #{zchehao,jdbcType=VARCHAR}, #{zjishu,jdbcType=DECIMAL}, 
+      #{zcharg,jdbcType=VARCHAR}, #{specs,jdbcType=VARCHAR}, #{spiltCustomer,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmBatchSplit" >
+    <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
+      SELECT SEQ_CRM_BATCH_SPLIT.nextval  FROM DUAL
+    </selectKey>
+    insert into CRM_BATCH_SPLIT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        SID,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="millsheetNo != null" >
+        MILLSHEET_NO,
+      </if>
+      <if test="zchehao != null" >
+        ZCHEHAO,
+      </if>
+      <if test="zjishu != null" >
+        ZJISHU,
+      </if>
+      <if test="zcharg != null" >
+        ZCHARG,
+      </if>
+      <if test="specs != null" >
+        SPECS,
+      </if>
+      <if test="spiltCustomer != null" >
+        SPILT_CUSTOMER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=DECIMAL},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="millsheetNo != null" >
+        #{millsheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="zchehao != null" >
+        #{zchehao,jdbcType=VARCHAR},
+      </if>
+      <if test="zjishu != null" >
+        #{zjishu,jdbcType=DECIMAL},
+      </if>
+      <if test="zcharg != null" >
+        #{zcharg,jdbcType=VARCHAR},
+      </if>
+      <if test="specs != null" >
+        #{specs,jdbcType=VARCHAR},
+      </if>
+      <if test="spiltCustomer != null" >
+        #{spiltCustomer,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

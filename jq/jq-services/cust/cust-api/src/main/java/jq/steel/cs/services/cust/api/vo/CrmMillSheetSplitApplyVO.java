@@ -7,6 +7,10 @@ import java.util.List;
 
 public class CrmMillSheetSplitApplyVO implements Serializable {
 
+    private Integer code;
+
+    private String message;
+
     private String acctName;
 
     //规格
@@ -82,6 +86,21 @@ public class CrmMillSheetSplitApplyVO implements Serializable {
     //订货单位
     private  String spiltCustomer;
 
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public String getAcctName() {
         return acctName;
