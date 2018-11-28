@@ -39,6 +39,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
     //申请拆分数据插入
     @Override
     public CrmMillSheetSplitApplyVO splitInsert(List<CrmMillSheetSplitApplyVO> crmMillSheetSplitApplyVOList) {
+        String acctName =crmMillSheetSplitApplyVOList.get(0).getAcctName();
         List<CrmMillSheetSplitInfo> crmMillSheetSplitInfoList = BeanCopyUtil.copyList(crmMillSheetSplitApplyVOList, CrmMillSheetSplitInfo.class);
         //查询一下最大质证书编号
         MillSheetHosts millSheetHosts = new MillSheetHosts();
@@ -65,7 +66,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         BigInteger millSheetNo = b.add(big2) ;
         //质证书拆分申请表添加数据
         CrmMillSheetSplitApply crmMillSheetSplitApply1 = new CrmMillSheetSplitApply();
-        crmMillSheetSplitApply1.setCreatedBy(AssertContext.getAcctName());
+        crmMillSheetSplitApply1.setCreatedBy(acctName);
         crmMillSheetSplitApply1.setCreatedDt(new Date());
         String newMillSheetNo= A + millSheetNo+ "";
         crmMillSheetSplitApply1.setMillsheetNo(newMillSheetNo);
@@ -86,7 +87,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             crmMillSheetSplitInfo.setZkunnr(crmMillSheetSplitInfo.getZkunnr());
             crmMillSheetSplitInfo.setCreationTime(crmMillSheetSplitInfo.getCreatedDt());
             crmMillSheetSplitInfo.setCreatedDt(new Date());
-            crmMillSheetSplitInfo.setCreatedBy(AssertContext.getAcctName());
+            crmMillSheetSplitInfo.setCreatedBy(acctName);
             crmMillSheetSplitInfo.setZcpmc(crmMillSheetSplitInfo.getZcpmc());
             crmMillSheetSplitInfo.setSpecs(crmMillSheetSplitInfo.getSpecs());
             crmMillSheetSplitInfo.setZchehao(crmMillSheetSplitInfo.getZchehao());

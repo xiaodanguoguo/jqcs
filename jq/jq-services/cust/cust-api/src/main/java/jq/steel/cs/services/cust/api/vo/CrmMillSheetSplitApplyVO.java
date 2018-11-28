@@ -7,6 +7,8 @@ import java.util.List;
 
 public class CrmMillSheetSplitApplyVO implements Serializable {
 
+    private String acctName;
+
     //规格
     private  String specs;
     //车号
@@ -79,6 +81,15 @@ public class CrmMillSheetSplitApplyVO implements Serializable {
 
     //订货单位
     private  String spiltCustomer;
+
+
+    public String getAcctName() {
+        return acctName;
+    }
+
+    public void setAcctName(String acctName) {
+        this.acctName = acctName;
+    }
 
     public String getSpecs() {
         return specs;
