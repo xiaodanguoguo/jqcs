@@ -113,13 +113,13 @@
                 <div class="btnLowNew management-box-print" id="printJiaOpe" limitCode="M20409">打印次数+1</div>
                 <div class="btnLowNew management-box-print" id="downLoadJiaOpe" limitCode="M20408">下载次数+1</div>
                 <div class="btnLowNew management-box-print" id="downloadBatch">下载批导拆分模板</div>
-                <div class="btnLowNew management-box-print" id="exportBatch" comType="uploadCtrl" uploadType="button" uploadTypeVal="上传协议书图片" reqPath="/split/upload" uploadSize='{"w":"92","h":"26"}' filetype="custom" fileExt="xls|xlsx|xlsm" style="display: inline-block!important;">上传批导拆分数据</div>
+                <div class="btnLowNew management-box-print" id="exportBatch" comType="uploadCtrl" uploadType="button" uploadTypeVal="批导拆分" reqPath="/split/upload" uploadSize='{"w":"92","h":"26"}' filetype="custom" fileExt="xls|xlsx|xlsm" style="display: inline-block!important;">批导拆分</div>
                 <div class="btnBaseCancel management-box-reset" comType="clearAllCond" parentId="searchBox" bindCtrlId="condzkunnr,condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condzkunnrs,conddeptCode,condmillLine,condmillSheetType"  limitCode="M20402">重置</div>
                 <!--<div class="btnLowNew management-box-apply">拆分申请</div>
                 <div class="btnLowNew management-box-split">强制拆分</div>-->
             </div>
             <div style="width: 980px;overflow:scroll;">
-                <table class="table-list" id="tableList" style="table-layout: fixed;width:1200px;" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData" chkId="chkCoding" isCacheCond="sid" clsChk="clsChk" clsallchk="clsAllChk">
+                <table class="table-list" id="tableList" style="table-layout: fixed;width:1600px;" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData" chkId="chkCoding" isCacheCond="sid" clsChk="clsChk" clsallchk="clsAllChk">
                     <tr class="table-list-currentrow">
                         <th class="table-list-currentrow-theader"  width="7%">操作</th>
                         <th class="table-list-currentrow-theader" width="3%">
@@ -134,6 +134,10 @@
                         <th class="table-list-currentrow-theader" width="12%">车号</th>
                         <th class="table-list-currentrow-theader" width="12%">产品名称</th>
                         <th class="table-list-currentrow-theader" width="7%">牌号</th>
+                        <th class="table-list-currentrow-theader" width="7%">原件次</th>
+                        <th class="table-list-currentrow-theader" width="7%">剩余件次</th>
+                        <th class="table-list-currentrow-theader" width="7%">原重量</th>
+                        <th class="table-list-currentrow-theader" width="7%">剩余重量</th>
                         <th class="table-list-currentrow-theader"  width="5%">已打印次数</th>
                         <th class="table-list-currentrow-theader"  width="5%">可打印次数</th>
                         <th class="table-list-currentrow-theader"  width="5%">可下载次数</th>
@@ -159,6 +163,10 @@
                         <td class="table-list-currentrow-tdetail" id="zchehao" style="text-align: center"></td>
                         <td class="table-list-currentrow-tdetail" id="zcpmc"></td>
                         <td class="table-list-currentrow-tdetail" id="zph" style="text-align: center"></td>
+                        <td class="table-list-currentrow-tdetail" id="zjishu" style="text-align: center"></td>
+                        <td class="table-list-currentrow-tdetail" id="surplusZjishu" style="text-align: center"></td>
+                        <td class="table-list-currentrow-tdetail" id="zlosmenge" style="text-align: center"></td>
+                        <td class="table-list-currentrow-tdetail" id="surplusZlosmenge" style="text-align: center"></td>
                         <td class="table-list-currentrow-tdetail" id="printedNum" style="text-align: center"></td>
                         <td class="table-list-currentrow-tdetail" id="printableNum" style="text-align: center"></td>
                         <td class="table-list-currentrow-tdetail" id="downableNum" style="text-align: center"></td>
