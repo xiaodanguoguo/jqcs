@@ -194,7 +194,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     A.MILL_SHEET_TYPE
     FROM WARRANTY.MILL_SHEET_HOSTS A
     WHERE
-    A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR} AND  A.MILL_SHEET_TYPE ='S'
+    A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR} AND  A.MILL_SHEET_TYPE not in('S')
   </select>
 
   <select id="findMillSheetType" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">

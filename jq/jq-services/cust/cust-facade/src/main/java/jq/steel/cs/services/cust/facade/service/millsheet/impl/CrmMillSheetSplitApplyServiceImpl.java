@@ -227,17 +227,19 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             List<MillSheetHosts> millSheetHostsList=millSheetHostsMapper.findExist(millSheetHosts);
             if (millSheetHostsList.size()>0){
             }else {
-                findExist+=","+millSheetHosts.getMillSheetNo();
+                findExist+=",此质证书"+""+millSheetHosts.getMillSheetNo()+"不存在，";
             }
             //质证书编号是否允许拆分
             List<MillSheetHosts> alist=millSheetHostsMapper.findAllow(millSheetHosts);
+
             if (alist.size()>0){
             }else {
-                if(millSheetHosts.getState().equals("NEW")){
+                //String state = alist.get(0).getState();
+               /* if(state.equals("NEW")){
                     millSheetHosts.setState("新建");
-                }else if(millSheetHosts.getState().equals("CREATED")){
+                }else if(state.equals("CREATED")){
                     millSheetHosts.setState("已生成");
-                }else if(millSheetHosts.getState().equals("EXAMINED")){
+                }else if(state.equals("EXAMINED")){
                     millSheetHosts.setState("已审核");
                 }else if(millSheetHosts.getState().equals("CONFIRMED")){
                     millSheetHosts.setState("已确认");
@@ -257,8 +259,8 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     millSheetHosts.setState("已删除");
                 }else if(millSheetHosts.getState().equals("SPLITED")){
                     millSheetHosts.setState("已拆分");
-                }
-                findAllow+=","+millSheetHosts.getMillSheetNo()+"状态为"+millSheetHosts.getState();
+                }*/
+                findAllow+=","+millSheetHosts.getMillSheetNo()+"状态不允许拆分";
             }
             //是否是孙质证书
             List<MillSheetHosts> blist=millSheetHostsMapper.findType(millSheetHosts);
@@ -272,15 +274,27 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             coilInfo.setZcharg(cmssi.getZcharg());
             coilInfo.setSpecs(cmssi.getSpecs());
             List<MillCoilInfo> millCoilInfos =coilInfoMapper.findVolume(coilInfo);
+            /*
+            如果指定的数与参数相等返回0。如果指定的数小于参数返回 -1。如果指定的数大于参数返回 1
+            Integer x = 5;
+                System.out.println(x.compareTo(3));  1
+                System.out.println(x.compareTo(5));  0
+                System.out.println(x.compareTo(8));  -1
+            */
             if (millCoilInfos.size()>0){
                 //该卷是否有量可拆
                 int i=millCoilInfos.get(0).getSurplusZjishu().compareTo(BigDecimal.ZERO);
-                if (i==-1){
+                if (i==1){
+
+                }else if(i==-1){
                     //小于0
-                    findNum+=","+coilInfo.getMillSheetNo()+"质证书下"+coilInfo.getSpecs()+"规格"+coilInfo.getZcharg()+"卷可拆数量为0";
+                    findNum+=","+coilInfo.getMillSheetNo()+"质证书'"+coilInfo.getSpecs()+"'规格'"+coilInfo.getZcharg()+"'卷可拆数量为0";
+                }else if(i==0){
+                    //等于0
+                    findNum+=","+coilInfo.getMillSheetNo()+"质证书'"+coilInfo.getSpecs()+"'规格'"+coilInfo.getZcharg()+"'卷可拆数量为0";
                 }
             }else {
-                findVolume+=","+coilInfo.getMillSheetNo()+"质证书下"+coilInfo.getSpecs()+"规格"+coilInfo.getZcharg()+"卷不存在";
+                findVolume+=","+coilInfo.getMillSheetNo()+"质证书'"+coilInfo.getSpecs()+"'规格'"+coilInfo.getZcharg()+"'卷不存在";
             }
 
         }
@@ -349,6 +363,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             crmMillSheetSplitApply1.setFatherMillsheetNo(cmssi.getMillsheetNo());
             //判断类型进行塞值
             MillSheetHosts millSheetHosts1 = new MillSheetHosts();
+            millSheetHosts1.setMillSheetNo(cmssi.getMillsheetNo());
             List<MillSheetHosts> millSheetHosts2 = millSheetHostsMapper.findMillSheetType(millSheetHosts1);
             if (millSheetHosts2.get(0).getMillSheetType().equals("M")){
                 crmMillSheetSplitApply1.setMillsheetType("Z");
