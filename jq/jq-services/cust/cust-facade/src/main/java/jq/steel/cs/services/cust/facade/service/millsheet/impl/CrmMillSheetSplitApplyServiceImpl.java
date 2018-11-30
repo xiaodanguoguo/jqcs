@@ -328,7 +328,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             }
         }
 
-
+        String millSheetNos ="";
         //执行拆分准备
         for (CrmMillSheetSplitInfo cmssi:crmMillSheetSplitInfoList) {
             //查询一下最大质证书编号
@@ -428,9 +428,11 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             this.cunChuAll(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitInfo.getMillsheetType(),
                     cmssi.getZcharg(), cmssi.getZjishu(), cmssi.getZlosmenge(),
                     cmssi.getSpiltCustomer(), cmssi.getZchehao());
+            millSheetNos+=','+newMillSheetNo;
 
         }
         crmMillSheetSplitApplyVOS.setCode(1);
+        crmMillSheetSplitApplyVOS.setMessage("拆分之后质证书编号为"+millSheetNos.substring(1));
         return crmMillSheetSplitApplyVOS;
     }
 

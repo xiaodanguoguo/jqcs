@@ -126,7 +126,8 @@ public class CrmMillSheetSplitApplyController {
                         jsonRequest.setReqBody(applyVOS);
                         ServiceResponse<CrmMillSheetSplitApplyVO> serviceResponse = crmMillSheetSplitApplyAPI.splitInsertAll(jsonRequest);
                         if (serviceResponse.getRetContent().getCode()>0){
-                            jsonResponse.setRspBody(serviceResponse.getRetContent());
+                            jsonResponse.setRetCode("0000001");
+                            jsonResponse.setRetDesc(serviceResponse.getRetContent().getMessage());
                         }else {
                             jsonResponse.setRetCode("0000001");
                             jsonResponse.setRetDesc(serviceResponse.getRetContent().getMessage());
