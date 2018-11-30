@@ -203,6 +203,23 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         String acctName =crmMillSheetSplitApplyVOList.get(0).getAcctName();
         CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVOS = new CrmMillSheetSplitApplyVO();
         List<CrmMillSheetSplitInfo> crmMillSheetSplitInfoList = BeanCopyUtil.copyList(crmMillSheetSplitApplyVOList, CrmMillSheetSplitInfo.class);
+        //导入的质证书对于的总值
+        Map<String,Object> map = new HashMap<>();
+        for (CrmMillSheetSplitInfo cmssi:crmMillSheetSplitInfoList){
+            if (map.size()>0){
+                if(map.containsKey(cmssi.getMillsheetNo())){
+                    long l = Long.valueOf(String.valueOf(map.get(cmssi.getMillsheetNo())));
+                    long jishu = l+cmssi.getZjishu();
+                    map.put(cmssi.getMillsheetNo(),jishu);
+                }else {
+                    map.put(cmssi.getMillsheetNo(),cmssi.getZjishu());
+                }
+            }else {
+                map.put(cmssi.getMillsheetNo(),cmssi.getZjishu());
+            }
+        }
+
+
         //校验
         String findExist ="";
         String findAllow ="";
@@ -275,17 +292,25 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             coilInfo.setSpecs(cmssi.getSpecs());
             List<MillCoilInfo> millCoilInfos =coilInfoMapper.findVolume(coilInfo);
             /*
-            如果指定的数与参数相等返回0。如果指定的数小于参数返回 -1。如果指定的数大于参数返回 1
+            如果指定的数与参数相等返回0。如果指定的数小于参数返回 -1。如果指定的数大于参数返回 1  compareTo 大于的意思
             Integer x = 5;
                 System.out.println(x.compareTo(3));  1
                 System.out.println(x.compareTo(5));  0
                 System.out.println(x.compareTo(8));  -1
             */
             if (millCoilInfos.size()>0){
+
                 //该卷是否有量可拆
                 int i=millCoilInfos.get(0).getSurplusZjishu().compareTo(BigDecimal.ZERO);
                 if (i==1){
+                    //判断是否超出数量
+                    BigDecimal bigDecimal= this.getBigDecimal(map.get(cmssi.getMillsheetNo()));
+                    int j = millCoilInfos.get(0).getSurplusZjishu().compareTo(bigDecimal);
+                    if (j==1){
 
+                    }else if(j==-1){
+                        findNum+=","+coilInfo.getMillSheetNo()+"质证书'"+coilInfo.getSpecs()+"'规格'"+coilInfo.getZcharg()+"'卷可拆数量不足，剩余"+millCoilInfos.get(0).getSurplusZjishu()+"件";
+                    }
                 }else if(i==-1){
                     //小于0
                     findNum+=","+coilInfo.getMillSheetNo()+"质证书'"+coilInfo.getSpecs()+"'规格'"+coilInfo.getZcharg()+"'卷可拆数量为0";
@@ -296,7 +321,6 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             }else {
                 findVolume+=","+coilInfo.getMillSheetNo()+"质证书'"+coilInfo.getSpecs()+"'规格'"+coilInfo.getZcharg()+"'卷不存在";
             }
-
         }
         if (!findExist.equals("")) {
             crmMillSheetSplitApplyVOS.setCode(-1);
@@ -434,6 +458,30 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         crmMillSheetSplitApplyVOS.setCode(1);
         crmMillSheetSplitApplyVOS.setMessage("拆分之后质证书编号为"+millSheetNos.substring(1));
         return crmMillSheetSplitApplyVOS;
+    }
+
+    /**
+     * Object转BigDecimal类型-王雷-2018年5月14日09:56:26
+     *
+     * @param value 要转的object类型
+     * @return 转成的BigDecimal类型数据
+     */
+    public static BigDecimal getBigDecimal(Object value) {
+        BigDecimal ret = null;
+        if (value != null) {
+            if (value instanceof BigDecimal) {
+                ret = (BigDecimal) value;
+            } else if (value instanceof String) {
+                ret = new BigDecimal((String) value);
+            } else if (value instanceof BigInteger) {
+                ret = new BigDecimal((BigInteger) value);
+            } else if (value instanceof Number) {
+                ret = new BigDecimal(((Number) value).doubleValue());
+            } else {
+                throw new ClassCastException("Not possible to coerce [" + value + "] from class " + value.getClass() + " into a BigDecimal.");
+            }
+        }
+        return ret;
     }
 
 
