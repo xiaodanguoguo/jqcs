@@ -8,6 +8,18 @@
     .management-box .management-box-button #exportBatch{
         display: inline-block!important;
     }
+    #uploadBtn{
+        text-align: center;
+        height: 26px;
+        line-height: 26px;
+        font-size: 12px;
+        border-radius: 2px;
+        color: #6390f3;
+        background-color: #fff;
+        border: 1px solid #6390f3;
+        padding: 0!important;
+        cursor: pointer;
+    }
 </style>
 <script src="../js/qualityBookList.js"></script>
 <script>
@@ -91,10 +103,6 @@
                         </select>
                     </li>
                     <li class="management-box-list__Every">
-                        <span class="management-box-list__Name">客户名称:</span>
-                        <input type="text" class="inputBase" id="condzkunnrs">
-                    </li>
-                    <li class="management-box-list__Every">
                         <span class="management-box-list__Name">质证书类型:</span>
                         <select type="text" class="inputBase" id="condmillSheetType">
                             <option value="">请选择</option>
@@ -102,6 +110,10 @@
                             <option value="Z">Z</option>
                             <option value="S">S</option>
                         </select>
+                    </li>
+                    <li class="management-box-list__Every">
+                        <span class="management-box-list__Name">客户名称:</span>
+                        <input type="text" class="inputBase" id="condzkunnrs">
                     </li>
                 </ul>
             </div>
