@@ -116,7 +116,7 @@
             }
 
             $(this).css({"color":"#6390f3"});
-            orgNameJumpUser = $(this).parents('li')[0].data.remark;
+            orgNameJumpUser = $(this).parents('li')[0].data.orgName;
             orgNameId = $(this).parents(".collapsable:first")[0].data.orgType;
             $("#fotTable").css("display","")
             getAjaxResult("/orgInfo/getOrgInfo","post",{"id":$(this).parents('li')[0].data.id},"initTissue(data)");
@@ -271,7 +271,7 @@
             window.open(encodeURI(url+"?orgId="+$(this).parents("#fotTable")[0].jsonData.id+"&orgName="+$(this).parents("#fotTable")[0].jsonData.orgName))
         })
         $(".viewUserMange").on("click",function () {
-            jumpUrl("userManage.html?orgNameJumpUser=" + escape(orgNameJumpUser),"0000000",1);
+            jumpUrl("userManage.html?orgNameJumpUser=" + escape($("#orgName").html()),"0000000",1);
         })
         $("#addReInpDiv #sapCode").on("change",function(){
             getAjaxResult("/orgInfo/getOrgName","POST",{"sapCode":$(this).val()},"orgCodeCheckCallBack(data)")
