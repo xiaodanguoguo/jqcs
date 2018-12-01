@@ -384,7 +384,12 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {//插件渲染操作
 
     //拆分申请操作
     $(cloneRow).find("#commonSplit").on("click",function () {
-        jumpUrl("bookSplit.html?millsheetNo=" + jsonItem.millSheetNo,"0000000",1);
+        if(window.location.href.indexOf("qualityBookList2") != -1){
+            jumpUrl("bookSplit.html?millSheetNo=" + jsonItem.millSheetNo,"0000000",1);
+        }else{
+            jumpUrl("bookSplit.html?jumpType=1&&millSheetNo=" + jsonItem.millSheetNo,"0000000",1);
+        }
+        //jumpUrl("bookSplit.html?millsheetNo=" + jsonItem.millSheetNo,"0000000",1);
     });
     //强制拆分申请操作
     $(cloneRow).find("#strongSplit").on("click",function () {
