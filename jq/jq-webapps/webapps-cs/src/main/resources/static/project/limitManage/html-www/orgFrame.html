@@ -17,6 +17,7 @@
 <script>
     var orgNameJumpUser = "";
     var orgNameId = "";
+    var orgNameParentId = "";
     function tissueAdmin(){
         this.init=tissueInit;
         this.incident=tissueIncident;
@@ -118,6 +119,11 @@
             $(this).css({"color":"#6390f3"});
             orgNameJumpUser = $(this).parents('li')[0].data.orgName;
             orgNameId = $(this).parents(".collapsable:first")[0].data.orgType;
+            if($(this).parents(".collapsable").length > 1){
+                orgNameParentId = $(this).parents(".collapsable")[1].data.orgType;
+            }else{
+
+            }
             $("#fotTable").css("display","")
             getAjaxResult("/orgInfo/getOrgInfo","post",{"id":$(this).parents('li')[0].data.id},"initTissue(data)");
         })
@@ -231,7 +237,7 @@
 
             //l-m
             var arrSelect = [{"orgTypeCode":1,"orgTypeName":"销售公司"},{"orgTypeCode":2,"orgTypeName":"一级代理"},{"orgTypeCode":3,"orgTypeName":"贸易商"},{"orgTypeCode":4,"orgTypeName":"终端用户"}];
-            switch (orgNameId){
+            switch (orgNameParentId){
                 case "1":
                     arrSelect = [{"orgTypeCode":2,"orgTypeName":"一级代理"},{"orgTypeCode":3,"orgTypeName":"贸易商"},{"orgTypeCode":4,"orgTypeName":"终端用户"}];
                     break;
