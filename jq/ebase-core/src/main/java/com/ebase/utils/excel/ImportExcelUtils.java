@@ -665,4 +665,27 @@ public class ImportExcelUtils {
 		}
 		return wb;
 	}
+
+	/*public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Stu s1 = new Stu("a", 1);
+		Stu s2 = new Stu("a", 44);
+		Stu s3 = new Stu("b", 2);
+		List<Stu> list = new ArrayList();
+		list.add(s1);list.add(s2);list.add(s3);
+		Map<String, Integer> map = new HashMap();
+		for(Stu ss : list){
+			map.put(ss.name, map.get(ss.name) == null ? ss.age : (map.get(ss.name) + ss.age));
+		}
+		System.out.println(map);
+	}
+	 static class Stu{
+		String name;
+		int age;
+		public Stu(String name, int age) {
+			super();
+			this.name = name;
+			this.age = age;
+		}
+	}*/
 }
