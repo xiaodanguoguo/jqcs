@@ -28,6 +28,14 @@ public interface MillSheetHostsMapper {
 
     List<MillSheetHosts> findIsTrue (MillSheetHosts record);
 
+    List<MillSheetHosts> findExist (MillSheetHosts record);
+    List<MillSheetHosts> findAllow (MillSheetHosts record);
+    List<MillSheetHosts> findType (MillSheetHosts record);
+    List<MillSheetHosts> findMillSheetType (MillSheetHosts record);
+
+
+
+
     //校验checkCoil
     List<MillSheetHosts> checkCoil (MillSheetHosts record);
     //校验checkCoil

@@ -81,34 +81,56 @@ public class CrmMillSheetSplitApplyController {
 
     @PostMapping("/upload")
     public JsonResponse<CrmMillSheetSplitApplyVO> upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
+        JsonRequest<List<CrmMillSheetSplitApplyVO>> jsonRequest = new JsonRequest<>();
         JsonResponse<CrmMillSheetSplitApplyVO> jsonResponse = new JsonResponse<CrmMillSheetSplitApplyVO>();
+
         if (null != file) {
             try {
                 Map<Integer, Map<Integer, Object>> map = new HashMap<>();
                 try {
+                    map = ImportExcelUtils.readExcelContentz(file);
                     if (map.size() > 0) {
                         List<CrmMillSheetSplitApplyVO> applyVOS = new ArrayList<>();
-                        map = ImportExcelUtils.readExcelContentz(file);
-                        for (int i = 0; i < map.size(); i++) {
+                        for (int i = 1; i <= map.size(); i++) {
                             CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVO = new CrmMillSheetSplitApplyVO();
-                            List<Object> arrayList = new ArrayList<>();
+                            List<String> arrayList = new ArrayList<>();
                             Map<Integer, Object> mapItem = map.get(i);
                             if (mapItem.size() == 6) {
                                 for (int j = 0; j < mapItem.size(); j++) {
-                                    arrayList.add(map.get(i).get(j));
+                                    arrayList.add((String) map.get(i).get(j));
                                 }
-                                crmMillSheetSplitApplyVO.setMillsheetNo((String) arrayList.get(0));
-                                crmMillSheetSplitApplyVO.setZchehao((String) arrayList.get(1));
-                                crmMillSheetSplitApplyVO.setZjishu(Long.valueOf((String) arrayList.get(2)));
-                                crmMillSheetSplitApplyVO.setZcharg((String) arrayList.get(3));
-                                crmMillSheetSplitApplyVO.setSpecs((String) arrayList.get(4));
-                                crmMillSheetSplitApplyVO.setSpiltCustomer((String) arrayList.get(5));
+                                crmMillSheetSplitApplyVO.setAcctName(AssertContext.getAcctName());
+                                crmMillSheetSplitApplyVO.setMillsheetNo(arrayList.get(0));
+                                crmMillSheetSplitApplyVO.setZchehao( arrayList.get(1));
+                                String jianshu="";
+                                if (arrayList.get(2).indexOf(".")>0){
+                                    jianshu = arrayList.get(2).substring(0,arrayList.get(2).lastIndexOf("."));;
+                                }
+                                String zcharg="";
+                                if (arrayList.get(3).indexOf(".") >= 0) {
+                                    zcharg = arrayList.get(3).replace(".", "");
+                                }else{
+                                    zcharg = arrayList.get(3);
+                                }
+                                crmMillSheetSplitApplyVO.setZjishu(Long.valueOf(jianshu));
+                                crmMillSheetSplitApplyVO.setZcharg(zcharg);
+                                crmMillSheetSplitApplyVO.setSpecs(arrayList.get(4));
+                                crmMillSheetSplitApplyVO.setSpiltCustomer(arrayList.get(5));
                             } else {
                                 jsonResponse.setRetCode("0000001");
                                 jsonResponse.setRetDesc("excel中数据不完善");
                                 return jsonResponse;
                             }
                             applyVOS.add(crmMillSheetSplitApplyVO);
+                        }
+                        jsonRequest.setReqBody(applyVOS);
+                        ServiceResponse<CrmMillSheetSplitApplyVO> serviceResponse = crmMillSheetSplitApplyAPI.splitInsertAll(jsonRequest);
+                        if (serviceResponse.getRetContent().getCode()>0){
+                            jsonResponse.setRetCode("0000001");
+                            jsonResponse.setRetDesc(serviceResponse.getRetContent().getMessage());
+                        }else {
+                            jsonResponse.setRetCode("0000001");
+                            jsonResponse.setRetDesc(serviceResponse.getRetContent().getMessage());
                         }
 
                     } else {

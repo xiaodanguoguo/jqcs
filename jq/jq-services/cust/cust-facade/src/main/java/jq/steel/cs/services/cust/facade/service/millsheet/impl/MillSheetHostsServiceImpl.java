@@ -289,7 +289,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                                         millSheetHosts2.setIsAllow("Y");
                                     }
                                 }else{
-                                    millSheetHosts2.setIsAllow("N");
+                                    millSheetHosts2.setIsAllow("Y");
                                 }
                             }
                         }else {

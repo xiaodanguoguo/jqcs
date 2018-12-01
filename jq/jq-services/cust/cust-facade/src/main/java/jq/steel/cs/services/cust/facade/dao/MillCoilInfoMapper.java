@@ -26,6 +26,10 @@ public interface MillCoilInfoMapper {
     //分页查询
     List<MillCoilInfo> splitFind(MillCoilInfo record);
 
+
+    List<MillCoilInfo> findInfo(MillCoilInfo record);
+
+
     List<MillCoilInfo> findMillsheetNumber (MillCoilInfo record);
 
     //查询质证书明细_物理
@@ -50,6 +54,9 @@ public interface MillCoilInfoMapper {
 
 
     List<MillCoilInfo> findCoil(MillCoilInfo millCoilInfo);
+
+    List<MillCoilInfo> findVolume(MillCoilInfo millCoilInfo);
+
 
     //通过卷号查询卷相关信息
     MillCoilInfo selectByZcharg(MillCoilInfoVO vo);
