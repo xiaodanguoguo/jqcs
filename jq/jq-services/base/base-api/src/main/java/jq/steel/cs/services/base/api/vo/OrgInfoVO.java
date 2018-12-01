@@ -18,6 +18,15 @@ public class OrgInfoVO{
 
 	private String id2;
 
+	private String industrialCode;
+
+	public String getIndustrialCode() {
+		return industrialCode;
+	}
+
+	public void setIndustrialCode(String industrialCode) {
+		this.industrialCode = industrialCode;
+	}
 
 	public String getId2() {
 		return id2;

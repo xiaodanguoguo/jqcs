@@ -22,6 +22,7 @@
 		<result column="ADDR" property="addr"  />
 		<result column="EMAIL" property="email"  />
 		<result column="REG_TYPE" property="regType"  />
+		<result column="INDUSTRIAL_CODE" property="industrialCode"  />
 	</resultMap>
 
 	<insert id="insertOrgInfo"  parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
@@ -42,7 +43,8 @@
 		TEL,
 		ADDR,
 		EMAIL,
-		REG_TYPE
+		REG_TYPE,
+		INDUSTRIAL_CODE
 	)
 	VALUES
 		(
@@ -62,7 +64,8 @@
 			#{tel},
 			#{addr},
 			#{email},
-			#{regType}
+			#{regType},
+			#{industrialCode}
 		)
 
   </insert>
@@ -115,6 +118,9 @@
 			<if test="email != null" >
 				EMAIL = #{email}
 			</if>
+			<if test="industrialCode != null" >
+				INDUSTRIAL_CODE = #{industrialCode}
+			</if>
 		</set>
 		where ID = #{id}
 	</update>
@@ -151,7 +157,8 @@
 		ORG_TYPE,
 		TEL,
 		ADDR,
-		EMAIL
+		EMAIL,
+		INDUSTRIAL_CODE
 	FROM
 		org_info
 	WHERE
@@ -187,7 +194,8 @@
 		ORG_TYPE,
 		TEL,
 		ADDR,
-		EMAIL
+		EMAIL,
+		INDUSTRIAL_CODE
 	FROM
 		org_info
 	WHERE
@@ -220,7 +228,8 @@
 		ORG_TYPE,
 		TEL,
 		ADDR,
-		email
+		email,
+		INDUSTRIAL_CODE
 	FROM
 		org_info
 	WHERE
@@ -242,7 +251,8 @@
 		ORG_TYPE,
 		TEL,
 		ADDR,
-		email
+		email,
+		INDUSTRIAL_CODE
 	FROM
 		org_info
 	WHERE
@@ -265,7 +275,8 @@
 		ORG_TYPE,
 		TEL,
 		ADDR,
-		email
+		email,
+		INDUSTRIAL_CODE
 		FROM
 		org_info
 		WHERE
@@ -288,7 +299,8 @@
 		ORG_TYPE,
 		TEL,
 		ADDR,
-		email
+		email,
+		INDUSTRIAL_CODE
 	FROM
 		org_info	
   </select>
@@ -309,7 +321,8 @@
 		ORG_TYPE,
 		TEL,
 		ADDR,
-		EMAIL
+		EMAIL,
+		INDUSTRIAL_CODE
 	  FROM org_info WHERE ID =#{id}
 	</select>
 
