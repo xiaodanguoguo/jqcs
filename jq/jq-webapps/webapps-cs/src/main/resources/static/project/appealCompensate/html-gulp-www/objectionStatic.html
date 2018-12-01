@@ -378,22 +378,22 @@
 <div class="objectionStatic">
     <table class="objSta-table table-list" id="tableList" comType="standardTableCtrl" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="/objectionLendger/findLedgerByPage" reqParam="{}" method="POST" noData="nonData" idx="indexNum">
         <tr class="table-list-currentrow">
-            <th class="table-list-currentrow-theader" style="width:1%">序号</th>
-            <th class="table-list-currentrow-theader" style="width: 2%">质量投诉编号</th>
-            <th class="table-list-currentrow-theader" style="width: 1%">异议状态</th>
-            <th class="table-list-currentrow-theader" style="width: 3%">使用客户</th>
+            <th class="table-list-currentrow-theader" style="width: 0.5%">序号</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">质量投诉编号</th>
+            <th class="table-list-currentrow-theader" style="width: 0.5%">异议状态</th>
+            <th class="table-list-currentrow-theader" style="width: 2%">使用客户</th>
             <th class="table-list-currentrow-theader" style="width: 1%">联系人</th>
-            <th class="table-list-currentrow-theader" style="width: 2%">联系电话</th>
-            <th class="table-list-currentrow-theader" style="width: 3%">代理公司（或酒钢驻外公司）</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">联系电话</th>
+            <th class="table-list-currentrow-theader" style="width: 2%">代理公司（或酒钢驻外公司）</th>
             <th class="table-list-currentrow-theader" style="width: 1%">联系人</th>
-            <th class="table-list-currentrow-theader" style="width: 2%">联系电话</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">联系电话</th>
             <th class="table-list-currentrow-theader" style="width: 2%">物流过程</th>
             <th class="table-list-currentrow-theader" style="width: 2%">货物存放地</th>
             <th class="table-list-currentrow-theader" style="width: 2%">加工工艺</th>
             <th class="table-list-currentrow-theader" style="width: 1%">用途</th>
             <th class="table-list-currentrow-theader" style="width: 1%">车号</th>
             <th class="table-list-currentrow-theader" style="width: 1%">批/板/卷号</th>
-            <th class="table-list-currentrow-theader" style="width: 2%">质证书编号</th>
+            <th class="table-list-currentrow-theader" style="width: 1%">质证书编号</th>
             <th class="table-list-currentrow-theader" style="width: 1%">规格</th>
             <th class="table-list-currentrow-theader" style="width: 1%">牌号(mm)</th>
             <th class="table-list-currentrow-theader" style="width: 1%">提出异议量(t)</th>
@@ -410,7 +410,7 @@
             <th class="table-list-currentrow-theader" style="width: 1%">结案日期</th>
             <th class="table-list-currentrow-theader" style="width: 1%">结案人</th>
             <th class="table-list-currentrow-theader" style="width: 1%">处理周期</th>
-            <th class="table-list-currentrow-theader" style="width: 3%">备注</th>
+            <th class="table-list-currentrow-theader" style="width: 2%">备注</th>
             <th class="table-list-currentrow-theader" style="width: 2%">客户评价</th>
         </tr>
         <tr class="table-list-currentrow" id="templateRow" style="display: none;">
@@ -531,6 +531,37 @@
         $("#agreementAmountCount").html(jsonItem.agreementAmountCount);
         $("#objectionConfirmationCount").html(jsonItem.objectionConfirmationCount);
         $("#objectionNumCount").html(jsonItem.objectionNumCount);
+        $(cloneRow).find("#claimNo").attr("title",jsonItem.claimNo);
+        $(cloneRow).find("#lastUser").attr("title",jsonItem.lastUser);
+        $(cloneRow).find("#createEmpNo").attr("title",jsonItem.createEmpNo);
+        $(cloneRow).find("#lastUserTel").attr("title",jsonItem.lastUserTel);
+        $(cloneRow).find("#customerName").attr("title",jsonItem.customerName);
+        $(cloneRow).find("#custEmpNo").attr("title",jsonItem.custEmpNo);
+        $(cloneRow).find("#custTel").attr("title",jsonItem.custTel);
+        $(cloneRow).find("#logisticsProcess").attr("title",jsonItem.logisticsProcess);
+        $(cloneRow).find("#lastUserAddr").attr("title",jsonItem.lastUserAddr);
+        $(cloneRow).find("#endProcessingTech").attr("title",jsonItem.endProcessingTech);
+        $(cloneRow).find("#used").attr("title",jsonItem.used);
+        $(cloneRow).find("#originalCarNo").attr("title",jsonItem.originalCarNo);
+        $(cloneRow).find("#battenPlateNo").attr("title",jsonItem.battenPlateNo);
+        $(cloneRow).find("#millSheetNo").attr("title",jsonItem.millSheetNo);
+        $(cloneRow).find("#specs").attr("title",jsonItem.specs);
+        $(cloneRow).find("#designation").attr("title",jsonItem.designation);
+        $(cloneRow).find("#objectionNum").attr("title",jsonItem.objectionNum);
+        $(cloneRow).find("#objectionConfirmation").attr("title",jsonItem.objectionConfirmation);
+        $(cloneRow).find("#agreementAmount").attr("title",jsonItem.agreementAmount);
+        $(cloneRow).find("#claimReason").attr("title",jsonItem.claimReason);
+        $(cloneRow).find("#proProblem").attr("title",jsonItem.proProblem);
+        $(cloneRow).find("#productDt").attr("title",jsonItem.productDt);
+        $(cloneRow).find("#millLine").attr("title",jsonItem.millLine);
+        $(cloneRow).find("#handingSuggestion").attr("title",jsonItem.handingSuggestion);
+        $(cloneRow).find("#admissibilityTime").attr("title",jsonItem.admissibilityTime);
+        $(cloneRow).find("#arrivalTime").attr("title",jsonItem.arrivalTime);
+        $(cloneRow).find("#closingTime").attr("title",jsonItem.closingTime);
+        $(cloneRow).find("#closingUser").attr("title",jsonItem.closingUser);
+        $(cloneRow).find("#cycle").attr("title",jsonItem.cycle);
+        $(cloneRow).find("#memo").attr("title",jsonItem.memo);
+        $(cloneRow).find("#evaluate").attr("title",jsonItem.evaluate);
     }
     $(function(){
         limitCodeDeal($("*[limitCode]"),"limitCode");
