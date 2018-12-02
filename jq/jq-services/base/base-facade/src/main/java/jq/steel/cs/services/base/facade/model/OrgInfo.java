@@ -21,6 +21,8 @@ public class OrgInfo{
 
 	private String id2;
 
+	private String industrialCode;
+
 
 
 	public String getId2() {
@@ -29,6 +31,14 @@ public class OrgInfo{
 
 	public void setId2(String id2) {
 		this.id2 = id2;
+	}
+
+	public String getIndustrialCode() {
+		return industrialCode;
+	}
+
+	public void setIndustrialCode(String industrialCode) {
+		this.industrialCode = industrialCode;
 	}
 
 	/**
