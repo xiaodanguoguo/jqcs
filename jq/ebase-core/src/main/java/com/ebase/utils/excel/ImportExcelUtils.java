@@ -4,6 +4,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -13,6 +14,7 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -621,18 +623,31 @@ public class ImportExcelUtils {
 		Object cellvalue = "";
 		if (cell != null) {
 			switch (cell.getCellType()) {
-				case Cell.CELL_TYPE_NUMERIC:
+				case Cell.CELL_TYPE_NUMERIC: {
+					if (HSSFDateUtil.isCellDateFormatted(cell)) {
+						//  如果是date类型则 ，获取该cell的date值
+						cellvalue = HSSFDateUtil.getJavaDate(cell.getNumericCellValue()).toString();
+					} else { // 纯数字
+						//cellvalue = String.valueOf(cell.getNumericCellValue());
+						DecimalFormat df = new DecimalFormat("#");
+						cellvalue =df.format(cell.getNumericCellValue());
+						System.out.println(cell.getNumericCellValue()+"****纯数字转换为****"+cellvalue);
+					}
+					break;
+				}
 				case Cell.CELL_TYPE_FORMULA: {
 					if (DateUtil.isCellDateFormatted(cell)) {
 						Date date = cell.getDateCellValue();
 						cellvalue = date;
 					} else {
 						cellvalue = String.valueOf(cell.getNumericCellValue());
+						System.out.println("ff"+cellvalue);
 					}
 					break;
 				}
 				case Cell.CELL_TYPE_STRING:
 					cellvalue = cell.getRichStringCellValue().getString();
+					System.out.println("Sting"+cellvalue);
 					break;
 				default:
 					cellvalue = "";
