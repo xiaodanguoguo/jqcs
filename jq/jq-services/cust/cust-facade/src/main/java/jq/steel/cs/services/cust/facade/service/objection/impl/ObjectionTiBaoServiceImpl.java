@@ -225,6 +225,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 h.setClaimNo(crmClaimApply.getClaimNo());
                 h.setClaimState("REJECT");
                 h.setRejectReason(crmClaimApply.getRejectReason());
+                h.setProProblem(crmClaimApply.getProProblem());
                 crmClaimApplyMapper.update(h);
                 //日志记录
                 CrmClaimLog crmClaimLog = new CrmClaimLog();
@@ -240,6 +241,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 g.setClaimNo(crmClaimApply.getClaimNo());
                 g.setClaimState("REJECT");
                 g.setRejectReason(crmClaimApply.getRejectReason());
+                h.setProProblem(crmClaimApply.getProProblem());
                 Integer integer = crmClaimInfoMapper.updateByPrimaryKeySelective(g);
                 return  objectionTiBaoVO;
             }else if(crmClaimApply.getOptionStuts()== 3){

@@ -1256,7 +1256,7 @@
         </otherwise>
       </choose>
     </trim>)
-    LEFT JOIN WARRANTY.ACCT_INFO F ON F.ACCT_ID = NEED_USER
+    LEFT JOIN WARRANTY.ACCT_INFO F ON F.NAME = NEED_USER
     WHERE SPILT_CUSTOMER = #{orgName}
   </select>
 

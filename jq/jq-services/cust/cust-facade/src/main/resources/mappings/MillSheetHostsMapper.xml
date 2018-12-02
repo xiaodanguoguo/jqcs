@@ -709,9 +709,17 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
 
   <!---->
   <select id="getUrlForApp" resultMap="BaseResultMap">
-    select MILL_SHEET_URL , MILL_SHEET_NAME
+    select MILL_SHEET_URL , MILL_SHEET_NAME , DOWNABLE_NUM
     from MILL_SHEET_HOSTS
     where MILL_SHEET_NO = #{millSheetNo}
+    <choose>
+      <when test="states !=null and states != ''">
+        and H.STATE  = #{states,jdbcType=VARCHAR}
+      </when>
+      <otherwise>
+        AND H.STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED')
+      </otherwise>
+    </choose>
   </select>
 
 
