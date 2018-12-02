@@ -546,7 +546,7 @@ function getContentCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
         if(data.rspBody){
-            if((data.rspBody.acctType != 5 && window.location.href.indexOf("qualityBookList2") == -1) || ((data.rspBody.acctType != 5 && data.rspBody.acctType != 1) && window.location.href.indexOf("qualityBookList2") != -1)){
+            if(data.rspBody.acctType != 5){
                 $("#condzkunnr").val(data.rspBody.orgName).attr("disabled",true).addClass("changeGary");
                 $("*[comType=clearAllCond]").attr("bindCtrlId","condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph");
                 $("*[comType=clearAllCond]")[0].jsCtrl.bindCtrlId = "condzhth,condzchehao,condmilSheetNo,condbattenPlateNo,condzph";

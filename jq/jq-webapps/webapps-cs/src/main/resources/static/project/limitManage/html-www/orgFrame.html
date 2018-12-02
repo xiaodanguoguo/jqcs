@@ -17,6 +17,7 @@
 <script>
     var orgNameJumpUser = "";
     var orgNameId = "";
+    var orgNameParentId = "";
     function tissueAdmin(){
         this.init=tissueInit;
         this.incident=tissueIncident;
@@ -81,6 +82,7 @@
             json.sapCode=$("#inputAnswer #sapCode").val();
             json.tel=$("#inputAnswer #tel").val();
             json.addr=$("#inputAnswer #addr").val();
+            json.industrialCode=$("#inputAnswer #industrialCode").val();
 
             if($("#stateInp").attr("checked")){
                 json.status=1;
@@ -115,8 +117,13 @@
             }
 
             $(this).css({"color":"#6390f3"});
-            orgNameJumpUser = $(this).html();
+            orgNameJumpUser = $(this).parents('li')[0].data.orgName;
             orgNameId = $(this).parents(".collapsable:first")[0].data.orgType;
+            if($(this).parents(".collapsable").length > 1){
+                orgNameParentId = $(this).parents(".collapsable")[1].data.orgType;
+            }else{
+                orgNameParentId = $(this).parents(".collapsable")[0].data.orgType - 1;
+            }
             $("#fotTable").css("display","")
             getAjaxResult("/orgInfo/getOrgInfo","post",{"id":$(this).parents('li')[0].data.id},"initTissue(data)");
         })
@@ -172,6 +179,9 @@
                     arrSelect = [];
                     break;
             }
+            if(getCookie("acctType") == 0){
+                arrSelect = [{"orgTypeCode":1,"orgTypeName":"销售公司"},{"orgTypeCode":2,"orgTypeName":"一级代理"},{"orgTypeCode":3,"orgTypeName":"贸易商"},{"orgTypeCode":4,"orgTypeName":"终端用户"},{"orgTypeCode":5,"orgTypeName":"酒钢机构"}];
+            }
             $("#orgType").attr("initValue","");
             //initplugData($("#orgType")[0],"singleSelectCtrl",arrSelect);
             $("#orgType").attr("comType","singleSelectCtrl");
@@ -217,6 +227,7 @@
             $("#inputAnswer #sapCode").val($("#fotTable")[0].jsonData.sapCode);
             $("#inputAnswer #tel").val($("#fotTable")[0].jsonData.tel);
             $("#inputAnswer #addr").val($("#fotTable")[0].jsonData.addr);
+            $("#inputAnswer #industrialCode").val($("#fotTable")[0].jsonData.industrialCode);
             if($("#fotTable")[0].jsonData.status=="1"){
                 $("#stateInp").attr("checked",true);
             }else{
@@ -226,7 +237,7 @@
 
             //l-m
             var arrSelect = [{"orgTypeCode":1,"orgTypeName":"销售公司"},{"orgTypeCode":2,"orgTypeName":"一级代理"},{"orgTypeCode":3,"orgTypeName":"贸易商"},{"orgTypeCode":4,"orgTypeName":"终端用户"}];
-            switch (orgNameId){
+            switch (orgNameParentId){
                 case "1":
                     arrSelect = [{"orgTypeCode":2,"orgTypeName":"一级代理"},{"orgTypeCode":3,"orgTypeName":"贸易商"},{"orgTypeCode":4,"orgTypeName":"终端用户"}];
                     break;
@@ -245,7 +256,10 @@
                     arrSelect = [];
                     break;
             }
-            $("#orgType").attr("initValue","");
+            if(getCookie("acctType") == 0){
+                arrSelect = [{"orgTypeCode":1,"orgTypeName":"销售公司"},{"orgTypeCode":2,"orgTypeName":"一级代理"},{"orgTypeCode":3,"orgTypeName":"贸易商"},{"orgTypeCode":4,"orgTypeName":"终端用户"},{"orgTypeCode":5,"orgTypeName":"酒钢机构"}];
+            }
+            $("#orgType").attr("initValue",$("#fotTable")[0].jsonData.orgType);
             //initplugData($("#orgType")[0],"singleSelectCtrl",arrSelect);
             $("#orgType").attr("comType","singleSelectCtrl");
             $("#orgType")[0].data = {"rspBody":arrSelect};
@@ -263,7 +277,7 @@
             window.open(encodeURI(url+"?orgId="+$(this).parents("#fotTable")[0].jsonData.id+"&orgName="+$(this).parents("#fotTable")[0].jsonData.orgName))
         })
         $(".viewUserMange").on("click",function () {
-            jumpUrl("userManage.html?orgNameJumpUser=" + escape(orgNameJumpUser),"0000000",1);
+            jumpUrl("userManage.html?orgNameJumpUser=" + escape($("#orgName").html()),"0000000",1);
         })
         $("#addReInpDiv #sapCode").on("change",function(){
             getAjaxResult("/orgInfo/getOrgName","POST",{"sapCode":$(this).val()},"orgCodeCheckCallBack(data)")
@@ -322,6 +336,7 @@
         var jsData=JSON.parse(data);
         if(jsData.retCode=="0000000"){
             //location.reload();
+            window.location.reload();
             $(".resourceAd-con-left ul").remove();
             getAjaxResult("/orgInfo/getChildTreeOrgInfo","POST",{"parentId":document.body.docT.orgId},"orgInfo(data)")
         }else{
@@ -409,9 +424,10 @@
                 getAjaxResult("/orgInfo/getOrgInfo","post",{"id":$("#fotTable")[0].jsonData.id},"initTissue(data)");
                 getAjaxResult("/orgInfo/getChildTreeOrgInfo","POST",{"parentId":document.body.docT.orgId},"orgInfo(data)");
             }else{
-                document.body.docT.idC=jsData.rspBody;
+                /*document.body.docT.idC=jsData.rspBody;
                 $(".resourceAd-con-left ul").remove();
-                getAjaxResult("/orgInfo/getChildTreeOrgInfo","POST",{"parentId":document.body.docT.orgId},"orgInfo(data)");
+                getAjaxResult("/orgInfo/getChildTreeOrgInfo","POST",{"parentId":document.body.docT.orgId},"orgInfo(data)");*/
+                window.location.reload();
 
             }
             document.body.docT.newCom=null;
@@ -586,6 +602,7 @@
                         <li><span>客户名称：</span><span class="fot-ul-span" id="orgName"></span></li>
                         <li><span>sap编码：</span><span class="fot-ul-span" id="sapCode"></span></li>
                         <li><span>客户类型：</span><span class="fot-ul-span" id="orgTypeStr"></span></li>
+                        <li><span>工商纳税识别号：</span><span class="fot-ul-span" id="industrialCode"></span></li>
                         <li><span>电话：</span><span class="fot-ul-span" id="tel"></span></li>
                         <li><span>地址：</span><span class="fot-ul-span" id="addr"></span></li>
                         <li style="display:none"><span>客户状态：</span><span class="fot-ul-span" id="statusText"></span></li>
@@ -633,6 +650,7 @@
                     <option value="4">终端客户</option>
                     <option value="5">酒钢机构</option>
                 </select></li>
+                <li class="ml20"><label>工商纳税识别号：</label><input type="text" class="required isLengthOf numOrLetter" v_maxlength="18" v_minlength="18" isLengthOfmsg="请输入18位数字或英文"  placeholder="请输入18位数字或英文" id="industrialCode"/></li>
                 <li class="ml20"><label>电话：</label><input type="text" class="required newPhone" id="tel"/></li>
                 <li class="ml20"><label>地址：</label><input type="text" class="required" id="addr"/></li>
                 <li class="ml20"><label>备注：</label><textarea type="text" class="" id="memoInp"></textarea></li>

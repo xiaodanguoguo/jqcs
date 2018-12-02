@@ -7,7 +7,7 @@ function clsMethodLee(){
     this.documentLee = null;
     this.jsonData = [];//缓存主数据json数据，拆分操作时复用数据
     this.submitBox = "";
-    this.millsheetNo = GetQueryString("millsheetNo");
+    this.millsheetNo = GetQueryString("millSheetNo");
     this.init = clsMethodLee$init;//初始化页面的展示内容,绑定dom节点
     this.parse = clsMethodLee$parse;//初始化页面的数据
     this.operate = clsMethodLee$operate;//初始化页面的数据
@@ -51,9 +51,9 @@ function clsMethodLee$operate(){
     });
     this.returnBookList.on("click",function(){//返回质证书管理操作
         if(GetQueryString("jumpType") == 1){
-            jumpUrl("qualityBookList2.html","0000000",0);
-        }else{
             jumpUrl("qualityBookList.html","0000000",0);
+        }else{
+            jumpUrl("qualityBookList2.html","0000000",0);
 
         }
         //jumpUrl("qualityBookList.html","0000000",0);
