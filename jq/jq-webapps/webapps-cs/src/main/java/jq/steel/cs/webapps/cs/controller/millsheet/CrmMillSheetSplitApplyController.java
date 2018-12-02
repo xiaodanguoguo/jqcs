@@ -91,51 +91,75 @@ public class CrmMillSheetSplitApplyController {
                 try {
                     map = ImportExcelUtils.readExcelContentz(file);
                     if (map.size() > 0) {
-                        List<CrmMillSheetSplitApplyVO> applyVOS = new ArrayList<>();
+                        //计数+校验每条数据
+                        int a=0;
+                        String b="";
                         for (int i = 1; i <= map.size(); i++) {
-                            CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVO = new CrmMillSheetSplitApplyVO();
-                            List<String> arrayList = new ArrayList<>();
                             Map<Integer, Object> mapItem = map.get(i);
-                            if (mapItem.size() == 6) {
-                                for (int j = 0; j < mapItem.size(); j++) {
-                                    arrayList.add((String) map.get(i).get(j));
-                                }
-                                crmMillSheetSplitApplyVO.setAcctName(AssertContext.getAcctName());
-                                crmMillSheetSplitApplyVO.setMillsheetNo(arrayList.get(0));
-                                crmMillSheetSplitApplyVO.setZchehao( arrayList.get(1));
-                                String jianshu="";
-                                if (arrayList.get(2).indexOf(".")>0){
-                                    jianshu = arrayList.get(2).substring(0,arrayList.get(2).lastIndexOf("."));;
-                                }else{
-                                    jianshu = arrayList.get(2);
-                                }
-                                String zcharg="";
-                                if (arrayList.get(3).indexOf(".") >= 0) {
-                                    zcharg = arrayList.get(3).replace(".", "");
-                                }else{
-                                    zcharg = arrayList.get(3);
-                                }
-                                crmMillSheetSplitApplyVO.setZjishu(Long.valueOf(jianshu));
-                                crmMillSheetSplitApplyVO.setZcharg(zcharg);
-                                crmMillSheetSplitApplyVO.setSpecs(arrayList.get(4));
-                                crmMillSheetSplitApplyVO.setSpiltCustomer(arrayList.get(5));
-                            } else {
-                                jsonResponse.setRetCode("0000001");
-                                jsonResponse.setRetDesc("excel中数据不完善");
-                                return jsonResponse;
+                            if(!mapItem.get(1).equals("")){
+                                a++;
                             }
-                            applyVOS.add(crmMillSheetSplitApplyVO);
+                            for (int j = 0; j < mapItem.size(); j++){
+                                if(map.get(i).get(j).equals("")){
+                                   // b="b";
+                                }
+                            }
                         }
-                        jsonRequest.setReqBody(applyVOS);
-                        ServiceResponse<CrmMillSheetSplitApplyVO> serviceResponse = crmMillSheetSplitApplyAPI.splitInsertAll(jsonRequest);
-                        if (serviceResponse.getRetContent().getCode()>0){
-                            jsonResponse.setRetCode("0000001");
-                            jsonResponse.setRetDesc(serviceResponse.getRetContent().getMessage());
+                        if (a>0) {
+                            if (b.equals("")) {
+                                List<CrmMillSheetSplitApplyVO> applyVOS = new ArrayList<>();
+                                for (int i = 1; i <= a; i++) {
+                                    CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVO = new CrmMillSheetSplitApplyVO();
+                                    List<String> arrayList = new ArrayList<>();
+                                    Map<Integer, Object> mapItem = map.get(i);
+                                    if (mapItem.size() == 6) {
+                                        for (int j = 0; j < mapItem.size(); j++) {
+                                            arrayList.add((String) map.get(i).get(j));
+                                        }
+                                        crmMillSheetSplitApplyVO.setAcctName(AssertContext.getAcctName());
+                                        crmMillSheetSplitApplyVO.setMillsheetNo(arrayList.get(0));
+                                        crmMillSheetSplitApplyVO.setZchehao(arrayList.get(1));
+                                        String jianshu = "";
+                                        if (arrayList.get(2).indexOf(".") > 0) {
+                                            jianshu = arrayList.get(2).substring(0, arrayList.get(2).lastIndexOf("."));
+                                            ;
+                                        } else {
+                                            jianshu = arrayList.get(2);
+                                        }
+                                        String zcharg = "";
+                                        if (arrayList.get(3).indexOf(".") >= 0) {
+                                            zcharg = arrayList.get(3).replace(".", "");
+                                        } else {
+                                            zcharg = arrayList.get(3);
+                                        }
+                                        crmMillSheetSplitApplyVO.setZjishu(Long.valueOf(jianshu));
+                                        crmMillSheetSplitApplyVO.setZcharg(zcharg);
+                                        crmMillSheetSplitApplyVO.setSpecs(arrayList.get(4));
+                                        crmMillSheetSplitApplyVO.setSpiltCustomer(arrayList.get(5));
+                                    } else {
+                                        jsonResponse.setRetCode("0000001");
+                                        jsonResponse.setRetDesc("excel中数据不完善");
+                                        return jsonResponse;
+                                    }
+                                    applyVOS.add(crmMillSheetSplitApplyVO);
+                                }
+                                jsonRequest.setReqBody(applyVOS);
+                                ServiceResponse<CrmMillSheetSplitApplyVO> serviceResponse = crmMillSheetSplitApplyAPI.splitInsertAll(jsonRequest);
+                                if (serviceResponse.getRetContent().getCode() > 0) {
+                                    jsonResponse.setRetCode("0000001");
+                                    jsonResponse.setRetDesc(serviceResponse.getRetContent().getMessage());
+                                } else {
+                                    jsonResponse.setRetCode("0000001");
+                                    jsonResponse.setRetDesc(serviceResponse.getRetContent().getMessage());
+                                }
+                            }else {
+                                jsonResponse.setRetCode("0000001");
+                                jsonResponse.setRetDesc("请补充模板中数据，保证数据完整性");
+                            }
                         }else {
                             jsonResponse.setRetCode("0000001");
-                            jsonResponse.setRetDesc(serviceResponse.getRetContent().getMessage());
+                            jsonResponse.setRetDesc("请在模板中输入有效数据");
                         }
-
                     } else {
                         jsonResponse.setRetCode("0000001");
                         jsonResponse.setRetDesc("请在模板中输入有效数据");

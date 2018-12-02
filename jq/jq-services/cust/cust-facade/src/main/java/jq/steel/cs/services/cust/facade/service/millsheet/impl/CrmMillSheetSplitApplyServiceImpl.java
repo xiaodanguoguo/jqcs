@@ -578,9 +578,12 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                 crmMillSheetSplitInfo.setZlosmenge(cmssi.getZlosmenge());
                 crmMillSheetSplitInfoMapper.insertSelective(crmMillSheetSplitInfo);
                 //调用存储过程
-                this.cunChuAll(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitInfo.getMillsheetType(),
+                /*this.cunChuAll(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitInfo.getMillsheetType(),
                         cmssi.getZcharg(), cmssi.getZjishu(), cmssi.getZlosmenge(),
-                        cmssi.getSpiltCustomer(), cmssi.getZchehao());
+                        cmssi.getSpiltCustomer(), cmssi.getZchehao());*/
+                this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitInfo.getMillsheetType(),
+                        cmssi.getZcharg(), cmssi.getZjishu(), cmssi.getZlosmenge(),
+                        cmssi.getSpiltCustomer());
                 millSheetNos += ',' + newMillSheetNo;
 
             }
@@ -766,9 +769,12 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             crmMillSheetSplitInfoMapper.insertSelective(crmMillSheetSplitInfo);
             //调用存储过程
             Map<String, Object> map = new HashMap<String, Object>();
-            this.cunChuAll(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitApply1.getMillsheetType(),
+            /*this.cunChuAll(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitApply1.getMillsheetType(),
                     crmMillSheetSplitInfo.getZcharg(), crmMillSheetSplitInfo.getZjishu(), crmMillSheetSplitInfo.getZlosmenge(),
-                    crmMillSheetSplitInfo.getSpiltCustomer(), crmMillSheetSplitInfo.getZchehao());
+                    crmMillSheetSplitInfo.getSpiltCustomer(), crmMillSheetSplitInfo.getZchehao());*/
+            this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitApply1.getMillsheetType(),
+                    crmMillSheetSplitInfo.getZcharg(), crmMillSheetSplitInfo.getZjishu(), crmMillSheetSplitInfo.getZlosmenge(),
+                    crmMillSheetSplitInfo.getSpiltCustomer());
         }
         CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVOS = new CrmMillSheetSplitApplyVO();
         crmMillSheetSplitApplyVOS.setMillsheetNo(newMillSheetNo);
