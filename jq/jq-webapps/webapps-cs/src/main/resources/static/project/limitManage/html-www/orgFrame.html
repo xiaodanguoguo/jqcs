@@ -122,7 +122,7 @@
             if($(this).parents(".collapsable").length > 1){
                 orgNameParentId = $(this).parents(".collapsable")[1].data.orgType;
             }else{
-
+                orgNameParentId = $(this).parents(".collapsable")[0].data.orgType - 1;
             }
             $("#fotTable").css("display","")
             getAjaxResult("/orgInfo/getOrgInfo","post",{"id":$(this).parents('li')[0].data.id},"initTissue(data)");
