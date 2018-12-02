@@ -269,8 +269,12 @@ function CopyJson(src) {
 function splitSubmit(splitTableClone){
     if(checkForm(splitTableClone[0])){
         document.body.jsLee.submitBox = splitTableClone;
+        var isTrue = true;
         var arrParam = [];
         splitTableClone.find("tr[id=cloneRow]").each(function(){
+            if($(this).find("#zjishu").val() == 0){
+                isTrue = false;
+            }
             var jsonParam = {"millsheetType":"","specs":"","zchehao":"","zcpmc":"","zjishu":"","zkunnr":"","zlosmenge":"","zcharg":"","createdDt":""};
             getValue4Desc(jsonParam,$(this)[0]);
             jsonParam.millsheetNo = this.jsonData.millsheetNo;
@@ -278,7 +282,12 @@ function splitSubmit(splitTableClone){
             //jsonParam.zkunweCode = splitTableClone.find("#spiltCustomerText option:selected").html();
             arrParam.push(jsonParam);
         });
-        getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",arrParam,"submitSplitCallBack(data)")
+        if(isTrue){
+            getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",arrParam,"submitSplitCallBack(data)")
+        }else{
+            var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert("拆分子质证书件次不能为0！","失败提示");
+        }
     }
 }
 
