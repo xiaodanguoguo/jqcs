@@ -476,7 +476,7 @@
 				and a.STATUS = #{status}
 			</when>
 			<otherwise>
-				and a.status = 2 or a.status = 5
+				and a.status in (2,5)
 			</otherwise>
 		</choose>
 		<if test="orgName != null" >
