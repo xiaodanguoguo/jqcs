@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.*;
 
 @RestController
@@ -105,6 +106,8 @@ public class CrmMillSheetSplitApplyController {
                                 String jianshu="";
                                 if (arrayList.get(2).indexOf(".")>0){
                                     jianshu = arrayList.get(2).substring(0,arrayList.get(2).lastIndexOf("."));;
+                                }else{
+                                    jianshu = arrayList.get(2);
                                 }
                                 String zcharg="";
                                 if (arrayList.get(3).indexOf(".") >= 0) {

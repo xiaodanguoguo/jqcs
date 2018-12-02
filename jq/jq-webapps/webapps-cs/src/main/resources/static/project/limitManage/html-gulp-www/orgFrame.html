@@ -354,7 +354,7 @@
             json.sapCode=$("#inputAnswer #sapCode").val();
             json.tel=$("#inputAnswer #tel").val();
             json.addr=$("#inputAnswer #addr").val();
-            json.industrialCode=$("#inputAnswer #industrialCode").val();
+            json.bukrs=$("#inputAnswer #bukrs").val();
 
             if($("#stateInp").attr("checked")){
                 json.status=1;
@@ -499,7 +499,7 @@
             $("#inputAnswer #sapCode").val($("#fotTable")[0].jsonData.sapCode);
             $("#inputAnswer #tel").val($("#fotTable")[0].jsonData.tel);
             $("#inputAnswer #addr").val($("#fotTable")[0].jsonData.addr);
-            $("#inputAnswer #industrialCode").val($("#fotTable")[0].jsonData.industrialCode);
+            $("#inputAnswer #bukrs").val($("#fotTable")[0].jsonData.bukrs);
             if($("#fotTable")[0].jsonData.status=="1"){
                 $("#stateInp").attr("checked",true);
             }else{
@@ -874,7 +874,7 @@
                         <li><span>客户名称：</span><span class="fot-ul-span" id="orgName"></span></li>
                         <li><span>sap编码：</span><span class="fot-ul-span" id="sapCode"></span></li>
                         <li><span>客户类型：</span><span class="fot-ul-span" id="orgTypeStr"></span></li>
-                        <li><span>工商纳税识别号：</span><span class="fot-ul-span" id="industrialCode"></span></li>
+                        <li><span>工商纳税识别号：</span><span class="fot-ul-span" id="bukrs"></span></li>
                         <li><span>电话：</span><span class="fot-ul-span" id="tel"></span></li>
                         <li><span>地址：</span><span class="fot-ul-span" id="addr"></span></li>
                         <li style="display:none"><span>客户状态：</span><span class="fot-ul-span" id="statusText"></span></li>
@@ -922,7 +922,7 @@
                     <option value="4">终端客户</option>
                     <option value="5">酒钢机构</option>
                 </select></li>
-                <li class="ml20"><label>工商纳税识别号：</label><input type="text" class="required isLengthOf numOrLetter" v_maxlength="18" v_minlength="18" isLengthOfmsg="请输入18位数字或英文"  placeholder="请输入18位数字或英文" id="industrialCode"/></li>
+                <li class="ml20"><label>工商纳税识别号：</label><input type="text" class="required isLengthOf numOrLetter" v_maxlength="18" v_minlength="18" isLengthOfmsg="请输入18位数字或英文"  placeholder="请输入18位数字或英文" id="bukrs"/></li>
                 <li class="ml20"><label>电话：</label><input type="text" class="required newPhone" id="tel"/></li>
                 <li class="ml20"><label>地址：</label><input type="text" class="required" id="addr"/></li>
                 <li class="ml20"><label>备注：</label><textarea type="text" class="" id="memoInp"></textarea></li>
