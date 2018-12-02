@@ -4,6 +4,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -13,6 +14,7 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -621,18 +623,31 @@ public class ImportExcelUtils {
 		Object cellvalue = "";
 		if (cell != null) {
 			switch (cell.getCellType()) {
-				case Cell.CELL_TYPE_NUMERIC:
+				case Cell.CELL_TYPE_NUMERIC: {
+					if (HSSFDateUtil.isCellDateFormatted(cell)) {
+						//  如果是date类型则 ，获取该cell的date值
+						cellvalue = HSSFDateUtil.getJavaDate(cell.getNumericCellValue()).toString();
+					} else { // 纯数字
+						//cellvalue = String.valueOf(cell.getNumericCellValue());
+						DecimalFormat df = new DecimalFormat("#");
+						cellvalue =df.format(cell.getNumericCellValue());
+						System.out.println(cell.getNumericCellValue()+"****纯数字转换为****"+cellvalue);
+					}
+					break;
+				}
 				case Cell.CELL_TYPE_FORMULA: {
 					if (DateUtil.isCellDateFormatted(cell)) {
 						Date date = cell.getDateCellValue();
 						cellvalue = date;
 					} else {
 						cellvalue = String.valueOf(cell.getNumericCellValue());
+						System.out.println("ff"+cellvalue);
 					}
 					break;
 				}
 				case Cell.CELL_TYPE_STRING:
 					cellvalue = cell.getRichStringCellValue().getString();
+					System.out.println("Sting"+cellvalue);
 					break;
 				default:
 					cellvalue = "";
@@ -665,4 +680,27 @@ public class ImportExcelUtils {
 		}
 		return wb;
 	}
+
+	/*public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Stu s1 = new Stu("a", 1);
+		Stu s2 = new Stu("a", 44);
+		Stu s3 = new Stu("b", 2);
+		List<Stu> list = new ArrayList();
+		list.add(s1);list.add(s2);list.add(s3);
+		Map<String, Integer> map = new HashMap();
+		for(Stu ss : list){
+			map.put(ss.name, map.get(ss.name) == null ? ss.age : (map.get(ss.name) + ss.age));
+		}
+		System.out.println(map);
+	}
+	 static class Stu{
+		String name;
+		int age;
+		public Stu(String name, int age) {
+			super();
+			this.name = name;
+			this.age = age;
+		}
+	}*/
 }
