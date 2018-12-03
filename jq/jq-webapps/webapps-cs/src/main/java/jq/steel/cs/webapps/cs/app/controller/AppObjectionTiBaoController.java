@@ -202,9 +202,9 @@ public class AppObjectionTiBaoController {
     public JsonResponse<PageDTO<ObjectionTiBaoVO>> findgenzongByPage(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest){
         logger.info("参数={}",JsonUtil.toJson(jsonRequest));
         JsonResponse<PageDTO<ObjectionTiBaoVO>> jsonResponse = new JsonResponse<>();
+        String orgType = AssertContext.getOrgType();
         try {
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
-            String orgType = AssertContext.getOrgType();
             jsonRequest.getReqBody().setOrgType(orgType);
             ServiceResponse<PageDTO<ObjectionTiBaoVO>> serviceResponse = objectionTiBaoAPI.findgenzongByPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {

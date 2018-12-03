@@ -1245,6 +1245,12 @@
       <if test="deptCode != null and deptCode != ''" >
         AND B.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
       </if>
+      <if test="millSheetNos != null">
+        AND B.MILL_SHEET_NO  in
+        <foreach collection="millSheetNos"  index="index" close=")" open="(" item="item" separator=",">
+          #{millSheetNos[${index}]}
+        </foreach>
+      </if>
       <choose>
         <when test="claimState != null ">
           and a.CLAIM_STATE = #{claimState}
