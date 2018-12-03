@@ -679,6 +679,19 @@ public class SysBasicsAcctServiceImpl implements SysBasicsAcctService {
                 acctInfoVO.setOrgInfo(orgInfoVO);
                 acctInfoVO.setOrgArr(orgList);
                 result.add(acctInfoVO);
+
+                List<RoleInfo> roleInfos = roleInfoMapper.findRoleByActtId(acctInfo.getAcctId());
+                StringBuffer roles = new StringBuffer();
+                if (CollectionUtils.isNotEmpty(roleInfos)) {
+                    for (int i = 0; i < roleInfos.size(); i++) {
+                        if (i == (roleInfos.size() - 1)) {
+                            roles.append(roleInfos.get(i).getRoleTitle());
+                        } else {
+                            roles.append(roleInfos.get(i).getRoleTitle()).append(",");
+                        }
+                    }
+                }
+                acctInfoVO.setAllRole(roles.toString());
             }
 
             pageVo.setResultData(result);

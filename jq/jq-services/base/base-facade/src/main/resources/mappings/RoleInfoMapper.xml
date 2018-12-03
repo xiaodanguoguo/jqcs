@@ -547,4 +547,13 @@
   LEFT JOIN WARRANTY.ROLE_INFO C ON B.ROLE_ID = C.ROLE_ID
   WHERE  A.ACCT_ID = #{acctId} AND C.ROLE_CODE is not null
   </select>
+  <select id="findRoleByActtId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+      SELECT
+      ROLE_TITLE
+      FROM
+      WARRANTY.ACCT_INFO A
+      LEFT JOIN WARRANTY.ACCT_ROLE_REAL B ON A.ACCT_ID = B.ACCT_ID
+      LEFT JOIN WARRANTY.ROLE_INFO C ON B.ROLE_ID = C.ROLE_ID
+      WHERE  A.ACCT_ID = #{acctId}
+  </select>
 </mapper>

@@ -2,6 +2,7 @@ package jq.steel.cs.services.base.facade.dao;
 
 
 import jq.steel.cs.services.base.facade.model.RoleInfo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -50,4 +51,6 @@ public interface RoleInfoMapper {
     List<RoleInfo> getRoleCodeByAcctId(String acctId);
 
     int deleteByOrgId(String id);
+
+    List<RoleInfo> findRoleByActtId(@Param("acctId") Long acctId);
 }

@@ -128,6 +128,8 @@ public class AcctInfoVO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss" , timezone = "GMT+8")
     private Date createTime;      //创建时间
 
+    private String allRole;
+
     public String getCreateBy() {
         return createBy;
     }
@@ -527,5 +529,13 @@ public class AcctInfoVO {
 
     public void setRegType(Integer regType) {
         this.regType = regType;
+    }
+
+    public String getAllRole() {
+        return allRole;
+    }
+
+    public void setAllRole(String allRole) {
+        this.allRole = allRole;
     }
 }
