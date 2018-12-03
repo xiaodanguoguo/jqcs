@@ -714,10 +714,10 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     where MILL_SHEET_NO = #{millSheetNo}
     <choose>
       <when test="states !=null and states != ''">
-        and H.STATE  = #{states,jdbcType=VARCHAR}
+        and STATE  = #{states,jdbcType=VARCHAR}
       </when>
       <otherwise>
-        AND H.STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED')
+        AND STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED')
       </otherwise>
     </choose>
   </select>
