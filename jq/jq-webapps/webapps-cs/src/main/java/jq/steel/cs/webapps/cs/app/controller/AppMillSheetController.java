@@ -54,11 +54,13 @@ public class AppMillSheetController {
             MillSheetHostsVO vo = srpVO.getRetContent();
             String millSheetUrl = vo.getMillSheetUrl();
             String millSheetName = vo.getMillSheetName();
+            Integer downableNum = vo.getDownableNum();
             MillSheetDownloadVO downloadVO = new MillSheetDownloadVO();
             if(millSheetUrl == null){
                 jsrp.setRetDesc("URL或者文件名为null");
             }else {
                 downloadVO.setMillSheetPath(uploadConfig.getDomain()+millSheetUrl+"/"+millSheetName);
+                downloadVO.setDownableNum(downableNum);
             }
             jsrp.setRspBody(downloadVO);
             jsrp.setRetCode(JsonResponse.SUCCESS);

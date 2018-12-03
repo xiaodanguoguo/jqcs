@@ -70,6 +70,7 @@
   </resultMap>
 
   <resultMap id="MapForCoilAndPhysics" type="jq.steel.cs.services.cust.facade.model.CrmMillCoilInfo">
+    <result column="STATE" property="state"/>
     <result column="ZCHARG" property="zcharg"/>
     <result column="SPECS" property="specs"/>
     <result column="ZLOSMENGE" property="zlosmenge"/>
@@ -96,6 +97,7 @@
   </resultMap>
 
   <resultMap id="MapForCoilAndChemistry" type="jq.steel.cs.services.cust.facade.model.CrmMillCoilInfo">
+    <result column="STATE" property="state"/>
     <result column="ZCHARG" property="zcharg"/>
     <result column="SPECS" property="specs"/>
     <result column="ZLOSMENGE" property="zlosmenge"/>
@@ -560,6 +562,7 @@ MILL_COIL_INFO
 
   <select id="getChemistryListByMillSheet" resultMap="MapForCoilAndChemistry" parameterType="jq.steel.cs.services.cust.api.vo.CrmMillSheetDetailVO">
   SELECT msh.MILL_SHEET_NO,
+  msh.STATE,
   mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE,mci.ZJISHU,
   mcd.SID AS MCD_SID, mcd.KURZTEXT AS MCD_KURZTEXT, mcd.ORIGINAL_INPUT AS MCD_ORIGINAL_INPUT
   FROM MILL_SHEET_HOSTS msh

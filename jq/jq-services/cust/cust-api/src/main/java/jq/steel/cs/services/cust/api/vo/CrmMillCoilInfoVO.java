@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CrmMillCoilInfoVO implements Serializable {
+
+
     private Long sid;
 
     private String state;
