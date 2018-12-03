@@ -680,6 +680,20 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             //转换mdel
             CrmClaimApply crmClaimApply  = new CrmClaimApply();
             BeanCopyUtil.copy(objectionTiBaoVO,crmClaimApply);
+            if(crmClaimApply.getOrgType().equals("1")){
+                CrmClaimApply h = new CrmClaimApply();
+                h.setCustomerName(crmClaimApply.getOrgName());
+                List<CrmClaimApply> list =crmClaimApplyMapper.findMillSheetByCusForApp(h);
+                if(list.size()>0){
+                    List<String> idall = new ArrayList<>();
+                    for (int i = 0; i < list.size(); i++){
+                        idall.add(list.get(i).getMillSheetNo());
+                    }
+                    crmClaimApply.setMillSheetNos(idall);
+                }else {
+                    crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
+                }
+            }
             PageDTOUtil.startPage(objectionTiBaoVO);
             String startDtStr = DateFormatUtil.getStartDateStr(crmClaimApply.getStartDt());
             crmClaimApply.setStartDtStr(startDtStr);
