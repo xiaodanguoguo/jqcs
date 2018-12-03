@@ -184,7 +184,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     A.MILL_SHEET_NO
     FROM WARRANTY.MILL_SHEET_HOSTS A
     WHERE
-    A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR} AND  A.STATE IN ('EXAMINED', 'PRIVIEWED')
+    A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR} AND  A.STATE IN ('EXAMINED', 'PRIVIEWED','SPLITED')
   </select>
 
   <select id="findType" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
@@ -709,9 +709,17 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
 
   <!---->
   <select id="getUrlForApp" resultMap="BaseResultMap">
-    select MILL_SHEET_URL , MILL_SHEET_NAME
+    select MILL_SHEET_URL , MILL_SHEET_NAME , DOWNABLE_NUM
     from MILL_SHEET_HOSTS
     where MILL_SHEET_NO = #{millSheetNo}
+    <choose>
+      <when test="states !=null and states != ''">
+        and STATE  = #{states,jdbcType=VARCHAR}
+      </when>
+      <otherwise>
+        AND STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED')
+      </otherwise>
+    </choose>
   </select>
 
 

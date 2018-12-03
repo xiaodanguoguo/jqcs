@@ -19,6 +19,7 @@ function clsMethodLee$init(){
 }
 function clsMethodLee$parse(){
     initValidate(document.body.jsLee.passwordNew[0]);//初始化校验组件
+    $("#userName").val(unescape(getCookie("acctTitle"))).attr("disabled",true);
     this.operate();
 }
 

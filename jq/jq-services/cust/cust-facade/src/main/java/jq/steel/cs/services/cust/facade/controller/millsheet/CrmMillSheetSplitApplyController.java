@@ -90,4 +90,27 @@ public class CrmMillSheetSplitApplyController {
         }
     }
 
+
+
+    /**
+     * 批量拆分(不锈钢厂+碳钢厂)
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping("/splitInsertSpecial")
+    public ServiceResponse<CrmMillSheetSplitApplyVO> splitInsertSpecial(@RequestBody JsonRequest<List<CrmMillSheetSplitApplyVO>> jsonRequest) {
+        logger.info("保存 参数 = {}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<CrmMillSheetSplitApplyVO> serviceResponse = new ServiceResponse<>();
+        List<CrmMillSheetSplitApplyVO> reqBody = jsonRequest.getReqBody();
+        try {
+            CrmMillSheetSplitApplyVO downUrl = crmMillSheetSplitApplyService.splitInsertSpecial(reqBody);
+            serviceResponse.setRetContent(downUrl);
+            return serviceResponse;
+        } catch (Exception e) {
+            logger.error("保存 参数 失败 error = {}", e);
+
+            throw new BusinessException("500");
+        }
+    }
+
 }

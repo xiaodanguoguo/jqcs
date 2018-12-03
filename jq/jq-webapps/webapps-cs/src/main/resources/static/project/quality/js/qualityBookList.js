@@ -372,6 +372,9 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {//插件渲染操作
     if(statsBook == "EXAMINED" || statsBook == "DOWNLOADED" || statsBook == "PRIVIEWED" || statsBook == "PRINTED"){
         $(cloneRow).find("#applyBack").show();
     }
+    if(jsonItem.millSheetType == "S"){
+        $(cloneRow).find("#commonSplit").hide();
+    }
     //赋值title
     $(cloneRow).find("#zchehao").attr("title",jsonItem.zchehao);
     $(cloneRow).find("#zcpmc").attr("title",jsonItem.zcpmc);

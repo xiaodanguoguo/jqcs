@@ -231,14 +231,13 @@ public class ObjectionTiBaoController {
      */
     @RequestMapping(value = "/count",method = RequestMethod.POST)
     ServiceResponse<ObjectionTiBaoCountVO> getCount(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
-        logger.info("根据不同状态计数");
+        logger.info("参数 = {}",JsonUtil.toJson(jsonRequest));
         ServiceResponse<ObjectionTiBaoCountVO> serviceResponse = new ServiceResponse<>();
-
         try {
             CrmClaimApply crmClaimApply = new CrmClaimApply();
             crmClaimApply.setCreatedBy(jsonRequest.getReqBody().getCreatedBy());
-            crmClaimApply.setCustomerId(jsonRequest.getReqBody().getCustomerId());
-
+            crmClaimApply.setOrgType(jsonRequest.getReqBody().getOrgType());
+            crmClaimApply.setOrgName(jsonRequest.getReqBody().getOrgName());
             ObjectionTiBaoCountVO vo = objectionTiBaoService.getCount(crmClaimApply);
             serviceResponse.setRetContent(vo);
         } catch (Exception e) {

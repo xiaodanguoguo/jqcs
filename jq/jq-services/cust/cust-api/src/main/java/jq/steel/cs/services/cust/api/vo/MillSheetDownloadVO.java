@@ -7,7 +7,17 @@ public class MillSheetDownloadVO  {
         return millSheetPath;
     }
 
+    private Integer downableNum; //可下载次数
+
     public void setMillSheetPath(String millSheetPath) {
         this.millSheetPath = millSheetPath;
+    }
+
+    public Integer getDownableNum() {
+        return downableNum;
+    }
+
+    public void setDownableNum(Integer downableNum) {
+        this.downableNum = downableNum;
     }
 }

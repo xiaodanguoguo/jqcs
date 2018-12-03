@@ -5,7 +5,10 @@ import java.util.List;
 
 //钢卷信息
 public class CrmMillCoilInfo {
+    private String state;       //质证书状态
+
     private Long sid;
+
     private String zcharg;      //钢卷编号
 
     private String specs;       //钢卷规格
@@ -25,6 +28,14 @@ public class CrmMillCoilInfo {
     private String zlph;
 
     private MillSheetHead millSheetHead;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 
     public String getZlph() { return zlph; }
 
