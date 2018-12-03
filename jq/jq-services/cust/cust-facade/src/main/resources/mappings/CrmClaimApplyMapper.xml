@@ -346,8 +346,7 @@
           and H.CLAIM_STATE = #{claimState}
         </when>
         <otherwise>
-          and H.CLAIM_STATE = 'NEW' or H.CLAIM_STATE = 'PRESENT'
-          or H.CLAIM_STATE = 'ACCEPTANCE' or H.CLAIM_STATE = 'REJECT'
+          and H.CLAIM_STATE in ('NEW','PRESENT', 'ACCEPTANCE','REJECT')
         </otherwise>
       </choose>
 
@@ -952,9 +951,15 @@
             FROM
                 CRM_CLAIM_APPLY
         where 1 = 1
-        <if test="customerId != null and customerId != ''" >
-          and CUSTOMER_ID = #{customerId}
-        </if>
+    <if test="millSheetNos != null">
+      AND MILL_SHEET_NO  in
+      <foreach collection="millSheetNos"  index="index" close=")" open="(" item="item" separator=",">
+        #{millSheetNos[${index}]}
+      </foreach>
+    </if>
+    <if test="customerId != null and customerId != ''" >
+      AND CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
+    </if>
         <if test="claimNo != null">
           and CLAIM_NO LIKE '%' || #{claimNo} ||'%'
         </if>
@@ -1053,8 +1058,7 @@
           and a.CLAIM_STATE = #{claimState}
         </when>
         <otherwise>
-          and a.CLAIM_STATE = 'NEW' or a.CLAIM_STATE = 'PRESENT'
-          or a.CLAIM_STATE = 'ACCEPTANCE' or a.CLAIM_STATE = 'REJECT'
+          and a.CLAIM_STATE IN ('NEW','PRESENT','ACCEPTANCE','REJECT')
         </otherwise>
       </choose>
     </trim>
@@ -1144,14 +1148,11 @@
           and a.CLAIM_STATE = #{claimState}
         </when>
         <otherwise>
-          and a.CLAIM_STATE = 'NEW' or a.CLAIM_STATE = 'PRESENT'
-          or a.CLAIM_STATE = 'ACCEPTANCE' or a.CLAIM_STATE = 'REJECT'
+          and a.CLAIM_STATE IN ('NEW','PRESENT','ACCEPTANCE','REJECT')
         </otherwise>
       </choose>
     </trim>
     )
-    LEFT JOIN WARRANTY.ACCT_INFO F ON F.ACCT_ID = NEED_USER
-    WHERE SPILT_CUSTOMER = #{orgName}
   </select>
 
   <select id="findgenzongByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
@@ -1244,20 +1245,16 @@
       <if test="deptCode != null and deptCode != ''" >
         AND B.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
       </if>
-
       <choose>
         <when test="claimState != null ">
           and a.CLAIM_STATE = #{claimState}
         </when>
         <otherwise>
-          and a.CLAIM_STATE = 'ACCEPTANCE' or a.CLAIM_STATE = 'REJECT' or a.CLAIM_STATE = 'HANDLE'
-          or a.CLAIM_STATE = 'INVESTIGATION' or a.CLAIM_STATE = 'END' or a.CLAIM_STATE = 'EVALUATE'
-          or a.CLAIM_STATE = 'ADOPT'
+          and a.CLAIM_STATE IN ('ACCEPTANCE','REJECT','HANDLE','INVESTIGATION','END','EVALUATE','ADOPT')
         </otherwise>
       </choose>
     </trim>)
     LEFT JOIN WARRANTY.ACCT_INFO F ON F.NAME = NEED_USER
-    WHERE SPILT_CUSTOMER = #{orgName}
   </select>
 
   <!--根据claimNo查询-->
