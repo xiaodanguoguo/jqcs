@@ -204,6 +204,8 @@ public class AppObjectionTiBaoController {
         JsonResponse<PageDTO<ObjectionTiBaoVO>> jsonResponse = new JsonResponse<>();
         try {
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            String orgType = AssertContext.getOrgType();
+            jsonRequest.getReqBody().setOrgType(orgType);
             ServiceResponse<PageDTO<ObjectionTiBaoVO>> serviceResponse = objectionTiBaoAPI.findgenzongByPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
