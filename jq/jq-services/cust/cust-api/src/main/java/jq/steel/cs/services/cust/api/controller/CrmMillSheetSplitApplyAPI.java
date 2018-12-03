@@ -41,4 +41,12 @@ public interface CrmMillSheetSplitApplyAPI {
      */
     @RequestMapping(value = "/split/splitInsertAll",method = RequestMethod.POST)
     ServiceResponse<CrmMillSheetSplitApplyVO> splitInsertAll(@RequestBody JsonRequest<List<CrmMillSheetSplitApplyVO>> jsonRequest);
+
+    /**
+     *  批量拆分(不锈钢厂+碳钢厂)
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/split/splitInsertSpecial",method = RequestMethod.POST)
+    ServiceResponse<CrmMillSheetSplitApplyVO> splitInsertSpecial(@RequestBody JsonRequest<List<CrmMillSheetSplitApplyVO>> jsonRequest);
 }

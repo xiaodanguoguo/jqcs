@@ -212,6 +212,24 @@ WARRANTY.MILL_COIL_INFO
 
 
 
+  <!--不锈钢厂碳钢厂拆分校验是否有此卷-->
+  <select id="findVolumeNeed" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo">
+    SELECT
+    ZCHEHAO,
+    ZCHARG,
+    SPECS,
+    ZJISHU,
+    ZLOSMENGE,
+    SURPLUS_ZJISHU,
+    SURPLUS_ZLOSMENGE,
+    MILL_SHEET_NO
+    FROM
+    WARRANTY.MILL_COIL_INFO
+    WHERE  ZCHARG= #{zcharg,jdbcType=VARCHAR}
+  </select>
+
+
+
 
   <select id="findIsTrue" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo">
    SELECT
