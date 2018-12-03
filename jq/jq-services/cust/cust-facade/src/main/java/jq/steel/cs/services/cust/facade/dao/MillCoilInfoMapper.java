@@ -57,6 +57,9 @@ public interface MillCoilInfoMapper {
 
     List<MillCoilInfo> findVolume(MillCoilInfo millCoilInfo);
 
+    List<MillCoilInfo> findVolumeNeed(MillCoilInfo millCoilInfo);
+
+
 
     //通过卷号查询卷相关信息
     MillCoilInfo selectByZcharg(MillCoilInfoVO vo);
