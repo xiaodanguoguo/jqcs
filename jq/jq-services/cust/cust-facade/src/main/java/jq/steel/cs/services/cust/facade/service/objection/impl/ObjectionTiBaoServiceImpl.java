@@ -555,6 +555,21 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
 
     @Override
     public ObjectionTiBaoCountVO getCount(CrmClaimApply crmClaimApply) {
+       System.out.println(crmClaimApply.getOptionType());
+        if(crmClaimApply.getOrgType().equals("1")){
+            CrmClaimApply h = new CrmClaimApply();
+            h.setCustomerName(crmClaimApply.getOrgName());
+            List<CrmClaimApply> list =crmClaimApplyMapper.findMillSheetByCus(h);
+            if(list.size()>0){
+                List<String> idall = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++){
+                    idall.add(list.get(i).getMillSheetNo());
+                }
+                crmClaimApply.setMillSheetNos(idall);
+            }else {
+                crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
+            }
+        }
         ObjectionTiBaoCountVO vo = crmClaimApplyMapper.getCount(crmClaimApply);
         vo.setAll(vo.getCreated() + vo.getPresent() + vo.getReject());
 

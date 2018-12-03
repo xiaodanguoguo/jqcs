@@ -70,21 +70,13 @@ public class AppObjectionTiBaoController {
      */
     @RequestMapping(value = "/count",method = RequestMethod.POST)
     public JsonResponse<ObjectionTiBaoCountVO> getCount(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest){
-        logger.info("根据不同状态计数");
+        logger.info("参数={}",JsonUtil.toJson(jsonRequest));
         JsonResponse<ObjectionTiBaoCountVO> jsonResponse = new JsonResponse<>();
-
+        String orgType = AssertContext.getOrgType();
+        String orgName =AssertContext.getOrgName();
         try {
-            ObjectionTiBaoVO objectionTiBaoVO = new ObjectionTiBaoVO();
-            objectionTiBaoVO.setCustomerId(AssertContext.getOrgCode());
-            // 判断是否有审核权限
-//            ServiceResponse<Map<String, String>> authResponse = backMemberAPI.getAcctAuth(AssertContext.getAcctId());
-//            Map<String, String> map = authResponse.getRetContent();
-//            if(map.get("50") != null){
-//                objectionTiBaoVO.setCustomerId(null);
-//            }
-
-            jsonRequest.setReqBody(objectionTiBaoVO);
-
+            jsonRequest.getReqBody().setOrgType(orgType);
+            jsonRequest.getReqBody().setOrgName(orgName);
             ServiceResponse<ObjectionTiBaoCountVO> serviceResponse = objectionTiBaoAPI.getCount(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
