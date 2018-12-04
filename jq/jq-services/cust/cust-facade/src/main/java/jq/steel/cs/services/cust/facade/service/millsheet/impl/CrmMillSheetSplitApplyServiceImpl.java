@@ -98,7 +98,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             Map<String, Object> map = new HashMap<String, Object>();
             this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitInfo.getMillsheetType(),
                     crmMillSheetSplitInfo.getZcharg(), crmMillSheetSplitInfo.getZjishu(), crmMillSheetSplitInfo.getZlosmenge(),
-                    crmMillSheetSplitInfo.getSpiltCustomer());
+                    crmMillSheetSplitInfo.getSpiltCustomer(),crmMillSheetSplitInfo.getSpecs());
         }
         CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVOS = new CrmMillSheetSplitApplyVO();
         crmMillSheetSplitApplyVOS.setMillsheetNo(newMillSheetNo);
@@ -528,7 +528,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                         cmssi.getSpiltCustomer(), cmssi.getZchehao());*/
                 this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitInfo.getMillsheetType(),
                         cmssi.getZcharg(), cmssi.getZjishu(), cmssi.getZlosmenge(),
-                        cmssi.getSpiltCustomer());
+                        cmssi.getSpiltCustomer(),cmssi.getSpecs());
                 millSheetNos += ',' + newMillSheetNo;
             }
         }
@@ -887,7 +887,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                         cmssi.getSpiltCustomer(), cmssi.getZchehao());*/
                 this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitInfo.getMillsheetType(),
                         cmssi.getZcharg(), cmssi.getZjishu(), cmssi.getZlosmenge(),
-                        cmssi.getSpiltCustomer());
+                        cmssi.getSpiltCustomer(),cmssi.getSpecs());
                 millSheetNos += ',' + newMillSheetNo;
             }
         }
@@ -1003,7 +1003,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     crmMillSheetSplitInfo.getSpiltCustomer(), crmMillSheetSplitInfo.getZchehao());*/
             this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitApply1.getMillsheetType(),
                     crmMillSheetSplitInfo.getZcharg(), crmMillSheetSplitInfo.getZjishu(), crmMillSheetSplitInfo.getZlosmenge(),
-                    crmMillSheetSplitInfo.getSpiltCustomer());
+                    crmMillSheetSplitInfo.getSpiltCustomer(),crmMillSheetSplitInfo.getSpecs());
         }
         CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVOS = new CrmMillSheetSplitApplyVO();
         crmMillSheetSplitApplyVOS.setMillsheetNo(newMillSheetNo);
@@ -1012,8 +1012,8 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
 
 
     //调用存储过程（无车号）
-    void cunChu(String inmillSheetNoOld, String inmillSheetNo, String inmillSheetType, String inzcharg, Long inzjishu, BigDecimal inzlosmenge, String inspiltCustomer) {
-        String sql = "{call PRO_MILL_SPILT(?,?,?,?,?,?,?)}";
+    void cunChu(String inmillSheetNoOld, String inmillSheetNo, String inmillSheetType, String inzcharg, Long inzjishu, BigDecimal inzlosmenge, String inspiltCustomer,String inspecs) {
+        String sql = "{call PRO_MILL_SPILT(?,?,?,?,?,?,?,?)}";
         Connection conn = null;
         //CallableStatement是用于执行SQL存储过程的接口
         CallableStatement call = null;
@@ -1030,6 +1030,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             //call.setInt(6, inzlosmenge);
             call.setBigDecimal(6, inzlosmenge);
             call.setString(7, inspiltCustomer);
+            call.setString(8, inspecs);
             //对于out参数，申明
             //call.registerOutParameter(2, oracle.jdbc.OracleTypes.VARCHAR);
             //call.registerOutParameter(3, oracle.jdbc.OracleTypes.NUMBER);
