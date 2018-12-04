@@ -43,7 +43,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         String acctName = crmMillSheetSplitApplyVOList.get(0).getAcctName();
         List<CrmMillSheetSplitInfo> crmMillSheetSplitInfoList = BeanCopyUtil.copyList(crmMillSheetSplitApplyVOList, CrmMillSheetSplitInfo.class);
         //查询一下最大质证书编号
-        MillSheetHosts millSheetHosts = new MillSheetHosts();
+       /* MillSheetHosts millSheetHosts = new MillSheetHosts();
         millSheetHosts.setMillSheetNo(crmMillSheetSplitInfoList.get(0).getMillsheetNo());
         List<MillSheetHosts> url = millSheetHostsMapper.findUrlList(millSheetHosts);
         String mill = "";
@@ -52,6 +52,19 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             mill = crmMillSheetSplitInfoList.get(0).getMillsheetNo() + "00";
         } else {
             mill = url.get(0).getSplitMaxValue();
+        }*/
+        String mill = "";
+        CrmMillSheetSplitInfo cmss1 = new CrmMillSheetSplitInfo();
+        cmss1.setMillsheetNo(crmMillSheetSplitInfoList.get(0).getMillsheetNo());
+        cmss1.setStatus("1");
+        List<CrmMillSheetSplitInfo> alist = crmMillSheetSplitInfoMapper.findMillSheetNo(cmss1);
+        if(alist.size()>0){
+            Map<String, Object> map = new HashMap<>();
+            map.put("millsheetNo", crmMillSheetSplitInfoList.get(0).getMillsheetNo());
+            mill= crmMillSheetSplitInfoMapper.findMillSheetNoMax(map);
+            System.out.println("拆分最大值"+mill);
+        }else {
+            mill = crmMillSheetSplitInfoList.get(0).getMillsheetNo() + "00";
         }
 
         String regEx = "[^0-9]";
@@ -406,13 +419,29 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                 MillSheetHosts millSheetHosts = new MillSheetHosts();
                 millSheetHosts.setMillSheetNo(cmssi.getMillsheetNo());
                 List<MillSheetHosts> url = millSheetHostsMapper.findUrlList(millSheetHosts);
-                String mill = "";
+                /*String mill = "";
                 if (url.get(0).getSplitMaxValue() == null) {
                     //质证书编号+00
                     mill = cmssi.getMillsheetNo() + "00";
                 } else {
                     mill = url.get(0).getSplitMaxValue();
+                }*/
+
+                String mill = "";
+                CrmMillSheetSplitInfo cmss1 = new CrmMillSheetSplitInfo();
+                cmss1.setMillsheetNo(cmssi.getMillsheetNo());
+                cmss1.setStatus("1");
+                List<CrmMillSheetSplitInfo> alist = crmMillSheetSplitInfoMapper.findMillSheetNo(cmss1);
+                if(alist.size()>0){
+                    Map<String, Object> map1 = new HashMap<>();
+                    map1.put("millsheetNo", cmssi.getMillsheetNo());
+                    mill= crmMillSheetSplitInfoMapper.findMillSheetNoMax(map1);
+                    System.out.println("拆分最大值"+mill);
+                }else {
+                    mill = crmMillSheetSplitInfoList.get(0).getMillsheetNo() + "00";
                 }
+
+
                 String regEx = "[^0-9]";
                 Pattern p = Pattern.compile(regEx);
                 Matcher m = p.matcher(mill);
@@ -767,13 +796,28 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                 MillSheetHosts millSheetHosts = new MillSheetHosts();
                 millSheetHosts.setMillSheetNo(cmssi.getMillsheetNo());
                 List<MillSheetHosts> url = millSheetHostsMapper.findUrlList(millSheetHosts);
-                String mill = "";
+              /*  String mill = "";
                 if (url.get(0).getSplitMaxValue() == null) {
                     //质证书编号+00
                     mill = cmssi.getMillsheetNo() + "00";
                 } else {
                     mill = url.get(0).getSplitMaxValue();
+                }*/
+                String mill = "";
+                CrmMillSheetSplitInfo cmss1 = new CrmMillSheetSplitInfo();
+                cmss1.setMillsheetNo(cmssi.getMillsheetNo());
+                cmss1.setStatus("1");
+                List<CrmMillSheetSplitInfo> alist = crmMillSheetSplitInfoMapper.findMillSheetNo(cmss1);
+                if(alist.size()>0){
+                    Map<String, Object> map1 = new HashMap<>();
+                    map1.put("millsheetNo", cmssi.getMillsheetNo());
+                    mill= crmMillSheetSplitInfoMapper.findMillSheetNoMax(map1);
+                    System.out.println("拆分最大值"+mill);
+                }else {
+                    mill = crmMillSheetSplitInfoList.get(0).getMillsheetNo() + "00";
                 }
+
+
                 String regEx = "[^0-9]";
                 Pattern p = Pattern.compile(regEx);
                 Matcher m = p.matcher(mill);
@@ -882,13 +926,28 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         MillSheetHosts millSheetHosts = new MillSheetHosts();
         millSheetHosts.setMillSheetNo(crmMillSheetSplitInfoList.get(0).getMillsheetNo());
         List<MillSheetHosts> url = millSheetHostsMapper.findUrlList(millSheetHosts);
-        String mill = "";
+        /*String mill = "";
         if (url.get(0).getSplitMaxValue() == null) {
             //质证书编号+00
             mill = crmMillSheetSplitInfoList.get(0).getMillsheetNo() + "00";
         } else {
             mill = url.get(0).getSplitMaxValue();
+        }*/
+        String mill = "";
+        CrmMillSheetSplitInfo cmss1 = new CrmMillSheetSplitInfo();
+        cmss1.setMillsheetNo(crmMillSheetSplitInfoList.get(0).getMillsheetNo());
+        cmss1.setStatus("1");
+        List<CrmMillSheetSplitInfo> alist = crmMillSheetSplitInfoMapper.findMillSheetNo(cmss1);
+        if(alist.size()>0){
+            Map<String, Object> map = new HashMap<>();
+            map.put("millsheetNo", crmMillSheetSplitInfoList.get(0).getMillsheetNo());
+            mill= crmMillSheetSplitInfoMapper.findMillSheetNoMax(map);
+            System.out.println("拆分最大值"+mill);
+        }else {
+            mill = crmMillSheetSplitInfoList.get(0).getMillsheetNo() + "00";
         }
+
+
         String regEx = "[^0-9]";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(mill);
@@ -991,7 +1050,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
     }
 
 
-    //申请拆分数据插入（车号）
+    //板卷类型拆分数据插入（拆分单位和车号）
     @Override
     public CrmMillSheetSplitApplyVO splitInsertNeed1(List<CrmMillSheetSplitInfo> crmMillSheetSplitInfoList) {
         String acctName = crmMillSheetSplitInfoList.get(0).getAcctName();
@@ -999,13 +1058,28 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         MillSheetHosts millSheetHosts = new MillSheetHosts();
         millSheetHosts.setMillSheetNo(crmMillSheetSplitInfoList.get(0).getMillsheetNo());
         List<MillSheetHosts> url = millSheetHostsMapper.findUrlList(millSheetHosts);
-        String mill = "";
+        /*String mill = "";
         if (url.get(0).getSplitMaxValue() == null) {
             //质证书编号+00
             mill = crmMillSheetSplitInfoList.get(0).getMillsheetNo() + "00";
         } else {
             mill = url.get(0).getSplitMaxValue();
+        }*/
+
+        String mill = "";
+        CrmMillSheetSplitInfo cmss1 = new CrmMillSheetSplitInfo();
+        cmss1.setMillsheetNo(crmMillSheetSplitInfoList.get(0).getMillsheetNo());
+        cmss1.setStatus("1");
+        List<CrmMillSheetSplitInfo> alist = crmMillSheetSplitInfoMapper.findMillSheetNo(cmss1);
+        if(alist.size()>0){
+            Map<String, Object> map = new HashMap<>();
+            map.put("millsheetNo", crmMillSheetSplitInfoList.get(0).getMillsheetNo());
+            mill= crmMillSheetSplitInfoMapper.findMillSheetNoMax(map);
+            System.out.println("拆分最大值"+mill);
+        }else {
+            mill = crmMillSheetSplitInfoList.get(0).getMillsheetNo() + "00";
         }
+
         String regEx = "[^0-9]";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(mill);
