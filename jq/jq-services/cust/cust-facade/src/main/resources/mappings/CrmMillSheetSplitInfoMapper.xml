@@ -150,6 +150,9 @@ SPLIT_APPLY_ID = #{splitApplyId,jdbcType=NUMERIC}
       <if test="status != null" >
         STATUS,
       </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="splitApplyId != null" >
@@ -208,6 +211,9 @@ SPLIT_APPLY_ID = #{splitApplyId,jdbcType=NUMERIC}
       </if>
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>

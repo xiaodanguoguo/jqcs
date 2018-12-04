@@ -13,6 +13,7 @@ public interface CrmMillSheetSplitApplyService {
     List<CrmMillSheetSplitDetailVO> splitFindAll(CrmMillSheetSplitDetailVO crmMillSheetSplitDetailVO);
     CrmMillSheetSplitApplyVO splitInsertAll(List<CrmMillSheetSplitApplyVO> crmMillSheetSplitApplyVOList);
     CrmMillSheetSplitApplyVO splitInsertNeed(List<CrmMillSheetSplitInfo> record);
+    CrmMillSheetSplitApplyVO splitInsertNeed1(List<CrmMillSheetSplitInfo> record);
     CrmMillSheetSplitApplyVO splitInsertSpecial(List<CrmMillSheetSplitApplyVO> crmMillSheetSplitApplyVOList);
 
 }

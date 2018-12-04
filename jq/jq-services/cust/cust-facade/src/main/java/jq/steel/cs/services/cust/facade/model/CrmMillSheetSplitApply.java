@@ -8,6 +8,9 @@ import java.util.List;
 
 public class CrmMillSheetSplitApply {
 
+    //1批导拆分2板卷拆分
+    private String type;
+
 
     private  String millSheetNo;
 
@@ -77,6 +80,14 @@ public class CrmMillSheetSplitApply {
     private  String spiltCustomer;
 
     private String acctName;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getAcctName() {
         return acctName;

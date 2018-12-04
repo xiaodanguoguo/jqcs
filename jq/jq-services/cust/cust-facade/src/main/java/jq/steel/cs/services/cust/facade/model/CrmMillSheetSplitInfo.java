@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class CrmMillSheetSplitInfo {
 
+    //1批导拆分2板卷拆分
+    private String type;
 
     private String status;
 
@@ -83,6 +85,15 @@ public class CrmMillSheetSplitInfo {
     private String specifications;
 
     private String acctName;
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getAcctName() {
         return acctName;
