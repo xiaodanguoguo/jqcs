@@ -201,6 +201,8 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
                 crmClaimLog.setOpMemo("外部调查报告提交时有数据进行修改");
                 crmClaimLogMapper.insert(crmClaimLog);
             }else {
+                crmClaimOutInquire.setCreateBy(acctName);
+                crmClaimOutInquire.setCreateDt(new Date());
                 crmClaimOutInquireMapper.insertSelective(crmClaimOutInquire);
                 //日志记录
                 CrmClaimLog crmClaimLog = new CrmClaimLog();

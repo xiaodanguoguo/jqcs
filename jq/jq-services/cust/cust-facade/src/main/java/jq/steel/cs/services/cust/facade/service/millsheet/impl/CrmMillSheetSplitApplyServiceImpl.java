@@ -594,9 +594,9 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     millSheetHosts.setMillSheetNo(cmssi.getMillsheetNo());
                     //质证书编号是否允许拆分
                     List<MillSheetHosts> alist = millSheetHostsMapper.findAllow(millSheetHosts);
-                    if (alist.size() > 0) {
+                    if (alist.size() >0) {
                     } else {
-                        findAllow += "," + millSheetHosts.getMillSheetNo() + "状态不允许拆分";
+                        findAllow += ",'" +cmssi.getZcharg()+"'卷的'"+ millSheetHosts.getMillSheetNo() + "'质证书状态不允许拆分";
                     }
                     //是否是孙质证书
                     List<MillSheetHosts> blist = millSheetHostsMapper.findType(millSheetHosts);
@@ -624,7 +624,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     }
                 }
             } else {
-                findZcharg += "," + zchrags.get(0).getZcharg() + "卷不存在。";
+                findZcharg += "," + cmssi.getZcharg() + "卷不存在";
             }
 
         }

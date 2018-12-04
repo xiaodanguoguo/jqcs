@@ -204,14 +204,6 @@ public class CrmMillSheetSplitApplyController {
                             }
                         }
                         String b = "";
-                        for (int i = 1; i <= a; i++) {
-                            Map<Integer, Object> mapItem = map.get(i);
-                            for (int j = 0; j < mapItem.size(); j++) {
-                                if (map.get(i).get(j).equals("")) {
-                                   // b = "b";
-                                }
-                            }
-                        }
                         if (a > 0) {
                             List<CrmMillSheetSplitApplyVO> applyVOS = new ArrayList<>();
                             for (int i = 1; i <= a; i++) {
