@@ -194,7 +194,7 @@
       <if test="entId != null and entId!='' " >
         ENT_ID = #{entId},
       </if>
-      <if test="roleCode != null and roleCode!=''" >
+      <if test="roleCode != null" >
         ROLE_CODE = #{roleCode},
       </if>
       <if test="roleTitle != null and roleTitle!='' " >
