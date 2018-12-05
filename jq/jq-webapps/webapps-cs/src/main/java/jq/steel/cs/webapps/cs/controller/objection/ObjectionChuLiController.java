@@ -258,7 +258,6 @@ public class ObjectionChuLiController {
             if (serviceResponse.getRetContent().getTemplateType()==1){
                 report = uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern()+serviceResponse.getRetContent().getReport();
             }else if(jsonRequest.getReqBody().getTemplateType()==3) {
-                //report = uploadConfig.getDomain() +"/"+serviceResponse.getRetContent().getReport();
                 String  pdfName = jsonRequest.getReqBody().getClaimNo() + "S.pdf";
                 String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"shoulidan");
                 String hh1 = report1.replace("/data/kf_web","/res");
@@ -391,10 +390,6 @@ public class ObjectionChuLiController {
                     String  fileName = a.substring(a.lastIndexOf("/")+1);
                     response.setHeader("Content-Disposition", "attachment;fileName="+fileName);
                 }else if(templateType ==2 ){
-                    /*report = serviceResponse.getRetContent().get(0).getReport();
-                    String a = serviceResponse.getRetContent().get(0).getReport();
-                    String  fileName = a.substring(a.lastIndexOf("/")+1);
-                    response.setHeader("Content-Disposition", "attachment;fileName="+fileName);*/
                     String  pdfName = claimNo + "Y.pdf";
                     report = createPdf.createPdf(claimNo,createPdfPath,pdfName,"yiyibaogao");
                     String  fileName = report.substring(report.lastIndexOf("/")+1);
@@ -454,10 +449,20 @@ public class ObjectionChuLiController {
                 }
 
             }
+            //删除文件
+            boolean success = deleteDir(new File(report));
+            if (success) {
+                System.out.println("Successfully deleted populated directory: " + report);
+            } else {
+                System.out.println("Failed to delete populated directory: " + report);
+            }
         } catch (BusinessException e) {
             logger.error("下载报错", e);
             e.printStackTrace();
         }
+
+
+
     }
 
     /**
@@ -496,5 +501,30 @@ public class ObjectionChuLiController {
 
         return jsonResponse;
 
+    }
+
+
+    /**
+     * 递归删除目录下的所有文件及子目录下所有文件
+     *
+     * @param dir
+     *            将要删除的文件目录
+     * @return boolean Returns "true" if all deletions were successful. If a
+     *         deletion fails, the method stops attempting to delete and returns
+     *         "false".
+     */
+    private static boolean deleteDir(File dir) {
+        if (dir.isDirectory()) {
+            String[] children = dir.list();
+            // 递归删除目录中的子目录下
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+        // 目录此时为空，可以删除
+        return dir.delete();
     }
 }
