@@ -10,6 +10,10 @@ import java.util.List;
 //异议统计台账
 public class ObjectionLedgerVO {
 
+    private  String orgName;
+
+    private  String orgType;
+
     //厂家code
     private List<String> deptCodes;
 
@@ -152,6 +156,21 @@ public class ObjectionLedgerVO {
 
     private String zcpmc;
 
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
+    public String getOrgType() {
+        return orgType;
+    }
+
+    public void setOrgType(String orgType) {
+        this.orgType = orgType;
+    }
 
     public BigDecimal getObjectionNumCount() {
         return objectionNumCount;

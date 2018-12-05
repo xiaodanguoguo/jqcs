@@ -45,6 +45,21 @@ public class ObjectionLendgerServiceImpl implements ObjectionLendgerService{
             if(objectionLedger.getDeptCode()!=null&& objectionLedger.getDeptCode()!=""){
                 //objectionLedger.setDeptCodes(null);
             }
+            // 如果orgType为1为销售公司设置customerid 为质证书的zkunner
+            if(objectionLedgerVO.getOrgType().equals("1")){
+                CrmClaimApply h = new CrmClaimApply();
+                h.setCustomerName(objectionLedger.getOrgName());
+                List<CrmClaimApply> list =crmClaimApplyMapper.findMillSheetByCus(h);
+                if(list.size()>0){
+                    List<String> idall = new ArrayList<>();
+                    for (int i = 0; i < list.size(); i++){
+                        idall.add(list.get(i).getMillSheetNo());
+                    }
+                    objectionLedger.setMillSheetNos(idall);
+                }else {
+                    objectionLedger.setCustomerId(objectionLedger.getOrgName());
+                }
+            }
             PageDTOUtil.startPage(objectionLedgerVO);
             String startDtStr = DateFormatUtil.getStartDateStr(objectionLedger.getStartDt());
             objectionLedger.setStartDtStr(startDtStr);
@@ -148,6 +163,24 @@ public class ObjectionLendgerServiceImpl implements ObjectionLendgerService{
         //转换mdel
         ObjectionLedger objectionLedger  = new ObjectionLedger();
         BeanCopyUtil.copy(objectionLedgerVO,objectionLedger);
+        if(objectionLedger.getDeptCode()!=null&& objectionLedger.getDeptCode()!=""){
+            //objectionLedger.setDeptCodes(null);
+        }
+        // 如果orgType为1为销售公司设置customerid 为质证书的zkunner
+        if(objectionLedgerVO.getOrgType().equals("1")){
+            CrmClaimApply h = new CrmClaimApply();
+            h.setCustomerName(objectionLedger.getOrgName());
+            List<CrmClaimApply> list =crmClaimApplyMapper.findMillSheetByCus(h);
+            if(list.size()>0){
+                List<String> idall = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++){
+                    idall.add(list.get(i).getMillSheetNo());
+                }
+                objectionLedger.setMillSheetNos(idall);
+            }else {
+                objectionLedger.setCustomerId(objectionLedger.getOrgName());
+            }
+        }
         PageDTOUtil.startPage(objectionLedgerVO);
         String startDtStr = DateFormatUtil.getStartDateStr(objectionLedger.getStartDt());
         objectionLedger.setStartDtStr(startDtStr);

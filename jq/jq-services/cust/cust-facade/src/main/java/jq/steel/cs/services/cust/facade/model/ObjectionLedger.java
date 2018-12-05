@@ -8,6 +8,12 @@ import java.util.List;
 
 public class ObjectionLedger {
 
+    private List<String> millSheetNos;
+
+    private String customerId;
+
+    private  String orgName;
+
     //厂家code
     private List<String> deptCodes;
 
@@ -136,6 +142,30 @@ public class ObjectionLedger {
 
     //赔偿金额（小写）
     private BigDecimal agreementAmount;
+
+    public List<String> getMillSheetNos() {
+        return millSheetNos;
+    }
+
+    public void setMillSheetNos(List<String> millSheetNos) {
+        this.millSheetNos = millSheetNos;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
 
     public BigDecimal getObjectionNumCount() {
         return objectionNumCount;
