@@ -14,6 +14,8 @@ public interface CrmMillSheetSplitInfoMapper {
 
     List<CrmMillSheetSplitInfo> findByParams(CrmMillSheetSplitInfo record);
 
+    List<CrmMillSheetSplitInfo> findMillSheetNo(CrmMillSheetSplitInfo record);
+
     void getDynamicSeq(Map<String,Object> map);
 
     List<CrmMillSheetSplitInfo> findMillSheetForSaleCompany(CrmMillSheetSplitInfoVO vo);
@@ -21,4 +23,7 @@ public interface CrmMillSheetSplitInfoMapper {
     void  updateStatus(CrmMillSheetSplitInfo record);
 
     List<CrmMillSheetSplitInfo> findDate(CrmMillSheetSplitInfo record);
+
+
+    String findMillSheetNoMax(Map<String, Object> map);
 }

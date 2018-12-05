@@ -44,6 +44,34 @@ WHERE
 SPLIT_APPLY_ID = #{splitApplyId,jdbcType=NUMERIC}
   </select>
 
+  <select id="findMillSheetNo" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitInfo">
+    SELECT
+    MILLSHEET_DETAIL_ID,
+    MILLSHEET_NO,
+    FATHER_MILLSHEET_NO,
+    QUALITY_CERTIFICATE_TYPE,
+    SALE_PARTY,
+    CREATION_TIME,
+    FURNACE_NUMBER,
+    ZJISHU,
+    WEIGHT,
+    LICENSE_NUMBER,
+    PRODUCT_CATEGORY,
+    SPECIFICATIONS
+    FROM
+    CRM_MILL_SHEET_SPLIT_INFO
+    WHERE
+    FATHER_MILLSHEET_NO = #{millsheetNo,jdbcType=VARCHAR}  AND STATUS=#{status,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="findMillSheetNoMax" resultType="String" parameterType="java.util.Map">
+   SELECT MAX(MILLSHEET_NO) FROM CRM_MILL_SHEET_SPLIT_INFO WHERE FATHER_MILLSHEET_NO=#{millsheetNo} AND STATUS='1'
+  </select>
+
+
+
+
   <select id="findDate" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitInfo">
     SELECT
     MILLSHEET_DETAIL_ID,
