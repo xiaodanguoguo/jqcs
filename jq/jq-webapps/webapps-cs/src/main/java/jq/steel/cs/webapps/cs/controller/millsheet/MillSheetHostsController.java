@@ -306,7 +306,6 @@ public class MillSheetHostsController {
         ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findUrl1(jsonRequest1);
         String millSheetUrlL ="";
         String createPdfPath = uploadConfig.getDomain();
-        //打印
         if (jsonRequest1.getReqBody().size()>1){
             //从质证书服务器获取文件到本地   重新生成文件
             String millSheetUrlName = "";
@@ -358,6 +357,32 @@ public class MillSheetHostsController {
             String savepath =this.sheetNameUrl(millSheetUrlName,millSheetUrlL);
             String mPath = createPdfPath+savepath;
             serviceResponse.getRetContent().get(0).setReport(savepath);
+
+            String fPath =  serviceResponse.getRetContent().get(0).getReport();
+            File file = new File(fPath);
+            if (file.exists()){
+                byte[] data = null;
+                try {
+                    FileInputStream input = new FileInputStream(file);
+                    data = new byte[input.available()];
+                    input.read(data);
+                    response.getOutputStream().write(data);
+                    input.close();
+
+                    boolean success = deleteDir(new File(fPath));
+                    if (success) {
+                        System.out.println("Successfully deleted populated directory: " + fPath);
+                    } else {
+                        System.out.println("Failed to delete populated directory: " + fPath);
+                    }
+                } catch (Exception e) {
+                    logger.error("pdf文件处理异常：" + e.getMessage());
+                }
+
+            }else{
+                return;
+            }
+
         }else {
             if (serviceResponse.getRetContent().get(0).getMillSheetUrl()!=null&& serviceResponse.getRetContent().get(0).getMillSheetName()!=null){
                 //修改为已打印并记录日志
@@ -398,26 +423,28 @@ public class MillSheetHostsController {
                     serviceResponse.getRetContent().get(0).setReport(millSheetPath);
                 }
             }
+            String fPath =  serviceResponse.getRetContent().get(0).getReport();
+            File file = new File(fPath);
+            if (file.exists()){
+                byte[] data = null;
+                try {
+                    FileInputStream input = new FileInputStream(file);
+                    data = new byte[input.available()];
+                    input.read(data);
+                    response.getOutputStream().write(data);
+                    input.close();
+                } catch (Exception e) {
+                    logger.error("pdf文件处理异常：" + e.getMessage());
+                }
 
-        }
-        String fPath =  serviceResponse.getRetContent().get(0).getReport();
-        File file = new File(fPath);
-        if (file.exists()){
-            byte[] data = null;
-            try {
-                FileInputStream input = new FileInputStream(file);
-                data = new byte[input.available()];
-                input.read(data);
-                response.getOutputStream().write(data);
-                input.close();
-            } catch (Exception e) {
-                logger.error("pdf文件处理异常：" + e.getMessage());
+            }else{
+                return;
             }
 
-        }else{
-            return;
         }
+
     }
+
 
     //打印跳转界面返回pdf文件流
     @RequestMapping(value = "/preview1/{PARAM}")
@@ -465,6 +492,34 @@ public class MillSheetHostsController {
             String savepath =this.sheetNameUrl(millSheetUrlName,millSheetUrlL);
             String mPath = createPdfPath+savepath;
             serviceResponse.getRetContent().get(0).setReport(savepath);
+
+
+            String fPath =  serviceResponse.getRetContent().get(0).getReport();
+            File file = new File(fPath);
+            if (file.exists()){
+                byte[] data = null;
+                try {
+                    FileInputStream input = new FileInputStream(file);
+                    data = new byte[input.available()];
+                    input.read(data);
+                    response.getOutputStream().write(data);
+                    input.close();
+
+                    //删除文件
+                    boolean success = deleteDir(new File(fPath));
+                    if (success) {
+                        System.out.println("Successfully deleted populated directory: " + fPath);
+                    } else {
+                        System.out.println("Failed to delete populated directory: " + fPath);
+                    }
+                } catch (Exception e) {
+                    logger.error("pdf文件处理异常：" + e.getMessage());
+                }
+
+            }else{
+                return;
+            }
+
         }else {
             if(serviceResponse.getRetContent().get(0).getSpecialNeed().equals("Y")){
                 System.out.println("特殊需求文档下载中");
@@ -491,24 +546,26 @@ public class MillSheetHostsController {
                 //this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
                 serviceResponse.getRetContent().get(0).setReport(millSheetPath);
             }
-        }
-        String fPath =  serviceResponse.getRetContent().get(0).getReport();
-        File file = new File(fPath);
-        if (file.exists()){
-            byte[] data = null;
-            try {
-                FileInputStream input = new FileInputStream(file);
-                data = new byte[input.available()];
-                input.read(data);
-                response.getOutputStream().write(data);
-                input.close();
-            } catch (Exception e) {
-                logger.error("pdf文件处理异常：" + e.getMessage());
-            }
 
-        }else{
-            return;
+            String fPath =  serviceResponse.getRetContent().get(0).getReport();
+            File file = new File(fPath);
+            if (file.exists()){
+                byte[] data = null;
+                try {
+                    FileInputStream input = new FileInputStream(file);
+                    data = new byte[input.available()];
+                    input.read(data);
+                    response.getOutputStream().write(data);
+                    input.close();
+                } catch (Exception e) {
+                    logger.error("pdf文件处理异常：" + e.getMessage());
+                }
+
+            }else{
+                return;
+            }
         }
+
     }
 
     private String sheetNameUrl(String millSheetUrlName,String millSheeturl) {
@@ -625,17 +682,29 @@ public class MillSheetHostsController {
 
     }
 
-   /* public static void main(String[] args)
-    {
-        String photoUrl = "http://10.1.213.138/data/millpath/2018-09-19/Y1809050201.pdf";
-        String fileName = photoUrl.substring(photoUrl.lastIndexOf("/"));
-        System.out.println("fileName---->"+fileName);
-        String filePath = "e:";
-        File file = saveUrlAs(photoUrl, filePath + fileName,"GET");
-        System.out.println("Run ok!/n<BR>Get URL file " + file);
-
-    }*/
-
+    /**
+     * 递归删除目录下的所有文件及子目录下所有文件
+     *
+     * @param dir
+     *            将要删除的文件目录
+     * @return boolean Returns "true" if all deletions were successful. If a
+     *         deletion fails, the method stops attempting to delete and returns
+     *         "false".
+     */
+    private static boolean deleteDir(File dir) {
+        if (dir.isDirectory()) {
+            String[] children = dir.list();
+            // 递归删除目录中的子目录下
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+        // 目录此时为空，可以删除
+        return dir.delete();
+    }
 
     /**
      *  回退查询
@@ -1063,9 +1132,9 @@ public class MillSheetHostsController {
     @RequestMapping(value = "/downNeed", method = RequestMethod.POST)
     public void downNeed(@RequestParam("name") String jsonRequest, HttpServletResponse response) {
         try {
-            String fileName = URLEncoder.encode("板卷导入模板.xls", "UTF-8");
+            String fileName = URLEncoder.encode("不锈钢碳钢模板.xls", "UTF-8");
             String operationManual = "";
-            operationManual = "/data/model/板卷导入模板.xls";
+            operationManual = "/data/model/不锈钢碳钢模板.xls";
             //配置请求头
             response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
             //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
