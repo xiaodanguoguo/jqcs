@@ -1063,9 +1063,9 @@ public class MillSheetHostsController {
     @RequestMapping(value = "/downNeed", method = RequestMethod.POST)
     public void downNeed(@RequestParam("name") String jsonRequest, HttpServletResponse response) {
         try {
-            String fileName = URLEncoder.encode("不锈钢碳钢模板.xls", "UTF-8");
+            String fileName = URLEncoder.encode("板卷导入模板.xls", "UTF-8");
             String operationManual = "";
-            operationManual = "/data/model/不锈钢碳钢模板.xls";
+            operationManual = "/data/model/板卷导入模板.xls";
             //配置请求头
             response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
             //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
