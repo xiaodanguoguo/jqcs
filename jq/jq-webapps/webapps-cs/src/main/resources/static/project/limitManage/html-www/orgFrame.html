@@ -83,6 +83,11 @@
             json.tel=$("#inputAnswer #tel").val();
             json.addr=$("#inputAnswer #addr").val();
             json.bukrs=$("#inputAnswer #bukrs").val();
+            if($("#industrialCode").is("checked")){
+                json.industrialCode = 1;
+            }else{
+                json.industrialCode = 0;
+            }
 
             if($("#stateInp").attr("checked")){
                 json.status=1;
@@ -149,6 +154,7 @@
             $("#inputAnswer #tel").val("");
             $("#inputAnswer #addr").val("");
             $("#stateInp").attr("checked",false);
+            $("#industrialCode").attr("checked",false);
             $("#inputAnswer h2").text("新增组织");
             $("#orgType").attr("initValue","").trigger('chosen:updated');
             if(_this.rank){
@@ -232,6 +238,11 @@
                 $("#stateInp").attr("checked",true);
             }else{
                 $("#stateInp").attr("checked",false);
+            }
+            if($("#fotTable")[0].jsonData.industrialCode = 1){
+                $("#industrialCode").attr("checked",true);
+            }else{
+                $("#industrialCode").attr("checked",false);
             }
             initValidate($("#addReInpDiv")[0]);
 
@@ -654,6 +665,7 @@
                 <li class="ml20"><label>电话：</label><input type="text" class="required newPhone" id="tel"/></li>
                 <li class="ml20"><label>地址：</label><input type="text" class="required" id="addr"/></li>
                 <li class="ml20"><label>备注：</label><textarea type="text" class="" id="memoInp"></textarea></li>
+                <li class="ml20"><label>信任：</label><input type="checkbox" id="industrialCode"></li>
                 <!--<li class="ml20"><label>默认启用：</label><input type="checkbox" id="stateInp"/></li>-->
             </ul>
             <div class="mod-search-div" id="addRe" style="width:70px;height: 62px;margin:0 auto;">
