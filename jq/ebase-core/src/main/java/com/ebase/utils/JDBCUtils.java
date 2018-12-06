@@ -9,6 +9,7 @@ import java.sql.Statement;
 public class JDBCUtils {
     private static String driver="oracle.jdbc.OracleDriver";
     private static String url="jdbc:oracle:thin:@10.1.213.125:1521:jgcrmdbp";
+    //private static String url="jdbc:oracle:thin:@10.1.213.127:1521:jgcrmdbt";
     private static String user="WARRANTY";
     private static String password="WARRANTY";
 
