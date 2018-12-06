@@ -47,6 +47,10 @@ public class ObjectionLendgerController {
         logger.info("参数={}", JsonUtil.toJson(jsonRequest));
         JsonResponse<PageDTO<ObjectionLedgerVO>> jsonResponse = new JsonResponse<>();
         String acctId = AssertContext.getAcctId();
+        String orgType = AssertContext.getOrgType();
+        String orgName = AssertContext.getOrgName();
+        jsonRequest.getReqBody().setOrgType(orgType);
+        jsonRequest.getReqBody().setOrgName(orgName);
         ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
         List<String> list = new ArrayList<>();
         for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
@@ -87,10 +91,25 @@ public class ObjectionLendgerController {
     @RequestMapping(value = "/export",method = RequestMethod.POST)
     public JsonResponse<List<ObjectionLedgerVO>> export(@RequestParam("name") String jsonRequest) {
         JsonResponse<List<ObjectionLedgerVO>> jsonResponse = new JsonResponse<>();
+        String orgType = AssertContext.getOrgType();
+        String acctId = AssertContext.getAcctId();
+        String orgName = AssertContext.getOrgName();
         try {
             ObjectionLedgerVO list = JsonUtil.fromJson(jsonRequest,ObjectionLedgerVO.class);
             JsonRequest<ObjectionLedgerVO> jsonRequest1 = new JsonRequest();
             jsonRequest1.setReqBody(list);
+            jsonRequest1.getReqBody().setOrgName(orgName);
+            jsonRequest1.getReqBody().setOrgType(orgType);
+            ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+            List<String> arrayList = new ArrayList<>();
+            for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+                arrayList.add(roleInfoVO.getRoleCode());
+            }
+            if (arrayList.size()>0){
+                jsonRequest1.getReqBody().setDeptCodes(arrayList);
+            }else {
+                jsonRequest1.getReqBody().setDeptCodes(null);
+            }
             ServiceResponse<List<ObjectionLedgerVO>> response = objectionLendgerAPI.export(jsonRequest1);
             // 根据service层返回的编码做不同的操作
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode())) {

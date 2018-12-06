@@ -974,6 +974,15 @@
           #{deptCodes[${index}]}
         </foreach>
       </if>
+      <if test="millSheetNos != null">
+        AND H.MILL_SHEET_NO  in
+        <foreach collection="millSheetNos"  index="index" close=")" open="(" item="item" separator=",">
+          #{millSheetNos[${index}]}
+        </foreach>
+      </if>
+      <if test="customerId != null and customerId != ''" >
+        AND H.CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
+      </if>
       <if test="customerName != null and customerName != ''" >
         AND H.CUSTOMER_NAME like  '%' || #{customerName} ||'%'
       </if>
