@@ -330,11 +330,25 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                 if (i == 1) {
                     //判断是否超出数量
                     Long mm =new Long(0);
+
                     for (CrmMillSheetSplitInfo tt:noListMillSheetNo1){
                         if (tt.getMillsheetNo().equals(coilInfo.getMillsheetNo())){
                             if (tt.getZcharg().equals(coilInfo.getZcharg())){
                                 if (tt.getSpecs().equals(coilInfo.getSpecs())){
                                     mm+=tt.getZjishu();
+                                }
+                            }
+                        }
+                    }
+                    if (mm>0){
+
+                    }else {
+                        for (CrmMillSheetSplitInfo tt:crmMillSheetSplitInfoList){
+                            if (tt.getMillsheetNo().equals(coilInfo.getMillsheetNo())){
+                                if (tt.getZcharg().equals(coilInfo.getZcharg())){
+                                    if (tt.getSpecs().equals(coilInfo.getSpecs())){
+                                        mm=tt.getZjishu();
+                                    }
                                 }
                             }
                         }
