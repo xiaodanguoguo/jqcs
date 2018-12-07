@@ -43,7 +43,7 @@
       CREATED_BY, CREATED_DT, UPDATED_BY, 
       UPDATED_DT, VERSION, TYPE
       )
-    values (#{sid,jdbcType=DECIMAL}, #{millSheetNo,jdbcType=millSheetNo}, #{speNeedUrl,jdbcType=VARCHAR},
+    values (#{sid,jdbcType=DECIMAL}, #{millSheetNo,jdbcType=VARCHAR}, #{speNeedUrl,jdbcType=VARCHAR},
       #{speNeedName,jdbcType=VARCHAR}, #{speRealName,jdbcType=VARCHAR}, #{speNeedSize,jdbcType=VARCHAR}, 
       #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, 
       #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL}, #{type,jdbcType=VARCHAR}
