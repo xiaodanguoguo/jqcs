@@ -113,6 +113,17 @@ public class OrgInfo {
 	// 注册类型
 	private Integer regType;
 
+	//0非信任，1信任
+	private String industrialCode;
+
+	public String getIndustrialCode() {
+		return industrialCode;
+	}
+
+	public void setIndustrialCode(String industrialCode) {
+		this.industrialCode = industrialCode;
+	}
+
 	//标识
 	private Boolean isTrue;
 
