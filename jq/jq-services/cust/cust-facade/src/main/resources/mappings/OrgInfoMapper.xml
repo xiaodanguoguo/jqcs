@@ -22,6 +22,8 @@
     <result column="ADDR" property="addr"  />
     <result column="EMAIL" property="email"  />
     <result column="REG_TYPE" property="regType"  />
+      <result column="INDUSTRIAL_CODE" property="industrialCode"  />
+
   </resultMap>
   
   <select id="findIdByOrgName" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.OrgInfo">
@@ -47,4 +49,18 @@
 	WHERE
 		ORG_NAME = #{orgName}
   </select>
+
+
+    <select id="findIdByCode" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.OrgInfo">
+        SELECT
+        ID,
+        ORG_CODE,
+        ORG_NAME,
+        INDUSTRIAL_CODE,
+        email
+        FROM
+        org_info
+        WHERE
+        ID = #{id}
+    </select>
 </mapper>

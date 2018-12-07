@@ -9,6 +9,9 @@ import java.util.List;
 
 public class MillSheetHostsVO implements Serializable {
 
+    //组织id
+    private String orgId;
+
     //原件次
     private Long zjishu;
 
@@ -30,8 +33,11 @@ public class MillSheetHostsVO implements Serializable {
     //建材0;非建材1
     private Integer jcFlag;
 
-    //是否允许下载打印
-    private String isAllow;
+    //是否允许下载
+    private String isAllowDown;
+
+    //是否允许打印
+    private String isAllowPrint;
 
     private String acctName;
 
@@ -43,6 +49,14 @@ public class MillSheetHostsVO implements Serializable {
 
     //厂家code
     private List<String> deptCodes;
+
+    public String getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(String orgId) {
+        this.orgId = orgId;
+    }
 
     public Long getZjishu() {
         return zjishu;
@@ -234,12 +248,20 @@ public class MillSheetHostsVO implements Serializable {
         this.lowerMillSheetNos = lowerMillSheetNos;
     }
 
-    public String getIsAllow() {
-        return isAllow;
+    public String getIsAllowDown() {
+        return isAllowDown;
     }
 
-    public void setIsAllow(String isAllow) {
-        this.isAllow = isAllow;
+    public void setIsAllowDown(String isAllowDown) {
+        this.isAllowDown = isAllowDown;
+    }
+
+    public String getIsAllowPrint() {
+        return isAllowPrint;
+    }
+
+    public void setIsAllowPrint(String isAllowPrint) {
+        this.isAllowPrint = isAllowPrint;
     }
 
     public Integer getJcFlag() {

@@ -62,6 +62,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     @Override
     public PageDTO<MillSheetHostsVO> findMillSheetByPage(MillSheetHostsVO millSheetHostsVO) {
         String orgName = millSheetHostsVO.getOrgName();
+        String orgId = millSheetHostsVO.getOrgId();
         try {
         //转换mdel
         MillSheetHosts millSheetHosts = new MillSheetHosts();
@@ -149,33 +150,56 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 millSheetHosts2.setZlosmenge(zlosmenge);
                 millSheetHosts2.setSurplusZlosmenge(surplusZlosmenge);
                 if(millSheetHosts2.getJcFlag()!=null){
-                    //判断是否允许下载(建材类不让下载)
+                    //判断是否允许下载(建材类不让下载)让打印
                     if(millSheetHosts2.getJcFlag()==0){
-                        millSheetHosts2.setIsAllow("N");
+                        //根据组织获取该用户是否为信任用户
+                        OrgInfo orgInfo = new OrgInfo();
+                        orgInfo.setId(orgId);
+                        List<OrgInfo> list =orgInfoMapper.findIdByCode(orgInfo);
+                        if (list.size()>0){
+                            if (list.get(0).getIndustrialCode()!=null){
+                                if (list.get(0).getIndustrialCode().equals("1")){
+                                    //信任
+                                    millSheetHosts2.setIsAllowDown("Y");
+                                    millSheetHosts2.setIsAllowPrint("Y");
+                                }else{
+                                    millSheetHosts2.setIsAllowDown("N");
+                                    millSheetHosts2.setIsAllowPrint("Y");
+                                }
+                            }
+                        }
+
                     }else {
                         if (millSheetHosts2.getMillSheetType().equals("Z")||millSheetHosts2.getMillSheetType().equals("S")){
                             if (millSheetHosts2.getSpiltCustomer().equals(orgName)){
-                                millSheetHosts2.setIsAllow("Y");
+                                millSheetHosts2.setIsAllowDown("Y");
+                                millSheetHosts2.setIsAllowPrint("Y");
                             }else {
                                 //查询拆分单位下是否有账号有的话不让下载 没有的话让下载打印
                                 OrgInfo orgInfo = new OrgInfo();
                                 orgInfo.setOrgName(millSheetHosts2.getSpiltCustomer());
                                 List<OrgInfo> list =orgInfoMapper.findIdByOrgName(orgInfo);
                                 if(list.size()>0){
-                                    AcctInfo acctInfo = new AcctInfo();
+                                   /* AcctInfo acctInfo = new AcctInfo();
                                     acctInfo.setoInfoId(list.get(0).getId());
                                     List<AcctInfo> acctInfos =acctInfoMapper.findNameByorgId(acctInfo);
                                     if (acctInfos.size()>0){
-                                        millSheetHosts2.setIsAllow("N");
+                                        millSheetHosts2.setIsAllowDown("N");
+                                        millSheetHosts2.setIsAllowPrint("N");
                                     }else {
-                                        millSheetHosts2.setIsAllow("Y");
-                                    }
+                                        millSheetHosts2.setIsAllowDown("Y");
+                                        millSheetHosts2.setIsAllowPrint("Y");
+                                    }*/
+                                    millSheetHosts2.setIsAllowDown("Y");
+                                    millSheetHosts2.setIsAllowPrint("Y");
                                 }else{
-                                    millSheetHosts2.setIsAllow("N");
+                                    millSheetHosts2.setIsAllowDown("N");
+                                    millSheetHosts2.setIsAllowPrint("N");
                                 }
                             }
                         }else {
-                            millSheetHosts2.setIsAllow("Y");
+                            millSheetHosts2.setIsAllowDown("Y");
+                            millSheetHosts2.setIsAllowPrint("Y");
                         }
 
                     }
@@ -193,6 +217,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     @Override
     public PageDTO<MillSheetHostsVO> findMillSheetByPage1(MillSheetHostsVO millSheetHostsVO) {
         String orgName = millSheetHostsVO.getOrgName();
+        String orgId = millSheetHostsVO.getOrgId();
         try {
             //转换mdel
             MillSheetHosts millSheetHosts = new MillSheetHosts();
@@ -282,33 +307,56 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 millSheetHosts2.setSurplusZlosmenge(surplusZlosmenge);
 
                 if(millSheetHosts2.getJcFlag()!=null){
-                    //判断是否允许下载(建材类不让下载)
+                    //判断是否允许下载(建材类不让下载)让打印
                     if(millSheetHosts2.getJcFlag()==0){
-                        millSheetHosts2.setIsAllow("N");
+                        //根据组织获取该用户是否为信任用户
+                        OrgInfo orgInfo = new OrgInfo();
+                        orgInfo.setId(orgId);
+                        List<OrgInfo> list =orgInfoMapper.findIdByCode(orgInfo);
+                        if (list.size()>0){
+                            if (list.get(0).getIndustrialCode()!=null){
+                                if (list.get(0).getIndustrialCode().equals("1")){
+                                    //信任
+                                    millSheetHosts2.setIsAllowDown("Y");
+                                    millSheetHosts2.setIsAllowPrint("Y");
+                                }else{
+                                    millSheetHosts2.setIsAllowDown("N");
+                                    millSheetHosts2.setIsAllowPrint("Y");
+                                }
+                            }
+                        }
+
                     }else {
                         if (millSheetHosts2.getMillSheetType().equals("Z")||millSheetHosts2.getMillSheetType().equals("S")){
                             if (millSheetHosts2.getSpiltCustomer().equals(orgName)){
-                                millSheetHosts2.setIsAllow("Y");
+                                millSheetHosts2.setIsAllowDown("Y");
+                                millSheetHosts2.setIsAllowPrint("Y");
                             }else {
                                 //查询拆分单位下是否有账号有的话不让下载 没有的话让下载打印
                                 OrgInfo orgInfo = new OrgInfo();
                                 orgInfo.setOrgName(millSheetHosts2.getSpiltCustomer());
                                 List<OrgInfo> list =orgInfoMapper.findIdByOrgName(orgInfo);
                                 if(list.size()>0){
-                                    AcctInfo acctInfo = new AcctInfo();
+                                   /* AcctInfo acctInfo = new AcctInfo();
                                     acctInfo.setoInfoId(list.get(0).getId());
                                     List<AcctInfo> acctInfos =acctInfoMapper.findNameByorgId(acctInfo);
                                     if (acctInfos.size()>0){
-                                        millSheetHosts2.setIsAllow("N");
+                                        millSheetHosts2.setIsAllowDown("N");
+                                        millSheetHosts2.setIsAllowPrint("N");
                                     }else {
-                                        millSheetHosts2.setIsAllow("Y");
-                                    }
+                                        millSheetHosts2.setIsAllowDown("Y");
+                                        millSheetHosts2.setIsAllowPrint("Y");
+                                    }*/
+                                    millSheetHosts2.setIsAllowDown("Y");
+                                    millSheetHosts2.setIsAllowPrint("Y");
                                 }else{
-                                    millSheetHosts2.setIsAllow("Y");
+                                    millSheetHosts2.setIsAllowDown("N");
+                                    millSheetHosts2.setIsAllowPrint("N");
                                 }
                             }
                         }else {
-                            millSheetHosts2.setIsAllow("Y");
+                            millSheetHosts2.setIsAllowDown("Y");
+                            millSheetHosts2.setIsAllowPrint("Y");
                         }
 
                     }
