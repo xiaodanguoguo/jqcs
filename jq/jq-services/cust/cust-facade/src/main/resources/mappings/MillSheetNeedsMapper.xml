@@ -35,7 +35,7 @@
 
   <delete id="deleteByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetNeeds" >
     delete from MILL_SHEET_NEEDS
-    where MILL_SHEET_NO = #{millSheetNo,jdbcType=millSheetNo}
+    where MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetNeeds" >
     insert into MILL_SHEET_NEEDS (SID, MILL_SHEET_NO, SPE_NEED_URL, 
