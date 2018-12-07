@@ -33,9 +33,9 @@
     where MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR} AND TYPE = #{type,jdbcType=VARCHAR}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetNeeds" >
     delete from MILL_SHEET_NEEDS
-    where SID = #{sid,jdbcType=DECIMAL}
+    where MILL_SHEET_NO = #{millSheetNo,jdbcType=millSheetNo}
   </delete>
   <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetNeeds" >
     insert into MILL_SHEET_NEEDS (SID, MILL_SHEET_NO, SPE_NEED_URL, 
@@ -43,7 +43,7 @@
       CREATED_BY, CREATED_DT, UPDATED_BY, 
       UPDATED_DT, VERSION, TYPE
       )
-    values (#{sid,jdbcType=DECIMAL}, #{millSheetNo,jdbcType=VARCHAR}, #{speNeedUrl,jdbcType=VARCHAR}, 
+    values (#{sid,jdbcType=DECIMAL}, #{millSheetNo,jdbcType=millSheetNo}, #{speNeedUrl,jdbcType=VARCHAR},
       #{speNeedName,jdbcType=VARCHAR}, #{speRealName,jdbcType=VARCHAR}, #{speNeedSize,jdbcType=VARCHAR}, 
       #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, 
       #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL}, #{type,jdbcType=VARCHAR}

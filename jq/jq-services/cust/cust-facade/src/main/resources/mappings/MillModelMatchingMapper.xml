@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.MillModelMatchingMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.MillModelMatching" >
+    <id column="SID" property="sid" jdbcType="DECIMAL" />
+    <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
+    <result column="MODEL_NAME" property="modelName" jdbcType="VARCHAR" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="VARCHAR" />
+    <result column="PROD_CLASS" property="prodClass" jdbcType="VARCHAR" />
+    <result column="MILL_SHEET_TYPE" property="millSheetType" jdbcType="VARCHAR" />
+    <result column="TOTAL_NUM_COLUMNS" property="totalNumColumns" jdbcType="DECIMAL" />
+    <result column="CH_NUM_COLUMN" property="chNumColumn" jdbcType="DECIMAL" />
+    <result column="PY_NUM_COLUMN" property="pyNumColumn" jdbcType="DECIMAL" />
+    <result column="FIXED_COLUMN3" property="fixedColumn3" jdbcType="DECIMAL" />
+    <result column="FIXED_COLUMN1" property="fixedColumn1" jdbcType="DECIMAL" />
+    <result column="FIXED_COLUMN2" property="fixedColumn2" jdbcType="DECIMAL" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SID, MILL_SHEET_NO, MODEL_NAME, COMPANY_ID, PROD_CLASS, MILL_SHEET_TYPE, TOTAL_NUM_COLUMNS, 
+    CH_NUM_COLUMN, PY_NUM_COLUMN, FIXED_COLUMN3, FIXED_COLUMN1, FIXED_COLUMN2, CREATED_BY, 
+    CREATED_DT, UPDATED_BY, UPDATED_DT, VERSION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from MILL_MODEL_MATCHING
+    where SID = #{sid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.MillModelMatching" >
+    delete from MILL_MODEL_MATCHING
+    where MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.MillModelMatching" >
+    insert into MILL_MODEL_MATCHING (SID, MILL_SHEET_NO, MODEL_NAME, 
+      COMPANY_ID, PROD_CLASS, MILL_SHEET_TYPE, 
+      TOTAL_NUM_COLUMNS, CH_NUM_COLUMN, PY_NUM_COLUMN, 
+      FIXED_COLUMN3, FIXED_COLUMN1, FIXED_COLUMN2, 
+      CREATED_BY, CREATED_DT, UPDATED_BY, 
+      UPDATED_DT, VERSION)
+    values (#{sid,jdbcType=DECIMAL}, #{millSheetNo,jdbcType=VARCHAR}, #{modelName,jdbcType=VARCHAR}, 
+      #{companyId,jdbcType=VARCHAR}, #{prodClass,jdbcType=VARCHAR}, #{millSheetType,jdbcType=VARCHAR}, 
+      #{totalNumColumns,jdbcType=DECIMAL}, #{chNumColumn,jdbcType=DECIMAL}, #{pyNumColumn,jdbcType=DECIMAL}, 
+      #{fixedColumn3,jdbcType=DECIMAL}, #{fixedColumn1,jdbcType=DECIMAL}, #{fixedColumn2,jdbcType=DECIMAL}, 
+      #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, 
+      #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.MillModelMatching" >
+    insert into MILL_MODEL_MATCHING
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        SID,
+      </if>
+      <if test="millSheetNo != null" >
+        MILL_SHEET_NO,
+      </if>
+      <if test="modelName != null" >
+        MODEL_NAME,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="prodClass != null" >
+        PROD_CLASS,
+      </if>
+      <if test="millSheetType != null" >
+        MILL_SHEET_TYPE,
+      </if>
+      <if test="totalNumColumns != null" >
+        TOTAL_NUM_COLUMNS,
+      </if>
+      <if test="chNumColumn != null" >
+        CH_NUM_COLUMN,
+      </if>
+      <if test="pyNumColumn != null" >
+        PY_NUM_COLUMN,
+      </if>
+      <if test="fixedColumn3 != null" >
+        FIXED_COLUMN3,
+      </if>
+      <if test="fixedColumn1 != null" >
+        FIXED_COLUMN1,
+      </if>
+      <if test="fixedColumn2 != null" >
+        FIXED_COLUMN2,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=DECIMAL},
+      </if>
+      <if test="millSheetNo != null" >
+        #{millSheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="modelName != null" >
+        #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="prodClass != null" >
+        #{prodClass,jdbcType=VARCHAR},
+      </if>
+      <if test="millSheetType != null" >
+        #{millSheetType,jdbcType=VARCHAR},
+      </if>
+      <if test="totalNumColumns != null" >
+        #{totalNumColumns,jdbcType=DECIMAL},
+      </if>
+      <if test="chNumColumn != null" >
+        #{chNumColumn,jdbcType=DECIMAL},
+      </if>
+      <if test="pyNumColumn != null" >
+        #{pyNumColumn,jdbcType=DECIMAL},
+      </if>
+      <if test="fixedColumn3 != null" >
+        #{fixedColumn3,jdbcType=DECIMAL},
+      </if>
+      <if test="fixedColumn1 != null" >
+        #{fixedColumn1,jdbcType=DECIMAL},
+      </if>
+      <if test="fixedColumn2 != null" >
+        #{fixedColumn2,jdbcType=DECIMAL},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.MillModelMatching" >
+    update MILL_MODEL_MATCHING
+    <set >
+      <if test="millSheetNo != null" >
+        MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="modelName != null" >
+        MODEL_NAME = #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=VARCHAR},
+      </if>
+      <if test="prodClass != null" >
+        PROD_CLASS = #{prodClass,jdbcType=VARCHAR},
+      </if>
+      <if test="millSheetType != null" >
+        MILL_SHEET_TYPE = #{millSheetType,jdbcType=VARCHAR},
+      </if>
+      <if test="totalNumColumns != null" >
+        TOTAL_NUM_COLUMNS = #{totalNumColumns,jdbcType=DECIMAL},
+      </if>
+      <if test="chNumColumn != null" >
+        CH_NUM_COLUMN = #{chNumColumn,jdbcType=DECIMAL},
+      </if>
+      <if test="pyNumColumn != null" >
+        PY_NUM_COLUMN = #{pyNumColumn,jdbcType=DECIMAL},
+      </if>
+      <if test="fixedColumn3 != null" >
+        FIXED_COLUMN3 = #{fixedColumn3,jdbcType=DECIMAL},
+      </if>
+      <if test="fixedColumn1 != null" >
+        FIXED_COLUMN1 = #{fixedColumn1,jdbcType=DECIMAL},
+      </if>
+      <if test="fixedColumn2 != null" >
+        FIXED_COLUMN2 = #{fixedColumn2,jdbcType=DECIMAL},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SID = #{sid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.MillModelMatching" >
+    update MILL_MODEL_MATCHING
+    set MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
+      MODEL_NAME = #{modelName,jdbcType=VARCHAR},
+      COMPANY_ID = #{companyId,jdbcType=VARCHAR},
+      PROD_CLASS = #{prodClass,jdbcType=VARCHAR},
+      MILL_SHEET_TYPE = #{millSheetType,jdbcType=VARCHAR},
+      TOTAL_NUM_COLUMNS = #{totalNumColumns,jdbcType=DECIMAL},
+      CH_NUM_COLUMN = #{chNumColumn,jdbcType=DECIMAL},
+      PY_NUM_COLUMN = #{pyNumColumn,jdbcType=DECIMAL},
+      FIXED_COLUMN3 = #{fixedColumn3,jdbcType=DECIMAL},
+      FIXED_COLUMN1 = #{fixedColumn1,jdbcType=DECIMAL},
+      FIXED_COLUMN2 = #{fixedColumn2,jdbcType=DECIMAL},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=DECIMAL}
+    where SID = #{sid,jdbcType=DECIMAL}
+  </update>
+</mapper>

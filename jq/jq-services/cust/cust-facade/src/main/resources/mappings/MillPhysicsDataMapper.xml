@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.MillPhysicsDataMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.MillPhysicsData" >
+    <id column="SID" property="sid" jdbcType="DECIMAL" />
+    <result column="ZCHEHAO" property="zchehao" jdbcType="VARCHAR" />
+    <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
+    <result column="ZCHARG" property="zcharg" jdbcType="VARCHAR" />
+    <result column="SPECS" property="specs" jdbcType="VARCHAR" />
+    <result column="ZMATNR" property="zmatnr" jdbcType="VARCHAR" />
+    <result column="PRUEFLOS_WL" property="prueflosWl" jdbcType="DECIMAL" />
+    <result column="KURZTEXT" property="kurztext" jdbcType="VARCHAR" />
+    <result column="VERWMERKM" property="verwmerkm" jdbcType="VARCHAR" />
+    <result column="NUM_TEST_VALUE" property="numTestValue" jdbcType="DECIMAL" />
+    <result column="ERR_CHECK" property="errCheck" jdbcType="VARCHAR" />
+    <result column="SEQ_NO" property="seqNo" jdbcType="DECIMAL" />
+    <result column="ORIGINAL_INPUT" property="originalInput" jdbcType="VARCHAR" />
+    <result column="MASSEINHSW" property="masseinhsw" jdbcType="VARCHAR" />
+    <result column="MASCHINE" property="maschine" jdbcType="VARCHAR" />
+    <result column="SHOW_FLAG" property="showFlag" jdbcType="DECIMAL" />
+    <result column="SPEC_CODE" property="specCode" jdbcType="VARCHAR" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SID, ZCHEHAO, MILL_SHEET_NO, ZCHARG, SPECS, ZMATNR, PRUEFLOS_WL, KURZTEXT, VERWMERKM, 
+    NUM_TEST_VALUE, ERR_CHECK, SEQ_NO, ORIGINAL_INPUT, MASSEINHSW, MASCHINE, SHOW_FLAG, 
+    SPEC_CODE, CREATED_BY, CREATED_DT, UPDATED_BY, UPDATED_DT, VERSION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from MILL_PHYSICS_DATA
+    where SID = #{sid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.MillPhysicsData" >
+    delete from MILL_PHYSICS_DATA
+    where MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.MillPhysicsData" >
+    insert into MILL_PHYSICS_DATA (SID, ZCHEHAO, MILL_SHEET_NO, 
+      ZCHARG, SPECS, ZMATNR, 
+      PRUEFLOS_WL, KURZTEXT, VERWMERKM, 
+      NUM_TEST_VALUE, ERR_CHECK, SEQ_NO, 
+      ORIGINAL_INPUT, MASSEINHSW, MASCHINE, 
+      SHOW_FLAG, SPEC_CODE, CREATED_BY, 
+      CREATED_DT, UPDATED_BY, UPDATED_DT, 
+      VERSION)
+    values (#{sid,jdbcType=DECIMAL}, #{zchehao,jdbcType=VARCHAR}, #{millSheetNo,jdbcType=VARCHAR}, 
+      #{zcharg,jdbcType=VARCHAR}, #{specs,jdbcType=VARCHAR}, #{zmatnr,jdbcType=VARCHAR}, 
+      #{prueflosWl,jdbcType=DECIMAL}, #{kurztext,jdbcType=VARCHAR}, #{verwmerkm,jdbcType=VARCHAR}, 
+      #{numTestValue,jdbcType=DECIMAL}, #{errCheck,jdbcType=VARCHAR}, #{seqNo,jdbcType=DECIMAL}, 
+      #{originalInput,jdbcType=VARCHAR}, #{masseinhsw,jdbcType=VARCHAR}, #{maschine,jdbcType=VARCHAR}, 
+      #{showFlag,jdbcType=DECIMAL}, #{specCode,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, 
+      #{createdDt,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.MillPhysicsData" >
+    insert into MILL_PHYSICS_DATA
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        SID,
+      </if>
+      <if test="zchehao != null" >
+        ZCHEHAO,
+      </if>
+      <if test="millSheetNo != null" >
+        MILL_SHEET_NO,
+      </if>
+      <if test="zcharg != null" >
+        ZCHARG,
+      </if>
+      <if test="specs != null" >
+        SPECS,
+      </if>
+      <if test="zmatnr != null" >
+        ZMATNR,
+      </if>
+      <if test="prueflosWl != null" >
+        PRUEFLOS_WL,
+      </if>
+      <if test="kurztext != null" >
+        KURZTEXT,
+      </if>
+      <if test="verwmerkm != null" >
+        VERWMERKM,
+      </if>
+      <if test="numTestValue != null" >
+        NUM_TEST_VALUE,
+      </if>
+      <if test="errCheck != null" >
+        ERR_CHECK,
+      </if>
+      <if test="seqNo != null" >
+        SEQ_NO,
+      </if>
+      <if test="originalInput != null" >
+        ORIGINAL_INPUT,
+      </if>
+      <if test="masseinhsw != null" >
+        MASSEINHSW,
+      </if>
+      <if test="maschine != null" >
+        MASCHINE,
+      </if>
+      <if test="showFlag != null" >
+        SHOW_FLAG,
+      </if>
+      <if test="specCode != null" >
+        SPEC_CODE,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=DECIMAL},
+      </if>
+      <if test="zchehao != null" >
+        #{zchehao,jdbcType=VARCHAR},
+      </if>
+      <if test="millSheetNo != null" >
+        #{millSheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="zcharg != null" >
+        #{zcharg,jdbcType=VARCHAR},
+      </if>
+      <if test="specs != null" >
+        #{specs,jdbcType=VARCHAR},
+      </if>
+      <if test="zmatnr != null" >
+        #{zmatnr,jdbcType=VARCHAR},
+      </if>
+      <if test="prueflosWl != null" >
+        #{prueflosWl,jdbcType=DECIMAL},
+      </if>
+      <if test="kurztext != null" >
+        #{kurztext,jdbcType=VARCHAR},
+      </if>
+      <if test="verwmerkm != null" >
+        #{verwmerkm,jdbcType=VARCHAR},
+      </if>
+      <if test="numTestValue != null" >
+        #{numTestValue,jdbcType=DECIMAL},
+      </if>
+      <if test="errCheck != null" >
+        #{errCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="seqNo != null" >
+        #{seqNo,jdbcType=DECIMAL},
+      </if>
+      <if test="originalInput != null" >
+        #{originalInput,jdbcType=VARCHAR},
+      </if>
+      <if test="masseinhsw != null" >
+        #{masseinhsw,jdbcType=VARCHAR},
+      </if>
+      <if test="maschine != null" >
+        #{maschine,jdbcType=VARCHAR},
+      </if>
+      <if test="showFlag != null" >
+        #{showFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="specCode != null" >
+        #{specCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.MillPhysicsData" >
+    update MILL_PHYSICS_DATA
+    <set >
+      <if test="zchehao != null" >
+        ZCHEHAO = #{zchehao,jdbcType=VARCHAR},
+      </if>
+      <if test="millSheetNo != null" >
+        MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="zcharg != null" >
+        ZCHARG = #{zcharg,jdbcType=VARCHAR},
+      </if>
+      <if test="specs != null" >
+        SPECS = #{specs,jdbcType=VARCHAR},
+      </if>
+      <if test="zmatnr != null" >
+        ZMATNR = #{zmatnr,jdbcType=VARCHAR},
+      </if>
+      <if test="prueflosWl != null" >
+        PRUEFLOS_WL = #{prueflosWl,jdbcType=DECIMAL},
+      </if>
+      <if test="kurztext != null" >
+        KURZTEXT = #{kurztext,jdbcType=VARCHAR},
+      </if>
+      <if test="verwmerkm != null" >
+        VERWMERKM = #{verwmerkm,jdbcType=VARCHAR},
+      </if>
+      <if test="numTestValue != null" >
+        NUM_TEST_VALUE = #{numTestValue,jdbcType=DECIMAL},
+      </if>
+      <if test="errCheck != null" >
+        ERR_CHECK = #{errCheck,jdbcType=VARCHAR},
+      </if>
+      <if test="seqNo != null" >
+        SEQ_NO = #{seqNo,jdbcType=DECIMAL},
+      </if>
+      <if test="originalInput != null" >
+        ORIGINAL_INPUT = #{originalInput,jdbcType=VARCHAR},
+      </if>
+      <if test="masseinhsw != null" >
+        MASSEINHSW = #{masseinhsw,jdbcType=VARCHAR},
+      </if>
+      <if test="maschine != null" >
+        MASCHINE = #{maschine,jdbcType=VARCHAR},
+      </if>
+      <if test="showFlag != null" >
+        SHOW_FLAG = #{showFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="specCode != null" >
+        SPEC_CODE = #{specCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where SID = #{sid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.MillPhysicsData" >
+    update MILL_PHYSICS_DATA
+    set ZCHEHAO = #{zchehao,jdbcType=VARCHAR},
+      MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
+      ZCHARG = #{zcharg,jdbcType=VARCHAR},
+      SPECS = #{specs,jdbcType=VARCHAR},
+      ZMATNR = #{zmatnr,jdbcType=VARCHAR},
+      PRUEFLOS_WL = #{prueflosWl,jdbcType=DECIMAL},
+      KURZTEXT = #{kurztext,jdbcType=VARCHAR},
+      VERWMERKM = #{verwmerkm,jdbcType=VARCHAR},
+      NUM_TEST_VALUE = #{numTestValue,jdbcType=DECIMAL},
+      ERR_CHECK = #{errCheck,jdbcType=VARCHAR},
+      SEQ_NO = #{seqNo,jdbcType=DECIMAL},
+      ORIGINAL_INPUT = #{originalInput,jdbcType=VARCHAR},
+      MASSEINHSW = #{masseinhsw,jdbcType=VARCHAR},
+      MASCHINE = #{maschine,jdbcType=VARCHAR},
+      SHOW_FLAG = #{showFlag,jdbcType=DECIMAL},
+      SPEC_CODE = #{specCode,jdbcType=VARCHAR},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=DECIMAL}
+    where SID = #{sid,jdbcType=DECIMAL}
+  </update>
+</mapper>

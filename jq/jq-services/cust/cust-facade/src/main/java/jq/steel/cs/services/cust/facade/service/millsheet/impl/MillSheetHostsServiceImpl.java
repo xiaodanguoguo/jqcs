@@ -42,6 +42,21 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     private AcctInfoMapper acctInfoMapper;
     @Autowired
     private CrmMillSheetSplitInfoMapper crmMillSheetSplitInfoMapper;
+    @Autowired
+    private MillChemistryDataMapper millChemistryDataMapper;
+    @Autowired
+    private MillPhysicsDataMapper millPhysicsDataMapper;
+    @Autowired
+    private MillModelMatchingMapper millModelMatchingMapper;
+    @Autowired
+    private MillSheetExpandMapper millSheetExpandMapper;
+    @Autowired
+    private MillSheetNeedsMapper millSheetNeedsMapper;
+    @Autowired
+    private MillFallbackInfoMapper millFallbackInfoMapper;
+    @Autowired
+    private MillFallbackStepsMapper millFallbackStepsMapper;
+
 
     //分页查询（质证书已经拆分给其他用户并且该用户在客服平台有账号的，则本级不能再对该质证书进行打印、下载操作。如拆分出来的质证书接受单位在平台中没有对应的账号，本级还可以对该质证书进行下载和打印操作）
     @Override
@@ -598,21 +613,46 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                     crmMillSheetSplitInfoMapper.updateStatus(crmMillSheetSplitInfo1);
                     content+=","+"批/板/卷号"+crmMillSheetSplitInfo1.getZcharg()+"撤销拆分"+crmMillSheetSplitInfo1.getZjishu()+"件";
                 }
-                //修改拆分数据
+                //修改拆分数据 MILL_SHEET_HEAD Mill_Coil_Info  Mill_Chemistry_Data Mill_Physics_Data Mill_Sheet_Hosts Mill_Operation_His
+                // MILL_MODEL_MATCHING（模板表） MILL_SHEET_EXPAND（公式表）
+                // MILL_SHEET_NEEDS（特殊需求表） MILL_FALLBACK_INFO（回退表） MILL_FALLBACK_STEPS
                 crmMillSheetSplitApply1.setStatus("0");
                 crmMillSheetSplitApply1.setUpdatedBy(acctName);
                 crmMillSheetSplitApply1.setUpdatedDt(new Date());
                 crmMillSheetSplitApplyMapper.updateStatus(crmMillSheetSplitApply1);
                 //删除数据
-                MillCoilInfo coilInfo = new MillCoilInfo();
-                coilInfo.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
-                millCoilInfoMapper.deleteMillSheetNo(coilInfo);
-                MillSheetHosts millSheetHosts =new MillSheetHosts();
-                millSheetHosts.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
-                millSheetHostsMapper.deleteMillSheetNo(millSheetHosts);
                 MillSheetHead millSheetHead = new MillSheetHead();
                 millSheetHead.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
                 millSheetHeadMapper.deleteMillSheetNo(millSheetHead);
+                MillCoilInfo coilInfo = new MillCoilInfo();
+                coilInfo.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millCoilInfoMapper.deleteMillSheetNo(coilInfo);
+                MillChemistryData millChemistryData = new MillChemistryData();
+                millChemistryData.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millChemistryDataMapper.deleteByPrimaryKey(millChemistryData);
+                MillPhysicsData millPhysicsData = new MillPhysicsData();
+                millPhysicsData.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millPhysicsDataMapper.deleteByPrimaryKey(millPhysicsData);
+                MillSheetHosts millSheetHosts =new MillSheetHosts();
+                millSheetHosts.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millSheetHostsMapper.deleteMillSheetNo(millSheetHosts);
+                MillModelMatching millModelMatching = new MillModelMatching();
+                millModelMatching.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millModelMatchingMapper.deleteByPrimaryKey(millModelMatching);
+                MillSheetExpand millSheetExpand = new MillSheetExpand();
+                millSheetExpand.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millSheetExpandMapper.deleteByPrimaryKey(millSheetExpand);
+                MillSheetNeeds millSheetNeeds = new MillSheetNeeds();
+                millSheetNeeds.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millSheetNeedsMapper.deleteByPrimaryKey(millSheetNeeds);
+                MillFallbackInfo millFallbackInfo = new MillFallbackInfo();
+                millFallbackInfo.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millFallbackInfoMapper.deleteByPrimaryKey(millFallbackInfo);
+
+                MillFallbackSteps millFallbackSteps = new MillFallbackSteps();
+                millFallbackSteps.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millFallbackStepsMapper.deleteByPrimaryKey(millFallbackSteps);
+
 
                 //判断是否
                 CrmMillSheetSplitInfo gg = new CrmMillSheetSplitInfo();

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.MillFallbackStepsMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.MillFallbackSteps" >
+    <id column="SID" property="sid" jdbcType="DECIMAL" />
+    <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
+    <result column="FALLBACK_SID" property="fallbackSid" jdbcType="DECIMAL" />
+    <result column="STEP_ID" property="stepId" jdbcType="VARCHAR" />
+    <result column="STEP_RESULT" property="stepResult" jdbcType="VARCHAR" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="STEP_CONTENT" property="stepContent" jdbcType="VARCHAR" />
+    <result column="NEXT_STEP_ID" property="nextStepId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SID, MILL_SHEET_NO, FALLBACK_SID, STEP_ID, STEP_RESULT, CREATED_BY, CREATED_DT, UPDATED_BY, 
+    UPDATED_DT, VERSION, STEP_CONTENT, NEXT_STEP_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from MILL_FALLBACK_STEPS
+    where SID = #{sid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.MillFallbackSteps" >
+    delete from MILL_FALLBACK_STEPS
+    where MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.MillFallbackSteps" >
+    insert into MILL_FALLBACK_STEPS (SID, MILL_SHEET_NO, FALLBACK_SID, 
+      STEP_ID, STEP_RESULT, CREATED_BY, 
+      CREATED_DT, UPDATED_BY, UPDATED_DT, 
+      VERSION, STEP_CONTENT, NEXT_STEP_ID
+      )
+    values (#{sid,jdbcType=DECIMAL}, #{millSheetNo,jdbcType=VARCHAR}, #{fallbackSid,jdbcType=DECIMAL}, 
+      #{stepId,jdbcType=VARCHAR}, #{stepResult,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, 
+      #{createdDt,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=DECIMAL}, #{stepContent,jdbcType=VARCHAR}, #{nextStepId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.MillFallbackSteps" >
+    insert into MILL_FALLBACK_STEPS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        SID,
+      </if>
+      <if test="millSheetNo != null" >
+        MILL_SHEET_NO,
+      </if>
+      <if test="fallbackSid != null" >
+        FALLBACK_SID,
+      </if>
+      <if test="stepId != null" >
+        STEP_ID,
+      </if>
+      <if test="stepResult != null" >
+        STEP_RESULT,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="stepContent != null" >
+        STEP_CONTENT,
+      </if>
+      <if test="nextStepId != null" >
+        NEXT_STEP_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=DECIMAL},
+      </if>
+      <if test="millSheetNo != null" >
+        #{millSheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fallbackSid != null" >
+        #{fallbackSid,jdbcType=DECIMAL},
+      </if>
+      <if test="stepId != null" >
+        #{stepId,jdbcType=VARCHAR},
+      </if>
+      <if test="stepResult != null" >
+        #{stepResult,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="stepContent != null" >
+        #{stepContent,jdbcType=VARCHAR},
+      </if>
+      <if test="nextStepId != null" >
+        #{nextStepId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.MillFallbackSteps" >
+    update MILL_FALLBACK_STEPS
+    <set >
+      <if test="millSheetNo != null" >
+        MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fallbackSid != null" >
+        FALLBACK_SID = #{fallbackSid,jdbcType=DECIMAL},
+      </if>
+      <if test="stepId != null" >
+        STEP_ID = #{stepId,jdbcType=VARCHAR},
+      </if>
+      <if test="stepResult != null" >
+        STEP_RESULT = #{stepResult,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="stepContent != null" >
+        STEP_CONTENT = #{stepContent,jdbcType=VARCHAR},
+      </if>
+      <if test="nextStepId != null" >
+        NEXT_STEP_ID = #{nextStepId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SID = #{sid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.MillFallbackSteps" >
+    update MILL_FALLBACK_STEPS
+    set MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
+      FALLBACK_SID = #{fallbackSid,jdbcType=DECIMAL},
+      STEP_ID = #{stepId,jdbcType=VARCHAR},
+      STEP_RESULT = #{stepResult,jdbcType=VARCHAR},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=DECIMAL},
+      STEP_CONTENT = #{stepContent,jdbcType=VARCHAR},
+      NEXT_STEP_ID = #{nextStepId,jdbcType=VARCHAR}
+    where SID = #{sid,jdbcType=DECIMAL}
+  </update>
+</mapper>
