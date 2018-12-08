@@ -5,7 +5,7 @@ import jq.steel.cs.services.cust.facade.model.MillFallbackInfo;
 import java.util.List;
 
 public interface MillFallbackInfoMapper {
-    int deleteByPrimaryKey(Long sid);
+    void deleteByPrimaryKey(MillFallbackInfo record);
 
     int insert(MillFallbackInfo record);
 

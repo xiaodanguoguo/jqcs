@@ -69,6 +69,8 @@ public class MillSheetHostsController {
     public JsonResponse<PageDTO<MillSheetHostsVO>>  findMillSheetByPage(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest){
         JsonResponse<PageDTO<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
         String acctId = AssertContext.getAcctId();
+        String orgId = AssertContext.getOrgId();
+        String orgType = AssertContext.getOrgType();
         ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
         List<String> list = new ArrayList<>();
         for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
@@ -81,6 +83,9 @@ public class MillSheetHostsController {
         }
         //组织名称
         jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+        jsonRequest.getReqBody().setOrgId(orgId);
+        jsonRequest.getReqBody().setOrgType(orgType);
+
         try {
         ServiceResponse<PageDTO<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findMillSheetByPage(jsonRequest);
         if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
@@ -113,6 +118,8 @@ public class MillSheetHostsController {
     public JsonResponse<PageDTO<MillSheetHostsVO>>  findMillSheetByPage1(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest){
         JsonResponse<PageDTO<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
         String acctId = AssertContext.getAcctId();
+        String orgId = AssertContext.getOrgId();
+        String orgType = AssertContext.getOrgType();
         ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
         List<String> list = new ArrayList<>();
         for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
@@ -125,6 +132,8 @@ public class MillSheetHostsController {
         }
         //组织名称
         jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+        jsonRequest.getReqBody().setOrgId(orgId);
+        jsonRequest.getReqBody().setOrgType(orgType);
         try {
             ServiceResponse<PageDTO<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findMillSheetByPage1(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {

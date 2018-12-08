@@ -5,7 +5,7 @@ import jq.steel.cs.services.cust.facade.model.MillSheetNeeds;
 import java.util.List;
 
 public interface MillSheetNeedsMapper {
-    int deleteByPrimaryKey(Long sid);
+    void deleteByPrimaryKey(MillSheetNeeds record);
 
     int insert(MillSheetNeeds record);
 

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.MillSheetExpandMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.MillSheetExpand" >
+    <id column="SID" property="sid" jdbcType="DECIMAL" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
+    <result column="PHYSICS_S" property="physicsS" jdbcType="DECIMAL" />
+    <result column="PHYSICS_E" property="physicsE" jdbcType="DECIMAL" />
+    <result column="CHEMISTRY_S" property="chemistryS" jdbcType="DECIMAL" />
+    <result column="CHEMISTRY_E" property="chemistryE" jdbcType="DECIMAL" />
+    <result column="CHE_SHOW" property="cheShow" jdbcType="VARCHAR" />
+    <result column="PHY_SHOW_ACTIVE" property="phyShowActive" jdbcType="VARCHAR" />
+    <result column="PAGE_NO" property="pageNo" jdbcType="DECIMAL" />
+    <result column="BZFSSHOW" property="bzfsshow" jdbcType="VARCHAR" />
+    <result column="PHY_SHOW_3" property="phyShow3" jdbcType="VARCHAR" />
+    <result column="PHY_SHOW_5" property="phyShow5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SID, CREATED_BY, CREATED_DT, UPDATED_BY, UPDATED_DT, VERSION, MILL_SHEET_NO, PHYSICS_S, 
+    PHYSICS_E, CHEMISTRY_S, CHEMISTRY_E, CHE_SHOW, PHY_SHOW_ACTIVE, PAGE_NO, BZFSSHOW, 
+    PHY_SHOW_3, PHY_SHOW_5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from MILL_SHEET_EXPAND
+    where SID = #{sid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetExpand" >
+    delete from MILL_SHEET_EXPAND
+    where MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetExpand" >
+    insert into MILL_SHEET_EXPAND (SID, CREATED_BY, CREATED_DT, 
+      UPDATED_BY, UPDATED_DT, VERSION, 
+      MILL_SHEET_NO, PHYSICS_S, PHYSICS_E, 
+      CHEMISTRY_S, CHEMISTRY_E, CHE_SHOW, 
+      PHY_SHOW_ACTIVE, PAGE_NO, BZFSSHOW, 
+      PHY_SHOW_3, PHY_SHOW_5)
+    values (#{sid,jdbcType=DECIMAL}, #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL}, 
+      #{millSheetNo,jdbcType=VARCHAR}, #{physicsS,jdbcType=DECIMAL}, #{physicsE,jdbcType=DECIMAL}, 
+      #{chemistryS,jdbcType=DECIMAL}, #{chemistryE,jdbcType=DECIMAL}, #{cheShow,jdbcType=VARCHAR}, 
+      #{phyShowActive,jdbcType=VARCHAR}, #{pageNo,jdbcType=DECIMAL}, #{bzfsshow,jdbcType=VARCHAR}, 
+      #{phyShow3,jdbcType=VARCHAR}, #{phyShow5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetExpand" >
+    insert into MILL_SHEET_EXPAND
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        SID,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="millSheetNo != null" >
+        MILL_SHEET_NO,
+      </if>
+      <if test="physicsS != null" >
+        PHYSICS_S,
+      </if>
+      <if test="physicsE != null" >
+        PHYSICS_E,
+      </if>
+      <if test="chemistryS != null" >
+        CHEMISTRY_S,
+      </if>
+      <if test="chemistryE != null" >
+        CHEMISTRY_E,
+      </if>
+      <if test="cheShow != null" >
+        CHE_SHOW,
+      </if>
+      <if test="phyShowActive != null" >
+        PHY_SHOW_ACTIVE,
+      </if>
+      <if test="pageNo != null" >
+        PAGE_NO,
+      </if>
+      <if test="bzfsshow != null" >
+        BZFSSHOW,
+      </if>
+      <if test="phyShow3 != null" >
+        PHY_SHOW_3,
+      </if>
+      <if test="phyShow5 != null" >
+        PHY_SHOW_5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=DECIMAL},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="millSheetNo != null" >
+        #{millSheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="physicsS != null" >
+        #{physicsS,jdbcType=DECIMAL},
+      </if>
+      <if test="physicsE != null" >
+        #{physicsE,jdbcType=DECIMAL},
+      </if>
+      <if test="chemistryS != null" >
+        #{chemistryS,jdbcType=DECIMAL},
+      </if>
+      <if test="chemistryE != null" >
+        #{chemistryE,jdbcType=DECIMAL},
+      </if>
+      <if test="cheShow != null" >
+        #{cheShow,jdbcType=VARCHAR},
+      </if>
+      <if test="phyShowActive != null" >
+        #{phyShowActive,jdbcType=VARCHAR},
+      </if>
+      <if test="pageNo != null" >
+        #{pageNo,jdbcType=DECIMAL},
+      </if>
+      <if test="bzfsshow != null" >
+        #{bzfsshow,jdbcType=VARCHAR},
+      </if>
+      <if test="phyShow3 != null" >
+        #{phyShow3,jdbcType=VARCHAR},
+      </if>
+      <if test="phyShow5 != null" >
+        #{phyShow5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetExpand" >
+    update MILL_SHEET_EXPAND
+    <set >
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="millSheetNo != null" >
+        MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
+      </if>
+      <if test="physicsS != null" >
+        PHYSICS_S = #{physicsS,jdbcType=DECIMAL},
+      </if>
+      <if test="physicsE != null" >
+        PHYSICS_E = #{physicsE,jdbcType=DECIMAL},
+      </if>
+      <if test="chemistryS != null" >
+        CHEMISTRY_S = #{chemistryS,jdbcType=DECIMAL},
+      </if>
+      <if test="chemistryE != null" >
+        CHEMISTRY_E = #{chemistryE,jdbcType=DECIMAL},
+      </if>
+      <if test="cheShow != null" >
+        CHE_SHOW = #{cheShow,jdbcType=VARCHAR},
+      </if>
+      <if test="phyShowActive != null" >
+        PHY_SHOW_ACTIVE = #{phyShowActive,jdbcType=VARCHAR},
+      </if>
+      <if test="pageNo != null" >
+        PAGE_NO = #{pageNo,jdbcType=DECIMAL},
+      </if>
+      <if test="bzfsshow != null" >
+        BZFSSHOW = #{bzfsshow,jdbcType=VARCHAR},
+      </if>
+      <if test="phyShow3 != null" >
+        PHY_SHOW_3 = #{phyShow3,jdbcType=VARCHAR},
+      </if>
+      <if test="phyShow5 != null" >
+        PHY_SHOW_5 = #{phyShow5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SID = #{sid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetExpand" >
+    update MILL_SHEET_EXPAND
+    set CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=DECIMAL},
+      MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR},
+      PHYSICS_S = #{physicsS,jdbcType=DECIMAL},
+      PHYSICS_E = #{physicsE,jdbcType=DECIMAL},
+      CHEMISTRY_S = #{chemistryS,jdbcType=DECIMAL},
+      CHEMISTRY_E = #{chemistryE,jdbcType=DECIMAL},
+      CHE_SHOW = #{cheShow,jdbcType=VARCHAR},
+      PHY_SHOW_ACTIVE = #{phyShowActive,jdbcType=VARCHAR},
+      PAGE_NO = #{pageNo,jdbcType=DECIMAL},
+      BZFSSHOW = #{bzfsshow,jdbcType=VARCHAR},
+      PHY_SHOW_3 = #{phyShow3,jdbcType=VARCHAR},
+      PHY_SHOW_5 = #{phyShow5,jdbcType=VARCHAR}
+    where SID = #{sid,jdbcType=DECIMAL}
+  </update>
+</mapper>

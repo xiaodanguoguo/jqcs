@@ -42,11 +42,28 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     private AcctInfoMapper acctInfoMapper;
     @Autowired
     private CrmMillSheetSplitInfoMapper crmMillSheetSplitInfoMapper;
+    @Autowired
+    private MillChemistryDataMapper millChemistryDataMapper;
+    @Autowired
+    private MillPhysicsDataMapper millPhysicsDataMapper;
+    @Autowired
+    private MillModelMatchingMapper millModelMatchingMapper;
+    @Autowired
+    private MillSheetExpandMapper millSheetExpandMapper;
+    @Autowired
+    private MillSheetNeedsMapper millSheetNeedsMapper;
+    @Autowired
+    private MillFallbackInfoMapper millFallbackInfoMapper;
+    @Autowired
+    private MillFallbackStepsMapper millFallbackStepsMapper;
+
 
     //分页查询（质证书已经拆分给其他用户并且该用户在客服平台有账号的，则本级不能再对该质证书进行打印、下载操作。如拆分出来的质证书接受单位在平台中没有对应的账号，本级还可以对该质证书进行下载和打印操作）
     @Override
     public PageDTO<MillSheetHostsVO> findMillSheetByPage(MillSheetHostsVO millSheetHostsVO) {
         String orgName = millSheetHostsVO.getOrgName();
+        String orgId = millSheetHostsVO.getOrgId();
+        String orgType = millSheetHostsVO.getOrgType();
         try {
         //转换mdel
         MillSheetHosts millSheetHosts = new MillSheetHosts();
@@ -134,35 +151,65 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 millSheetHosts2.setZlosmenge(zlosmenge);
                 millSheetHosts2.setSurplusZlosmenge(surplusZlosmenge);
                 if(millSheetHosts2.getJcFlag()!=null){
-                    //判断是否允许下载(建材类不让下载)
+                    //判断是否允许下载(建材类不让下载)让打印
                     if(millSheetHosts2.getJcFlag()==0){
-                        millSheetHosts2.setIsAllow("N");
+                        //根据组织获取该用户是否为信任用户
+                        OrgInfo orgInfo = new OrgInfo();
+                        orgInfo.setId(orgId);
+                        List<OrgInfo> list =orgInfoMapper.findIdByCode(orgInfo);
+                        if (list.size()>0){
+                            if (list.get(0).getIndustrialCode()!=null){
+                                if (list.get(0).getIndustrialCode().equals("1")){
+                                    //信任
+                                    millSheetHosts2.setIsAllowDown("Y");
+                                    millSheetHosts2.setIsAllowPrint("Y");
+                                }else{
+                                    millSheetHosts2.setIsAllowDown("N");
+                                    millSheetHosts2.setIsAllowPrint("Y");
+                                }
+                            }
+                        }
+
                     }else {
                         if (millSheetHosts2.getMillSheetType().equals("Z")||millSheetHosts2.getMillSheetType().equals("S")){
                             if (millSheetHosts2.getSpiltCustomer().equals(orgName)){
-                                millSheetHosts2.setIsAllow("Y");
+                                millSheetHosts2.setIsAllowDown("Y");
+                                millSheetHosts2.setIsAllowPrint("Y");
                             }else {
                                 //查询拆分单位下是否有账号有的话不让下载 没有的话让下载打印
                                 OrgInfo orgInfo = new OrgInfo();
                                 orgInfo.setOrgName(millSheetHosts2.getSpiltCustomer());
                                 List<OrgInfo> list =orgInfoMapper.findIdByOrgName(orgInfo);
                                 if(list.size()>0){
-                                    AcctInfo acctInfo = new AcctInfo();
+                                   /* AcctInfo acctInfo = new AcctInfo();
                                     acctInfo.setoInfoId(list.get(0).getId());
                                     List<AcctInfo> acctInfos =acctInfoMapper.findNameByorgId(acctInfo);
                                     if (acctInfos.size()>0){
-                                        millSheetHosts2.setIsAllow("N");
+                                        millSheetHosts2.setIsAllowDown("N");
+                                        millSheetHosts2.setIsAllowPrint("N");
                                     }else {
-                                        millSheetHosts2.setIsAllow("Y");
-                                    }
+                                        millSheetHosts2.setIsAllowDown("Y");
+                                        millSheetHosts2.setIsAllowPrint("Y");
+                                    }*/
+                                    millSheetHosts2.setIsAllowDown("Y");
+                                    millSheetHosts2.setIsAllowPrint("Y");
                                 }else{
-                                    millSheetHosts2.setIsAllow("N");
+                                    millSheetHosts2.setIsAllowDown("N");
+                                    millSheetHosts2.setIsAllowPrint("N");
                                 }
                             }
                         }else {
-                            millSheetHosts2.setIsAllow("Y");
+                            millSheetHosts2.setIsAllowDown("Y");
+                            millSheetHosts2.setIsAllowPrint("Y");
                         }
 
+                    }
+                }
+                millSheetHosts2.setIsAllowRevoke("Y");
+                //是否允许撤销（子类质证书组织类型为234的不能撤销，提示无权撤销质证书，有问题请回退）
+                if (millSheetHosts2.getMillSheetType().equals("Z")){
+                    if (orgType.equals("2")||orgType.equals("3")||orgType.equals("4")){
+                        millSheetHosts2.setIsAllowRevoke("N");
                     }
                 }
 
@@ -178,6 +225,8 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     @Override
     public PageDTO<MillSheetHostsVO> findMillSheetByPage1(MillSheetHostsVO millSheetHostsVO) {
         String orgName = millSheetHostsVO.getOrgName();
+        String orgId = millSheetHostsVO.getOrgId();
+        String orgType = millSheetHostsVO.getOrgType();
         try {
             //转换mdel
             MillSheetHosts millSheetHosts = new MillSheetHosts();
@@ -267,35 +316,66 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 millSheetHosts2.setSurplusZlosmenge(surplusZlosmenge);
 
                 if(millSheetHosts2.getJcFlag()!=null){
-                    //判断是否允许下载(建材类不让下载)
+                    //判断是否允许下载(建材类不让下载)让打印
                     if(millSheetHosts2.getJcFlag()==0){
-                        millSheetHosts2.setIsAllow("N");
+                        //根据组织获取该用户是否为信任用户
+                        OrgInfo orgInfo = new OrgInfo();
+                        orgInfo.setId(orgId);
+                        List<OrgInfo> list =orgInfoMapper.findIdByCode(orgInfo);
+                        if (list.size()>0){
+                            if (list.get(0).getIndustrialCode()!=null){
+                                if (list.get(0).getIndustrialCode().equals("1")){
+                                    //信任
+                                    millSheetHosts2.setIsAllowDown("Y");
+                                    millSheetHosts2.setIsAllowPrint("Y");
+                                }else{
+                                    millSheetHosts2.setIsAllowDown("N");
+                                    millSheetHosts2.setIsAllowPrint("Y");
+                                }
+                            }
+                        }
+
                     }else {
                         if (millSheetHosts2.getMillSheetType().equals("Z")||millSheetHosts2.getMillSheetType().equals("S")){
                             if (millSheetHosts2.getSpiltCustomer().equals(orgName)){
-                                millSheetHosts2.setIsAllow("Y");
+                                millSheetHosts2.setIsAllowDown("Y");
+                                millSheetHosts2.setIsAllowPrint("Y");
                             }else {
                                 //查询拆分单位下是否有账号有的话不让下载 没有的话让下载打印
                                 OrgInfo orgInfo = new OrgInfo();
                                 orgInfo.setOrgName(millSheetHosts2.getSpiltCustomer());
                                 List<OrgInfo> list =orgInfoMapper.findIdByOrgName(orgInfo);
                                 if(list.size()>0){
-                                    AcctInfo acctInfo = new AcctInfo();
+                                   /* AcctInfo acctInfo = new AcctInfo();
                                     acctInfo.setoInfoId(list.get(0).getId());
                                     List<AcctInfo> acctInfos =acctInfoMapper.findNameByorgId(acctInfo);
                                     if (acctInfos.size()>0){
-                                        millSheetHosts2.setIsAllow("N");
+                                        millSheetHosts2.setIsAllowDown("N");
+                                        millSheetHosts2.setIsAllowPrint("N");
                                     }else {
-                                        millSheetHosts2.setIsAllow("Y");
-                                    }
+                                        millSheetHosts2.setIsAllowDown("Y");
+                                        millSheetHosts2.setIsAllowPrint("Y");
+                                    }*/
+                                    millSheetHosts2.setIsAllowDown("Y");
+                                    millSheetHosts2.setIsAllowPrint("Y");
                                 }else{
-                                    millSheetHosts2.setIsAllow("Y");
+                                    millSheetHosts2.setIsAllowDown("N");
+                                    millSheetHosts2.setIsAllowPrint("N");
                                 }
                             }
                         }else {
-                            millSheetHosts2.setIsAllow("Y");
+                            millSheetHosts2.setIsAllowDown("Y");
+                            millSheetHosts2.setIsAllowPrint("Y");
                         }
 
+                    }
+                }
+
+                millSheetHosts2.setIsAllowRevoke("Y");
+                //是否允许撤销（子类质证书组织类型为234的不能撤销，提示无权撤销质证书，有问题请回退）
+                if (millSheetHosts2.getMillSheetType().equals("Z")){
+                    if (orgType.equals("2")||orgType.equals("3")||orgType.equals("4")){
+                        millSheetHosts2.setIsAllowRevoke("N");
                     }
                 }
             }
@@ -598,21 +678,46 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                     crmMillSheetSplitInfoMapper.updateStatus(crmMillSheetSplitInfo1);
                     content+=","+"批/板/卷号"+crmMillSheetSplitInfo1.getZcharg()+"撤销拆分"+crmMillSheetSplitInfo1.getZjishu()+"件";
                 }
-                //修改拆分数据
+                //修改拆分数据 MILL_SHEET_HEAD Mill_Coil_Info  Mill_Chemistry_Data Mill_Physics_Data Mill_Sheet_Hosts Mill_Operation_His
+                // MILL_MODEL_MATCHING（模板表） MILL_SHEET_EXPAND（公式表）
+                // MILL_SHEET_NEEDS（特殊需求表） MILL_FALLBACK_INFO（回退表） MILL_FALLBACK_STEPS
                 crmMillSheetSplitApply1.setStatus("0");
                 crmMillSheetSplitApply1.setUpdatedBy(acctName);
                 crmMillSheetSplitApply1.setUpdatedDt(new Date());
                 crmMillSheetSplitApplyMapper.updateStatus(crmMillSheetSplitApply1);
                 //删除数据
-                MillCoilInfo coilInfo = new MillCoilInfo();
-                coilInfo.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
-                millCoilInfoMapper.deleteMillSheetNo(coilInfo);
-                MillSheetHosts millSheetHosts =new MillSheetHosts();
-                millSheetHosts.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
-                millSheetHostsMapper.deleteMillSheetNo(millSheetHosts);
                 MillSheetHead millSheetHead = new MillSheetHead();
                 millSheetHead.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
                 millSheetHeadMapper.deleteMillSheetNo(millSheetHead);
+                MillCoilInfo coilInfo = new MillCoilInfo();
+                coilInfo.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millCoilInfoMapper.deleteMillSheetNo(coilInfo);
+                MillChemistryData millChemistryData = new MillChemistryData();
+                millChemistryData.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millChemistryDataMapper.deleteByPrimaryKey(millChemistryData);
+                MillPhysicsData millPhysicsData = new MillPhysicsData();
+                millPhysicsData.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millPhysicsDataMapper.deleteByPrimaryKey(millPhysicsData);
+                MillSheetHosts millSheetHosts =new MillSheetHosts();
+                millSheetHosts.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millSheetHostsMapper.deleteMillSheetNo(millSheetHosts);
+                MillModelMatching millModelMatching = new MillModelMatching();
+                millModelMatching.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millModelMatchingMapper.deleteByPrimaryKey(millModelMatching);
+                MillSheetExpand millSheetExpand = new MillSheetExpand();
+                millSheetExpand.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millSheetExpandMapper.deleteByPrimaryKey(millSheetExpand);
+                MillSheetNeeds millSheetNeeds = new MillSheetNeeds();
+                millSheetNeeds.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millSheetNeedsMapper.deleteByPrimaryKey(millSheetNeeds);
+                MillFallbackInfo millFallbackInfo = new MillFallbackInfo();
+                millFallbackInfo.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millFallbackInfoMapper.deleteByPrimaryKey(millFallbackInfo);
+
+                MillFallbackSteps millFallbackSteps = new MillFallbackSteps();
+                millFallbackSteps.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+                millFallbackStepsMapper.deleteByPrimaryKey(millFallbackSteps);
+
 
                 //判断是否
                 CrmMillSheetSplitInfo gg = new CrmMillSheetSplitInfo();

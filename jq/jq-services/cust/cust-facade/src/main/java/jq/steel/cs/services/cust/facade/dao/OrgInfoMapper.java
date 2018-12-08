@@ -9,4 +9,6 @@ import java.util.List;
 public interface OrgInfoMapper {
 	//根据组织名查询id
 	List<OrgInfo>findIdByOrgName(OrgInfo reqBody);
+	//根据id查询industrialCode
+	List<OrgInfo>findIdByCode(OrgInfo reqBody);
 }

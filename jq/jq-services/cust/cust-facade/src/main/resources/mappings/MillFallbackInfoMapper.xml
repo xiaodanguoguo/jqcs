@@ -24,9 +24,9 @@
     from MILL_FALLBACK_INFO
     where MILL_SHEET_NO = #{millSheetNo,jdbcType=DECIMAL}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.MillFallbackInfo" >
     delete from MILL_FALLBACK_INFO
-    where SID = #{sid,jdbcType=DECIMAL}
+    where MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.MillFallbackInfo" >
     insert into MILL_FALLBACK_INFO (SID, MILL_SHEET_NO, CUSTOMER_CODE, 
