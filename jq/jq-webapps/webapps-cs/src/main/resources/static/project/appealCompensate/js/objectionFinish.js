@@ -326,6 +326,8 @@ function pastDateOpeCallBack(data) {
     if(data.retCode == "0000000"){
         closePopupWin();
         initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,null,"POST");
+        var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert("请再次上传图片文件","成功提示");
     }
 }
 

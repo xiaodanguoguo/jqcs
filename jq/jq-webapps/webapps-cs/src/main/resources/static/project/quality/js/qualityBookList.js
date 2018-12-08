@@ -124,7 +124,7 @@ function clsMethodLee$operate(){
                     }else{
                         var milName2 = "";
                         for(var lnI = 0; lnI < $("#tableList")[0].cacheArr.length; lnI++){
-                            if($("#tableList")[0].cacheArr[lnI].isAllow == "N"){//jcFlag（number类型）是否是0提示‘建材类不让下载’ 如果是1 再判断字段查询返回的字段isAllow（string类型）
+                            if($("#tableList")[0].cacheArr[lnI].isAllowDown == "N"){//jcFlag（number类型）是否是0提示‘建材类不让下载’ 如果是1 再判断字段查询返回的字段isAllow（string类型）
                                 milName2 += milName2 ? $("#tableList")[0].cacheArr[lnI].millSheetNo : "," + $("#tableList")[0].cacheArr[lnI].millSheetNo;
                             }
                         }
@@ -200,7 +200,7 @@ function clsMethodLee$operate(){
                 if(window.location.href.indexOf("qualityBookList2") != -1) {
                     var milName = "";
                     for (var lmI = 0; lmI < $("#tableList")[0].cacheArr.length; lmI++) {
-                        if ($("#tableList")[0].cacheArr[lmI].isAllow == "N") {//isAllow（string类型）  如果是‘Y’ 允许打印   如果是'N' 提示  ‘此质证书您无权打印’
+                        if ($("#tableList")[0].cacheArr[lmI].isAllowPrint == "N") {//isAllow（string类型）  如果是‘Y’ 允许打印   如果是'N' 提示  ‘此质证书您无权打印’
                             milName += milName ? $("#tableList")[0].cacheArr[lmI].millSheetNo : "," + $("#tableList")[0].cacheArr[lmI].millSheetNo;
                         }
                     }
