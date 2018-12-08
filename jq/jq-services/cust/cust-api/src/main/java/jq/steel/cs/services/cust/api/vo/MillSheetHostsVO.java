@@ -9,8 +9,13 @@ import java.util.List;
 
 public class MillSheetHostsVO implements Serializable {
 
+    private String isAllowRevoke;
+
     //组织id
     private String orgId;
+
+    //组织类型
+    private String orgType;
 
     //原件次
     private Long zjishu;
@@ -49,6 +54,22 @@ public class MillSheetHostsVO implements Serializable {
 
     //厂家code
     private List<String> deptCodes;
+
+    public String getIsAllowRevoke() {
+        return isAllowRevoke;
+    }
+
+    public void setIsAllowRevoke(String isAllowRevoke) {
+        this.isAllowRevoke = isAllowRevoke;
+    }
+
+    public String getOrgType() {
+        return orgType;
+    }
+
+    public void setOrgType(String orgType) {
+        this.orgType = orgType;
+    }
 
     public String getOrgId() {
         return orgId;

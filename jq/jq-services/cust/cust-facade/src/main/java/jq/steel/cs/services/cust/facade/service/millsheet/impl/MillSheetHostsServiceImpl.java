@@ -63,6 +63,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     public PageDTO<MillSheetHostsVO> findMillSheetByPage(MillSheetHostsVO millSheetHostsVO) {
         String orgName = millSheetHostsVO.getOrgName();
         String orgId = millSheetHostsVO.getOrgId();
+        String orgType = millSheetHostsVO.getOrgType();
         try {
         //转换mdel
         MillSheetHosts millSheetHosts = new MillSheetHosts();
@@ -204,6 +205,13 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
 
                     }
                 }
+                millSheetHosts2.setIsAllowRevoke("Y");
+                //是否允许撤销（子类质证书组织类型为234的不能撤销，提示无权撤销质证书，有问题请回退）
+                if (millSheetHosts2.getMillSheetType().equals("Z")){
+                    if (orgType.equals("2")||orgType.equals("3")||orgType.equals("4")){
+                        millSheetHosts2.setIsAllowRevoke("N");
+                    }
+                }
 
             }
         return transform;
@@ -218,6 +226,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     public PageDTO<MillSheetHostsVO> findMillSheetByPage1(MillSheetHostsVO millSheetHostsVO) {
         String orgName = millSheetHostsVO.getOrgName();
         String orgId = millSheetHostsVO.getOrgId();
+        String orgType = millSheetHostsVO.getOrgType();
         try {
             //转换mdel
             MillSheetHosts millSheetHosts = new MillSheetHosts();
@@ -359,6 +368,14 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                             millSheetHosts2.setIsAllowPrint("Y");
                         }
 
+                    }
+                }
+
+                millSheetHosts2.setIsAllowRevoke("Y");
+                //是否允许撤销（子类质证书组织类型为234的不能撤销，提示无权撤销质证书，有问题请回退）
+                if (millSheetHosts2.getMillSheetType().equals("Z")){
+                    if (orgType.equals("2")||orgType.equals("3")||orgType.equals("4")){
+                        millSheetHosts2.setIsAllowRevoke("N");
                     }
                 }
             }
