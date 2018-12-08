@@ -511,7 +511,7 @@
             }else{
                 $("#stateInp").attr("checked",false);
             }
-            if($("#fotTable")[0].jsonData.industrialCode = 1){
+            if($("#fotTable")[0].jsonData.industrialCode == 1){
                 $("#industrialCode").attr("checked",true);
             }else{
                 $("#industrialCode").attr("checked",false);
@@ -937,7 +937,7 @@
                 <li class="ml20"><label>电话：</label><input type="text" class="required newPhone" id="tel"/></li>
                 <li class="ml20"><label>地址：</label><input type="text" class="required" id="addr"/></li>
                 <li class="ml20"><label>备注：</label><textarea type="text" class="" id="memoInp"></textarea></li>
-                <li class="ml20"><label>信任：</label><input type="checkbox" id="industrialCode"></li>
+                <li class="ml20"><input style="margin-right: 5px;margin-top: 9px;" type="checkbox" id="industrialCode"><label style="width: 140px">建材质证书可下载用户：</label></li>
                 <!--<li class="ml20"><label>默认启用：</label><input type="checkbox" id="stateInp"/></li>-->
             </ul>
             <div class="mod-search-div" id="addRe" style="width:70px;height: 62px;margin:0 auto;">
