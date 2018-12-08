@@ -48,7 +48,7 @@ public interface MillSheetHostsMapper {
     List<MillSheetHosts> findDeptCode(MillSheetHosts record);
 
     //返回app端质证书下载路径
-    MillSheetHosts getUrlForApp(String millSheetNo);
+    MillSheetHosts getUrlForApp(MillSheetHosts model);
 
     //APP质证书条件查询
     List<MillSheetHosts> getSheetHostsMsgHaveZcharg(MillCoilInfoVO vo);

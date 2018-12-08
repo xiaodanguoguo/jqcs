@@ -168,7 +168,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
   </select>
 
 
-<!--拆分校验-->
+  <!--拆分校验-->
   <select id="findExist" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
      SELECT
     A.STATE,
@@ -212,7 +212,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
 
 
 
-<!--校验checkCoil-->
+  <!--校验checkCoil-->
   <select id="checkCoil" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
   SELECT
   A.ZCHARG,
@@ -321,17 +321,17 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
           #{deptCodes[${index}]}
         </foreach>
       </if>
-  <!--<choose>
-        <when test="deptCodes != null">
-          AND MSO.DEPT_CODE  in
-          <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
-            #{deptCodes[${index}]}
-          </foreach>
-        </when>
-        <otherwise>
-          AND   MSO.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
-        </otherwise>
-      </choose>-->
+      <!--<choose>
+            <when test="deptCodes != null">
+              AND MSO.DEPT_CODE  in
+              <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
+                #{deptCodes[${index}]}
+              </foreach>
+            </when>
+            <otherwise>
+              AND   MSO.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+            </otherwise>
+          </choose>-->
       <if test="millLine != null and millLine != ''" >
         AND MSH.MILL_LINE = #{millLine,jdbcType=VARCHAR}
       </if>
@@ -678,32 +678,32 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
   </insert>
 
 
-    <update id="updateNum" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
-      update MILL_SHEET_HOSTS
-      <trim suffixOverrides=",">
+  <update id="updateNum" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
+    update MILL_SHEET_HOSTS
+    <trim suffixOverrides=",">
       set version = version + 1,
-    <if test="printableNum != null" >
-      PRINTABLE_NUM = #{printableNum,jdbcType=DECIMAL},
-    </if>
-    <if test="printedNum != null" >
-      PRINTED_NUM = #{printedNum,jdbcType=DECIMAL},
-    </if>
-    <if test="downableNum != null" >
-      DOWNABLE_NUM = #{downableNum,jdbcType=DECIMAL},
-    </if>
-    <if test="downNum != null">
-      DOWN_NUM = #{downNum,jdbcType=DECIMAL},
-    </if>
-    <if test="updatedBy != null" >
-      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
-    </if>
-    <if test="updatedDt != null" >
-      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
-    </if>
+      <if test="printableNum != null" >
+        PRINTABLE_NUM = #{printableNum,jdbcType=DECIMAL},
+      </if>
+      <if test="printedNum != null" >
+        PRINTED_NUM = #{printedNum,jdbcType=DECIMAL},
+      </if>
+      <if test="downableNum != null" >
+        DOWNABLE_NUM = #{downableNum,jdbcType=DECIMAL},
+      </if>
+      <if test="downNum != null">
+        DOWN_NUM = #{downNum,jdbcType=DECIMAL},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
       <if test="state != null and state != ''" >
-      STATE = #{state,jdbcType=VARCHAR},
-     </if>
-      </trim>
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
     where MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
   </update>
 
@@ -714,7 +714,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     where MILL_SHEET_NO = #{millSheetNo}
     <choose>
       <when test="states !=null and states != ''">
-        and STATE  = #{states,jdbcType=VARCHAR}
+        and STATE  = #{states}
       </when>
       <otherwise>
         AND STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED')
@@ -849,13 +849,13 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN MILL_SHEET_HEAD msd ON MSD.MILL_SHEET_NO = MSS.MILL_SHEET_NO
     <if test="zcharg != null and zcharg != ''">
       WHERE msd.MILL_SHEET_NO IN
-    (
+      (
       SELECT
       mco.MILL_SHEET_NO
       FROM MILL_COIL_INFO mco
       WHERE mco.ZCHARG= #{zcharg}
       GROUP BY mco.MILL_SHEET_NO
-    )
+      )
       <if test="zchehao != null and zchehao != ''">
         AND msd.ZCHEHAO= #{zchehao}
       </if>
@@ -864,10 +864,10 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       </if>
 
       <if test="startDtStr != null and startDtStr != '' " >
-        AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd hh24:mi:ss') >= #{startDtStr}
+        AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd') >= #{startDtStr}
       </if>
       <if test="endDtStr != null and endDtStr != '' " >
-        AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd') &lt;= #{endDtStr}
       </if>
 
       <if test="millSheetNo != null and millSheetNo != '' ">
@@ -896,10 +896,10 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       </if>
 
       <if test="startDtStr != null and startDtStr != '' " >
-        AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd hh24:mi:ss') >= #{startDtStr}
+        AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd') >= #{startDtStr}
       </if>
       <if test="endDtStr != null and endDtStr != '' " >
-        AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd') &lt;= #{endDtStr}
       </if>
 
       <if test="millSheetNo != null and millSheetNo != '' ">
