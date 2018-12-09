@@ -208,6 +208,17 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
   </select>
 
 
+  <select id="findMillSheetZkunner" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
+    SELECT
+    A.STATE,
+    A.MILL_SHEET_NO,
+    (select distinct name1 from MILL_CUSTOMER where KUNNR = A.ZKUNNR) AS ZKUNNR
+    FROM WARRANTY.MILL_SHEET_HOSTS A
+    WHERE
+    A.MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR}
+  </select>
+
+
 
 
 

@@ -32,6 +32,8 @@ public interface MillSheetHostsMapper {
     List<MillSheetHosts> findAllow (MillSheetHosts record);
     List<MillSheetHosts> findType (MillSheetHosts record);
     List<MillSheetHosts> findMillSheetType (MillSheetHosts record);
+    List<MillSheetHosts> findMillSheetZkunner (MillSheetHosts record);
+
 
 
 

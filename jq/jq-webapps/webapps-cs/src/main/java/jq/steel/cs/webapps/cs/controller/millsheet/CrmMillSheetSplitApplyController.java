@@ -84,6 +84,9 @@ public class CrmMillSheetSplitApplyController {
     @PostMapping("/upload")
     public JsonResponse<CrmMillSheetSplitApplyVO> upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
         JsonRequest<List<CrmMillSheetSplitApplyVO>> jsonRequest = new JsonRequest<>();
+        for (CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVO : jsonRequest.getReqBody()) {
+            crmMillSheetSplitApplyVO.setOrgName(AssertContext.getOrgName());
+        }
         JsonResponse<CrmMillSheetSplitApplyVO> jsonResponse = new JsonResponse<CrmMillSheetSplitApplyVO>();
 
         if (null != file) {
@@ -188,6 +191,9 @@ public class CrmMillSheetSplitApplyController {
     @PostMapping("/uploadNeed")
     public JsonResponse<CrmMillSheetSplitApplyVO> uploadNeed(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException {
         JsonRequest<List<CrmMillSheetSplitApplyVO>> jsonRequest = new JsonRequest<>();
+        for (CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVO : jsonRequest.getReqBody()) {
+            crmMillSheetSplitApplyVO.setOrgName(AssertContext.getOrgName());
+        }
         JsonResponse<CrmMillSheetSplitApplyVO> jsonResponse = new JsonResponse<CrmMillSheetSplitApplyVO>();
         if (null != file) {
             try {
