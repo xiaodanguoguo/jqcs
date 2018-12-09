@@ -862,7 +862,6 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                             }
                             if (!aa.equals("")) {
                                 //重复数据
-                                crmMillSheetSplitInfoList.remove(j);
                                 CrmMillSheetSplitInfo crmMillSheetSplitInfo3 = new CrmMillSheetSplitInfo();
                                 crmMillSheetSplitInfo3.setAcctName(crmMillSheetSplitInfo1.getAcctName());
                                 crmMillSheetSplitInfo3.setMillsheetNo(crmMillSheetSplitInfo1.getMillsheetNo());
@@ -874,8 +873,6 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                                 noListMillSheetNo.add(crmMillSheetSplitInfo3);
                             } else {
                                 //可能质证书一样拆分单位不一样；
-                                crmMillSheetSplitInfoList.remove(i);
-                                crmMillSheetSplitInfoList.remove(i);
                                 CrmMillSheetSplitInfo crmMillSheetSplitInfo2 = new CrmMillSheetSplitInfo();
                                 crmMillSheetSplitInfo2.setAcctName(crmMillSheetSplitInfo.getAcctName());
                                 crmMillSheetSplitInfo2.setMillsheetNo(crmMillSheetSplitInfo.getMillsheetNo());
@@ -894,7 +891,6 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                                 crmMillSheetSplitInfo3.setSpiltCustomer(crmMillSheetSplitInfo1.getSpiltCustomer());
                                 noListMillSheetNo.add(crmMillSheetSplitInfo2);
                                 noListMillSheetNo.add(crmMillSheetSplitInfo3);
-                                i--;
                                 hh.add(crmMillSheetSplitInfo2);
                             }
                         } else {
@@ -918,12 +914,26 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                             crmMillSheetSplitInfo3.setSpiltCustomer(crmMillSheetSplitInfo1.getSpiltCustomer());
                             noListMillSheetNo.add(crmMillSheetSplitInfo2);
                             noListMillSheetNo.add(crmMillSheetSplitInfo3);
-                            i--;
                             hh.add(crmMillSheetSplitInfo2);
                         }
                     }
             }
         }
+
+        //去除单位和质证书一致的数据
+        for(int i=0;i<crmMillSheetSplitInfoList.size();i++){
+            for(int j=0;j<noListMillSheetNo.size();j++){
+                if(crmMillSheetSplitInfoList.get(i).getMillsheetNo().equals(noListMillSheetNo.get(j).getMillsheetNo())
+                        &&crmMillSheetSplitInfoList.get(i).getSpecs().equals(noListMillSheetNo.get(j).getSpecs())
+                        &&crmMillSheetSplitInfoList.get(i).getZcharg().equals(noListMillSheetNo.get(j).getZcharg())
+                        &&crmMillSheetSplitInfoList.get(i).getZjishu().equals(noListMillSheetNo.get(j).getZjishu())
+                        &&crmMillSheetSplitInfoList.get(i).getZchehao().equals(noListMillSheetNo.get(j).getZchehao())
+                        &&crmMillSheetSplitInfoList.get(i).getSpiltCustomer().equals(noListMillSheetNo.get(j).getSpiltCustomer()))
+                    crmMillSheetSplitInfoList.remove(i);
+            }
+
+        }
+
         //拿取重复元素到list然后拆分
         if (noListMillSheetNo.size() > 0) {
             Map<String, List<CrmMillSheetSplitInfo>> aMap = new HashMap<String, List<CrmMillSheetSplitInfo>>();
