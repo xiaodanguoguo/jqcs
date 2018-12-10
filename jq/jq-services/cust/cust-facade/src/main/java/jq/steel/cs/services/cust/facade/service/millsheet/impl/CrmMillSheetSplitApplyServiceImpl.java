@@ -311,11 +311,10 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             //判断售达方是否正确
             List<MillSheetHosts> clist = millSheetHostsMapper.findMillSheetZkunner(millSheetHosts);
             if (clist.size() > 0) {
-            } else {
                 if (!orgName.equals(clist.get(0).getZkunnr())){
                     findZkunnr += "," + millSheetHosts.getMillSheetNo() + "质证书您无权拆分";
                 }
-
+            } else {
             }
 
             //是否有这个卷（质证书+批板卷+规格）
@@ -808,11 +807,10 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     //判断售达方是否正确
                     List<MillSheetHosts> clist = millSheetHostsMapper.findMillSheetZkunner(millSheetHosts);
                     if (clist.size() > 0) {
-                    } else {
                         if (!orgName.equals(clist.get(0).getZkunnr())){
                             findZkunnr += "," + millSheetHosts.getMillSheetNo() + "质证书您无权拆分";
                         }
-
+                    } else {
                     }
 
                     /*
