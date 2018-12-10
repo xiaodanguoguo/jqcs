@@ -428,7 +428,7 @@ public class MillSheetHostsController {
                     String millSheetUrl =   serviceResponse.getRetContent().get(0).getMillSheetUrl();
                     String url = createPdfPath + millSheetPath;
                     String millSheetName =  serviceResponse.getRetContent().get(0).getMillSheetName();
-                    this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
+                    //this.saveUrlAs(url,millSheetUrl,"GET",millSheetName);
                     serviceResponse.getRetContent().get(0).setReport(millSheetPath);
                 }
             }
