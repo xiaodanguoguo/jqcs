@@ -784,7 +784,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             if (zchrags.size() > 0) {
                 if (zchrags.size() > 1) {
                     //数据唯一
-                    findZcharg += "," + zchrags.get(0).getZcharg() + "卷，数据错误。联系管理员处理！";
+                    findZcharg += "," + zchrags.get(0).getZcharg() + "卷已经拆分，请勿重复拆分！";
                 } else {
                     //赋值
                     cmssi.setMillsheetNo(zchrags.get(0).getMillsheetNo());
