@@ -306,7 +306,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
         </foreach>
       </if>
       <if test="zchehao != null and zchehao != ''" >
-        AND MSH.ZCHEHAO = #{zchehao,jdbcType=VARCHAR}
+        AND MSH.ZCHEHAO like '%' || #{zchehao,jdbcType=VARCHAR} || '%'
       </if>
       <if test="zhth != null  and zhth != ''" >
         AND MSH.ZHTH = #{zhth,jdbcType=VARCHAR}
@@ -797,7 +797,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
         </foreach>
       </if>
       <if test="zchehao != null and zchehao != ''" >
-        AND H.ZCHEHAO = #{zchehao,jdbcType=VARCHAR}
+        AND H.ZCHEHAO like '%' || #{zchehao,jdbcType=VARCHAR} || '%'
       </if>
       <if test="zhth != null  and zhth != ''" >
         AND H.ZHTH = #{zhth,jdbcType=VARCHAR}
