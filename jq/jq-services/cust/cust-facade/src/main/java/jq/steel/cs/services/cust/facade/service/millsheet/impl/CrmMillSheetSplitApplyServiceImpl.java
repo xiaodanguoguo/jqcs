@@ -887,19 +887,19 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             for (int j = i + 1; j < crmMillSheetSplitInfoList.size(); j++) {
                 CrmMillSheetSplitInfo crmMillSheetSplitInfo1 = crmMillSheetSplitInfoList.get(j);
                     if (crmMillSheetSplitInfo.getSpiltCustomer().equals(crmMillSheetSplitInfo1.getSpiltCustomer())
-                            &&crmMillSheetSplitInfo.getZchehao().equals(crmMillSheetSplitInfo1.getZchehao())) {
+                            &&crmMillSheetSplitInfo.getMillsheetNo().equals(crmMillSheetSplitInfo1.getMillsheetNo())) {
                         if (hh.size() > 0) {
                             String aa = "";
                             for (CrmMillSheetSplitInfo gg : hh) {
                                 if (gg.getSpiltCustomer().equals(crmMillSheetSplitInfo.getSpiltCustomer())
-                                        && gg.getZchehao().equals(crmMillSheetSplitInfo.getZchehao())) {
+                                        && gg.getMillsheetNo().equals(crmMillSheetSplitInfo.getMillsheetNo())) {
                                     aa = "a";
                                 }
                             }
                             String bb = "";
                             for (CrmMillSheetSplitInfo gg : hh) {
                                 if (gg.getSpiltCustomer().equals(crmMillSheetSplitInfo1.getSpiltCustomer())
-                                        && gg.getZchehao().equals(crmMillSheetSplitInfo1.getZchehao())) {
+                                        && gg.getMillsheetNo().equals(crmMillSheetSplitInfo1.getMillsheetNo())) {
                                     bb = "b";
                                 }
                             }
@@ -909,7 +909,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                             String cc = "";
                             for (CrmMillSheetSplitInfo gg : hh7) {
                                 if (gg.getSpiltCustomer().equals(crmMillSheetSplitInfo.getSpiltCustomer())
-                                        && gg.getZchehao().equals(crmMillSheetSplitInfo.getZchehao())
+                                        && gg.getMillsheetNo().equals(crmMillSheetSplitInfo.getMillsheetNo())
                                         && gg.getZcharg().equals(crmMillSheetSplitInfo.getZcharg())) {
                                     cc = "c";
                                 }
@@ -917,7 +917,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                             String dd = "";
                             for (CrmMillSheetSplitInfo gg : hh7) {
                                 if (gg.getSpiltCustomer().equals(crmMillSheetSplitInfo1.getSpiltCustomer())
-                                        && gg.getZchehao().equals(crmMillSheetSplitInfo1.getZchehao())
+                                        && gg.getMillsheetNo().equals(crmMillSheetSplitInfo1.getMillsheetNo())
                                         && gg.getZcharg().equals(crmMillSheetSplitInfo1.getZcharg())) {
                                     dd = "d";
                                 }
@@ -1013,7 +1013,6 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                 if(crmMillSheetSplitInfoList.get(i).getMillsheetNo().equals(noListMillSheetNo.get(j).getMillsheetNo())
                         &&crmMillSheetSplitInfoList.get(i).getSpecs().equals(noListMillSheetNo.get(j).getSpecs())
                         &&crmMillSheetSplitInfoList.get(i).getZcharg().equals(noListMillSheetNo.get(j).getZcharg())
-                        &&crmMillSheetSplitInfoList.get(i).getZjishu().equals(noListMillSheetNo.get(j).getZjishu())
                         &&crmMillSheetSplitInfoList.get(i).getZchehao().equals(noListMillSheetNo.get(j).getZchehao())
                         &&crmMillSheetSplitInfoList.get(i).getSpiltCustomer().equals(noListMillSheetNo.get(j).getSpiltCustomer()))
                     crmMillSheetSplitInfoList.remove(i);
@@ -1038,13 +1037,13 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             for (String key : aMap.keySet()) {
                 Map<String, List<CrmMillSheetSplitInfo>> m = new HashMap<String, List<CrmMillSheetSplitInfo>>();
                 for (CrmMillSheetSplitInfo agreementRecord1 : aMap.get(key)) {
-                    if (m.containsKey(agreementRecord1.getZchehao())) {
-                        List<CrmMillSheetSplitInfo> rList = m.get(agreementRecord1.getZchehao());
+                    if (m.containsKey(agreementRecord1.getMillsheetNo())) {
+                        List<CrmMillSheetSplitInfo> rList = m.get(agreementRecord1.getMillsheetNo());
                         rList.add(agreementRecord1);
                     } else {
                         List<CrmMillSheetSplitInfo> rList = new ArrayList<CrmMillSheetSplitInfo>();
                         rList.add(agreementRecord1);
-                        m.put(agreementRecord1.getZchehao(), rList);
+                        m.put(agreementRecord1.getMillsheetNo(), rList);
                     }
                 }
                 for (String agreementRecord1 : m.keySet()) {
