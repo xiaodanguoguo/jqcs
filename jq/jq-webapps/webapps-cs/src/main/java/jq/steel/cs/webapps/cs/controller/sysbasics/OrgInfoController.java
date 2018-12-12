@@ -1,5 +1,6 @@
 package jq.steel.cs.webapps.cs.controller.sysbasics;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.ebase.core.AssertContext;
 import com.ebase.core.exception.BusinessException;
 import com.ebase.core.page.PageDTO;
@@ -51,6 +52,14 @@ public class OrgInfoController {
 		try {
 			jsonRequest.getReqBody().setCreatedBy(AssertContext.getAcctName());
 			jsonRequest.getReqBody().setCreatedTime(new Date());
+			// 判断组织是否存在
+			ServiceResponse<List<OrgInfoVO>> serviceResponse = orgInfoServiceAPI.findByOrgName(jsonRequest);
+			List<OrgInfoVO> list = serviceResponse.getRetContent();
+			if (!CollectionUtils.isEmpty(list)) {
+				jsonResponse.setRetCode("9999999");
+				jsonResponse.setRetDesc("组织名称不可以重复");
+				return jsonResponse;
+			}
 			ServiceResponse<String> addOrgInfo = orgInfoServiceAPI.addOrgInfo(jsonRequest);
 			String retContent = addOrgInfo.getRetContent();
 			jsonResponse.setRspBody(retContent);
@@ -100,6 +109,19 @@ public class OrgInfoController {
 		 JsonResponse<Integer> jsonResponse = new JsonResponse<Integer>();
 		 try {
 			 jsonRequest.getReqBody().setUpdatedBy(AssertContext.getAcctName());
+			 // 判断组织是否存在
+			 ServiceResponse<List<OrgInfoVO>> serviceResponse = orgInfoServiceAPI.findByOrgName(jsonRequest);
+			 List<OrgInfoVO> list = serviceResponse.getRetContent();
+			 if (!CollectionUtils.isEmpty(list)) {
+			 	for (OrgInfoVO orgInfoVO : list) {
+			 		if (!orgInfoVO.getId().equals(jsonRequest.getReqBody().getId())) {
+						jsonResponse.setRetCode("9999999");
+						jsonResponse.setRetDesc("组织名称不可以重复");
+						return jsonResponse;
+					}
+				}
+
+			 }
 			ServiceResponse<Integer> saveOrgInfo = orgInfoServiceAPI.saveOrgInfo(jsonRequest);
 			Integer retContent = saveOrgInfo.getRetContent();
 			jsonResponse.setRspBody(retContent);

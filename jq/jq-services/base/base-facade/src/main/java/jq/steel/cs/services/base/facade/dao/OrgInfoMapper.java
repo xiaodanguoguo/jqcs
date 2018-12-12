@@ -1,5 +1,6 @@
 package jq.steel.cs.services.base.facade.dao;
 
+import jq.steel.cs.services.base.api.vo.OrgInfoVO;
 import jq.steel.cs.services.base.facade.model.OrgInfo;
 import org.apache.ibatis.annotations.Param;
 
@@ -68,4 +69,6 @@ public interface OrgInfoMapper {
 	Long getCode();
 
 	OrgInfo getOrgCode(@Param("sapCode") String sapCode);
+
+    List<OrgInfo> findByOrgName(OrgInfoVO reqBody);
 }

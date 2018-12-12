@@ -378,6 +378,12 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		return orgInfoVO;
 	}
 
+	@Override
+	public List<OrgInfoVO> findByOrgName(OrgInfoVO reqBody) {
+		List<OrgInfo> list = orgInfoMapper.findByOrgName(reqBody);
+		return BeanCopyUtil.copyList(list, OrgInfoVO.class);
+	}
+
 	private void addDefaultRole(String orgInfoId) {
 		// 添加默认组织角色
 		RoleGroup roleGroup = new RoleGroup();

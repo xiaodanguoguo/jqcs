@@ -72,4 +72,6 @@ public interface OrgInfoService {
 	 * @Date: 2018/10/16
 	 */
 	OrgInfoVO getOrgName(OrgInfoVO reqBody);
+
+	List<OrgInfoVO> findByOrgName(OrgInfoVO reqBody);
 }

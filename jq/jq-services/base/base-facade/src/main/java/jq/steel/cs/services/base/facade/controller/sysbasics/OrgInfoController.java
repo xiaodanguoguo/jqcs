@@ -7,6 +7,7 @@ import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.BeanCopyUtil;
+import com.ebase.utils.JsonUtil;
 import jq.steel.cs.services.base.api.vo.AcctInfoVO;
 import jq.steel.cs.services.base.api.vo.OrgInfoVO;
 import jq.steel.cs.services.base.facade.model.AcctInfo;
@@ -36,6 +37,22 @@ public class OrgInfoController {
 	 
 	 @Autowired
 	 private OrgInfoService orgInfoService;
+
+	@RequestMapping(value = "/org/findByOrgName", method = RequestMethod.POST)
+	ServiceResponse<List<OrgInfoVO>> findByOrgName(@RequestBody JsonRequest<OrgInfoVO> jsonRequest) {
+		logger.info("根据组织名称查询组织 = {}", JsonUtil.toJson(jsonRequest));
+		ServiceResponse<List<OrgInfoVO>> serviceResponse = new ServiceResponse<>();
+
+		try {
+			List<OrgInfoVO> list = orgInfoService.findByOrgName(jsonRequest.getReqBody());
+			serviceResponse.setRetContent(list);
+		} catch (Exception e) {
+		    logger.error("根据组织名称查询组织错误 = {}", e);
+		    serviceResponse.setException(new BusinessException("500"));
+		}
+
+		return serviceResponse;
+	}
 	 
 	 /**
 	  * 添加   组织机构信息

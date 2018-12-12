@@ -201,6 +201,30 @@
 	WHERE
 		ID = #{id2}
   </select>
+	<select id="findByOrgName" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.OrgInfo">
+  	SELECT
+		ID,
+		ORG_CODE,
+		ORG_NAME,
+		PARENT_ID,
+		REMARK,
+		STATUS,
+		CREATED_BY,
+		UPDATED_BY,
+		UPDATED_TIME,
+		SAP_CODE,
+		BUKRS,
+		ORG_TYPE,
+		TEL,
+		ADDR,
+		EMAIL,
+		INDUSTRIAL_CODE
+	FROM
+		org_info
+	WHERE
+		ORG_NAME = #{orgName}
+		and
+  </select>
 
 
 
