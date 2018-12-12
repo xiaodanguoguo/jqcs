@@ -120,8 +120,8 @@ public class CrmMillSheetSplitApplyController {
                                             arrayList.add((String) map.get(i).get(j));
                                         }
                                         crmMillSheetSplitApplyVO.setAcctName(AssertContext.getAcctName());
-                                        crmMillSheetSplitApplyVO.setMillsheetNo(arrayList.get(0));
-                                        crmMillSheetSplitApplyVO.setZchehao(arrayList.get(1));
+                                        crmMillSheetSplitApplyVO.setMillsheetNo(arrayList.get(0).trim());
+                                        crmMillSheetSplitApplyVO.setZchehao(arrayList.get(1).trim());
                                         String jianshu = "";
                                         if (arrayList.get(2).indexOf(".") > 0) {
                                             jianshu = arrayList.get(2).substring(0, arrayList.get(2).lastIndexOf("."));
@@ -136,9 +136,9 @@ public class CrmMillSheetSplitApplyController {
                                             zcharg = arrayList.get(3);
                                         }
                                         crmMillSheetSplitApplyVO.setZjishu(Long.valueOf(jianshu));
-                                        crmMillSheetSplitApplyVO.setZcharg(zcharg);
-                                        crmMillSheetSplitApplyVO.setSpecs(arrayList.get(4));
-                                        crmMillSheetSplitApplyVO.setSpiltCustomer(arrayList.get(5));
+                                        crmMillSheetSplitApplyVO.setZcharg(zcharg.trim());
+                                        crmMillSheetSplitApplyVO.setSpecs(arrayList.get(4).trim());
+                                        crmMillSheetSplitApplyVO.setSpiltCustomer(arrayList.get(5).trim());
                                         crmMillSheetSplitApplyVO.setOrgName(AssertContext.getOrgName());
                                         applyVOS.add(crmMillSheetSplitApplyVO);
                                     } else {
@@ -222,9 +222,9 @@ public class CrmMillSheetSplitApplyController {
                                         } else {
                                             zcharg = arrayList.get(0);
                                         }
-                                        crmMillSheetSplitApplyVO.setZcharg(zcharg);
-                                        crmMillSheetSplitApplyVO.setSpiltCustomer(arrayList.get(1));
-                                        crmMillSheetSplitApplyVO.setZchehao(arrayList.get(2));
+                                        crmMillSheetSplitApplyVO.setZcharg(zcharg.trim());
+                                        crmMillSheetSplitApplyVO.setSpiltCustomer(arrayList.get(1).trim());
+                                        crmMillSheetSplitApplyVO.setZchehao(arrayList.get(2).trim());
                                         crmMillSheetSplitApplyVO.setOrgName(AssertContext.getOrgName());
                                         applyVOS.add(crmMillSheetSplitApplyVO);
                                     } else {
