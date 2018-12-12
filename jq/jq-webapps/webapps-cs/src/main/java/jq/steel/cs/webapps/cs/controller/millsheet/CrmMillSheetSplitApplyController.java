@@ -114,40 +114,46 @@ public class CrmMillSheetSplitApplyController {
                                 CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVO = new CrmMillSheetSplitApplyVO();
                                 List<String> arrayList = new ArrayList<>();
                                 Map<Integer, Object> mapItem = map.get(i);
-                                if (mapItem.size() == 6) {
-                                    if (b.equals("")) {
-                                        for (int j = 0; j < mapItem.size(); j++) {
-                                            arrayList.add((String) map.get(i).get(j));
-                                        }
-                                        crmMillSheetSplitApplyVO.setAcctName(AssertContext.getAcctName());
-                                        crmMillSheetSplitApplyVO.setMillsheetNo(arrayList.get(0).trim());
-                                        crmMillSheetSplitApplyVO.setZchehao(arrayList.get(1).trim());
-                                        String jianshu = "";
-                                        if (arrayList.get(2).indexOf(".") > 0) {
-                                            jianshu = arrayList.get(2).substring(0, arrayList.get(2).lastIndexOf("."));
-                                            ;
+                                if (mapItem.size()>3) {
+                                    if (mapItem.size() == 6) {
+                                        if (b.equals("")) {
+                                            for (int j = 0; j < mapItem.size(); j++) {
+                                                arrayList.add((String) map.get(i).get(j));
+                                            }
+                                            crmMillSheetSplitApplyVO.setAcctName(AssertContext.getAcctName());
+                                            crmMillSheetSplitApplyVO.setMillsheetNo(arrayList.get(0).trim());
+                                            crmMillSheetSplitApplyVO.setZchehao(arrayList.get(1).trim());
+                                            String jianshu = "";
+                                            if (arrayList.get(2).indexOf(".") > 0) {
+                                                jianshu = arrayList.get(2).substring(0, arrayList.get(2).lastIndexOf("."));
+                                                ;
+                                            } else {
+                                                jianshu = arrayList.get(2);
+                                            }
+                                            String zcharg = "";
+                                            if (arrayList.get(3).indexOf(".") >= 0) {
+                                                zcharg = arrayList.get(3).replace(".", "");
+                                            } else {
+                                                zcharg = arrayList.get(3);
+                                            }
+                                            crmMillSheetSplitApplyVO.setZjishu(Long.valueOf(jianshu));
+                                            crmMillSheetSplitApplyVO.setZcharg(zcharg.trim());
+                                            crmMillSheetSplitApplyVO.setSpecs(arrayList.get(4).trim());
+                                            crmMillSheetSplitApplyVO.setSpiltCustomer(arrayList.get(5).trim());
+                                            crmMillSheetSplitApplyVO.setOrgName(AssertContext.getOrgName());
+                                            applyVOS.add(crmMillSheetSplitApplyVO);
                                         } else {
-                                            jianshu = arrayList.get(2);
+                                            jsonResponse.setRetCode("0000001");
+                                            jsonResponse.setRetDesc("请补充模板中数据，保证数据完整性");
                                         }
-                                        String zcharg = "";
-                                        if (arrayList.get(3).indexOf(".") >= 0) {
-                                            zcharg = arrayList.get(3).replace(".", "");
-                                        } else {
-                                            zcharg = arrayList.get(3);
-                                        }
-                                        crmMillSheetSplitApplyVO.setZjishu(Long.valueOf(jianshu));
-                                        crmMillSheetSplitApplyVO.setZcharg(zcharg.trim());
-                                        crmMillSheetSplitApplyVO.setSpecs(arrayList.get(4).trim());
-                                        crmMillSheetSplitApplyVO.setSpiltCustomer(arrayList.get(5).trim());
-                                        crmMillSheetSplitApplyVO.setOrgName(AssertContext.getOrgName());
-                                        applyVOS.add(crmMillSheetSplitApplyVO);
                                     } else {
                                         jsonResponse.setRetCode("0000001");
-                                        jsonResponse.setRetDesc("请补充模板中数据，保证数据完整性");
+                                        jsonResponse.setRetDesc("excel中数据不完善");
+                                        return jsonResponse;
                                     }
-                                } else {
+                                }else {
                                     jsonResponse.setRetCode("0000001");
-                                    jsonResponse.setRetDesc("excel中数据不完善");
+                                    jsonResponse.setRetDesc("此模板为板卷导入模板，请选择正确的模板导入");
                                     return jsonResponse;
                                 }
                             }
@@ -210,30 +216,36 @@ public class CrmMillSheetSplitApplyController {
                                 CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVO = new CrmMillSheetSplitApplyVO();
                                 List<String> arrayList = new ArrayList<>();
                                 Map<Integer, Object> mapItem = map.get(i);
-                                if (mapItem.size() == 3) {
-                                    if (b.equals("")) {
-                                        for (int j = 0; j < mapItem.size(); j++) {
-                                            arrayList.add((String) map.get(i).get(j));
-                                        }
-                                        crmMillSheetSplitApplyVO.setAcctName(AssertContext.getAcctName());
-                                        String zcharg = "";
-                                        if (arrayList.get(0).indexOf(".") >= 0) {
-                                            zcharg = arrayList.get(0).replace(".", "");
+                                if (mapItem.size() < 5) {
+                                    if (mapItem.size() == 3) {
+                                        if (b.equals("")) {
+                                            for (int j = 0; j < mapItem.size(); j++) {
+                                                arrayList.add((String) map.get(i).get(j));
+                                            }
+                                            crmMillSheetSplitApplyVO.setAcctName(AssertContext.getAcctName());
+                                            String zcharg = "";
+                                            if (arrayList.get(0).indexOf(".") >= 0) {
+                                                zcharg = arrayList.get(0).replace(".", "");
+                                            } else {
+                                                zcharg = arrayList.get(0);
+                                            }
+                                            crmMillSheetSplitApplyVO.setZcharg(zcharg.trim());
+                                            crmMillSheetSplitApplyVO.setSpiltCustomer(arrayList.get(1).trim());
+                                            crmMillSheetSplitApplyVO.setZchehao(arrayList.get(2).trim());
+                                            crmMillSheetSplitApplyVO.setOrgName(AssertContext.getOrgName());
+                                            applyVOS.add(crmMillSheetSplitApplyVO);
                                         } else {
-                                            zcharg = arrayList.get(0);
+                                            jsonResponse.setRetCode("0000001");
+                                            jsonResponse.setRetDesc("请补充模板中数据，保证数据完整性");
                                         }
-                                        crmMillSheetSplitApplyVO.setZcharg(zcharg.trim());
-                                        crmMillSheetSplitApplyVO.setSpiltCustomer(arrayList.get(1).trim());
-                                        crmMillSheetSplitApplyVO.setZchehao(arrayList.get(2).trim());
-                                        crmMillSheetSplitApplyVO.setOrgName(AssertContext.getOrgName());
-                                        applyVOS.add(crmMillSheetSplitApplyVO);
                                     } else {
                                         jsonResponse.setRetCode("0000001");
-                                        jsonResponse.setRetDesc("请补充模板中数据，保证数据完整性");
+                                        jsonResponse.setRetDesc("excel中数据不完善");
+                                        return jsonResponse;
                                     }
-                                } else {
+                                }else {
                                     jsonResponse.setRetCode("0000001");
-                                    jsonResponse.setRetDesc("excel中数据不完善");
+                                    jsonResponse.setRetDesc("此模板为批量导入模板，请选择正确的模板导入");
                                     return jsonResponse;
                                 }
                             }
