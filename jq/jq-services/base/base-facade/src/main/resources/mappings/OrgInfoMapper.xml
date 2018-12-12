@@ -223,7 +223,6 @@
 		org_info
 	WHERE
 		ORG_NAME = #{orgName}
-		and
   </select>
 
 
