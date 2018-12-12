@@ -814,7 +814,7 @@ public PageDTO<AcctInfoVO> listSysAcct(JsonRequest<AcctInfoVO> jsonRequest)throw
             List<RoleInfo> roleList =acctInfo.getRoleInfo();
             acctInfo.setRoleArr(roleList);
 
-            OrgInfo org = getOrgInfoByTree(acctInfo.getoInfoId());
+            OrgInfo org = getOrgInfoByTreeOrg(acctInfo.getoInfoId(), acctInfoVO.getOrgId());
             acctInfo.setOrgInfo(org);
         }
 
@@ -900,10 +900,35 @@ public PageDTO<AcctInfoVO> listSysAcct(JsonRequest<AcctInfoVO> jsonRequest)throw
         return org;
     }
 
+    public OrgInfo getOrgInfoByTreeOrg(String orgId, String currentOrgId) {
+        OrgInfo orgInfo = new OrgInfo();
+        orgInfo.setParentId(orgId);
+        OrgInfo org = orgInfoMapper.selectOrgInfoAcctInfo(orgInfo);
+
+        getParentOrg(org, currentOrgId);
+        return org;
+    }
+
     /**
      *  递归 判断parentId是否为空
      * @param orgInfo
      */
+    private void getParentOrg(OrgInfo orgInfo, String currentOrgId) {
+        if (orgInfo.getId().equals(currentOrgId)) {
+            return;
+        }
+        if (StringUtils.isEmpty(orgInfo)) {
+            return;
+        }else {
+            String parentId = orgInfo.getParentId();
+            if (parentId == null || parentId == "")
+                return;
+            OrgInfo parent = orgInfoMapper.selectOrgInfo2(orgInfo);
+            orgInfo.setParent(parent);
+            getParentOrg(parent, currentOrgId);
+        }
+    }
+
     private void getParent(OrgInfo orgInfo) {
         if (StringUtils.isEmpty(orgInfo)) {
             return;
