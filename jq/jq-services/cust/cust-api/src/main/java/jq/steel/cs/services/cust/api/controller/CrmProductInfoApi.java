@@ -96,4 +96,7 @@ public interface CrmProductInfoApi {
      */
     @RequestMapping("/product/info/introduct/list")
     ServiceResponse<PageDTO<CrmProductInfoVO>> getIntroductPage(@RequestBody JsonRequest<CrmProductInfoVO> jsonRequest);
+
+    @RequestMapping("/product/info/introduct/index/list")
+    ServiceResponse<PageDTO<CrmProductInfoVO>> getIntroductIndexPage(@RequestBody JsonRequest<CrmProductInfoVO> jsonRequest);
 }

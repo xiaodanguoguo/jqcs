@@ -220,5 +220,18 @@ public class CrmProductInfoServiceImpl implements CrmProductInfoService {
         }
     }
 
+    @Override
+    public PageDTO<CrmProductInfoVO> getIntroductIndexPage(CrmProductInfoVO crmProductInfoVO) {
+        CrmProductInfo crmProductInfo = new CrmProductInfo();
+        BeanCopyUtil.copy(crmProductInfoVO, crmProductInfo);
+        crmProductInfoVO.setStatus(ProductInfoStatus.ISSUE.getCode());
+
+        List<CrmProductInfo> list = crmProductInfoMapper.getIntroductIndexList(crmProductInfo);
+        PageDTO<CrmProductInfoVO> page = new PageDTO<>();
+        page.setResultData(BeanCopyUtil.copyList(list, CrmProductInfoVO.class));
+
+        return page;
+    }
+
 
 }

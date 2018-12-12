@@ -83,4 +83,6 @@ public interface CrmProductInfoService {
      * @Date: 2018/8/20
      */
     PageDTO<CrmProductInfoVO> getIntroductPage(CrmProductInfoVO crmProductInfoVO);
+
+    PageDTO<CrmProductInfoVO> getIntroductIndexPage(CrmProductInfoVO crmProductInfoVO);
 }

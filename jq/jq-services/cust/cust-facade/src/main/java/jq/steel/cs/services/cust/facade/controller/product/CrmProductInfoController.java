@@ -220,6 +220,21 @@ public class CrmProductInfoController {
         return serviceResponse;
     }
 
+    @RequestMapping("/introduct/index/list")
+    ServiceResponse<PageDTO<CrmProductInfoVO>> getIntroductIndexPage(@RequestBody JsonRequest<CrmProductInfoVO> jsonRequest) {
+        logger.info("首页列表 = {}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<PageDTO<CrmProductInfoVO>> serviceResponse = new ServiceResponse<>();
 
+        try {
+            CrmProductInfoVO crmProductInfoVO = jsonRequest.getReqBody();
 
+            PageDTO<CrmProductInfoVO> page = crmProductInfoService.getIntroductIndexPage(crmProductInfoVO);
+            serviceResponse.setRetContent(page);
+        } catch (Exception e) {
+            logger.error("首页列表错误 = {}", e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+
+        return serviceResponse;
+    }
 }

@@ -417,7 +417,7 @@ public class CrmProductInfoController {
             jsonRequest.setReqBody(crmProductInfo);
 
             ServiceResponse<PageDTO<CrmProductInfoVO>> serviceResponse = crmProductInfoApi
-                    .getIntroductPage(jsonRequest);
+                    .getIntroductIndexPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 List<CrmProductInfoVO> list = serviceResponse.getRetContent().getResultData();
                 if (CollectionUtils.isNotEmpty(list)) {
@@ -467,7 +467,11 @@ public class CrmProductInfoController {
                 CrmProductInfoVO crmProductInfoVO = serviceResponse.getRetContent();
                 List<String> thumbnailList = JsonUtil.parseObject(crmProductInfoVO.getThumbnail(), List.class);
                 if (CollectionUtils.isNotEmpty(thumbnailList)) {
-                    crmProductInfoVO.setThumbnail(FileUploadSringUtil.addPath(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), thumbnailList.get(0)));
+                    List<String> urls = new ArrayList<>();
+                    for (String s : thumbnailList) {
+                        urls.add(FileUploadSringUtil.addPath(uploadConfig.getDomain() +"/"+ uploadConfig.getPathPattern(), s));
+                    }
+                    crmProductInfoVO.setThumbnailList(urls);
                 }
 
                 jsonResponse.setRspBody(serviceResponse.getRetContent());

@@ -307,7 +307,7 @@
         </foreach>
       </if>
     </trim>
-    order by SORT_NUMBER desc
+    order by pid desc
   </select>
   <select id="getIntroductList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductInfo" >
     select
@@ -330,7 +330,31 @@
         AND FACTORY = #{factory}
       </if>
     </trim>
-    order by SORT_NUMBER desc
+    order by pid desc
+  </select>
+  <select id="getIntroductIndexList" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductInfo" >
+    select
+    *
+    from CRM_PRODUCT_INFO
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="productName != null and productName != '' " >
+        AND PRODUCT_NAME LIKE '%' || #{productName} ||'%'
+      </if>
+      <if test="used != null and used != '' " >
+        AND USED LIKE '%' || #{used} ||'%'
+      </if>
+      <if test="status != null and status != '' " >
+        AND status = #{status}
+      </if>
+      <if test="categoryId != null and categoryId != '' " >
+        AND category_Id = #{categoryId}
+      </if>
+      <if test="factory != null and factory != ''" >
+        AND FACTORY = #{factory}
+      </if>
+      and status = 2
+    </trim>
+    order by pid desc
   </select>
   <select id="getOne" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductInfo" >
     SELECT
