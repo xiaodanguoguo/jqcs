@@ -552,11 +552,11 @@ function getContentCallBack(data){
             if(data.rspBody.acctType != 5){
                 $("#condzkunnr").val(data.rspBody.orgName).attr("disabled",true).addClass("changeGary");
                 if(window.location.href.indexOf("qualityBookList2") != -1){
-                    $("*[comType=clearAllCond]").attr("bindCtrlId","condzkunnr,condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condzkunnrs,conddeptCode,condmillLine,condmillSheetType");
-                    $("*[comType=clearAllCond]")[0].jsCtrl.bindCtrlId = "condzkunnr,condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condzkunnrs,conddeptCode,condmillLine,condmillSheetType";
+                    $("*[comType=clearAllCond]").attr("bindCtrlId","condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condzkunnrs,conddeptCode,condmillLine,condmillSheetType");
+                    $("*[comType=clearAllCond]")[0].jsCtrl.bindCtrlId = "condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condzkunnrs,conddeptCode,condmillLine,condmillSheetType";
                 }else{
-                    $("*[comType=clearAllCond]").attr("bindCtrlId","condzkunnr,condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condmillSheetType");
-                    $("*[comType=clearAllCond]")[0].jsCtrl.bindCtrlId = "condzkunnr,condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condmillSheetType";
+                    $("*[comType=clearAllCond]").attr("bindCtrlId","condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condmillSheetType");
+                    $("*[comType=clearAllCond]")[0].jsCtrl.bindCtrlId = "condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condmillSheetType";
                 }
                 $("#tableList")[0].cacheArr = [];
                 if(window.location.href.indexOf("qualityBookList2") != -1){

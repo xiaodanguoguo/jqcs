@@ -1,5 +1,11 @@
 @@include('../../commonNav/html/commonHeaderBlue.html')
 <link rel="stylesheet" href="../css/product_detail.css">
+<style>
+    .home-Banner-list-left { position: absolute; left: 56px; top: 170px; font-size: 70px; margin-left: -8px; color: #98b6fe; cursor: pointer; height: 55px; background: #fff; }
+
+    .home-Banner-list-right { position: absolute; right: 56px; top: 170px; font-size: 70px; color: #98b6fe; cursor: pointer; height: 55px; background: #fff; }
+
+</style>
     <div class="detail" id="boxContent">
         <div class="detail-nav">
             <h1 class="detail-nav-name" id="productName"></h1>
@@ -11,17 +17,22 @@
                 </ul>-->
         </div>
         <div class="detail-content">
-            <div style="height: 24px;margin-top: 10px;width: 925px;word-break: break-all;margin-left: 20px;">
-                <span style="float: left">牌号：</span>
-                <span style="margin-right: 15px;float: left" id="designation"></span>
-                <span style="float: left">标准：</span>
-                <span style="margin-right: 15px;float: left" id="standard"></span>
-                <span style="float: left">用途：</span>
-                <span style="margin-right: 15px;float: left" id="used"></span>
-                <span style="float: left">产地：</span>
-                <span style="margin-right: 15px;float: left" id="productArea"></span>
+            <div style="margin-top: 10px;width: 925px;word-break: break-all;margin-left: 20px;">
+                <span style="">牌号：</span>
+                <span style="margin-right: 15px;" id="designation"></span>
+                <span style="">标准：</span>
+                <span style="margin-right: 15px;" id="standard"></span>
+                <span style="">用途：</span>
+                <span style="margin-right: 15px;" id="used"></span>
+                <span style="">产地：</span>
+                <span style="margin-right: 15px;" id="productArea"></span>
             </div>
-            <img class="detail-content-picture" id="thumbnail"/>
+            <div style="position: relative">
+                <img class="detail-content-picture" id="thumbnailImg"/>
+                <button class="home-Banner-list-left" id="btnLeftOpe">&lt;</button>
+                <button class="home-Banner-list-right" id="btnRightOpe">&gt;</button>
+            </div>
+
             <!--<p class="detail-content-headline">热轧卷板是碳钢薄板厂主要销售产品之一,采用薄板呸连铸连轧工艺。</p>-->
             <div class="detail-content-introduce" id="productDesc"></div>
         </div>
@@ -34,11 +45,31 @@
         $("#returnPre").on("click",function () {
             jumpUrl("productShow.html?categoryId=" + GetQueryString("categoryId"),"0000000",0);
         });
+        $("#btnLeftOpe").on("click",function(){
+            var imgList = $("#thumbnailImg")[0].thumbnailList;
+            for(var nI = 0 ; nI < imgList.length ; nI++ ){
+                if(imgList[nI] == $("#thumbnailImg").attr("src") && nI > 0){
+                    $("#thumbnailImg").attr("src",imgList[nI-1]);
+                    break;
+                }
+            }
+        });
+        $("#btnRightOpe").on("click",function(){
+            var imgList = $("#thumbnailImg")[0].thumbnailList;
+            for(var nI = 0 ; nI < imgList.length ; nI++ ){
+                if(imgList[nI] == $("#thumbnailImg").attr("src") && nI < imgList.length - 1){
+                    $("#thumbnailImg").attr("src",imgList[nI+1]);
+                    break;
+                }
+            }
+        });
     })
     function successCallBack(data){
         data = JSON.parse(data);
         if(data.retCode == "0000000"){
             setValue4Desc(data.rspBody,$("#boxContent")[0])//赋值
+            $("#thumbnailImg").attr("src",data.rspBody.thumbnailList[0]);
+            $("#thumbnailImg")[0].thumbnailList = data.rspBody.thumbnailList;
         }
     }
 </script>
