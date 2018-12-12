@@ -214,6 +214,7 @@
         AND FACTORY = #{factory}
       </if>
     </trim>
+    order by FACTORY
   </select>
   <select id="getOne" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmProductCategory" >
     select
