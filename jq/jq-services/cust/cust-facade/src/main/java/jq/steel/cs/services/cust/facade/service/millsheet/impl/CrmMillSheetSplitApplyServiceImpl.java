@@ -192,22 +192,83 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         //拿取重复数据到集合noListMillSheetNo1
         List<CrmMillSheetSplitInfo> noListMillSheetNo1 = new ArrayList<>();
         List<CrmMillSheetSplitInfo> hh1 = new ArrayList<>();
+        List<CrmMillSheetSplitInfo> hh77 = new ArrayList<>();
+        //拿取重复元素到集合noListMillSheetNo
         for (int i = 0; i < crmMillSheetSplitInfoList.size(); i++) {
             CrmMillSheetSplitInfo crmMillSheetSplitInfo = crmMillSheetSplitInfoList.get(i);
             for (int j = i + 1; j < crmMillSheetSplitInfoList.size(); j++) {
                 CrmMillSheetSplitInfo crmMillSheetSplitInfo1 = crmMillSheetSplitInfoList.get(j);
                 if (crmMillSheetSplitInfo.getMillsheetNo().equals(crmMillSheetSplitInfo1.getMillsheetNo())) {
-                    if (crmMillSheetSplitInfo.getZcharg().equals(crmMillSheetSplitInfo1.getZcharg())) {
-                        if (crmMillSheetSplitInfo.getSpecs().equals(crmMillSheetSplitInfo1.getSpecs())) {
-                            if (hh1.size() > 0) {
-                                String aa = "";
-                                for (CrmMillSheetSplitInfo gg : hh1) {
-                                    if (gg.getMillsheetNo().equals(crmMillSheetSplitInfo1.getMillsheetNo()) && gg.getZcharg().equals(crmMillSheetSplitInfo1.getZcharg()) && gg.getSpecs().equals(crmMillSheetSplitInfo1.getSpecs())) {
-                                        aa = "a";
-                                    }
+                    if (crmMillSheetSplitInfo.getSpiltCustomer().equals(crmMillSheetSplitInfo1.getSpiltCustomer())) {
+                        if (hh1.size() > 0) {
+                            String aa = "";
+                            for (CrmMillSheetSplitInfo gg : hh1) {
+                                if (gg.getMillsheetNo().equals(crmMillSheetSplitInfo.getMillsheetNo())
+                                        && gg.getSpiltCustomer().equals(crmMillSheetSplitInfo.getSpiltCustomer())) {
+                                    aa = "a";
                                 }
-                                if (!aa.equals("")) {
-                                    //重复数据
+                            }
+                            String bb = "";
+                            for (CrmMillSheetSplitInfo gg : hh1) {
+                                if (gg.getMillsheetNo().equals(crmMillSheetSplitInfo1.getMillsheetNo())
+                                        && gg.getSpiltCustomer().equals(crmMillSheetSplitInfo1.getSpiltCustomer())) {
+                                    bb = "b";
+                                }
+                            }
+
+                            //第二条数据
+                            String cc = "";
+                            for (CrmMillSheetSplitInfo gg : hh77) {
+                                if (gg.getMillsheetNo().equals(crmMillSheetSplitInfo.getMillsheetNo())
+                                        && gg.getSpiltCustomer().equals(crmMillSheetSplitInfo.getSpiltCustomer())
+                                        && gg.getSpecs().equals(crmMillSheetSplitInfo.getSpecs())
+                                        && gg.getZcharg().equals(crmMillSheetSplitInfo.getZcharg())) {
+                                    cc = "c";
+                                }
+                            }
+                            String dd = "";
+                            for (CrmMillSheetSplitInfo gg : hh77) {
+                                if (gg.getMillsheetNo().equals(crmMillSheetSplitInfo1.getMillsheetNo())
+                                        && gg.getSpiltCustomer().equals(crmMillSheetSplitInfo1.getSpiltCustomer())
+                                        && gg.getSpecs().equals(crmMillSheetSplitInfo1.getSpecs())
+                                        && gg.getZcharg().equals(crmMillSheetSplitInfo1.getZcharg())) {
+                                    dd = "d";
+                                }
+                            }
+                            if (!aa.equals("")) {
+                                //存在于hh中
+                                if(!cc.equals("")){
+                                    //存在于hh7中
+                                }else {
+                                    CrmMillSheetSplitInfo crmMillSheetSplitInfo3 = new CrmMillSheetSplitInfo();
+                                    crmMillSheetSplitInfo3.setAcctName(crmMillSheetSplitInfo.getAcctName());
+                                    crmMillSheetSplitInfo3.setMillsheetNo(crmMillSheetSplitInfo.getMillsheetNo());
+                                    crmMillSheetSplitInfo3.setZchehao(crmMillSheetSplitInfo.getZchehao());
+                                    crmMillSheetSplitInfo3.setZjishu(crmMillSheetSplitInfo.getZjishu());
+                                    crmMillSheetSplitInfo3.setZcharg(crmMillSheetSplitInfo.getZcharg());
+                                    crmMillSheetSplitInfo3.setSpecs(crmMillSheetSplitInfo.getSpecs());
+                                    crmMillSheetSplitInfo3.setSpiltCustomer(crmMillSheetSplitInfo.getSpiltCustomer());
+                                    noListMillSheetNo1.add(crmMillSheetSplitInfo3);
+                                    hh77.add(crmMillSheetSplitInfo3);
+                                }
+                            }else{
+                                CrmMillSheetSplitInfo crmMillSheetSplitInfo3 = new CrmMillSheetSplitInfo();
+                                crmMillSheetSplitInfo3.setAcctName(crmMillSheetSplitInfo.getAcctName());
+                                crmMillSheetSplitInfo3.setMillsheetNo(crmMillSheetSplitInfo.getMillsheetNo());
+                                crmMillSheetSplitInfo3.setZchehao(crmMillSheetSplitInfo.getZchehao());
+                                crmMillSheetSplitInfo3.setZjishu(crmMillSheetSplitInfo.getZjishu());
+                                crmMillSheetSplitInfo3.setZcharg(crmMillSheetSplitInfo.getZcharg());
+                                crmMillSheetSplitInfo3.setSpecs(crmMillSheetSplitInfo.getSpecs());
+                                crmMillSheetSplitInfo3.setSpiltCustomer(crmMillSheetSplitInfo.getSpiltCustomer());
+                                noListMillSheetNo1.add(crmMillSheetSplitInfo3);
+                                hh77.add(crmMillSheetSplitInfo3);
+                                hh1.add(crmMillSheetSplitInfo3);
+                            }
+                            if (!bb.equals("")) {
+                                //存在于hh中
+                                if(!dd.equals("")){
+                                    //存在于hh7中
+                                }else {
                                     CrmMillSheetSplitInfo crmMillSheetSplitInfo3 = new CrmMillSheetSplitInfo();
                                     crmMillSheetSplitInfo3.setAcctName(crmMillSheetSplitInfo1.getAcctName());
                                     crmMillSheetSplitInfo3.setMillsheetNo(crmMillSheetSplitInfo1.getMillsheetNo());
@@ -217,38 +278,9 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                                     crmMillSheetSplitInfo3.setSpecs(crmMillSheetSplitInfo1.getSpecs());
                                     crmMillSheetSplitInfo3.setSpiltCustomer(crmMillSheetSplitInfo1.getSpiltCustomer());
                                     noListMillSheetNo1.add(crmMillSheetSplitInfo3);
-                                } else {
-                                    //可能质证书一样拆分单位不一样；
-                                    CrmMillSheetSplitInfo crmMillSheetSplitInfo2 = new CrmMillSheetSplitInfo();
-                                    crmMillSheetSplitInfo2.setAcctName(crmMillSheetSplitInfo.getAcctName());
-                                    crmMillSheetSplitInfo2.setMillsheetNo(crmMillSheetSplitInfo.getMillsheetNo());
-                                    crmMillSheetSplitInfo2.setZchehao(crmMillSheetSplitInfo.getZchehao());
-                                    crmMillSheetSplitInfo2.setZjishu(crmMillSheetSplitInfo.getZjishu());
-                                    crmMillSheetSplitInfo2.setZcharg(crmMillSheetSplitInfo.getZcharg());
-                                    crmMillSheetSplitInfo2.setSpecs(crmMillSheetSplitInfo.getSpecs());
-                                    crmMillSheetSplitInfo2.setSpiltCustomer(crmMillSheetSplitInfo.getSpiltCustomer());
-                                    CrmMillSheetSplitInfo crmMillSheetSplitInfo3 = new CrmMillSheetSplitInfo();
-                                    crmMillSheetSplitInfo3.setAcctName(crmMillSheetSplitInfo1.getAcctName());
-                                    crmMillSheetSplitInfo3.setMillsheetNo(crmMillSheetSplitInfo1.getMillsheetNo());
-                                    crmMillSheetSplitInfo3.setZchehao(crmMillSheetSplitInfo1.getZchehao());
-                                    crmMillSheetSplitInfo3.setZjishu(crmMillSheetSplitInfo1.getZjishu());
-                                    crmMillSheetSplitInfo3.setZcharg(crmMillSheetSplitInfo1.getZcharg());
-                                    crmMillSheetSplitInfo3.setSpecs(crmMillSheetSplitInfo1.getSpecs());
-                                    crmMillSheetSplitInfo3.setSpiltCustomer(crmMillSheetSplitInfo1.getSpiltCustomer());
-                                    noListMillSheetNo1.add(crmMillSheetSplitInfo2);
-                                    noListMillSheetNo1.add(crmMillSheetSplitInfo3);
-                                    i--;
-                                    hh1.add(crmMillSheetSplitInfo2);
+                                    hh77.add(crmMillSheetSplitInfo3);
                                 }
-                            } else {
-                                CrmMillSheetSplitInfo crmMillSheetSplitInfo2 = new CrmMillSheetSplitInfo();
-                                crmMillSheetSplitInfo2.setAcctName(crmMillSheetSplitInfo.getAcctName());
-                                crmMillSheetSplitInfo2.setMillsheetNo(crmMillSheetSplitInfo.getMillsheetNo());
-                                crmMillSheetSplitInfo2.setZchehao(crmMillSheetSplitInfo.getZchehao());
-                                crmMillSheetSplitInfo2.setZjishu(crmMillSheetSplitInfo.getZjishu());
-                                crmMillSheetSplitInfo2.setZcharg(crmMillSheetSplitInfo.getZcharg());
-                                crmMillSheetSplitInfo2.setSpecs(crmMillSheetSplitInfo.getSpecs());
-                                crmMillSheetSplitInfo2.setSpiltCustomer(crmMillSheetSplitInfo.getSpiltCustomer());
+                            }else{
                                 CrmMillSheetSplitInfo crmMillSheetSplitInfo3 = new CrmMillSheetSplitInfo();
                                 crmMillSheetSplitInfo3.setAcctName(crmMillSheetSplitInfo1.getAcctName());
                                 crmMillSheetSplitInfo3.setMillsheetNo(crmMillSheetSplitInfo1.getMillsheetNo());
@@ -257,11 +289,32 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                                 crmMillSheetSplitInfo3.setZcharg(crmMillSheetSplitInfo1.getZcharg());
                                 crmMillSheetSplitInfo3.setSpecs(crmMillSheetSplitInfo1.getSpecs());
                                 crmMillSheetSplitInfo3.setSpiltCustomer(crmMillSheetSplitInfo1.getSpiltCustomer());
-                                noListMillSheetNo1.add(crmMillSheetSplitInfo2);
                                 noListMillSheetNo1.add(crmMillSheetSplitInfo3);
-                                i--;
-                                hh1.add(crmMillSheetSplitInfo2);
+                                hh77.add(crmMillSheetSplitInfo3);
+                                hh1.add(crmMillSheetSplitInfo3);
                             }
+                        } else {
+                            CrmMillSheetSplitInfo crmMillSheetSplitInfo2 = new CrmMillSheetSplitInfo();
+                            crmMillSheetSplitInfo2.setAcctName(crmMillSheetSplitInfo.getAcctName());
+                            crmMillSheetSplitInfo2.setMillsheetNo(crmMillSheetSplitInfo.getMillsheetNo());
+                            crmMillSheetSplitInfo2.setZchehao(crmMillSheetSplitInfo.getZchehao());
+                            crmMillSheetSplitInfo2.setZjishu(crmMillSheetSplitInfo.getZjishu());
+                            crmMillSheetSplitInfo2.setZcharg(crmMillSheetSplitInfo.getZcharg());
+                            crmMillSheetSplitInfo2.setSpecs(crmMillSheetSplitInfo.getSpecs());
+                            crmMillSheetSplitInfo2.setSpiltCustomer(crmMillSheetSplitInfo.getSpiltCustomer());
+                            CrmMillSheetSplitInfo crmMillSheetSplitInfo3 = new CrmMillSheetSplitInfo();
+                            crmMillSheetSplitInfo3.setAcctName(crmMillSheetSplitInfo1.getAcctName());
+                            crmMillSheetSplitInfo3.setMillsheetNo(crmMillSheetSplitInfo1.getMillsheetNo());
+                            crmMillSheetSplitInfo3.setZchehao(crmMillSheetSplitInfo1.getZchehao());
+                            crmMillSheetSplitInfo3.setZjishu(crmMillSheetSplitInfo1.getZjishu());
+                            crmMillSheetSplitInfo3.setZcharg(crmMillSheetSplitInfo1.getZcharg());
+                            crmMillSheetSplitInfo3.setSpecs(crmMillSheetSplitInfo1.getSpecs());
+                            crmMillSheetSplitInfo3.setSpiltCustomer(crmMillSheetSplitInfo1.getSpiltCustomer());
+                            noListMillSheetNo1.add(crmMillSheetSplitInfo2);
+                            noListMillSheetNo1.add(crmMillSheetSplitInfo3);
+                            hh1.add(crmMillSheetSplitInfo2);
+                            hh77.add(crmMillSheetSplitInfo2);
+                            hh77.add(crmMillSheetSplitInfo3);
                         }
                     }
                 }
@@ -338,7 +391,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     Long mm =new Long(0);
 
                     for (CrmMillSheetSplitInfo tt:noListMillSheetNo1){
-                        if (tt.getMillsheetNo().equals(coilInfo.getMillsheetNo())){
+                        if (tt.getMillsheetNo().equals(coilInfo.getMillSheetNo())){
                             if (tt.getZcharg().equals(coilInfo.getZcharg())){
                                 if (tt.getSpecs().equals(coilInfo.getSpecs())){
                                     mm+=tt.getZjishu();
@@ -444,7 +497,8 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                             for (CrmMillSheetSplitInfo gg : hh7) {
                                 if (gg.getMillsheetNo().equals(crmMillSheetSplitInfo.getMillsheetNo())
                                         && gg.getSpiltCustomer().equals(crmMillSheetSplitInfo.getSpiltCustomer())
-                                        && gg.getSpecs().equals(crmMillSheetSplitInfo.getSpecs())) {
+                                        && gg.getSpecs().equals(crmMillSheetSplitInfo.getSpecs())
+                                        && gg.getZcharg().equals(crmMillSheetSplitInfo.getZcharg())) {
                                     cc = "c";
                                 }
                             }
@@ -452,7 +506,8 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                             for (CrmMillSheetSplitInfo gg : hh7) {
                                 if (gg.getMillsheetNo().equals(crmMillSheetSplitInfo1.getMillsheetNo())
                                         && gg.getSpiltCustomer().equals(crmMillSheetSplitInfo1.getSpiltCustomer())
-                                        && gg.getSpecs().equals(crmMillSheetSplitInfo1.getSpecs())) {
+                                        && gg.getSpecs().equals(crmMillSheetSplitInfo1.getSpecs())
+                                        && gg.getZcharg().equals(crmMillSheetSplitInfo1.getZcharg())) {
                                     dd = "d";
                                 }
                             }
