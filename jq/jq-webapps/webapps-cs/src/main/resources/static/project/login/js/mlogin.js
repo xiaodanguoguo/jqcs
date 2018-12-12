@@ -85,26 +85,52 @@ function clsMethodLee$operate(){
 
     //轮播图
     this.btnLeftOpe.on("click",function(){
+        //当前页
+        var carouseIndex = Number($("#imgListLun").attr("carouseIndex"));
+        //最大翻页数
+        var carouseIndexTotal = $("#imgListLun *[id=cloneRow]").length % 5 != 0 ? parseInt($("#imgListLun *[id=cloneRow]").length / 5)+1 : $("#imgListLun *[id=cloneRow]").length / 5;
+        if(carouseIndex > 0){
+            carouseIndex -= 1;
+            $("#imgListLun").attr("carouseIndex",carouseIndex);
+        }
         $("#imgListLun *[id=cloneRow]").each(function(idx,val){
-            if(idx < 5){
+            if(5*carouseIndex <= idx && idx < 5*(carouseIndex+1)){
                 $(val).show();
             }else{
                 $(val).hide();
             }
         });
-        $(this).attr("disabled",true).addClass("changeGary");
-        $("#btnRightOpe").removeAttr("disabled").removeClass("changeGary")
+        /*if(carouseIndex == 0){
+            $(this).attr("disabled",true).addClass("changeGary");
+            $("#btnRightOpe").removeAttr("disabled").removeClass("changeGary")
+        }*/
     });
     this.btnRightOpe.on("click",function(){
+        //当前页
+        var carouseIndex = Number($("#imgListLun").attr("carouseIndex"));
+        //最大翻页数
+        var carouseIndexTotal = $("#imgListLun *[id=cloneRow]").length % 5 != 0 ? parseInt($("#imgListLun *[id=cloneRow]").length / 5)+1 : $("#imgListLun *[id=cloneRow]").length / 5;
+        if(carouseIndex < carouseIndexTotal - 1){
+            carouseIndex += 1;
+            $("#imgListLun").attr("carouseIndex",carouseIndex);
+        }
         $("#imgListLun *[id=cloneRow]").each(function(idx,val){
-            if(idx >= 5){
-                $(val).show();
-            }else{
-                $(val).hide();
-            }
+                if(5*carouseIndex <= idx && idx < 5*(carouseIndex+1)){
+                    $(val).show();
+                }else{
+                    $(val).hide();
+                }
         });
-        $(this).attr("checked",true).addClass("changeGary");
-        $("#btnLeftOpe").removeAttr("disabled").removeClass("changeGary")
+        /*if(carouseIndex == 0){
+            $("#btnLeftOpe").attr("disabled",true).addClass("changeGary");
+        }else{
+            $("#btnRightOpe").removeAttr("disabled").removeClass("changeGary")
+        }
+        if(carouseIndex == carouseIndexTotal){
+            $("#btnRightOpe").attr("checked",true).addClass("changeGary");
+            $("#btnLeftOpe").removeAttr("disabled").removeClass("changeGary")
+        }*/
+
     });
     $(".login-tab-list").on("click",function(){
         $(".login-tab-list").removeClass("login-tab-listActive");
