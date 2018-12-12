@@ -70,14 +70,14 @@ public class CrmProductInfoServiceImpl implements CrmProductInfoService {
         List<Long> pids = crmProductInfoVO.getPids();
 
         for (Long pid : pids) {
-            CrmProductInfo crmProductInfo = crmProductInfoMapper.selectByPrimaryKey(pid);
-            if (ProductInfoStatus.ISSUE.getCode().equals(crmProductInfo.getStatus())) {
+//            CrmProductInfo crmProductInfo = crmProductInfoMapper.selectByPrimaryKey(pid);
+//            if (ProductInfoStatus.ISSUE.getCode().equals(crmProductInfo.getStatus())) {
 //                serviceResponse.setRetCode("0903001",
 //                        new Object[]{crmProductInfo.getProductName() + "_" + crmProductInfo.getDesignation() + "_" + crmProductInfo.getStandard()});
 //                return serviceResponse;
-            } else {
+//            } else {
                 crmProductInfoMapper.deleteByPrimaryKey(pid);
-            }
+//            }
         }
 
         flag = true;

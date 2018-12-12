@@ -47,12 +47,12 @@ function clsMethodLee$operate(){
                 var pidJson = $("#tableList")[0].cacheArr[nI].pid;
                 pidArr.push(pidJson);
             }
-            if(markLock){
+            // if(markLock){
                 getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",{"pids":pidArr},"deleteOpeCallBack(data)");
-            }else {
-                var alertBox=new clsAlertBoxCtrl();
-                alertBox.Alert("只能删除新建状态的产品，请取消勾选其他状态的产品","删除失败提示");
-            }
+            // }else {
+            //     var alertBox=new clsAlertBoxCtrl();
+            //     alertBox.Alert("只能删除新建状态的产品，请取消勾选其他状态的产品","删除失败提示");
+            // }
         }
     });
     //发布操作
