@@ -716,6 +716,11 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             MillSheetHosts millSheetHosts =new MillSheetHosts();
             millSheetHosts.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
             millSheetHostsMapper.deleteMillSheetNo(millSheetHosts);
+
+            //清除日志表防止重复
+            MillOperationHis millOperationHis1 = new MillOperationHis();
+            millOperationHis1.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
+            millOperationHisMapper.deleteByPrimaryKey(millOperationHis1);
             MillModelMatching millModelMatching = new MillModelMatching();
             millModelMatching.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
             millModelMatchingMapper.deleteByPrimaryKey(millModelMatching);

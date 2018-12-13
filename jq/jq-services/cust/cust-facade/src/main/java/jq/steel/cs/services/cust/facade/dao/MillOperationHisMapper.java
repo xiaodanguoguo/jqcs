@@ -3,7 +3,7 @@ package jq.steel.cs.services.cust.facade.dao;
 import jq.steel.cs.services.cust.facade.model.MillOperationHis;
 
 public interface MillOperationHisMapper {
-    int deleteByPrimaryKey(Long sid);
+    void deleteByPrimaryKey(MillOperationHis record);
 
     int insert(MillOperationHis record);
 
