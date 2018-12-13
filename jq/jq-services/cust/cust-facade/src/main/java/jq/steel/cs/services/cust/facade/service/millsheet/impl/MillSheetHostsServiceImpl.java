@@ -431,6 +431,21 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
         return millSheetHostsVOS;
     }
 
+
+
+
+    @Override
+    public List<MillSheetHostsVO> findNumber(List<MillSheetHostsVO> millSheetHostsVOS,HttpServletRequest request) {
+        for(MillSheetHostsVO millSheetHostsVO:millSheetHostsVOS){
+            //转换mdel
+            MillSheetHosts millSheetHosts = new MillSheetHosts();
+            BeanCopyUtil.copy(millSheetHostsVO,millSheetHosts);
+            MillSheetHosts millSheetByPage = millSheetHostsMapper.findUrl(millSheetHosts);
+            BeanCopyUtil.copy(millSheetByPage,millSheetHostsVO);
+        }
+        return millSheetHostsVOS;
+    }
+
     //打印返回文件流
     @Override
     public List<MillSheetHostsVO> findUrl1(List<String> list,HttpServletRequest request) {

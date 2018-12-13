@@ -1203,8 +1203,16 @@ public class MillSheetHostsController {
             millSheetHostsVO.setAcctName(AssertContext.getAcctName());
         }
         try {
-            ServiceResponse<Integer> serviceResponse = millSheetHostsAPI.updateNumber(jsonRequest);
-            jsonResponse.setRspBody(serviceResponse.getRetContent());
+            //查询是否有打印次数
+            ServiceResponse<List<MillSheetHostsVO>> serviceResponse1 = millSheetHostsAPI.findNumber(jsonRequest);
+            if(serviceResponse1.getRetContent().get(0).getPrintableNum()>0){
+                ServiceResponse<Integer> serviceResponse = millSheetHostsAPI.updateNumber(jsonRequest);
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            }else {
+                jsonResponse.setRetCode("0000001");
+                jsonResponse.setRetDesc("此质证书无打印次数");
+            }
+
         } catch (BusinessException e) {
             logger.error("获取分页列表错误 = {}", e);
             e.printStackTrace();

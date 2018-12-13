@@ -44,6 +44,16 @@ public interface MillSheetHostsAPI {
     ServiceResponse<List<MillSheetHostsVO>> findUrl(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest);
 
     /**
+     * 查询下载次数
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value ="/millsheet/findNumber", method = RequestMethod.POST)
+    ServiceResponse<List<MillSheetHostsVO>> findNumber(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest);
+
+
+
+    /**
      * 打印
      * @param jsonRequest
      * @return
