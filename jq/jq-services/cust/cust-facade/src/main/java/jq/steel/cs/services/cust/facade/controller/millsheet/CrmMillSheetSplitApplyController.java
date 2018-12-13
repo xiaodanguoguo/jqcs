@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -30,12 +31,12 @@ public class CrmMillSheetSplitApplyController {
      * @return
      */
     @RequestMapping("/splitInsert")
-    public ServiceResponse<CrmMillSheetSplitApplyVO> splitInsert(@RequestBody JsonRequest<List<CrmMillSheetSplitApplyVO>> jsonRequest) {
+    public ServiceResponse<CrmMillSheetSplitApplyVO> splitInsert(@RequestBody JsonRequest<List<CrmMillSheetSplitApplyVO>> jsonRequest,HttpServletRequest request) {
         logger.info("保存 参数 = {}", JsonUtil.toJson(jsonRequest));
         ServiceResponse<CrmMillSheetSplitApplyVO> serviceResponse = new ServiceResponse<>();
         List<CrmMillSheetSplitApplyVO> reqBody = jsonRequest.getReqBody();
         try {
-            CrmMillSheetSplitApplyVO downUrl = crmMillSheetSplitApplyService.splitInsert(reqBody);
+            CrmMillSheetSplitApplyVO downUrl = crmMillSheetSplitApplyService.splitInsert(reqBody,request);
             serviceResponse.setRetContent(downUrl);
             return serviceResponse;
         } catch (Exception e) {
@@ -75,12 +76,12 @@ public class CrmMillSheetSplitApplyController {
      * @return
      */
     @RequestMapping("/splitInsertAll")
-    public ServiceResponse<CrmMillSheetSplitApplyVO> splitInsertAll(@RequestBody JsonRequest<List<CrmMillSheetSplitApplyVO>> jsonRequest) {
+    public ServiceResponse<CrmMillSheetSplitApplyVO> splitInsertAll(@RequestBody JsonRequest<List<CrmMillSheetSplitApplyVO>> jsonRequest,HttpServletRequest request) {
         logger.info("保存 参数 = {}", JsonUtil.toJson(jsonRequest));
         ServiceResponse<CrmMillSheetSplitApplyVO> serviceResponse = new ServiceResponse<>();
         List<CrmMillSheetSplitApplyVO> reqBody = jsonRequest.getReqBody();
         try {
-            CrmMillSheetSplitApplyVO downUrl = crmMillSheetSplitApplyService.splitInsertAll(reqBody);
+            CrmMillSheetSplitApplyVO downUrl = crmMillSheetSplitApplyService.splitInsertAll(reqBody,request);
             serviceResponse.setRetContent(downUrl);
             return serviceResponse;
         } catch (Exception e) {
@@ -93,17 +94,17 @@ public class CrmMillSheetSplitApplyController {
 
 
     /**
-     * 批量拆分(不锈钢厂+碳钢厂)
+     * 板卷拆分(不锈钢厂+碳钢厂)
      * @param jsonRequest
      * @return
      */
     @RequestMapping("/splitInsertSpecial")
-    public ServiceResponse<CrmMillSheetSplitApplyVO> splitInsertSpecial(@RequestBody JsonRequest<List<CrmMillSheetSplitApplyVO>> jsonRequest) {
+    public ServiceResponse<CrmMillSheetSplitApplyVO> splitInsertSpecial(@RequestBody JsonRequest<List<CrmMillSheetSplitApplyVO>> jsonRequest,HttpServletRequest request) {
         logger.info("保存 参数 = {}", JsonUtil.toJson(jsonRequest));
         ServiceResponse<CrmMillSheetSplitApplyVO> serviceResponse = new ServiceResponse<>();
         List<CrmMillSheetSplitApplyVO> reqBody = jsonRequest.getReqBody();
         try {
-            CrmMillSheetSplitApplyVO downUrl = crmMillSheetSplitApplyService.splitInsertSpecial(reqBody);
+            CrmMillSheetSplitApplyVO downUrl = crmMillSheetSplitApplyService.splitInsertSpecial(reqBody,request);
             serviceResponse.setRetContent(downUrl);
             return serviceResponse;
         } catch (Exception e) {

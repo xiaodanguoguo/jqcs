@@ -15,6 +15,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -39,8 +40,9 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
 
     //申请拆分数据插入
     @Override
-    public CrmMillSheetSplitApplyVO splitInsert(List<CrmMillSheetSplitApplyVO> crmMillSheetSplitApplyVOList) {
+    public CrmMillSheetSplitApplyVO splitInsert(List<CrmMillSheetSplitApplyVO> crmMillSheetSplitApplyVOList,HttpServletRequest request) {
         String acctName = crmMillSheetSplitApplyVOList.get(0).getAcctName();
+        String ip=request.getRemoteAddr();
         List<CrmMillSheetSplitInfo> crmMillSheetSplitInfoList = BeanCopyUtil.copyList(crmMillSheetSplitApplyVOList, CrmMillSheetSplitInfo.class);
         //查询一下最大质证书编号
        /* MillSheetHosts millSheetHosts = new MillSheetHosts();
@@ -111,7 +113,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             Map<String, Object> map = new HashMap<String, Object>();
             this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitInfo.getMillsheetType(),
                     crmMillSheetSplitInfo.getZcharg(),crmMillSheetSplitInfo.getSpecs(), crmMillSheetSplitInfo.getZjishu(), crmMillSheetSplitInfo.getZlosmenge(),
-                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName);
+                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName,ip);
         }
         CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVOS = new CrmMillSheetSplitApplyVO();
         crmMillSheetSplitApplyVOS.setMillsheetNo(newMillSheetNo);
@@ -168,9 +170,10 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
 
     //批量导入excel拆分
     @Override
-    public CrmMillSheetSplitApplyVO splitInsertAll(List<CrmMillSheetSplitApplyVO> crmMillSheetSplitApplyVOList) {
+    public CrmMillSheetSplitApplyVO splitInsertAll(List<CrmMillSheetSplitApplyVO> crmMillSheetSplitApplyVOList,HttpServletRequest request) {
         String acctName = crmMillSheetSplitApplyVOList.get(0).getAcctName();
         String orgName = crmMillSheetSplitApplyVOList.get(0).getOrgName();
+        String ip=request.getRemoteAddr();
         CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVOS = new CrmMillSheetSplitApplyVO();
         List<CrmMillSheetSplitInfo> crmMillSheetSplitInfoList = BeanCopyUtil.copyList(crmMillSheetSplitApplyVOList, CrmMillSheetSplitInfo.class);
         //导入的质证书对于的总值
@@ -650,7 +653,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             List<CrmMillSheetSplitInfo> aa = new ArrayList<>();
             for (String agreementRecord1 : mm.keySet()) {
                 System.out.println(agreementRecord1 + ":" + mm.get(agreementRecord1));
-                CrmMillSheetSplitApplyVO crmMillSheetSplitApply = this.splitInsertNeed(mm.get(agreementRecord1));
+                CrmMillSheetSplitApplyVO crmMillSheetSplitApply = this.splitInsertNeed(mm.get(agreementRecord1),ip);
                 millSheetNos += ',' + crmMillSheetSplitApply.getMillsheetNo();
             }
         }
@@ -781,7 +784,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                         cmssi.getSpiltCustomer(), cmssi.getZchehao());*/
                 this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitInfo.getMillsheetType(),
                         cmssi.getZcharg(),cmssi.getSpecs(), cmssi.getZjishu(), cmssi.getZlosmenge(),
-                        cmssi.getSpiltCustomer(),acctName);
+                        cmssi.getSpiltCustomer(),acctName,ip);
                 millSheetNos += ',' + newMillSheetNo;
             }
         }
@@ -793,9 +796,10 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
 
     //板卷拆分（接收单位一致的拆到一起；接收单位一致车号不一致的分开拆）
     @Override
-    public CrmMillSheetSplitApplyVO splitInsertSpecial(List<CrmMillSheetSplitApplyVO> crmMillSheetSplitApplyVOList) {
+    public CrmMillSheetSplitApplyVO splitInsertSpecial(List<CrmMillSheetSplitApplyVO> crmMillSheetSplitApplyVOList,HttpServletRequest request) {
         String acctName = crmMillSheetSplitApplyVOList.get(0).getAcctName();
         String orgName = crmMillSheetSplitApplyVOList.get(0).getOrgName();
+        String ip=request.getRemoteAddr();
         CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVOS = new CrmMillSheetSplitApplyVO();
         List<CrmMillSheetSplitInfo> crmMillSheetSplitInfoList = BeanCopyUtil.copyList(crmMillSheetSplitApplyVOList, CrmMillSheetSplitInfo.class);
         //重复的板卷号一点错误  板卷只有1件
@@ -1111,7 +1115,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             List<CrmMillSheetSplitInfo> aa = new ArrayList<>();
             for (String agreementRecord1 : mm.keySet()) {
                 System.out.println(agreementRecord1 + ":" + mm.get(agreementRecord1));
-                CrmMillSheetSplitApplyVO crmMillSheetSplitApply = this.splitInsertNeed1(mm.get(agreementRecord1));
+                CrmMillSheetSplitApplyVO crmMillSheetSplitApply = this.splitInsertNeed1(mm.get(agreementRecord1),ip);
                 millSheetNos += ',' + crmMillSheetSplitApply.getMillsheetNo();
             }
         }
@@ -1233,7 +1237,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                 //调用存储过程
                 this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitInfo.getMillsheetType(),
                         cmssi.getZcharg(),cmssi.getSpecs(),cmssi.getZjishu(), cmssi.getZlosmenge(),
-                        cmssi.getSpiltCustomer(),acctName);
+                        cmssi.getSpiltCustomer(),acctName,ip);
                 millSheetNos += ',' + newMillSheetNo;
             }
         }
@@ -1244,7 +1248,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
 
     //申请拆分数据插入（质证书和拆分单位一致）
     @Override
-    public CrmMillSheetSplitApplyVO splitInsertNeed(List<CrmMillSheetSplitInfo> crmMillSheetSplitInfoList) {
+    public CrmMillSheetSplitApplyVO splitInsertNeed(List<CrmMillSheetSplitInfo> crmMillSheetSplitInfoList,String ip) {
         String acctName = crmMillSheetSplitInfoList.get(0).getAcctName();
         //查询一下最大质证书编号
         MillSheetHosts millSheetHosts = new MillSheetHosts();
@@ -1366,7 +1370,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     crmMillSheetSplitInfo.getSpiltCustomer(), crmMillSheetSplitInfo.getZchehao());*/
             this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitApply1.getMillsheetType(),
                     crmMillSheetSplitInfo.getZcharg(),crmMillSheetSplitInfo.getSpecs(), crmMillSheetSplitInfo.getZjishu(), crmMillSheetSplitInfo.getZlosmenge(),
-                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName);
+                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName,ip);
         }
         CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVOS = new CrmMillSheetSplitApplyVO();
         crmMillSheetSplitApplyVOS.setMillsheetNo(newMillSheetNo);
@@ -1376,7 +1380,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
 
     //板卷类型拆分数据插入（拆分单位和车号）
     @Override
-    public CrmMillSheetSplitApplyVO splitInsertNeed1(List<CrmMillSheetSplitInfo> crmMillSheetSplitInfoList) {
+    public CrmMillSheetSplitApplyVO splitInsertNeed1(List<CrmMillSheetSplitInfo> crmMillSheetSplitInfoList,String ip) {
         String acctName = crmMillSheetSplitInfoList.get(0).getAcctName();
         //查询一下最大质证书编号
         MillSheetHosts millSheetHosts = new MillSheetHosts();
@@ -1493,9 +1497,12 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             crmMillSheetSplitInfoMapper.insertSelective(crmMillSheetSplitInfo);
             //调用存储过程
             Map<String, Object> map = new HashMap<String, Object>();
+            /*this.cunChuAll(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitApply1.getMillsheetType(),
+                    crmMillSheetSplitInfo.getZcharg(), crmMillSheetSplitInfo.getZjishu(), crmMillSheetSplitInfo.getZlosmenge(),
+                    crmMillSheetSplitInfo.getSpiltCustomer(), crmMillSheetSplitInfo.getZchehao());*/
             this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitApply1.getMillsheetType(),
                     crmMillSheetSplitInfo.getZcharg(),crmMillSheetSplitInfo.getSpecs(), crmMillSheetSplitInfo.getZjishu(), crmMillSheetSplitInfo.getZlosmenge(),
-                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName);
+                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName,ip);
         }
         CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVOS = new CrmMillSheetSplitApplyVO();
         crmMillSheetSplitApplyVOS.setMillsheetNo(newMillSheetNo);
@@ -1504,7 +1511,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
 
 
     //调用存储过程（无车号）
-    void cunChu(String inmillSheetNoOld, String inmillSheetNo, String inmillSheetType, String inzcharg,String inspecs,Long inzjishu, BigDecimal inzlosmenge, String inspiltCustomer,String inacctName) {
+    void cunChu(String inmillSheetNoOld, String inmillSheetNo, String inmillSheetType, String inzcharg,String inspecs,Long inzjishu, BigDecimal inzlosmenge, String inspiltCustomer,String inacctName,String inip) {
         String sql = "{call PRO_MILL_SPILT(?,?,?,?,?,?,?,?,?)}";
         Connection conn = null;
         //CallableStatement是用于执行SQL存储过程的接口
@@ -1522,6 +1529,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             call.setBigDecimal(7, inzlosmenge);
             call.setString(8, inspiltCustomer);
             call.setString(9, inacctName);
+            call.setString(10, inip);
             //对于out参数，申明
             //call.registerOutParameter(2, oracle.jdbc.OracleTypes.VARCHAR);
             //call.registerOutParameter(3, oracle.jdbc.OracleTypes.NUMBER);
