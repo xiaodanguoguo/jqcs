@@ -217,6 +217,25 @@ public class MillSheetHostsController {
         return  serviceResponse;
     }
 
+    /**
+     * 打印次数/下载次数+1
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/findNumber",method = RequestMethod.POST)
+    public ServiceResponse<List<MillSheetHostsVO>>  findNumber(@RequestBody JsonRequest<List<MillSheetHostsVO>> jsonRequest,HttpServletRequest request){
+        ServiceResponse<List<MillSheetHostsVO>> serviceResponse = new ServiceResponse<>();
+        try {
+            List<MillSheetHostsVO> integer= millSheetHostsService.findNumber(jsonRequest.getReqBody(),request);
+            serviceResponse.setRetContent(integer);
+        }catch (BusinessException e){
+            logger.error("出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
 
 
     /**
