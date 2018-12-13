@@ -1512,7 +1512,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
 
     //调用存储过程（无车号）
     void cunChu(String inmillSheetNoOld, String inmillSheetNo, String inmillSheetType, String inzcharg,String inspecs,Long inzjishu, BigDecimal inzlosmenge, String inspiltCustomer,String inacctName,String inip) {
-        String sql = "{call PRO_MILL_SPILT(?,?,?,?,?,?,?,?,?)}";
+        String sql = "{call PRO_MILL_SPILT(?,?,?,?,?,?,?,?,?,?)}";
         Connection conn = null;
         //CallableStatement是用于执行SQL存储过程的接口
         CallableStatement call = null;
