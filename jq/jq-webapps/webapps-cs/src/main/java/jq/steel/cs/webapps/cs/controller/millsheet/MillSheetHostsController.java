@@ -286,8 +286,16 @@ public class MillSheetHostsController {
             millSheetHostsVO.setAcctName(AssertContext.getAcctName());
         }
         try {
-            ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findUrl(jsonRequest);
-            jsonResponse.setRspBody(serviceResponse.getRetContent());
+            //查询是否有打印次数
+            ServiceResponse<List<MillSheetHostsVO>> serviceResponse1 = millSheetHostsAPI.findNumber(jsonRequest);
+            if(serviceResponse1.getRetContent().get(0).getPrintableNum()>0){
+                ServiceResponse<List<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findUrl(jsonRequest);
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            }else {
+                jsonResponse.setRetCode("0000001");
+                jsonResponse.setRetDesc("此质证书无打印次数");
+            }
+
         } catch (BusinessException e) {
             logger.error("获取分页列表错误 = {}", e);
             e.printStackTrace();
@@ -828,8 +836,7 @@ public class MillSheetHostsController {
                     response.setHeader("Content-Disposition", "attachment;fileName="+"zhibaoshu.zip");
                     FileOutputStream fos2 = new FileOutputStream(new File("zhibaoshu.zip"));
                     ZipUtils.toZip("/millSheet", fos2,true);
-                    System.out.println("删除文件夹/millSheet");
-                    //this.delFolder("/temp");
+                    this.delFolder("/millSheet");
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -1203,16 +1210,8 @@ public class MillSheetHostsController {
             millSheetHostsVO.setAcctName(AssertContext.getAcctName());
         }
         try {
-            //查询是否有打印次数
-            ServiceResponse<List<MillSheetHostsVO>> serviceResponse1 = millSheetHostsAPI.findNumber(jsonRequest);
-            if(serviceResponse1.getRetContent().get(0).getPrintableNum()>0){
-                ServiceResponse<Integer> serviceResponse = millSheetHostsAPI.updateNumber(jsonRequest);
-                jsonResponse.setRspBody(serviceResponse.getRetContent());
-            }else {
-                jsonResponse.setRetCode("0000001");
-                jsonResponse.setRetDesc("此质证书无打印次数");
-            }
-
+            ServiceResponse<Integer> serviceResponse = millSheetHostsAPI.updateNumber(jsonRequest);
+            jsonResponse.setRspBody(serviceResponse.getRetContent());
         } catch (BusinessException e) {
             logger.error("获取分页列表错误 = {}", e);
             e.printStackTrace();
@@ -1269,6 +1268,7 @@ public class MillSheetHostsController {
     //删除文件夹
     public static void delFolder(String folderPath) {
         try {
+            System.out.println("删除文件夹"+folderPath);
             delAllFile(folderPath); //删除完里面所有内容
             String filePath = folderPath;
             filePath = filePath.toString();
