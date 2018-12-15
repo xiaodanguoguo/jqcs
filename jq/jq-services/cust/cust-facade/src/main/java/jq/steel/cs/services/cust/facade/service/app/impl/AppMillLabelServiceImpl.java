@@ -141,6 +141,9 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
     public List<CrmMillCoilInfoVO> queryByQrCode(JsonRequest<String> jsonRequest) {
         String str = jsonRequest.getReqBody();
         String[] strs = str.split("\n");
+        for(int i=0;i<strs.length;i++){
+            System.out.println("数组:strs:"+strs[i]);
+        }
         int l = strs.length;
         MillLabelVO vo = new MillLabelVO();
         for (int i = 0; i < l; i++) {
@@ -151,44 +154,46 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
                 operatorId = operatorId.trim();
                 String str2 = "";
                 if(str != null && !"".equals(str)){
-                    for(int j = 0 ; j < operatorId.length() ; j++){
-                        if(operatorId.charAt(j) >= 48 && operatorId.charAt(j) <= 57){
-                            str2+= operatorId.charAt(j);
-                        }
+                    String[] split = operatorId.split(" ");
+                    for(int j=0;j<split.length;j++){
+                        System.out.println("split:"+split[j]);
                     }
+                    str2=split[split.length-1];
                 }
-               /* int index = str2.lastIndexOf("0");
-                if(index == 0){
-                    String str3 = str2.substring(1);
-                    vo.setOperatorId(str3);
-                }else{
-                    vo.setOperatorId(str2);
-                }*/
-              //  String str3 = str2.substring(1);
                 vo.setOperatorId(str2);
+                System.out.println("作业员ID:"+str2);
             }
             //生产时间
             if (i == 1) {
                 String strDate = strs[i];
+                strDate= strDate+":00";
                 vo.setProductionTimeStr(strDate);
+                System.out.println("生产时间"+vo.getProductionTimeStr());
             }
             //牌号
-            if (i == 2) {
+            if (i == l-3) {
                 String strZph = strs[i];
                 vo.setZph(strZph);
+                System.out.println("牌号"+strZph);
             }
             //规格
-            if (i == 3) {
+            if (i == l-2) {
                 String strSpecs = strs[i];
                 vo.setSpecs(strSpecs);
+                System.out.println("规格"+strSpecs);
             }
             //批次
-            if (i == 4) {
+            if (i == l-1) {
                 String strZcharg1 = strs[i];
                 String[] strs2 = strZcharg1.split("  ");
+                for(int j=0;j<strs2.length;j++){
+                    System.out.println("数组strs2:"+strs2[j]);
+                }
                 vo.setZcharg(strs2[0]);
+                System.out.println("批/板/卷号"+strs2[0]);
                 //卷号
                 vo.setCoilId(strs2[1]);
+                System.out.println("卷号coilId"+strs2[1]);
             }
         }
 

@@ -374,12 +374,26 @@
         select
         <include refid="Base_Column_List"/>
         from MILL_LABEL
-        where TO_CHAR (PRODUCTION_TIME, 'yyyy-MM-dd hh24:mi') = #{productionTimeStr}
-              and ZPH = #{zph}
-              and SPECS = #{specs}
-              and ZCHARG = #{zcharg}
-              and OPERATOR_ID = #{operatorId}
-              and COIL_ID  =#{coilId}
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="productionTimeStr != null" >
+                AND TO_CHAR (PRODUCTION_TIME, 'yyyy-MM-dd hh24:mi:ss') >= #{productionTimeStr}
+            </if>
+            <if test="zph != null and zph != '' " >
+                AND ZPH = #{zph}
+            </if>
+            <if test="specs != null and specs != '' " >
+                AND SPECS = #{specs}
+            </if>
+            <if test="zcharg != null and zcharg != '' " >
+                AND ZCHARG = #{zcharg}
+            </if>
+            <if test="operatorId != null and operatorId != '' " >
+                AND OPERATOR_ID = #{operatorId}
+            </if>
+            <if test="coilId != null and coilId != '' " >
+                AND COIL_ID  =#{coilId}
+            </if>
+        </trim>
     </select>
 
     <!--用于返回质证书结构化数据-->

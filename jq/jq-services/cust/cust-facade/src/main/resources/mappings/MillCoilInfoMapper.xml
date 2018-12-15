@@ -625,11 +625,15 @@ MILL_COIL_INFO
 
   <select id="getPhysicsInfoListByCoil" resultMap="MapForCoilAndPhysics">
 
-    SELECT
-    DISTINCT mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE,
-    mpd.SID AS MPD_SID, mpd.KURZTEXT AS MPD_KURZTEXT
-    FROM MILL_COIL_INFO mci
-    LEFT JOIN MILL_PHYSICS_DATA mpd on mci.ZCHARG = mpd.ZCHARG AND mci.MILL_SHEET_NO = mpd.MILL_SHEET_NO
+    SELECT DISTINCT
+    mci.ZCHARG,
+    mci.SPECS,
+    mpd.ORIGINAL_INPUT,
+    mpd.KURZTEXT AS MPD_KURZTEXT
+    FROM
+    MILL_COIL_INFO mci
+    LEFT JOIN MILL_PHYSICS_DATA mpd ON mci.ZCHARG = mpd.ZCHARG
+    AND mci.MILL_SHEET_NO = mpd.MILL_SHEET_NO
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="sid != null" >
         AND mci.SID = #{sid}
