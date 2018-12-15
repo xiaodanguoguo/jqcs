@@ -128,7 +128,18 @@ public class CrmMillSheetSplitApplyController {
                                                 jianshu = arrayList.get(2).substring(0, arrayList.get(2).lastIndexOf("."));
                                                 ;
                                             } else {
-                                                jianshu = arrayList.get(2);
+                                                try {
+                                                    int aa = Integer.parseInt(arrayList.get(2));
+                                                    if (aa>0){
+                                                        jianshu = arrayList.get(2);
+                                                    }else {
+                                                        jsonResponse.setRetCode("0000001");
+                                                        jsonResponse.setRetDesc("模板中数据件数不能为0或负值");
+                                                        return jsonResponse;
+                                                    }
+                                                } catch (NumberFormatException e) {
+                                                    e.printStackTrace();
+                                                }
                                             }
                                             String zcharg = "";
                                             if (arrayList.get(3).indexOf(".") >= 0) {
@@ -145,6 +156,7 @@ public class CrmMillSheetSplitApplyController {
                                         } else {
                                             jsonResponse.setRetCode("0000001");
                                             jsonResponse.setRetDesc("请补充模板中数据，保证数据完整性");
+                                            return jsonResponse;
                                         }
                                     } else {
                                         jsonResponse.setRetCode("0000001");
@@ -237,6 +249,7 @@ public class CrmMillSheetSplitApplyController {
                                         } else {
                                             jsonResponse.setRetCode("0000001");
                                             jsonResponse.setRetDesc("请补充模板中数据，保证数据完整性");
+                                            return jsonResponse;
                                         }
                                     } else {
                                         jsonResponse.setRetCode("0000001");
