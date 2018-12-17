@@ -173,6 +173,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
     public CrmMillSheetSplitApplyVO splitInsertAll(List<CrmMillSheetSplitApplyVO> crmMillSheetSplitApplyVOList,HttpServletRequest request) {
         String acctName = crmMillSheetSplitApplyVOList.get(0).getAcctName();
         String orgName = crmMillSheetSplitApplyVOList.get(0).getOrgName();
+        String orgType = crmMillSheetSplitApplyVOList.get(0).getOrgType();
         String ip=request.getRemoteAddr();
         CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVOS = new CrmMillSheetSplitApplyVO();
         List<CrmMillSheetSplitInfo> crmMillSheetSplitInfoList = BeanCopyUtil.copyList(crmMillSheetSplitApplyVOList, CrmMillSheetSplitInfo.class);
@@ -364,13 +365,19 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             } else {
                 findType += "," + millSheetHosts.getMillSheetNo() + "为孙质证书，不可拆分";
             }
+            //销售公司不允许拆分子类型质证书
+            List<MillSheetHosts> hhList = millSheetHostsMapper.findMillSheetType(millSheetHosts);
+            if (hhList.size() > 0) {
+                if (hhList.get(0).getMillSheetType().equals("Z")&&orgType.equals("2"))
+                    findType += "," + millSheetHosts.getMillSheetNo() + "子级质证书您无权拆分";
+            }
+
             //判断售达方是否正确
             List<MillSheetHosts> clist = millSheetHostsMapper.findMillSheetZkunner(millSheetHosts);
             if (clist.size() > 0) {
                 if (!orgName.equals(clist.get(0).getZkunnr())){
                     findZkunnr += "," + millSheetHosts.getMillSheetNo() + "质证书您无权拆分";
                 }
-            } else {
             }
 
             //是否有这个卷（质证书+批板卷+规格）

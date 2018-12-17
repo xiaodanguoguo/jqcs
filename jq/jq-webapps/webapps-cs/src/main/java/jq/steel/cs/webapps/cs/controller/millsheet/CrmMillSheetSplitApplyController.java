@@ -121,6 +121,7 @@ public class CrmMillSheetSplitApplyController {
                                                 arrayList.add((String) map.get(i).get(j));
                                             }
                                             crmMillSheetSplitApplyVO.setAcctName(AssertContext.getAcctName());
+                                            crmMillSheetSplitApplyVO.setOrgType(AssertContext.getOrgType());
                                             crmMillSheetSplitApplyVO.setMillsheetNo(arrayList.get(0).trim());
                                             crmMillSheetSplitApplyVO.setZchehao(arrayList.get(1).trim());
                                             String jianshu = "";

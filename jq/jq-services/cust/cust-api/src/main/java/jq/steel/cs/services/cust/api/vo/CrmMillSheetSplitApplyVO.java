@@ -31,6 +31,9 @@ public class CrmMillSheetSplitApplyVO implements Serializable {
 
     private  String orgName;
 
+    //组织类型
+    private  String orgType;
+
     //质证书拆分申请明细表
     private List<CrmMillSheetSplitInfoVO> crmMillSheetSplitInfoVOS;
 
@@ -85,6 +88,14 @@ public class CrmMillSheetSplitApplyVO implements Serializable {
 
     //订货单位
     private  String spiltCustomer;
+
+    public String getOrgType() {
+        return orgType;
+    }
+
+    public void setOrgType(String orgType) {
+        this.orgType = orgType;
+    }
 
     public Integer getCode() {
         return code;
