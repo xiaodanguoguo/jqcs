@@ -40,4 +40,6 @@ public interface FunctionManageMapper {
     List<FunctionManage> getList(FunctionManage functionManage);
 
     List<FunctionManage> getUserFunctionList(FunctionManage functionManage);
+
+    List<FunctionManage> findByCode(FunctionManage functionManage);
 }

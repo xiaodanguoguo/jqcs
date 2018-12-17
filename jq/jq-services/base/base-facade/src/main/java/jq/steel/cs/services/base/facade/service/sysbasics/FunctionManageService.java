@@ -2,6 +2,7 @@ package jq.steel.cs.services.base.facade.service.sysbasics;
 
 
 import jq.steel.cs.services.base.api.vo.FunctionManageVO;
+import jq.steel.cs.services.base.facade.model.FunctionManage;
 
 import java.util.List;
 
@@ -25,4 +26,6 @@ public interface FunctionManageService {
     List<FunctionManageVO> getFunctionList(FunctionManageVO jsonRequest);
 
     List<FunctionManageVO> getUserfunctionList(FunctionManageVO jsonRequest);
+
+    List<FunctionManage> findByCode(FunctionManage functionManage);
 }

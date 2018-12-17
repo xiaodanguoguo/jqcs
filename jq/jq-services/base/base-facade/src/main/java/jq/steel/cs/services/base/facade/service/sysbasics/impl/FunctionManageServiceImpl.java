@@ -247,6 +247,11 @@ public class FunctionManageServiceImpl implements FunctionManageService {
     }
 
     @Override
+    public List<FunctionManage> findByCode(FunctionManage functionManage) {
+        return functionManageMapper.findByCode(functionManage);
+    }
+
+    @Override
     public FunctionManageVO keepFunctionManage(FunctionManageVO jsonRequest) {
         FunctionManage reqBody = new FunctionManage();
         BeanCopyUtil.copy(jsonRequest,reqBody);

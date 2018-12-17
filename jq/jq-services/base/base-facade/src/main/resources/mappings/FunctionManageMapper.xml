@@ -473,4 +473,13 @@
     AND a.ACCT_ID = #{acctId}
   </if>
   </select>
+
+  <select id="findByCode" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.base.facade.model.FunctionManage">
+      select
+      FUNCTION_ID, FUNCTION_CODE, FUNCTION_TITLE, FUNCTION_DESC, ID_FULL_PATH, TITLE_FULL_PATH,
+    IS_LAST_LEVEL, PARENT_APPLICATION_ID, STATUS, CREATED_BY, CREATED_TIME, UPDATED_BY,
+    UPDATED_TIME,FUNCTION_TYPE ,ORG_ID ,IS_DELETE,FUNCTION_PATH
+    from FUNCTION_MANAGE
+    where FUNCTION_CODE = #{functionCode}
+  </select>
 </mapper>

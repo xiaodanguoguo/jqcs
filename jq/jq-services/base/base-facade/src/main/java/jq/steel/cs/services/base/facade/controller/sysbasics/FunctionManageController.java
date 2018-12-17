@@ -6,7 +6,9 @@ import com.ebase.core.service.ServiceResponse;
 import com.ebase.utils.JsonUtil;
 import jq.steel.cs.services.base.api.vo.FunctionManageVO;
 import jq.steel.cs.services.base.facade.common.SysPramType;
+import jq.steel.cs.services.base.facade.model.FunctionManage;
 import jq.steel.cs.services.base.facade.service.sysbasics.FunctionManageService;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,6 +167,20 @@ public class FunctionManageController {
                         jsonResponse.setRetCode("0102005");
                         return jsonResponse;
                     }
+                    // 功能名称是否重复
+                    FunctionManage functionManage = new FunctionManage();
+                    functionManage.setFunctionCode(jsonRequest.getFunctionCode());
+                    List<FunctionManage> functionManages = functionManageService.findByCode(functionManage);
+                    if(!(CollectionUtils.isEmpty(functionManages))){
+                        for (FunctionManage manage : functionManages) {
+                            if (!jsonRequest.getFunctionId().equals(manage.getFunctionId())) {
+                                jsonResponse.setRetCode("0102007");
+                                return jsonResponse;
+                            }
+                        }
+
+                    }
+
                 }
                 if(SysPramType.INSERT.getMsg().equals(jsonRequest.getOpt())) {
                     //功能名称
@@ -182,14 +198,14 @@ public class FunctionManageController {
                         jsonResponse.setRetCode("0102005");
                         return jsonResponse;
                     }
-                    //功能名称是否重复
-//                    List<FunctionManageVO> functionManageVO = functionManageService.verificationFunIsTtitle(jsonRequest);
-//                    if(CollectionUtils.isEmpty(functionManageVO)){
-//
-//                    }else{
-//                        jsonResponse.setRetCode("0102006");
-//                        return jsonResponse;
-//                    }
+                    // 功能名称是否重复
+                    FunctionManage functionManage = new FunctionManage();
+                    functionManage.setFunctionCode(jsonRequest.getFunctionCode());
+                    List<FunctionManage> functionManages = functionManageService.findByCode(functionManage);
+                    if(!CollectionUtils.isEmpty(functionManages)){
+                        jsonResponse.setRetCode("0102007");
+                        return jsonResponse;
+                    }
                 }
             }
 
