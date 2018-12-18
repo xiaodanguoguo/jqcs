@@ -140,6 +140,7 @@ function initplugPath(docm,comType,reqPath,reqParam,reqMethod){
 function splitTableInit(){
     var splitTableClone = $("#splitTableTemple").clone(true);
     splitTableClone.attr("id","splitTableClone").show();
+    splitTableClone.find("#zchehaoA").val($("#zchehao").val());
     splitTableClone.find("#spiltCustomerTextA").val($("#spiltCustomerText").val());
     $("#splitTableTemple").before(splitTableClone);
     initplugData(splitTableClone.find("#tableSplitList")[0],"standardTableCtrl",document.body.jsLee.jsonData);
@@ -279,6 +280,7 @@ function splitSubmit(splitTableClone){
             getValue4Desc(jsonParam,$(this)[0]);
             jsonParam.millsheetNo = this.jsonData.millsheetNo;
             jsonParam.spiltCustomer = splitTableClone.find("#spiltCustomerTextA").val();
+            jsonParam.zchehao = splitTableClone.find("#zchehaoA").val();
             //jsonParam.zkunweCode = splitTableClone.find("#spiltCustomerText option:selected").html();
             arrParam.push(jsonParam);
         });

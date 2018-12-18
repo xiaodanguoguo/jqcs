@@ -1,3 +1,4 @@
+var jsonExprot = {};
 function clsMethodLee(){
     this.requestUrl = {
         "path1":"/millsheet/findMillSheetByPage",//初始list列表
@@ -8,7 +9,8 @@ function clsMethodLee(){
         "path6":"/",//增加下载次数接口
         "path7":"/millsheet/findMillSheetByPage1",//初始list列表
         "path8":"/millsheet/preview1",//预览接口
-        "path9":"/millsheet/revoke"//撤销接口
+        "path9":"/millsheet/revoke",//撤销接口
+        "path10":"/millsheet/export"//信息导出接口
     };
     this.documentLee = null;
     this.millSheetNo = "";//回退millSheetNo主键
@@ -39,7 +41,7 @@ function clsMethodLee$init(){
 
 }
 function clsMethodLee$parse(){
-    limitCodeDeal($("*[limitCode]"),"limitCode");
+    //limitCodeDeal($("*[limitCode]"),"limitCode");
     $("#condstartDt").val(getNowFormatDate());
     $("#condendDt").val(getNowFormatDate());
     getAjaxResult(this.requestUrl.path4,"POST",{},"getContentCallBack(data)");
@@ -302,6 +304,11 @@ function clsMethodLee$operate(){
         var paramJson = {"millSheetNo":document.body.jsLee.millSheetNo,"causeOfRevocation":$("#repealText").val()};
         getAjaxResult(document.body.jsLee.requestUrl.path9,"POST",paramJson,"repealSureCallBack(data)")
     });
+    //信息导出操作
+    $("#exportNews").on("click",function(){
+        var importParam = "name=" + JSON.stringify(jsonExprot);
+        $.download(requestUrl + document.body.jsLee.requestUrl.path10, importParam, "POST");
+    });
     
 }
 function clsMethodLee$refresh(){
@@ -387,11 +394,17 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {//插件渲染操作
 
     //拆分申请操作
     $(cloneRow).find("#commonSplit").on("click",function () {
-        if(window.location.href.indexOf("qualityBookList2") != -1){
-            jumpUrl("bookSplit.html?millSheetNo=" + jsonItem.millSheetNo,"0000000",1);
+        if(jsonItem.isAllowSplit == "Y"){
+            if(window.location.href.indexOf("qualityBookList2") != -1){
+                jumpUrl("bookSplit.html?millSheetNo=" + jsonItem.millSheetNo,"0000000",1);
+            }else{
+                jumpUrl("bookSplit.html?jumpType=1&&millSheetNo=" + jsonItem.millSheetNo,"0000000",1);
+            }
         }else{
-            jumpUrl("bookSplit.html?jumpType=1&&millSheetNo=" + jsonItem.millSheetNo,"0000000",1);
+            var alertBox=new clsAlertBoxCtrl();
+            alertBox.Alert("您无权拆分此质证书","警告提示");
         }
+
         //jumpUrl("bookSplit.html?millsheetNo=" + jsonItem.millSheetNo,"0000000",1);
     });
     //强制拆分申请操作
@@ -422,7 +435,17 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {//插件渲染操作
             var alertBox=new clsAlertBoxCtrl();
             alertBox.Alert("已拆分状态的质证书不能够撤销，如要撤销，请先将下级质证书("+ jsonItem.lowerMillSheetNos +")撤销后再操作","警告提示");
         }else{//如果状态为“已预览、已下载和已打印”状态则需要和用户线下沟通后，录入撤销原因，然后才能够撤销.
-            openWin('360', '245', 'repealOpePopup', true);
+            if(jsonItem.isAllowRevoke == "Y"){
+                openWin('360', '245', 'repealOpePopup', true);
+            }else{
+                if(!jsonItem.lowerMillSheetNos){
+                    var alertBox=new clsAlertBoxCtrl();
+                    alertBox.Alert("您无权撤销此质证书","警告提示");
+                }else{
+                    var alertBox=new clsAlertBoxCtrl();
+                    alertBox.Alert("请先撤销下级质证书"+jsonItem.lowerMillSheetNos,"警告提示");
+                }
+            }
         }
     });
 };
@@ -552,8 +575,8 @@ function getContentCallBack(data){
             if(data.rspBody.acctType != 5){
                 $("#condzkunnr").val(data.rspBody.orgName).attr("disabled",true).addClass("changeGary");
                 if(window.location.href.indexOf("qualityBookList2") != -1){
-                    $("*[comType=clearAllCond]").attr("bindCtrlId","condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condzkunnrs,conddeptCode,condmillLine,condmillSheetType");
-                    $("*[comType=clearAllCond]")[0].jsCtrl.bindCtrlId = "condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condzkunnrs,conddeptCode,condmillLine,condmillSheetType";
+                    $("*[comType=clearAllCond]").attr("bindCtrlId","condzdaozhan,condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condzkunnrs,conddeptCode,condmillLine,condmillSheetType");
+                    $("*[comType=clearAllCond]")[0].jsCtrl.bindCtrlId = "condzdaozhan,condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condzkunnrs,conddeptCode,condmillLine,condmillSheetType";
                 }else{
                     $("*[comType=clearAllCond]").attr("bindCtrlId","condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condmillSheetType");
                     $("*[comType=clearAllCond]")[0].jsCtrl.bindCtrlId = "condzhth,condzchehao,condmillSheetNo,condzcharg,condzph,condstartDt,condendDt,condstates,condmillSheetType";
@@ -644,6 +667,7 @@ function jiaOneCallBack(data){
 
 function clsSearchBtnCtrl$after(jsonCond) {
     $("#tableList")[0].cacheArr = [];
+    jsonExprot = jsonCond;
     return jsonCond;
 }
 
