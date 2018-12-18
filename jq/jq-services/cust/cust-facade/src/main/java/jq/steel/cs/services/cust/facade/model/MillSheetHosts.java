@@ -17,6 +17,7 @@ public class MillSheetHosts {
     private String zlph;
     private Long zjishu;
     private BigDecimal zlosmenge;
+    private String zdaozhan;
 
 
 
@@ -180,6 +181,13 @@ public class MillSheetHosts {
     //是否允许下载打印
     private String isAllow;
 
+    public String getZdaozhan() {
+        return zdaozhan;
+    }
+
+    public void setZdaozhan(String zdaozhan) {
+        this.zdaozhan = zdaozhan;
+    }
 
     public Long getTotalZjishu() {
         return totalZjishu;

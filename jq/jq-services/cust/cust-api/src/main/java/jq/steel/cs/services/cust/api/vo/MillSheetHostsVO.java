@@ -15,6 +15,7 @@ public class MillSheetHostsVO implements Serializable {
     private Long totalZjishu;
     private String specs;
     private String zlph;
+    private String zdaozhan;
 
     //是否允许撤销
     private String isAllowRevoke;
@@ -200,6 +201,14 @@ public class MillSheetHostsVO implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss" ,timezone = "GMT+8")
     private Date endDtStr;  //结束时间
 
+
+    public String getZdaozhan() {
+        return zdaozhan;
+    }
+
+    public void setZdaozhan(String zdaozhan) {
+        this.zdaozhan = zdaozhan;
+    }
 
     public Boolean getDate() {
         return date;

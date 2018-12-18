@@ -83,7 +83,7 @@
     <result column="FALLBACK_REASON" property="fallbackReason"/>
     <result column="REJECTION_REASON" property="rejectionReason"/>
     <result column="JC_FLAG" property="jcFlag"/>
-
+    <result column="ZDAOZHAN" property="zdaozhan" jdbcType="VARCHAR" />
     <result column="ZKDAUF" property="zkdauf"/>
 
     <result column="LFDAT" property="lfdat"/>
@@ -764,6 +764,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     MSH.ZCPMC,
     MSH.LFDAT,
     MSH.ZPH,
+    MSH.ZDAOZHAN,
     MSH.MILL_LINE,
     MSH.ZKDAUF AS ZKDAUF,
     MSH.SPILT_CUSTOMER,
@@ -819,6 +820,9 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       </if>
       <if test="millSheetType != null  and millSheetType != ''" >
         AND H.MILL_SHEET_TYPE = #{millSheetType}
+      </if>
+      <if test="zdaozhan != null  and zdaozhan != ''" >
+        AND H.ZDAOZHAN = #{zdaozhan}
       </if>
       <if test="deptCodes != null" >
         AND H.DEPT_CODE  in
