@@ -13,6 +13,10 @@ public interface MillSheetHostsMapper {
     //分页查询
     List<MillSheetHosts> findMillSheetByPage(MillSheetHosts record);
 
+    //导出信息查询
+    List<MillSheetHosts> findExportInfo(MillSheetHosts record);
+
+
     //分页查询（酒钢）
     List<MillSheetHosts> findMillSheetByPage1(MillSheetHosts record);
 

@@ -8,18 +8,21 @@ import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
+import com.ebase.utils.excel.ExportExcelUtils;
 import com.ebase.utils.file.ZipUtils;
 import com.lowagie2.text.Document;
 import com.lowagie2.text.DocumentException;
 import com.lowagie2.text.pdf.PdfCopy;
 import com.lowagie2.text.pdf.PdfImportedPage;
 import com.lowagie2.text.pdf.PdfReader;
+import feign.FeignException;
 import jq.steel.cs.services.base.api.controller.RoleInfoAPI;
 import jq.steel.cs.services.base.api.vo.RoleInfoVO;
 import jq.steel.cs.services.cust.api.controller.MillSheetHostsAPI;
 import jq.steel.cs.services.cust.api.controller.MillSheetNeedsAPI;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetNeedsVO;
+import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
 import jq.steel.cs.webapps.cs.controller.PdfToPng;
 import jq.steel.cs.webapps.cs.controller.file.UploadConfig;
 import org.slf4j.Logger;
@@ -1308,5 +1311,91 @@ public class MillSheetHostsController {
             }
         }
         return flag;
+    }
+
+
+
+    /**
+     * 导出
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/export",method = RequestMethod.POST)
+    public JsonResponse<List<MillSheetHostsVO>> export(@RequestParam("name") String jsonRequest) {
+        JsonResponse<List<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
+        String acctId = AssertContext.getAcctId();
+        String orgId = AssertContext.getOrgId();
+        String orgType = AssertContext.getOrgType();
+        try {
+            MillSheetHostsVO list = JsonUtil.fromJson(jsonRequest, MillSheetHostsVO.class);
+            JsonRequest<MillSheetHostsVO> jsonRequest1 = new JsonRequest();
+            jsonRequest1.setReqBody(list);
+            ServiceResponse<List<RoleInfoVO>> listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+            List<String> list1 = new ArrayList<>();
+            for (RoleInfoVO roleInfoVO : listServiceResponse.getRetContent()) {
+                list1.add(roleInfoVO.getRoleCode());
+            }
+            if (list1.size() > 0) {
+                jsonRequest1.getReqBody().setDeptCodes(list1);
+            } else {
+                jsonRequest1.getReqBody().setDeptCodes(null);
+            }
+            //组织名称
+            jsonRequest1.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest1.getReqBody().setOrgId(orgId);
+            jsonRequest1.getReqBody().setOrgType(orgType);
+            ServiceResponse<List<MillSheetHostsVO>> response = millSheetHostsAPI.export(jsonRequest1);
+            // 根据service层返回的编码做不同的操作
+            if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode())) {
+                jsonResponse.setRspBody(response.getRetContent());
+                //转正报表
+                List<String> headers = getParam();
+                List<MillSheetHostsVO> arr = jsonResponse.getRspBody();
+                try {
+                    ExportExcelUtils.createExcelDownload("质证书信息", "质证书信息", "质证书信息" +
+                            System.currentTimeMillis(), headers.toArray(new String[headers.size()]), arr);
+
+                } catch (Exception e) {
+                    logger.error("error = {}", e);
+                }
+            }   // 如果需要异常信息
+            else if (response.isHasError())
+                // 系统异常
+                jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                // 如果需要的话, 这个方法可以获取异常信息 response.getErrorMessage()
+            else {
+                // 根据业务的不同确定返回的业务信息是否正常,是否需要执行下一步操作
+                jsonResponse.setRetCode(response.getRetCode());
+                jsonResponse.setRetDesc(response.getRetMessage());
+            }
+        } catch (FeignException e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+        }
+
+        return jsonResponse;
+
+    }
+    private List<String> getParam() {
+        List<String> headers = new ArrayList<>();
+        headers.add("质证书编号@millSheetNo@4000");
+        headers.add("质证书状态@state@4000");
+        headers.add("产品名称@zcpmc@4000");
+        headers.add("牌号@zph@4000");
+        headers.add("订货单位@zkunnr@4000");
+        headers.add("收货单位@zkunwe@4000");
+        headers.add("分销售达方@spiltCustomer@4000");
+        headers.add("目的地@zdaozhan@4000");
+        headers.add("车号@zchehao@4000");
+        headers.add("发车日期@lfdat@4000");
+        headers.add("本车总重量@totalZjishu@4000");
+        headers.add("本车总件数@totalZlosmenge@4000");
+        headers.add("规格@specs@4000");
+        headers.add("批/板/卷号@zcharg@4000");
+        headers.add("炉批号@zlph@4000");
+        headers.add("件数@zjishu@4000");
+        headers.add("重量@zlosmenge@4000");
+        return headers;
     }
 }

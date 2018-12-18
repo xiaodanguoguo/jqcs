@@ -6,8 +6,11 @@ import com.ebase.core.page.PageDTOUtil;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.utils.BeanCopyUtil;
 import com.ebase.utils.DateFormatUtil;
+import com.ebase.utils.DateUtil;
 import com.ebase.utils.math.MathHelper;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
+import jq.steel.cs.services.cust.api.vo.ObjectionLedgerVO;
+import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
 import jq.steel.cs.services.cust.facade.dao.*;
 import jq.steel.cs.services.cust.facade.model.*;
 import jq.steel.cs.services.cust.facade.service.millsheet.MillSheetHostsService;
@@ -22,10 +25,10 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class MillSheetHostsServiceImpl implements MillSheetHostsService{
+public class MillSheetHostsServiceImpl implements MillSheetHostsService {
 
     @Autowired
-    private  MillSheetHostsMapper millSheetHostsMapper;
+    private MillSheetHostsMapper millSheetHostsMapper;
     @Autowired
     private CrmMillSheetSplitApplyMapper crmMillSheetSplitApplyMapper;
     @Autowired
@@ -67,38 +70,38 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
         try {
             //转换mdel
             MillSheetHosts millSheetHosts = new MillSheetHosts();
-            BeanCopyUtil.copy(millSheetHostsVO,millSheetHosts);
-            if(millSheetHosts.getZcharg()!=null && millSheetHosts.getZcharg()!=""){
+            BeanCopyUtil.copy(millSheetHostsVO, millSheetHosts);
+            if (millSheetHosts.getZcharg() != null && millSheetHosts.getZcharg() != "") {
                 MillCoilInfo coilInfo = new MillCoilInfo();
                 coilInfo.setZcharg(millSheetHosts.getZcharg());
                 List<MillCoilInfo> list = millCoilInfoMapper.findMillsheetNumber(coilInfo);
-                if(list.size()>0){
+                if (list.size() > 0) {
                     List<String> idall = new ArrayList<>();
-                    for (int i = 0; i < list.size(); i++){
+                    for (int i = 0; i < list.size(); i++) {
                         idall.add(list.get(i).getMillsheetNo());
                     }
                     millSheetHosts.setMillSheetNos(idall);
-                }else {
+                } else {
                     List<String> idall = new ArrayList<>();
                     idall.add("-99");
                     millSheetHosts.setMillSheetNos(idall);
                 }
 
             }
-            if(millSheetHosts.getDeptCode()!=null&& millSheetHosts.getDeptCode()!=""){
+            if (millSheetHosts.getDeptCode() != null && millSheetHosts.getDeptCode() != "") {
                 millSheetHosts.setDeptCodes(null);
             }
             //质证书数据匹配显示的时候，加一层对虚拟质证书的判断，即车号是以“—”开头的，就在质证书管理和质证书管理（酒钢）界面不显示。
             MillSheetHead millSheetHead = new MillSheetHead();
-            List<MillSheetHead> millSheetHeads =   millSheetHeadMapper.selectAll(millSheetHead);
+            List<MillSheetHead> millSheetHeads = millSheetHeadMapper.selectAll(millSheetHead);
             List<String> idall = new ArrayList<>();
-            if (millSheetHeads.size()>0){
-                for(MillSheetHead millSheetHead1:millSheetHeads){
-                    if(millSheetHead1.getZchehao().startsWith("-")){
+            if (millSheetHeads.size() > 0) {
+                for (MillSheetHead millSheetHead1 : millSheetHeads) {
+                    if (millSheetHead1.getZchehao().startsWith("-")) {
                         idall.add(millSheetHead1.getMillSheetNo());
                     }
                 }
-                if (idall.size()>0){
+                if (idall.size() > 0) {
                     millSheetHosts.setNoMillSheetNos(idall);
                 }
             }
@@ -110,39 +113,40 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             List<MillSheetHosts> millSheetByPage = millSheetHostsMapper.findMillSheetByPage(millSheetHosts);
             // 分页对象
             PageDTO<MillSheetHostsVO> transform = PageDTOUtil.transform(millSheetByPage, MillSheetHostsVO.class);
-            for (MillSheetHostsVO millSheetHosts2:transform.getResultData()){
-                CrmMillSheetSplitApply crmMillSheetSplitApply  = new CrmMillSheetSplitApply();
+            for (MillSheetHostsVO millSheetHosts2 : transform.getResultData()) {
+                CrmMillSheetSplitApply crmMillSheetSplitApply = new CrmMillSheetSplitApply();
                 crmMillSheetSplitApply.setMillsheetNo(millSheetHosts2.getMillSheetNo());
                 crmMillSheetSplitApply.setStatus("1");
                 List<CrmMillSheetSplitApply> crmMillSheetSplitApplies = crmMillSheetSplitApplyMapper.findFmillSheet(crmMillSheetSplitApply);
-                if (crmMillSheetSplitApplies.size()>0){
+                if (crmMillSheetSplitApplies.size() > 0) {
                     millSheetHosts2.setIsSplit(1);
-                    String lowerMillSheetNos ="";
+                    String lowerMillSheetNos = "";
                     for (int i = 0; i < crmMillSheetSplitApplies.size(); i++) {
                         //已拆分的需要返回给前台哪些下级质证书需要撤销
-                        String shuxing =crmMillSheetSplitApplies.get(i).getFatherMillsheetNo();
-                        lowerMillSheetNos+=","+shuxing;
+                        String shuxing = crmMillSheetSplitApplies.get(i).getFatherMillsheetNo();
+                        lowerMillSheetNos += "," + shuxing;
                     }
                     millSheetHosts2.setLowerMillSheetNos(lowerMillSheetNos);
-                }else {
+                } else {
                     millSheetHosts2.setIsSplit(0);
                 }
                 //原件次 剩余件次  原重量 剩余重量
-                Long zjishu=new Long(0);;
-                BigDecimal surplusZjishu= new BigDecimal(0);
-                BigDecimal zlosmenge= new BigDecimal(0);
-                BigDecimal surplusZlosmenge= new BigDecimal(0);
+                Long zjishu = new Long(0);
+                ;
+                BigDecimal surplusZjishu = new BigDecimal(0);
+                BigDecimal zlosmenge = new BigDecimal(0);
+                BigDecimal surplusZlosmenge = new BigDecimal(0);
                 MillCoilInfo millCoilInfo = new MillCoilInfo();
                 millCoilInfo.setMillSheetNo(millSheetHosts2.getMillSheetNo());
                 List<MillCoilInfo> millCoilInfos = millCoilInfoMapper.findCoil(millCoilInfo);
-                for (MillCoilInfo millCoilInfo1 :millCoilInfos){
-                    zjishu=zjishu+millCoilInfo1.getZjishu();
-                    if(millCoilInfo1.getSurplusZjishu()!=null){
-                        surplusZjishu=surplusZjishu.add(millCoilInfo1.getSurplusZjishu());
+                for (MillCoilInfo millCoilInfo1 : millCoilInfos) {
+                    zjishu = zjishu + millCoilInfo1.getZjishu();
+                    if (millCoilInfo1.getSurplusZjishu() != null) {
+                        surplusZjishu = surplusZjishu.add(millCoilInfo1.getSurplusZjishu());
                     }
-                    zlosmenge=zlosmenge.add(millCoilInfo1.getZlosmenge());
-                    if(millCoilInfo1.getSurplusZlosmenge()!=null){
-                        surplusZlosmenge=surplusZlosmenge.add(millCoilInfo1.getSurplusZlosmenge());
+                    zlosmenge = zlosmenge.add(millCoilInfo1.getZlosmenge());
+                    if (millCoilInfo1.getSurplusZlosmenge() != null) {
+                        surplusZlosmenge = surplusZlosmenge.add(millCoilInfo1.getSurplusZlosmenge());
                     }
 
                 }
@@ -150,37 +154,37 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 millSheetHosts2.setSurplusZjishu(surplusZjishu);
                 millSheetHosts2.setZlosmenge(zlosmenge);
                 millSheetHosts2.setSurplusZlosmenge(surplusZlosmenge);
-                if(millSheetHosts2.getJcFlag()!=null){
+                if (millSheetHosts2.getJcFlag() != null) {
                     //判断是否允许下载(建材类不让下载)让打印
-                    if(millSheetHosts2.getJcFlag()==0){
+                    if (millSheetHosts2.getJcFlag() == 0) {
                         //根据组织获取该用户是否为信任用户
                         OrgInfo orgInfo = new OrgInfo();
                         orgInfo.setId(orgId);
-                        List<OrgInfo> list =orgInfoMapper.findIdByCode(orgInfo);
-                        if (list.size()>0){
-                            if (list.get(0).getIndustrialCode()!=null){
-                                if (list.get(0).getIndustrialCode().equals("1")){
+                        List<OrgInfo> list = orgInfoMapper.findIdByCode(orgInfo);
+                        if (list.size() > 0) {
+                            if (list.get(0).getIndustrialCode() != null) {
+                                if (list.get(0).getIndustrialCode().equals("1")) {
                                     //信任
                                     millSheetHosts2.setIsAllowDown("Y");
                                     millSheetHosts2.setIsAllowPrint("Y");
-                                }else{
+                                } else {
                                     millSheetHosts2.setIsAllowDown("N");
                                     millSheetHosts2.setIsAllowPrint("Y");
                                 }
                             }
                         }
 
-                    }else {
-                        if (millSheetHosts2.getMillSheetType().equals("Z")||millSheetHosts2.getMillSheetType().equals("S")){
-                            if (millSheetHosts2.getSpiltCustomer().equals(orgName)){
+                    } else {
+                        if (millSheetHosts2.getMillSheetType().equals("Z") || millSheetHosts2.getMillSheetType().equals("S")) {
+                            if (millSheetHosts2.getSpiltCustomer().equals(orgName)) {
                                 millSheetHosts2.setIsAllowDown("Y");
                                 millSheetHosts2.setIsAllowPrint("Y");
-                            }else {
+                            } else {
                                 //查询拆分单位下是否有账号有的话不让下载 没有的话让下载打印
                                 OrgInfo orgInfo = new OrgInfo();
                                 orgInfo.setOrgName(millSheetHosts2.getSpiltCustomer());
-                                List<OrgInfo> list =orgInfoMapper.findIdByOrgName(orgInfo);
-                                if(list.size()>0){
+                                List<OrgInfo> list = orgInfoMapper.findIdByOrgName(orgInfo);
+                                if (list.size() > 0) {
                                    /* AcctInfo acctInfo = new AcctInfo();
                                     acctInfo.setoInfoId(list.get(0).getId());
                                     List<AcctInfo> acctInfos =acctInfoMapper.findNameByorgId(acctInfo);
@@ -193,12 +197,12 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                                     }*/
                                     millSheetHosts2.setIsAllowDown("Y");
                                     millSheetHosts2.setIsAllowPrint("Y");
-                                }else{
+                                } else {
                                     millSheetHosts2.setIsAllowDown("N");
                                     millSheetHosts2.setIsAllowPrint("N");
                                 }
                             }
-                        }else {
+                        } else {
                             millSheetHosts2.setIsAllowDown("Y");
                             millSheetHosts2.setIsAllowPrint("Y");
                         }
@@ -207,16 +211,24 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 }
                 millSheetHosts2.setIsAllowRevoke("Y");
                 //是否允许撤销（子类质证书组织类型为234的不能撤销，提示无权撤销质证书，有问题请回退）
-                if (millSheetHosts2.getMillSheetType().equals("Z")){
-                    if (orgType.equals("2")||orgType.equals("3")||orgType.equals("4")){
+                if (millSheetHosts2.getMillSheetType().equals("Z")) {
+                    if (orgType.equals("2") || orgType.equals("3") || orgType.equals("4")) {
                         millSheetHosts2.setIsAllowRevoke("N");
                     }
                 }
+                //是否允许拆分（销售公司不能对拆分出去的Z/S级拆分申请操作）
+                millSheetHosts2.setIsAllowSplit("Y");
+                if (orgType.equals("1")) {
+                    if (millSheetHosts2.getMillSheetType().equals("Z") || millSheetHosts2.getMillSheetType().equals("S")) {
+                        millSheetHosts2.setIsAllowSplit("N");
+                    }
+                }
+
 
             }
             return transform;
 
-        }finally {
+        } finally {
             PageDTOUtil.endPage();
         }
     }
@@ -230,37 +242,37 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
         try {
             //转换mdel
             MillSheetHosts millSheetHosts = new MillSheetHosts();
-            BeanCopyUtil.copy(millSheetHostsVO,millSheetHosts);
-            if(millSheetHosts.getZcharg()!=null && millSheetHosts.getZcharg()!=""){
+            BeanCopyUtil.copy(millSheetHostsVO, millSheetHosts);
+            if (millSheetHosts.getZcharg() != null && millSheetHosts.getZcharg() != "") {
                 MillCoilInfo coilInfo = new MillCoilInfo();
                 coilInfo.setZcharg(millSheetHosts.getZcharg());
                 List<MillCoilInfo> list = millCoilInfoMapper.findMillsheetNumber(coilInfo);
-                if(list.size()>0){
+                if (list.size() > 0) {
                     List<String> idall = new ArrayList<>();
-                    for (int i = 0; i < list.size(); i++){
+                    for (int i = 0; i < list.size(); i++) {
                         idall.add(list.get(i).getMillsheetNo());
                     }
                     millSheetHosts.setMillSheetNos(idall);
-                }else {
+                } else {
                     List<String> idall = new ArrayList<>();
                     idall.add("-99");
                     millSheetHosts.setMillSheetNos(idall);
                 }
             }
-            if(millSheetHosts.getDeptCode()!=null&& millSheetHosts.getDeptCode()!=""){
+            if (millSheetHosts.getDeptCode() != null && millSheetHosts.getDeptCode() != "") {
                 millSheetHosts.setDeptCodes(null);
             }
             //质证书数据匹配显示的时候，加一层对虚拟质证书的判断，即车号是以“—”开头的，就在质证书管理和质证书管理（酒钢）界面不显示。
             MillSheetHead millSheetHead = new MillSheetHead();
-            List<MillSheetHead> millSheetHeads =   millSheetHeadMapper.selectAll(millSheetHead);
+            List<MillSheetHead> millSheetHeads = millSheetHeadMapper.selectAll(millSheetHead);
             List<String> idall = new ArrayList<>();
-            if (millSheetHeads.size()>0){
-                for(MillSheetHead millSheetHead1:millSheetHeads){
-                    if(millSheetHead1.getZchehao().startsWith("-")){
+            if (millSheetHeads.size() > 0) {
+                for (MillSheetHead millSheetHead1 : millSheetHeads) {
+                    if (millSheetHead1.getZchehao().startsWith("-")) {
                         idall.add(millSheetHead1.getMillSheetNo());
                     }
                 }
-                if (idall.size()>0){
+                if (idall.size() > 0) {
                     millSheetHosts.setNoMillSheetNos(idall);
                 }
             }
@@ -272,41 +284,42 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             List<MillSheetHosts> millSheetByPage = millSheetHostsMapper.findMillSheetByPage1(millSheetHosts);
             // 分页对象
             PageDTO<MillSheetHostsVO> transform = PageDTOUtil.transform(millSheetByPage, MillSheetHostsVO.class);
-            for (MillSheetHostsVO millSheetHosts2:transform.getResultData()){
-                CrmMillSheetSplitApply crmMillSheetSplitApply  = new CrmMillSheetSplitApply();
+            for (MillSheetHostsVO millSheetHosts2 : transform.getResultData()) {
+                CrmMillSheetSplitApply crmMillSheetSplitApply = new CrmMillSheetSplitApply();
                 crmMillSheetSplitApply.setMillsheetNo(millSheetHosts2.getMillSheetNo());
                 crmMillSheetSplitApply.setStatus("1");
                 List<CrmMillSheetSplitApply> crmMillSheetSplitApplies = crmMillSheetSplitApplyMapper.findFmillSheet(crmMillSheetSplitApply);
-                if (crmMillSheetSplitApplies.size()>0){
+                if (crmMillSheetSplitApplies.size() > 0) {
                     millSheetHosts2.setIsSplit(1);
-                    String lowerMillSheetNos ="";
+                    String lowerMillSheetNos = "";
                     for (int i = 0; i < crmMillSheetSplitApplies.size(); i++) {
                         //已拆分的需要返回给前台哪些下级质证书需要撤销
-                        if(crmMillSheetSplitApplies.get(i).getMillsheetNo()!=null){
-                            String shuxing =crmMillSheetSplitApplies.get(i).getMillsheetNo();
-                            lowerMillSheetNos+=","+shuxing;
+                        if (crmMillSheetSplitApplies.get(i).getMillsheetNo() != null) {
+                            String shuxing = crmMillSheetSplitApplies.get(i).getMillsheetNo();
+                            lowerMillSheetNos += "," + shuxing;
                         }
                     }
                     millSheetHosts2.setLowerMillSheetNos(lowerMillSheetNos.substring(1));
-                }else {
+                } else {
                     millSheetHosts2.setIsSplit(0);
                 }
                 //原件次 剩余件次  原重量 剩余重量
-                Long zjishu=new Long(0);;
-                BigDecimal surplusZjishu= new BigDecimal(0);
-                BigDecimal zlosmenge= new BigDecimal(0);
-                BigDecimal surplusZlosmenge= new BigDecimal(0);
+                Long zjishu = new Long(0);
+                ;
+                BigDecimal surplusZjishu = new BigDecimal(0);
+                BigDecimal zlosmenge = new BigDecimal(0);
+                BigDecimal surplusZlosmenge = new BigDecimal(0);
                 MillCoilInfo millCoilInfo = new MillCoilInfo();
                 millCoilInfo.setMillSheetNo(millSheetHosts2.getMillSheetNo());
                 List<MillCoilInfo> millCoilInfos = millCoilInfoMapper.findCoil(millCoilInfo);
-                for (MillCoilInfo millCoilInfo1 :millCoilInfos){
-                    zjishu=zjishu+millCoilInfo1.getZjishu();
-                    if(millCoilInfo1.getSurplusZjishu()!=null){
-                        surplusZjishu=surplusZjishu.add(millCoilInfo1.getSurplusZjishu());
+                for (MillCoilInfo millCoilInfo1 : millCoilInfos) {
+                    zjishu = zjishu + millCoilInfo1.getZjishu();
+                    if (millCoilInfo1.getSurplusZjishu() != null) {
+                        surplusZjishu = surplusZjishu.add(millCoilInfo1.getSurplusZjishu());
                     }
-                    zlosmenge=zlosmenge.add(millCoilInfo1.getZlosmenge());
-                    if(millCoilInfo1.getSurplusZlosmenge()!=null){
-                        surplusZlosmenge=surplusZlosmenge.add(millCoilInfo1.getSurplusZlosmenge());
+                    zlosmenge = zlosmenge.add(millCoilInfo1.getZlosmenge());
+                    if (millCoilInfo1.getSurplusZlosmenge() != null) {
+                        surplusZlosmenge = surplusZlosmenge.add(millCoilInfo1.getSurplusZlosmenge());
                     }
 
                 }
@@ -315,37 +328,37 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 millSheetHosts2.setZlosmenge(zlosmenge);
                 millSheetHosts2.setSurplusZlosmenge(surplusZlosmenge);
 
-                if(millSheetHosts2.getJcFlag()!=null){
+                if (millSheetHosts2.getJcFlag() != null) {
                     //判断是否允许下载(建材类不让下载)让打印
-                    if(millSheetHosts2.getJcFlag()==0){
+                    if (millSheetHosts2.getJcFlag() == 0) {
                         //根据组织获取该用户是否为信任用户
                         OrgInfo orgInfo = new OrgInfo();
                         orgInfo.setId(orgId);
-                        List<OrgInfo> list =orgInfoMapper.findIdByCode(orgInfo);
-                        if (list.size()>0){
-                            if (list.get(0).getIndustrialCode()!=null){
-                                if (list.get(0).getIndustrialCode().equals("1")){
+                        List<OrgInfo> list = orgInfoMapper.findIdByCode(orgInfo);
+                        if (list.size() > 0) {
+                            if (list.get(0).getIndustrialCode() != null) {
+                                if (list.get(0).getIndustrialCode().equals("1")) {
                                     //信任
                                     millSheetHosts2.setIsAllowDown("Y");
                                     millSheetHosts2.setIsAllowPrint("Y");
-                                }else{
+                                } else {
                                     millSheetHosts2.setIsAllowDown("N");
                                     millSheetHosts2.setIsAllowPrint("Y");
                                 }
                             }
                         }
 
-                    }else {
-                        if (millSheetHosts2.getMillSheetType().equals("Z")||millSheetHosts2.getMillSheetType().equals("S")){
-                            if (millSheetHosts2.getSpiltCustomer().equals(orgName)){
+                    } else {
+                        if (millSheetHosts2.getMillSheetType().equals("Z") || millSheetHosts2.getMillSheetType().equals("S")) {
+                            if (millSheetHosts2.getSpiltCustomer().equals(orgName)) {
                                 millSheetHosts2.setIsAllowDown("Y");
                                 millSheetHosts2.setIsAllowPrint("Y");
-                            }else {
+                            } else {
                                 //查询拆分单位下是否有账号有的话不让下载 没有的话让下载打印
                                 OrgInfo orgInfo = new OrgInfo();
                                 orgInfo.setOrgName(millSheetHosts2.getSpiltCustomer());
-                                List<OrgInfo> list =orgInfoMapper.findIdByOrgName(orgInfo);
-                                if(list.size()>0){
+                                List<OrgInfo> list = orgInfoMapper.findIdByOrgName(orgInfo);
+                                if (list.size() > 0) {
                                    /* AcctInfo acctInfo = new AcctInfo();
                                     acctInfo.setoInfoId(list.get(0).getId());
                                     List<AcctInfo> acctInfos =acctInfoMapper.findNameByorgId(acctInfo);
@@ -358,12 +371,12 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                                     }*/
                                     millSheetHosts2.setIsAllowDown("Y");
                                     millSheetHosts2.setIsAllowPrint("Y");
-                                }else{
+                                } else {
                                     millSheetHosts2.setIsAllowDown("N");
                                     millSheetHosts2.setIsAllowPrint("N");
                                 }
                             }
-                        }else {
+                        } else {
                             millSheetHosts2.setIsAllowDown("Y");
                             millSheetHosts2.setIsAllowPrint("Y");
                         }
@@ -373,53 +386,60 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
 
                 millSheetHosts2.setIsAllowRevoke("Y");
                 //是否允许撤销（子类质证书组织类型为234的不能撤销，提示无权撤销质证书，有问题请回退）
-                if (millSheetHosts2.getMillSheetType().equals("Z")){
-                    if (orgType.equals("2")||orgType.equals("3")||orgType.equals("4")){
+                if (millSheetHosts2.getMillSheetType().equals("Z")) {
+                    if (orgType.equals("2") || orgType.equals("3") || orgType.equals("4")) {
                         millSheetHosts2.setIsAllowRevoke("N");
+                    }
+                }
+                //是否允许拆分（销售公司不能对拆分出去的Z/S级拆分申请操作）
+                millSheetHosts2.setIsAllowSplit("Y");
+                if (orgType.equals("1")) {
+                    if (millSheetHosts2.getMillSheetType().equals("Z") || millSheetHosts2.getMillSheetType().equals("S")) {
+                        millSheetHosts2.setIsAllowSplit("N");
                     }
                 }
             }
             return transform;
 
-        }finally {
+        } finally {
             PageDTOUtil.endPage();
         }
     }
 
     @Override
-    public List<MillSheetHostsVO> findUrl(List<MillSheetHostsVO> millSheetHostsVOS,HttpServletRequest request) {
-        String ip=request.getRemoteAddr();
+    public List<MillSheetHostsVO> findUrl(List<MillSheetHostsVO> millSheetHostsVOS, HttpServletRequest request) {
+        String ip = request.getRemoteAddr();
         String acctName = millSheetHostsVOS.get(0).getAcctName();
-        System.out.println("*******************************"+acctName+"************************");
-        for(MillSheetHostsVO millSheetHostsVO:millSheetHostsVOS){
+        System.out.println("*******************************" + acctName + "************************");
+        for (MillSheetHostsVO millSheetHostsVO : millSheetHostsVOS) {
             //转换mdel
             MillSheetHosts millSheetHosts = new MillSheetHosts();
-            BeanCopyUtil.copy(millSheetHostsVO,millSheetHosts);
+            BeanCopyUtil.copy(millSheetHostsVO, millSheetHosts);
             MillSheetHosts millSheetByPage = millSheetHostsMapper.findUrl(millSheetHosts);
-            millSheetByPage.setMillSheetPath(millSheetByPage.getMillSheetUrl() +"/"+millSheetByPage.getMillSheetName());
-            BeanCopyUtil.copy(millSheetByPage,millSheetHostsVO);
+            millSheetByPage.setMillSheetPath(millSheetByPage.getMillSheetUrl() + "/" + millSheetByPage.getMillSheetName());
+            BeanCopyUtil.copy(millSheetByPage, millSheetHostsVO);
             //添加日志操作记录
             MillOperationHis millOperationHis = new MillOperationHis();
             millOperationHis.setMillSheetNo(millSheetHostsVO.getMillSheetNo());
             millOperationHis.setOperator(acctName);
-            if(millSheetHosts.getOperationType().equals(1)){
+            if (millSheetHosts.getOperationType().equals(1)) {
                 //1是预览  2是打印
                 millOperationHis.setOperationType("PRIVIEWED");
                 millOperationHis.setOperationIp(ip);
                 //打印完的预览不改状态  下载完的预览不改变状态
-                if (millSheetByPage.getState().equals("PRINTED")|| millSheetByPage.getState().equals("DOWNLOADED") ||millSheetByPage.getState().equals("SPLITED")){
+                if (millSheetByPage.getState().equals("PRINTED") || millSheetByPage.getState().equals("DOWNLOADED") || millSheetByPage.getState().equals("SPLITED")) {
                     millSheetHosts.setState("");
-                }else {
+                } else {
                     millSheetHosts.setState("PRIVIEWED");
                 }
-            }else  if(millSheetHosts.getOperationType().equals(2)) {
+            } else if (millSheetHosts.getOperationType().equals(2)) {
                 //减少打印次数
                 millOperationHis.setOperationType("PRINTED");
                 millOperationHis.setOperationIp(ip);
                 millSheetHosts.setState("PRINTED");
-                millSheetHosts.setPrintableNum(millSheetByPage.getPrintableNum()-1);
-                millSheetHosts.setPrintedNum(millSheetByPage.getPrintedNum()+1);
-            }else{
+                millSheetHosts.setPrintableNum(millSheetByPage.getPrintableNum() - 1);
+                millSheetHosts.setPrintedNum(millSheetByPage.getPrintedNum() + 1);
+            } else {
                 //3下载只进行记录日志，次数下载在findDownUrl方法内
                 millOperationHis.setOperationType("DOWNLOADED");
                 millOperationHis.setOperationIp(ip);
@@ -432,37 +452,35 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     }
 
 
-
-
     @Override
-    public List<MillSheetHostsVO> findNumber(List<MillSheetHostsVO> millSheetHostsVOS,HttpServletRequest request) {
-        for(MillSheetHostsVO millSheetHostsVO:millSheetHostsVOS){
+    public List<MillSheetHostsVO> findNumber(List<MillSheetHostsVO> millSheetHostsVOS, HttpServletRequest request) {
+        for (MillSheetHostsVO millSheetHostsVO : millSheetHostsVOS) {
             //转换mdel
             MillSheetHosts millSheetHosts = new MillSheetHosts();
-            BeanCopyUtil.copy(millSheetHostsVO,millSheetHosts);
+            BeanCopyUtil.copy(millSheetHostsVO, millSheetHosts);
             MillSheetHosts millSheetByPage = millSheetHostsMapper.findUrl(millSheetHosts);
-            BeanCopyUtil.copy(millSheetByPage,millSheetHostsVO);
+            BeanCopyUtil.copy(millSheetByPage, millSheetHostsVO);
         }
         return millSheetHostsVOS;
     }
 
     //打印返回文件流
     @Override
-    public List<MillSheetHostsVO> findUrl1(List<String> list,HttpServletRequest request) {
+    public List<MillSheetHostsVO> findUrl1(List<String> list, HttpServletRequest request) {
         List<MillSheetHosts> millSheetHosts = new ArrayList<>();
-        for(int i = 0;i < list.size();i++){
+        for (int i = 0; i < list.size(); i++) {
             MillSheetHosts millSheetHosts1 = new MillSheetHosts();
             millSheetHosts1.setMillSheetNo(list.get(i));
             millSheetHosts.add(millSheetHosts1);
         }
-        String ip=request.getRemoteAddr();
-        for(MillSheetHosts millSheetHosts2:millSheetHosts){
+        String ip = request.getRemoteAddr();
+        for (MillSheetHosts millSheetHosts2 : millSheetHosts) {
             //转换mdel
             MillSheetHosts millSheetHosts1 = new MillSheetHosts();
-            BeanCopyUtil.copy(millSheetHosts2,millSheetHosts1);
+            BeanCopyUtil.copy(millSheetHosts2, millSheetHosts1);
             MillSheetHosts millSheetByPage = millSheetHostsMapper.findUrl(millSheetHosts1);
-            millSheetByPage.setMillSheetPath(millSheetByPage.getMillSheetUrl() +"/"+millSheetByPage.getMillSheetName());
-            BeanCopyUtil.copy(millSheetByPage,millSheetHosts2);
+            millSheetByPage.setMillSheetPath(millSheetByPage.getMillSheetUrl() + "/" + millSheetByPage.getMillSheetName());
+            BeanCopyUtil.copy(millSheetByPage, millSheetHosts2);
             //添加日志操作记录
             MillOperationHis millOperationHis = new MillOperationHis();
             millOperationHis.setMillSheetNo(millSheetHosts2.getMillSheetNo());
@@ -477,28 +495,28 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     @Override
     public List<MillSheetHostsVO> findDownUrl(List<String> list) {
         List<MillSheetHosts> millSheetHosts = new ArrayList<>();
-        for(int i = 0;i < list.size();i++){
+        for (int i = 0; i < list.size(); i++) {
             MillSheetHosts millSheetHosts1 = new MillSheetHosts();
             millSheetHosts1.setMillSheetNo(list.get(i));
             millSheetHosts.add(millSheetHosts1);
         }
-        for (MillSheetHosts millSheetHosts1:millSheetHosts){
+        for (MillSheetHosts millSheetHosts1 : millSheetHosts) {
             MillSheetHosts url = millSheetHostsMapper.findUrl(millSheetHosts1);
-            if( url.getMillSheetUrl()!=null&&url.getMillSheetName()!=null){
+            if (url.getMillSheetUrl() != null && url.getMillSheetName() != null) {
                 //质证书有文件
                 millSheetHosts1.setSpecialNeed(url.getSpecialNeed());
-                millSheetHosts1.setMillSheetPath(url.getMillSheetUrl()+"/"+url.getMillSheetName());
+                millSheetHosts1.setMillSheetPath(url.getMillSheetUrl() + "/" + url.getMillSheetName());
                 millSheetHosts1.setMillSheetUrl(url.getMillSheetUrl());
                 millSheetHosts1.setMillSheetName(url.getMillSheetName());
                 //修改下载次数 + 状态
-                millSheetHosts1.setDownableNum(url.getDownableNum()-1);
-                millSheetHosts1.setDownNum(url.getDownNum()+1);
+                millSheetHosts1.setDownableNum(url.getDownableNum() - 1);
+                millSheetHosts1.setDownNum(url.getDownNum() + 1);
                 //millSheetHosts1.setUpdatedBy(orgName);
                 millSheetHosts1.setUpdatedDt(new Date());
                 //打印完的下载不改状态
-                if (url.getState().equals("PRINTED")){
+                if (url.getState().equals("PRINTED")) {
                     millSheetHosts1.setState("");
-                }else {
+                } else {
                     millSheetHosts1.setState("DOWNLOADED");
                 }
                 millSheetHostsMapper.updateNum(millSheetHosts1);
@@ -521,26 +539,26 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     public MillSheetHostsVO rollbackQuery(MillSheetHostsVO millSheetHostsVO) {
         //转换mdel
         MillSheetHosts millSheetHosts = new MillSheetHosts();
-        BeanCopyUtil.copy(millSheetHostsVO,millSheetHosts);
+        BeanCopyUtil.copy(millSheetHostsVO, millSheetHosts);
         List<MillSheetHosts> list = millSheetHostsMapper.findMillsheetNo(millSheetHosts);
-        if (list.size()>0){
+        if (list.size() > 0) {
             millSheetHostsVO.setTrue(true);
             //校验是否回退过
             CrmMillSheetRebackApply millSheetRebackApply = new CrmMillSheetRebackApply();
             millSheetRebackApply.setMillSheetNo(millSheetHostsVO.getMillSheetNo());
             List<CrmMillSheetRebackApply> crmMillSheetRebackApplies = crmMillSheetRebackApplyMapper.find(millSheetRebackApply);
-            if (crmMillSheetRebackApplies.size()>0){
+            if (crmMillSheetRebackApplies.size() > 0) {
                 millSheetHostsVO.setIsReback("Y");
                 millSheetHostsVO.setMillSheetUrl(list.get(0).getMillSheetUrl());
                 millSheetHostsVO.setMillSheetName(list.get(0).getMillSheetName());
-                millSheetHostsVO.setMillSheetPath(list.get(0).getMillSheetUrl()+"/"+list.get(0).getMillSheetName());
-            }else {
+                millSheetHostsVO.setMillSheetPath(list.get(0).getMillSheetUrl() + "/" + list.get(0).getMillSheetName());
+            } else {
                 millSheetHostsVO.setIsReback("N");
                 millSheetHostsVO.setMillSheetUrl(list.get(0).getMillSheetUrl());
                 millSheetHostsVO.setMillSheetName(list.get(0).getMillSheetName());
-                millSheetHostsVO.setMillSheetPath(list.get(0).getMillSheetUrl()+"/"+list.get(0).getMillSheetName());
+                millSheetHostsVO.setMillSheetPath(list.get(0).getMillSheetUrl() + "/" + list.get(0).getMillSheetName());
             }
-        }else {
+        } else {
             //校验质证书编号
             millSheetHostsVO.setTrue(false);
         }
@@ -552,16 +570,16 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     public MillSheetHostsVO findIsTrue(MillSheetHostsVO millSheetHostsVO) {
         //转换mdel
         MillSheetHosts millSheetHosts = new MillSheetHosts();
-        BeanCopyUtil.copy(millSheetHostsVO,millSheetHosts);
-        List<MillSheetHosts> list =millSheetHostsMapper.findIsTrue(millSheetHosts);
-        if (list.size()>0){
+        BeanCopyUtil.copy(millSheetHostsVO, millSheetHosts);
+        List<MillSheetHosts> list = millSheetHostsMapper.findIsTrue(millSheetHosts);
+        if (list.size() > 0) {
             millSheetHosts.setTrue(true);
             list.get(0).setTrue(true);
-            BeanCopyUtil.copy(list.get(0),millSheetHostsVO);
-        }else {
+            BeanCopyUtil.copy(list.get(0), millSheetHostsVO);
+        } else {
             millSheetHosts.setTrue(false);
-            millSheetHosts.setCheckInstructions("请核实质证书编号"+millSheetHostsVO.getMillSheetNo());
-            BeanCopyUtil.copy(millSheetHosts,millSheetHostsVO);
+            millSheetHosts.setCheckInstructions("请核实质证书编号" + millSheetHostsVO.getMillSheetNo());
+            BeanCopyUtil.copy(millSheetHosts, millSheetHostsVO);
         }
         return millSheetHostsVO;
     }
@@ -572,47 +590,46 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     public MillSheetHostsVO checkCoil(MillSheetHostsVO millSheetHostsVO) {
         //转换mdel
         MillSheetHosts millSheetHosts = new MillSheetHosts();
-        BeanCopyUtil.copy(millSheetHostsVO,millSheetHosts);
-        List<MillSheetHosts> list =millSheetHostsMapper.checkCoil(millSheetHosts);
-        if (list.size()>0){
-            List<MillSheetHosts> alist =millSheetHostsMapper.checkCoil1(millSheetHosts);
-            if(alist.size()>0){
+        BeanCopyUtil.copy(millSheetHostsVO, millSheetHosts);
+        List<MillSheetHosts> list = millSheetHostsMapper.checkCoil(millSheetHosts);
+        if (list.size() > 0) {
+            List<MillSheetHosts> alist = millSheetHostsMapper.checkCoil1(millSheetHosts);
+            if (alist.size() > 0) {
                 millSheetHosts.setTrue(true);
                 list.get(0).setTrue(true);
-                BeanCopyUtil.copy(list.get(0),millSheetHostsVO);
-            }else {
+                BeanCopyUtil.copy(list.get(0), millSheetHostsVO);
+            } else {
                 millSheetHosts.setTrue(false);
-                millSheetHosts.setCheckInstructions("此批/板/卷号"+millSheetHostsVO.getZcharg()+"所在的质证书的状态不符合查询条件");
-                BeanCopyUtil.copy(millSheetHosts,millSheetHostsVO);
+                millSheetHosts.setCheckInstructions("此批/板/卷号" + millSheetHostsVO.getZcharg() + "所在的质证书的状态不符合查询条件");
+                BeanCopyUtil.copy(millSheetHosts, millSheetHostsVO);
             }
-        }else {
+        } else {
             millSheetHosts.setTrue(false);
-            millSheetHosts.setCheckInstructions("此批/板/卷号"+millSheetHostsVO.getZcharg()+"不存在");
-            BeanCopyUtil.copy(millSheetHosts,millSheetHostsVO);
+            millSheetHosts.setCheckInstructions("此批/板/卷号" + millSheetHostsVO.getZcharg() + "不存在");
+            BeanCopyUtil.copy(millSheetHosts, millSheetHostsVO);
         }
         return millSheetHostsVO;
     }
 
 
-
     //返回app端质证书下载路径
     public MillSheetHostsVO getUrlForApp(JsonRequest<MillSheetHostsVO> jsonRequest) {
         MillSheetHostsVO vo = jsonRequest.getReqBody();
-        MillSheetHosts millSheetHosts = millSheetHostsMapper.getUrlForApp(BeanCopyUtil.copy(vo , MillSheetHosts.class));
+        MillSheetHosts millSheetHosts = millSheetHostsMapper.getUrlForApp(BeanCopyUtil.copy(vo, MillSheetHosts.class));
         MillSheetHostsVO vo2 = new MillSheetHostsVO();
-        BeanCopyUtil.copy(millSheetHosts,vo2);
+        BeanCopyUtil.copy(millSheetHosts, vo2);
         return vo2;
     }
 
     //修改打印次数下载次数
     @Override
-    public Integer updateNumber(List<MillSheetHostsVO> record,HttpServletRequest request) {
-        String ip=request.getRemoteAddr();
-        String acctName =record.get(0).getAcctName();
-        for(MillSheetHostsVO millSheetHostsVO:record){
+    public Integer updateNumber(List<MillSheetHostsVO> record, HttpServletRequest request) {
+        String ip = request.getRemoteAddr();
+        String acctName = record.get(0).getAcctName();
+        for (MillSheetHostsVO millSheetHostsVO : record) {
             //转换mdel
             MillSheetHosts millSheetHosts = new MillSheetHosts();
-            BeanCopyUtil.copy(millSheetHostsVO,millSheetHosts);
+            BeanCopyUtil.copy(millSheetHostsVO, millSheetHosts);
             MillSheetHosts millSheetByPage = millSheetHostsMapper.findUrl(millSheetHosts);
             //日志表
             MillOperationHis millOperationHis = new MillOperationHis();
@@ -620,15 +637,15 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             millOperationHis.setOperationTime(new Date());
             millOperationHis.setOperationIp(ip);
             millOperationHis.setOperator(acctName);
-            if(millSheetHosts.getOperationType().equals(1)){
+            if (millSheetHosts.getOperationType().equals(1)) {
                 //1是打印次数修改  2是下载次数修改
-                millSheetHosts.setPrintableNum(millSheetByPage.getPrintableNum()+1);
+                millSheetHosts.setPrintableNum(millSheetByPage.getPrintableNum() + 1);
 
                 millOperationHis.setOperationType("PRINTING");
                 millOperationHis.setOperationTime(new Date());
                 millOperationHis.setContent("打印次数加1");
-            }else {
-                millSheetHosts.setDownableNum(millSheetByPage.getDownableNum()+1);
+            } else {
+                millSheetHosts.setDownableNum(millSheetByPage.getDownableNum() + 1);
                 millOperationHis.setOperationType("DOWNLOADS");
                 millOperationHis.setContent("下载次数加1");
             }
@@ -643,7 +660,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
     public void updateStateAndPrintNum(String millSheetNo) {
 
         MillSheetHosts mshs = millSheetHostsMapper.selectByMillSheetNo(millSheetNo);
-        if(mshs.getDownableNum() == 0){
+        if (mshs.getDownableNum() == 0) {
             throw new BusinessException("质证书下载次数已经为0,不能再次下载");
         }
         millSheetHostsMapper.updateStateAndPrintNum(millSheetNo);
@@ -656,9 +673,9 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
 2、当操作撤销子/孙证书的时候，需要判断子/孙质证书的状态，如果为“已审核”则直接撤销。如果状态为“已预览、已下载和已打印”状态则需要和用户线下沟通后，录入撤销原因，然后才能够撤销。如果为“已拆分”则不能操作撤销，并提示“已拆分状态的质证书不能够撤销，如要撤销，请先将下级质证书撤销后再操作。”
 3、撤销操作成功后，需要判断质证书的类别，是Z还是S,本级质证书有几个，需要先从底层开始逐级撤销，撤销后，该Z/S级质证书的量需要返回到M/Z级质证书上。注意如果是本级最后一张质证书发生了撤销，则需要对应的M级质证书的状态修改为“已预览”状态。*/
     @Override
-    public Integer revoke(MillSheetHostsVO record,HttpServletRequest request) {
-        String ip=request.getRemoteAddr();
-        String acctName =record.getAcctName();
+    public Integer revoke(MillSheetHostsVO record, HttpServletRequest request) {
+        String ip = request.getRemoteAddr();
+        String acctName = record.getAcctName();
         //查询CRM_MILL_SHEET_SPLIT_APPLY表遍历集合然后查询CRM_MILL_SHEET_SPLIT_INFO遍历修改父亲coilinfo表信息
         // 删除host表 head表coilinfo表有关下级质证书的信息  拆分数据状态修改为0  并记录日志（撤销多少件）    最后修改此质证书状态为已预览
 
@@ -667,12 +684,12 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
         crmMillSheetSplitApply.setStatus("1");
         List<CrmMillSheetSplitApply> crmMillSheetSplitApplies = crmMillSheetSplitApplyMapper.findInfo(crmMillSheetSplitApply);
         String content = "";
-        for (CrmMillSheetSplitApply crmMillSheetSplitApply1:crmMillSheetSplitApplies){
+        for (CrmMillSheetSplitApply crmMillSheetSplitApply1 : crmMillSheetSplitApplies) {
             CrmMillSheetSplitInfo crmMillSheetSplitInfo = new CrmMillSheetSplitInfo();
             crmMillSheetSplitInfo.setSplitApplyId(crmMillSheetSplitApply1.getSplitApplyId());
-            List<CrmMillSheetSplitInfo> crmMillSheetSplitInfos =crmMillSheetSplitInfoMapper.findByParams(crmMillSheetSplitInfo);
+            List<CrmMillSheetSplitInfo> crmMillSheetSplitInfos = crmMillSheetSplitInfoMapper.findByParams(crmMillSheetSplitInfo);
 
-            for(CrmMillSheetSplitInfo crmMillSheetSplitInfo1:crmMillSheetSplitInfos){
+            for (CrmMillSheetSplitInfo crmMillSheetSplitInfo1 : crmMillSheetSplitInfos) {
                 MillCoilInfo millCoilInfo = new MillCoilInfo();
                 //批次  规格  质证书
                 millCoilInfo.setMillSheetNo(crmMillSheetSplitInfo1.getFatherMillsheetNo());
@@ -682,8 +699,8 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 millCoilInfo.setUpdatedBy(acctName);
                 millCoilInfo.setUpdatedDt(new Date());
                 //剩余件数+拆分件数
-                millCoilInfo.setZjishu(millCoilInfo1.getZjishu()+crmMillSheetSplitInfo1.getZjishu());
-                BigDecimal bigDecimal = MathHelper.add(millCoilInfo1.getZlosmenge(),crmMillSheetSplitInfo1.getZlosmenge());
+                millCoilInfo.setZjishu(millCoilInfo1.getZjishu() + crmMillSheetSplitInfo1.getZjishu());
+                BigDecimal bigDecimal = MathHelper.add(millCoilInfo1.getZlosmenge(), crmMillSheetSplitInfo1.getZlosmenge());
                 millCoilInfo.setZlosmenge(bigDecimal);
                 millCoilInfoMapper.updateDate(millCoilInfo);
                 //修改拆分数据
@@ -691,7 +708,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
                 crmMillSheetSplitInfo1.setUpdatedDt(new Date());
                 crmMillSheetSplitInfo1.setStatus("0");
                 crmMillSheetSplitInfoMapper.updateStatus(crmMillSheetSplitInfo1);
-                content+=","+"批/板/卷号"+crmMillSheetSplitInfo1.getZcharg()+"撤销拆分"+crmMillSheetSplitInfo1.getZjishu()+"件";
+                content += "," + "批/板/卷号" + crmMillSheetSplitInfo1.getZcharg() + "撤销拆分" + crmMillSheetSplitInfo1.getZjishu() + "件";
             }
             //修改拆分数据 MILL_SHEET_HEAD Mill_Coil_Info  Mill_Chemistry_Data Mill_Physics_Data Mill_Sheet_Hosts Mill_Operation_His
             // MILL_MODEL_MATCHING（模板表） MILL_SHEET_EXPAND（公式表）
@@ -713,7 +730,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             MillPhysicsData millPhysicsData = new MillPhysicsData();
             millPhysicsData.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
             millPhysicsDataMapper.deleteByPrimaryKey(millPhysicsData);
-            MillSheetHosts millSheetHosts =new MillSheetHosts();
+            MillSheetHosts millSheetHosts = new MillSheetHosts();
             millSheetHosts.setMillSheetNo(crmMillSheetSplitApply1.getMillsheetNo());
             millSheetHostsMapper.deleteMillSheetNo(millSheetHosts);
 
@@ -744,11 +761,11 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
             gg.setStatus("1");
             gg.setFatherMillsheetNo(crmMillSheetSplitApply1.getFatherMillsheetNo());
             gg.setMillsheetNo(crmMillSheetSplitApply1.getMillsheetNo());
-            List crmMillSheetSplitInfoMapperDate =crmMillSheetSplitInfoMapper.findDate(gg);
-            if(crmMillSheetSplitInfoMapperDate.size()>0){
+            List crmMillSheetSplitInfoMapperDate = crmMillSheetSplitInfoMapper.findDate(gg);
+            if (crmMillSheetSplitInfoMapperDate.size() > 0) {
 
-            }else{
-                MillSheetHosts hh =new MillSheetHosts();
+            } else {
+                MillSheetHosts hh = new MillSheetHosts();
                 hh.setMillSheetNo(crmMillSheetSplitApply1.getFatherMillsheetNo());
                 hh.setUpdatedDt(new Date());
                 hh.setUpdatedBy(acctName);
@@ -779,5 +796,81 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService{
         millOperationHis.setContent(content);
         millOperationHisMapper.insertSelective(millOperationHis);
         return 1;
+    }
+
+
+    //导出
+    @Override
+    public List<MillSheetHostsVO> export(MillSheetHostsVO millSheetHostsVO) {
+        String orgName = millSheetHostsVO.getOrgName();
+        String orgId = millSheetHostsVO.getOrgId();
+        String orgType = millSheetHostsVO.getOrgType();
+        //转换mdel
+        MillSheetHosts millSheetHosts = new MillSheetHosts();
+        BeanCopyUtil.copy(millSheetHostsVO, millSheetHosts);
+        if (millSheetHosts.getZcharg() != null && millSheetHosts.getZcharg() != "") {
+            MillCoilInfo coilInfo = new MillCoilInfo();
+            coilInfo.setZcharg(millSheetHosts.getZcharg());
+            List<MillCoilInfo> list = millCoilInfoMapper.findMillsheetNumber(coilInfo);
+            if (list.size() > 0) {
+                List<String> idall = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++) {
+                    idall.add(list.get(i).getMillsheetNo());
+                }
+                millSheetHosts.setMillSheetNos(idall);
+            } else {
+                List<String> idall = new ArrayList<>();
+                idall.add("-99");
+                millSheetHosts.setMillSheetNos(idall);
+            }
+        }
+        if (millSheetHosts.getDeptCode() != null && millSheetHosts.getDeptCode() != "") {
+            millSheetHosts.setDeptCodes(null);
+        }
+        //质证书数据匹配显示的时候，加一层对虚拟质证书的判断，即车号是以“—”开头的，就在质证书管理和质证书管理（酒钢）界面不显示。
+        MillSheetHead millSheetHead = new MillSheetHead();
+        List<MillSheetHead> millSheetHeads = millSheetHeadMapper.selectAll(millSheetHead);
+        List<String> idall = new ArrayList<>();
+        if (millSheetHeads.size() > 0) {
+            for (MillSheetHead millSheetHead1 : millSheetHeads) {
+                if (millSheetHead1.getZchehao().startsWith("-")) {
+                    idall.add(millSheetHead1.getMillSheetNo());
+                }
+            }
+            if (idall.size() > 0) {
+                millSheetHosts.setNoMillSheetNos(idall);
+            }
+        }
+        PageDTOUtil.startPage(millSheetHostsVO);
+        String startDtStr = DateFormatUtil.getStartDateStr(millSheetHosts.getStartDt());
+        millSheetHosts.setStartDtStr(startDtStr);
+        String endDtStr = DateFormatUtil.getEndDateStr(millSheetHosts.getEndDt());
+        millSheetHosts.setEndDtStr(endDtStr);
+        List<MillSheetHosts> millSheetByPage = millSheetHostsMapper.findMillSheetByPage(millSheetHosts);
+        List<String> exportList = new ArrayList<>();
+        if (millSheetByPage.size() > 0) {
+            for (MillSheetHosts millSheetHosts1 : millSheetByPage) {
+                exportList.add(millSheetHosts1.getMillSheetNo());
+            }
+            MillSheetHosts millSheetHosts1 = new MillSheetHosts();
+            millSheetHosts1.setMillSheetNos(exportList);
+            List<MillSheetHosts> list1 = millSheetHostsMapper.findExportInfo(millSheetHosts1);
+            //转换返回对象
+            List<MillSheetHostsVO> MillSheetHostsVO = BeanCopyUtil.copyList(list1, MillSheetHostsVO.class);
+            for (MillSheetHostsVO millSheetHostsVO1 :MillSheetHostsVO){
+                millSheetHostsVO1.setDate(true);
+                //收货单位和分销售达方一致把分销售达方置空
+                if (millSheetHostsVO1.getZkunwe().equals(millSheetHostsVO1.getSpiltCustomer())){
+                    millSheetHostsVO1.setSpiltCustomer("");
+                }
+            }
+            return MillSheetHostsVO;
+        }
+        List<MillSheetHostsVO> MillSheetHostsVO1 = new ArrayList<>();
+        MillSheetHostsVO millSheetHosts1 =new MillSheetHostsVO();
+        millSheetHosts1.setDate(false);
+        MillSheetHostsVO1.add(millSheetHosts1);
+        return MillSheetHostsVO1;
+
     }
 }
