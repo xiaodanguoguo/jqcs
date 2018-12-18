@@ -9,7 +9,19 @@ import java.util.List;
 
 public class MillSheetHostsVO implements Serializable {
 
+    //导出excel数据是否有
+    private Boolean date;
+
+    private Long totalZjishu;
+    private String specs;
+    private String zlph;
+    private String zdaozhan;
+
+    //是否允许撤销
     private String isAllowRevoke;
+
+    //是否允许拆分
+    private String isAllowSplit;
 
     //组织id
     private String orgId;
@@ -55,77 +67,6 @@ public class MillSheetHostsVO implements Serializable {
     //厂家code
     private List<String> deptCodes;
 
-    public String getIsAllowRevoke() {
-        return isAllowRevoke;
-    }
-
-    public void setIsAllowRevoke(String isAllowRevoke) {
-        this.isAllowRevoke = isAllowRevoke;
-    }
-
-    public String getOrgType() {
-        return orgType;
-    }
-
-    public void setOrgType(String orgType) {
-        this.orgType = orgType;
-    }
-
-    public String getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(String orgId) {
-        this.orgId = orgId;
-    }
-
-    public Long getZjishu() {
-        return zjishu;
-    }
-
-    public void setZjishu(Long zjishu) {
-        this.zjishu = zjishu;
-    }
-
-    public BigDecimal getSurplusZjishu() {
-        return surplusZjishu;
-    }
-
-    public void setSurplusZjishu(BigDecimal surplusZjishu) {
-        this.surplusZjishu = surplusZjishu;
-    }
-
-    public BigDecimal getZlosmenge() {
-        return zlosmenge;
-    }
-
-    public void setZlosmenge(BigDecimal zlosmenge) {
-        this.zlosmenge = zlosmenge;
-    }
-
-    public BigDecimal getSurplusZlosmenge() {
-        return surplusZlosmenge;
-    }
-
-    public void setSurplusZlosmenge(BigDecimal surplusZlosmenge) {
-        this.surplusZlosmenge = surplusZlosmenge;
-    }
-
-    public String getCauseOfRevocation() {
-        return causeOfRevocation;
-    }
-
-    public void setCauseOfRevocation(String causeOfRevocation) {
-        this.causeOfRevocation = causeOfRevocation;
-    }
-
-    public List<String> getDeptCodes() {
-        return deptCodes;
-    }
-
-    public void setDeptCodes(List<String> deptCodes) {
-        this.deptCodes = deptCodes;
-    }
 
     private String states;
 
@@ -260,6 +201,126 @@ public class MillSheetHostsVO implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss" ,timezone = "GMT+8")
     private Date endDtStr;  //结束时间
 
+
+    public String getZdaozhan() {
+        return zdaozhan;
+    }
+
+    public void setZdaozhan(String zdaozhan) {
+        this.zdaozhan = zdaozhan;
+    }
+
+    public Boolean getDate() {
+        return date;
+    }
+
+    public void setDate(Boolean date) {
+        this.date = date;
+    }
+
+    public String getIsAllowSplit() {
+        return isAllowSplit;
+    }
+
+    public void setIsAllowSplit(String isAllowSplit) {
+        this.isAllowSplit = isAllowSplit;
+    }
+
+    public Long getTotalZjishu() {
+        return totalZjishu;
+    }
+
+    public void setTotalZjishu(Long totalZjishu) {
+        this.totalZjishu = totalZjishu;
+    }
+
+    public String getSpecs() {
+        return specs;
+    }
+
+    public void setSpecs(String specs) {
+        this.specs = specs;
+    }
+
+    public String getZlph() {
+        return zlph;
+    }
+
+    public void setZlph(String zlph) {
+        this.zlph = zlph;
+    }
+
+    public String getIsAllowRevoke() {
+        return isAllowRevoke;
+    }
+
+    public void setIsAllowRevoke(String isAllowRevoke) {
+        this.isAllowRevoke = isAllowRevoke;
+    }
+
+    public String getOrgType() {
+        return orgType;
+    }
+
+    public void setOrgType(String orgType) {
+        this.orgType = orgType;
+    }
+
+    public String getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(String orgId) {
+        this.orgId = orgId;
+    }
+
+    public Long getZjishu() {
+        return zjishu;
+    }
+
+    public void setZjishu(Long zjishu) {
+        this.zjishu = zjishu;
+    }
+
+    public BigDecimal getSurplusZjishu() {
+        return surplusZjishu;
+    }
+
+    public void setSurplusZjishu(BigDecimal surplusZjishu) {
+        this.surplusZjishu = surplusZjishu;
+    }
+
+    public BigDecimal getZlosmenge() {
+        return zlosmenge;
+    }
+
+    public void setZlosmenge(BigDecimal zlosmenge) {
+        this.zlosmenge = zlosmenge;
+    }
+
+    public BigDecimal getSurplusZlosmenge() {
+        return surplusZlosmenge;
+    }
+
+    public void setSurplusZlosmenge(BigDecimal surplusZlosmenge) {
+        this.surplusZlosmenge = surplusZlosmenge;
+    }
+
+    public String getCauseOfRevocation() {
+        return causeOfRevocation;
+    }
+
+    public void setCauseOfRevocation(String causeOfRevocation) {
+        this.causeOfRevocation = causeOfRevocation;
+    }
+
+    public List<String> getDeptCodes() {
+        return deptCodes;
+    }
+
+    public void setDeptCodes(List<String> deptCodes) {
+        this.deptCodes = deptCodes;
+    }
 
     public String getLowerMillSheetNos() {
         return lowerMillSheetNos;

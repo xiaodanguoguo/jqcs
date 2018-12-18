@@ -83,7 +83,7 @@
     <result column="FALLBACK_REASON" property="fallbackReason"/>
     <result column="REJECTION_REASON" property="rejectionReason"/>
     <result column="JC_FLAG" property="jcFlag"/>
-
+    <result column="ZDAOZHAN" property="zdaozhan" jdbcType="VARCHAR" />
     <result column="ZKDAUF" property="zkdauf"/>
 
     <result column="LFDAT" property="lfdat"/>
@@ -764,6 +764,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     MSH.ZCPMC,
     MSH.LFDAT,
     MSH.ZPH,
+    MSH.ZDAOZHAN,
     MSH.MILL_LINE,
     MSH.ZKDAUF AS ZKDAUF,
     MSH.SPILT_CUSTOMER,
@@ -819,6 +820,9 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       </if>
       <if test="millSheetType != null  and millSheetType != ''" >
         AND H.MILL_SHEET_TYPE = #{millSheetType}
+      </if>
+      <if test="zdaozhan != null  and zdaozhan != ''" >
+        AND H.ZDAOZHAN = #{zdaozhan}
       </if>
       <if test="deptCodes != null" >
         AND H.DEPT_CODE  in
@@ -951,4 +955,104 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     delete from MILL_SHEET_HOSTS
     where MILL_SHEET_NO = #{millSheetNo}
   </delete>
+
+
+
+
+
+  <resultMap id="FullMap2" type="jq.steel.cs.services.cust.facade.model.MillSheetHosts" >
+    <result column="MILL_SHEET_NO" property="millSheetNo" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
+    <result column="ZCPMC" property="zcpmc" jdbcType="VARCHAR" />
+    <result column="ZPH" property="zph" jdbcType="VARCHAR" />
+    <result column="ZKUNNR" property="zkunnr" jdbcType="VARCHAR" />
+    <result column="ZKUNWE" property="zkunwe" jdbcType="VARCHAR" />
+    <result column="SPILT_CUSTOMER" property="spiltCustomer" jdbcType="VARCHAR" />
+    <result column="ZDAOZHAN" property="zdaozhan" jdbcType="VARCHAR" />
+    <result column="ZCHEHAO" property="zchehao" jdbcType="VARCHAR" />
+    <result column="LFDAT" property="lfdat" jdbcType="TIMESTAMP" />
+    <result column="TOTAL_ZJISHU" property="totalZjishu" jdbcType="DECIMAL" />
+    <result column="TOTAL_ZLOSMENGE" property="totalZlosmenge" jdbcType="DECIMAL" />
+    <result column="SPECS" property="specs" jdbcType="VARCHAR" />
+    <result column="ZCHARG" property="zcharg" jdbcType="VARCHAR" />
+    <result column="ZLPH" property="zlph" jdbcType="VARCHAR" />
+    <result column="ZJISHU" property="zjishu" jdbcType="DECIMAL" />
+    <result column="ZLOSMENGE" property="zlosmenge" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <!--导出查询-->
+  <select id="findExportInfo" resultMap="FullMap2" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
+    SELECT
+	head.mill_sheet_no,
+	CASE
+WHEN hosts.state = 'NEW' THEN
+	'新建'
+WHEN hosts.state = 'CREATED' THEN
+	'已生成'
+WHEN hosts.state = 'EXAMINED' THEN
+	'已审核'
+WHEN hosts.state = 'CONFIRMED' THEN
+	'已确认'
+WHEN hosts.state = 'FALLBACKED' THEN
+	'已回退'
+WHEN hosts.state = 'PENDING' THEN
+	'待处理'
+WHEN hosts.state = 'DISSUSED' THEN
+	'已置废'
+WHEN hosts.state = 'DOWNLOADED' THEN
+	'已下载'
+WHEN hosts.state = 'PRIVIEWED' THEN
+	'已预览'
+WHEN hosts.state = 'PRINTED' THEN
+	'已打印'
+WHEN hosts.state = 'DELETED' THEN
+	'已删除'
+ELSE
+	hosts.state
+END AS STATE,
+ head.zcpmc,
+ head.zph,
+ (
+	SELECT DISTINCT
+		name1
+	FROM
+		mill_customer
+	WHERE
+		head.zkunnr = kunnr
+	AND head.dept_code = bukrs
+) AS zkunnr,
+ (
+	SELECT DISTINCT
+		name1
+	FROM
+		mill_customer
+	WHERE
+		head.zkunwe = kunnr
+	AND head.dept_code = bukrs
+) AS zkunwe,
+ head.SPILT_CUSTOMER,
+ head.zdaozhan,
+ head.zchehao,
+ head.lfdat,
+ head.total_zlosmenge,
+ head.total_zjishu,
+ coil.specs,
+ coil.zcharg,
+ coil.zlph,
+ coil.zjishu,
+ coil.zlosmenge
+FROM
+	mill_coil_info coil,
+	mill_sheet_head head,
+	mill_sheet_hosts hosts
+WHERE
+	head.mill_sheet_no = coil.mill_sheet_no
+AND head.mill_sheet_no = hosts.mill_sheet_no
+    AND hosts.MILL_SHEET_NO  in
+    <foreach collection="millSheetNos"  index="index" close=")" open="(" item="item" separator=",">
+      #{millSheetNos[${index}]}
+    </foreach>
+  </select>
+
+
 </mapper>

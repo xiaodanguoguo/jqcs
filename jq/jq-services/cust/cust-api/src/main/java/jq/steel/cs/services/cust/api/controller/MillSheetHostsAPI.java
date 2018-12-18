@@ -2,6 +2,7 @@ package jq.steel.cs.services.cust.api.controller;
 
 import com.ebase.core.web.json.JsonResponse;
 import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
+import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -122,5 +123,15 @@ public interface MillSheetHostsAPI {
      */
     @RequestMapping(value = "/millsheet/revoke",method = RequestMethod.POST)
     ServiceResponse<Integer> revoke(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest);
+
+
+    /**
+     * 导出
+     *
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/millsheet/export", method = RequestMethod.POST)
+    ServiceResponse<List<MillSheetHostsVO>> export(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest);
 
 }
