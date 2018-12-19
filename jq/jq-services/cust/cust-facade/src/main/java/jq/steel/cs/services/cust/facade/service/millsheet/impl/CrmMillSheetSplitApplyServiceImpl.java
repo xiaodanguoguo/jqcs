@@ -12,6 +12,8 @@ import jq.steel.cs.services.cust.facade.model.*;
 import jq.steel.cs.services.cust.facade.service.millsheet.CrmMillSheetSplitApplyService;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +39,9 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
     private MillCoilInfoMapper coilInfoMapper;
     @Autowired
     private CrmBatchSplitMapper crmBatchSplitMapper;
+
+
+    private static Logger logger = LoggerFactory.getLogger(CrmMillSheetSplitApplyServiceImpl.class);
 
     //申请拆分数据插入
     @Override
@@ -624,6 +629,15 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
 
         }
 
+        //输出日志
+        for (CrmMillSheetSplitInfo crmMillSheetSplitInfo:noListMillSheetNo){
+            logger.info("线棒noListMillSheetNo质证书编号"+crmMillSheetSplitInfo.getMillsheetNo()+"板卷号"+crmMillSheetSplitInfo.getZcharg()+"分销售达方"+crmMillSheetSplitInfo.getSpiltCustomer());
+        }
+
+        for (CrmMillSheetSplitInfo crmMillSheetSplitInfo:crmMillSheetSplitInfoList){
+            logger.info("线棒crmMillSheetSplitInfoList质证书编号"+crmMillSheetSplitInfo.getMillsheetNo()+"板卷号"+crmMillSheetSplitInfo.getZcharg()+"分销售达方"+crmMillSheetSplitInfo.getSpiltCustomer());
+        }
+
         //拿取重复元素到list然后拆分
         if (noListMillSheetNo.size() > 0) {
             Map<String, List<CrmMillSheetSplitInfo>> aMap = new HashMap<String, List<CrmMillSheetSplitInfo>>();
@@ -1085,6 +1099,16 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             }
 
         }
+        //输出日志
+        for (CrmMillSheetSplitInfo crmMillSheetSplitInfo:noListMillSheetNo){
+            logger.info("板卷noListMillSheetNo质证书编号"+crmMillSheetSplitInfo.getMillsheetNo()+"板卷号"+crmMillSheetSplitInfo.getZcharg()+"分销售达方"+crmMillSheetSplitInfo.getSpiltCustomer());
+        }
+
+        for (CrmMillSheetSplitInfo crmMillSheetSplitInfo:crmMillSheetSplitInfoList){
+            logger.info("板卷crmMillSheetSplitInfoList质证书编号"+crmMillSheetSplitInfo.getMillsheetNo()+"板卷号"+crmMillSheetSplitInfo.getZcharg()+"分销售达方"+crmMillSheetSplitInfo.getSpiltCustomer());
+        }
+
+
 
         //拿取重复元素到list然后拆分
         if (noListMillSheetNo.size() > 0) {
