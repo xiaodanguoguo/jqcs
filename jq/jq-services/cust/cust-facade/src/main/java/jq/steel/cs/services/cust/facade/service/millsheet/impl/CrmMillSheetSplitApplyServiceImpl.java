@@ -881,6 +881,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             crmBatchSplit.setCreatedDt(new Date());
             crmBatchSplit.setSpiltCustomer(cmssi.getSpiltCustomer());
             crmBatchSplit.setZcharg(cmssi.getZcharg());
+            crmBatchSplit.setZchehao(cmssi.getZchehao());
             crmBatchSplitMapper.insertSelective(crmBatchSplit);
 
             //判断是否存在此板卷号

@@ -91,20 +91,20 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
             if (millSheetHosts.getDeptCode() != null && millSheetHosts.getDeptCode() != "") {
                 millSheetHosts.setDeptCodes(null);
             }
-            //质证书数据匹配显示的时候，加一层对虚拟质证书的判断，即车号是以“—”开头的，就在质证书管理和质证书管理（酒钢）界面不显示。
-            MillSheetHead millSheetHead = new MillSheetHead();
+            //质证书数据匹配显示的时候，加一层对虚拟质证书的判断，即产线是以“G”开头的，就在质证书管理和质证书管理（酒钢）界面不显示。
+           /* MillSheetHead millSheetHead = new MillSheetHead();
             List<MillSheetHead> millSheetHeads = millSheetHeadMapper.selectAll(millSheetHead);
             List<String> idall = new ArrayList<>();
             if (millSheetHeads.size() > 0) {
                 for (MillSheetHead millSheetHead1 : millSheetHeads) {
-                    if (millSheetHead1.getZchehao().startsWith("-")) {
+                    if (millSheetHead1.getMillLine().startsWith("G")) {
                         idall.add(millSheetHead1.getMillSheetNo());
                     }
                 }
                 if (idall.size() > 0) {
                     millSheetHosts.setNoMillSheetNos(idall);
                 }
-            }
+            }*/
             PageDTOUtil.startPage(millSheetHostsVO);
             String startDtStr = DateFormatUtil.getStartDateStr(millSheetHosts.getStartDt());
             millSheetHosts.setStartDtStr(startDtStr);
@@ -261,20 +261,20 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
             if (millSheetHosts.getDeptCode() != null && millSheetHosts.getDeptCode() != "") {
                 millSheetHosts.setDeptCodes(null);
             }
-            //质证书数据匹配显示的时候，加一层对虚拟质证书的判断，即车号是以“—”开头的，就在质证书管理和质证书管理（酒钢）界面不显示。
-            MillSheetHead millSheetHead = new MillSheetHead();
+            //质证书数据匹配显示的时候，加一层对虚拟质证书的判断，即产线是以“G”开头的，就在质证书管理和质证书管理（酒钢）界面不显示。
+            /*MillSheetHead millSheetHead = new MillSheetHead();
             List<MillSheetHead> millSheetHeads = millSheetHeadMapper.selectAll(millSheetHead);
             List<String> idall = new ArrayList<>();
             if (millSheetHeads.size() > 0) {
                 for (MillSheetHead millSheetHead1 : millSheetHeads) {
-                    if (millSheetHead1.getZchehao().startsWith("-")) {
+                    if (millSheetHead1.getMillLine().startsWith("G")) {
                         idall.add(millSheetHead1.getMillSheetNo());
                     }
                 }
                 if (idall.size() > 0) {
                     millSheetHosts.setNoMillSheetNos(idall);
                 }
-            }
+            }*/
             PageDTOUtil.startPage(millSheetHostsVO);
             String startDtStr = DateFormatUtil.getStartDateStr(millSheetHosts.getStartDt());
             millSheetHosts.setStartDtStr(startDtStr);
