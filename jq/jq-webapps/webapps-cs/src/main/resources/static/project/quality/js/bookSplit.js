@@ -140,7 +140,7 @@ function initplugPath(docm,comType,reqPath,reqParam,reqMethod){
 function splitTableInit(){
     var splitTableClone = $("#splitTableTemple").clone(true);
     splitTableClone.attr("id","splitTableClone").show();
-    splitTableClone.find("#zchehaoA").val($("#zchehao").val());
+    splitTableClone.find("#zchehaoA").val($("#zchehaoInp").val());
     splitTableClone.find("#spiltCustomerTextA").val($("#spiltCustomerText").val());
     $("#splitTableTemple").before(splitTableClone);
     initplugData(splitTableClone.find("#tableSplitList")[0],"standardTableCtrl",document.body.jsLee.jsonData);
