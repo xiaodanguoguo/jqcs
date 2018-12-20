@@ -8,6 +8,11 @@ import java.util.Date;
 import java.util.List;
 
 public class MillSheetHosts {
+    // 剩余件次
+    private BigDecimal surplusZjishu;
+
+    // 剩余重量
+    private BigDecimal surplusZlosmenge;
 
     //导出excel数据是否有
     private Boolean date;
@@ -44,6 +49,21 @@ public class MillSheetHosts {
     //厂家code
     private List<String> deptCodes;
 
+    public BigDecimal getSurplusZjishu() {
+        return surplusZjishu;
+    }
+
+    public void setSurplusZjishu(BigDecimal surplusZjishu) {
+        this.surplusZjishu = surplusZjishu;
+    }
+
+    public BigDecimal getSurplusZlosmenge() {
+        return surplusZlosmenge;
+    }
+
+    public void setSurplusZlosmenge(BigDecimal surplusZlosmenge) {
+        this.surplusZlosmenge = surplusZlosmenge;
+    }
 
     public Boolean getDate() {
         return date;
