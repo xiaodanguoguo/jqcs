@@ -703,8 +703,8 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
 
 
         //拆分质证书编号和拆分单位不一致的数据
-        if (crmMillSheetSplitInfoList.size() > 0) {
-            for (CrmMillSheetSplitInfo cmssi : crmMillSheetSplitInfoList) {
+        if (resList.size() > 0) {
+            for (CrmMillSheetSplitInfo cmssi : resList) {
                 //查询一下最大质证书编号
                 MillSheetHosts millSheetHosts = new MillSheetHosts();
                 millSheetHosts.setMillSheetNo(cmssi.getMillsheetNo());
@@ -728,7 +728,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     mill= crmMillSheetSplitInfoMapper.findMillSheetNoMax(map1);
                     System.out.println("拆分最大值"+mill);
                 }else {
-                    mill = crmMillSheetSplitInfoList.get(0).getMillsheetNo() + "00";
+                    mill = cmssi.getMillsheetNo() + "00";
                 }
 
 
@@ -1221,7 +1221,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     mill= crmMillSheetSplitInfoMapper.findMillSheetNoMax(map1);
                     System.out.println("拆分最大值"+mill);
                 }else {
-                    mill = crmMillSheetSplitInfoList.get(0).getMillsheetNo() + "00";
+                    mill = cmssi.getMillsheetNo() + "00";
                 }
 
 
