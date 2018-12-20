@@ -280,7 +280,7 @@ function splitSubmit(splitTableClone){
             getValue4Desc(jsonParam,$(this)[0]);
             jsonParam.millsheetNo = this.jsonData.millsheetNo;
             jsonParam.spiltCustomer = splitTableClone.find("#spiltCustomerTextA").val();
-            jsonParam.zchehao = splitTableClone.find("#zchehaoA").val();
+            jsonParam.zchehao1 = splitTableClone.find("#zchehaoA").val();
             //jsonParam.zkunweCode = splitTableClone.find("#spiltCustomerText option:selected").html();
             arrParam.push(jsonParam);
         });
