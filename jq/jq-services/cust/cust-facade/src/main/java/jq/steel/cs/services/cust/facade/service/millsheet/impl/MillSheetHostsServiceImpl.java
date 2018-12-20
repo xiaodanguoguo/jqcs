@@ -131,8 +131,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
                     millSheetHosts2.setIsSplit(0);
                 }
                 //原件次 剩余件次  原重量 剩余重量
-                Long zjishu = new Long(0);
-                ;
+               /* Long zjishu = new Long(0);
                 BigDecimal surplusZjishu = new BigDecimal(0);
                 BigDecimal zlosmenge = new BigDecimal(0);
                 BigDecimal surplusZlosmenge = new BigDecimal(0);
@@ -153,7 +152,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
                 millSheetHosts2.setZjishu(zjishu);
                 millSheetHosts2.setSurplusZjishu(surplusZjishu);
                 millSheetHosts2.setZlosmenge(zlosmenge);
-                millSheetHosts2.setSurplusZlosmenge(surplusZlosmenge);
+                millSheetHosts2.setSurplusZlosmenge(surplusZlosmenge);*/
                 if (millSheetHosts2.getJcFlag() != null) {
                     //判断是否允许下载(建材类不让下载)让打印
                     if (millSheetHosts2.getJcFlag() == 0) {
@@ -304,8 +303,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
                     millSheetHosts2.setIsSplit(0);
                 }
                 //原件次 剩余件次  原重量 剩余重量
-                Long zjishu = new Long(0);
-                ;
+               /* Long zjishu = new Long(0);
                 BigDecimal surplusZjishu = new BigDecimal(0);
                 BigDecimal zlosmenge = new BigDecimal(0);
                 BigDecimal surplusZlosmenge = new BigDecimal(0);
@@ -326,7 +324,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
                 millSheetHosts2.setZjishu(zjishu);
                 millSheetHosts2.setSurplusZjishu(surplusZjishu);
                 millSheetHosts2.setZlosmenge(zlosmenge);
-                millSheetHosts2.setSurplusZlosmenge(surplusZlosmenge);
+                millSheetHosts2.setSurplusZlosmenge(surplusZlosmenge);*/
 
                 if (millSheetHosts2.getJcFlag() != null) {
                     //判断是否允许下载(建材类不让下载)让打印
