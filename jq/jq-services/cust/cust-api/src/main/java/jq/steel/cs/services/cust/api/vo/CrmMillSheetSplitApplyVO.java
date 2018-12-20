@@ -6,6 +6,16 @@ import java.util.Date;
 import java.util.List;
 
 public class CrmMillSheetSplitApplyVO implements Serializable {
+    //输入的车号
+    private String zchehao1;
+
+    public String getZchehao1() {
+        return zchehao1;
+    }
+
+    public void setZchehao1(String zchehao1) {
+        this.zchehao1 = zchehao1;
+    }
 
     private Integer code;
 

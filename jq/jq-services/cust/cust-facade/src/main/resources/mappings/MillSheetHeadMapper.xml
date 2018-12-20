@@ -61,6 +61,15 @@
     where MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR}
   </select>
 
+
+  <select id="findZchehao" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHead" >
+    select
+    <include refid="Base_Column_List" />
+    from MILL_SHEET_HEAD
+    where MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR}
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from MILL_SHEET_HEAD
     where SID = #{sid,jdbcType=DECIMAL}

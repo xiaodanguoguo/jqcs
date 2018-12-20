@@ -36,6 +36,8 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
     @Autowired
     private MillSheetHostsMapper millSheetHostsMapper;
     @Autowired
+    private MillSheetHeadMapper millSheetHeadMapper;
+    @Autowired
     private MillCoilInfoMapper coilInfoMapper;
     @Autowired
     private CrmBatchSplitMapper crmBatchSplitMapper;
@@ -50,16 +52,6 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         String ip=request.getRemoteAddr();
         List<CrmMillSheetSplitInfo> crmMillSheetSplitInfoList = BeanCopyUtil.copyList(crmMillSheetSplitApplyVOList, CrmMillSheetSplitInfo.class);
         //查询一下最大质证书编号
-       /* MillSheetHosts millSheetHosts = new MillSheetHosts();
-        millSheetHosts.setMillSheetNo(crmMillSheetSplitInfoList.get(0).getMillsheetNo());
-        List<MillSheetHosts> url = millSheetHostsMapper.findUrlList(millSheetHosts);
-        String mill = "";
-        if (url.get(0).getSplitMaxValue() == null) {
-            //质证书编号+00
-            mill = crmMillSheetSplitInfoList.get(0).getMillsheetNo() + "00";
-        } else {
-            mill = url.get(0).getSplitMaxValue();
-        }*/
         String mill = "";
         CrmMillSheetSplitInfo cmss1 = new CrmMillSheetSplitInfo();
         cmss1.setMillsheetNo(crmMillSheetSplitInfoList.get(0).getMillsheetNo());
@@ -111,14 +103,19 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             crmMillSheetSplitInfo.setCreatedBy(acctName);
             crmMillSheetSplitInfo.setZcpmc(crmMillSheetSplitInfo.getZcpmc());
             crmMillSheetSplitInfo.setSpecs(crmMillSheetSplitInfo.getSpecs());
-            crmMillSheetSplitInfo.setZchehao(crmMillSheetSplitInfo.getZchehao());
+            //判断是否输入车号，没输入取原车号
+            if(crmMillSheetSplitInfo.getZchehao1().equals("")){
+                crmMillSheetSplitInfo.setZchehao(crmMillSheetSplitInfo.getZchehao());
+            }else {
+                crmMillSheetSplitInfo.setZchehao(crmMillSheetSplitInfo.getZchehao1());
+            }
             crmMillSheetSplitInfo.setStatus("1");
             crmMillSheetSplitInfoMapper.insertSelective(crmMillSheetSplitInfo);
             //调用存储过程
             Map<String, Object> map = new HashMap<String, Object>();
             this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitInfo.getMillsheetType(),
                     crmMillSheetSplitInfo.getZcharg(),crmMillSheetSplitInfo.getSpecs(), crmMillSheetSplitInfo.getZjishu(), crmMillSheetSplitInfo.getZlosmenge(),
-                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName,ip);
+                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName,ip,crmMillSheetSplitInfo.getZchehao());
         }
         CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVOS = new CrmMillSheetSplitApplyVO();
         crmMillSheetSplitApplyVOS.setMillsheetNo(newMillSheetNo);
@@ -480,6 +477,21 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                 }
             }
         }
+
+        //车号为null的取父质证书车号
+        for(CrmMillSheetSplitInfo crmMillSheetSplitInfo:crmMillSheetSplitInfoList){
+            if (crmMillSheetSplitInfo.getZchehao().equals("")){
+                MillSheetHead millSheetHead = new MillSheetHead();
+                millSheetHead.setMillSheetNo(crmMillSheetSplitInfo.getMillsheetNo());
+                List<MillSheetHead> mlist=millSheetHeadMapper.findZchehao(millSheetHead);
+                if (mlist.size()>0){
+                    crmMillSheetSplitInfo.setZchehao(mlist.get(0).getZchehao());
+                }
+            }
+        }
+
+
+
         String millSheetNos = "";
         List<CrmMillSheetSplitInfo> noListMillSheetNo = new ArrayList<>();
         List<CrmMillSheetSplitInfo> hh = new ArrayList<>();
@@ -820,7 +832,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                 //调用存储过程
                 this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitInfo.getMillsheetType(),
                         cmssi.getZcharg(),cmssi.getSpecs(), cmssi.getZjishu(), cmssi.getZlosmenge(),
-                        cmssi.getSpiltCustomer(),acctName,ip);
+                        cmssi.getSpiltCustomer(),acctName,ip,cmssi.getZchehao());
                 millSheetNos += ',' + newMillSheetNo;
             }
         }
@@ -972,6 +984,20 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                 }
             }
         }
+        //车号为null的取父质证书车号
+        for(CrmMillSheetSplitInfo crmMillSheetSplitInfo:crmMillSheetSplitInfoList){
+            if (crmMillSheetSplitInfo.getZchehao().equals("")){
+                MillSheetHead millSheetHead = new MillSheetHead();
+                millSheetHead.setMillSheetNo(crmMillSheetSplitInfo.getMillsheetNo());
+                List<MillSheetHead> mlist=millSheetHeadMapper.findZchehao(millSheetHead);
+                if (mlist.size()>0){
+                    crmMillSheetSplitInfo.setZchehao(mlist.get(0).getZchehao());
+                }
+            }
+        }
+
+
+
         String millSheetNos = "";
         List<CrmMillSheetSplitInfo> noListMillSheetNo = new ArrayList<>();
         List<CrmMillSheetSplitInfo> hh = new ArrayList<>();
@@ -1313,7 +1339,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                 //调用存储过程
                 this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitInfo.getMillsheetType(),
                         cmssi.getZcharg(),cmssi.getSpecs(),cmssi.getZjishu(), cmssi.getZlosmenge(),
-                        cmssi.getSpiltCustomer(),acctName,ip);
+                        cmssi.getSpiltCustomer(),acctName,ip,cmssi.getZchehao());
                 millSheetNos += ',' + newMillSheetNo;
             }
         }
@@ -1443,7 +1469,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             Map<String, Object> map = new HashMap<String, Object>();
             this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitApply1.getMillsheetType(),
                     crmMillSheetSplitInfo.getZcharg(),crmMillSheetSplitInfo.getSpecs(), crmMillSheetSplitInfo.getZjishu(), crmMillSheetSplitInfo.getZlosmenge(),
-                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName,ip);
+                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName,ip,crmMillSheetSplitInfo.getZchehao());
         }
         CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVOS = new CrmMillSheetSplitApplyVO();
         crmMillSheetSplitApplyVOS.setMillsheetNo(newMillSheetNo);
@@ -1572,7 +1598,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             Map<String, Object> map = new HashMap<String, Object>();
             this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitApply1.getMillsheetType(),
                     crmMillSheetSplitInfo.getZcharg(),crmMillSheetSplitInfo.getSpecs(), crmMillSheetSplitInfo.getZjishu(), crmMillSheetSplitInfo.getZlosmenge(),
-                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName,ip);
+                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName,ip,crmMillSheetSplitInfo.getZchehao());
         }
         CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVOS = new CrmMillSheetSplitApplyVO();
         crmMillSheetSplitApplyVOS.setMillsheetNo(newMillSheetNo);
@@ -1581,8 +1607,8 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
 
 
     //调用存储过程（无车号）
-    void cunChu(String inmillSheetNoOld, String inmillSheetNo, String inmillSheetType, String inzcharg,String inspecs,Long inzjishu, BigDecimal inzlosmenge, String inspiltCustomer,String inacctName,String inip) {
-        String sql = "{call PRO_MILL_SPILT(?,?,?,?,?,?,?,?,?,?)}";
+    void cunChu(String inmillSheetNoOld, String inmillSheetNo, String inmillSheetType, String inzcharg,String inspecs,Long inzjishu, BigDecimal inzlosmenge, String inspiltCustomer,String inacctName,String inip,String inzchehao) {
+        String sql = "{call PRO_MILL_SPILT(?,?,?,?,?,?,?,?,?,?,?)}";
         Connection conn = null;
         //CallableStatement是用于执行SQL存储过程的接口
         CallableStatement call = null;
@@ -1600,6 +1626,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             call.setString(8, inspiltCustomer);
             call.setString(9, inacctName);
             call.setString(10, inip);
+            call.setString(11, inzchehao);
             //对于out参数，申明
             //call.registerOutParameter(2, oracle.jdbc.OracleTypes.VARCHAR);
             //call.registerOutParameter(3, oracle.jdbc.OracleTypes.NUMBER);
