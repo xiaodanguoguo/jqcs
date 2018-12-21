@@ -367,7 +367,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       <if test="millSheetType != null  and millSheetType != ''" >
         AND MSO.MILL_SHEET_TYPE = #{millSheetType}
       </if>
-      AND MSH.MILL_LINE NOT LIKE 'G%'
+      AND MSH.ZCHEHAO NOT LIKE '-%'
     </trim>
     order by MSO.SID desc
   </select>
@@ -864,7 +864,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
           AND H.STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED','SPLITED')
         </otherwise>
       </choose>
-      AND H.MILL_LINE NOT LIKE 'G%'
+      AND H.ZCHEHAO NOT LIKE '-%'
     </trim>
     order by H.SID desc
   </select>
