@@ -34,11 +34,11 @@ public class MillCoilInfoController {
      *
      * */
     @RequestMapping(value = "/splitFind",method = RequestMethod.POST)
-    public JsonResponse<List<MillCoilInfoVO>> splitFind(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest){
+    public JsonResponse<PageDTO<MillCoilInfoVO>> splitFind(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest){
 //        logger.info("分页",JsonUtil.toJson(jsonRequest));
-        JsonResponse<List<MillCoilInfoVO>> jsonResponse = new JsonResponse<>();
+        JsonResponse<PageDTO<MillCoilInfoVO>> jsonResponse = new JsonResponse<>();
         try {
-            ServiceResponse<List<MillCoilInfoVO>> serviceResponse = millCoilInfoAPI.splitFind(jsonRequest);
+            ServiceResponse<PageDTO<MillCoilInfoVO>> serviceResponse = millCoilInfoAPI.splitFind(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {
