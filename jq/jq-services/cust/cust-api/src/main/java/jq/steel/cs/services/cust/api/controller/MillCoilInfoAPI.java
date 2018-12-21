@@ -22,7 +22,7 @@ public interface MillCoilInfoAPI {
      *
      * */
     @RequestMapping(value ="/coilinfo/splitFind", method = RequestMethod.POST)
-    ServiceResponse<PageDTO<MillCoilInfoVO>> splitFind(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest);
+    ServiceResponse<List<MillCoilInfoVO>> splitFind(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest);
 
     /**
      * 诉赔提报界面校验钢卷编号是否正确

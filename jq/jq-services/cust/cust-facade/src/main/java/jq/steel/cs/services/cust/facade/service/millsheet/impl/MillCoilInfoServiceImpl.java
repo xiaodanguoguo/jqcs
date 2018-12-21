@@ -25,8 +25,8 @@ public class MillCoilInfoServiceImpl implements MillCoilInfoService{
     private MillCoilInfoMapper millCoilInfoMapper;
 
     @Override
-    public PageDTO<MillCoilInfoVO> splitFind(MillCoilInfoVO millCoilInfoVO) {
-        try {
+    public List<MillCoilInfoVO> splitFind(MillCoilInfoVO millCoilInfoVO) {
+        //try {
             //转换mdel
             MillCoilInfo millCoilInfo = new MillCoilInfo();
             BeanCopyUtil.copy(millCoilInfoVO,millCoilInfo);
@@ -35,13 +35,13 @@ public class MillCoilInfoServiceImpl implements MillCoilInfoService{
             //转换返回对象
             List<MillCoilInfoVO> millCoilInfoVOS = BeanCopyUtil.copyList(millCoilInfos, MillCoilInfoVO.class);
             // 分页对象
-            PageDTO<MillCoilInfoVO> transform = PageDTOUtil.transform(millCoilInfoVOS);
+            //PageDTO<MillCoilInfoVO> transform = PageDTOUtil.transform(millCoilInfoVOS);
             //转换
 
-            return transform;
-        }finally {
+            return millCoilInfoVOS;
+       /* }finally {
             PageDTOUtil.endPage();
-        }
+        }*/
     }
 
 

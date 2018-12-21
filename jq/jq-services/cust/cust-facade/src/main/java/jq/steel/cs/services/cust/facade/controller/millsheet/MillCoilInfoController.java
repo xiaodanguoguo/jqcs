@@ -26,12 +26,12 @@ public class MillCoilInfoController {
     private MillCoilInfoService millCoilInfoService;
     //拆分申请（强制拆分）数据查询
     @RequestMapping(value = "/splitFind",method = RequestMethod.POST)
-    public ServiceResponse<PageDTO<MillCoilInfoVO>> splitFind(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest){
+    public ServiceResponse<List<MillCoilInfoVO>> splitFind(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest){
         logger.info("分页", JsonUtil.toJson(jsonRequest));
-        ServiceResponse<PageDTO<MillCoilInfoVO>> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<List<MillCoilInfoVO>> serviceResponse = new ServiceResponse<>();
         try {
             MillCoilInfoVO millCoilInfoVO = jsonRequest.getReqBody();
-            PageDTO<MillCoilInfoVO> pageDTO = millCoilInfoService.splitFind(millCoilInfoVO);
+            List<MillCoilInfoVO> pageDTO = millCoilInfoService.splitFind(millCoilInfoVO);
             serviceResponse.setRetContent(pageDTO);
         }catch (BusinessException e){
             logger.error("获取分页出错",e);

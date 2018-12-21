@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface MillCoilInfoService {
     //拆分申请（强制拆分）数据查询
-    PageDTO<MillCoilInfoVO> splitFind(MillCoilInfoVO millSheetHostsVO);
+    List<MillCoilInfoVO> splitFind(MillCoilInfoVO millSheetHostsVO);
 
     //查询是否有质证书编号
     MillCoilInfoVO findIsTrue(MillCoilInfoVO millCoilInfoVO);

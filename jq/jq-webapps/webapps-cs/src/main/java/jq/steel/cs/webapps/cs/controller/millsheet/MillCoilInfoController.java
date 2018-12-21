@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/coilinfo")
 public class MillCoilInfoController {
@@ -32,11 +34,11 @@ public class MillCoilInfoController {
      *
      * */
     @RequestMapping(value = "/splitFind",method = RequestMethod.POST)
-    public JsonResponse<PageDTO<MillCoilInfoVO>> splitFind(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest){
+    public JsonResponse<List<MillCoilInfoVO>> splitFind(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest){
 //        logger.info("分页",JsonUtil.toJson(jsonRequest));
-        JsonResponse<PageDTO<MillCoilInfoVO>> jsonResponse = new JsonResponse<>();
+        JsonResponse<List<MillCoilInfoVO>> jsonResponse = new JsonResponse<>();
         try {
-            ServiceResponse<PageDTO<MillCoilInfoVO>> serviceResponse = millCoilInfoAPI.splitFind(jsonRequest);
+            ServiceResponse<List<MillCoilInfoVO>> serviceResponse = millCoilInfoAPI.splitFind(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {
