@@ -41,7 +41,7 @@ function clsMethodLee$init(){
 
 }
 function clsMethodLee$parse(){
-    //limitCodeDeal($("*[limitCode]"),"limitCode");
+    limitCodeDeal($("*[limitCode]"),"limitCode");
     $("#condstartDt").val(getNowFormatDate());
     $("#condendDt").val(getNowFormatDate());
     getAjaxResult(this.requestUrl.path4,"POST",{},"getContentCallBack(data)");
