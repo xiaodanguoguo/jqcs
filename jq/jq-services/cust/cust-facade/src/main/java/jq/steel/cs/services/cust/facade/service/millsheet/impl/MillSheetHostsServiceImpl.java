@@ -9,6 +9,7 @@ import com.ebase.utils.DateFormatUtil;
 import com.ebase.utils.DateUtil;
 import com.ebase.utils.math.MathHelper;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
+import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO1;
 import jq.steel.cs.services.cust.api.vo.ObjectionLedgerVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
 import jq.steel.cs.services.cust.facade.dao.*;
@@ -810,12 +811,13 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
     }
 
 
-    //导出
+    //导出（质证书管理）
     @Override
-    public List<MillSheetHostsVO> export(MillSheetHostsVO millSheetHostsVO) {
+    public List<MillSheetHostsVO> export(MillSheetHostsVO1 millSheetHostsVO) {
         String orgName = millSheetHostsVO.getOrgName();
         String orgId = millSheetHostsVO.getOrgId();
         String orgType = millSheetHostsVO.getOrgType();
+        millSheetHostsVO.setPageSize(10000);
         //转换mdel
         MillSheetHosts millSheetHosts = new MillSheetHosts();
         BeanCopyUtil.copy(millSheetHostsVO, millSheetHosts);
@@ -838,25 +840,11 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
         if (millSheetHosts.getDeptCode() != null && millSheetHosts.getDeptCode() != "") {
             millSheetHosts.setDeptCodes(null);
         }
-        //质证书数据匹配显示的时候，加一层对虚拟质证书的判断，即车号是以“—”开头的，就在质证书管理和质证书管理（酒钢）界面不显示。
-        MillSheetHead millSheetHead = new MillSheetHead();
-        List<MillSheetHead> millSheetHeads = millSheetHeadMapper.selectAll(millSheetHead);
-        List<String> idall = new ArrayList<>();
-        if (millSheetHeads.size() > 0) {
-            for (MillSheetHead millSheetHead1 : millSheetHeads) {
-                if (millSheetHead1.getZchehao().startsWith("-")) {
-                    idall.add(millSheetHead1.getMillSheetNo());
-                }
-            }
-            if (idall.size() > 0) {
-                millSheetHosts.setNoMillSheetNos(idall);
-            }
-        }
         PageDTOUtil.startPage(millSheetHostsVO);
-        String startDtStr = DateFormatUtil.getStartDateStr(millSheetHosts.getStartDt());
-        millSheetHosts.setStartDtStr(startDtStr);
-        String endDtStr = DateFormatUtil.getEndDateStr(millSheetHosts.getEndDt());
-        millSheetHosts.setEndDtStr(endDtStr);
+        //String startDtStr = DateFormatUtil.getStartDateStr(millSheetHosts.getStartDt());
+        millSheetHosts.setStartDtStr(millSheetHostsVO.getStartDt());
+        //String endDtStr = DateFormatUtil.getEndDateStr(millSheetHosts.getEndDt());
+        millSheetHosts.setEndDtStr(millSheetHostsVO.getEndDt());
         List<MillSheetHosts> millSheetByPage = millSheetHostsMapper.findMillSheetByPage(millSheetHosts);
         List<String> exportList = new ArrayList<>();
         if (millSheetByPage.size() > 0) {
@@ -870,10 +858,13 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
             List<MillSheetHostsVO> MillSheetHostsVO = BeanCopyUtil.copyList(list1, MillSheetHostsVO.class);
             for (MillSheetHostsVO millSheetHostsVO1 :MillSheetHostsVO){
                 millSheetHostsVO1.setDate(true);
-                //收货单位和分销售达方一致把分销售达方置空
-                if (millSheetHostsVO1.getZkunwe().equals(millSheetHostsVO1.getSpiltCustomer())){
-                    millSheetHostsVO1.setSpiltCustomer("");
+                if (millSheetHostsVO1.getZkunwe()!=null){
+                    //收货单位和分销售达方一致把分销售达方置空
+                    if (millSheetHostsVO1.getZkunwe().equals(millSheetHostsVO1.getSpiltCustomer())){
+                        millSheetHostsVO1.setSpiltCustomer("");
+                    }
                 }
+
             }
             return MillSheetHostsVO;
         }
@@ -883,5 +874,71 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
         MillSheetHostsVO1.add(millSheetHosts1);
         return MillSheetHostsVO1;
 
+    }
+
+
+
+
+    //导出（质证书管理酒钢）
+    @Override
+    public List<MillSheetHostsVO> export1(MillSheetHostsVO1 millSheetHostsVO) {
+        String orgName = millSheetHostsVO.getOrgName();
+        String orgId = millSheetHostsVO.getOrgId();
+        String orgType = millSheetHostsVO.getOrgType();
+        millSheetHostsVO.setPageSize(10000);
+        //转换mdel
+        MillSheetHosts millSheetHosts = new MillSheetHosts();
+        BeanCopyUtil.copy(millSheetHostsVO, millSheetHosts);
+        if (millSheetHosts.getZcharg() != null && millSheetHosts.getZcharg() != "") {
+            MillCoilInfo coilInfo = new MillCoilInfo();
+            coilInfo.setZcharg(millSheetHosts.getZcharg());
+            List<MillCoilInfo> list = millCoilInfoMapper.findMillsheetNumber(coilInfo);
+            if (list.size() > 0) {
+                List<String> idall = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++) {
+                    idall.add(list.get(i).getMillsheetNo());
+                }
+                millSheetHosts.setMillSheetNos(idall);
+            } else {
+                List<String> idall = new ArrayList<>();
+                idall.add("-99");
+                millSheetHosts.setMillSheetNos(idall);
+            }
+        }
+        if (millSheetHosts.getDeptCode() != null && millSheetHosts.getDeptCode() != "") {
+            millSheetHosts.setDeptCodes(null);
+        }
+        PageDTOUtil.startPage(millSheetHostsVO);
+        //String startDtStr = DateFormatUtil.getStartDateStr(millSheetHosts.getStartDt());
+        millSheetHosts.setStartDtStr(millSheetHostsVO.getStartDt());
+        //String endDtStr = DateFormatUtil.getEndDateStr(millSheetHosts.getEndDt());
+        millSheetHosts.setEndDtStr(millSheetHostsVO.getEndDt());
+        List<MillSheetHosts> millSheetByPage = millSheetHostsMapper.findMillSheetByPage1(millSheetHosts);
+        List<String> exportList = new ArrayList<>();
+        if (millSheetByPage.size() > 0) {
+            for (MillSheetHosts millSheetHosts1 : millSheetByPage) {
+                exportList.add(millSheetHosts1.getMillSheetNo());
+            }
+            MillSheetHosts millSheetHosts1 = new MillSheetHosts();
+            millSheetHosts1.setMillSheetNos(exportList);
+            List<MillSheetHosts> list1 = millSheetHostsMapper.findExportInfo(millSheetHosts1);
+            //转换返回对象
+            List<MillSheetHostsVO> MillSheetHostsVO = BeanCopyUtil.copyList(list1, MillSheetHostsVO.class);
+            for (MillSheetHostsVO millSheetHostsVO1 :MillSheetHostsVO){
+                millSheetHostsVO1.setDate(true);
+                if (millSheetHostsVO1.getZkunwe()!=null){
+                    //收货单位和分销售达方一致把分销售达方置空
+                    if (millSheetHostsVO1.getZkunwe().equals(millSheetHostsVO1.getSpiltCustomer())){
+                        millSheetHostsVO1.setSpiltCustomer("");
+                    }
+                }
+            }
+            return MillSheetHostsVO;
+        }
+        List<MillSheetHostsVO> MillSheetHostsVO1 = new ArrayList<>();
+        MillSheetHostsVO millSheetHosts1 =new MillSheetHostsVO();
+        millSheetHosts1.setDate(false);
+        MillSheetHostsVO1.add(millSheetHosts1);
+        return MillSheetHostsVO1;
     }
 }

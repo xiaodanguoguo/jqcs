@@ -9,6 +9,7 @@ import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
 import jq.steel.cs.services.cust.api.vo.MillSheetDownloadVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
+import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO1;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
 import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
 import jq.steel.cs.services.cust.facade.service.millsheet.MillSheetHostsService;
@@ -268,12 +269,35 @@ public class MillSheetHostsController {
      * @return
      */
     @RequestMapping(value = "/export", method = RequestMethod.POST)
-    public ServiceResponse<List<MillSheetHostsVO>> export(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest){
+    public ServiceResponse<List<MillSheetHostsVO>> export(@RequestBody JsonRequest<MillSheetHostsVO1> jsonRequest){
         logger.info("导出", JsonUtil.toJson(jsonRequest));
         ServiceResponse<List<MillSheetHostsVO>> serviceResponse = new ServiceResponse<>();
         try {
-            MillSheetHostsVO millSheetHostsVO = jsonRequest.getReqBody();
+            MillSheetHostsVO1 millSheetHostsVO = jsonRequest.getReqBody();
             List<MillSheetHostsVO> integer = millSheetHostsService.export(millSheetHostsVO);
+            serviceResponse.setRetContent(integer);
+        }catch (BusinessException e){
+            logger.error("获取分页出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
+
+
+    /**
+     * 导出酒钢页面
+     *
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/export1", method = RequestMethod.POST)
+    public ServiceResponse<List<MillSheetHostsVO>> export1(@RequestBody JsonRequest<MillSheetHostsVO1> jsonRequest){
+        logger.info("导出", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<List<MillSheetHostsVO>> serviceResponse = new ServiceResponse<>();
+        try {
+            MillSheetHostsVO1 millSheetHostsVO = jsonRequest.getReqBody();
+            List<MillSheetHostsVO> integer = millSheetHostsService.export1(millSheetHostsVO);
             serviceResponse.setRetContent(integer);
         }catch (BusinessException e){
             logger.error("获取分页出错",e);
