@@ -925,6 +925,10 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
             //转换返回对象
             List<MillSheetHostsVO> MillSheetHostsVO = BeanCopyUtil.copyList(list1, MillSheetHostsVO.class);
             for (MillSheetHostsVO millSheetHostsVO1 :MillSheetHostsVO){
+                //发车日期
+                Date date= millSheetHostsVO1.getLfdat();
+                String lfdatStr = DateUtil.formatDate(date, "yyyy-MM-dd");
+                millSheetHostsVO1.setLfdatStr(lfdatStr);
                 millSheetHostsVO1.setDate(true);
                 if (millSheetHostsVO1.getZkunwe()!=null){
                     //收货单位和分销售达方一致把分销售达方置空

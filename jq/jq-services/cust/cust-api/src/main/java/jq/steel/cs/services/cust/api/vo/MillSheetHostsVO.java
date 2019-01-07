@@ -196,11 +196,20 @@ public class MillSheetHostsVO implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd" ,timezone = "GMT+8")
     private Date lfdat;
 
+    private String lfdatStr;
+
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss" ,timezone = "GMT+8")
     private Date startDtStr; //开始时间
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss" ,timezone = "GMT+8")
     private Date endDtStr;  //结束时间
 
+    public String getLfdatStr() {
+        return lfdatStr;
+    }
+
+    public void setLfdatStr(String lfdatStr) {
+        this.lfdatStr = lfdatStr;
+    }
 
     public String getZdaozhan() {
         return zdaozhan;

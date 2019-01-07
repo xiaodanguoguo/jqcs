@@ -1389,7 +1389,7 @@ public class MillSheetHostsController {
         headers.add("分销售达方@spiltCustomer@4000");
         headers.add("目的地@zdaozhan@4000");
         headers.add("车号@zchehao@4000");
-        headers.add("发车日期@createdDt@4000");
+        headers.add("发车日期@lfdatStr@4000");
         headers.add("本车总重量@totalZjishu@4000");
         headers.add("本车总件数@totalZlosmenge@4000");
         headers.add("规格@specs@3000");
