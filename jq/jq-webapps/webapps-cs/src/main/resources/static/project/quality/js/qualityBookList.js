@@ -10,7 +10,8 @@ function clsMethodLee(){
         "path7":"/millsheet/findMillSheetByPage1",//初始list列表
         "path8":"/millsheet/preview1",//预览接口
         "path9":"/millsheet/revoke",//撤销接口
-        "path10":"/millsheet/export"//信息导出接口
+        "path10":"/millsheet/export",//信息导出接口
+        "path11":"/millsheet/export1"//信息导出接口
     };
     this.documentLee = null;
     this.millSheetNo = "";//回退millSheetNo主键
@@ -307,7 +308,12 @@ function clsMethodLee$operate(){
     //信息导出操作
     $("#exportNews").on("click",function(){
         var importParam = "name=" + JSON.stringify(jsonExprot);
-        $.download(requestUrl + document.body.jsLee.requestUrl.path10, importParam, "POST");
+        if(window.location.href.indexOf("qualityBookList2") != -1){
+            $.download(requestUrl + document.body.jsLee.requestUrl.path11, importParam, "POST");
+        }else{
+            $.download(requestUrl + document.body.jsLee.requestUrl.path10, importParam, "POST");
+
+        }
     });
     
 }
