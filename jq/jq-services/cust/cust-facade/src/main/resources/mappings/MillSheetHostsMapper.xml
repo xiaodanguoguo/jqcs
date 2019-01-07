@@ -291,10 +291,10 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.MILL_FALLBACK_INFO MFI ON MSO.MILL_SHEET_NO = MFI.MILL_SHEET_NO
     LEFT JOIN WARRANTY.MILL_FALLBACK_STEPS MFS ON MSO.MILL_SHEET_NO = MFS.MILL_SHEET_NO
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
-      <if test="endDtStr != null" >
+      <if test="endDtStr != null and endDtStr != ''" >
         AND TO_CHAR (MSH.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
       </if>
-      <if test="startDtStr != null" >
+      <if test="startDtStr != null and startDtStr != ''" >
         AND TO_CHAR (MSh.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
       </if>
       <if test="millSheetNo != null  and millSheetNo != ''" >
@@ -788,10 +788,10 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.MILL_FALLBACK_INFO MFI ON MSO.MILL_SHEET_NO = MFI.MILL_SHEET_NO
     LEFT JOIN WARRANTY.MILL_FALLBACK_STEPS MFS ON MSO.MILL_SHEET_NO = MFS.MILL_SHEET_NO) h
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
-      <if test="endDtStr != null" >
+      <if test="endDtStr != null and endDtStr != ''" >
         AND TO_CHAR (H.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
       </if>
-      <if test="startDtStr != null" >
+      <if test="startDtStr != null and startDtStr != ''" >
         AND TO_CHAR (H.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
       </if>
       <if test="millSheetNo != null  and millSheetNo != ''" >
