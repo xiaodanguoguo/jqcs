@@ -6,6 +6,7 @@ import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.utils.JsonUtil;
 import jq.steel.cs.services.cust.api.vo.ObjectionLedgerVO;
+import jq.steel.cs.services.cust.api.vo.ObjectionLedgerVO1;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
 import jq.steel.cs.services.cust.facade.service.objection.ObjectionLendgerService;
 import org.slf4j.Logger;
@@ -56,11 +57,11 @@ public class ObjectionLendgerController {
      * @return
      */
     @RequestMapping(value = "/export", method = RequestMethod.POST)
-    public ServiceResponse<List<ObjectionLedgerVO>> export(@RequestBody JsonRequest<ObjectionLedgerVO> jsonRequest){
+    public ServiceResponse<List<ObjectionLedgerVO>> export(@RequestBody JsonRequest<ObjectionLedgerVO1> jsonRequest){
         logger.info("导出", JsonUtil.toJson(jsonRequest));
         ServiceResponse<List<ObjectionLedgerVO>> serviceResponse = new ServiceResponse<>();
         try {
-            ObjectionLedgerVO objectionTiBaoVO = jsonRequest.getReqBody();
+            ObjectionLedgerVO1 objectionTiBaoVO = jsonRequest.getReqBody();
             List<ObjectionLedgerVO> integer = objectionLendgerService.export(objectionTiBaoVO);
             serviceResponse.setRetContent(integer);
         }catch (BusinessException e){

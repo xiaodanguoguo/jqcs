@@ -4,6 +4,7 @@ import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import jq.steel.cs.services.cust.api.vo.ObjectionLedgerVO;
+import jq.steel.cs.services.cust.api.vo.ObjectionLedgerVO1;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,5 +32,5 @@ public interface ObjectionLendgerAPI {
      * @return
      */
     @RequestMapping(value = "/objectionLendger/export", method = RequestMethod.POST)
-    ServiceResponse<List<ObjectionLedgerVO>> export(@RequestBody JsonRequest<ObjectionLedgerVO> jsonRequest);
+    ServiceResponse<List<ObjectionLedgerVO>> export(@RequestBody JsonRequest<ObjectionLedgerVO1> jsonRequest);
 }

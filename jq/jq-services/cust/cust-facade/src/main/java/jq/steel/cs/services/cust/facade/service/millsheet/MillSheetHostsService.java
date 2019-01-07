@@ -3,6 +3,7 @@ package jq.steel.cs.services.cust.facade.service.millsheet;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.web.json.JsonRequest;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
+import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO1;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +48,9 @@ public interface MillSheetHostsService {
     Integer revoke(MillSheetHostsVO millSheetHostsVO,HttpServletRequest request);
 
     //导出
-    List<MillSheetHostsVO>  export (MillSheetHostsVO millSheetHostsVO);
+    List<MillSheetHostsVO>  export (MillSheetHostsVO1 millSheetHostsVO);
+
+    //导出酒钢页面
+    List<MillSheetHostsVO>  export1 (MillSheetHostsVO1 millSheetHostsVO);
 
 }
