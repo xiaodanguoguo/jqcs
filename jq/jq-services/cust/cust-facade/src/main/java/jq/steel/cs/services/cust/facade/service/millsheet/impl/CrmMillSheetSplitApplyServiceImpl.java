@@ -334,6 +334,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         String findVolume = "";
         String findNum = "";
         String findType = "";
+        String findType1 = "";
         String findZkunnr ="";
         for (CrmMillSheetSplitInfo cmssi : crmMillSheetSplitInfoList) {
             //插入batchSplit表
@@ -353,32 +354,38 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             List<MillSheetHosts> millSheetHostsList = millSheetHostsMapper.findExist(millSheetHosts);
             if (millSheetHostsList.size() > 0) {
             } else {
-                findExist += ",此质证书" + "" + millSheetHosts.getMillSheetNo() + "不存在，";
+                //findExist += ",此质证书" + "" + millSheetHosts.getMillSheetNo() + "不存在，";
+                findExist += "," + millSheetHosts.getMillSheetNo();
             }
             //质证书编号是否允许拆分
             List<MillSheetHosts> alist = millSheetHostsMapper.findAllow(millSheetHosts);
             if (alist.size() > 0) {
             } else {
-                findAllow += "," + millSheetHosts.getMillSheetNo() + "状态不允许拆分";
+                //findAllow += "," + millSheetHosts.getMillSheetNo() + "状态不允许拆分";
+                findAllow += "," + millSheetHosts.getMillSheetNo();
             }
             //是否是孙质证书
             List<MillSheetHosts> blist = millSheetHostsMapper.findType(millSheetHosts);
             if (blist.size() > 0) {
             } else {
-                findType += "," + millSheetHosts.getMillSheetNo() + "为孙质证书，不可拆分";
+                //findType += "," + millSheetHosts.getMillSheetNo() + "为孙质证书，不可拆分";
+                findType += "," + millSheetHosts.getMillSheetNo();
             }
             //销售公司不允许拆分子类型质证书
             List<MillSheetHosts> hhList = millSheetHostsMapper.findMillSheetType(millSheetHosts);
             if (hhList.size() > 0) {
-                if (hhList.get(0).getMillSheetType().equals("Z")&&orgType.equals("2"))
-                    findType += "," + millSheetHosts.getMillSheetNo() + "子级质证书您无权拆分";
+                if (hhList.get(0).getMillSheetType().equals("Z")&&orgType.equals("2")){
+                    //findType += "," + millSheetHosts.getMillSheetNo() + "子级质证书您无权拆分";
+                    findType1 += "," + millSheetHosts.getMillSheetNo();
+                }
             }
 
             //判断售达方是否正确
             List<MillSheetHosts> clist = millSheetHostsMapper.findMillSheetZkunner(millSheetHosts);
             if (clist.size() > 0) {
                 if (!orgName.equals(clist.get(0).getZkunnr())){
-                    findZkunnr += "," + millSheetHosts.getMillSheetNo() + "质证书您无权拆分";
+                    //findZkunnr += "," + millSheetHosts.getMillSheetNo() + "质证书您无权拆分";
+                    findZkunnr += "," + millSheetHosts.getMillSheetNo();
                 }
             }
 
@@ -439,38 +446,44 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     findNum += "," + coilInfo.getMillSheetNo() + "质证书'" + coilInfo.getSpecs() + "'规格'" + coilInfo.getZcharg() + "'卷可拆数量为0";
                 }
             } else {
-                findVolume += "," + coilInfo.getMillSheetNo() + "质证书'" + coilInfo.getSpecs() + "'规格'" + coilInfo.getZcharg() + "'卷不存在";
+                findVolume += "," + coilInfo.getMillSheetNo() + "质证书'" + coilInfo.getSpecs() + "'规格'" + coilInfo.getZcharg() + "'卷";
             }
         }
         if (!findExist.equals("")) {
             crmMillSheetSplitApplyVOS.setCode(-1);
-            crmMillSheetSplitApplyVOS.setMessage(findExist.substring(1));
+            crmMillSheetSplitApplyVOS.setMessage("此质证书"+findExist.substring(1)+"不存在");
             return crmMillSheetSplitApplyVOS;
         } else {
             if (!findAllow.equals("")) {
                 crmMillSheetSplitApplyVOS.setCode(-1);
-                crmMillSheetSplitApplyVOS.setMessage(findAllow.substring(1));
+                crmMillSheetSplitApplyVOS.setMessage(findAllow.substring(1) + "状态不允许拆分");
                 return crmMillSheetSplitApplyVOS;
             } else {
                 if (!findType.equals("")) {
                     crmMillSheetSplitApplyVOS.setCode(-1);
-                    crmMillSheetSplitApplyVOS.setMessage(findType.substring(1));
+                    crmMillSheetSplitApplyVOS.setMessage(findType.substring(1) + "为孙质证书，不可拆分");
                     return crmMillSheetSplitApplyVOS;
                 } else {
-                    if (!findZkunnr.equals("")) {
+                    if (!findType1.equals("")) {
                         crmMillSheetSplitApplyVOS.setCode(-1);
-                        crmMillSheetSplitApplyVOS.setMessage(findZkunnr.substring(1));
+                        crmMillSheetSplitApplyVOS.setMessage(findType1.substring(1) + "子级质证书您无权拆分");
                         return crmMillSheetSplitApplyVOS;
                     } else {
-                        if (!findVolume.equals("")) {
+                        if (!findZkunnr.equals("")) {
                             crmMillSheetSplitApplyVOS.setCode(-1);
-                            crmMillSheetSplitApplyVOS.setMessage(findVolume.substring(1));
+                            crmMillSheetSplitApplyVOS.setMessage(findZkunnr.substring(1) + "质证书您无权拆分");
                             return crmMillSheetSplitApplyVOS;
                         } else {
-                            if (!findNum.equals("")) {
+                            if (!findVolume.equals("")) {
                                 crmMillSheetSplitApplyVOS.setCode(-1);
-                                crmMillSheetSplitApplyVOS.setMessage(findNum.substring(1));
+                                crmMillSheetSplitApplyVOS.setMessage(findVolume.substring(1)+"不存在");
                                 return crmMillSheetSplitApplyVOS;
+                            } else {
+                                if (!findNum.equals("")) {
+                                    crmMillSheetSplitApplyVOS.setCode(-1);
+                                    crmMillSheetSplitApplyVOS.setMessage(findNum.substring(1));
+                                    return crmMillSheetSplitApplyVOS;
+                                }
                             }
                         }
                     }
@@ -873,6 +886,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         String findNum = "";
         String findType = "";
         String findZcharg = "";
+        String findZcharg1 = "";
         String findZkunnr ="";
         for (CrmMillSheetSplitInfo cmssi : crmMillSheetSplitInfoList) {
             //插入batchSplit表
@@ -891,7 +905,8 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             if (zchrags.size() > 0) {
                 if (zchrags.size() > 1) {
                     //数据唯一
-                    findZcharg += "," + zchrags.get(0).getZcharg() + "卷已经拆分，请勿重复拆分！";
+                    //findZcharg += "," + zchrags.get(0).getZcharg() + "卷已经拆分，请勿重复拆分！";
+                    findZcharg1 += "," + zchrags.get(0).getZcharg();
                 } else {
                     //赋值
                     cmssi.setMillsheetNo(zchrags.get(0).getMillsheetNo());
@@ -904,19 +919,22 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     List<MillSheetHosts> alist = millSheetHostsMapper.findAllow(millSheetHosts);
                     if (alist.size() >0) {
                     } else {
-                        findAllow += ",'" +cmssi.getZcharg()+"'卷的'"+ millSheetHosts.getMillSheetNo() + "'质证书状态不允许拆分";
+                        //findAllow += ",'" +cmssi.getZcharg()+"'卷的'"+ millSheetHosts.getMillSheetNo() + "'质证书状态不允许拆分";
+                        findAllow += ",'" +cmssi.getZcharg()+"'卷的'"+ millSheetHosts.getMillSheetNo()+"'";
                     }
                     //是否是孙质证书
                     List<MillSheetHosts> blist = millSheetHostsMapper.findType(millSheetHosts);
                     if (blist.size() > 0) {
                     } else {
-                        findType += "," + millSheetHosts.getMillSheetNo() + "为孙质证书，不可拆分";
+                        //findType += "," + millSheetHosts.getMillSheetNo() + "为孙质证书，不可拆分";
+                        findType += "," + millSheetHosts.getMillSheetNo();
                     }
                     //判断售达方是否正确
                     List<MillSheetHosts> clist = millSheetHostsMapper.findMillSheetZkunner(millSheetHosts);
                     if (clist.size() > 0) {
                         if (!orgName.equals(clist.get(0).getZkunnr())){
-                            findZkunnr += "," + millSheetHosts.getMillSheetNo() + "质证书您无权拆分";
+                           // findZkunnr += "," + millSheetHosts.getMillSheetNo() + "质证书您无权拆分";
+                            findZkunnr += "," + millSheetHosts.getMillSheetNo();
                         }
                     } else {
                     }
@@ -933,51 +951,61 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     if (i == 1) {
                     } else if (i == -1) {
                         //小于0
-                        findNum += "," + zchrags.get(0).getZcharg() + "'卷可拆数量为0";
+                        //findNum += "," + zchrags.get(0).getZcharg() + "'卷可拆数量为0";
+                        findNum += "," + zchrags.get(0).getZcharg();
                     } else if (i == 0) {
                         //等于0
-                        findNum += "," + zchrags.get(0).getZcharg() + "'卷可拆数量为0";
+                       //findNum += "," + zchrags.get(0).getZcharg() + "'卷可拆数量为0";
+                        findNum += "," + zchrags.get(0).getZcharg();
                     }
                 }
             } else {
-                findZcharg += "," + cmssi.getZcharg() + "卷不存在";
+                //findZcharg += "," + cmssi.getZcharg() + "卷不存在";
+                findZcharg += "," + cmssi.getZcharg();
             }
 
         }
+
         if(!findZcharg.equals("")){
             crmMillSheetSplitApplyVOS.setCode(-1);
-            crmMillSheetSplitApplyVOS.setMessage(findZcharg.substring(1));
+            crmMillSheetSplitApplyVOS.setMessage(findZcharg.substring(1) + "卷不存在");
             return crmMillSheetSplitApplyVOS;
         }else {
-            if (!findExist.equals("")) {
+            if (!findZcharg1.equals("")) {
                 crmMillSheetSplitApplyVOS.setCode(-1);
-                crmMillSheetSplitApplyVOS.setMessage(findExist.substring(1));
+                crmMillSheetSplitApplyVOS.setMessage(findZcharg1.substring(1) + "卷已经拆分，请勿重复拆分！");
                 return crmMillSheetSplitApplyVOS;
             } else {
-                if (!findAllow.equals("")) {
+                if (!findExist.equals("")) {
                     crmMillSheetSplitApplyVOS.setCode(-1);
-                    crmMillSheetSplitApplyVOS.setMessage(findAllow.substring(1));
+                    crmMillSheetSplitApplyVOS.setMessage(findExist.substring(1));
                     return crmMillSheetSplitApplyVOS;
                 } else {
-                    if (!findType.equals("")) {
+                    if (!findAllow.equals("")) {
                         crmMillSheetSplitApplyVOS.setCode(-1);
-                        crmMillSheetSplitApplyVOS.setMessage(findType.substring(1));
+                        crmMillSheetSplitApplyVOS.setMessage(findAllow.substring(1) + "质证书状态不允许拆分");
                         return crmMillSheetSplitApplyVOS;
                     } else {
-                        if (!findZkunnr.equals("")) {
+                        if (!findType.equals("")) {
                             crmMillSheetSplitApplyVOS.setCode(-1);
-                            crmMillSheetSplitApplyVOS.setMessage(findZkunnr.substring(1));
+                            crmMillSheetSplitApplyVOS.setMessage(findType.substring(1) + "为孙质证书，不可拆分");
                             return crmMillSheetSplitApplyVOS;
                         } else {
-                            if (!findVolume.equals("")) {
+                            if (!findZkunnr.equals("")) {
                                 crmMillSheetSplitApplyVOS.setCode(-1);
-                                crmMillSheetSplitApplyVOS.setMessage(findVolume.substring(1));
+                                crmMillSheetSplitApplyVOS.setMessage(findZkunnr.substring(1) + "质证书您无权拆分");
                                 return crmMillSheetSplitApplyVOS;
                             } else {
-                                if (!findNum.equals("")) {
+                                if (!findVolume.equals("")) {
                                     crmMillSheetSplitApplyVOS.setCode(-1);
-                                    crmMillSheetSplitApplyVOS.setMessage(findNum.substring(1));
+                                    crmMillSheetSplitApplyVOS.setMessage(findVolume.substring(1));
                                     return crmMillSheetSplitApplyVOS;
+                                } else {
+                                    if (!findNum.equals("")) {
+                                        crmMillSheetSplitApplyVOS.setCode(-1);
+                                        crmMillSheetSplitApplyVOS.setMessage(findNum.substring(1) + "卷可拆数量为0");
+                                        return crmMillSheetSplitApplyVOS;
+                                    }
                                 }
                             }
                         }
