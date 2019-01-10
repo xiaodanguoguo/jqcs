@@ -186,9 +186,9 @@ public class ObjectionLendgerServiceImpl implements ObjectionLendgerService{
         }
         PageDTOUtil.startPage(objectionLedgerVO);
         //String startDtStr = DateFormatUtil.getStartDateStr(objectionLedger.getStartDt());
-        objectionLedger.setStartDtStr(objectionLedgerVO.getStartDt());
+        objectionLedger.setStartDtStr(objectionLedgerVO.getStartDt()+ " 00:00:00");
         //String endDtStr = DateFormatUtil.getEndDateStr(objectionLedger.getEndDt());
-        objectionLedger.setEndDtStr(objectionLedgerVO.getEndDt());
+        objectionLedger.setEndDtStr(objectionLedgerVO.getEndDt()+ " 23:59:59");
         //新建状态的数据不允许导出。
         objectionLedger.setFlag("1");
         List<ObjectionLedger> ledgerList = crmClaimInfoMapper.findLedgerByPage(objectionLedger);

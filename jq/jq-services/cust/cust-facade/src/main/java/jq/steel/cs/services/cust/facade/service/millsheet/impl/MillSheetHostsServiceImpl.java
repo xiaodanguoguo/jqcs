@@ -842,9 +842,9 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
         }
         PageDTOUtil.startPage(millSheetHostsVO);
         //String startDtStr = DateFormatUtil.getStartDateStr(millSheetHosts.getStartDt());
-        millSheetHosts.setStartDtStr(millSheetHostsVO.getStartDt());
+        millSheetHosts.setStartDtStr(millSheetHostsVO.getStartDt()+ " 00:00:00");
         //String endDtStr = DateFormatUtil.getEndDateStr(millSheetHosts.getEndDt());
-        millSheetHosts.setEndDtStr(millSheetHostsVO.getEndDt());
+        millSheetHosts.setEndDtStr(millSheetHostsVO.getEndDt()+ " 23:59:59");
         List<MillSheetHosts> millSheetByPage = millSheetHostsMapper.findMillSheetByPage(millSheetHosts);
         List<String> exportList = new ArrayList<>();
         if (millSheetByPage.size() > 0) {
@@ -910,9 +910,9 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
         }
         PageDTOUtil.startPage(millSheetHostsVO);
         //String startDtStr = DateFormatUtil.getStartDateStr(millSheetHosts.getStartDt());
-        millSheetHosts.setStartDtStr(millSheetHostsVO.getStartDt());
+        millSheetHosts.setStartDtStr(millSheetHostsVO.getStartDt()+ " 00:00:00");
         //String endDtStr = DateFormatUtil.getEndDateStr(millSheetHosts.getEndDt());
-        millSheetHosts.setEndDtStr(millSheetHostsVO.getEndDt());
+        millSheetHosts.setEndDtStr(millSheetHostsVO.getEndDt()+ " 23:59:59");
         List<MillSheetHosts> millSheetByPage = millSheetHostsMapper.findMillSheetByPage1(millSheetHosts);
         List<String> exportList = new ArrayList<>();
         if (millSheetByPage.size() > 0) {
