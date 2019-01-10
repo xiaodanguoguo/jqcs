@@ -9,19 +9,14 @@ import java.util.List;
 
 public class MillSheetHostsVO implements Serializable {
 
+    //规格一栏
+    private String guige;
+
     //导出excel数据是否有
     private Boolean date;
 
     //0 EXCEL数据为空  1EXCEL数据量超过1000
     private String errType;
-
-    public String getErrType() {
-        return errType;
-    }
-
-    public void setErrType(String errType) {
-        this.errType = errType;
-    }
 
     private Long totalZjishu;
     private String specs;
@@ -213,6 +208,23 @@ public class MillSheetHostsVO implements Serializable {
     private Date startDtStr; //开始时间
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss" ,timezone = "GMT+8")
     private Date endDtStr;  //结束时间
+
+    public String getErrType() {
+        return errType;
+    }
+
+    public void setErrType(String errType) {
+        this.errType = errType;
+    }
+
+
+    public String getGuige() {
+        return guige;
+    }
+
+    public void setGuige(String guige) {
+        this.guige = guige;
+    }
 
     public String getLfdatStr() {
         return lfdatStr;

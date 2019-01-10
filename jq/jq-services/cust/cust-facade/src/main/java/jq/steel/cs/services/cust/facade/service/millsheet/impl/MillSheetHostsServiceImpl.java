@@ -230,6 +230,18 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
                     millSheetHosts2.setIsAllowSplit("N");
                 }
 
+                //规格拼接
+                MillCoilInfo coilInfo = new MillCoilInfo();
+                coilInfo.setMillSheetNo(millSheetHosts2.getMillSheetNo());
+                List<MillCoilInfo> millCoilInfos = millCoilInfoMapper.findSpecs(coilInfo);
+                if (millCoilInfos.size()>0){
+                    String guiges ="";
+                    for (int i = 0; i < millCoilInfos.size(); i++) {
+                        guiges +="," + millCoilInfos.get(i).getSpecs();
+                    }
+                    millSheetHosts2.setGuige(guiges.substring(1));
+                }
+
 
             }
             return transform;
@@ -409,6 +421,19 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
                     millSheetHosts2.setIsAllowRevoke("N");
                     millSheetHosts2.setIsAllowSplit("N");
                 }
+
+                //规格拼接
+                MillCoilInfo coilInfo = new MillCoilInfo();
+                coilInfo.setMillSheetNo(millSheetHosts2.getMillSheetNo());
+                List<MillCoilInfo> millCoilInfos = millCoilInfoMapper.findSpecs(coilInfo);
+                if (millCoilInfos.size()>0){
+                    String guiges ="";
+                    for (int i = 0; i < millCoilInfos.size(); i++) {
+                        guiges +="," + millCoilInfos.get(i).getSpecs();
+                    }
+                    millSheetHosts2.setGuige(guiges.substring(1));
+                }
+
 
             }
             return transform;

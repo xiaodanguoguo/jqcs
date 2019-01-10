@@ -179,18 +179,27 @@ FROM
 
 
   <select id="findCoil" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo">
-    SELECT
-ZCHEHAO,
-ZLPH,
-ZCHARG,
-SPECS,
-ZJISHU,
-ZLOSMENGE,
-SURPLUS_ZJISHU,
-SURPLUS_ZLOSMENGE,
-MILL_SHEET_NO
-FROM
-WARRANTY.MILL_COIL_INFO
+  SELECT
+  ZCHEHAO,
+  ZLPH,
+  ZCHARG,
+  SPECS,
+  ZJISHU,
+  ZLOSMENGE,
+  SURPLUS_ZJISHU,
+  SURPLUS_ZLOSMENGE,
+  MILL_SHEET_NO
+  FROM
+  WARRANTY.MILL_COIL_INFO
+  WHERE MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
+</select>
+
+
+  <select id="findSpecs" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo">
+   SELECT DISTINCT
+	SPECS
+    FROM
+    WARRANTY.MILL_COIL_INFO
     WHERE MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
   </select>
 
