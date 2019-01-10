@@ -12,6 +12,17 @@ public class MillSheetHostsVO implements Serializable {
     //导出excel数据是否有
     private Boolean date;
 
+    //0 EXCEL数据为空  1EXCEL数据量超过1000
+    private String errType;
+
+    public String getErrType() {
+        return errType;
+    }
+
+    public void setErrType(String errType) {
+        this.errType = errType;
+    }
+
     private Long totalZjishu;
     private String specs;
     private String zlph;

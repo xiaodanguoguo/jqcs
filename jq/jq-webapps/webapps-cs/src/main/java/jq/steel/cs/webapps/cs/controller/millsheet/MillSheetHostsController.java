@@ -1322,7 +1322,7 @@ public class MillSheetHostsController {
      * @return
      *
      * */
-    @RequestMapping(value = "/export",method = RequestMethod.POST)
+    @RequestMapping(value = "/export", method = RequestMethod.POST)
     public JsonResponse<List<MillSheetHostsVO>> export(@RequestParam("name") String jsonRequest) {
         JsonResponse<List<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
         String acctId = AssertContext.getAcctId();
@@ -1353,15 +1353,26 @@ public class MillSheetHostsController {
                 //转正报表
                 List<String> headers = getParam();
                 List<MillSheetHostsVO> arr = jsonResponse.getRspBody();
-                try {
-                    ExportExcelUtils.createExcelDownload("质证书信息", "质证书信息", "质证书信息" +
-                            System.currentTimeMillis(), headers.toArray(new String[headers.size()]), arr);
-
-                } catch (Exception e) {
-                    logger.error("error = {}", e);
+                if (arr.get(0).getDate()) {
+                    try {
+                        ExportExcelUtils.createExcelDownload("质证书信息", "质证书信息", "质证书信息" +
+                                System.currentTimeMillis(), headers.toArray(new String[headers.size()]), arr);
+                    } catch (Exception e) {
+                        logger.error("error = {}", e);
+                    }
+                } else {
+                    //无数据或者导出数量超1000
+                    if (arr.get(0).getErrType().equals("0")) {
+                        //无数据
+                        jsonResponse.setRetCode("1111111");
+                        jsonResponse.setRetDesc("excel导出数据为空，请重新查询然后再导出，");
+                    } else {
+                        jsonResponse.setRetCode("0000001");
+                        jsonResponse.setRetDesc("导出数据量超过1000条，请进行查询筛选");
+                    }
                 }
-            }   // 如果需要异常信息
-            else if (response.isHasError())
+
+            } else if (response.isHasError())
                 // 系统异常
                 jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
                 // 如果需要的话, 这个方法可以获取异常信息 response.getErrorMessage()
@@ -1439,13 +1450,25 @@ public class MillSheetHostsController {
                 //转正报表
                 List<String> headers = getParam();
                 List<MillSheetHostsVO> arr = jsonResponse.getRspBody();
-                try {
-                    ExportExcelUtils.createExcelDownload("质证书信息", "质证书信息", "质证书信息" +
-                            System.currentTimeMillis(), headers.toArray(new String[headers.size()]), arr);
+                if (arr.get(0).getDate()) {
+                    try {
+                        ExportExcelUtils.createExcelDownload("质证书信息", "质证书信息", "质证书信息" +
+                                System.currentTimeMillis(), headers.toArray(new String[headers.size()]), arr);
 
-                } catch (Exception e) {
-                    logger.error("error = {}", e);
+                    } catch (Exception e) {
+                        logger.error("error = {}", e);
+                    }
+                } else {
+                //无数据或者导出数量超1000
+                if (arr.get(0).getErrType().equals("0")) {
+                    //无数据
+                    jsonResponse.setRetCode("1111111");
+                    jsonResponse.setRetDesc("excel导出数据为空，请重新查询然后再导出，");
+                } else {
+                    jsonResponse.setRetCode("0000001");
+                    jsonResponse.setRetDesc("导出数据量超过1000条，请进行查询筛选");
                 }
+            }
             }   // 如果需要异常信息
             else if (response.isHasError())
                 // 系统异常

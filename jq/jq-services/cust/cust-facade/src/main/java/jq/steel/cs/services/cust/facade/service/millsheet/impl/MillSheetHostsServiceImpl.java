@@ -848,6 +848,14 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
         List<MillSheetHosts> millSheetByPage = millSheetHostsMapper.findMillSheetByPage(millSheetHosts);
         List<String> exportList = new ArrayList<>();
         if (millSheetByPage.size() > 0) {
+            if (millSheetByPage.size()>999){
+                List<MillSheetHostsVO> MillSheetHostsVO1 = new ArrayList<>();
+                MillSheetHostsVO millSheetHosts1 =new MillSheetHostsVO();
+                millSheetHosts1.setDate(false);
+                millSheetHosts1.setErrType("1");
+                MillSheetHostsVO1.add(millSheetHosts1);
+                return MillSheetHostsVO1;
+            }
             for (MillSheetHosts millSheetHosts1 : millSheetByPage) {
                 exportList.add(millSheetHosts1.getMillSheetNo());
             }
@@ -871,6 +879,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
         List<MillSheetHostsVO> MillSheetHostsVO1 = new ArrayList<>();
         MillSheetHostsVO millSheetHosts1 =new MillSheetHostsVO();
         millSheetHosts1.setDate(false);
+        millSheetHosts1.setErrType("0");
         MillSheetHostsVO1.add(millSheetHosts1);
         return MillSheetHostsVO1;
 
@@ -916,6 +925,14 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
         List<MillSheetHosts> millSheetByPage = millSheetHostsMapper.findMillSheetByPage1(millSheetHosts);
         List<String> exportList = new ArrayList<>();
         if (millSheetByPage.size() > 0) {
+            if (millSheetByPage.size()>999){
+                List<MillSheetHostsVO> MillSheetHostsVO1 = new ArrayList<>();
+                MillSheetHostsVO millSheetHosts1 =new MillSheetHostsVO();
+                millSheetHosts1.setDate(false);
+                millSheetHosts1.setErrType("1");
+                MillSheetHostsVO1.add(millSheetHosts1);
+                return MillSheetHostsVO1;
+            }
             for (MillSheetHosts millSheetHosts1 : millSheetByPage) {
                 exportList.add(millSheetHosts1.getMillSheetNo());
             }
@@ -942,6 +959,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
         List<MillSheetHostsVO> MillSheetHostsVO1 = new ArrayList<>();
         MillSheetHostsVO millSheetHosts1 =new MillSheetHostsVO();
         millSheetHosts1.setDate(false);
+        millSheetHosts1.setErrType("0");
         MillSheetHostsVO1.add(millSheetHosts1);
         return MillSheetHostsVO1;
     }
