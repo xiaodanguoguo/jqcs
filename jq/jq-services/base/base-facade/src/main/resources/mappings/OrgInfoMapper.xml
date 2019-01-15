@@ -223,6 +223,7 @@
 		org_info
 	WHERE
 		ORG_NAME = #{orgName}
+		and status not in (5)
   </select>
 
 
@@ -539,7 +540,7 @@
 		email
 		FROM
 		org_info
-		where ORG_NAME = #{orgName} or TEL = #{tel}
+		where ORG_NAME = #{orgName}
 	</select>
 
 	<select id="getCode" resultType="java.lang.Long">
