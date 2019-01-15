@@ -998,10 +998,10 @@
       <if test="defectName != null and defectName != ''" >
         AND H.DEFECT_NAME like  '%' || #{defectName} ||'%'
       </if>
-      <if test="endDtStr != null" >
+      <if test="endDtStr != null and endDtStr != ''" >
         AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
       </if>
-      <if test="startDtStr != null" >
+      <if test="startDtStr != null  and startDtStr != ''" >
         AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
       </if>
       <if test="flag != null" >

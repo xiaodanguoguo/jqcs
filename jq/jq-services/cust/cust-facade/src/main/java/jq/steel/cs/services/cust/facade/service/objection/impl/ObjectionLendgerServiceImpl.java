@@ -8,6 +8,7 @@ import com.ebase.utils.DateFormatUtil;
 import com.ebase.utils.DateUtil;
 import jq.steel.cs.services.cust.api.vo.ObjectionChuLiVO;
 import jq.steel.cs.services.cust.api.vo.ObjectionLedgerVO;
+import jq.steel.cs.services.cust.api.vo.ObjectionLedgerVO1;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
 import jq.steel.cs.services.cust.facade.dao.CrmClaimApplyMapper;
 import jq.steel.cs.services.cust.facade.dao.CrmClaimInfoMapper;
@@ -159,7 +160,9 @@ public class ObjectionLendgerServiceImpl implements ObjectionLendgerService{
 
     //导出
     @Override
-    public List<ObjectionLedgerVO> export(ObjectionLedgerVO objectionLedgerVO) {
+    public List<ObjectionLedgerVO> export(ObjectionLedgerVO1 objectionLedgerVO) {
+        //分页改为10000
+        objectionLedgerVO.setPageSize(10000);
         //转换mdel
         ObjectionLedger objectionLedger  = new ObjectionLedger();
         BeanCopyUtil.copy(objectionLedgerVO,objectionLedger);
@@ -182,10 +185,12 @@ public class ObjectionLendgerServiceImpl implements ObjectionLendgerService{
             }
         }
         PageDTOUtil.startPage(objectionLedgerVO);
-        String startDtStr = DateFormatUtil.getStartDateStr(objectionLedger.getStartDt());
-        objectionLedger.setStartDtStr(startDtStr);
-        String endDtStr = DateFormatUtil.getEndDateStr(objectionLedger.getEndDt());
-        objectionLedger.setEndDtStr(endDtStr);
+        //String startDtStr = DateFormatUtil.getStartDateStr(objectionLedger.getStartDt());
+        objectionLedger.setStartDtStr(objectionLedgerVO.getStartDt()+ " 00:00:00");
+        //String endDtStr = DateFormatUtil.getEndDateStr(objectionLedger.getEndDt());
+        objectionLedger.setEndDtStr(objectionLedgerVO.getEndDt()+ " 23:59:59");
+        //新建状态的数据不允许导出。
+        objectionLedger.setFlag("1");
         List<ObjectionLedger> ledgerList = crmClaimInfoMapper.findLedgerByPage(objectionLedger);
         //转换返回对象
         List<ObjectionLedgerVO> objectionLedgerVOS = BeanCopyUtil.copyList(ledgerList, ObjectionLedgerVO.class);

@@ -5,6 +5,9 @@ import java.util.Date;
 
 public class MillSheetHead {
 
+    //厂线
+    private String millLine;
+
     private Long sid;
 
     private String zchehao;     //车号
@@ -59,6 +62,14 @@ public class MillSheetHead {
 
     private String productName ; //产品名称
 
+
+    public String getMillLine() {
+        return millLine;
+    }
+
+    public void setMillLine(String millLine) {
+        this.millLine = millLine;
+    }
 
     public String getSizeMark() { return sizeMark; }
 

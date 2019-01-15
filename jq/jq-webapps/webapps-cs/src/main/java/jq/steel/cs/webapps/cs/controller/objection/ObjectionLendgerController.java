@@ -13,6 +13,7 @@ import jq.steel.cs.services.base.api.controller.RoleInfoAPI;
 import jq.steel.cs.services.base.api.vo.RoleInfoVO;
 import jq.steel.cs.services.cust.api.controller.ObjectionLendgerAPI;
 import jq.steel.cs.services.cust.api.vo.ObjectionLedgerVO;
+import jq.steel.cs.services.cust.api.vo.ObjectionLedgerVO1;
 import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,8 +96,8 @@ public class ObjectionLendgerController {
         String acctId = AssertContext.getAcctId();
         String orgName = AssertContext.getOrgName();
         try {
-            ObjectionLedgerVO list = JsonUtil.fromJson(jsonRequest,ObjectionLedgerVO.class);
-            JsonRequest<ObjectionLedgerVO> jsonRequest1 = new JsonRequest();
+            ObjectionLedgerVO1 list = JsonUtil.fromJson(jsonRequest,ObjectionLedgerVO1.class);
+            JsonRequest<ObjectionLedgerVO1> jsonRequest1 = new JsonRequest();
             jsonRequest1.setReqBody(list);
             jsonRequest1.getReqBody().setOrgName(orgName);
             jsonRequest1.getReqBody().setOrgType(orgType);

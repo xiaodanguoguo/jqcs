@@ -27,6 +27,8 @@ public class MillCoilInfoServiceImpl implements MillCoilInfoService{
     @Override
     public PageDTO<MillCoilInfoVO> splitFind(MillCoilInfoVO millCoilInfoVO) {
         try {
+            //分页改为1000
+            millCoilInfoVO.setPageSize(1000);
             //转换mdel
             MillCoilInfo millCoilInfo = new MillCoilInfo();
             BeanCopyUtil.copy(millCoilInfoVO,millCoilInfo);

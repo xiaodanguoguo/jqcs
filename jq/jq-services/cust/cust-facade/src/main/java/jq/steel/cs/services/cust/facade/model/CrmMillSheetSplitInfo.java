@@ -6,6 +6,16 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class CrmMillSheetSplitInfo {
+    //输入的车号
+    private String zchehao1;
+
+    public String getZchehao1() {
+        return zchehao1;
+    }
+
+    public void setZchehao1(String zchehao1) {
+        this.zchehao1 = zchehao1;
+    }
 
     //1批导拆分2板卷拆分
     private String type;

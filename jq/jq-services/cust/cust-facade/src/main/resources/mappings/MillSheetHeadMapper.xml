@@ -30,6 +30,8 @@
     <result column="SIZE_MARK" property="sizeMark"/>
     <result column="PRODUCT_NAME" property="productName"/>
 
+    <result column="MILL_LINE" property="millLine"/>
+
     <result column="MILL_BIG_TYPE" property="millBigType"/>
     <result column="CONTRACT_VOLUME" property="contractVolume"/>
     <result column="ORIGINAL_WEIGHT" property="originalWeight"/>
@@ -38,7 +40,7 @@
   <sql id="Base_Column_List" >
     SID, ZCHEHAO, MILL_SHEET_NO, ZKDAUF, ZKUNNR, ZKUNWE, ZDAOZHAN, VBELN_VL,
     LFDAT, ZHTH, ZCPMC, ZPH, ZZXBZ, ZFJSM, TOTAL_ZJISHU, TOTAL_ZLOSMENGE, ZJISHU_UNIT, 
-    ZMEINS, CREATED_BY, CREATED_DT, UPDATED_BY, UPDATED_DT, VERSION
+    ZMEINS, CREATED_BY, CREATED_DT, UPDATED_BY, UPDATED_DT, VERSION,MILL_LINE
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -60,6 +62,15 @@
     from MILL_SHEET_HEAD
     where MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR}
   </select>
+
+
+  <select id="findZchehao" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHead" >
+    select
+    <include refid="Base_Column_List" />
+    from MILL_SHEET_HEAD
+    where MILL_SHEET_NO= #{millSheetNo,jdbcType=VARCHAR}
+  </select>
+
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from MILL_SHEET_HEAD

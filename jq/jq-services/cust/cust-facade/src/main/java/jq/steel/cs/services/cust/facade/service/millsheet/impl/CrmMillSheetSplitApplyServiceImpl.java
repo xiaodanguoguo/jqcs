@@ -12,6 +12,8 @@ import jq.steel.cs.services.cust.facade.model.*;
 import jq.steel.cs.services.cust.facade.service.millsheet.CrmMillSheetSplitApplyService;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,9 +36,14 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
     @Autowired
     private MillSheetHostsMapper millSheetHostsMapper;
     @Autowired
+    private MillSheetHeadMapper millSheetHeadMapper;
+    @Autowired
     private MillCoilInfoMapper coilInfoMapper;
     @Autowired
     private CrmBatchSplitMapper crmBatchSplitMapper;
+
+
+    private static Logger logger = LoggerFactory.getLogger(CrmMillSheetSplitApplyServiceImpl.class);
 
     //申请拆分数据插入
     @Override
@@ -45,16 +52,6 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         String ip=request.getRemoteAddr();
         List<CrmMillSheetSplitInfo> crmMillSheetSplitInfoList = BeanCopyUtil.copyList(crmMillSheetSplitApplyVOList, CrmMillSheetSplitInfo.class);
         //查询一下最大质证书编号
-       /* MillSheetHosts millSheetHosts = new MillSheetHosts();
-        millSheetHosts.setMillSheetNo(crmMillSheetSplitInfoList.get(0).getMillsheetNo());
-        List<MillSheetHosts> url = millSheetHostsMapper.findUrlList(millSheetHosts);
-        String mill = "";
-        if (url.get(0).getSplitMaxValue() == null) {
-            //质证书编号+00
-            mill = crmMillSheetSplitInfoList.get(0).getMillsheetNo() + "00";
-        } else {
-            mill = url.get(0).getSplitMaxValue();
-        }*/
         String mill = "";
         CrmMillSheetSplitInfo cmss1 = new CrmMillSheetSplitInfo();
         cmss1.setMillsheetNo(crmMillSheetSplitInfoList.get(0).getMillsheetNo());
@@ -106,14 +103,19 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             crmMillSheetSplitInfo.setCreatedBy(acctName);
             crmMillSheetSplitInfo.setZcpmc(crmMillSheetSplitInfo.getZcpmc());
             crmMillSheetSplitInfo.setSpecs(crmMillSheetSplitInfo.getSpecs());
-            crmMillSheetSplitInfo.setZchehao(crmMillSheetSplitInfo.getZchehao());
+            //判断是否输入车号，没输入取原车号
+            if(crmMillSheetSplitInfo.getZchehao1().equals("")){
+                crmMillSheetSplitInfo.setZchehao(crmMillSheetSplitInfo.getZchehao());
+            }else {
+                crmMillSheetSplitInfo.setZchehao(crmMillSheetSplitInfo.getZchehao1());
+            }
             crmMillSheetSplitInfo.setStatus("1");
             crmMillSheetSplitInfoMapper.insertSelective(crmMillSheetSplitInfo);
             //调用存储过程
             Map<String, Object> map = new HashMap<String, Object>();
             this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitInfo.getMillsheetType(),
                     crmMillSheetSplitInfo.getZcharg(),crmMillSheetSplitInfo.getSpecs(), crmMillSheetSplitInfo.getZjishu(), crmMillSheetSplitInfo.getZlosmenge(),
-                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName,ip);
+                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName,ip,crmMillSheetSplitInfo.getZchehao());
         }
         CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVOS = new CrmMillSheetSplitApplyVO();
         crmMillSheetSplitApplyVOS.setMillsheetNo(newMillSheetNo);
@@ -332,6 +334,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         String findVolume = "";
         String findNum = "";
         String findType = "";
+        String findType1 = "";
         String findZkunnr ="";
         for (CrmMillSheetSplitInfo cmssi : crmMillSheetSplitInfoList) {
             //插入batchSplit表
@@ -351,32 +354,38 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             List<MillSheetHosts> millSheetHostsList = millSheetHostsMapper.findExist(millSheetHosts);
             if (millSheetHostsList.size() > 0) {
             } else {
-                findExist += ",此质证书" + "" + millSheetHosts.getMillSheetNo() + "不存在，";
+                //findExist += ",此质证书" + "" + millSheetHosts.getMillSheetNo() + "不存在，";
+                findExist += "," + millSheetHosts.getMillSheetNo();
             }
             //质证书编号是否允许拆分
             List<MillSheetHosts> alist = millSheetHostsMapper.findAllow(millSheetHosts);
             if (alist.size() > 0) {
             } else {
-                findAllow += "," + millSheetHosts.getMillSheetNo() + "状态不允许拆分";
+                //findAllow += "," + millSheetHosts.getMillSheetNo() + "状态不允许拆分";
+                findAllow += "," + millSheetHosts.getMillSheetNo();
             }
             //是否是孙质证书
             List<MillSheetHosts> blist = millSheetHostsMapper.findType(millSheetHosts);
             if (blist.size() > 0) {
             } else {
-                findType += "," + millSheetHosts.getMillSheetNo() + "为孙质证书，不可拆分";
+                //findType += "," + millSheetHosts.getMillSheetNo() + "为孙质证书，不可拆分";
+                findType += "," + millSheetHosts.getMillSheetNo();
             }
             //销售公司不允许拆分子类型质证书
             List<MillSheetHosts> hhList = millSheetHostsMapper.findMillSheetType(millSheetHosts);
             if (hhList.size() > 0) {
-                if (hhList.get(0).getMillSheetType().equals("Z")&&orgType.equals("2"))
-                    findType += "," + millSheetHosts.getMillSheetNo() + "子级质证书您无权拆分";
+                if (hhList.get(0).getMillSheetType().equals("Z")&&orgType.equals("2")){
+                    //findType += "," + millSheetHosts.getMillSheetNo() + "子级质证书您无权拆分";
+                    findType1 += "," + millSheetHosts.getMillSheetNo();
+                }
             }
 
             //判断售达方是否正确
             List<MillSheetHosts> clist = millSheetHostsMapper.findMillSheetZkunner(millSheetHosts);
             if (clist.size() > 0) {
                 if (!orgName.equals(clist.get(0).getZkunnr())){
-                    findZkunnr += "," + millSheetHosts.getMillSheetNo() + "质证书您无权拆分";
+                    //findZkunnr += "," + millSheetHosts.getMillSheetNo() + "质证书您无权拆分";
+                    findZkunnr += "," + millSheetHosts.getMillSheetNo();
                 }
             }
 
@@ -437,44 +446,65 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     findNum += "," + coilInfo.getMillSheetNo() + "质证书'" + coilInfo.getSpecs() + "'规格'" + coilInfo.getZcharg() + "'卷可拆数量为0";
                 }
             } else {
-                findVolume += "," + coilInfo.getMillSheetNo() + "质证书'" + coilInfo.getSpecs() + "'规格'" + coilInfo.getZcharg() + "'卷不存在";
+                findVolume += "," + coilInfo.getMillSheetNo() + "质证书'" + coilInfo.getSpecs() + "'规格'" + coilInfo.getZcharg() + "'卷";
             }
         }
         if (!findExist.equals("")) {
             crmMillSheetSplitApplyVOS.setCode(-1);
-            crmMillSheetSplitApplyVOS.setMessage(findExist.substring(1));
+            crmMillSheetSplitApplyVOS.setMessage("此质证书"+findExist.substring(1)+"不存在");
             return crmMillSheetSplitApplyVOS;
         } else {
             if (!findAllow.equals("")) {
                 crmMillSheetSplitApplyVOS.setCode(-1);
-                crmMillSheetSplitApplyVOS.setMessage(findAllow.substring(1));
+                crmMillSheetSplitApplyVOS.setMessage(findAllow.substring(1) + "状态不允许拆分");
                 return crmMillSheetSplitApplyVOS;
             } else {
                 if (!findType.equals("")) {
                     crmMillSheetSplitApplyVOS.setCode(-1);
-                    crmMillSheetSplitApplyVOS.setMessage(findType.substring(1));
+                    crmMillSheetSplitApplyVOS.setMessage(findType.substring(1) + "为孙质证书，不可拆分");
                     return crmMillSheetSplitApplyVOS;
                 } else {
-                    if (!findZkunnr.equals("")) {
+                    if (!findType1.equals("")) {
                         crmMillSheetSplitApplyVOS.setCode(-1);
-                        crmMillSheetSplitApplyVOS.setMessage(findZkunnr.substring(1));
+                        crmMillSheetSplitApplyVOS.setMessage(findType1.substring(1) + "子级质证书您无权拆分");
                         return crmMillSheetSplitApplyVOS;
                     } else {
-                        if (!findVolume.equals("")) {
+                        if (!findZkunnr.equals("")) {
                             crmMillSheetSplitApplyVOS.setCode(-1);
-                            crmMillSheetSplitApplyVOS.setMessage(findVolume.substring(1));
+                            crmMillSheetSplitApplyVOS.setMessage(findZkunnr.substring(1) + "质证书您无权拆分");
                             return crmMillSheetSplitApplyVOS;
                         } else {
-                            if (!findNum.equals("")) {
+                            if (!findVolume.equals("")) {
                                 crmMillSheetSplitApplyVOS.setCode(-1);
-                                crmMillSheetSplitApplyVOS.setMessage(findNum.substring(1));
+                                crmMillSheetSplitApplyVOS.setMessage(findVolume.substring(1)+"不存在");
                                 return crmMillSheetSplitApplyVOS;
+                            } else {
+                                if (!findNum.equals("")) {
+                                    crmMillSheetSplitApplyVOS.setCode(-1);
+                                    crmMillSheetSplitApplyVOS.setMessage(findNum.substring(1));
+                                    return crmMillSheetSplitApplyVOS;
+                                }
                             }
                         }
                     }
                 }
             }
         }
+
+        //车号为null的取父质证书车号
+        for(CrmMillSheetSplitInfo crmMillSheetSplitInfo:crmMillSheetSplitInfoList){
+            if (crmMillSheetSplitInfo.getZchehao().equals("")){
+                MillSheetHead millSheetHead = new MillSheetHead();
+                millSheetHead.setMillSheetNo(crmMillSheetSplitInfo.getMillsheetNo());
+                List<MillSheetHead> mlist=millSheetHeadMapper.findZchehao(millSheetHead);
+                if (mlist.size()>0){
+                    crmMillSheetSplitInfo.setZchehao(mlist.get(0).getZchehao());
+                }
+            }
+        }
+
+
+
         String millSheetNos = "";
         List<CrmMillSheetSplitInfo> noListMillSheetNo = new ArrayList<>();
         List<CrmMillSheetSplitInfo> hh = new ArrayList<>();
@@ -611,7 +641,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
 
 
         //去除单位和质证书一致的数据
-        for(int i=0;i<crmMillSheetSplitInfoList.size();i++){
+        /*for(int i=0;i<crmMillSheetSplitInfoList.size();i++){
             for(int j=0;j<noListMillSheetNo.size();j++){
                 if(crmMillSheetSplitInfoList.get(i).getMillsheetNo().equals(noListMillSheetNo.get(j).getMillsheetNo())
                         &&crmMillSheetSplitInfoList.get(i).getSpecs().equals(noListMillSheetNo.get(j).getSpecs())
@@ -622,6 +652,33 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     crmMillSheetSplitInfoList.remove(i);
             }
 
+        }*/
+        List<CrmMillSheetSplitInfo> resList = new ArrayList<>();
+        for (CrmMillSheetSplitInfo bean : crmMillSheetSplitInfoList) {
+            boolean flag = true;
+            for (CrmMillSheetSplitInfo newBean : noListMillSheetNo) {
+                if(newBean.getMillsheetNo() == bean.getMillsheetNo()
+                        &&newBean.getSpecs() == bean.getSpecs()
+                        &&newBean.getZcharg() == bean.getZcharg()
+                        &&newBean.getZjishu() == bean.getZjishu()
+                        &&newBean.getZchehao() == bean.getZchehao()
+                        &&newBean.getSpiltCustomer() == bean.getSpiltCustomer()){
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag){
+                resList.add(bean);
+            }
+        }
+
+        //输出日志
+        for (CrmMillSheetSplitInfo crmMillSheetSplitInfo:noListMillSheetNo){
+            logger.info("线棒noListMillSheetNo质证书编号"+crmMillSheetSplitInfo.getMillsheetNo()+"板卷号"+crmMillSheetSplitInfo.getZcharg()+"分销售达方"+crmMillSheetSplitInfo.getSpiltCustomer());
+        }
+
+        for (CrmMillSheetSplitInfo crmMillSheetSplitInfo:crmMillSheetSplitInfoList){
+            logger.info("线棒crmMillSheetSplitInfoList质证书编号"+crmMillSheetSplitInfo.getMillsheetNo()+"板卷号"+crmMillSheetSplitInfo.getZcharg()+"分销售达方"+crmMillSheetSplitInfo.getSpiltCustomer());
         }
 
         //拿取重复元素到list然后拆分
@@ -671,8 +728,8 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
 
 
         //拆分质证书编号和拆分单位不一致的数据
-        if (crmMillSheetSplitInfoList.size() > 0) {
-            for (CrmMillSheetSplitInfo cmssi : crmMillSheetSplitInfoList) {
+        if (resList.size() > 0) {
+            for (CrmMillSheetSplitInfo cmssi : resList) {
                 //查询一下最大质证书编号
                 MillSheetHosts millSheetHosts = new MillSheetHosts();
                 millSheetHosts.setMillSheetNo(cmssi.getMillsheetNo());
@@ -696,7 +753,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     mill= crmMillSheetSplitInfoMapper.findMillSheetNoMax(map1);
                     System.out.println("拆分最大值"+mill);
                 }else {
-                    mill = crmMillSheetSplitInfoList.get(0).getMillsheetNo() + "00";
+                    mill = cmssi.getMillsheetNo() + "00";
                 }
 
 
@@ -786,12 +843,9 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                 crmMillSheetSplitInfo.setType("1");
                 crmMillSheetSplitInfoMapper.insertSelective(crmMillSheetSplitInfo);
                 //调用存储过程
-                /*this.cunChuAll(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitInfo.getMillsheetType(),
-                        cmssi.getZcharg(), cmssi.getZjishu(), cmssi.getZlosmenge(),
-                        cmssi.getSpiltCustomer(), cmssi.getZchehao());*/
                 this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitInfo.getMillsheetType(),
                         cmssi.getZcharg(),cmssi.getSpecs(), cmssi.getZjishu(), cmssi.getZlosmenge(),
-                        cmssi.getSpiltCustomer(),acctName,ip);
+                        cmssi.getSpiltCustomer(),acctName,ip,cmssi.getZchehao());
                 millSheetNos += ',' + newMillSheetNo;
             }
         }
@@ -832,6 +886,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         String findNum = "";
         String findType = "";
         String findZcharg = "";
+        String findZcharg1 = "";
         String findZkunnr ="";
         for (CrmMillSheetSplitInfo cmssi : crmMillSheetSplitInfoList) {
             //插入batchSplit表
@@ -840,6 +895,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             crmBatchSplit.setCreatedDt(new Date());
             crmBatchSplit.setSpiltCustomer(cmssi.getSpiltCustomer());
             crmBatchSplit.setZcharg(cmssi.getZcharg());
+            crmBatchSplit.setZchehao(cmssi.getZchehao());
             crmBatchSplitMapper.insertSelective(crmBatchSplit);
 
             //判断是否存在此板卷号
@@ -849,7 +905,8 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             if (zchrags.size() > 0) {
                 if (zchrags.size() > 1) {
                     //数据唯一
-                    findZcharg += "," + zchrags.get(0).getZcharg() + "卷已经拆分，请勿重复拆分！";
+                    //findZcharg += "," + zchrags.get(0).getZcharg() + "卷已经拆分，请勿重复拆分！";
+                    findZcharg1 += "," + zchrags.get(0).getZcharg();
                 } else {
                     //赋值
                     cmssi.setMillsheetNo(zchrags.get(0).getMillsheetNo());
@@ -862,19 +919,22 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     List<MillSheetHosts> alist = millSheetHostsMapper.findAllow(millSheetHosts);
                     if (alist.size() >0) {
                     } else {
-                        findAllow += ",'" +cmssi.getZcharg()+"'卷的'"+ millSheetHosts.getMillSheetNo() + "'质证书状态不允许拆分";
+                        //findAllow += ",'" +cmssi.getZcharg()+"'卷的'"+ millSheetHosts.getMillSheetNo() + "'质证书状态不允许拆分";
+                        findAllow += ",'" +cmssi.getZcharg()+"'卷的'"+ millSheetHosts.getMillSheetNo()+"'";
                     }
                     //是否是孙质证书
                     List<MillSheetHosts> blist = millSheetHostsMapper.findType(millSheetHosts);
                     if (blist.size() > 0) {
                     } else {
-                        findType += "," + millSheetHosts.getMillSheetNo() + "为孙质证书，不可拆分";
+                        //findType += "," + millSheetHosts.getMillSheetNo() + "为孙质证书，不可拆分";
+                        findType += "," + millSheetHosts.getMillSheetNo();
                     }
                     //判断售达方是否正确
                     List<MillSheetHosts> clist = millSheetHostsMapper.findMillSheetZkunner(millSheetHosts);
                     if (clist.size() > 0) {
                         if (!orgName.equals(clist.get(0).getZkunnr())){
-                            findZkunnr += "," + millSheetHosts.getMillSheetNo() + "质证书您无权拆分";
+                           // findZkunnr += "," + millSheetHosts.getMillSheetNo() + "质证书您无权拆分";
+                            findZkunnr += "," + millSheetHosts.getMillSheetNo();
                         }
                     } else {
                     }
@@ -891,51 +951,61 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     if (i == 1) {
                     } else if (i == -1) {
                         //小于0
-                        findNum += "," + zchrags.get(0).getZcharg() + "'卷可拆数量为0";
+                        //findNum += "," + zchrags.get(0).getZcharg() + "'卷可拆数量为0";
+                        findNum += "," + zchrags.get(0).getZcharg();
                     } else if (i == 0) {
                         //等于0
-                        findNum += "," + zchrags.get(0).getZcharg() + "'卷可拆数量为0";
+                       //findNum += "," + zchrags.get(0).getZcharg() + "'卷可拆数量为0";
+                        findNum += "," + zchrags.get(0).getZcharg();
                     }
                 }
             } else {
-                findZcharg += "," + cmssi.getZcharg() + "卷不存在";
+                //findZcharg += "," + cmssi.getZcharg() + "卷不存在";
+                findZcharg += "," + cmssi.getZcharg();
             }
 
         }
+
         if(!findZcharg.equals("")){
             crmMillSheetSplitApplyVOS.setCode(-1);
-            crmMillSheetSplitApplyVOS.setMessage(findZcharg.substring(1));
+            crmMillSheetSplitApplyVOS.setMessage(findZcharg.substring(1) + "卷不存在");
             return crmMillSheetSplitApplyVOS;
         }else {
-            if (!findExist.equals("")) {
+            if (!findZcharg1.equals("")) {
                 crmMillSheetSplitApplyVOS.setCode(-1);
-                crmMillSheetSplitApplyVOS.setMessage(findExist.substring(1));
+                crmMillSheetSplitApplyVOS.setMessage(findZcharg1.substring(1) + "卷已经拆分，请勿重复拆分！");
                 return crmMillSheetSplitApplyVOS;
             } else {
-                if (!findAllow.equals("")) {
+                if (!findExist.equals("")) {
                     crmMillSheetSplitApplyVOS.setCode(-1);
-                    crmMillSheetSplitApplyVOS.setMessage(findAllow.substring(1));
+                    crmMillSheetSplitApplyVOS.setMessage(findExist.substring(1));
                     return crmMillSheetSplitApplyVOS;
                 } else {
-                    if (!findType.equals("")) {
+                    if (!findAllow.equals("")) {
                         crmMillSheetSplitApplyVOS.setCode(-1);
-                        crmMillSheetSplitApplyVOS.setMessage(findType.substring(1));
+                        crmMillSheetSplitApplyVOS.setMessage(findAllow.substring(1) + "质证书状态不允许拆分");
                         return crmMillSheetSplitApplyVOS;
                     } else {
-                        if (!findZkunnr.equals("")) {
+                        if (!findType.equals("")) {
                             crmMillSheetSplitApplyVOS.setCode(-1);
-                            crmMillSheetSplitApplyVOS.setMessage(findZkunnr.substring(1));
+                            crmMillSheetSplitApplyVOS.setMessage(findType.substring(1) + "为孙质证书，不可拆分");
                             return crmMillSheetSplitApplyVOS;
                         } else {
-                            if (!findVolume.equals("")) {
+                            if (!findZkunnr.equals("")) {
                                 crmMillSheetSplitApplyVOS.setCode(-1);
-                                crmMillSheetSplitApplyVOS.setMessage(findVolume.substring(1));
+                                crmMillSheetSplitApplyVOS.setMessage(findZkunnr.substring(1) + "质证书您无权拆分");
                                 return crmMillSheetSplitApplyVOS;
                             } else {
-                                if (!findNum.equals("")) {
+                                if (!findVolume.equals("")) {
                                     crmMillSheetSplitApplyVOS.setCode(-1);
-                                    crmMillSheetSplitApplyVOS.setMessage(findNum.substring(1));
+                                    crmMillSheetSplitApplyVOS.setMessage(findVolume.substring(1));
                                     return crmMillSheetSplitApplyVOS;
+                                } else {
+                                    if (!findNum.equals("")) {
+                                        crmMillSheetSplitApplyVOS.setCode(-1);
+                                        crmMillSheetSplitApplyVOS.setMessage(findNum.substring(1) + "卷可拆数量为0");
+                                        return crmMillSheetSplitApplyVOS;
+                                    }
                                 }
                             }
                         }
@@ -943,6 +1013,20 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                 }
             }
         }
+        //车号为null的取父质证书车号
+        for(CrmMillSheetSplitInfo crmMillSheetSplitInfo:crmMillSheetSplitInfoList){
+            if (crmMillSheetSplitInfo.getZchehao().equals("")){
+                MillSheetHead millSheetHead = new MillSheetHead();
+                millSheetHead.setMillSheetNo(crmMillSheetSplitInfo.getMillsheetNo());
+                List<MillSheetHead> mlist=millSheetHeadMapper.findZchehao(millSheetHead);
+                if (mlist.size()>0){
+                    crmMillSheetSplitInfo.setZchehao(mlist.get(0).getZchehao());
+                }
+            }
+        }
+
+
+
         String millSheetNos = "";
         List<CrmMillSheetSplitInfo> noListMillSheetNo = new ArrayList<>();
         List<CrmMillSheetSplitInfo> hh = new ArrayList<>();
@@ -1073,8 +1157,9 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             }
         }
 
+
         //去除单位和质证书一致的数据
-        for(int i=0;i<crmMillSheetSplitInfoList.size();i++){
+        /*for(int i=0;i<crmMillSheetSplitInfoList.size();i++){
             for(int j=0;j<noListMillSheetNo.size();j++){
                 if(crmMillSheetSplitInfoList.get(i).getMillsheetNo().equals(noListMillSheetNo.get(j).getMillsheetNo())
                         &&crmMillSheetSplitInfoList.get(i).getSpecs().equals(noListMillSheetNo.get(j).getSpecs())
@@ -1084,7 +1169,46 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     crmMillSheetSplitInfoList.remove(i);
             }
 
+        }*/
+
+        List<CrmMillSheetSplitInfo> resList = new ArrayList<>();
+        for (CrmMillSheetSplitInfo bean : crmMillSheetSplitInfoList) {
+            boolean flag = true;
+            for (CrmMillSheetSplitInfo newBean : noListMillSheetNo) {
+                if(newBean.getMillsheetNo() == bean.getMillsheetNo()
+                        &&newBean.getSpecs() == bean.getSpecs()
+                        &&newBean.getZcharg() == bean.getZcharg()
+                        &&newBean.getZchehao() == bean.getZchehao()
+                        &&newBean.getSpiltCustomer() == bean.getSpiltCustomer()){
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag){
+                resList.add(bean);
+            }
         }
+
+
+
+        //输出日志
+        for (CrmMillSheetSplitInfo crmMillSheetSplitInfo:noListMillSheetNo){
+            logger.info("板卷noListMillSheetNo质证书编号"+crmMillSheetSplitInfo.getMillsheetNo()
+                    +"板卷号"+crmMillSheetSplitInfo.getZcharg()
+                    +"分销售达方"+crmMillSheetSplitInfo.getSpiltCustomer()
+                    +"规格"+crmMillSheetSplitInfo.getSpecs()
+                    +"车号"+crmMillSheetSplitInfo.getZchehao());
+        }
+
+        for (CrmMillSheetSplitInfo crmMillSheetSplitInfo:resList){
+            logger.info("板卷crmMillSheetSplitInfoList质证书编号"+crmMillSheetSplitInfo.getMillsheetNo()
+                    +"板卷号"+crmMillSheetSplitInfo.getZcharg()
+                    +"分销售达方"+crmMillSheetSplitInfo.getSpiltCustomer()
+                    +"规格"+crmMillSheetSplitInfo.getSpecs()
+                    +"车号"+crmMillSheetSplitInfo.getZchehao());
+        }
+
+
 
         //拿取重复元素到list然后拆分
         if (noListMillSheetNo.size() > 0) {
@@ -1121,15 +1245,15 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             }
             List<CrmMillSheetSplitInfo> aa = new ArrayList<>();
             for (String agreementRecord1 : mm.keySet()) {
-                System.out.println(agreementRecord1 + ":" + mm.get(agreementRecord1));
+                System.out.println("agreementRecord1"+agreementRecord1 + ":" + mm.get(agreementRecord1));
                 CrmMillSheetSplitApplyVO crmMillSheetSplitApply = this.splitInsertNeed1(mm.get(agreementRecord1),ip);
                 millSheetNos += ',' + crmMillSheetSplitApply.getMillsheetNo();
             }
         }
 
         //拆分质证书编号和拆分单位不一致的数据
-        if (crmMillSheetSplitInfoList.size() > 0) {
-            for (CrmMillSheetSplitInfo cmssi : crmMillSheetSplitInfoList) {
+        if (resList.size() > 0) {
+            for (CrmMillSheetSplitInfo cmssi : resList) {
                 //查询一下最大质证书编号
                 MillSheetHosts millSheetHosts = new MillSheetHosts();
                 millSheetHosts.setMillSheetNo(cmssi.getMillsheetNo());
@@ -1152,7 +1276,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                     mill= crmMillSheetSplitInfoMapper.findMillSheetNoMax(map1);
                     System.out.println("拆分最大值"+mill);
                 }else {
-                    mill = crmMillSheetSplitInfoList.get(0).getMillsheetNo() + "00";
+                    mill = cmssi.getMillsheetNo() + "00";
                 }
 
 
@@ -1244,7 +1368,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                 //调用存储过程
                 this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitInfo.getMillsheetType(),
                         cmssi.getZcharg(),cmssi.getSpecs(),cmssi.getZjishu(), cmssi.getZlosmenge(),
-                        cmssi.getSpiltCustomer(),acctName,ip);
+                        cmssi.getSpiltCustomer(),acctName,ip,cmssi.getZchehao());
                 millSheetNos += ',' + newMillSheetNo;
             }
         }
@@ -1253,7 +1377,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         return crmMillSheetSplitApplyVOS;
     }
 
-    //申请拆分数据插入（质证书和拆分单位一致）
+    //线棒材申请拆分数据插入（质证书和拆分单位一致）
     @Override
     public CrmMillSheetSplitApplyVO splitInsertNeed(List<CrmMillSheetSplitInfo> crmMillSheetSplitInfoList,String ip) {
         String acctName = crmMillSheetSplitInfoList.get(0).getAcctName();
@@ -1372,12 +1496,9 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             crmMillSheetSplitInfoMapper.insertSelective(crmMillSheetSplitInfo);
             //调用存储过程
             Map<String, Object> map = new HashMap<String, Object>();
-            /*this.cunChuAll(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitApply1.getMillsheetType(),
-                    crmMillSheetSplitInfo.getZcharg(), crmMillSheetSplitInfo.getZjishu(), crmMillSheetSplitInfo.getZlosmenge(),
-                    crmMillSheetSplitInfo.getSpiltCustomer(), crmMillSheetSplitInfo.getZchehao());*/
             this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitApply1.getMillsheetType(),
                     crmMillSheetSplitInfo.getZcharg(),crmMillSheetSplitInfo.getSpecs(), crmMillSheetSplitInfo.getZjishu(), crmMillSheetSplitInfo.getZlosmenge(),
-                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName,ip);
+                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName,ip,crmMillSheetSplitInfo.getZchehao());
         }
         CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVOS = new CrmMillSheetSplitApplyVO();
         crmMillSheetSplitApplyVOS.setMillsheetNo(newMillSheetNo);
@@ -1504,12 +1625,9 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             crmMillSheetSplitInfoMapper.insertSelective(crmMillSheetSplitInfo);
             //调用存储过程
             Map<String, Object> map = new HashMap<String, Object>();
-            /*this.cunChuAll(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitApply1.getMillsheetType(),
-                    crmMillSheetSplitInfo.getZcharg(), crmMillSheetSplitInfo.getZjishu(), crmMillSheetSplitInfo.getZlosmenge(),
-                    crmMillSheetSplitInfo.getSpiltCustomer(), crmMillSheetSplitInfo.getZchehao());*/
             this.cunChu(crmMillSheetSplitInfo.getFatherMillsheetNo(), newMillSheetNo, crmMillSheetSplitApply1.getMillsheetType(),
                     crmMillSheetSplitInfo.getZcharg(),crmMillSheetSplitInfo.getSpecs(), crmMillSheetSplitInfo.getZjishu(), crmMillSheetSplitInfo.getZlosmenge(),
-                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName,ip);
+                    crmMillSheetSplitInfo.getSpiltCustomer(),acctName,ip,crmMillSheetSplitInfo.getZchehao());
         }
         CrmMillSheetSplitApplyVO crmMillSheetSplitApplyVOS = new CrmMillSheetSplitApplyVO();
         crmMillSheetSplitApplyVOS.setMillsheetNo(newMillSheetNo);
@@ -1518,8 +1636,8 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
 
 
     //调用存储过程（无车号）
-    void cunChu(String inmillSheetNoOld, String inmillSheetNo, String inmillSheetType, String inzcharg,String inspecs,Long inzjishu, BigDecimal inzlosmenge, String inspiltCustomer,String inacctName,String inip) {
-        String sql = "{call PRO_MILL_SPILT(?,?,?,?,?,?,?,?,?,?)}";
+    void cunChu(String inmillSheetNoOld, String inmillSheetNo, String inmillSheetType, String inzcharg,String inspecs,Long inzjishu, BigDecimal inzlosmenge, String inspiltCustomer,String inacctName,String inip,String inzchehao) {
+        String sql = "{call PRO_MILL_SPILT(?,?,?,?,?,?,?,?,?,?,?)}";
         Connection conn = null;
         //CallableStatement是用于执行SQL存储过程的接口
         CallableStatement call = null;
@@ -1537,6 +1655,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             call.setString(8, inspiltCustomer);
             call.setString(9, inacctName);
             call.setString(10, inip);
+            call.setString(11, inzchehao);
             //对于out参数，申明
             //call.registerOutParameter(2, oracle.jdbc.OracleTypes.VARCHAR);
             //call.registerOutParameter(3, oracle.jdbc.OracleTypes.NUMBER);
@@ -1563,54 +1682,6 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
         }
 
     }
-
-
-    //调用存储过程（有车号）
-    /*void cunChuAll(String inmillSheetNoOld, String inmillSheetNo, String inmillSheetType, String inzcharg, Long inzjishu, BigDecimal inzlosmenge, String inspiltCustomer, String inzchehao) {
-        String sql = "{call PRO_MILL_SPILT_ALL(?,?,?,?,?,?,?,?)}";
-        Connection conn = null;
-        //CallableStatement是用于执行SQL存储过程的接口
-        CallableStatement call = null;
-        try {
-            conn = JDBCUtils.getConnection();
-            call = conn.prepareCall(sql);
-            //赋值
-            call.setString(1, inmillSheetNoOld);
-            call.setString(2, inmillSheetNo);
-            call.setString(3, inmillSheetType);
-            call.setString(4, inzcharg);
-            //call.setInt(5, inzjishu);
-            call.setLong(5, inzjishu);
-            //call.setInt(6, inzlosmenge);
-            call.setBigDecimal(6, inzlosmenge);
-            call.setString(7, inspiltCustomer);
-            call.setString(8, inzchehao);
-            //对于out参数，申明
-            //call.registerOutParameter(2, oracle.jdbc.OracleTypes.VARCHAR);
-            //call.registerOutParameter(3, oracle.jdbc.OracleTypes.NUMBER);
-            //call.registerOutParameter(4, oracle.jdbc.OracleTypes.VARCHAR);
-
-            //调用
-            call.execute();
-
-            //取出结果
-           *//* String name = call.getString(2);
-            double sal = call.getDouble(3);
-            String job = call.getString(4);
-
-            System.out.println("工号为1110的员工信息:");
-
-            System.out.println("姓名:"+name);
-            System.out.println("薪水:"+sal);
-            System.out.println("职位:"+job);*//*
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            JDBCUtils.release(conn, call, null);
-        }
-
-    }*/
 
 
     /**

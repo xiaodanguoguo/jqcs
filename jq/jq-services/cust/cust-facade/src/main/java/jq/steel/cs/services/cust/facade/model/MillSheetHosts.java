@@ -8,6 +8,22 @@ import java.util.Date;
 import java.util.List;
 
 public class MillSheetHosts {
+    // 剩余件次
+    private BigDecimal surplusZjishu;
+
+    // 剩余重量
+    private BigDecimal surplusZlosmenge;
+
+    //导出excel数据是否有
+    private Boolean date;
+
+    private Long totalZjishu;
+    private String specs;
+    private String zlph;
+    private Long zjishu;
+    private BigDecimal zlosmenge;
+    private String zdaozhan;
+
 
 
     //撤销原因
@@ -22,22 +38,6 @@ public class MillSheetHosts {
     //虚拟质证书
     private List<String> noMillSheetNos;
 
-    public String getCauseOfRevocation() {
-        return causeOfRevocation;
-    }
-
-    public void setCauseOfRevocation(String causeOfRevocation) {
-        this.causeOfRevocation = causeOfRevocation;
-    }
-
-    public List<String> getNoMillSheetNos() {
-        return noMillSheetNos;
-    }
-
-    public void setNoMillSheetNos(List<String> noMillSheetNos) {
-        this.noMillSheetNos = noMillSheetNos;
-    }
-
     private String acctName;
 
     //回退原因
@@ -48,6 +48,30 @@ public class MillSheetHosts {
 
     //厂家code
     private List<String> deptCodes;
+
+    public BigDecimal getSurplusZjishu() {
+        return surplusZjishu;
+    }
+
+    public void setSurplusZjishu(BigDecimal surplusZjishu) {
+        this.surplusZjishu = surplusZjishu;
+    }
+
+    public BigDecimal getSurplusZlosmenge() {
+        return surplusZlosmenge;
+    }
+
+    public void setSurplusZlosmenge(BigDecimal surplusZlosmenge) {
+        this.surplusZlosmenge = surplusZlosmenge;
+    }
+
+    public Boolean getDate() {
+        return date;
+    }
+
+    public void setDate(Boolean date) {
+        this.date = date;
+    }
 
     public List<String> getDeptCodes() {
         return deptCodes;
@@ -176,6 +200,70 @@ public class MillSheetHosts {
 
     //是否允许下载打印
     private String isAllow;
+
+    public String getZdaozhan() {
+        return zdaozhan;
+    }
+
+    public void setZdaozhan(String zdaozhan) {
+        this.zdaozhan = zdaozhan;
+    }
+
+    public Long getTotalZjishu() {
+        return totalZjishu;
+    }
+
+    public void setTotalZjishu(Long totalZjishu) {
+        this.totalZjishu = totalZjishu;
+    }
+
+    public String getSpecs() {
+        return specs;
+    }
+
+    public void setSpecs(String specs) {
+        this.specs = specs;
+    }
+
+    public String getZlph() {
+        return zlph;
+    }
+
+    public void setZlph(String zlph) {
+        this.zlph = zlph;
+    }
+
+    public Long getZjishu() {
+        return zjishu;
+    }
+
+    public void setZjishu(Long zjishu) {
+        this.zjishu = zjishu;
+    }
+
+    public BigDecimal getZlosmenge() {
+        return zlosmenge;
+    }
+
+    public void setZlosmenge(BigDecimal zlosmenge) {
+        this.zlosmenge = zlosmenge;
+    }
+
+    public String getCauseOfRevocation() {
+        return causeOfRevocation;
+    }
+
+    public void setCauseOfRevocation(String causeOfRevocation) {
+        this.causeOfRevocation = causeOfRevocation;
+    }
+
+    public List<String> getNoMillSheetNos() {
+        return noMillSheetNos;
+    }
+
+    public void setNoMillSheetNos(List<String> noMillSheetNos) {
+        this.noMillSheetNos = noMillSheetNos;
+    }
 
     public String getLowerMillSheetNos() {
         return lowerMillSheetNos;

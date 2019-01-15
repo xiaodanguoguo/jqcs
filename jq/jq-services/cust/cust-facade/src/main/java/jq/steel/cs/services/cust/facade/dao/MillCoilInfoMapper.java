@@ -55,6 +55,13 @@ public interface MillCoilInfoMapper {
 
     List<MillCoilInfo> findCoil(MillCoilInfo millCoilInfo);
 
+    //质证书查询规格
+    List<MillCoilInfo> findSpecs(MillCoilInfo millCoilInfo);
+
+
+    List<MillCoilInfo> findZchehao(MillCoilInfo millCoilInfo);
+
+
     List<MillCoilInfo> findVolume(MillCoilInfo millCoilInfo);
 
     List<MillCoilInfo> findVolumeNeed(MillCoilInfo millCoilInfo);

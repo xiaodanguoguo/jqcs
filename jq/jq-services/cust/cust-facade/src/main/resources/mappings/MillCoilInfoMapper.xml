@@ -179,18 +179,27 @@ FROM
 
 
   <select id="findCoil" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo">
-    SELECT
-ZCHEHAO,
-ZLPH,
-ZCHARG,
-SPECS,
-ZJISHU,
-ZLOSMENGE,
-SURPLUS_ZJISHU,
-SURPLUS_ZLOSMENGE,
-MILL_SHEET_NO
-FROM
-WARRANTY.MILL_COIL_INFO
+  SELECT
+  ZCHEHAO,
+  ZLPH,
+  ZCHARG,
+  SPECS,
+  ZJISHU,
+  ZLOSMENGE,
+  SURPLUS_ZJISHU,
+  SURPLUS_ZLOSMENGE,
+  MILL_SHEET_NO
+  FROM
+  WARRANTY.MILL_COIL_INFO
+  WHERE MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
+</select>
+
+
+  <select id="findSpecs" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo">
+   SELECT DISTINCT
+	SPECS
+    FROM
+    WARRANTY.MILL_COIL_INFO
     WHERE MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
   </select>
 
@@ -214,18 +223,19 @@ WARRANTY.MILL_COIL_INFO
 
   <!--不锈钢厂碳钢厂拆分校验是否有此卷-->
   <select id="findVolumeNeed" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillCoilInfo">
-    SELECT
-    ZCHEHAO,
-    ZCHARG,
-    SPECS,
-    ZJISHU,
-    ZLOSMENGE,
-    SURPLUS_ZJISHU,
-    SURPLUS_ZLOSMENGE,
-    MILL_SHEET_NO
-    FROM
-    WARRANTY.MILL_COIL_INFO
-    WHERE  ZCHARG= #{zcharg,jdbcType=VARCHAR}
+   SELECT
+A.ZCHEHAO,
+A.ZCHARG,
+A.SPECS,
+A.ZJISHU,
+A.ZLOSMENGE,
+A.SURPLUS_ZJISHU,
+A.SURPLUS_ZLOSMENGE,
+A.MILL_SHEET_NO
+FROM
+WARRANTY.MILL_COIL_INFO A
+LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
+    WHERE A.ZCHARG= #{zcharg,jdbcType=VARCHAR} AND B.STATE NOT IN ('DISSUSED')
   </select>
 
 
@@ -671,18 +681,29 @@ MILL_COIL_INFO
 
   <select id="getChemistryListByByQrCode" resultMap="MapForCoilAndChemistry">
     SELECT
-    msd.MILL_SHEET_NO, msd.ZKUNWE,
-    msd.ZCPMC, msd.ZPH, msd.ZZXBZ,
+    msd.MILL_SHEET_NO,
+    msd.ZKUNWE,
+    msd.ZCPMC,
+    msd.ZPH,
+    msd.ZZXBZ,
     msd.ZCHEHAO,
-    msd.ZDAOZHAN, msd.ZJHZT,
-    mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE, mci.ZJISHU, mci.ZLPH,
-    mcd. SID AS MCD_SID, mcd.KURZTEXT AS MCD_KURZTEXT, mcd.ORIGINAL_INPUT AS MCD_ORIGINAL_INPUT, mcd.SHOW_FLAG,
-    mc.NAME1
+    msd.ZDAOZHAN,
+    msd.ZJHZT,
+    mci.ZCHARG,
+    mci.SPECS,
+    mci.ZLOSMENGE,
+    mci.ZJISHU,
+    mci.ZLPH,
+    mcd. SID AS MCD_SID,
+    mcd.KURZTEXT AS MCD_KURZTEXT,
+    mcd.ORIGINAL_INPUT AS MCD_ORIGINAL_INPUT,
+    mcd.SHOW_FLAG,
+    (select distinct name1 from MILL_CUSTOMER where KUNNR = msd.ZKUNWE) AS NAME1
     FROM
     MILL_SHEET_HEAD msd
     LEFT JOIN MILL_COIL_INFO mci ON msd.MILL_SHEET_NO = mci.MILL_SHEET_NO
-    LEFT JOIN MILL_CUSTOMER mc on mc.KUNNR = msd.ZKUNWE
-    LEFT JOIN MILL_CHEMISTRY_DATA mcd ON mci.ZCHARG = mcd.ZCHARG and msd.MILL_SHEET_NO = mcd.MILL_SHEET_NO
+    LEFT JOIN MILL_CHEMISTRY_DATA mcd ON mci.ZCHARG = mcd.ZCHARG
+    AND msd.MILL_SHEET_NO = mcd.MILL_SHEET_NO and mcd.SPECS = mci.SPECS
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="millSheetNo != null and millSheetNo != ''" >
         and msd.MILL_SHEET_NO = #{millSheetNo}
@@ -705,18 +726,36 @@ MILL_COIL_INFO
 
   <select id="getPhysicsListByQrCode" resultMap="MapForCoilAndPhysics">
     SELECT
-    msd.MILL_SHEET_NO, msd.ZKUNWE,
-    msd.ZCPMC, msd.ZPH,
-    msd.ZZXBZ, msd.ZCHEHAO,
-    msd.ZDAOZHAN, msd.ZJHZT,
-    mci.ZCHARG, mci.SPECS, mci.ZLOSMENGE, mci.ZJISHU, mci.ZLPH,
-    mpd.SID AS MPD_SID,  mpd.KURZTEXT AS MPD_KURZTEXT, mpd.ORIGINAL_INPUT as MPD_ORIGINAL_INPUT,
-    mc.NAME1
+    msd.MILL_SHEET_NO,
+    msd.ZKUNWE,
+    msd.ZCPMC,
+    msd.ZPH,
+    msd.ZZXBZ,
+    msd.ZCHEHAO,
+    msd.ZDAOZHAN,
+    msd.ZJHZT,
+    mci.ZCHARG,
+    mci.SPECS,
+    mci.ZLOSMENGE,
+    mci.ZJISHU,
+    mci.ZLPH,
+    mpd. SID AS MPD_SID,
+    mpd.KURZTEXT AS MPD_KURZTEXT,
+    mpd.ORIGINAL_INPUT AS MPD_ORIGINAL_INPUT,
+    (
+    SELECT DISTINCT
+    name1
+    FROM
+    MILL_CUSTOMER
+    WHERE
+    KUNNR = msd.ZKUNWE
+    ) AS NAME1
     FROM
     MILL_SHEET_HEAD msd
     LEFT JOIN MILL_COIL_INFO mci ON msd.MILL_SHEET_NO = mci.MILL_SHEET_NO
-    LEFT JOIN MILL_CUSTOMER mc on mc.KUNNR = msd.ZKUNWE
-    LEFT JOIN MILL_PHYSICS_DATA mpd ON mpd.ZCHARG = mci.ZCHARG and msd.MILL_SHEET_NO = mpd.MILL_SHEET_NO
+    LEFT JOIN MILL_PHYSICS_DATA mpd ON mpd.ZCHARG = mci.ZCHARG
+    AND msd.MILL_SHEET_NO = mpd.MILL_SHEET_NO
+    AND mpd.SPECS = mci.SPECS
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="millSheetNo != null and millSheetNo != ''" >
         and msd.MILL_SHEET_NO = #{millSheetNo}

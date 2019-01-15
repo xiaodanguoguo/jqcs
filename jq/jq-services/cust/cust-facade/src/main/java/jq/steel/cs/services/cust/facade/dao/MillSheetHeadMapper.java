@@ -23,6 +23,8 @@ public interface MillSheetHeadMapper {
 
     MillSheetHead findCategoryCode(MillSheetHead record);
 
+    List<MillSheetHead> findZchehao(MillSheetHead record);
+
     MillSheetHead selectByMillSheetNO(String millSheetNo);
 
     List<MillSheetHead>  selectAll(MillSheetHead record);
