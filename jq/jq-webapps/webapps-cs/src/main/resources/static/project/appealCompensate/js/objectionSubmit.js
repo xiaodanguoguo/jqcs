@@ -220,7 +220,7 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
                 break;
             case "REJECT":
                 $(cloneRow).find("#claimStateA").html("已驳回");
-                $(cloneRow).find("#editOpe").show();
+                //$(cloneRow).find("#editOpe").show();
                 break;
             case "INVESTIGATION":
                 $(cloneRow).find("#claimStateA").html("调查中");
