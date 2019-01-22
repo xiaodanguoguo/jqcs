@@ -680,6 +680,9 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             //转换mdel
             CrmClaimApply crmClaimApply  = new CrmClaimApply();
             BeanCopyUtil.copy(objectionTiBaoVO,crmClaimApply);
+            if(crmClaimApply.getDeptCode()!=null&& crmClaimApply.getDeptCode()!=""){
+                crmClaimApply.setDeptCodes(null);
+            }
             if(crmClaimApply.getOrgType().equals("1")){
                 CrmClaimApply h = new CrmClaimApply();
                 h.setCustomerName(crmClaimApply.getOrgName());

@@ -1156,6 +1156,118 @@
     )
   </select>
 
+
+  <!--app异议跟踪查询 lujiawei-->
+  <!--<select id="findgenzongByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
+
+    SELECT *
+    FROM
+    (SELECT
+    A.CLAIM_NO,
+    A.CLAIM_STATE,
+    A.MILL_SHEET_NO,
+    A.PRODUCT_ID,
+    A.PRODUCT_NAME,
+    A.DESIGNATION,
+    A.SIZE_MARK,
+    A.ORDER_NO,
+    C.CLAIM_TYPE,
+    A.OBJECTION_NUM,
+    C.INQUIRE_STATE,
+    A.LAST_USER,
+    A.CUSTOMER_NAME,
+    A.PRESENTATION_DATE,
+    A.REJECT_REASON,
+    A.REASONS_FOR_COMPULSORY_CLOSURE,
+    A.LAST_USER_ID,
+
+    A.OBJECTION_CONFIRMATION,
+    A.BATTEN_PLATE_NO,
+    A.STEEL_TYPE,
+    A.LAST_USER_ADDR,
+    A.PRO_PROBLEM,
+    A.CUST_EMP_NO,
+    A.CUST_TEL,
+    A.LAST_USER_TEL,
+    A.CREATE_EMP_NO,
+    A.CREATED_DT,
+    A.CONTRACT_NO,
+    ADMISSIBILITY_USER AS NEED_USER,
+
+    D.SPILT_CUSTOMER,
+
+    case when B.DEPT_CODE = '1000' then '不锈'
+    when B.DEPT_CODE = '2000' then '炼轧'
+    when B.DEPT_CODE = '2200' then '碳钢'
+    when B.DEPT_CODE='3000' then '榆钢' else B.DEPT_CODE end as DEPT_CODE,
+    (select T.TYPE_NAME from sgai_md_common_type t
+    WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
+    WHERE T.TYPE_NAME=D.ZCPMC)) AS ZCPMC,
+    D.ZPH
+    FROM
+    WARRANTY.CRM_CLAIM_APPLY A
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_INFO C ON A.CLAIM_NO = C.CLAIM_NO
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="endDtStr != null" >
+        AND TO_CHAR (A.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        &lt;!&ndash;AND  #{} &gt;= A.PRESENTATION_DATE&ndash;&gt;
+      </if>
+      <if test="startDtStr != null" >
+        AND TO_CHAR (A.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+        &lt;!&ndash;AND A.PRESENTATION_DATE  &gt;= #{startDt}&ndash;&gt;
+      </if>
+      <if test="customerId != null and customerId != ''" >
+        AND A.CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
+      </if>
+      <if test="claimType != null and claimType != ''" >
+        AND C.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
+      </if>
+      <if test="productId != null and productId != ''" >
+        AND A.PRODUCT_ID = #{productId,jdbcType=VARCHAR}
+      </if>
+      <if test="productName != null and productName != ''" >
+        AND A.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
+      </if>
+      <if test="claimNo != null and claimNo != ''" >
+        AND A.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+      </if>
+      <if test="battenPlateNo != null and battenPlateNo != ''" >
+        AND A.BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR}
+      </if>
+      <if test="claimState != null and claimState != ''" >
+        AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
+      </if>
+      <if test="manufactor != null and manufactor != ''" >
+        AND  B.DEPT_CODE = #{manufactor,jdbcType=VARCHAR}
+      </if>
+      <if test="designation != null and designation != ''" >
+        AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}
+      </if>
+      <if test="deptCode != null and deptCode != ''" >
+        AND B.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+      </if>
+      <if test="millSheetNos != null">
+        AND B.MILL_SHEET_NO  in
+        <foreach collection="millSheetNos"  index="index" close=")" open="(" item="item" separator=",">
+          #{millSheetNos[${index}]}
+        </foreach>
+      </if>
+      <choose>
+        <when test="claimState != null ">
+          and a.CLAIM_STATE = #{claimState}
+        </when>
+        <otherwise>
+          and a.CLAIM_STATE IN ('ACCEPTANCE','REJECT','HANDLE','INVESTIGATION','END','EVALUATE','ADOPT')
+        </otherwise>
+      </choose>
+    </trim>)
+    LEFT JOIN WARRANTY.ACCT_INFO F ON F.NAME = NEED_USER
+  </select>-->
+
+
+  <!--app异议跟踪查询 wu-->
   <select id="findgenzongByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
 
     SELECT *
@@ -1237,14 +1349,20 @@
       <if test="claimState != null and claimState != ''" >
         AND A.CLAIM_STATE = #{claimState,jdbcType=VARCHAR}
       </if>
-      <if test="manufactor != null and manufactor != ''" >
+   <!--   <if test="manufactor != null and manufactor != ''" >
         AND  B.DEPT_CODE = #{manufactor,jdbcType=VARCHAR}
-      </if>
+      </if>-->
       <if test="designation != null and designation != ''" >
         AND A.DESIGNATION = #{designation,jdbcType=VARCHAR}
       </if>
       <if test="deptCode != null and deptCode != ''" >
         AND B.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+      </if>
+      <if test="deptCodes != null" >
+        AND B.DEPT_CODE  in
+        <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
+          #{deptCodes[${index}]}
+        </foreach>
       </if>
       <if test="millSheetNos != null">
         AND B.MILL_SHEET_NO  in
