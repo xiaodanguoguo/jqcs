@@ -22,11 +22,9 @@ import org.springframework.web.client.RestTemplate;
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class })
 //mq和datasource路径配置
 @ComponentScan(basePackages = { "jq.steel.cs.gateway"})
-//@MapperScan({ "com.cpic.webapps.**.mapper", "com.cpic.webapps.**.dao", "com.cpic.**.mapper", "com.cpic.common.**.dao"})
 //开始spring事务
 @EnableTransactionManagement
 //mybatis扫描
-//@MapperScan({"com.cpic.webapps.**.dao", "com.cpic.**.mapper"})
 @EnableFeignClients(basePackages = { "jq.steel.cs.gateway" })
 @EnableDiscoveryClient
 //@EnableAspectJAutoProxy(proxyTargetClass = true)
