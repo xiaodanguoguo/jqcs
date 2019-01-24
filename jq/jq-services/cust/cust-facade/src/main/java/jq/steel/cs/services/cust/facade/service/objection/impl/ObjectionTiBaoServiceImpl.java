@@ -555,7 +555,11 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
 
     @Override
     public ObjectionTiBaoCountVO getCount(CrmClaimApply crmClaimApply) {
+        if(crmClaimApply.getDeptCode()!=null&& crmClaimApply.getDeptCode()!=""){
+            crmClaimApply.setDeptCodes(null);
+        }
        System.out.println(crmClaimApply.getOptionType());
+       //1銷售公司 2一級代理 3供应商 4终端客户 5酒钢管理
         if(crmClaimApply.getOrgType().equals("1")){
             CrmClaimApply h = new CrmClaimApply();
             h.setCustomerName(crmClaimApply.getOrgName());
@@ -569,6 +573,9 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             }else {
                 crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
             }
+        }
+        if(crmClaimApply.getOrgType().equals("2")||crmClaimApply.getOrgType().equals("3")||crmClaimApply.getOrgType().equals("4")){
+            crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
         }
         ObjectionTiBaoCountVO vo = crmClaimApplyMapper.getCount(crmClaimApply);
         vo.setAll(vo.getCreated() + vo.getPresent() + vo.getReject());

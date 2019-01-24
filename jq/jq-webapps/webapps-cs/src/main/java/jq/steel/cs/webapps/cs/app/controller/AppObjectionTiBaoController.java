@@ -74,6 +74,17 @@ public class AppObjectionTiBaoController {
         JsonResponse<ObjectionTiBaoCountVO> jsonResponse = new JsonResponse<>();
         String orgType = AssertContext.getOrgType();
         String orgName =AssertContext.getOrgName();
+        String acctId = AssertContext.getAcctId();
+        ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+        List<String> list = new ArrayList<>();
+        for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+            list.add(roleInfoVO.getRoleCode());
+        }
+        if (list.size()>0){
+            jsonRequest.getReqBody().setDeptCodes(list);
+        }else {
+            jsonRequest.getReqBody().setDeptCodes(null);
+        }
         try {
             jsonRequest.getReqBody().setOrgType(orgType);
             jsonRequest.getReqBody().setOrgName(orgName);
