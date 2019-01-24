@@ -1462,7 +1462,7 @@ public class MillSheetHostsController {
                 //无数据或者导出数量超1000
                 if (arr.get(0).getErrType().equals("0")) {
                     //无数据
-                    jsonResponse.setRetCode("1111111");
+                    jsonResponse.setRetCode("0000001");
                     jsonResponse.setRetDesc("excel导出数据为空，请重新查询然后再导出，");
                 } else {
                     jsonResponse.setRetCode("0000001");
