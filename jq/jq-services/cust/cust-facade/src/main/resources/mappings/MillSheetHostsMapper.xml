@@ -885,7 +885,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       GROUP BY mco.MILL_SHEET_NO
       )
       <if test="zchehao != null and zchehao != ''">
-        AND msd.ZCHEHAO= #{zchehao}
+        AND msd.ZCHEHAO like  '%' || #{zchehao} ||'%'
       </if>
       <if test="lfdat != null  and lfdat != ''" >
         AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd') = #{lfdat}
@@ -917,7 +917,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
 
       <if test="zchehao != null and zchehao != ''">
-        AND msd.ZCHEHAO= #{zchehao}
+        AND msd.ZCHEHAO like  '%' || #{zchehao}||'%
       </if>
       <if test="lfdat != null  and lfdat != ''" >
         AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd') = #{lfdat}
