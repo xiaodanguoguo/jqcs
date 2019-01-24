@@ -704,6 +704,9 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                     crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
                 }
             }
+            if(crmClaimApply.getOrgType().equals("2")||crmClaimApply.getOrgType().equals("3")||crmClaimApply.getOrgType().equals("4")){
+                crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
+            }
             PageDTOUtil.startPage(objectionTiBaoVO);
             String startDtStr = DateFormatUtil.getStartDateStr(crmClaimApply.getStartDt());
             crmClaimApply.setStartDtStr(startDtStr);
