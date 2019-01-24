@@ -1401,8 +1401,8 @@ public class MillSheetHostsController {
         headers.add("目的地@zdaozhan@4000");
         headers.add("车号@zchehao@4000");
         headers.add("发车日期@lfdatStr@4000");
-        headers.add("本车总重量@totalZjishu@4000");
-        headers.add("本车总件数@totalZlosmenge@4000");
+        headers.add("本车总重量@totalZlosmenge@4000");
+        headers.add("本车总件数@totalZjishu@4000");
         headers.add("规格@specs@3000");
         headers.add("批/板/卷号@zcharg@4000");
         headers.add("炉批号@zlph@3000");
