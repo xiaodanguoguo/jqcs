@@ -281,7 +281,7 @@ public class AppObjectionTiBaoController {
             }else {
                 jsonRequest.getReqBody().setDeptCodes(null);
             }
-            ServiceResponse<ObjectionTiBaoVO> response = objectionTiBaoAPI.findDetails(jsonRequest);
+            ServiceResponse<ObjectionTiBaoVO> response = objectionTiBaoAPI.findDetailsForApp(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
                 // 如果需要异常信息

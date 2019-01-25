@@ -16,6 +16,10 @@ public interface ObjectionTiBaoService {
     //新增查询修改查询和详情查询和销售审核查询
     ObjectionTiBaoVO findDetails(ObjectionTiBaoVO objectionTiBaoVO);
 
+    //新增查询修改查询和详情查询和销售审核查询(app)
+    ObjectionTiBaoVO findDetailsForApp(ObjectionTiBaoVO objectionTiBaoVO);
+
+
     //新增保存修改保存销售审核保存驳回通过
     ObjectionTiBaoVO update(ObjectionTiBaoVO objectionTiBaoVO);
 

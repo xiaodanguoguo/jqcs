@@ -186,6 +186,73 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
         return null;
     }
 
+
+
+
+    //新增查询修改查询和详情查询和销售审核查询(app)
+    @Override
+    public ObjectionTiBaoVO findDetailsForApp(ObjectionTiBaoVO objectionTiBaoVO) {
+        String orgCode = objectionTiBaoVO.getOrgCode();
+        String orgName = objectionTiBaoVO.getOrgName();
+        //1是新建2是修改3是详情4销售审核
+        //转换model
+        CrmClaimApply crmClaimApply  = new CrmClaimApply();
+        BeanCopyUtil.copy(objectionTiBaoVO,crmClaimApply);
+        CrmClaimInfo crmClaimInfo = new CrmClaimInfo();
+        BeanCopyUtil.copy(objectionTiBaoVO,crmClaimInfo);
+        if(crmClaimApply.getOptionType()==1){
+            //新建给返回使用单位客户单位就行
+            CrmCustomerInfoVO crmCustomerInfoVO = new CrmCustomerInfoVO();
+            crmCustomerInfoVO.setCustomerId(orgCode);
+            List<CrmCustomerInfoVO> list= crmCustomerInfoService.findDefault(crmCustomerInfoVO);
+            if (list.size()>0){
+                CrmLastuserInfoVO crmLastuserInfoVO = new CrmLastuserInfoVO();
+                crmLastuserInfoVO.setCustomerId(orgCode);
+                List<CrmLastuserInfoVO> list1 = crmLastuserInfoService.findDefault(crmLastuserInfoVO);
+                objectionTiBaoVO.setCustomerId(list.get(0).getCustomerId());
+                objectionTiBaoVO.setCustomerName(list.get(0).getCustomerName());
+                objectionTiBaoVO.setCustAddr(list.get(0).getCustAddr());
+                objectionTiBaoVO.setCustEmpNo(list.get(0).getCustEmpNo());
+                objectionTiBaoVO.setCustTel(list.get(0).getCustTel());
+                if (list1.size()>0){
+                    objectionTiBaoVO.setLastUser(list1.get(0).getLastUser());
+                    objectionTiBaoVO.setLastUserId(list1.get(0).getLastUserId());
+                    objectionTiBaoVO.setLastUserAddr(list1.get(0).getLastUserAddr());
+                    objectionTiBaoVO.setCreateEmpNo(list1.get(0).getCreateEmpNo());
+                    objectionTiBaoVO.setLastUserTel(list1.get(0).getLastUserTel());
+                    return objectionTiBaoVO;
+                }else{
+                    objectionTiBaoVO.setLastUserId(orgCode);
+                }
+                crmClaimApply.setExplain("请填写默认使用单位");
+                return objectionTiBaoVO;
+            }else{
+                objectionTiBaoVO.setCustomerId(orgCode);
+                crmClaimApply.setExplain("请填写默认订货单位");
+                return objectionTiBaoVO;
+
+            }
+
+        }else if(crmClaimApply.getOptionType()==2){
+            //修改返回apply表数据
+            CrmClaimApply crmClaimApply1 = crmClaimApplyMapper.findByParamsForApp(crmClaimApply);
+            BeanCopyUtil.copy(crmClaimApply1,objectionTiBaoVO);
+            return  objectionTiBaoVO;
+        }else if(crmClaimApply.getOptionType()==3){
+            //详情返回apply表数据
+            CrmClaimApply crmClaimApply1 = crmClaimApplyMapper.findByParamsForApp(crmClaimApply);
+            BeanCopyUtil.copy(crmClaimApply1,objectionTiBaoVO);
+            return  objectionTiBaoVO;
+        }else if(crmClaimApply.getOptionType()==4){
+            //详情返回info表数据
+            CrmClaimInfo crmClaimInfo1 =crmClaimInfoMapper.findByParams(crmClaimInfo);
+            BeanCopyUtil.copy(crmClaimInfo1,objectionTiBaoVO);
+            return  objectionTiBaoVO;
+        }
+        return null;
+    }
+
+
     //新增修改销售审核保存驳回通过  保存数据
     @Override
     @Transactional

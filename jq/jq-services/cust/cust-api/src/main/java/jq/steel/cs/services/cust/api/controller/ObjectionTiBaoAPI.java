@@ -34,6 +34,18 @@ public interface ObjectionTiBaoAPI {
     @RequestMapping(value = "/objectionTiBao/findDetails",method = RequestMethod.POST)
     ServiceResponse<ObjectionTiBaoVO> findDetails(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest);
 
+
+    /**
+     *  新增查询修改查询和详情查询和销售审核查询(app)
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/objectionTiBao/findDetailsForApp",method = RequestMethod.POST)
+    ServiceResponse<ObjectionTiBaoVO> findDetailsForApp(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest);
+
+
+
     /**
      * 新增修改销售审核保存驳回通过  保存数据
      *
