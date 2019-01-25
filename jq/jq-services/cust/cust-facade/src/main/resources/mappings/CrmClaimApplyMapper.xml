@@ -947,23 +947,34 @@
         *
     FROM
         (
-            SELECT
-                CLAIM_STATE
-            FROM
-                CRM_CLAIM_APPLY
+    SELECT
+    A.CLAIM_STATE,
+    B.DEPT_CODE
+    FROM
+    CRM_CLAIM_APPLY A
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A .MILL_SHEET_NO = B.MILL_SHEET_NO
         where 1 = 1
     <if test="millSheetNos != null">
-      AND MILL_SHEET_NO  in
+      AND A.MILL_SHEET_NO  in
       <foreach collection="millSheetNos"  index="index" close=")" open="(" item="item" separator=",">
         #{millSheetNos[${index}]}
       </foreach>
     </if>
     <if test="customerId != null and customerId != ''" >
-      AND CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
+      AND A.CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
     </if>
-        <if test="claimNo != null">
-          and CLAIM_NO LIKE '%' || #{claimNo} ||'%'
-        </if>
+    <if test="claimNo != null">
+          and A.CLAIM_NO LIKE '%' || #{claimNo} ||'%'
+    </if>
+    <if test="deptCode != null and deptCode != ''" >
+      AND B.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+    </if>
+    <if test="deptCodes != null" >
+      AND B.DEPT_CODE  in
+      <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
+        #{deptCodes[${index}]}
+      </foreach>
+    </if>
         ) PIVOT (
             COUNT (CLAIM_STATE) FOR CLAIM_STATE IN (
                 'NEW' as CREATED,
