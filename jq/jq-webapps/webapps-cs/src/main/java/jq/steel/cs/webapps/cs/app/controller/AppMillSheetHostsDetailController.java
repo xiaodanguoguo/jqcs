@@ -110,8 +110,28 @@ public class AppMillSheetHostsDetailController {
     public JsonResponse<List<MillSheetHostsVO>> getMillSheetByMsg(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest) {
         JsonResponse<List<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
         try {
-            String orgName = AssertContext.getOrgName();
-            jsonRequest.getReqBody().setOrgName(orgName);
+            String acctId = AssertContext.getAcctId();
+            String orgId = AssertContext.getOrgId();
+            String orgType = AssertContext.getOrgType();
+            ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+            List<String> list = new ArrayList<>();
+            for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+                list.add(roleInfoVO.getRoleCode());
+            }
+            if (list.size()>0){
+                jsonRequest.getReqBody().setDeptCodes(list);
+            }else {
+                jsonRequest.getReqBody().setDeptCodes(null);
+            }
+            //组织名称  orgtype是5 为厂级领导  设置orgName为null 拿deptCode查询
+            if(orgType.equals("5")){
+
+            }else{
+                jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            }
+
+            jsonRequest.getReqBody().setOrgId(orgId);
+            jsonRequest.getReqBody().setOrgType(orgType);
             ServiceResponse<List<MillSheetHostsVO>> vos = appMillSheetHostsDetailAPI.getSheetMsg(jsonRequest);
             jsonResponse.setRspBody(vos.getRetContent());
         } catch (BusinessException e) {

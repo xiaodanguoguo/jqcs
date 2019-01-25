@@ -5,9 +5,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class MillCoilInfoVO implements Serializable {
 
+
+    //厂家code
+    private List<String> deptCodes;
+
+    //组织id
+    private String orgId;
+
+    //组织类型
+    private String orgType;
 
     private  String millSheetNo;
 
@@ -91,6 +101,41 @@ public class MillCoilInfoVO implements Serializable {
     private String endDtStr;  //结束时间
 
     private String zkdauf;
+
+
+    private List<String> millSheetNos;
+
+    public List<String> getMillSheetNos() {
+        return millSheetNos;
+    }
+
+    public void setMillSheetNos(List<String> millSheetNos) {
+        this.millSheetNos = millSheetNos;
+    }
+
+    public List<String> getDeptCodes() {
+        return deptCodes;
+    }
+
+    public void setDeptCodes(List<String> deptCodes) {
+        this.deptCodes = deptCodes;
+    }
+
+    public String getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(String orgId) {
+        this.orgId = orgId;
+    }
+
+    public String getOrgType() {
+        return orgType;
+    }
+
+    public void setOrgType(String orgType) {
+        this.orgType = orgType;
+    }
 
     public String getZkdauf() {
         return zkdauf;
