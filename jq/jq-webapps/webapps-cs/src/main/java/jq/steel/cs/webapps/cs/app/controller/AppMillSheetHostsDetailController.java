@@ -125,7 +125,6 @@ public class AppMillSheetHostsDetailController {
             }
             //组织名称  orgtype是5 为厂级领导  设置orgName为null 拿deptCode查询
             if(orgType.equals("5")){
-
             }else{
                 jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
             }
