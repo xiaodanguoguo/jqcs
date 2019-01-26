@@ -78,6 +78,34 @@ public class ObjectionTiBaoController {
 
 
     /**
+     *  新增查询修改查询和详情查询和销售审核查询(app)
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/findDetailsForApp",method = RequestMethod.POST)
+    public ServiceResponse<ObjectionTiBaoVO> findDetailsForApp(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest){
+        logger.info("分页", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<ObjectionTiBaoVO> serviceResponse = new ServiceResponse<>();
+        try {
+            ObjectionTiBaoVO objectionTiBaoVO = jsonRequest.getReqBody();
+            ObjectionTiBaoVO objectionTiBaoVO1 = objectionTiBaoService.findDetailsForApp(objectionTiBaoVO);
+            if (objectionTiBaoVO1.getExplain()!=null){
+                serviceResponse.setRetCode("1");
+                serviceResponse.setRetMessage(objectionTiBaoVO1.getExplain());
+            }
+            serviceResponse.setRetContent(objectionTiBaoVO1);
+        }catch (BusinessException e){
+            logger.error("获取分页出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
+
+
+
+    /**
      * 新增保存修改销售审核保存驳回通过
      *
      * @param jsonRequest

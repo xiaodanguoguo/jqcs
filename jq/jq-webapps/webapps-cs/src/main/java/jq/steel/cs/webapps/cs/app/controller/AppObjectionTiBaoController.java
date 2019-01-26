@@ -74,6 +74,17 @@ public class AppObjectionTiBaoController {
         JsonResponse<ObjectionTiBaoCountVO> jsonResponse = new JsonResponse<>();
         String orgType = AssertContext.getOrgType();
         String orgName =AssertContext.getOrgName();
+        String acctId = AssertContext.getAcctId();
+        ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+        List<String> list = new ArrayList<>();
+        for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+            list.add(roleInfoVO.getRoleCode());
+        }
+        if (list.size()>0){
+            jsonRequest.getReqBody().setDeptCodes(list);
+        }else {
+            jsonRequest.getReqBody().setDeptCodes(null);
+        }
         try {
             jsonRequest.getReqBody().setOrgType(orgType);
             jsonRequest.getReqBody().setOrgName(orgName);
@@ -161,16 +172,8 @@ public class AppObjectionTiBaoController {
         }
         //销售公司下的客户名称集合
         List<String> customers = new ArrayList<>();
-        if(orgType.equals("1")){
-           /* ServiceResponse<List<OrgInfoVO>>  hh = orgInfoServiceAPI.findOrgNameByOrgId(orgId);
-            for (OrgInfoVO orgInfoVO:hh.getRetContent()){
-                customers.add(orgInfoVO.getOrgName());
-            }*/
-            //设置customerid 为质证书的zkunner
-
-        }
-        if(customers.size()>0){
-            jsonRequest.getReqBody().setCustomerIds(customers);
+        if(orgType.equals("2")||orgType.equals("3")||orgType.equals("4")){
+            jsonRequest.getReqBody().setCustomerId(orgName);
         }
         try {
             ServiceResponse<PageDTO<ObjectionTiBaoVO>> serviceResponse = objectionTiBaoAPI.findTiBaoByPage(jsonRequest);
@@ -202,10 +205,37 @@ public class AppObjectionTiBaoController {
     public JsonResponse<PageDTO<ObjectionTiBaoVO>> findgenzongByPage(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest){
         logger.info("参数={}",JsonUtil.toJson(jsonRequest));
         JsonResponse<PageDTO<ObjectionTiBaoVO>> jsonResponse = new JsonResponse<>();
+        String acctId = AssertContext.getAcctId();
         String orgType = AssertContext.getOrgType();
+        String orgName = AssertContext.getOrgName();
+        String orgId = AssertContext.getOrgId();
+        jsonRequest.getReqBody().setOrgType(orgType);
+        jsonRequest.getReqBody().setOrgName(orgName);
+        ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+        List<String> list = new ArrayList<>();
+        for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+            list.add(roleInfoVO.getRoleCode());
+        }
+        if (list.size()>0){
+            jsonRequest.getReqBody().setDeptCodes(list);
+        }else {
+            jsonRequest.getReqBody().setDeptCodes(null);
+        }
+        //销售公司下的客户名称集合
+        List<String> customers = new ArrayList<>();
+        if(orgType.equals("1")){
+           /* ServiceResponse<List<OrgInfoVO>>  hh = orgInfoServiceAPI.findOrgNameByOrgId(orgId);
+            for (OrgInfoVO orgInfoVO:hh.getRetContent()){
+                customers.add(orgInfoVO.getOrgName());
+            }*/
+            //设置customerid 为质证书的zkunner
+
+        }
+        if(customers.size()>0){
+            jsonRequest.getReqBody().setCustomerIds(customers);
+        }
         try {
-            jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
-            jsonRequest.getReqBody().setOrgType(orgType);
+
             ServiceResponse<PageDTO<ObjectionTiBaoVO>> serviceResponse = objectionTiBaoAPI.findgenzongByPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
@@ -240,7 +270,18 @@ public class AppObjectionTiBaoController {
             // 根据service层返回的编码做不同的操作
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
-            ServiceResponse<ObjectionTiBaoVO> response = objectionTiBaoAPI.findDetails(jsonRequest);
+            String acctId = AssertContext.getAcctId();
+            ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+            List<String> list = new ArrayList<>();
+            for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+                list.add(roleInfoVO.getRoleCode());
+            }
+            if (list.size()>0){
+                jsonRequest.getReqBody().setDeptCodes(list);
+            }else {
+                jsonRequest.getReqBody().setDeptCodes(null);
+            }
+            ServiceResponse<ObjectionTiBaoVO> response = objectionTiBaoAPI.findDetailsForApp(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
                 // 如果需要异常信息

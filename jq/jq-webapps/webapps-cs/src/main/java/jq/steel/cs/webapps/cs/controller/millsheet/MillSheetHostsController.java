@@ -1401,8 +1401,8 @@ public class MillSheetHostsController {
         headers.add("目的地@zdaozhan@4000");
         headers.add("车号@zchehao@4000");
         headers.add("发车日期@lfdatStr@4000");
-        headers.add("本车总重量@totalZjishu@4000");
-        headers.add("本车总件数@totalZlosmenge@4000");
+        headers.add("本车总重量@totalZlosmenge@4000");
+        headers.add("本车总件数@totalZjishu@4000");
         headers.add("规格@specs@3000");
         headers.add("批/板/卷号@zcharg@4000");
         headers.add("炉批号@zlph@3000");
@@ -1462,7 +1462,7 @@ public class MillSheetHostsController {
                 //无数据或者导出数量超1000
                 if (arr.get(0).getErrType().equals("0")) {
                     //无数据
-                    jsonResponse.setRetCode("1111111");
+                    jsonResponse.setRetCode("0000001");
                     jsonResponse.setRetDesc("excel导出数据为空，请重新查询然后再导出，");
                 } else {
                     jsonResponse.setRetCode("0000001");

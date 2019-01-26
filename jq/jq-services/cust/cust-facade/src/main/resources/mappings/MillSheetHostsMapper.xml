@@ -269,13 +269,13 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     MSO.SPLIT_STATE,
     MSO.MILL_SHEET_TYPE,
     MSO.SURPLUS_BATCH,
-    MSO.ZKUNWE,
     MSO.JC_FLAG,
     MSH.ZCHEHAO,
     MSH.ZHTH,
     MSH.ZCPMC,
     MSH.LFDAT,
     MSH.SPILT_CUSTOMER,
+    MSH.ZDAOZHAN,
     MSH.ZPH,
     MSH.MILL_LINE,
     MSH.ZKDAUF AS ZKDAUF,
@@ -284,6 +284,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     (SELECT sum(ZLOSMENGE) FROM MILL_COIL_INFO WHERE MILL_SHEET_NO=MSH.MILL_SHEET_NO )as ZLOSMENGE,
     (SELECT sum(SURPLUS_ZJISHU) FROM MILL_COIL_INFO WHERE MILL_SHEET_NO=MSH.MILL_SHEET_NO )as SURPLUS_ZJISHU,
     (SELECT sum(SURPLUS_ZLOSMENGE) FROM MILL_COIL_INFO WHERE MILL_SHEET_NO=MSH.MILL_SHEET_NO )as SURPLUS_ZLOSMENGE,
+    (select distinct name1 from MILL_CUSTOMER where KUNNR =  MSO.ZKUNWE) AS ZKUNWE,
     (select distinct name1 from MILL_CUSTOMER where KUNNR = MSO.ZKUNNR) AS ZKUNNR
     FROM
     WARRANTY.MILL_SHEET_HOSTS MSO
@@ -765,7 +766,6 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     MSO.SPLIT_STATE,
     MSO.MILL_SHEET_TYPE,
     MSO.SURPLUS_BATCH,
-    MSO.ZKUNWE,
     MSO.JC_FLAG,
     MSH.ZCHEHAO,
     MSH.ZHTH,
@@ -781,6 +781,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     (SELECT sum(ZLOSMENGE) FROM MILL_COIL_INFO WHERE MILL_SHEET_NO=MSH.MILL_SHEET_NO )as ZLOSMENGE,
     (SELECT sum(SURPLUS_ZJISHU) FROM MILL_COIL_INFO WHERE MILL_SHEET_NO=MSH.MILL_SHEET_NO )as SURPLUS_ZJISHU,
     (SELECT sum(SURPLUS_ZLOSMENGE) FROM MILL_COIL_INFO WHERE MILL_SHEET_NO=MSH.MILL_SHEET_NO )as SURPLUS_ZLOSMENGE,
+    (select distinct name1 from MILL_CUSTOMER where KUNNR =  MSO.ZKUNWE) AS ZKUNWE,
     (select distinct name1 from MILL_CUSTOMER where KUNNR = MSO.ZKUNNR) AS ZKUNNR
     FROM
     WARRANTY.MILL_SHEET_HOSTS MSO
@@ -869,7 +870,9 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     order by H.SID desc
   </select>
 
-  <select id="getSheetHostsMsgHaveZcharg" resultMap="FullMap">
+
+  <!--lujiawei-->
+  <!--<select id="getSheetHostsMsgHaveZcharg" resultMap="FullMap">
     SELECT
     mss.STATE,
     msd.ZCPMC, msd.MILL_SHEET_NO, msd.ZPH, msd.ZKDAUF, msd.LFDAT
@@ -885,7 +888,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       GROUP BY mco.MILL_SHEET_NO
       )
       <if test="zchehao != null and zchehao != ''">
-        AND msd.ZCHEHAO= #{zchehao}
+        AND msd.ZCHEHAO like  '%' || #{zchehao} ||'%'
       </if>
       <if test="lfdat != null  and lfdat != ''" >
         AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd') = #{lfdat}
@@ -906,9 +909,53 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       </if>
     </if>
     AND mss.STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED','SPLITED')
+  </select>-->
+
+<!--wushibin 修改版 app质证书查询-->
+  <select id="getSheetHostsMsgHaveZcharg" resultMap="FullMap">
+    SELECT
+    mss.STATE,
+    msd.ZCPMC, msd.MILL_SHEET_NO, msd.ZPH, msd.ZKDAUF, msd.LFDAT
+    FROM MILL_SHEET_HOSTS mss
+    LEFT JOIN MILL_SHEET_HEAD msd ON MSD.MILL_SHEET_NO = MSS.MILL_SHEET_NO
+    <if test="zchehao != null and zchehao != ''">
+        AND msd.ZCHEHAO like  '%' || #{zchehao} ||'%'
+    </if>
+    <if test="lfdat != null  and lfdat != ''" >
+        AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd') = #{lfdat}
+    </if>
+    <if test="startDtStr != null and startDtStr != '' " >
+        AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd') >= #{startDtStr}
+    </if>
+    <if test="endDtStr != null and endDtStr != '' " >
+        AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd') &lt;= #{endDtStr}
+    </if>
+    <if test="deptCode != null and deptCode != ''" >
+      AND mss.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+    </if>
+    <if test="deptCodes != null" >
+      AND mss.DEPT_CODE  in
+      <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
+        #{deptCodes[${index}]}
+      </foreach>
+    </if>
+    <if test="millSheetNo != null and millSheetNo != '' ">
+        AND mss.MILL_SHEET_NO like  '%' || #{millSheetNo} ||'%'
+    </if>
+    <if test="millSheetNos != null">
+      AND mss.MILL_SHEET_NO  in
+      <foreach collection="millSheetNos"  index="index" close=")" open="(" item="item" separator=",">
+        #{millSheetNos[${index}]}
+      </foreach>
+    </if>
+    <if test="orgName != null and orgName != '' ">
+      AND msd.SPILT_CUSTOMER = #{orgName}
+    </if>
+    AND mss.STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED','SPLITED')  AND msd.ZCHEHAO NOT LIKE '-%'
   </select>
 
-  <select id="getSheetHostsMsgNoZcharg" resultMap="FullMap">
+<!--lujiawei-->
+  <!--<select id="getSheetHostsMsgNoZcharg" resultMap="FullMap">
     SELECT
     mss.STATE,
     msd.ZCPMC, msd.MILL_SHEET_NO, msd.ZPH, msd.ZKDAUF, msd.LFDAT
@@ -917,7 +964,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
 
       <if test="zchehao != null and zchehao != ''">
-        AND msd.ZCHEHAO= #{zchehao}
+        AND msd.ZCHEHAO like  '%' || #{zchehao}|| '%'
       </if>
       <if test="lfdat != null  and lfdat != ''" >
         AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd') = #{lfdat}
@@ -939,7 +986,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
 
     </trim>
     AND mss.STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED','SPLITED')
-  </select>
+  </select>-->
 
   <select id="selectByMillSheetNOWithCreateOrUpdate" resultMap="MillSheetHeadResultMap">
     SELECT *

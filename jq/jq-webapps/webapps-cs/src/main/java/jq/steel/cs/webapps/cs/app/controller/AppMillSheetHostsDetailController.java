@@ -6,6 +6,8 @@ import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
+import jq.steel.cs.services.base.api.controller.RoleInfoAPI;
+import jq.steel.cs.services.base.api.vo.RoleInfoVO;
 import jq.steel.cs.services.cust.api.controller.MillSheetHostsAPI;
 import jq.steel.cs.services.cust.api.controller.app.AppMillSheetHostsDetailAPI;
 import jq.steel.cs.services.cust.api.vo.CrmMillCoilInfoVO;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -33,6 +36,9 @@ public class AppMillSheetHostsDetailController {
 
     @Autowired
     private MillSheetHostsAPI millSheetHostsAPI;
+
+    @Autowired
+    private RoleInfoAPI roleInfoAPI;
 
     @RequestMapping(value = "/findMillSheetDeatilBySheet", method = RequestMethod.POST)
     public JsonResponse<List<CrmMillCoilInfoVO>> getCoilDetailByMillSheet(@RequestBody JsonRequest<CrmMillSheetDetailVO> jsonRequest) {
@@ -58,8 +64,25 @@ public class AppMillSheetHostsDetailController {
     public JsonResponse<PageDTO<MillSheetHostsVO>> findMillSheetByPage(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest) {
         JsonResponse<PageDTO<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
         try {
-            String orgName = AssertContext.getOrgName();
-            jsonRequest.getReqBody().setOrgName(orgName);
+            String acctId = AssertContext.getAcctId();
+            String orgId = AssertContext.getOrgId();
+            String orgType = AssertContext.getOrgType();
+            ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+            List<String> list = new ArrayList<>();
+            for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+                list.add(roleInfoVO.getRoleCode());
+            }
+            if (list.size()>0){
+                jsonRequest.getReqBody().setDeptCodes(list);
+            }else {
+                jsonRequest.getReqBody().setDeptCodes(null);
+            }
+            //组织名称
+            jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            jsonRequest.getReqBody().setOrgId(orgId);
+            jsonRequest.getReqBody().setOrgType(orgType);
+
+
             ServiceResponse<PageDTO<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findMillSheetByPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
@@ -87,8 +110,27 @@ public class AppMillSheetHostsDetailController {
     public JsonResponse<List<MillSheetHostsVO>> getMillSheetByMsg(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest) {
         JsonResponse<List<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
         try {
-            String orgName = AssertContext.getOrgName();
-            jsonRequest.getReqBody().setOrgName(orgName);
+            String acctId = AssertContext.getAcctId();
+            String orgId = AssertContext.getOrgId();
+            String orgType = AssertContext.getOrgType();
+            ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+            List<String> list = new ArrayList<>();
+            for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+                list.add(roleInfoVO.getRoleCode());
+            }
+            if (list.size()>0){
+                jsonRequest.getReqBody().setDeptCodes(list);
+            }else {
+                jsonRequest.getReqBody().setDeptCodes(null);
+            }
+            //组织名称  orgtype是5 为厂级领导  设置orgName为null 拿deptCode查询
+            if(orgType.equals("5")){
+            }else{
+                jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
+            }
+
+            jsonRequest.getReqBody().setOrgId(orgId);
+            jsonRequest.getReqBody().setOrgType(orgType);
             ServiceResponse<List<MillSheetHostsVO>> vos = appMillSheetHostsDetailAPI.getSheetMsg(jsonRequest);
             jsonResponse.setRspBody(vos.getRetContent());
         } catch (BusinessException e) {

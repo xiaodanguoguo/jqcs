@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -51,9 +52,10 @@ public class AppMillSheetHeadServiceImpl implements AppMillSheetHeadService {
         return vo;
     }
 
+
     @Override
     public List<MillSheetHostsVO> getSheetHostsMsg(MillCoilInfoVO vo) {
-        if(vo.getZcharg() != null && !("".equals(vo.getZcharg().trim()))){
+       /* if(vo.getZcharg() != null && !("".equals(vo.getZcharg().trim()))){
             List<MillSheetHosts> mshs = millSheetHostsMapper.getSheetHostsMsgHaveZcharg(vo);
             List<MillSheetHostsVO> vos = BeanCopyUtil.copyList(mshs, MillSheetHostsVO.class);
             return vos;
@@ -61,7 +63,26 @@ public class AppMillSheetHeadServiceImpl implements AppMillSheetHeadService {
             List<MillSheetHosts> mshs = millSheetHostsMapper.getSheetHostsMsgNoZcharg(vo);
             List<MillSheetHostsVO> vos = BeanCopyUtil.copyList(mshs, MillSheetHostsVO.class);
             return vos;
+        }*/
+        if (vo.getZcharg() != null && vo.getZcharg() != "") {
+            MillCoilInfo coilInfo = new MillCoilInfo();
+            coilInfo.setZcharg(vo.getZcharg());
+            List<MillCoilInfo> list = millCoilInfoMapper.findMillsheetNumber(coilInfo);
+            if (list.size() > 0) {
+                List<String> idall = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++) {
+                    idall.add(list.get(i).getMillsheetNo());
+                }
+                vo.setMillSheetNos(idall);
+            } else {
+                List<String> idall = new ArrayList<>();
+                idall.add("-99");
+                vo.setMillSheetNos(idall);
+            }
         }
+        List<MillSheetHosts> mshs = millSheetHostsMapper.getSheetHostsMsgHaveZcharg(vo);
+        List<MillSheetHostsVO> vos = BeanCopyUtil.copyList(mshs, MillSheetHostsVO.class);
+        return vos;
     }
 
     @Override
