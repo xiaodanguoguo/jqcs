@@ -62,6 +62,17 @@ public interface ObjectionDiaoChaAPI {
     @RequestMapping(value = "/objectionDiaoCha/export",method = RequestMethod.POST)
     ServiceResponse<List<ObjectionDiaoChaVO>> export(@RequestBody JsonRequest<List<String>> jsonRequest);
 
+
+    /**
+     *  内部调查导出excle
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/objectionDiaoCha/exportExcel",method = RequestMethod.POST)
+    ServiceResponse<List<ObjectionDiaoChaVO>> exportExcel(@RequestBody JsonRequest<List<String>> jsonRequest);
+
+
     /**
      *  异议调查打印受理单
      * @param  jsonRequest

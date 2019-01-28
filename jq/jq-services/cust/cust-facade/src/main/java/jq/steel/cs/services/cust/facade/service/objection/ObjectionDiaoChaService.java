@@ -23,6 +23,10 @@ public interface ObjectionDiaoChaService {
     //导出
     List<ObjectionDiaoChaVO> export (List<String> record);
 
+    //内部调查导出
+    List<ObjectionDiaoChaVO> exportExcel (List<String> record);
+
+
     //异议调查打印受理单+调查报告下载
     ObjectionDiaoChaVO print(ObjectionDiaoChaVO record);
 

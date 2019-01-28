@@ -140,6 +140,29 @@ public class ObjectionDiaoChaController {
         return  serviceResponse;
     }
 
+
+
+    /**
+     *  内部调查导出excle
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/exportExcel",method = RequestMethod.POST)
+    public ServiceResponse<List<ObjectionDiaoChaVO>> exportExcel(@RequestBody JsonRequest<List<String>> jsonRequest){
+        ServiceResponse<List<ObjectionDiaoChaVO>> serviceResponse = new ServiceResponse<>();
+        try {
+            List<String> objectionDiaoChaVOS = jsonRequest.getReqBody();
+            List<ObjectionDiaoChaVO> integer = objectionDiaoChaService.exportExcel(objectionDiaoChaVOS);
+            serviceResponse.setRetContent(integer);
+        }catch (BusinessException e){
+            logger.error("获取分页出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
+
     /**
      *  异议调查打印受理单
      * @param  jsonRequest

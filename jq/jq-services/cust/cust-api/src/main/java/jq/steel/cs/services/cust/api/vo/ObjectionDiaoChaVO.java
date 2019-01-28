@@ -8,6 +8,9 @@ import java.util.List;
 
 public class ObjectionDiaoChaVO {
 
+    //完成时间
+    private Date completionTime;
+
     //调查单位
     private String investigationUnit;
 
@@ -225,6 +228,14 @@ public class ObjectionDiaoChaVO {
 
     private String memo;    //备注
 
+
+    public Date getCompletionTime() {
+        return completionTime;
+    }
+
+    public void setCompletionTime(Date completionTime) {
+        this.completionTime = completionTime;
+    }
 
     public String getInvestigationUnit() {
         return investigationUnit;

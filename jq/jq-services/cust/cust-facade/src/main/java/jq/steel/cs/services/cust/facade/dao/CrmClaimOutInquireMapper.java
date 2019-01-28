@@ -12,6 +12,10 @@ public interface CrmClaimOutInquireMapper {
 
     CrmClaimOutInquire find (CrmClaimOutInquire record);
 
+    CrmClaimOutInquire findDateForExcel (CrmClaimOutInquire record);
+
+
+
     CrmClaimOutInquire findDetails (CrmClaimOutInquire record);
 
     int insert(CrmClaimOutInquire record);
