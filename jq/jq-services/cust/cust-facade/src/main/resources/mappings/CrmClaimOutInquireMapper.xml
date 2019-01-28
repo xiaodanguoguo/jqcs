@@ -84,6 +84,7 @@
     <result column="PRODUCTION_PROCESS_ALL" property="productionProcessAll" jdbcType="VARCHAR" />
     <result column="INVESTIGATION_UNIT" property="investigationUnit" jdbcType="VARCHAR" />
     <result column="RESPONSIBILITY_UNIT" property="responsibilityUnit" jdbcType="VARCHAR" />
+    <result column="COMPLETION_TIME" property="completionTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <!--<resultMap id="ResultMapWithBLOBs" type="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" extends="BaseResultMap" >
     <result column="INQUIRE_INFO" property="inquireInfo" jdbcType="CLOB" />
@@ -663,4 +664,49 @@ LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE C ON A.CLAIM_NO = C.CLAIM_NO
       </if>
     </trim>
   </select>
+
+
+  <!--内部调查导出excel查询-->
+  <select id="findDateForExcel" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimOutInquire" >
+    SELECT H.* FROM(SELECT
+    A.CLAIM_NO,
+    A.CLAIM_STATE,
+    A.MILL_SHEET_NO,
+    A.CUSTOMER_NAME,
+    B.DEPT_CODE,
+    A.PRODUCT_ID,
+    A.PRODUCT_NAME,
+    A.DESIGNATION,
+    A.SIZE_MARK,
+    A.CLAIM_TYPE,
+    A.OBJECTION_NUM,
+    C.PRESENTATION_DATE,
+    C.ADMISSIBILITY_TIME,
+    A.INQUIRE_STATE,
+    D.CREATE_BY AS EXTERNAL_LNVESTIGATOR,
+    D.CREATE_DT AS EXTERNAL_LNVESTIGATION_DATE,
+    D.FOLLOW_REASON,
+    E.CREATE_BY AS INTERNAL_LNVESTIGATOR,
+    E.CREATE_DT	AS INTERNAL_LNVESTIGATION_DATE,
+    (select T.TYPE_NAME from sgai_md_common_type t
+    WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
+    WHERE T.TYPE_NAME=E.ZCPMC)) AS ZCPMC,
+    (select T.PARENT_SID from sgai_md_common_type t
+    WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
+    WHERE T.TYPE_NAME=E.ZCPMC)) AS PARENT_SID,
+    E.ZPH
+    FROM
+    WARRANTY.CRM_CLAIM_INFO A
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_APPLY C ON A.CLAIM_NO = C.CLAIM_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE D ON A.CLAIM_NO = D.CLAIM_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE E ON A.CLAIM_NO = E.CLAIM_NO
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD E ON A.MILL_SHEET_NO = E.MILL_SHEET_NO ) H
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="claimNo != null and claimNo != ''" >
+        AND H.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </select>
+
 </mapper>

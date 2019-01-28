@@ -8,6 +8,9 @@ import java.util.List;
 
 public class CrmClaimOutInquire {
 
+    //完成时间
+    private Date completionTime;
+
     //调查单位
     private String investigationUnit;
 
@@ -51,6 +54,13 @@ public class CrmClaimOutInquire {
 
     private String claimState1;
 
+    public Date getCompletionTime() {
+        return completionTime;
+    }
+
+    public void setCompletionTime(Date completionTime) {
+        this.completionTime = completionTime;
+    }
 
     public String getInvestigationUnit() {
         return investigationUnit;
