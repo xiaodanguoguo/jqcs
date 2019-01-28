@@ -404,17 +404,17 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimOutInquire2.setAst(ast);
 
             //受理日期
-            Date date1= crmClaimOutInquire2.getPresentationDate();
+            Date date1= crmClaimOutInquire2.getAdmissibilityTime();
             String at = DateUtil.formatDate(date1, "yyyy-MM-dd");
             crmClaimOutInquire2.setAt(at);
 
             //外部调查时间
-            Date date2= crmClaimOutInquire2.getPresentationDate();
+            Date date2= crmClaimOutInquire2.getExternalLnvestigationDate();
             String eld = DateUtil.formatDate(date2, "yyyy-MM-dd");
             crmClaimOutInquire2.setEld(eld);
 
             //内部调查时间
-            Date date3= crmClaimOutInquire2.getPresentationDate();
+            Date date3= crmClaimOutInquire2.getInternalLnvestigationDate();
             String ild = DateUtil.formatDate(date3, "yyyy-MM-dd");
             crmClaimOutInquire2.setIld(ild);
 
@@ -437,6 +437,47 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             }else if (crmClaimOutInquire2.getClaimState().equals("ADOPT")){
                 crmClaimOutInquire2.setClaimState("销售审核通过");
             }
+            crmClaimOutInquires1.add(crmClaimOutInquire2);
+        }
+
+        //转换返回对象
+        List<ObjectionDiaoChaVO> list1 = BeanCopyUtil.copyList(crmClaimOutInquires1,ObjectionDiaoChaVO.class);
+        return list1;
+    }
+
+
+
+    //导出
+    @Override
+    public List<ObjectionDiaoChaVO> exportExcel(List<String> list) {
+        //list---->对象
+        List<CrmClaimOutInquire> crmClaimOutInquires = new ArrayList<>();
+        for(int i = 0;i < list.size();i++){
+            CrmClaimOutInquire crmClaimOutInquire = new CrmClaimOutInquire();
+            crmClaimOutInquire.setClaimNo(list.get(i));
+            crmClaimOutInquires.add(crmClaimOutInquire);
+        }
+        List<CrmClaimOutInquire> crmClaimOutInquires1 =new ArrayList<>();
+        for (CrmClaimOutInquire crmClaimOutInquire:crmClaimOutInquires){
+            CrmClaimOutInquire crmClaimOutInquire1  = new CrmClaimOutInquire();
+            crmClaimOutInquire1.setClaimNo(crmClaimOutInquire.getClaimNo());
+            CrmClaimOutInquire crmClaimOutInquire2 = crmClaimOutInquireMapper.findDateForExcel(crmClaimOutInquire);
+
+
+            //登记日期
+            Date date7= crmClaimOutInquire2.getAdmissibilityTime();
+            String ast7 = DateUtil.formatDate(date7, "yyyy-MM-dd");
+            crmClaimOutInquire2.setEld(ast7);
+
+            //生产日期
+            Date date= crmClaimOutInquire2.getProductDt();
+            String ast = DateUtil.formatDate(date, "yyyy-MM-dd");
+            crmClaimOutInquire2.setAst(ast);
+
+            //完成日期
+            Date date1= crmClaimOutInquire2.getCompletionTime();
+            String at = DateUtil.formatDate(date1, "yyyy-MM-dd");
+            crmClaimOutInquire2.setAt(at);
             crmClaimOutInquires1.add(crmClaimOutInquire2);
         }
 

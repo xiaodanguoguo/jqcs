@@ -269,6 +269,84 @@ public class ObjectionDiaoChaController {
     }
 
 
+
+    /**
+     *  内部调查导出excle
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/exportExcel",method = RequestMethod.POST)
+    public JsonResponse<List<ObjectionDiaoChaVO>> exportExcel(@RequestParam("name") String jsonRequest) {
+        JsonResponse<List<ObjectionDiaoChaVO>> jsonResponse = new JsonResponse<>();
+        try {
+            List<String> list = JsonUtil.parseObject(jsonRequest,List.class);
+            JsonRequest<List<String>> jsonRequest1 = new JsonRequest();
+            jsonRequest1.setReqBody(list);
+            // 根据service层返回的编码做不同的操作
+            ServiceResponse<List<ObjectionDiaoChaVO>> response = objectionDiaoChaAPI.exportExcel(jsonRequest1);
+            if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode())) {
+                jsonResponse.setRspBody(response.getRetContent());
+                //转正报表
+                List<String> headers = getParam1();
+                List<ObjectionDiaoChaVO> arr =  jsonResponse.getRspBody();
+                try {
+                    ExportExcelUtils.createExcelDownload("异议内部调查", "异议异议内部调查", "异议异议内部调查" +
+                            System.currentTimeMillis(), headers.toArray(new String[headers.size()]), arr);
+
+                } catch (Exception e) {
+                    logger.error("error = {}",e);
+                }
+
+            }   // 如果需要异常信息
+            else if (response.isHasError())
+                // 系统异常
+                jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                // 如果需要的话, 这个方法可以获取异常信息 response.getErrorMessage()
+            else {
+                // 根据业务的不同确定返回的业务信息是否正常,是否需要执行下一步操作
+                jsonResponse.setRetCode(response.getRetCode());
+                jsonResponse.setRetDesc(response.getRetMessage());
+            }
+        } catch (FeignException e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+            return jsonResponse;
+        }
+
+        return jsonResponse;
+
+    }
+    private List<String> getParam1() {
+        List<String> headers = new ArrayList<>();
+        headers.add("异议编号@claimNo@4000");
+        headers.add("投诉客户@customerName@4000");
+        headers.add("登记日期@eld@4000");
+        headers.add("钢种@zph@4000");
+        headers.add("质量等级@qualityGrade@4000");
+        headers.add("异议类型@claimType@4000");
+        headers.add("产品规格@specs@4000");
+        headers.add("表面结构@surfaceStructure@4000");
+        headers.add("异议量(吨)@objectionNum@4000");
+        headers.add("异议卷号@battenPlateNo@4000");
+        headers.add("异议描述@claimDesc@4000");
+        headers.add("生产日期@ast@4000");
+        headers.add("班别/次@shift@4000");
+        headers.add("原判定结果@originalJudgementResult@4000");
+        headers.add("生产工艺过程调查@productionProcessInvestigati@4000");
+        headers.add("原因分析及结论@claimVerdict@4000");
+        headers.add("整改措施@improvement@4000");
+        headers.add("调查单位@investigationUnit@4000");
+        headers.add("调查人@internalLnvestigator@4000");
+        headers.add("完成日期@at@4000");
+        return headers;
+    }
+
+
+
+
+
     /**
      *  异议调查打印受理单
      * @param  jsonRequest
