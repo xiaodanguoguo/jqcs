@@ -7,6 +7,7 @@ import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.BeanCopyUtil;
 import com.ebase.utils.DateUtil;
+import com.ebase.utils.StringUtil;
 import com.ebase.utils.secret.Md5Util;
 import jq.steel.cs.services.base.api.vo.AcctInfoExcel;
 import jq.steel.cs.services.base.api.vo.AcctInfoRoleVO;
@@ -457,7 +458,6 @@ public class SysBasicsAcctServiceImpl implements SysBasicsAcctService {
         return jsonResponse;
     }
 
-
     /**
      * 用户添加
      * @param jsonRequest
@@ -467,6 +467,24 @@ public class SysBasicsAcctServiceImpl implements SysBasicsAcctService {
     public JsonResponse sysAcctAddUser(JsonRequest<AcctToRoleInfoVO> jsonRequest) {
         JsonResponse jsonResponse = new JsonResponse();
         AcctToRoleInfoVO reqBody = jsonRequest.getReqBody();
+
+        // 校验是否为酒钢 JQ开头
+        String prefix = reqBody.getAcctTitle().substring(0,2);
+        String suffix = reqBody.getAcctTitle().substring(2);
+        if (prefix.equals("JG")) {
+            if (!(suffix.length() == 7)) {
+                jsonResponse.setRetCode("0701013");
+                return jsonResponse;
+            } else {
+                if (!StringUtil.isNumber(suffix)) {
+                    jsonResponse.setRetCode("0701014");
+                    return jsonResponse;
+                }
+            }
+
+        }
+
+
         AcctInfo acctInfo = new AcctInfo();
         acctInfo.setAcctTitle(reqBody.getAcctTitle());
 
