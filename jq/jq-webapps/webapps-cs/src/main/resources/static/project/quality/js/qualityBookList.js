@@ -117,7 +117,7 @@ function clsMethodLee$operate(){
                 if(window.location.href.indexOf("qualityBookList2") != -1){
                     var milName = "";
                     for(var lmI = 0; lmI < $("#tableList")[0].cacheArr.length; lmI++){
-                        if($("#tableList")[0].cacheArr[lmI].jcFlag == 0){//jcFlag（number类型）是否是0提示‘建材类不让下载’ 如果是1 再判断字段查询返回的字段isAllow（string类型）
+                        if($("#tableList")[0].cacheArr[lmI].isAllowDown == "N"){//isAllowDown（number类型）是否是N提示‘建材类不让下载’
                             milName += milName ? $("#tableList")[0].cacheArr[lmI].millSheetNo : "," + $("#tableList")[0].cacheArr[lmI].millSheetNo;
                         }
                     }
@@ -125,9 +125,25 @@ function clsMethodLee$operate(){
                         var alertBox = new clsAlertBoxCtrl();
                         alertBox.Alert("质证书编号为：" + milName + "。建材类不让下载","错误提示");
                     }else{
-                        var milName2 = "";
+                        var millSheetNoArr = [];
+                        for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
+                            millSheetNoArr.push($("#tableList")[0].cacheArr[nI].millSheetNo);
+                        }
+                        var importParam = "name=" + JSON.stringify(millSheetNoArr);
+                        $.download(requestUrl + document.body.jsLee.requestUrl.path3, importParam, "POST");
+                        $("#tableList")[0].cacheArr = [];
+                        setTimeout(function(){
+                            $("#tableList")[0].cacheArr = [];
+                            //initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+                            if(window.location.href.indexOf("qualityBookList2") != -1){
+                                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path7,null,"POST");
+                            }else{
+                                initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
+                            }
+                        },2000);
+                        /*var milName2 = "";
                         for(var lnI = 0; lnI < $("#tableList")[0].cacheArr.length; lnI++){
-                            if($("#tableList")[0].cacheArr[lnI].isAllowDown == "N"){//jcFlag（number类型）是否是0提示‘建材类不让下载’ 如果是1 再判断字段查询返回的字段isAllow（string类型）
+                            if($("#tableList")[0].cacheArr[lnI].isAllowDown == "N"){//isAllowDown（number类型）是否是N提示‘建材类不让下载’ 如果是1 再判断字段查询返回的字段isAllow（string类型）
                                 milName2 += milName2 ? $("#tableList")[0].cacheArr[lnI].millSheetNo : "," + $("#tableList")[0].cacheArr[lnI].millSheetNo;
                             }
                         }
@@ -135,7 +151,7 @@ function clsMethodLee$operate(){
                             var alertBox = new clsAlertBoxCtrl();
                             alertBox.Alert("质证书编号为：" + milName + "。您无权下载","错误提示");
                         }else{
-                            var millSheetNoArr = [];
+                           var millSheetNoArr = [];
                             for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){
                                 millSheetNoArr.push($("#tableList")[0].cacheArr[nI].millSheetNo);
                             }
@@ -151,7 +167,7 @@ function clsMethodLee$operate(){
                                     initplugPath($("#tableList")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,null,"POST");
                                 }
                             },2000);
-                        }
+                        }*/
                     }
                 }else{
                     var millSheetNoArr = [];
@@ -203,7 +219,7 @@ function clsMethodLee$operate(){
                 if(window.location.href.indexOf("qualityBookList2") != -1) {
                     var milName = "";
                     for (var lmI = 0; lmI < $("#tableList")[0].cacheArr.length; lmI++) {
-                        if ($("#tableList")[0].cacheArr[lmI].isAllowPrint == "N") {//isAllow（string类型）  如果是‘Y’ 允许打印   如果是'N' 提示  ‘此质证书您无权打印’
+                        if ($("#tableList")[0].cacheArr[lmI].isAllowPrint == "N") {//isAllowPrint（string类型）  如果是‘Y’ 允许打印   如果是'N' 提示  ‘此质证书您无权打印’
                             milName += milName ? $("#tableList")[0].cacheArr[lmI].millSheetNo : "," + $("#tableList")[0].cacheArr[lmI].millSheetNo;
                         }
                     }
@@ -396,6 +412,10 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {//插件渲染操作
     //判断是否拆分过，存在拆分历史
     if(jsonItem.isSplit == 1){
         $(cloneRow).find("#historySplit").show();
+    }
+    //分销售达方字段和订货单位名称一致时，表格中不显示，不一致时才显示。
+    if(jsonItem.spiltCustomer == jsonItem.zkunnr){
+        jsonItem.spiltCustomer = "";
     }
 
     //拆分申请操作

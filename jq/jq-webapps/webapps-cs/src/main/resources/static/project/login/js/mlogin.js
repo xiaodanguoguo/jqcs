@@ -31,8 +31,13 @@ function clsMethodLee$parse(){
     $("body").css("height","100%");
     if(getCookie("isTrue") == 1){//判断是否记住密码
         //$("#isSavePassword").attr("checked",true);
+        $("#isSavePassword").attr("checked",true);
         $("#js-input--username").val(unescape(getCookie("acctTitle")));
         $("#js-input-password").val(unescape(getCookie("acctPassword")));
+    }else{
+        $("#isSavePassword").attr("checked",false);
+        $("#js-input--username").val("");
+        $("#js-input-password").val("");
     }
     initplugPath($("#imgListLun")[0],"standardTableCtrl",this.requestUrl.path2,{},"POST");
     $("#titleNameHead").html("| 客户登录")

@@ -289,7 +289,7 @@
             <div class="management-box-list">
                 <ul class="management-box-list__Content clearfix" id="searchBox">
                     <li class="management-box-list__Every">
-                        <span class="management-box-list__Name">客户名称:</span>
+                        <span class="management-box-list__Name">分销售达方:</span>
                         <input type="text" class="inputBase" id="condzkunnr">
                     </li>
                     <li class="management-box-list__Every">
@@ -360,7 +360,7 @@
                 <div class="btnLowNew management-box-split">强制拆分</div>-->
             </div>
             <div style="width: 980px;overflow:scroll;">
-                <table class="table-list" id="tableList" style="table-layout: fixed;width:1600px;" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData" chkId="chkCoding" isCacheCond="sid" clsChk="clsChk" clsallchk="clsAllChk">
+                <table class="table-list" id="tableList" style="table-layout: fixed;width:2000px;" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData" chkId="chkCoding" isCacheCond="sid" clsChk="clsChk" clsallchk="clsAllChk">
                     <tr class="table-list-currentrow">
                         <th class="table-list-currentrow-theader"  width="7%">操作</th>
                         <th class="table-list-currentrow-theader" width="3%">
@@ -370,6 +370,8 @@
                         <th class="table-list-currentrow-theader" width="5%">质证书类别</th>
                         <th class="table-list-currentrow-theader" width="5%">质证书状态</th>
                         <th class="table-list-currentrow-theader" width="18%">订货单位</th>
+                        <th class="table-list-currentrow-theader" width="18%">收货单位</th>
+                        <th class="table-list-currentrow-theader" width="18%">目的地</th>
                         <th class="table-list-currentrow-theader" width="18%">分销售达方</th>
                         <th class="table-list-currentrow-theader" width="10%">发车时间</th>
                         <th class="table-list-currentrow-theader" width="12%">车号</th>
@@ -400,6 +402,8 @@
                         <td class="table-list-currentrow-tdetail" id="millSheetType" style="text-align: center"></td>
                         <td class="table-list-currentrow-tdetail" id="stateName" style="text-align: center"></td>
                         <td class="table-list-currentrow-tdetail" id="zkunnr"></td>
+                        <td class="table-list-currentrow-tdetail" id="zkunwe"></td>
+                        <td class="table-list-currentrow-tdetail" id="zdaozhan"></td>
                         <td class="table-list-currentrow-tdetail" id="spiltCustomer"></td>
                         <td class="table-list-currentrow-tdetail" id="createdDt" style="text-align: center"></td>
                         <td class="table-list-currentrow-tdetail" id="zchehao" style="text-align: center"></td>
@@ -424,6 +428,17 @@
                 <p>暂无数据......</p>
             </div>
             <div class="tcdPageCode"></div>
+            <style>
+                .aaa{
+                    cursor: pointer;
+                }
+                .aaa:hover{
+                    color: #6390f3;
+                    text-decoration: underline;
+                }
+            </style>
+            <div style="line-height: 24px;padding: 10px;text-align: center;width: 100%;">快捷链接：<a href="http://hyfw.95306.cn/gateway/DzswNewD2D/Dzsw/page/business-chcx-hwzzsy" class="aaa">中国铁路网货物追踪查询</a> </div>
+
         </div>
     </div>
     <div id="previewOpeBox" class="popup gc_box" style="display:none">

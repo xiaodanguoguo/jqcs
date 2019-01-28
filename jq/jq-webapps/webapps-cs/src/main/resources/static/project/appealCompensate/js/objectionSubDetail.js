@@ -17,7 +17,8 @@ function clsMethodLee(){
         "path14":"/orderUnit/orderUnitInsert",//订货单位新增/修改
         "path15":"/unitOfUse/unitOfUseInsert",//使用单位新增/修改
         "path16":"/orderUnit/customerInfo",//订货单位获取当前登录人信息
-        "path17":"/objectionChuLi/look"//预览接口
+        "path17":"/objectionChuLi/look",//预览接口
+        "path18":"/objectionDiaoCha/exportExcel"//内部调查下载接口
     };
     this.operateType = "";//操作类型 0-订货单位新增 1-订货单位编辑  2-使用单位新增  3-使用单位编辑
     this.opeDom = "";
@@ -531,6 +532,11 @@ function clsMethodLee$operate(){
             getAjaxResult(document.body.jsLee.requestUrl.path17,"POST",jsonParam,"firstPreviewCallBack(data)")
         }
 
+    });
+    //内部调查下载
+    $("#downLoadExcel").on("click",function(){
+        var importParam = "name=" + JSON.stringify(document.body.jsLee.claimNo);
+        $.download(requestUrl + document.body.jsLee.requestUrl.path18, importParam, "POST");
     });
 }
 function clsMethodLee$refresh(){
