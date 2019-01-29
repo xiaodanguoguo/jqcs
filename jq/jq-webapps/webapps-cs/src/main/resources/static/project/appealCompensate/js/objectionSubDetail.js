@@ -535,7 +535,8 @@ function clsMethodLee$operate(){
     });
     //内部调查下载
     $("#downLoadExcel").on("click",function(){
-        var importParam = "name=" + JSON.stringify(document.body.jsLee.claimNo);
+        var arrP = []
+        var importParam = "name=" + JSON.stringify(arrP.push(document.body.jsLee.claimNo));
         $.download(requestUrl + document.body.jsLee.requestUrl.path18, importParam, "POST");
     });
 }
