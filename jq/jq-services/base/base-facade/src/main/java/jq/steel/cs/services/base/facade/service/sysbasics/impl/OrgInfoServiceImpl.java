@@ -408,7 +408,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 
 		RoleInfo roleInfo2 = new RoleInfo();
 		roleInfo2.setRoleCode("2000");
-		roleInfo2.setRoleTitle("炼扎");
+		roleInfo2.setRoleTitle("炼轧");
 		roleInfo2.setIsDelete("0");
 		roleInfo2.setStatus("1");
 		roleInfo2.setOrgId(orgInfoId);
