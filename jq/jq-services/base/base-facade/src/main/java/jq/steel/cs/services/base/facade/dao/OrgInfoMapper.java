@@ -71,4 +71,6 @@ public interface OrgInfoMapper {
 	OrgInfo getOrgCode(@Param("sapCode") String sapCode);
 
     List<OrgInfo> findByOrgName(OrgInfoVO reqBody);
+
+	OrgInfo selectByPrimaryKey(String getoInfoId);
 }

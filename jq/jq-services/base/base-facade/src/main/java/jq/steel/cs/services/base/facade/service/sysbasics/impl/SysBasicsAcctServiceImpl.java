@@ -468,21 +468,28 @@ public class SysBasicsAcctServiceImpl implements SysBasicsAcctService {
         JsonResponse jsonResponse = new JsonResponse();
         AcctToRoleInfoVO reqBody = jsonRequest.getReqBody();
 
-        // 校验是否为酒钢 JQ开头
-        String prefix = reqBody.getAcctTitle().substring(0,2);
-        String suffix = reqBody.getAcctTitle().substring(2);
-        if (prefix.equals("JG")) {
-            if (!(suffix.length() == 7)) {
-                jsonResponse.setRetCode("0701013");
-                return jsonResponse;
-            } else {
-                if (!StringUtil.isNumber(suffix)) {
-                    jsonResponse.setRetCode("0701014");
-                    return jsonResponse;
-                }
-            }
+        OrgInfo orgInfo = orgInfoMapper.selectByPrimaryKey(reqBody.getoInfoId());
 
+        // 是否为酒钢机构
+        if (orgInfo.getOrgType().equals("5")) {
+            // 校验是否为酒钢 JQ开头
+            String prefix = reqBody.getAcctTitle().substring(0,2);
+            String suffix = reqBody.getAcctTitle().substring(2);
+            if (prefix.equals("JG")) {
+                if (!(suffix.length() == 7)) {
+                    jsonResponse.setRetCode("0701013");
+                    return jsonResponse;
+                } else {
+                    if (!StringUtil.isNumber(suffix)) {
+                        jsonResponse.setRetCode("0701014");
+                        return jsonResponse;
+                    }
+                }
+
+            }
         }
+
+
 
 
         AcctInfo acctInfo = new AcctInfo();

@@ -566,4 +566,28 @@ FROM
 WARRANTY.ORG_INFO A
 WHERE A.PARENT_ID like'%' || #{parentId} ||'%'
 	</select>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		ID,
+		ORG_CODE,
+		ORG_NAME,
+		PARENT_ID,
+		REMARK,
+		STATUS,
+		CREATED_BY,
+		CREATED_TIME,
+		UPDATED_BY,
+		UPDATED_TIME,
+		SAP_CODE,
+		BUKRS,
+		ORG_TYPE,
+		TEL,
+		ADDR,
+		EMAIL,
+		REG_TYPE,
+		INDUSTRIAL_CODE
+		from ORG_INFO
+		where ID = #{id}
+	</select>
 </mapper>
