@@ -625,7 +625,8 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
         if(crmClaimApply.getDeptCode()!=null&& crmClaimApply.getDeptCode()!=""){
             crmClaimApply.setDeptCodes(null);
         }
-       System.out.println(crmClaimApply.getOptionType());
+       System.out.println("deptcodes"+crmClaimApply.getDeptCodes());
+        System.out.println("deptcode"+crmClaimApply.getDeptCode());
        //1銷售公司 2一級代理 3供应商 4终端客户 5酒钢管理
         if(crmClaimApply.getOrgType().equals("1")){
             CrmClaimApply h = new CrmClaimApply();
@@ -644,8 +645,52 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
         if(crmClaimApply.getOrgType().equals("2")||crmClaimApply.getOrgType().equals("3")||crmClaimApply.getOrgType().equals("4")){
             crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
         }
-        ObjectionTiBaoCountVO vo = crmClaimApplyMapper.getCount(crmClaimApply);
-        vo.setAll(vo.getCreated() + vo.getPresent() + vo.getReject());
+        ObjectionTiBaoCountVO vo = new ObjectionTiBaoCountVO();
+        List<ObjectionTiBaoCountVO> objectionTiBaoCountVOS = crmClaimApplyMapper.getCount(crmClaimApply);
+        if(objectionTiBaoCountVOS.size()>0){
+            Integer created= new Integer(0);
+            Integer present= new Integer(0);
+            Integer acceptance= new Integer(0);
+            Integer reject= new Integer(0);
+            Integer investigation= new Integer(0);
+            Integer handle= new Integer(0);
+            Integer end= new Integer(0);
+            Integer evaluate= new Integer(0);
+            Integer adopt= new Integer(0);
+            for (int i = 0; i < objectionTiBaoCountVOS.size(); i++){
+                created+=objectionTiBaoCountVOS.get(i).getCreated();
+                present+=objectionTiBaoCountVOS.get(i).getPresent();
+                acceptance+=objectionTiBaoCountVOS.get(i).getAcceptance();
+                reject+=objectionTiBaoCountVOS.get(i).getReject();
+                investigation+=objectionTiBaoCountVOS.get(i).getInvestigation();
+                handle+=objectionTiBaoCountVOS.get(i).getHandle();
+                end+=objectionTiBaoCountVOS.get(i).getEnd();
+                evaluate+=objectionTiBaoCountVOS.get(i).getEvaluate();
+                adopt+=objectionTiBaoCountVOS.get(i).getAdopt();
+            }
+            vo.setCreated(created);
+            vo.setPresent(present);
+            vo.setAcceptance(acceptance);
+            vo.setReject(reject);
+            vo.setInvestigation(investigation);
+            vo.setHandle(handle);
+            vo.setEnd(end);
+            vo.setEvaluate(evaluate);
+            vo.setAdopt(adopt);
+            vo.setAll(vo.getCreated() + vo.getPresent() + vo.getReject());
+        }else {
+            // 新建created 已提报present 已受理acceptance 已驳回reject 调查中investigation 处理中handle 已结案end  已评价evaluate 销售审核通过adopt;
+            vo.setCreated(0);
+            vo.setPresent(0);
+            vo.setAcceptance(0);
+            vo.setReject(0);
+            vo.setInvestigation(0);
+            vo.setHandle(0);
+            vo.setEnd(0);
+            vo.setEvaluate(0);
+            vo.setAdopt(0);
+            vo.setAll(0);
+        }
 
         return vo;
     }

@@ -13,6 +13,9 @@ public class MillCoilInfoVO implements Serializable {
     //厂家code
     private List<String> deptCodes;
 
+
+    private String deptCode;
+
     //组织id
     private String orgId;
 
@@ -104,6 +107,14 @@ public class MillCoilInfoVO implements Serializable {
 
 
     private List<String> millSheetNos;
+
+    public String getDeptCode() {
+        return deptCode;
+    }
+
+    public void setDeptCode(String deptCode) {
+        this.deptCode = deptCode;
+    }
 
     public List<String> getMillSheetNos() {
         return millSheetNos;

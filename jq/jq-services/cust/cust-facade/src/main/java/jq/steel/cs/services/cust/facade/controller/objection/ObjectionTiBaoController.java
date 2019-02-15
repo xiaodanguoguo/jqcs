@@ -266,6 +266,8 @@ public class ObjectionTiBaoController {
             crmClaimApply.setCreatedBy(jsonRequest.getReqBody().getCreatedBy());
             crmClaimApply.setOrgType(jsonRequest.getReqBody().getOrgType());
             crmClaimApply.setOrgName(jsonRequest.getReqBody().getOrgName());
+            crmClaimApply.setDeptCode(jsonRequest.getReqBody().getDeptCode());
+            crmClaimApply.setDeptCodes(jsonRequest.getReqBody().getDeptCodes());
             ObjectionTiBaoCountVO vo = objectionTiBaoService.getCount(crmClaimApply);
             serviceResponse.setRetContent(vo);
         } catch (Exception e) {
