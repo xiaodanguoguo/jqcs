@@ -11,10 +11,19 @@
     <result column="CREATE_DT" property="createDt" jdbcType="TIMESTAMP" />
     <result column="UPDATE_BYID" property="updateByid" jdbcType="NUMERIC" />
     <result column="UPDATE_DT" property="updateDt" jdbcType="TIMESTAMP" />
+    <result column="C_TYPE" property="cType" jdbcType="VARCHAR" />
+    <result column="CUSTOMER" property="customer" jdbcType="VARCHAR" />
+    <result column="PRODUCT_NAME" property="productName" jdbcType="VARCHAR" />
+    <result column="CATEGORY_NAME" property="categoryName" jdbcType="VARCHAR" />
+    <result column="T_TYPE" property="tType" jdbcType="VARCHAR" />
+    <result column="FEEDBACK_CONTENT" property="feedbackContent" jdbcType="VARCHAR" />
+    <result column="CREATE_BY_NAME" property="createByName" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="FACTORY" property="factory" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     CID, CATEGORY_ID, PRODUCT_ID, SUBMIT_BY, GRUMBLE_CONTENT, CREATE_BYID, CREATE_DT,
-    UPDATE_BYID, UPDATE_DT
+    UPDATE_BYID, UPDATE_DT,C_TYPE,CUSTOMER,PRODUCT_NAME,T_TYPE,FEEDBACK_CONTENT,CATEGORY_NAME
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select
@@ -22,6 +31,53 @@
     from CRM_CUST_GRUMBLE
     where CID = #{cid,jdbcType=NUMERIC}
   </select>
+
+
+
+  <select id="findByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustGrumble" >
+    SELECT
+    A.CID,
+    A.CATEGORY_ID,
+    A.PRODUCT_ID,
+    A.SUBMIT_BY,
+    A.GRUMBLE_CONTENT,
+    A.CREATE_BYID,
+    (select name from ACCT_INFO where ACCT_ID = A.CREATE_BYID) AS CREATE_BY_NAME,
+    (select MOBILE_PHONE from ACCT_INFO where ACCT_ID = A.CREATE_BYID) AS PHONE,
+    A.CREATE_DT,
+    A.UPDATE_BYID,
+    A.UPDATE_DT,
+    A.C_TYPE,
+    A.CUSTOMER,
+    A.PRODUCT_NAME,
+    A.T_TYPE,
+    A.FEEDBACK_CONTENT,
+    A.CATEGORY_NAME,
+    B.FACTORY
+    FROM
+    WARRANTY.CRM_CUST_GRUMBLE A
+    LEFT JOIN WARRANTY.CRM_PRODUCT_CATEGORY B ON A.CATEGORY_ID = B.CID
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="endDtStr != null" >
+        AND TO_CHAR (A.CREATE_DT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+      </if>
+      <if test="startDtStr != null" >
+        AND TO_CHAR (A.CREATE_DT, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+      </if>
+      <if test="categoryName != null and categoryName != ''" >
+        AND A.CATEGORY_NAME = #{categoryName,jdbcType=VARCHAR}
+      </if>
+      <if test="productName != null and productName != ''" >
+        AND A.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
+      </if>
+      <if test="cType != null and cType != ''" >
+        AND A.C_TYPE = #{cType,jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </select>
+
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from CRM_CUST_GRUMBLE
     where CID = #{cid,jdbcType=NUMERIC}
@@ -32,11 +88,13 @@
     </selectKey>
     insert into CRM_CUST_GRUMBLE (CID, CATEGORY_ID, PRODUCT_ID,
       SUBMIT_BY, GRUMBLE_CONTENT, CREATE_BYID,
-      CREATE_DT, UPDATE_BYID, UPDATE_DT
+      CREATE_DT, UPDATE_BYID, UPDATE_DT,C_TYPE,CUSTOMER,PRODUCT_NAME,T_TYPE,FEEDBACK_CONTENT,CATEGORY_NAME
       )
     values (#{cid,jdbcType=NUMERIC}, #{categoryId,jdbcType=NUMERIC}, #{productId,jdbcType=NUMERIC},
       #{submitBy,jdbcType=VARCHAR}, #{grumbleContent,jdbcType=VARCHAR}, #{createByid,jdbcType=NUMERIC},
-      #{createDt,jdbcType=TIMESTAMP}, #{updateByid,jdbcType=NUMERIC}, #{updateDt,jdbcType=TIMESTAMP}
+      #{createDt,jdbcType=TIMESTAMP}, #{updateByid,jdbcType=NUMERIC}, #{updateDt,jdbcType=TIMESTAMP},
+      #{cType,jdbcType=VARCHAR},#{customer,jdbcType=VARCHAR},#{productName,jdbcType=VARCHAR},
+      #{tType,jdbcType=VARCHAR},#{feedbackContent,jdbcType=VARCHAR},#{categoryName,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustGrumble" >
@@ -72,6 +130,24 @@
       <if test="updateDt != null" >
         UPDATE_DT,
       </if>
+      <if test="cType != null" >
+        C_TYPE,
+      </if>
+      <if test="customer != null" >
+        CUSTOMER,
+      </if>
+      <if test="productName != null" >
+        PRODUCT_NAME,
+      </if>
+      <if test="tType != null" >
+        T_TYPE,
+      </if>
+      <if test="feedbackContent != null" >
+        FEEDBACK_CONTENT,
+      </if>
+      <if test="categoryName != null" >
+        CATEGORY_NAME,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="cid != null" >
@@ -101,28 +177,34 @@
       <if test="updateDt != null" >
         #{updateDt,jdbcType=TIMESTAMP},
       </if>
+      <if test="cType != null" >
+        #{cType,jdbcType=VARCHAR},
+      </if>
+      <if test="customer != null" >
+        #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="tType != null" >
+        #{tType,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackContent != null" >
+        #{feedbackContent,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryName != null" >
+        #{categoryName,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustGrumble" >
     update CRM_CUST_GRUMBLE
     <set >
-      <if test="categoryId != null" >
-        CATEGORY_ID = #{categoryId,jdbcType=NUMERIC},
-      </if>
-      <if test="productId != null" >
-        PRODUCT_ID = #{productId,jdbcType=NUMERIC},
-      </if>
       <if test="submitBy != null" >
         SUBMIT_BY = #{submitBy,jdbcType=VARCHAR},
       </if>
       <if test="grumbleContent != null" >
         GRUMBLE_CONTENT = #{grumbleContent,jdbcType=VARCHAR},
-      </if>
-      <if test="createByid != null" >
-        CREATE_BYID = #{createByid,jdbcType=NUMERIC},
-      </if>
-      <if test="createDt != null" >
-        CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
       </if>
       <if test="updateByid != null" >
         UPDATE_BYID = #{updateByid,jdbcType=NUMERIC},
@@ -130,19 +212,19 @@
       <if test="updateDt != null" >
         UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP},
       </if>
+      <if test="customer != null" >
+        CUSTOMER = #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        PRODUCT_NAME = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="tType != null" >
+        T_TYPE = #{tType,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackContent != null" >
+        FEEDBACK_CONTENT = #{feedbackContent,jdbcType=VARCHAR},
+      </if>
     </set>
-    where CID = #{cid,jdbcType=NUMERIC}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustGrumble" >
-    update CRM_CUST_GRUMBLE
-    set CATEGORY_ID = #{categoryId,jdbcType=NUMERIC},
-      PRODUCT_ID = #{productId,jdbcType=NUMERIC},
-      SUBMIT_BY = #{submitBy,jdbcType=VARCHAR},
-      GRUMBLE_CONTENT = #{grumbleContent,jdbcType=VARCHAR},
-      CREATE_BYID = #{createByid,jdbcType=NUMERIC},
-      CREATE_DT = #{createDt,jdbcType=TIMESTAMP},
-      UPDATE_BYID = #{updateByid,jdbcType=NUMERIC},
-      UPDATE_DT = #{updateDt,jdbcType=TIMESTAMP}
     where CID = #{cid,jdbcType=NUMERIC}
   </update>
 </mapper>
