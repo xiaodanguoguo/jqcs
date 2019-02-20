@@ -1,6 +1,7 @@
 package jq.steel.cs.services.cust.facade.controller.objection;
 
 import com.ebase.core.exception.BusinessException;
+import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import com.ebase.utils.JsonUtil;
@@ -33,6 +34,23 @@ public class CrmClaimCommentsController {
             CrmClaimCommentsVO crmClaimCommentsVO = jsonRequest.getReqBody();
             Integer integer = crmClaimCommentsService.evaluate(crmClaimCommentsVO);
             serviceResponse.setRetContent(integer);
+        }catch (BusinessException e){
+            logger.error("add出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
+
+    //新增/修改
+    @RequestMapping(value = "/findByPage",method = RequestMethod.POST)
+    public ServiceResponse<PageDTO<CrmClaimCommentsVO>> findByPage(@RequestBody JsonRequest<CrmClaimCommentsVO> jsonRequest){
+        logger.info("分页", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<PageDTO<CrmClaimCommentsVO>> serviceResponse = new ServiceResponse<>();
+        try {
+            CrmClaimCommentsVO crmClaimCommentsVO = jsonRequest.getReqBody();
+            PageDTO<CrmClaimCommentsVO> list = crmClaimCommentsService.findByPage(crmClaimCommentsVO);
+            serviceResponse.setRetContent(list);
         }catch (BusinessException e){
             logger.error("add出错",e);
             serviceResponse.setException(new BusinessException("500"));

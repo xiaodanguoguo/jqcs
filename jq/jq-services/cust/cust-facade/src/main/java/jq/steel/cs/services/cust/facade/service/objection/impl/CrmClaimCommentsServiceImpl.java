@@ -1,5 +1,7 @@
 package jq.steel.cs.services.cust.facade.service.objection.impl;
 
+import com.ebase.core.page.PageDTO;
+import com.ebase.core.page.PageDTOUtil;
 import com.ebase.utils.BeanCopyUtil;
 import jq.steel.cs.services.cust.api.vo.CrmClaimCommentsVO;
 import jq.steel.cs.services.cust.facade.dao.CrmClaimApplyMapper;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Service
@@ -53,5 +56,21 @@ public class CrmClaimCommentsServiceImpl implements CrmClaimCommentsService {
         crmClaimApplyMapper.update(crmClaimApply);
         crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
         return integer;
+    }
+
+
+    @Override
+    public PageDTO<CrmClaimCommentsVO> findByPage(CrmClaimCommentsVO crmClaimCommentsVO) {
+        try {
+            CrmClaimComments crmClaimComments = new CrmClaimComments();
+            BeanCopyUtil.copy(crmClaimCommentsVO, crmClaimComments);
+            PageDTOUtil.startPage(crmClaimCommentsVO);
+            List<CrmClaimComments> crmClaimComments1 = crmClaimCommentsMapper.findByPage(crmClaimComments);
+            List<CrmClaimCommentsVO> crmClaimCommentsVOS = BeanCopyUtil.copyList(crmClaimComments1, CrmClaimCommentsVO.class);
+            PageDTO<CrmClaimCommentsVO> transform = PageDTOUtil.transform(crmClaimCommentsVOS);
+            return transform;
+        } finally {
+            PageDTOUtil.endPage();
+        }
     }
 }

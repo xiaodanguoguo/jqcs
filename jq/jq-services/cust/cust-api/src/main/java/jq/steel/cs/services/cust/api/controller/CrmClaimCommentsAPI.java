@@ -1,5 +1,6 @@
 package jq.steel.cs.services.cust.api.controller;
 
+import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import jq.steel.cs.services.cust.api.vo.CrmClaimCommentsVO;
@@ -13,10 +14,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface CrmClaimCommentsAPI {
 
     /**
-     * 使用单位提交
+     * 评价提交
      * @param jsonRequest
      * @return
      */
     @RequestMapping(value ="/claimComments/evaluate", method = RequestMethod.POST)
     ServiceResponse<Integer> evaluate(@RequestBody JsonRequest<CrmClaimCommentsVO> jsonRequest);
+
+    /**
+     * 查询
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value ="/claimComments/findByPage", method = RequestMethod.POST)
+    ServiceResponse<PageDTO<CrmClaimCommentsVO>> findByPage(@RequestBody JsonRequest<CrmClaimCommentsVO> jsonRequest);
+
 }

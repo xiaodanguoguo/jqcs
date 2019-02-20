@@ -10,6 +10,17 @@
     <result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
     <result column="CREATE_DT" property="createDt" jdbcType="TIMESTAMP" />
   </resultMap>
+
+
+  <select id="findByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimComments" >
+    select
+      SID, CLAIM_NO, HANDLER_USER,
+      HANDLER_TIME, HANDLER_RESULTS, CREATE_BY,
+      CREATE_DT
+    from CRM_CLAIM_COMMENTS
+    where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+  </select>
+
   <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimComments" >
     insert into CRM_CLAIM_COMMENTS (SID, CLAIM_NO, HANDLER_USER, 
       HANDLER_TIME, HANDLER_RESULTS, CREATE_BY, 

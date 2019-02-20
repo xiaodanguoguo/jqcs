@@ -2,6 +2,8 @@ package jq.steel.cs.services.cust.facade.dao;
 
 import jq.steel.cs.services.cust.facade.model.CrmCustGrumble;
 
+import java.util.List;
+
 public interface CrmCustGrumbleMapper {
     int deleteByPrimaryKey(Long cid);
 
@@ -13,5 +15,5 @@ public interface CrmCustGrumbleMapper {
 
     int updateByPrimaryKeySelective(CrmCustGrumble record);
 
-    int updateByPrimaryKey(CrmCustGrumble record);
+    List<CrmCustGrumble> findByPage(CrmCustGrumble record);
 }
