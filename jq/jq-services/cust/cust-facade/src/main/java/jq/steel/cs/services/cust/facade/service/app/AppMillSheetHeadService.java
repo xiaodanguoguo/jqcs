@@ -1,5 +1,6 @@
 package jq.steel.cs.services.cust.facade.service.app;
 
+import com.ebase.core.page.PageDTO;
 import jq.steel.cs.services.cust.api.vo.CrmMillSheetSplitInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHeadVO;
@@ -34,7 +35,7 @@ public interface AppMillSheetHeadService {
      * @param vo
      * @return
      */
-    List<MillSheetHostsVO> getSheetHostsMsg(MillCoilInfoVO vo);
+    PageDTO<MillSheetHostsVO> getSheetHostsMsg(MillCoilInfoVO vo);
 
     /**
      * 以售达方作为数据匹配的依据

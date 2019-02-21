@@ -119,8 +119,8 @@ public class AppMillSheetHostsDetailController {
      * 条件查询
      */
     @RequestMapping(value = "/getMillSheetMsg", method = RequestMethod.POST)
-    public JsonResponse<List<MillSheetHostsVO>> getMillSheetByMsg(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest) {
-        JsonResponse<List<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
+    public JsonResponse<PageDTO<MillSheetHostsVO>> getMillSheetByMsg(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest) {
+        JsonResponse<PageDTO<MillSheetHostsVO>> jsonResponse = new JsonResponse<>();
         try {
             String acctId = AssertContext.getAcctId();
             String orgId = AssertContext.getOrgId();
@@ -146,7 +146,7 @@ public class AppMillSheetHostsDetailController {
 
             jsonRequest.getReqBody().setOrgId(orgId);
             jsonRequest.getReqBody().setOrgType(orgType);
-            ServiceResponse<List<MillSheetHostsVO>> vos = appMillSheetHostsDetailAPI.getSheetMsg(jsonRequest);
+            ServiceResponse<PageDTO<MillSheetHostsVO>> vos = appMillSheetHostsDetailAPI.getSheetMsg(jsonRequest);
             jsonResponse.setRspBody(vos.getRetContent());
         } catch (BusinessException e) {
             logger.error("查询错误 = {}", e);

@@ -92,15 +92,15 @@ public class AppMillSheetHostsDetailController {
      * 通过车号/批板卷号/发车时间,进行条件查询
      */
     @RequestMapping(value = "/getSheetMsgs", method = RequestMethod.POST)
-    public ServiceResponse<List<MillSheetHostsVO>> getSheetMsg(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest) {
-        ServiceResponse<List<MillSheetHostsVO>> serviceResponse = new ServiceResponse<>();
+    public ServiceResponse<PageDTO<MillSheetHostsVO>> getSheetMsg(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest) {
+        ServiceResponse<PageDTO<MillSheetHostsVO>> serviceResponse = new ServiceResponse<>();
         if (jsonRequest == null) {
             serviceResponse.setException(new BusinessException("非法操作"));
             return serviceResponse;
         }
         try {
             MillCoilInfoVO vo = jsonRequest.getReqBody();
-            List<MillSheetHostsVO> listAll = millSheetHeadService.getSheetHostsMsg(vo);
+            PageDTO<MillSheetHostsVO> listAll = millSheetHeadService.getSheetHostsMsg(vo);
             /*PageDTO<CrmMillCoilInfoVO> pageDTO = new PageDTO<>();
             pageDTO.setResultData(listAll);*/
             serviceResponse.setRetContent(listAll);

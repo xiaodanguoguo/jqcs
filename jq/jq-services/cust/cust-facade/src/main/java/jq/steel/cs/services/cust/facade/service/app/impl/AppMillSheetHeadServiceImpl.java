@@ -1,5 +1,7 @@
 package jq.steel.cs.services.cust.facade.service.app.impl;
 
+import com.ebase.core.page.PageDTO;
+import com.ebase.core.page.PageDTOUtil;
 import com.ebase.utils.BeanCopyUtil;
 import jq.steel.cs.services.cust.api.vo.CrmMillSheetSplitInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
@@ -54,7 +56,7 @@ public class AppMillSheetHeadServiceImpl implements AppMillSheetHeadService {
 
 
     @Override
-    public List<MillSheetHostsVO> getSheetHostsMsg(MillCoilInfoVO vo) {
+    public PageDTO<MillSheetHostsVO> getSheetHostsMsg(MillCoilInfoVO vo) {
        /* if(vo.getZcharg() != null && !("".equals(vo.getZcharg().trim()))){
             List<MillSheetHosts> mshs = millSheetHostsMapper.getSheetHostsMsgHaveZcharg(vo);
             List<MillSheetHostsVO> vos = BeanCopyUtil.copyList(mshs, MillSheetHostsVO.class);
@@ -64,6 +66,7 @@ public class AppMillSheetHeadServiceImpl implements AppMillSheetHeadService {
             List<MillSheetHostsVO> vos = BeanCopyUtil.copyList(mshs, MillSheetHostsVO.class);
             return vos;
         }*/
+        try {
         if (vo.getZcharg() != null && vo.getZcharg() != "") {
             MillCoilInfo coilInfo = new MillCoilInfo();
             coilInfo.setZcharg(vo.getZcharg());
@@ -80,9 +83,14 @@ public class AppMillSheetHeadServiceImpl implements AppMillSheetHeadService {
                 vo.setMillSheetNos(idall);
             }
         }
+        PageDTOUtil.startPage(vo);
         List<MillSheetHosts> mshs = millSheetHostsMapper.getSheetHostsMsgHaveZcharg(vo);
         List<MillSheetHostsVO> vos = BeanCopyUtil.copyList(mshs, MillSheetHostsVO.class);
-        return vos;
+        PageDTO<MillSheetHostsVO> transform = PageDTOUtil.transform(vos, MillSheetHostsVO.class);
+        return transform;
+        } finally {
+            PageDTOUtil.endPage();
+        }
     }
 
     @Override

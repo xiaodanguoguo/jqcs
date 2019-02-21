@@ -1,5 +1,6 @@
 package jq.steel.cs.services.cust.api.controller.app;
 
+import com.ebase.core.page.PageDTO;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import jq.steel.cs.services.cust.api.vo.CrmMillCoilInfoVO;
@@ -31,7 +32,7 @@ public interface AppMillSheetHostsDetailAPI {
 
 
     @RequestMapping(value = "/app/millsheet/getSheetMsgs" , method = RequestMethod.POST)
-    ServiceResponse<List<MillSheetHostsVO>> getSheetMsg(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest);
+    ServiceResponse<PageDTO<MillSheetHostsVO>> getSheetMsg(@RequestBody JsonRequest<MillCoilInfoVO> jsonRequest);
 
     /**
      *改变质证书为已下载状态,同时减少可下载次数
