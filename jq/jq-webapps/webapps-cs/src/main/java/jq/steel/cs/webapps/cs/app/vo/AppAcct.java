@@ -14,6 +14,15 @@ public class AppAcct implements Serializable {
     private String oInfoName;//客户名称
     private String acctType;// 0普通用户、1管理员（有审核权限）
     private List<String> limitCode;
+    private String orgType;
+
+    public String getOrgType() {
+        return orgType;
+    }
+
+    public void setOrgType(String orgType) {
+        this.orgType = orgType;
+    }
 
     public String getSessionId() {
         return sessionId;

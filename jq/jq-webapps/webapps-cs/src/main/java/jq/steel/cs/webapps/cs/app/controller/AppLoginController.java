@@ -1,5 +1,6 @@
 package jq.steel.cs.webapps.cs.app.controller;
 
+import com.ebase.core.AssertContext;
 import com.ebase.core.log.SearchableLoggerFactory;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.session.AcctLogin;
@@ -63,9 +64,10 @@ public class AppLoginController {
                 if(map.get("50") != null){
                     appAcct.setAcctType("1");
                 }*/
-
+                appAcct.setOrgType(String.valueOf(acctSession.getAcct().getOrgType()));
                 appAcct.setAcctType(String.valueOf(acctSession.getAcct().getAcctType()));
                 System.out.println("****客户类型****"+appAcct.getAcctType());
+                System.out.println("****组织类型****"+appAcct.getOrgType());
                 jsonResponse.setRspBody(appAcct);
             }else {
                 if (serviceResponse.isHasError()) {
