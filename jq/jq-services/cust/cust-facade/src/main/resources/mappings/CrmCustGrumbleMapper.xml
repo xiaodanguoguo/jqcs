@@ -76,6 +76,15 @@
       <if test="cType != null and cType != ''" >
         AND A.C_TYPE = #{cType,jdbcType=VARCHAR}
       </if>
+      <if test="factory != null and factory != ''" >
+        AND B.FACTORY = #{factory,jdbcType=VARCHAR}
+      </if>
+      <if test="factorys != null" >
+        AND B.FACTORY  in
+        <foreach collection="factorys"  index="index" close=")" open="(" item="item" separator=",">
+          #{factorys[${index}]}
+        </foreach>
+      </if>
     </trim>
   </select>
 
