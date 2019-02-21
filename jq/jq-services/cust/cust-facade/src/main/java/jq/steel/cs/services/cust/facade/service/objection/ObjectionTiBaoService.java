@@ -55,6 +55,20 @@ public interface ObjectionTiBaoService {
      */
     PageDTO<ObjectionTiBaoVO> findTiBaoByPage(ObjectionTiBaoVO objectionTiBaoVO);
 
+
+
+
+    /**
+     * @param:
+     * @return:
+     * @description:  app异议跟踪审核查询
+     * @author: wushibin
+     * @Date: 2019/2/21
+     */
+    PageDTO<ObjectionTiBaoVO> findShenHeByPageForApp(ObjectionTiBaoVO objectionTiBaoVO);
+
+
+
     /**
      * @param:
      * @return:

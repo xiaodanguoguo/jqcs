@@ -124,6 +124,17 @@ public interface ObjectionTiBaoAPI {
     @RequestMapping(value = "/objectionTiBao/findTiBaoByPage", method = RequestMethod.POST)
     ServiceResponse<PageDTO<ObjectionTiBaoVO>> findTiBaoByPage(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest);
 
+
+    /**
+     * app异议跟踪审核查询
+     *
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/objectionTiBao/findShenHeByPageForApp", method = RequestMethod.POST)
+    ServiceResponse<PageDTO<ObjectionTiBaoVO>> findShenHeByPageForApp(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest);
+
+
     /**
      * 异议跟踪列表
      *

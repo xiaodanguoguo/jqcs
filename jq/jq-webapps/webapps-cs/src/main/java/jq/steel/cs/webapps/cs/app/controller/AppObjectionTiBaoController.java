@@ -195,6 +195,60 @@ public class AppObjectionTiBaoController {
         }
         return jsonResponse;
     }
+
+    /**
+     *  app异议跟踪审核查询
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/findShenHeByPageForApp",method = RequestMethod.POST)
+    public JsonResponse<PageDTO<ObjectionTiBaoVO>> findShenHeByPageForApp(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest){
+        logger.info("参数={}",JsonUtil.toJson(jsonRequest));
+        JsonResponse<PageDTO<ObjectionTiBaoVO>> jsonResponse = new JsonResponse<>();
+        String acctId = AssertContext.getAcctId();
+        String orgType = AssertContext.getOrgType();
+        String orgName = AssertContext.getOrgName();
+        String orgId = AssertContext.getOrgId();
+        jsonRequest.getReqBody().setOrgType(orgType);
+        jsonRequest.getReqBody().setOrgName(orgName);
+        ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+        List<String> list = new ArrayList<>();
+        for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+            list.add(roleInfoVO.getRoleCode());
+        }
+        if (list.size()>0){
+            jsonRequest.getReqBody().setDeptCodes(list);
+        }else {
+            jsonRequest.getReqBody().setDeptCodes(null);
+        }
+        //销售公司下的客户名称集合
+        List<String> customers = new ArrayList<>();
+        if(orgType.equals("2")||orgType.equals("3")||orgType.equals("4")){
+            jsonRequest.getReqBody().setCustomerId(orgName);
+        }
+        try {
+            ServiceResponse<PageDTO<ObjectionTiBaoVO>> serviceResponse = objectionTiBaoAPI.findShenHeByPageForApp(jsonRequest);
+            if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            } else {
+                if (serviceResponse.isHasError()) {
+                    jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                }else {
+                    jsonResponse.setRetCode(serviceResponse.getRetCode());
+                    jsonResponse.setRetDesc(serviceResponse.getRetMessage());
+                    return jsonResponse;
+                }
+            }
+        } catch (BusinessException e) {
+            logger.error("获取分页列表错误 = {}", e);
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+        return jsonResponse;
+    }
+
+
     /**
      *  异议跟踪列表
      * @param  jsonRequest

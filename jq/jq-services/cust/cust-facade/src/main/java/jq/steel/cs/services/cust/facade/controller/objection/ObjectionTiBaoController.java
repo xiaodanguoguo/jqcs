@@ -280,8 +280,6 @@ public class ObjectionTiBaoController {
 
 
 
-    //app
-
     /**
      * 异议提报列表
      *
@@ -295,6 +293,29 @@ public class ObjectionTiBaoController {
         try {
             ObjectionTiBaoVO objectionTiBaoVO = jsonRequest.getReqBody();
             PageDTO<ObjectionTiBaoVO> pageDTO = objectionTiBaoService.findTiBaoByPage(objectionTiBaoVO);
+            serviceResponse.setRetContent(pageDTO);
+        }catch (BusinessException e){
+            logger.error("获取分页出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
+
+
+
+    /**
+     * app异议跟踪审核查询
+     *
+     * @param jsonRequest
+     * @return
+     */
+    @RequestMapping(value = "/findShenHeByPageForApp", method = RequestMethod.POST)
+    ServiceResponse<PageDTO<ObjectionTiBaoVO>> findShenHeByPageForApp(@RequestBody JsonRequest<ObjectionTiBaoVO> jsonRequest) {
+        logger.info("条件分页查询 = {}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<PageDTO<ObjectionTiBaoVO>> serviceResponse = new ServiceResponse<>();
+        try {
+            ObjectionTiBaoVO objectionTiBaoVO = jsonRequest.getReqBody();
+            PageDTO<ObjectionTiBaoVO> pageDTO = objectionTiBaoService.findShenHeByPageForApp(objectionTiBaoVO);
             serviceResponse.setRetContent(pageDTO);
         }catch (BusinessException e){
             logger.error("获取分页出错",e);

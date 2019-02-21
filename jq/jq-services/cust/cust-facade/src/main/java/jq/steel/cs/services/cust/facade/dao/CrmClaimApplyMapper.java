@@ -52,4 +52,9 @@ public interface CrmClaimApplyMapper {
     List<CrmClaimApply> findMillSheetByCusForApp(CrmClaimApply h);
     //app
     List<CrmClaimApply> findByPageForApp(CrmClaimApply crmClaimApply);
+
+
+
+    //app异议跟踪审核查询
+    List<CrmClaimApply> findShenHeByPageForApp(CrmClaimApply crmClaimApply);
 }
