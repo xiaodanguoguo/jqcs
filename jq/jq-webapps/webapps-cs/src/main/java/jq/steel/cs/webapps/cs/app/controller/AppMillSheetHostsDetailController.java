@@ -82,8 +82,20 @@ public class AppMillSheetHostsDetailController {
             jsonRequest.getReqBody().setOrgId(orgId);
             jsonRequest.getReqBody().setOrgType(orgType);
 
+            //by lujiawei
+            //ServiceResponse<PageDTO<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findMillSheetByPage(jsonRequest);
 
-            ServiceResponse<PageDTO<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findMillSheetByPage(jsonRequest);
+
+
+            //组织名称  orgtype是5 为厂级领导  设置orgName为null 拿deptCode查询
+            //orgtype 1 销售公司  改为zkunner查询
+            if(orgType.equals("1")){
+                jsonRequest.getReqBody().setZkunnr(AssertContext.getOrgName());
+            }
+
+
+            // by wushibin
+            ServiceResponse<PageDTO<MillSheetHostsVO>> serviceResponse = millSheetHostsAPI.findMillSheetByPage1(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {

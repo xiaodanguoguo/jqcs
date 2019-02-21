@@ -918,6 +918,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     msd.ZCPMC, msd.MILL_SHEET_NO, msd.ZPH, msd.ZKDAUF, msd.LFDAT
     FROM MILL_SHEET_HOSTS mss
     LEFT JOIN MILL_SHEET_HEAD msd ON MSD.MILL_SHEET_NO = MSS.MILL_SHEET_NO
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
     <if test="zchehao != null and zchehao != ''">
         AND msd.ZCHEHAO like  '%' || #{zchehao} ||'%'
     </if>
@@ -952,6 +953,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
       AND msd.SPILT_CUSTOMER = #{orgName}
     </if>
     AND mss.STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED','SPLITED')  AND msd.ZCHEHAO NOT LIKE '-%'
+    </trim>
   </select>
 
 <!--lujiawei-->
