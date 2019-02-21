@@ -67,6 +67,9 @@
       <if test="categoryName != null and categoryName != ''" >
         AND A.CATEGORY_NAME = #{categoryName,jdbcType=VARCHAR}
       </if>
+      <if test="customer != null and customer != ''" >
+        AND A.CUSTOMER = #{customer,jdbcType=VARCHAR}
+      </if>
       <if test="productName != null and productName != ''" >
         AND A.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
       </if>
