@@ -139,6 +139,7 @@ public class CrmCustGrumbleVO {
         this.phone = phone;
     }
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date createDt;
 
 

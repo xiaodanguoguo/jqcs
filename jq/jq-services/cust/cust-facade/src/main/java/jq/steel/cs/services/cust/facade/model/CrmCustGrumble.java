@@ -27,6 +27,7 @@ public class CrmCustGrumble {
 
     private Long createByid;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date createDt;
 
     private Long updateByid;
