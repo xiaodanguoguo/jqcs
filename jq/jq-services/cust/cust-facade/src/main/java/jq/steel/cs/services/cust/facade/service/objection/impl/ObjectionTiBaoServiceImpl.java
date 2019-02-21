@@ -765,7 +765,7 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             crmClaimApply.setStartDtStr(startDtStr);
             String endDtStr = DateFormatUtil.getEndDateStr(crmClaimApply.getEndDt());
             crmClaimApply.setEndDtStr(endDtStr);
-            crmClaimApply.removeDeptCodeAndDeptCodes();
+            //crmClaimApply.removeDeptCodeAndDeptCodes();---by lujiawei---
             List<CrmClaimApply> crmClaimApplies = crmClaimApplyMapper.findByPageForApp(crmClaimApply);
             //转换返回对象
             List<ObjectionTiBaoVO> objectionTiBaoVOS = BeanCopyUtil.copyList(crmClaimApplies, ObjectionTiBaoVO.class);
