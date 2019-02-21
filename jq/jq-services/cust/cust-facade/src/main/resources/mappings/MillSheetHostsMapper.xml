@@ -913,46 +913,55 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
 
 <!--wushibin 修改版 app质证书查询-->
   <select id="getSheetHostsMsgHaveZcharg" resultMap="FullMap">
-    SELECT
+    SELECT H.*FROM(SELECT
     mss.STATE,
-    msd.ZCPMC, msd.MILL_SHEET_NO, msd.ZPH, msd.ZKDAUF, msd.LFDAT
-    FROM MILL_SHEET_HOSTS mss
-    LEFT JOIN MILL_SHEET_HEAD msd ON MSD.MILL_SHEET_NO = MSS.MILL_SHEET_NO
+    msd.ZCPMC,
+    msd.MILL_SHEET_NO,
+    msd.ZPH,
+    msd.ZKDAUF,
+    msd.LFDAT,
+    (select distinct name1 from MILL_CUSTOMER where KUNNR = mss.ZKUNNR) AS ZKUNNR
+    FROM
+    MILL_SHEET_HOSTS mss
+    LEFT JOIN MILL_SHEET_HEAD msd ON MSD.MILL_SHEET_NO = MSS.MILL_SHEET_NO )H
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
     <if test="zchehao != null and zchehao != ''">
-        AND msd.ZCHEHAO like  '%' || #{zchehao} ||'%'
+        AND H.ZCHEHAO like  '%' || #{zchehao} ||'%'
     </if>
     <if test="lfdat != null  and lfdat != ''" >
-        AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd') = #{lfdat}
+        AND TO_CHAR (H.LFDAT, 'yyyy-MM-dd') = #{lfdat}
     </if>
     <if test="startDtStr != null and startDtStr != '' " >
-        AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd') >= #{startDtStr}
+        AND TO_CHAR (H.LFDAT, 'yyyy-MM-dd') >= #{startDtStr}
     </if>
     <if test="endDtStr != null and endDtStr != '' " >
-        AND TO_CHAR (msd.LFDAT, 'yyyy-MM-dd') &lt;= #{endDtStr}
+        AND TO_CHAR (H.LFDAT, 'yyyy-MM-dd') &lt;= #{endDtStr}
     </if>
     <if test="deptCode != null and deptCode != ''" >
-      AND mss.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+      AND H.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
     </if>
     <if test="deptCodes != null" >
-      AND mss.DEPT_CODE  in
+      AND H.DEPT_CODE  in
       <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
         #{deptCodes[${index}]}
       </foreach>
     </if>
     <if test="millSheetNo != null and millSheetNo != '' ">
-        AND mss.MILL_SHEET_NO like  '%' || #{millSheetNo} ||'%'
+        AND H.MILL_SHEET_NO like  '%' || #{millSheetNo} ||'%'
     </if>
     <if test="millSheetNos != null">
-      AND mss.MILL_SHEET_NO  in
+      AND H.MILL_SHEET_NO  in
       <foreach collection="millSheetNos"  index="index" close=")" open="(" item="item" separator=",">
         #{millSheetNos[${index}]}
       </foreach>
     </if>
     <if test="orgName != null and orgName != '' ">
-      AND msd.SPILT_CUSTOMER = #{orgName}
+      AND H.SPILT_CUSTOMER = #{orgName}
     </if>
-    AND mss.STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED','SPLITED')  AND msd.ZCHEHAO NOT LIKE '-%'
+      <if test="zkunnr != null  and zkunnr != ''" >
+        AND H.ZKUNNR = #{zkunnr,jdbcType=VARCHAR}
+      </if>
+    AND H.STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED','SPLITED')  AND H.ZCHEHAO NOT LIKE '-%'
     </trim>
   </select>
 
