@@ -56,14 +56,16 @@ public class AppLoginController {
                 appAcct.setName(acctSession.getAcct().getName());
                 appAcct.setoInfoName(acctSession.getAcct().getoInfoName());
                 appAcct.setLimitCode(acctSession.getAcct().getLimitCode());
-                appAcct.setAcctType("0");
+                /*appAcct.setAcctType("0");
                 // 判断是否有审核权限
                 ServiceResponse<Map<String, String>> authResponse = backMemberAPI.getAcctAuth(String.valueOf(acctSession.getAcct().getAcctId()));
                 Map<String, String> map = authResponse.getRetContent();
                 if(map.get("50") != null){
                     appAcct.setAcctType("1");
-                }
+                }*/
 
+                appAcct.setAcctType(String.valueOf(acctSession.getAcct().getAcctType()));
+                System.out.println("****客户类型****"+appAcct.getAcctType());
                 jsonResponse.setRspBody(appAcct);
             }else {
                 if (serviceResponse.isHasError()) {
