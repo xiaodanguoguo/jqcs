@@ -920,6 +920,9 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     msd.ZPH,
     msd.ZKDAUF,
     msd.LFDAT,
+    msd.ZCHEHAO,
+    msd.SPILT_CUSTOMER,
+    mss.DEPT_CODE,
     (select distinct name1 from MILL_CUSTOMER where KUNNR = mss.ZKUNNR) AS ZKUNNR
     FROM
     MILL_SHEET_HOSTS mss
