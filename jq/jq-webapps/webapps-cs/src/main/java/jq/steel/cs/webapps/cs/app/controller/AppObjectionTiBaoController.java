@@ -13,11 +13,12 @@ import jq.steel.cs.services.base.api.controller.RoleInfoAPI;
 import jq.steel.cs.services.base.api.vo.RoleInfoVO;
 import jq.steel.cs.services.cust.api.controller.CrmCustomerInfoAPI;
 import jq.steel.cs.services.cust.api.controller.CrmLastuserInfoAPI;
+import jq.steel.cs.services.cust.api.controller.ObjectionChuLiAPI;
 import jq.steel.cs.services.cust.api.controller.ObjectionTiBaoAPI;
-import jq.steel.cs.services.cust.api.vo.CrmCustomerInfoVO;
-import jq.steel.cs.services.cust.api.vo.CrmLastuserInfoVO;
-import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoCountVO;
-import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
+import jq.steel.cs.services.cust.api.vo.*;
+import jq.steel.cs.webapps.cs.controller.file.PdfToHtml;
+import jq.steel.cs.webapps.cs.controller.file.UploadConfig;
+import jq.steel.cs.webapps.cs.controller.objection.CreatePdf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -59,6 +62,12 @@ public class AppObjectionTiBaoController {
 
     @Autowired
     private RoleInfoAPI roleInfoAPI;
+
+    @Autowired
+    private ObjectionChuLiAPI objectionChuLiAPI;
+
+    @Autowired
+    UploadConfig uploadConfig;
 
 
     /**
@@ -567,5 +576,98 @@ public class AppObjectionTiBaoController {
         }
         return jsonResponse;
     }
+
+
+
+
+
+    /**
+     * app 异议调用润乾实时生成pdf并且返回url地址最后转html给前台
+     *
+     * 1、质量异议报告--新建异议保存后，就出现预览报告按钮，可以调用异议报告模板，查看报告及数据。
+     2、外部调查报告--外部调查保存后，就出现预览报告按钮，可以调用外部调查报告模板，查看报告及数据。
+     3、内部调查报告--内部调查保存后，就出现预览报告按钮，可以调用内部调查报告模板，查看报告及数据。
+     4、确认书--确认书审核界面，加预览按钮，可以直接查看确认书报告。
+     5、协议书--协议书编辑和协议书审核界面，可以直接直接点击“预览”按钮来查看协议书模板及数据。
+     * */
+    @RequestMapping(value = "/look",method = RequestMethod.POST)
+    public JsonResponse<ObjectionChuLiVO> look(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
+        logger.info("参数", JsonUtil.toJson(jsonRequest));
+        CreatePdf createPdf = new CreatePdf();
+        String pathPattern = uploadConfig.getPathPattern();
+        JsonResponse<ObjectionChuLiVO>  jsonResponse = new JsonResponse<>();
+        String createPdfPath = uploadConfig.getModelUrl();
+        jsonRequest.getReqBody().setReport(createPdfPath);
+        try {
+            ServiceResponse<ObjectionChuLiVO> serviceResponse = objectionChuLiAPI.look(jsonRequest);
+            String report = "";
+            if (jsonRequest.getReqBody().getTemplateType()==1){
+                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "Y.pdf";
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"yiyibaogao");
+                SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
+                String dirT = sdf.format(new Date());
+                String dirName = createPdfPath + dirT;
+                String pdfurl = dirName+pdfName;
+                //pdf文件地址转html地址
+                String url = PdfToHtml.PdfToImage(pdfurl,dirName);
+                String hh1 = url.replace("/data/kf_web","/res");
+                report =uploadConfig.getDomain()+hh1;
+            }else if(jsonRequest.getReqBody().getTemplateType()==2) {
+                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "W.pdf";
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"waibudiaocha");
+                SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
+                String dirT = sdf.format(new Date());
+                String dirName = createPdfPath + dirT;
+                String pdfurl = dirName+pdfName;
+                //pdf文件地址转html地址
+                String url = PdfToHtml.PdfToImage(pdfurl,dirName);
+                String hh1 = url.replace("/data/kf_web","/res");
+                report =uploadConfig.getDomain()+hh1;
+            }else if(jsonRequest.getReqBody().getTemplateType()==3){
+                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "N.pdf";
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"neibudiaocha");
+                SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
+                String dirT = sdf.format(new Date());
+                String dirName = createPdfPath + dirT;
+                String pdfurl = dirName+pdfName;
+                //pdf文件地址转html地址
+                String url = PdfToHtml.PdfToImage(pdfurl,dirName);
+                String hh1 = url.replace("/data/kf_web","/res");
+                report =uploadConfig.getDomain()+hh1;
+            }else if(jsonRequest.getReqBody().getTemplateType()==4){
+                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "Q.pdf";
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"waibudiaocha");
+                SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
+                String dirT = sdf.format(new Date());
+                String dirName = createPdfPath + dirT;
+                String pdfurl = dirName+pdfName;
+                //pdf文件地址转html地址
+                String url = PdfToHtml.PdfToImage(pdfurl,dirName);
+                String hh1 = url.replace("/data/kf_web","/res");
+                report =uploadConfig.getDomain()+hh1;
+            }else if(jsonRequest.getReqBody().getTemplateType()==5){
+                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "X.pdf";
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"xieyishu");
+                SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
+                String dirT = sdf.format(new Date());
+                String dirName = createPdfPath + dirT;
+                String pdfurl = dirName+pdfName;
+                //pdf文件地址转html地址
+                String url = PdfToHtml.PdfToImage(pdfurl,dirName);
+                String hh1 = url.replace("/data/kf_web","/res");
+                report =uploadConfig.getDomain()+hh1;
+            }
+            serviceResponse.getRetContent().setReport(report);
+            jsonResponse.setRspBody(serviceResponse.getRetContent());
+        } catch (BusinessException e) {
+            logger.error("打印报错", e);
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
+        return jsonResponse;
+    }
+
+
+
 
 }
