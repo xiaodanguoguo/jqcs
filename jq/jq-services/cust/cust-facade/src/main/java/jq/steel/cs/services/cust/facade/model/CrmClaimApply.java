@@ -8,6 +8,9 @@ import java.util.List;
 
 public class CrmClaimApply {
 
+    //app计数
+    private  Integer countForApp;
+
     private List<String> millSheetNos;
 
     private  String orgType;
@@ -23,6 +26,14 @@ public class CrmClaimApply {
     //厂家code
     private List<String> deptCodes;
 
+
+    public Integer getCountForApp() {
+        return countForApp;
+    }
+
+    public void setCountForApp(Integer countForApp) {
+        this.countForApp = countForApp;
+    }
 
     public List<String> getMillSheetNos() {
         return millSheetNos;

@@ -880,6 +880,9 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             String endDtStr = DateFormatUtil.getEndDateStr(crmClaimApply.getEndDt());
             crmClaimApply.setEndDtStr(endDtStr);
             List<CrmClaimApply> crmClaimApplies = crmClaimApplyMapper.findgenzongByPage(crmClaimApply);
+            for (CrmClaimApply apply:crmClaimApplies){
+                apply.setCountForApp(crmClaimApplies.size());
+            }
             //转换返回对象
             List<ObjectionTiBaoVO> objectionTiBaoVOS = BeanCopyUtil.copyList(crmClaimApplies, ObjectionTiBaoVO.class);
             // 分页对象

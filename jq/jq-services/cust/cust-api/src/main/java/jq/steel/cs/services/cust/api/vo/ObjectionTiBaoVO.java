@@ -8,6 +8,17 @@ import java.util.List;
 
 public class ObjectionTiBaoVO {
 
+    //app计数
+    private  Integer countForApp;
+
+    public Integer getCountForApp() {
+        return countForApp;
+    }
+
+    public void setCountForApp(Integer countForApp) {
+        this.countForApp = countForApp;
+    }
+
     //校验编码
     private Integer checkCode;
 
