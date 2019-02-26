@@ -171,9 +171,12 @@ public class AppObjectionTiBaoController {
         jsonRequest.getReqBody().setOrgName(orgName);
         ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
         List<String> list = new ArrayList<>();
-        for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
-            list.add(roleInfoVO.getRoleCode());
+        if (listServiceResponse.getRetContent().size()>0){
+            for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+                list.add(roleInfoVO.getRoleCode());
+            }
         }
+
         if (list.size()>0){
             jsonRequest.getReqBody().setDeptCodes(list);
         }else {
@@ -223,8 +226,10 @@ public class AppObjectionTiBaoController {
         jsonRequest.getReqBody().setOrgName(orgName);
         ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
         List<String> list = new ArrayList<>();
-        for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
-            list.add(roleInfoVO.getRoleCode());
+        if (listServiceResponse.getRetContent().size()>0) {
+            for (RoleInfoVO roleInfoVO : listServiceResponse.getRetContent()) {
+                list.add(roleInfoVO.getRoleCode());
+            }
         }
         if (list.size()>0){
             jsonRequest.getReqBody().setDeptCodes(list);
@@ -584,11 +589,7 @@ public class AppObjectionTiBaoController {
     /**
      * app 异议调用润乾实时生成pdf并且返回url地址最后转html给前台
      *
-     * 1、质量异议报告--新建异议保存后，就出现预览报告按钮，可以调用异议报告模板，查看报告及数据。
-     2、外部调查报告--外部调查保存后，就出现预览报告按钮，可以调用外部调查报告模板，查看报告及数据。
-     3、内部调查报告--内部调查保存后，就出现预览报告按钮，可以调用内部调查报告模板，查看报告及数据。
-     4、确认书--确认书审核界面，加预览按钮，可以直接查看确认书报告。
-     5、协议书--协议书编辑和协议书审核界面，可以直接直接点击“预览”按钮来查看协议书模板及数据。
+     *超链接名称  质量异议报告 外部调查报告 内部调查报告  协议书 处理结果通知单 受理单
      * */
     @RequestMapping(value = "/look",method = RequestMethod.POST)
     public JsonResponse<ObjectionChuLiVO> look(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
@@ -635,8 +636,8 @@ public class AppObjectionTiBaoController {
                 String hh1 = url.replace("/data/kf_web","/res");
                 report =uploadConfig.getDomain()+hh1;
             }else if(jsonRequest.getReqBody().getTemplateType()==4){
-                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "Q.pdf";
-                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"waibudiaocha");
+                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "X.pdf";
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"xieyishu");
                 SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
                 String dirT = sdf.format(new Date());
                 String dirName = createPdfPath + dirT;
@@ -646,8 +647,19 @@ public class AppObjectionTiBaoController {
                 String hh1 = url.replace("/data/kf_web","/res");
                 report =uploadConfig.getDomain()+hh1;
             }else if(jsonRequest.getReqBody().getTemplateType()==5){
-                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "X.pdf";
-                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"xieyishu");
+                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "T.pdf";
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"tongzhidan");
+                SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
+                String dirT = sdf.format(new Date());
+                String dirName = createPdfPath + dirT;
+                String pdfurl = dirName+pdfName;
+                //pdf文件地址转html地址
+                String url = PdfToHtml.PdfToImage(pdfurl,dirName);
+                String hh1 = url.replace("/data/kf_web","/res");
+                report =uploadConfig.getDomain()+hh1;
+            } else if(jsonRequest.getReqBody().getTemplateType()==6){
+                String  pdfName = jsonRequest.getReqBody().getClaimNo() + "S.pdf";
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"shoulidan");
                 SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
                 String dirT = sdf.format(new Date());
                 String dirName = createPdfPath + dirT;
