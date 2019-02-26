@@ -11,6 +11,7 @@ import jq.steel.cs.services.cust.facade.service.app.AppCrmCustGrumbleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,6 +30,15 @@ public class AppCrmCustGrumbleServiceImpl implements AppCrmCustGrumbleService {
     public Integer addCrmCustGrumble(CrmCustGrumbleVO crmCustGrumbleVO) {
         CrmCustGrumble crmCustGrumble = new CrmCustGrumble();
         BeanCopyUtil.copy(crmCustGrumbleVO, crmCustGrumble);
+        crmCustGrumble.setCreateDt(new Date());
+        //  线/棒/板材 2000(炼轧)      不锈钢  1000    碳钢钢带  2200
+        if(crmCustGrumble.getCategoryName().equals("线/棒/板材")){
+            crmCustGrumble.setFactory("2000");
+        }else if(crmCustGrumble.getCategoryName().equals("不锈钢")){
+            crmCustGrumble.setFactory("1000");
+        }else if(crmCustGrumble.getCategoryName().equals("碳钢钢带")){
+            crmCustGrumble.setFactory("2200");
+        }
         return crmCustGrumbleMapper.insertSelective(crmCustGrumble);
     }
 

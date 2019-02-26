@@ -53,10 +53,9 @@
     A.T_TYPE,
     A.FEEDBACK_CONTENT,
     A.CATEGORY_NAME,
-    B.FACTORY
+    A.FACTORY
     FROM
     WARRANTY.CRM_CUST_GRUMBLE A
-    LEFT JOIN WARRANTY.CRM_PRODUCT_CATEGORY B ON A.CATEGORY_ID = B.CID
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
         AND TO_CHAR (A.CREATE_DT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
@@ -77,10 +76,10 @@
         AND A.C_TYPE = #{cType,jdbcType=VARCHAR}
       </if>
       <if test="factory != null and factory != ''" >
-        AND B.FACTORY = #{factory,jdbcType=VARCHAR}
+        AND A.FACTORY = #{factory,jdbcType=VARCHAR}
       </if>
       <if test="factorys != null" >
-        AND B.FACTORY  in
+        AND A.FACTORY  in
         <foreach collection="factorys"  index="index" close=")" open="(" item="item" separator=",">
           #{factorys[${index}]}
         </foreach>
@@ -160,6 +159,9 @@
       <if test="categoryName != null" >
         CATEGORY_NAME,
       </if>
+      <if test="factory != null" >
+        FACTORY,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="cid != null" >
@@ -206,6 +208,9 @@
       </if>
       <if test="categoryName != null" >
         #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="factory != null" >
+        #{factory,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
