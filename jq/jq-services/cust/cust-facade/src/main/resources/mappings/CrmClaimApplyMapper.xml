@@ -1490,10 +1490,7 @@
     (select name from ACCT_INFO where ACCT_ID = A.PRESENTATION_USER) AS PRESENTATION_USER,
     (select MOBILE_PHONE from ACCT_INFO where ACCT_ID = A.ADMISSIBILITY_USER) AS PHONE,
     D.SPILT_CUSTOMER,
-    case when B.DEPT_CODE = '1000' then '不锈'
-    when B.DEPT_CODE = '2000' then '炼轧'
-    when B.DEPT_CODE = '2200' then '碳钢'
-    when B.DEPT_CODE='3000' then '榆钢' else B.DEPT_CODE end as DEPT_CODE,
+    B.DEPT_CODE,
     (select T.TYPE_NAME from sgai_md_common_type t
     WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
     WHERE T.TYPE_NAME=D.ZCPMC)) AS ZCPMC,
