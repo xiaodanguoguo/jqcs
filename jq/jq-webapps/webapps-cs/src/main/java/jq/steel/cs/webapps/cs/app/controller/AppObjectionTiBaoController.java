@@ -607,7 +607,7 @@ public class AppObjectionTiBaoController {
                 String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"yiyibaogao");
                 SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
                 String dirT = sdf.format(new Date());
-                String dirName = createPdfPath + dirT;
+                String dirName = createPdfPath+ "/"+ dirT;
                 String pdfurl = dirName+pdfName;
                 //pdf文件地址转html地址
                 String url = PdfToHtml.PdfToImage(pdfurl,dirName);
@@ -618,7 +618,7 @@ public class AppObjectionTiBaoController {
                 String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"waibudiaocha");
                 SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
                 String dirT = sdf.format(new Date());
-                String dirName = createPdfPath + dirT;
+                String dirName = createPdfPath+ "/"+  dirT;
                 String pdfurl = dirName+pdfName;
                 //pdf文件地址转html地址
                 String url = PdfToHtml.PdfToImage(pdfurl,dirName);
@@ -629,7 +629,7 @@ public class AppObjectionTiBaoController {
                 String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"neibudiaocha");
                 SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
                 String dirT = sdf.format(new Date());
-                String dirName = createPdfPath + dirT;
+                String dirName = createPdfPath + "/"+  dirT;
                 String pdfurl = dirName+pdfName;
                 //pdf文件地址转html地址
                 String url = PdfToHtml.PdfToImage(pdfurl,dirName);
@@ -640,7 +640,7 @@ public class AppObjectionTiBaoController {
                 String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"xieyishu");
                 SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
                 String dirT = sdf.format(new Date());
-                String dirName = createPdfPath + dirT;
+                String dirName = createPdfPath + "/"+  dirT;
                 String pdfurl = dirName+pdfName;
                 //pdf文件地址转html地址
                 String url = PdfToHtml.PdfToImage(pdfurl,dirName);
@@ -651,7 +651,7 @@ public class AppObjectionTiBaoController {
                 String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"tongzhidan");
                 SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
                 String dirT = sdf.format(new Date());
-                String dirName = createPdfPath + dirT;
+                String dirName = createPdfPath + "/"+  dirT;
                 String pdfurl = dirName+pdfName;
                 //pdf文件地址转html地址
                 String url = PdfToHtml.PdfToImage(pdfurl,dirName);
@@ -662,7 +662,7 @@ public class AppObjectionTiBaoController {
                 String report1 = createPdf.createPdf(jsonRequest.getReqBody().getClaimNo() ,createPdfPath,pdfName,"shoulidan");
                 SimpleDateFormat sdf =   new SimpleDateFormat("yyyy-MM-dd");
                 String dirT = sdf.format(new Date());
-                String dirName = createPdfPath + dirT;
+                String dirName = createPdfPath + "/"+  dirT;
                 String pdfurl = dirName+pdfName;
                 //pdf文件地址转html地址
                 String url = PdfToHtml.PdfToImage(pdfurl,dirName);
