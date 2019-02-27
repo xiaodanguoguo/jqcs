@@ -7,14 +7,8 @@ import jq.steel.cs.services.cust.api.vo.CrmMillSheetSplitInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHeadVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
-import jq.steel.cs.services.cust.facade.dao.CrmMillSheetSplitInfoMapper;
-import jq.steel.cs.services.cust.facade.dao.MillCoilInfoMapper;
-import jq.steel.cs.services.cust.facade.dao.MillSheetHeadMapper;
-import jq.steel.cs.services.cust.facade.dao.MillSheetHostsMapper;
-import jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitInfo;
-import jq.steel.cs.services.cust.facade.model.MillCoilInfo;
-import jq.steel.cs.services.cust.facade.model.MillSheetHead;
-import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
+import jq.steel.cs.services.cust.facade.dao.*;
+import jq.steel.cs.services.cust.facade.model.*;
 import jq.steel.cs.services.cust.facade.service.app.AppMillSheetHeadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +29,8 @@ public class AppMillSheetHeadServiceImpl implements AppMillSheetHeadService {
     private MillSheetHostsMapper millSheetHostsMapper;
     @Autowired
     private CrmMillSheetSplitInfoMapper crmMillSheetSplitInfoMapper;
+    @Autowired
+    private OrgInfoMapper orgInfoMapper;
 
     public MillSheetHeadVO getSheetHeadByMillSheetNo(String millSheetNo) {
         MillSheetHead millSheetHead = millSheetHeadMapper.selectByMillSheetNO(millSheetNo);
@@ -57,37 +53,77 @@ public class AppMillSheetHeadServiceImpl implements AppMillSheetHeadService {
 
     @Override
     public PageDTO<MillSheetHostsVO> getSheetHostsMsg(MillCoilInfoVO vo) {
-       /* if(vo.getZcharg() != null && !("".equals(vo.getZcharg().trim()))){
+        String orgId = vo.getOrgId();
+        String orgName = vo.getOrgName();
+        try {
+            if (vo.getZcharg() != null && vo.getZcharg() != "") {
+                MillCoilInfo coilInfo = new MillCoilInfo();
+                coilInfo.setZcharg(vo.getZcharg());
+                List<MillCoilInfo> list = millCoilInfoMapper.findMillsheetNumber(coilInfo);
+                if (list.size() > 0) {
+                    List<String> idall = new ArrayList<>();
+                    for (int i = 0; i < list.size(); i++) {
+                        idall.add(list.get(i).getMillsheetNo());
+                    }
+                    vo.setMillSheetNos(idall);
+                } else {
+                    List<String> idall = new ArrayList<>();
+                    idall.add("-99");
+                    vo.setMillSheetNos(idall);
+                }
+            }
+            PageDTOUtil.startPage(vo);
             List<MillSheetHosts> mshs = millSheetHostsMapper.getSheetHostsMsgHaveZcharg(vo);
             List<MillSheetHostsVO> vos = BeanCopyUtil.copyList(mshs, MillSheetHostsVO.class);
-            return vos;
-        }else {
-            List<MillSheetHosts> mshs = millSheetHostsMapper.getSheetHostsMsgNoZcharg(vo);
-            List<MillSheetHostsVO> vos = BeanCopyUtil.copyList(mshs, MillSheetHostsVO.class);
-            return vos;
-        }*/
-        try {
-        if (vo.getZcharg() != null && vo.getZcharg() != "") {
-            MillCoilInfo coilInfo = new MillCoilInfo();
-            coilInfo.setZcharg(vo.getZcharg());
-            List<MillCoilInfo> list = millCoilInfoMapper.findMillsheetNumber(coilInfo);
-            if (list.size() > 0) {
-                List<String> idall = new ArrayList<>();
-                for (int i = 0; i < list.size(); i++) {
-                    idall.add(list.get(i).getMillsheetNo());
+            PageDTO<MillSheetHostsVO> transform = PageDTOUtil.transform(vos, MillSheetHostsVO.class);
+            for (MillSheetHostsVO millSheetHosts2 : transform.getResultData()) {
+                if (millSheetHosts2.getJcFlag() != null) {
+                    //判断是否允许下载(建材类不让下载)让打印
+                    if (millSheetHosts2.getJcFlag() == 0) {
+                        //根据组织获取该用户是否为信任用户
+                        OrgInfo orgInfo = new OrgInfo();
+                        orgInfo.setId(orgId);
+                        List<OrgInfo> list = orgInfoMapper.findIdByCode(orgInfo);
+                        if (list.size() > 0) {
+                            if (list.get(0).getIndustrialCode() != null) {
+                                if (list.get(0).getIndustrialCode().equals("1")) {
+                                    //信任
+                                    millSheetHosts2.setIsAllowDown("Y");
+                                    millSheetHosts2.setIsAllowPrint("Y");
+                                } else {
+                                    millSheetHosts2.setIsAllowDown("N");
+                                    millSheetHosts2.setIsAllowPrint("Y");
+                                }
+                            }
+                        }
+
+                    } else {
+                        if (millSheetHosts2.getMillSheetType().equals("Z") || millSheetHosts2.getMillSheetType().equals("S")) {
+                            if (millSheetHosts2.getSpiltCustomer().equals(orgName)) {
+                                millSheetHosts2.setIsAllowDown("Y");
+                                millSheetHosts2.setIsAllowPrint("Y");
+                            } else {
+                                //查询拆分单位下是否有账号有的话不让下载 没有的话让下载打印
+                                OrgInfo orgInfo = new OrgInfo();
+                                orgInfo.setOrgName(millSheetHosts2.getSpiltCustomer());
+                                List<OrgInfo> list = orgInfoMapper.findIdByOrgName(orgInfo);
+                                if (list.size() > 0) {
+                                    millSheetHosts2.setIsAllowDown("Y");
+                                    millSheetHosts2.setIsAllowPrint("Y");
+                                } else {
+                                    millSheetHosts2.setIsAllowDown("N");
+                                    millSheetHosts2.setIsAllowPrint("N");
+                                }
+                            }
+                        } else {
+                            millSheetHosts2.setIsAllowDown("Y");
+                            millSheetHosts2.setIsAllowPrint("Y");
+                        }
+
+                    }
                 }
-                vo.setMillSheetNos(idall);
-            } else {
-                List<String> idall = new ArrayList<>();
-                idall.add("-99");
-                vo.setMillSheetNos(idall);
             }
-        }
-        PageDTOUtil.startPage(vo);
-        List<MillSheetHosts> mshs = millSheetHostsMapper.getSheetHostsMsgHaveZcharg(vo);
-        List<MillSheetHostsVO> vos = BeanCopyUtil.copyList(mshs, MillSheetHostsVO.class);
-        PageDTO<MillSheetHostsVO> transform = PageDTOUtil.transform(vos, MillSheetHostsVO.class);
-        return transform;
+            return transform;
         } finally {
             PageDTOUtil.endPage();
         }
