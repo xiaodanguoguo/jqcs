@@ -915,6 +915,8 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
   <select id="getSheetHostsMsgHaveZcharg" resultMap="FullMap">
     SELECT H.*FROM(SELECT
     mss.STATE,
+    mss.JC_FLAG,
+    mss.MILL_SHEET_TYPE,
     msd.ZCPMC,
     msd.MILL_SHEET_NO,
     msd.ZPH,
