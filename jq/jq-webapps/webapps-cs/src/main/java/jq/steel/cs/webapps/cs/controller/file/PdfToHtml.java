@@ -147,13 +147,13 @@ public class PdfToHtml {
             System.out.println("===> Reading pdf times: " + (end / 1000));
             start = end = null;
             //生成网页文件
-            fos = new FileOutputStream(path + randStr + ".html");
-            System.out.println(path + randStr + ".html");
+            fos = new FileOutputStream(path + "/"+  randStr + ".html");
+            System.out.println(path + "/"+ randStr + ".html");
             fos.write(buffer.toString().getBytes());
             fos.flush();
             fos.close();
             buffer.setLength(0);
-            url+=path + randStr + ".html";
+            url+=path + "/"+ randStr + ".html";
         } catch (Exception e) {
             System.out.println("===>Reader parse pdf to jpg error : " + e.getMessage());
             e.printStackTrace();
