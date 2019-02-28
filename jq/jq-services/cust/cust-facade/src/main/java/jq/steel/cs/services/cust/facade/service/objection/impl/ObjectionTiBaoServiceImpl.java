@@ -887,7 +887,19 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             List<ObjectionTiBaoVO> objectionTiBaoVOS = BeanCopyUtil.copyList(crmClaimApplies, ObjectionTiBaoVO.class);
             // 分页对象
             PageDTO<ObjectionTiBaoVO> transform = PageDTOUtil.transform(objectionTiBaoVOS);
-
+            for (ObjectionTiBaoVO objectionTiBaoVO1 : transform.getResultData()) {
+                crmClaimApply = new CrmClaimApply();
+                BeanCopyUtil.copy(objectionTiBaoVO1, crmClaimApply);
+                if (crmClaimApply.getDeptCode().equals("1000")) {
+                    objectionTiBaoVO1.setDeptCode("不锈");
+                } else if (crmClaimApply.getDeptCode().equals("2000")) {
+                    objectionTiBaoVO1.setDeptCode("炼轧");
+                } else if (crmClaimApply.getDeptCode().equals("2200")) {
+                    objectionTiBaoVO1.setDeptCode("碳钢");
+                } else if (crmClaimApply.getDeptCode().equals("3000")) {
+                    objectionTiBaoVO1.setDeptCode("榆钢");
+                }
+            }
 
             return transform;
 
