@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="jq.steel.cs.services.cust.facade.dao.CrmAgentInfoMapper" >
+  <resultMap id="BaseResultMap" type="jq.steel.cs.services.cust.facade.model.CrmAgentInfo" >
+    <id column="SID" property="sid" jdbcType="DECIMAL" />
+    <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+    <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="UPDATED_BY" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="UPDATED_DT" property="updatedDt" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="AGENT_ID" property="agentId" jdbcType="VARCHAR" />
+    <result column="AGENT_NAME" property="agentName" jdbcType="VARCHAR" />
+    <result column="AGENT_ADDR" property="agentAddr" jdbcType="VARCHAR" />
+    <result column="AGENT_EMP_NO" property="agentEmpNo" jdbcType="VARCHAR" />
+    <result column="AGENT_TEL" property="agentTel" jdbcType="VARCHAR" />
+    <result column="DEFAULT_FLAG" property="defaultFlag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SID, CREATED_BY, CREATED_DT, UPDATED_BY, UPDATED_DT, VERSION, AGENT_ID, AGENT_NAME, 
+    AGENT_ADDR, AGENT_EMP_NO, AGENT_TEL, DEFAULT_FLAG
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from CRM_AGENT_INFO
+    where SID = #{sid,jdbcType=DECIMAL}
+  </select>
+
+
+  <!--分页查询-->
+  <select id="findByPage" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmAgentInfo" >
+    select
+    <include refid="Base_Column_List" />
+    from CRM_AGENT_INFO
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="agentAddr != null and agentAddr != ''" >
+        AND AGENT_ADDR = #{agentAddr,jdbcType=VARCHAR}
+      </if>
+      <if test="agentEmpNo != null and agentEmpNo != ''" >
+        AND AGENT_EMP_NO = #{custEmpNo,jdbcType=VARCHAR}
+      </if>
+      <if test="agentTel != null and agentTel != ''" >
+        AND AGENT_TEL = #{agentTel,jdbcType=VARCHAR}
+      </if>
+      <if test="agentName != null and agentName != ''" >
+        AND AGENT_NAME = #{agentName,jdbcType=VARCHAR}
+      </if>
+      <if test="agentId != null and agentId != ''" >
+        AND AGENT_ID = #{agentId,jdbcType=VARCHAR}
+      </if>
+      <if test="createdBy != null and createdBy != ''" >
+        and CREATED_BY = #{createdBy}
+      </if>
+    </trim>
+  </select>
+
+  <select id="findDefault" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmAgentInfo" >
+    select
+    AGENT_ID, AGENT_NAME, AGENT_ADDR, AGENT_EMP_NO, AGENT_TEL, DEFAULT_FLAG
+    from CRM_AGENT_INFO
+    WHERE DEFAULT_FLAG ='Y'AND   AGENT_ID=#{agentId,jdbcType = VARCHAR}
+  </select>
+
+  <!--查询客户是否有代理单位-->
+  <select id="isOne" resultType="java.lang.Long" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    from CRM_AGENT_INFO
+    WHERE AGENT_ID=#{agentId,jdbcType = VARCHAR}
+  </select>
+
+
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from CRM_AGENT_INFO
+    where SID = #{sid,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="jq.steel.cs.services.cust.facade.model.CrmAgentInfo" >
+    <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
+      SELECT SEQ_CRM_AGENT_INFO.nextval  FROM DUAL
+    </selectKey>
+    insert into CRM_AGENT_INFO (SID, CREATED_BY, CREATED_DT,
+      UPDATED_BY, UPDATED_DT, VERSION, 
+      AGENT_ID, AGENT_NAME, AGENT_ADDR, 
+      AGENT_EMP_NO, AGENT_TEL, DEFAULT_FLAG
+      )
+    values (#{sid,jdbcType=DECIMAL}, #{createdBy,jdbcType=VARCHAR}, #{createdDt,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=VARCHAR}, #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL}, 
+      #{agentId,jdbcType=VARCHAR}, #{agentName,jdbcType=VARCHAR}, #{agentAddr,jdbcType=VARCHAR}, 
+      #{agentEmpNo,jdbcType=VARCHAR}, #{agentTel,jdbcType=VARCHAR}, #{defaultFlag,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmAgentInfo" >
+    <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
+      SELECT SEQ_CRM_AGENT_INFO.nextval  FROM DUAL
+    </selectKey>
+    insert into CRM_AGENT_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        SID,
+      </if>
+      <if test="createdBy != null" >
+        CREATED_BY,
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT,
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY,
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="agentId != null" >
+        AGENT_ID,
+      </if>
+      <if test="agentName != null" >
+        AGENT_NAME,
+      </if>
+      <if test="agentAddr != null" >
+        AGENT_ADDR,
+      </if>
+      <if test="agentEmpNo != null" >
+        AGENT_EMP_NO,
+      </if>
+      <if test="agentTel != null" >
+        AGENT_TEL,
+      </if>
+      <if test="defaultFlag != null" >
+        DEFAULT_FLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=DECIMAL},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="agentId != null" >
+        #{agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="agentName != null" >
+        #{agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentAddr != null" >
+        #{agentAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="agentEmpNo != null" >
+        #{agentEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="agentTel != null" >
+        #{agentTel,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultFlag != null" >
+        #{defaultFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmAgentInfo" >
+    update CRM_AGENT_INFO
+    <set >
+      <if test="createdBy != null" >
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDt != null" >
+        CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedDt != null" >
+        UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+      <if test="agentId != null" >
+        AGENT_ID = #{agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="agentName != null" >
+        AGENT_NAME = #{agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentAddr != null" >
+        AGENT_ADDR = #{agentAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="agentEmpNo != null" >
+        AGENT_EMP_NO = #{agentEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="agentTel != null" >
+        AGENT_TEL = #{agentTel,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultFlag != null" >
+        DEFAULT_FLAG = #{defaultFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SID = #{sid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jq.steel.cs.services.cust.facade.model.CrmAgentInfo" >
+    update CRM_AGENT_INFO
+    set CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+      CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+      UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=DECIMAL},
+      AGENT_ID = #{agentId,jdbcType=VARCHAR},
+      AGENT_NAME = #{agentName,jdbcType=VARCHAR},
+      AGENT_ADDR = #{agentAddr,jdbcType=VARCHAR},
+      AGENT_EMP_NO = #{agentEmpNo,jdbcType=VARCHAR},
+      AGENT_TEL = #{agentTel,jdbcType=VARCHAR},
+      DEFAULT_FLAG = #{defaultFlag,jdbcType=VARCHAR}
+    where SID = #{sid,jdbcType=DECIMAL}
+  </update>
+
+
+  <update id="updateAll" parameterType="jq.steel.cs.services.cust.facade.model.CrmAgentInfo" >
+    update CRM_AGENT_INFO
+    set  version = version + 1,  DEFAULT_FLAG = 'N' ,UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
+    UPDATED_DT = #{updatedDt,jdbcType=TIMESTAMP}
+    WHERE AGENT_ID=#{agentId,jdbcType = VARCHAR}
+  </update>
+</mapper>
