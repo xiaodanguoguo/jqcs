@@ -1,4 +1,4 @@
-package jq.steel.cs.webapps.cs.app.controller;
+package jq.steel.cs.webapps.cs.controller.user;
 
 import com.ebase.core.AssertContext;
 import com.ebase.core.exception.BusinessException;
@@ -10,6 +10,7 @@ import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
 import jq.steel.cs.services.base.api.controller.RoleInfoAPI;
 import jq.steel.cs.services.base.api.vo.RoleInfoVO;
+import jq.steel.cs.services.cust.api.controller.CrmCustGrumbleApi;
 import jq.steel.cs.services.cust.api.controller.app.AppCrmCustGrumbleApi;
 import jq.steel.cs.services.cust.api.vo.CrmCustGrumbleVO;
 import org.slf4j.Logger;
@@ -29,13 +30,13 @@ import java.util.List;
  * @CreateDate: 2018/9/7 13:23
  */
 @RestController
-@RequestMapping("/app/grumble")
-public class AppCrmCustGrumbleController {
+@RequestMapping("/grumble")
+public class CrmCustGrumbleController {
 
     private final static Logger logger = SearchableLoggerFactory.getDefaultLogger();
 
     @Autowired
-    private AppCrmCustGrumbleApi appCrmCustGrumbleApi;
+    private CrmCustGrumbleApi crmCustGrumbleApi;
 
     @Autowired
     private RoleInfoAPI roleInfoAPI;
@@ -60,7 +61,7 @@ public class AppCrmCustGrumbleController {
             grumbleVO.setCreateDt(new Date());
             //公司名称
             grumbleVO.setCustomer(AssertContext.getOrgName());
-            ServiceResponse<Integer> serviceResponse = appCrmCustGrumbleApi.addCrmCustGrumble(jsonRequest);
+            ServiceResponse<Integer> serviceResponse = crmCustGrumbleApi.addCrmCustGrumble(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {
@@ -96,7 +97,7 @@ public class AppCrmCustGrumbleController {
         logger.info("删除客户抱怨/表扬信息 = {}", JsonUtil.toJson(jsonRequest));
         JsonResponse<Integer> jsonResponse = new JsonResponse<>();
         try {
-            ServiceResponse<Integer> serviceResponse = appCrmCustGrumbleApi.delete(jsonRequest);
+            ServiceResponse<Integer> serviceResponse = crmCustGrumbleApi.delete(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {
@@ -136,7 +137,7 @@ public class AppCrmCustGrumbleController {
             CrmCustGrumbleVO grumbleVO = jsonRequest.getReqBody();
             grumbleVO.setUpdateByid(Long.parseLong(AssertContext.getAcctId()));
             grumbleVO.setUpdateDt(new Date());
-            ServiceResponse<Integer> serviceResponse = appCrmCustGrumbleApi.update(jsonRequest);
+            ServiceResponse<Integer> serviceResponse = crmCustGrumbleApi.update(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {
@@ -196,7 +197,7 @@ public class AppCrmCustGrumbleController {
             CrmCustGrumbleVO grumbleVO = jsonRequest.getReqBody();
             grumbleVO.setCreateByid(Long.parseLong(AssertContext.getAcctId()));
             grumbleVO.setCreateDt(new Date());
-            ServiceResponse<PageDTO<CrmCustGrumbleVO>> serviceResponse = appCrmCustGrumbleApi.findByPage(jsonRequest);
+            ServiceResponse<PageDTO<CrmCustGrumbleVO>> serviceResponse = crmCustGrumbleApi.findByPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {
