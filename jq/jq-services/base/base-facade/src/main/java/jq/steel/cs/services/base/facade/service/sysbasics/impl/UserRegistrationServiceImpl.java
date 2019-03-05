@@ -9,6 +9,7 @@ import jq.steel.cs.services.base.facade.service.sysbasics.UserRegistrationServic
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,11 +21,24 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 
 
 	/**
-	 * 根据id，查询省市区
+	 * 根据产品类别、公司所在区域对照表对应关系进行筛选。
+	 	例如：用户选择了用户选了线棒材+碳钢+不锈钢，那就以线棒材+所在区域去选，户选了线碳钢+不锈钢，那就以碳钢+所在区域去选。
 	 * @return
 	 */
 	@Override
 	public UserRegistration getSale(UserRegistration userRegistration) {
+		//产品类别
+		if (userRegistration.getProductClassification().indexOf(",")!=-1){
+			String a []  = userRegistration.getProductClassification().split(",");
+			userRegistration.setProductClassification(a[0]);
+		}
+
+		//省市
+		if (userRegistration.getArea().indexOf(",")!=-1){
+			String a []  = userRegistration.getArea().split(",");
+			userRegistration.setProvince(a[0]);
+			userRegistration.setCity(a[1]);
+		}
 		UserRegistration userRegistration1 = userRegistrationMapper.getSale(userRegistration);
 		return userRegistration1;
 	}

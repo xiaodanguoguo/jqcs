@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 public class UserRegistration {
 
+    private String area;
+
     private String salesCompany;
 
     private BigDecimal sid;
@@ -15,6 +17,14 @@ public class UserRegistration {
     private String city;
 
     private BigDecimal oId;
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
 
     public String getSalesCompany() {
         return salesCompany;
