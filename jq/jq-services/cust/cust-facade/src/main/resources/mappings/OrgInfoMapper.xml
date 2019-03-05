@@ -63,4 +63,44 @@
         WHERE
         ID = #{id}
     </select>
+
+
+
+    <select id="selectAuditOrg"  resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.OrgInfo">
+        SELECT
+        a.ID,
+        a.ORG_CODE,
+        a.ORG_NAME,
+        a.PARENT_ID,
+        a.REMARK,
+        a.STATUS,
+        a.CREATED_BY,
+        a.CREATED_TIME,
+        a.UPDATED_BY,
+        a.UPDATED_TIME,
+        a.SAP_CODE,
+        a.BUKRS,
+        a.ORG_TYPE,
+        a.TEL,
+        a.ADDR,
+        a.email,
+        a.REG_TYPE,
+        b.ORG_NAME as PARENT_NAME
+        FROM
+        org_info a left join
+        org_info b on a.parent_id = b.id
+        WHERE 1 = 1
+        <choose>
+            <when test="status != null and status != '' ">
+                and a.STATUS = #{status}
+            </when>
+            <otherwise>
+                and a.status in (2,5)
+            </otherwise>
+        </choose>
+        <if test="orgName != null" >
+            and a.ORG_NAME LIKE '%' || #{orgName} ||'%'
+        </if>
+        order by a.CREATED_TIME desc
+    </select>
 </mapper>

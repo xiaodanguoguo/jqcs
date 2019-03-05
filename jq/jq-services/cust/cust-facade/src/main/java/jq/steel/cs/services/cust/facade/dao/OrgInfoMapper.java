@@ -11,4 +11,6 @@ public interface OrgInfoMapper {
 	List<OrgInfo>findIdByOrgName(OrgInfo reqBody);
 	//根据id查询industrialCode
 	List<OrgInfo>findIdByCode(OrgInfo reqBody);
+
+	List<OrgInfo> selectAuditOrg(OrgInfo orgInfo);
 }
