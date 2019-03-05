@@ -134,7 +134,7 @@ public class CrmProductInfoVO {
     }
 
     public void setProductDesc(String productDesc) {
-        this.productDesc = productDesc == null ? null : productDesc.trim();
+        this.productDesc = productDesc == null ? null : productDesc;
     }
 
     public String getProductManual() {
@@ -142,7 +142,7 @@ public class CrmProductInfoVO {
     }
 
     public void setProductManual(String productManual) {
-        this.productManual = productManual == null ? null : productManual.trim();
+        this.productManual = productManual == null ? null : productManual;
     }
 
     public Long getSortNumber() {
