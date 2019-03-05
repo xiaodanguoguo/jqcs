@@ -61,6 +61,9 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
     @Autowired
     private CrmCustGrumbleMapper crmCustGrumbleMapper;
 
+    @Autowired
+    private OrgInfoMapper orgInfoMapper;
+
     @Override
     public PageDTO<CrmQuestionVO> getPage(CrmQuestionVO crmQuestionVO) {
         CrmQuestion crmQuestion = new CrmQuestion();
@@ -462,9 +465,21 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
         }
 
 
-
         //客户注册count
-        vo.setRegisterCount(1);
+        if(!crmQuestionVO.getOrgType().equals("5")){
+            OrgInfo orgInfo = new OrgInfo();
+            orgInfo.setStatus("2");
+            orgInfo.setOrgName(crmQuestionVO.getOrgName());
+            List<OrgInfo> orgInfos = orgInfoMapper.selectAuditOrg(orgInfo);
+            if (orgInfos.size()>0){
+                vo.setRegisterCount(orgInfos.size());
+            }else{
+                vo.setRegisterCount(0);
+            }
+        }else {
+            vo.setRegisterCount(0);
+        }
+
         return vo;
     }
 }
