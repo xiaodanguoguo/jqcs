@@ -139,6 +139,13 @@
     .drag{
         width: 350px!important;
     }
+    .longP .chosen-container{
+        margin-left: 0;
+    }
+    .shortP .chosen-container{
+        margin-left: 0;
+        width: 114px!important;
+    }
 </style>
     <div class="register-container" style="">
         <div class="ChangePassword__tittle">
@@ -159,6 +166,32 @@
                     <label for="" class="register-container-text__label"><i class="register-container__text-imp ">*</i>工商纳税人识别号信息</label>
                     <input type="text" id="bukrs" class="register-container-text__input required isLengthOf inputBase numOrLetter" v_maxlength="18" v_minlength="18" isLengthOfmsg="请输入18位数字或英文"  placeholder="请输入18位数字或英文">
                 </p>
+
+
+                <p class="register-container-text longP">
+                    <label for="" class="register-container-text__label"><i class="register-container__text-imp ">*</i>购买产品类别</label>
+                    <select id="productClassification" class="register-container-text__input required inputBase" multiple>
+                        <option value="">请选择</option>
+                        <option value="线/棒/板材">线/棒/板材</option>
+                        <option value="碳钢钢带">碳钢钢带</option>
+                        <option value="不锈钢">不锈钢</option>
+                    </select>
+                </p>
+                <p class="register-container-text shortP">
+                    <label for="" class="register-container-text__label"><i class="register-container__text-imp ">*</i>公司所在区域</label>
+                    <select id="provinceName" comType="unionSelectCtrl" isEmptyShow="1" reqPath="/address/getList" method="post" paramName="addressId" reqParam='{"addressId":1}' selCode="addressId" selValue="name" emptyValue="请选择" unionSel="cityName,areaName">
+                    </select>
+
+                    <select id="cityName" comType="" isEmptyShow="0" reqPath="/address/getList" method="post" paramName="addressId" selCode="addressId" reqParam="{}" selValue="name" emptyValue="请选择" unionSel="areaName" parentCtrl="provinceName">
+                    </select>
+                    <select id="areaName" comType="" isEmptyShow="0" reqPath="/address/getList" method="post"  paramName="addressId" selCode="addressId" reqParam="{}" selValue="name" emptyValue="请选择" parentCtrl="cityName">
+                    </select>
+                </p>
+                <p class="register-container-text">
+                    <label for="" class="register-container-text__label"><i class="register-container__text-imp ">*</i>对应销售公司</label>
+                    <input type="text" id="salesCompany" class="register-container-text__input required inputBase" disabled="true">
+                </p>
+
                 <p class="register-container-text">
                     <label for="" class="register-container-text__label"><i class="register-container__text-imp ">*</i>登录名</label>
                     <input type="text" id="acctTitle" class="register-container-text__input required numOrLetter isLengthOf inputBase"　v_maxlength="20" v_minlength="6" isLengthOfmsg="请输入6-20个中英文，数字"  placeholder="6-20个中英文，数字">

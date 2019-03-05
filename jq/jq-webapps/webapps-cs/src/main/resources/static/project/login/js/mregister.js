@@ -1,6 +1,7 @@
 function clsMethodLee(){
     this.requestUrl = {
-        "path1":" /acct/register"
+        "path1":"/acct/register",
+        "path2":"/userRegistration/getSale"
     };
     this.documentLee = null;
     this.registerType = 0;//注册类型 企业或者个人 0-企业  1-个人
@@ -40,6 +41,12 @@ function clsMethodLee$parse(){
     //initplugPath($("#tableList")[0],"standardTableCtrl",this.requestUrl.path1,{},"POST");
     initValidate($("#enterpriseRegister")[0]);//初始化校验组件
     $('#dragA').drag();//初始化滑动校验
+    $("#productClassification").chosen({
+        no_results_text: "暂无结果",
+        width: "350px",
+        enable_split_word_search: false,
+        placeholder_text_single: '请选择'
+    });
     this.operate();
 }
 
@@ -95,6 +102,29 @@ function clsMethodLee$operate(){
         openWin("990","550","registerExplainPop",true);
     });
 
+    //省市区选择完成
+    //$(".shortP #provinceName").val() $(".shortP #cityName").val() $(".shortP #areaName").val()
+    $(".shortP #areaName").on("change",function(){
+        if($(".shortP #areaName").val() && $("#productClassification").val()){
+            var str = "";
+            for(var nI = 0 ; nI < $("#productClassification").val().length ; nI++){
+                str += str == "" ? $("#productClassification").val()[nI] : ","+$("#productClassification").val()[nI];
+            }
+            var reqParam = {"productClassification":str,"area":$(".shortP #provinceName option:selected").html()+ "," +$(".shortP #cityName option:selected").html()+ "," +$(".shortP #areaName option:selected").html()};
+            getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",reqParam,"showCompany(data)");
+        }
+    })
+    $(".longP #productClassification").on("change",function(){
+        if($(".shortP #areaName").val() && $("#productClassification").val()){
+            var str = "";
+            for(var nI = 0 ; nI < $("#productClassification").val().length ; nI++){
+                str += str == "" ? $("#productClassification").val()[nI] : ","+$("#productClassification").val()[nI];
+            }
+            var reqParam = {"productClassification":str,"area":$(".shortP #provinceName option:selected").html()+ "," +$(".shortP #cityName option:selected").html()+ "," +$(".shortP #areaName option:selected").html()};
+            //var reqParam = {"productClassification":str,"area":$(".shortP #provinceName").val()+ "," +$(".shortP #cityName").val()+ "," +$(".shortP #areaName").val()};
+            getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",reqParam,"showCompany(data)");
+        }
+    })
 }
 function clsMethodLee$refresh(){
 
@@ -168,7 +198,13 @@ function passwordDiffer(a,b){//校验两次密码是否一致   a——首次输
 }
 
 function jsonJoin(){//拼接注册入参
-    var jsonParam = {"acctTitle":"","acctPassword":"","mobilePhone":"","companyName":"","address":"","email":"","bukrs":""}
+    var jsonParam = {"acctTitle":"","acctPassword":"","mobilePhone":"","companyName":"","address":"","email":"","bukrs":"","salesCompany":""}
+    var str = "";
+    for(var nI = 0 ; nI < $("#productClassification").val().length ; nI++){
+        str += str == "" ? $("#productClassification").val()[nI] : ","+$("#productClassification").val()[nI];
+    }
+    jsonParam.productClassification = str;
+    jsonParam.area = $(".shortP #provinceName option:selected").html()+ "," +$(".shortP #cityName option:selected").html()+ "," +$(".shortP #areaName option:selected").html();
     if(document.body.jsLee.registerType == 0){//企业注册
         jsonParam.custType = 1;
         getValue4Desc(jsonParam,document.body.jsLee.enterpriseRegister[0]);
@@ -220,6 +256,13 @@ function clsAlertBoxCtrl$sure() {//注册成功弹框确定，跳转页面
         jumpUrl("../../../login.html","0000000",0);
     }else if(this.id == "registerErrTip"){
         closePopupWin();
+    }
+}
+
+function showCompany(data){
+    data = JSON.parse(data);
+    if(data.retCode == "0000000"){
+        $("#salesCompany").val(data.rspBody.salesCompany);
     }
 }
 
