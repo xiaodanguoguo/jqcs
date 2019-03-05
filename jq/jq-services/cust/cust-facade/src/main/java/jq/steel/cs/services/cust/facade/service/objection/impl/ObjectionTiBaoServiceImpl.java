@@ -9,6 +9,7 @@ import com.ebase.utils.StringUtil;
 import jq.steel.cs.services.cust.api.vo.*;
 import jq.steel.cs.services.cust.facade.dao.*;
 import jq.steel.cs.services.cust.facade.model.*;
+import jq.steel.cs.services.cust.facade.service.objection.CrmAgentInfoService;
 import jq.steel.cs.services.cust.facade.service.objection.CrmCustomerInfoService;
 import jq.steel.cs.services.cust.facade.service.objection.CrmLastuserInfoService;
 import jq.steel.cs.services.cust.facade.service.objection.ObjectionTiBaoService;
@@ -41,6 +42,9 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
 
     @Autowired
     private CrmLastuserInfoService crmLastuserInfoService;
+
+    @Autowired
+    private CrmAgentInfoService crmAgentInfoService;
 
     @Autowired
     private CrmAgreementInfoMapper crmAgreementInfoMapper;
@@ -154,6 +158,22 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                     objectionTiBaoVO.setLastUserAddr(list1.get(0).getLastUserAddr());
                     objectionTiBaoVO.setCreateEmpNo(list1.get(0).getCreateEmpNo());
                     objectionTiBaoVO.setLastUserTel(list1.get(0).getLastUserTel());
+
+                    //代理单位查询
+                    CrmAgentInfoVO crmAgentInfoVO = new CrmAgentInfoVO();
+                    crmAgentInfoVO.setAgentId(orgCode);
+                    List<CrmAgentInfoVO> crmAgentInfoVOList = crmAgentInfoService.findDefault(crmAgentInfoVO);
+                    if (crmAgentInfoVOList.size()>0){
+                        objectionTiBaoVO.setAgentId(crmAgentInfoVOList.get(0).getAgentId());
+                        objectionTiBaoVO.setAgentName(crmAgentInfoVOList.get(0).getAgentName());
+                        objectionTiBaoVO.setAgentAddr(crmAgentInfoVOList.get(0).getAgentAddr());
+                        objectionTiBaoVO.setAgentEmpNo(crmAgentInfoVOList.get(0).getAgentEmpNo());
+                        objectionTiBaoVO.setAgentTel(crmAgentInfoVOList.get(0).getAgentTel());
+                        return objectionTiBaoVO;
+                    }else {
+                        objectionTiBaoVO.setAgentId(orgCode);
+                    }
+                    crmClaimApply.setExplain("请填写默认代理单位");
                     return objectionTiBaoVO;
                 }else{
                     objectionTiBaoVO.setLastUserId(orgCode);

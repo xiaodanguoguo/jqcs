@@ -76,6 +76,13 @@
     <result column="INQUIRE_INFO" property="inquireInfo"/>
     <result column="FIELD_CONCLUSION_TEXT" property="fieldConclusionText"/>
     <result column="EXPIRED_SIGN" property="expiredSign"/>
+
+
+    <result column="AGENT_ID" property="agentId" jdbcType="VARCHAR" />
+    <result column="AGENT_NAME" property="agentName" jdbcType="VARCHAR" />
+    <result column="AGENT_ADDR" property="agentAddr" jdbcType="VARCHAR" />
+    <result column="AGENT_EMP_NO" property="agentEmpNo" jdbcType="VARCHAR" />
+    <result column="AGENT_TEL" property="agentTel" jdbcType="VARCHAR" />
   </resultMap>
 
   <resultMap id="BaseResultMap1" type="jq.steel.cs.services.cust.facade.model.ObjectionLedger" >
