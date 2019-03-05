@@ -230,8 +230,8 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
     if(this.ctrl.id == "tableList1"){//客户抱怨
         $(cloneRow).find("#detailOpe").on("click",function(){//详情操作
             $("#popOpe").hide();
-            $("#cusComplainPopup .manageNews-main-search-list:last").hide();
-            $("#cusPraisePopup .manageNews-main-search-list:last").hide();
+            $("#cusComplainPopup .manageNews-main-search-list:last").show();
+            $("#cusPraisePopup .manageNews-main-search-list:last").show();
             $("#cusComplainPopup #feedbackContent").removeClass("required");
             $("#cusPraisePopup #feedbackContent").removeClass("required");
             openWinShow(1,jsonItem.cid,true);
@@ -255,8 +255,8 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
     }else if(this.ctrl.id == "tableList2"){//客户表扬
         $(cloneRow).find("#detailOpe").on("click",function(){//详情操作
             $("#popOpe").hide();
-            $("#cusComplainPopup .manageNews-main-search-list:last").hide();
-            $("#cusPraisePopup .manageNews-main-search-list:last").hide();
+            $("#cusComplainPopup .manageNews-main-search-list:last").show();
+            $("#cusPraisePopup .manageNews-main-search-list:last").show();
             $("#cusComplainPopup #feedbackContent").removeClass("required");
             $("#cusPraisePopup #feedbackContent").removeClass("required");
             openWinShow(3,jsonItem.lastUserId,true);

@@ -108,7 +108,13 @@ function clsMethodLee$parse(){
             $(".box4").remove();
             $(".box5").remove();
             $(".box6").remove();
-            getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":this.claimNo,"optionType":1},"htmlInit(data)");//数据回显操作
+            if(this.claimNo){
+                getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":this.claimNo,"optionType":2},"htmlInit(data)");//数据回显操作
+
+            }else{
+                getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",{"claimNo":this.claimNo,"optionType":1},"htmlInit(data)");//数据回显操作
+
+            }
             break;
         case 1://修改
             $("#boxSecond").remove();
@@ -848,6 +854,7 @@ function paramJson(){
 function firstSaveCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
+        document.body.jsLee.claimNo = data.rspBody.claimNo;
         garyDom(document.body.jsLee.opeDom)
         if(document.body.jsLee.htmlType == 0){
             document.body.jsLee.claimNoPreview = data.rspBody.claimNo;
@@ -863,6 +870,7 @@ function firstSaveCallBack(data){
 function secondSaveCallBack(data){
     data = JSON.parse(data);
     if(data.retCode == "0000000"){
+        document.body.jsLee.claimNo = data.rspBody.claimNo;
         garyDom(document.body.jsLee.opeDom);
         var alertBox=new clsAlertBoxCtrl();
         alertBox.Alert(data.retDesc,"成功提示");
@@ -952,7 +960,11 @@ function clsAlertBoxCtrl$sure() {//成功弹框确定
 }
 
 function garyDom(src){//按钮操作后置灰
-    document.body.jsLee[src].attr("disabled",true).addClass("changeGary");
+    if(src == "firstSave" || src == "thirdSave" || src == "fifthSave" || src == "forthSave"){
+        document.body.jsLee.init();
+    }else{
+        document.body.jsLee[src].attr("disabled",true).addClass("changeGary");
+    }
 }
 
 //富文本提取src

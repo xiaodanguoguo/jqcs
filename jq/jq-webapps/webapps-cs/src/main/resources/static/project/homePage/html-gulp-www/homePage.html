@@ -326,6 +326,39 @@
             </div>
         </div>
     </div>
+    <div id="TipPopup" class="popup" style="display: none;">
+        <div class="title">
+            <h2>温馨提示</h2>
+            <div>
+                <a class="min" href="javascript:;" title="最小化" style="display:none;"></a>
+                <a class="max" href="javascript:;" title="最大化" style="display:none;"></a>
+                <a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+                <a class="close" href="javascript:;" title="关闭"></a>
+            </div>
+        </div>
+        <style>
+            .undelineClick{
+                cursor: pointer;
+                display: none;
+                color: #6390f3;
+            }
+            .undelineClick:hover{
+                text-decoration: underline;
+            }
+
+        </style>
+        <div class="content" style="height: 400px;!important;">
+            <div style="padding: 10px;font-size: 14px;line-height: 24px;text-indent: 40px;">
+                <div>您好，<span id="userName"></span>！目前您有</div>
+                <div class="undelineClick" id="questionBox"><span id="count"></span>份问卷调查需要填写</div>
+                <div class="undelineClick" id="objectionBox"><span id="objectionCount"></span>条质量异议需要处理</div>
+                <div class="undelineClick" id="complainBox"><span id="complainCount"></span>条客户抱怨需要处理</div>
+                <div class="undelineClick" id="replyBox">您的抱怨，酒钢已回复，请注意查看</div>
+                <div class="undelineClick" id="registerBox"><span id="registerCount"></span>条新用户注册需要审核</div>
+                <div>期待您的参与！</div>
+            </div>
+        </div>
+    </div>
 <style>
     .og-head-maincontent{
         min-height: 540px;
@@ -392,17 +425,50 @@
     function initCallBack(data) {
         data = JSON.parse(data);
         if(data.retCode == "0000000"){
-            if(data.rspBody.count > 0){
-                var alertBox=new clsAlertBoxCtrl();
-                qid = data.rspBody.qid;
-                alertBox.Alert("您好，"+ unescape(getCookie("userName")) +"！有"+ data.rspBody.count +"份问卷调查，期待您的参与！","温馨提示",1,"","questionSure");
+            if(data.rspBody.count > 0 || data.rspBody.objectionCount > 0 || data.rspBody.complainCount > 0 || data.rspBody.registerCount > 0 || data.rspBody.replyCount > 0){
+                $("#TipPopup #userName").html(unescape(getCookie("userName")));
+                openWin("400","250","TipPopup",true);
+                if(data.rspBody.count > 0){//调查问卷
+                    $("#questionBox").show();
+                    $("#count").html(data.rspBody.count);
+                    qid = data.rspBody.qid;
+                    $("#questionBox").on("click",function(){
+                        jumpUrl("../../myBussiness/html-gulp-www/questionDesc.html?qid="+ qid,"0000000",0);
+                    });
+                }
+                if(data.rspBody.objectionCount > 0){//异议调查
+                    $("#objectionBox").show();
+                    $("#objectionCount").html(data.rspBody.objectionCount);
+                    $("#objectionBox").on("click",function(){
+                        jumpUrl("../../appealCompensate/html-gulp-www/objectionDeal.html","0000000",0);
+                    });
+                }
+                if(data.rspBody.complainCount > 0){//抱怨
+                    $("#complainBox").show();
+                    $("#complainCount").html(data.rspBody.complainCount);
+                    $("#complainBox").on("click",function(){
+                        jumpUrl("../../appealCompensate/html-gulp-www/customFeedback.html","0000000",0);
+                    });
+                }
+                if(data.rspBody.registerCount > 0){//酒钢回复抱怨
+                    $("#replyBox").show();
+                    $("#replyBox").on("click",function(){
+                        jumpUrl("../../appealCompensate/html-gulp-www/customFeedback.html","0000000",0);
+                    });
+                }
+                if(data.rspBody.replyCount > 0){//注册用户
+                    $("#registerBox").show();
+                    $("#registerCount").html(data.rspBody.registerCount);
+                    $("#registerBox").on("click",function(){
+                        jumpUrl("../../limitManage/html-gulp-www/accountAudit.html","0000000",0);
+                    });
+                }
             }
         }
     }
     function clsAlertBoxCtrl$sure() {//修改密码成功弹框确定
         if (this.id == "questionSure") {//修改密码成功
             closePopupWin();
-            jumpUrl("../../myBussiness/html-gulp-www/questionDesc.html?qid="+ qid,"0000000",0);
         }
     }
     function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
