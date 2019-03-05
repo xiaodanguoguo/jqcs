@@ -128,6 +128,39 @@ public class OrgInfo{
 	//标识
 	private Boolean isTrue;
 
+	//购买产品类别
+	private String productClassification;
+
+	//公司所在区域
+	private String area;
+
+	//对应的销售公司
+	private String salesCompany;
+
+	public String getProductClassification() {
+		return productClassification;
+	}
+
+	public void setProductClassification(String productClassification) {
+		this.productClassification = productClassification;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getSalesCompany() {
+		return salesCompany;
+	}
+
+	public void setSalesCompany(String salesCompany) {
+		this.salesCompany = salesCompany;
+	}
+
 	public Boolean getTrue() {
 		return isTrue;
 	}
