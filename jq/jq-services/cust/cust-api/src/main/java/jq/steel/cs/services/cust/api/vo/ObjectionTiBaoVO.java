@@ -8,6 +8,56 @@ import java.util.List;
 
 public class ObjectionTiBaoVO {
 
+    private String agentId;
+
+    private String agentName;
+
+    private String agentAddr;
+
+    private String agentEmpNo;
+
+    private String agentTel;
+
+    public String getAgentId() {
+        return agentId;
+    }
+
+    public void setAgentId(String agentId) {
+        this.agentId = agentId;
+    }
+
+    public String getAgentName() {
+        return agentName;
+    }
+
+    public void setAgentName(String agentName) {
+        this.agentName = agentName;
+    }
+
+    public String getAgentAddr() {
+        return agentAddr;
+    }
+
+    public void setAgentAddr(String agentAddr) {
+        this.agentAddr = agentAddr;
+    }
+
+    public String getAgentEmpNo() {
+        return agentEmpNo;
+    }
+
+    public void setAgentEmpNo(String agentEmpNo) {
+        this.agentEmpNo = agentEmpNo;
+    }
+
+    public String getAgentTel() {
+        return agentTel;
+    }
+
+    public void setAgentTel(String agentTel) {
+        this.agentTel = agentTel;
+    }
+
     //app计数
     private  Integer countForApp;
 

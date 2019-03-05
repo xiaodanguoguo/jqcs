@@ -88,6 +88,75 @@
   </select>
 
 
+  <select id="findCount" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustGrumble" >
+    SELECT
+    A.CID,
+    A.CATEGORY_ID,
+    A.PRODUCT_ID,
+    A.SUBMIT_BY,
+    A.GRUMBLE_CONTENT,
+    A.CREATE_DT,
+    A.UPDATE_BYID,
+    A.UPDATE_DT,
+    A.C_TYPE,
+    A.CUSTOMER,
+    A.PRODUCT_NAME,
+    A.T_TYPE,
+    A.FEEDBACK_CONTENT,
+    A.CATEGORY_NAME,
+    A.FACTORY
+    FROM
+    WARRANTY.CRM_CUST_GRUMBLE A
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="cType != null and cType != ''" >
+        AND A.C_TYPE = #{cType,jdbcType=VARCHAR}
+      </if>
+      <if test="factory != null and factory != ''" >
+        AND A.FACTORY = #{factory,jdbcType=VARCHAR}
+      </if>
+      <if test="factorys != null" >
+        AND A.FACTORY  in
+        <foreach collection="factorys"  index="index" close=")" open="(" item="item" separator=",">
+          #{factorys[${index}]}
+        </foreach>
+      </if>
+    </trim>
+    AND  A.FEEDBACK_CONTENT is NULL
+  </select>
+
+  <select id="findCount1" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustGrumble" >
+    SELECT
+    A.CID,
+    A.CATEGORY_ID,
+    A.PRODUCT_ID,
+    A.SUBMIT_BY,
+    A.GRUMBLE_CONTENT,
+    A.CREATE_DT,
+    A.UPDATE_BYID,
+    A.UPDATE_DT,
+    A.C_TYPE,
+    A.CUSTOMER,
+    A.PRODUCT_NAME,
+    A.T_TYPE,
+    A.FEEDBACK_CONTENT,
+    A.CATEGORY_NAME,
+    A.STATE,
+    A.FACTORY
+    FROM
+    WARRANTY.CRM_CUST_GRUMBLE A
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="cType != null and cType != ''" >
+        AND A.C_TYPE = #{cType,jdbcType=VARCHAR}
+      </if>
+      <if test="customer != null and customer != ''" >
+        AND A.CUSTOMER = #{customer,jdbcType=VARCHAR}
+      </if>
+    </trim>
+    AND  A.STATE is NULL
+  </select>
+
+
+
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from CRM_CUST_GRUMBLE
@@ -244,4 +313,16 @@
     </set>
     where CID = #{cid,jdbcType=NUMERIC}
   </update>
+
+  <update id="updateState" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustGrumble" >
+    update CRM_CUST_GRUMBLE
+    <set >
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CID = #{cid,jdbcType=NUMERIC}
+  </update>
+
+
 </mapper>

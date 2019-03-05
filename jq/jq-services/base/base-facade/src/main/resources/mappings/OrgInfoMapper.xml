@@ -44,7 +44,10 @@
 		ADDR,
 		EMAIL,
 		REG_TYPE,
-		INDUSTRIAL_CODE
+		INDUSTRIAL_CODE,
+		PRODUCT_CLASSIFICATION,
+		AREA,
+		SALES_COMPANY
 	)
 	VALUES
 		(
@@ -65,7 +68,10 @@
 			#{addr},
 			#{email},
 			#{regType},
-			#{industrialCode}
+			#{industrialCode},
+			#{productClassification},
+			#{area},
+			#{salesCompany}
 		)
 
   </insert>

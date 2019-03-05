@@ -53,21 +53,23 @@
     <result column="REASONS_FOR_COMPULSORY_CLOSURE" property="reasonsForCompulsoryClosure" jdbcType="VARCHAR" />
     <result column="REPORT_PICTURE" property="reportPictures" jdbcType="VARCHAR" />
     <result column="OBJECTION_CONFIRMATION" property="objectionConfirmation" jdbcType="NUMERIC" />
-
     <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
     <result column="INQUIRE_STATE" property="inquireState" jdbcType="VARCHAR" />
     <result column="ZCPMC" property="zcpmc" jdbcType="VARCHAR" />
     <result column="ZPH" property="zph" jdbcType="VARCHAR" />
-
     <result column="PARENT_SID" property="parentSid" jdbcType="NUMERIC" />
-
     <result column="NEED_USER" property="needUser"/>
     <result column="TIBAO_ADMISSIBILITY_TIME" property="tibaoAdmissibilityTime"/>
     <result column="PRODUCTION_REJECT_REASON" property="productionRejectReason"/>
     <result column="MOBILE_PHONE" property="mobilePhone"/>
-
     <result column="NAME" property="name"/>
 
+
+    <result column="AGENT_ID" property="agentId" jdbcType="VARCHAR" />
+    <result column="AGENT_NAME" property="agentName" jdbcType="VARCHAR" />
+    <result column="AGENT_ADDR" property="agentAddr" jdbcType="VARCHAR" />
+    <result column="AGENT_EMP_NO" property="agentEmpNo" jdbcType="VARCHAR" />
+    <result column="AGENT_TEL" property="agentTel" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="CountResultMap" type="jq.steel.cs.services.cust.api.vo.ObjectionTiBaoCountVO" >
     <result column="created" property="created"  />
