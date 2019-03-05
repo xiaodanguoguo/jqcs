@@ -1,0 +1,318 @@
+@@include('../../commonNav/html/commonHeaderBlue.html')
+<style>
+    .chosen-container{
+        margin-left: 0!important;
+    }
+</style>
+<link rel="stylesheet" href="../css/customFeedback.css">
+<script src="../js/customFeedback.js"></script>
+<div class="manageNews">
+    <ul class="tabMenu-four" comtype="tabCtrl" contentcls="tabCon" id="tabSelect">
+        <li class="tabTitLi" nidx="0" limitCode="M30101"><span>客户抱怨</span></li>
+        <li nidx="1" limitCode="M30102"><span>客户表扬</span></li>
+    </ul>
+    <div class="tabCon manageNews-main" id="cusComplain">
+        <div class="manageNews-main-title">客户抱怨</div>
+        <ul class="manageNews-main-search clearfix" id="searchBox1">
+            <li class="manageNews-main-search-list" style="display: none">
+                <span class="manageNews-mainSearch-list-name"></span>
+                <input id="condcType" value="抱怨" class="inputBase manageNews-mainSearch-list-input" type="text">
+            </li>
+            <li class="manageNews-main-search-list">
+                <span class="manageNews-mainSearch-list-name">产品:</span>
+                <input id="condproductName" class="inputBase manageNews-mainSearch-list-input" type="text">
+            </li>
+            <li class="manageNews-main-search-list">
+                <span class="manageNews-mainSearch-list-name">创建日期:</span>
+                <input class="inputBase manageNews-mainSearch-list-input" type="text" name="condstartDt" id="condstartDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'condendDt\')}'})">
+            </li>
+            <li class="manageNews-main-search-list">
+                <span class="manageNews-mainSearch-list-name">至:</span>
+                <input class="inputBase manageNews-mainSearch-list-input" type="text" name="condendDt" id="condendDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'condstartDt\')}'})">
+            </li>
+            <li class="manageNews-main-search-list">
+                <span class="manageNews-mainSearch-list-name">产品类别:</span>
+                <select class="inputBase manageNews-mainSearch-list-input" name="" id="condcategoryName">
+                    <option value="">请选择</option>
+                    <option value="线/棒/板材">线/棒/板材</option>
+                    <option value="碳钢钢带">碳钢钢带</option>
+                    <option value="不锈钢">不锈钢</option>
+                </select>
+            </li>
+            <li class="manageNews-main-search-list">
+            </li>
+            <li class="manageNews-main-search-list">
+                <!-- <input class="manageNews-mainSearch-list-check" type="checkbox" name="" id="">
+                 <span>设为默认联系人</span>-->
+                <div class="btnBaseCommon fr" id="createList">新增</div>
+                <div class="btnLowNew manageNews-mainSearch-list-searchBtn fr" comType="searchBtnCtrl" cond="condcType,condstartDt,condendDt,condcategoryName,condproductName" rule="cond" unionTableId="tableList1" parentId="searchBox1">搜索</div>
+            </li>
+        </ul>
+        <table class="table-list" id="tableList1" comType="" templateId="templateRow" page="tcdPageCodeFir" reqPath="" reqParam="{}" method="POST" noData="nonData1" style="table-layout: fixed">
+            <tr class="table-list-currentrow">
+                <th class="table-list-currentrow-theader" style="width: 15%">
+                    客户单位
+                </th>
+                <th class="table-list-currentrow-theader"  style="width: 15%">
+                    填报人
+                </th>
+                <th class="table-list-currentrow-theader"  style="width: 8%">
+                    填报时间
+                </th>
+                <th class="table-list-currentrow-theader" style="width: 9%">
+                    联系电话
+                </th>
+                <th class="table-list-currentrow-theader" style="width: 8%">
+                    抱怨类别
+                </th>
+                <th class="table-list-currentrow-theader" style="width: 8%">
+                    抱怨产品类别
+                </th>
+                <th class="table-list-currentrow-theader" style="width: 6%">
+                    抱怨产品
+                </th>
+                <th class="table-list-currentrow-theader" style="width: 15%">
+                    抱怨产品内容
+                </th>
+                <th class="table-list-currentrow-theader" style="width: 9%">
+                    操作
+                </th>
+            </tr>
+            <tr class="table-list-currentrow" id="templateRow" style="display: none">
+                <td class="table-list-currentrow-tdetail">
+                    <span class="manageNews-main-table-td" id="customer"></span>
+                </td>
+                <td class="table-list-currentrow-tdetail">
+                    <span class="manageNews-main-table-td" id="createByName"></span>
+                </td>
+                <td class="table-list-currentrow-tdetail">
+                    <span class="manageNews-main-table-td" id="createDt"></span>
+                </td>
+                <td class="table-list-currentrow-tdetail">
+                    <span class="manageNews-main-table-td" id="phone"></span>
+                </td>
+                <td class="table-list-currentrow-tdetail">
+                    <span class="manageNews-main-table-td" id="tType"></span>
+                </td>
+                <td class="table-list-currentrow-tdetail">
+                    <span class="manageNews-main-table-td" id="categoryName"></span>
+                </td>
+                <td class="table-list-currentrow-tdetail">
+                    <span class="manageNews-main-table-td" id="productName"></span>
+                </td>
+                <td class="table-list-currentrow-tdetail">
+                    <span class="manageNews-main-table-td" id="grumbleContent"></span>
+                </td>
+                <td class="table-list-currentrow-tdetail">
+                    <span class="btnLowImgCom fl manageNews-main-tableTd-edit" id="feedbackOpe">反馈</span>
+                    <span class="btnLowImgCom fl manageNews-main-tableTd-edit" id="detailOpe">详情</span>
+                    <span class="btnLowImgDel fl manageNews-main-tableTd-del" id="deleteOpe">删除</span>
+                    <!--<span class="btnLowImgCom fr manageNews-main-tableTd-ope">设为默认联系</span>-->
+                </td>
+            </tr>
+        </table>
+        <div id="nonData1" class="noDataCon" style="display: none">
+            <i></i>
+            <p>暂无数据......</p>
+        </div>
+        <div class="tcdPageCode tcdPageCodeFir"></div>
+    </div>
+    <div class="tabCon manageNews-main" style="display: none;" id="cusPraise">
+        <div class="manageNews-main-title">客户表扬</div>
+        <ul class="manageNews-main-search clearfix" id="searchBox2">
+            <li class="manageNews-main-search-list" style="display: none">
+                <span class="manageNews-mainSearch-list-name"></span>
+                <input id="condcType" value="表扬" class="inputBase manageNews-mainSearch-list-input" type="text">
+            </li>
+            <li class="manageNews-main-search-list">
+                <span class="manageNews-mainSearch-list-name">产品:</span>
+                <input id="condcType" class="inputBase manageNews-mainSearch-list-input" type="text">
+            </li>
+            <li class="manageNews-main-search-list">
+                <span class="manageNews-mainSearch-list-name">创建日期:</span>
+                <input class="inputBase manageNews-mainSearch-list-input" type="text" name="condstartDt" id="condstartDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'condendDt\')}'})">
+            </li>
+            <li class="manageNews-main-search-list">
+                <span class="manageNews-mainSearch-list-name">至:</span>
+                <input class="inputBase manageNews-mainSearch-list-input" type="text" name="condendDt" id="condendDt" onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'condstartDt\')}'})">
+            </li>
+            <li class="manageNews-main-search-list">
+                <span class="manageNews-mainSearch-list-name">产品类别:</span>
+                <select class="inputBase manageNews-mainSearch-list-input" name="" id="condcategoryName">
+                    <option value="">请选择</option>
+                    <option value="线/棒/板材">线/棒/板材</option>
+                    <option value="碳钢钢带">碳钢钢带</option>
+                    <option value="不锈钢">不锈钢</option>
+                </select>
+            </li>
+            <li class="manageNews-main-search-list">
+            </li>
+            <li class="manageNews-main-search-list">
+                <!-- <input class="manageNews-mainSearch-list-check" type="checkbox" name="" id="">
+                 <span>设为默认联系人</span>-->
+                <div class="btnBaseCommon fr" id="createList">新增</div>
+                <div class="btnLowNew manageNews-mainSearch-list-searchBtn fr" comType="searchBtnCtrl" cond="condcType,condcType,condstartDt,condendDt,condcategoryName" rule="cond" unionTableId="tableList2" parentId="searchBox2">搜索</div>
+            </li>
+        </ul>
+        <table class="table-list" id="tableList2" comType="" templateId="templateRow" page="tcdPageCodeFir" reqPath="" reqParam="{}" method="POST" noData="nonData1" style="table-layout: fixed">
+            <tr class="table-list-currentrow">
+                <th class="table-list-currentrow-theader" style="width: 15%">
+                    客户单位
+                </th>
+                <th class="table-list-currentrow-theader"  style="width: 15%">
+                    填报人
+                </th>
+                <th class="table-list-currentrow-theader"  style="width: 8%">
+                    填报时间
+                </th>
+                <th class="table-list-currentrow-theader" style="width: 9%">
+                    联系电话
+                </th>
+                <th class="table-list-currentrow-theader" style="width: 8%">
+                    表扬类别
+                </th>
+                <th class="table-list-currentrow-theader" style="width: 8%">
+                    表扬产品类别
+                </th>
+                <th class="table-list-currentrow-theader" style="width: 6%">
+                    表扬产品
+                </th>
+                <th class="table-list-currentrow-theader" style="width: 15%">
+                    表扬产品内容
+                </th>
+                <th class="table-list-currentrow-theader" style="width: 9%">
+                    操作
+                </th>
+            </tr>
+            <tr class="table-list-currentrow" id="templateRow" style="display: none">
+                <td class="table-list-currentrow-tdetail">
+                    <span class="manageNews-main-table-td" id="customer"></span>
+                </td>
+                <td class="table-list-currentrow-tdetail">
+                    <span class="manageNews-main-table-td" id="createByName"></span>
+                </td>
+                <td class="table-list-currentrow-tdetail">
+                    <span class="manageNews-main-table-td" id="createDt"></span>
+                </td>
+                <td class="table-list-currentrow-tdetail">
+                    <span class="manageNews-main-table-td" id="phone"></span>
+                </td>
+                <td class="table-list-currentrow-tdetail">
+                    <span class="manageNews-main-table-td" id="tType"></span>
+                </td>
+                <td class="table-list-currentrow-tdetail">
+                    <span class="manageNews-main-table-td" id="categoryName"></span>
+                </td>
+                <td class="table-list-currentrow-tdetail">
+                    <span class="manageNews-main-table-td" id="productName"></span>
+                </td>
+                <td class="table-list-currentrow-tdetail">
+                    <span class="manageNews-main-table-td" id="grumbleContent"></span>
+                </td>
+                <td class="table-list-currentrow-tdetail">
+                    <span class="btnLowImgCom fl manageNews-main-tableTd-edit" id="feedbackOpe">反馈</span>
+                    <span class="btnLowImgCom fl manageNews-main-tableTd-edit" id="detailOpe">详情</span>
+                    <span class="btnLowImgDel fl manageNews-main-tableTd-del" id="deleteOpe">删除</span>
+                    <!--<span class="btnLowImgCom fr manageNews-main-tableTd-ope">设为默认联系</span>-->
+                </td>
+            </tr>
+        </table>
+        <div id="nonData2" class="noDataCon" style="display: none">
+            <i></i>
+            <p>暂无数据......</p>
+        </div>
+        <div class="tcdPageCode tcdPageCodeSec"></div>
+    </div>
+</div>
+<div id="textChangeBox" class="popup gc_box" style="display:none">
+    <div class="title" style="">
+        <h2 id="textChangeBoxTitle">客户抱怨</h2>
+        <div>
+            <a class="min" href=" " title="最小化" style="display:none;"></a>
+            <a class="max" href="javascript:;" title="最大化" style="display:none;"></a>
+            <a class="revert" href="javascript:;" title="还原" style="display:none;"></a>
+            <a class="close" href="javascript:;" title="关闭" style="display:block;"></a>
+        </div>
+    </div>
+    <div class="content">
+        <div class="textChangeBox-box">
+            <ul class="manageNews-main-search clearfix" id="cusComplainPopup" style="display: none">
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">抱怨类别:</span>
+                    <select id="tType" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                        <option value="">请选择</option>
+                        <option value="服务">服务</option>
+                        <option value="产品">产品</option>
+                    </select>
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">产品类别:</span>
+                    <select class="inputBase manageNews-mainSearch-list-input required" id="categoryName">
+                        <option value="">请选择</option>
+                        <option value="线/棒/板材">线/棒/板材</option>
+                        <option value="碳钢钢带">碳钢钢带</option>
+                        <option value="不锈钢">不锈钢</option>
+                    </select>
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">产品:</span>
+                    <input id="productName" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                </li>
+                <li class="manageNews-main-search-list"></li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">抱怨内容:</span>
+                    <textarea id="grumbleContent" class="inputBase manageNews-mainSearch-list-textarea required" style="resize: none"></textarea>
+                </li>
+                <li class="manageNews-main-search-list" style="display: none;">
+                    <span class="manageNews-mainSearch-list-name">酒钢反馈:</span>
+                    <textarea id="feedbackContent" class="inputBase manageNews-mainSearch-list-textarea" style="resize: none"></textarea>
+                </li>
+            </ul>
+            <ul class="manageNews-main-search clearfix" id="cusPraisePopup" style="display: none;">
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">抱怨类别:</span>
+                    <select id="tType" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                        <option value="">请选择</option>
+                        <option value="服务">服务</option>
+                        <option value="产品">产品</option>
+                    </select>
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">产品类别:</span>
+                    <select class="inputBase manageNews-mainSearch-list-input" name="" id="categoryName">
+                        <option value=""></option>
+                        <option value="线/棒/板材">线/棒/板材</option>
+                        <option value="碳钢钢带">碳钢钢带</option>
+                        <option value="不锈钢">不锈钢</option>
+                    </select>
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">产品:</span>
+                    <input id="productName" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                </li>
+                <li class="manageNews-main-search-list"></li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">抱怨内容:</span>
+                    <textarea id="grumbleContent" class="inputBase manageNews-mainSearch-list-textarea required" style="resize: none"></textarea>
+                </li>
+                <li class="manageNews-main-search-list" style="display: none;">
+                    <span class="manageNews-mainSearch-list-name">酒钢反馈:</span>
+                    <textarea id="feedbackContent" class="inputBase manageNews-mainSearch-list-textarea required" style="resize: none"></textarea>
+                </li>
+            </ul>
+            <div class="textChangeBox-box-operate" id="popOpe">
+                <div class="btnBaseCommon" id="newsChageSure">确定</div>
+                <div class="btnBaseCancel" id="newsChageCancel">取消</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@@include('../../commonNav/html/commonFoot.html')
+
+
+
