@@ -6,6 +6,16 @@ import java.util.Date;
 import java.util.List;
 
 public class CrmQuestionVO {
+
+    private  String orgName;
+
+    //厂家code
+    private List<String> deptCodes;
+
+    private  String orgId;
+
+    private  String orgCode;
+
     // 问卷ID
     private Long qid;
     // 信息编号
@@ -42,6 +52,80 @@ public class CrmQuestionVO {
     private Long acctId;
 
     private Integer count;
+
+    //质量异议count
+    private Integer objectionCount;
+
+    //客户抱怨count
+    private Integer complainCount;
+    //回复抱怨count
+    private Integer replyCount;
+    //客户注册count
+    private Integer registerCount;
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
+    }
+
+    public List<String> getDeptCodes() {
+        return deptCodes;
+    }
+
+    public void setDeptCodes(List<String> deptCodes) {
+        this.deptCodes = deptCodes;
+    }
+
+    public String getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(String orgId) {
+        this.orgId = orgId;
+    }
+
+    public String getOrgCode() {
+        return orgCode;
+    }
+
+    public void setOrgCode(String orgCode) {
+        this.orgCode = orgCode;
+    }
+
+    public Integer getObjectionCount() {
+        return objectionCount;
+    }
+
+    public void setObjectionCount(Integer objectionCount) {
+        this.objectionCount = objectionCount;
+    }
+
+    public Integer getComplainCount() {
+        return complainCount;
+    }
+
+    public void setComplainCount(Integer complainCount) {
+        this.complainCount = complainCount;
+    }
+
+    public Integer getReplyCount() {
+        return replyCount;
+    }
+
+    public void setReplyCount(Integer replyCount) {
+        this.replyCount = replyCount;
+    }
+
+    public Integer getRegisterCount() {
+        return registerCount;
+    }
+
+    public void setRegisterCount(Integer registerCount) {
+        this.registerCount = registerCount;
+    }
 
     private int pageNum = 1;
     private int pageSize = 10;

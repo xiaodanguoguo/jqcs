@@ -16,16 +16,8 @@ import jq.steel.cs.services.cust.api.vo.CrmQuestionTeamAnswerVO;
 import jq.steel.cs.services.cust.api.vo.CrmQuestionVO;
 import jq.steel.cs.services.cust.facade.common.QuestionStatus;
 import jq.steel.cs.services.cust.facade.common.SysPramType;
-import jq.steel.cs.services.cust.facade.dao.CrmQuestionItemMapper;
-import jq.steel.cs.services.cust.facade.dao.CrmQuestionMapper;
-import jq.steel.cs.services.cust.facade.dao.CrmQuestionRecordDetailMapper;
-import jq.steel.cs.services.cust.facade.dao.CrmQuestionRecordMapper;
-import jq.steel.cs.services.cust.facade.dao.CrmQuestionTeamAnswerMapper;
-import jq.steel.cs.services.cust.facade.model.CrmQuestion;
-import jq.steel.cs.services.cust.facade.model.CrmQuestionItem;
-import jq.steel.cs.services.cust.facade.model.CrmQuestionRecord;
-import jq.steel.cs.services.cust.facade.model.CrmQuestionRecordDetail;
-import jq.steel.cs.services.cust.facade.model.CrmQuestionTeamAnswer;
+import jq.steel.cs.services.cust.facade.dao.*;
+import jq.steel.cs.services.cust.facade.model.*;
 import jq.steel.cs.services.cust.facade.service.question.CrmQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,6 +57,9 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
 
     @Autowired
     private CacheService cacheService;
+
+    @Autowired
+    private CrmCustGrumbleMapper crmCustGrumbleMapper;
 
     @Override
     public PageDTO<CrmQuestionVO> getPage(CrmQuestionVO crmQuestionVO) {
@@ -418,6 +413,58 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
             }
         }
 
+
+        /*
+        * 1、用户提报质量异议后，对应的销售公司人员登录登陆系统后需要有提醒：“你有一条质量异议请及时处理。”
+        * 2、客户抱怨了，对应的生产厂人员登录系统后需要有提醒：“你有一条客户抱怨，请及时处理。”
+        * 3、生产厂的人员回复了客户抱怨，客户登录系统时要有提醒：“你的抱怨，酒钢已回复，请注意查看。”
+        * 4、客户注册账号后，对应的销售公司人员登录时要有提醒：“有新用户注册，请及时审核。”
+        * */
+        //质量异议count
+        vo.setObjectionCount(1);
+        //客户抱怨count
+        if (crmQuestionVO.getOrgType().equals("5")){
+            //jggly和cjgly除外
+            if(crmQuestionVO.getOrgId().equals("1001")||crmQuestionVO.getOrgId().equals("1")){
+                vo.setComplainCount(0);
+            }else {
+                CrmCustGrumble crmCustGrumble = new CrmCustGrumble();
+                crmCustGrumble.setFactorys(vo.getDeptCodes());
+                crmCustGrumble.setcType("抱怨");
+                List<CrmCustGrumble> crmCustGrumbles =crmCustGrumbleMapper.findCount(crmCustGrumble);
+                if (crmCustGrumbles.size()>0){
+                    vo.setComplainCount(crmCustGrumbles.size());
+                }else {
+                    vo.setComplainCount(0);
+                }
+            }
+        }else {
+            vo.setComplainCount(0);
+        }
+
+        //回复抱怨count
+        if(!crmQuestionVO.getOrgType().equals("5")){
+            CrmCustGrumble crmCustGrumble = new CrmCustGrumble();
+            crmCustGrumble.setCustomer(vo.getOrgName());
+            crmCustGrumble.setcType("抱怨");
+            List<CrmCustGrumble> crmCustGrumbles =crmCustGrumbleMapper.findCount1(crmCustGrumble);
+            //update state 为 1 防止下次再查计数
+            if (crmCustGrumbles.size()>0){
+                for (CrmCustGrumble crmCustGrumble1:crmCustGrumbles){
+                    crmCustGrumble1.setState("1");
+                    crmCustGrumbleMapper.updateState(crmCustGrumble1);
+                }
+            }else {
+                vo.setReplyCount(0);
+            }
+        }else{
+            vo.setReplyCount(0);
+        }
+
+
+
+        //客户注册count
+        vo.setRegisterCount(1);
         return vo;
     }
 }
