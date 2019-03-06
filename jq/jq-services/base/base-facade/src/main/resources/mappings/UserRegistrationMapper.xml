@@ -26,6 +26,21 @@ LEFT JOIN WARRANTY.ORG_INFO B ON A .O_ID = B. ID
 WHERE A .PRODUCT_CLASSIFICATION = #{productClassification} AND A .PROVINCE = #{province} AND  A .CITY = #{city}
   </select>
 
+
+  <select id="getList" parameterType="jq.steel.cs.services.base.facade.model.UserRegistration" resultMap="BaseResultMap">
+    SELECT
+    A . SID,
+    A .PRODUCT_CLASSIFICATION,
+    A .PROVINCE,
+    A .CITY,
+    A .O_ID,
+    B.ORG_NAME
+    FROM
+    WARRANTY.USER_REGISTRATION A
+    LEFT JOIN WARRANTY.ORG_INFO B ON A .O_ID = B. ID
+    WHERE A .PRODUCT_CLASSIFICATION = #{productClassification} AND A .PROVINCE = #{province}
+  </select>
+
   <insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.UserRegistration" >
     insert into USER_REGISTRATION (SID, PRODUCT_CLASSIFICATION, PROVINCE, 
       CITY, O_ID)

@@ -32,12 +32,24 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 			String a []  = userRegistration.getProductClassification().split(",");
 			userRegistration.setProductClassification(a[0]);
 		}
-
 		//省市
 		if (userRegistration.getArea().indexOf(",")!=-1){
 			String a []  = userRegistration.getArea().split(",");
 			userRegistration.setProvince(a[0]);
 			userRegistration.setCity(a[1]);
+		}
+		//产品分类 +省份 查询 的集合  判断是否在其中 不在改为‘其他’
+		List<UserRegistration> userRegistrations= userRegistrationMapper.getList(userRegistration);
+		if(userRegistrations.size()>0){
+			String a="";
+			for (UserRegistration userRegistration22:userRegistrations){
+				if (userRegistration22.getCity().equals(userRegistration.getCity())){
+					a="a";
+				}
+			}
+			if(a.equals("")){
+				userRegistration.setCity("其他");
+			}
 		}
 		UserRegistration userRegistration1 = userRegistrationMapper.getSale(userRegistration);
 		return userRegistration1;

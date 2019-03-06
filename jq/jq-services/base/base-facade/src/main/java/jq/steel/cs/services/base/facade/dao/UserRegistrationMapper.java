@@ -2,6 +2,8 @@ package jq.steel.cs.services.base.facade.dao;
 
 import jq.steel.cs.services.base.facade.model.UserRegistration;
 
+import java.util.List;
+
 public interface UserRegistrationMapper {
     int insert(UserRegistration record);
 
@@ -9,5 +11,6 @@ public interface UserRegistrationMapper {
 
     UserRegistration getSale(UserRegistration record);
 
+    List<UserRegistration> getList(UserRegistration record);
 
 }
