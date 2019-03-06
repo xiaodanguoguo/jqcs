@@ -18,7 +18,9 @@ function clsMethodLee(){
         "path15":"/unitOfUse/unitOfUseInsert",//使用单位新增/修改
         "path16":"/orderUnit/customerInfo",//订货单位获取当前登录人信息
         "path17":"/objectionChuLi/look",//预览接口
-        "path18":"/objectionDiaoCha/exportExcel"//内部调查下载接口
+        "path18":"/objectionDiaoCha/exportExcel",//内部调查下载接口
+        "path19":"/agentInfo/findByPage",//代理公司list接口
+        "path20":"/agentInfo/agentInfoInsert"//代理公司添加
     };
     this.operateType = "";//操作类型 0-订货单位新增 1-订货单位编辑  2-使用单位新增  3-使用单位编辑
     this.opeDom = "";
@@ -47,6 +49,8 @@ function clsMethodLee$init(){
     this.dinghuoCreate = $("#dinghuoCreate");
     //使用单位添加
     this.shiyongCreate = $("#shiyongCreate");
+    //代理公司添加
+    this.dailiCreate = $("#dailiCreate");
     //质证书编号
     this.millSheetNo = $("#millSheetNo");
     //批板卷号
@@ -83,6 +87,8 @@ function clsMethodLee$init(){
     this.firstCreateperson2 = $("#firstCreateperson2");
     //新增质量异议提报人员信息
     this.firstCreateperson = $("#firstCreateperson");
+    //新增代理公司信息
+    this.firstCreateperson3 = $("#firstCreateperson3");
     //弹框确定按钮
     this.newsChageSure = $("#newsChageSure");
     //弹框取消按钮
@@ -293,15 +299,26 @@ function clsMethodLee$operate(){
         openWin('650', '500', 'listPopup', true);
         $("#dinghuoListPopup").show();
         $("#shiyongListPopup").hide();
+        $("#dailiListPopup").hide();
         $("#listPopupTitle").html("订货单位列表");
         initplugPath($("#dinghuoListPopupBox")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path2,{"customerId":$("#customerId").val()},"POST");
     });
     this.shiyongCreate.on("click",function () {//使用单位添加操作
         openWin('650', '500', 'listPopup', true);
         $("#dinghuoListPopup").hide();
+        $("#dailiListPopup").hide();
         $("#shiyongListPopup").show();
         $("#listPopupTitle").html("使用单位列表");
         initplugPath($("#shiyongListPopupBox")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path3,{"customerId":$("#customerId").val()},"POST");
+
+    });
+    this.dailiCreate.on("click",function () {//使用单位添加操作
+        openWin('650', '500', 'listPopup', true);
+        $("#dinghuoListPopup").hide();
+        $("#shiyongListPopup").hide();
+        $("#dailiListPopup").show();
+        $("#listPopupTitle").html("代理公司列表");
+        initplugPath($("#dailiListPopupBox")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path19,{"customerId":$("#customerId").val()},"POST");
 
     });
     //质证书编号改变，进行接口后台判断
@@ -473,6 +490,9 @@ function clsMethodLee$operate(){
     this.firstCreateperson2.on("click",function(){//使用单位列表新增
         openWinShow(2);
     });
+    this.firstCreateperson3.on("click",function(){//使用单位列表新增
+        openWinShow(4);
+    });
     this.newsChageCancel.on("click",function(){//人员新增弹框取消操作
         closePopupWin();
     });
@@ -480,8 +500,10 @@ function clsMethodLee$operate(){
     this.newsChageSure.on("click",function(){//人员新增弹框确认操作
         if(document.body.jsLee.operateType == 0 || document.body.jsLee.operateType == 1){
             var domCon = $("#orderUnitPopup")[0];
-        }else{
+        }else if(document.body.jsLee.operateType == 2 || document.body.jsLee.operateType == 3){
             var domCon = $("#userUnitPopup")[0];
+        }else{
+            var domCon = $("#agencyUnitPopup")[0];
         }
         initValidate(domCon);
         var valiClass=new clsValidateCtrl();
@@ -561,6 +583,11 @@ function clsStandardTableCtrl$progress(jsonItem, cloneRow) {
         $(cloneRow).find("#createWay").on("click",function () {
             closePopupWin();
             setValue4Desc(jsonItem,$("#secondDetail")[0])//赋值
+        });
+    }else if (this.ctrl.id == "dailiListPopupBox"){//代理公司列表
+        $(cloneRow).find("#createWay").on("click",function () {
+            closePopupWin();
+            setValue4Desc(jsonItem,$("#thirdDetail")[0])//赋值
         });
     }
 }
@@ -805,7 +832,7 @@ function boxChecked(){
 
 //完成提交参数拼接
 function paramJson(){
-    var jsonParam = {"claimNo":"","productName":"","millSheetNo":"","customerId":"","customerName":"","custAddr":"","custEmpNo":"","custTel":"","lastUserId":"","lastUser":"","lastUserAddr":"","createEmpNo":"","lastUserTel":"","battenPlateNo":"","designation":"","used":"","contractNo":"","contractVolume":"","specs":"","originalWeight":"","orderNo":"","originalCarNo":"","contractUnitPrice":"","objectionNum":"","endProcessingTech":"","claimDesc":"","claimReason":"","rejectReason":"","productDt":"","shift":"","userRequirement":"","handingSuggestion":"","inquireInfo":"","fieldConclusion":"","claimVerdict":"","improvement":"","amountOfUse":"","proProblem":"","logisticsProcess":"","objectionConfirmation":"","salesManagerSuggests":"","productionProcessInvestigati":"","surfaceStructure":"","originalJudgementResult":"","qualityGrade":"","agreementContent":"","agreementAmount":"","arrivalTime":"","followReason":"","investigationUnit":"","responsibilityUnit":""};
+    var jsonParam = {"claimNo":"","productName":"","millSheetNo":"","customerId":"","customerName":"","custAddr":"","custEmpNo":"","custTel":"","lastUserId":"","lastUser":"","lastUserAddr":"","createEmpNo":"","lastUserTel":"","agentId":"","agentName":"","agentAddr":"","agentEmpNo":"","agentTel":"","battenPlateNo":"","designation":"","used":"","contractNo":"","contractVolume":"","specs":"","originalWeight":"","orderNo":"","originalCarNo":"","contractUnitPrice":"","objectionNum":"","endProcessingTech":"","claimDesc":"","claimReason":"","rejectReason":"","productDt":"","shift":"","userRequirement":"","handingSuggestion":"","inquireInfo":"","fieldConclusion":"","claimVerdict":"","improvement":"","amountOfUse":"","proProblem":"","logisticsProcess":"","objectionConfirmation":"","salesManagerSuggests":"","productionProcessInvestigati":"","surfaceStructure":"","originalJudgementResult":"","qualityGrade":"","agreementContent":"","agreementAmount":"","arrivalTime":"","followReason":"","investigationUnit":"","responsibilityUnit":""};
     getValue4Desc(jsonParam,$("#submitBox")[0]);
     //上传图片
     jsonParam.filePath = document.body.jsLee.filePath.join(";");
@@ -998,16 +1025,29 @@ function openWinShow(type){//type操作类型 0-订货单位新增 1-订货单�
         case 3 :
             $("#textChangeBoxTitle").html("编辑使用单位信息");
             break;
+        case 4 :
+            $("#textChangeBoxTitle").html("新增代理公司信息");
+            break;
+        case 5 :
+            $("#textChangeBoxTitle").html("编辑代理公司信息");
+            break;
     }
     //显示ul判断
     if(type == 0 || type == 1){//订货单位
         $("#orderUnitPopup").show();
         $("#userUnitPopup").hide();
+        $("#agencyUnitPopup").hide();
         $("#orderUnitPopup #customerName").val(document.body.jsLee.loginerNews.customerName);
-    }else{//使用单位
+    }else if(type == 2 || type == 3){//使用单位
         $("#orderUnitPopup").hide();
+        $("#agencyUnitPopup").hide();
         $("#userUnitPopup").show();
-    };
+    }else if(type == 4 || type == 5){
+        $("#orderUnitPopup").hide();
+        $("#userUnitPopup").hide();
+        $("#agencyUnitPopup").show();
+        $("#agencyUnitPopup #agentName").val(document.body.jsLee.loginerNews.customerName);
+    }
     openWin(950,350,'textChangeBox',true);
     document.body.jsLee.operateType = type;
 }
@@ -1025,7 +1065,7 @@ function ajaxExecute(type){//type区分订货单位和使用单位
         jsonParam.sid = "";
         document.body.jsLee.firstCreateperson[0].cacheJson = jsonParam;
         getAjaxResult(document.body.jsLee.requestUrl.path14,"POST",jsonParam,"updateSubmitCallBack(data)");
-    }else{//使用单位
+    }else if(type == 2 || type == 3){//使用单位
         var jsonParam = {"createEmpNo":"","lastUser":"","lastUserAddr":"","lastUserTel":"",};
         getValue4Desc(jsonParam,$("#userUnitPopup")[0]);
         if($("#userUnitPopup #defaultFlag").is(":checked")){
@@ -1036,6 +1076,17 @@ function ajaxExecute(type){//type区分订货单位和使用单位
         jsonParam.sid = "";
         document.body.jsLee.firstCreateperson2[0].cacheJson = jsonParam;
         getAjaxResult(document.body.jsLee.requestUrl.path15,"POST",jsonParam,"updateSubmitCallBack(data)");
+    }else {//代理公司
+        var jsonParam = {"agentName":"","agentAddr":"","agentEmpNo":"","agentTel":"",};
+        getValue4Desc(jsonParam,$("#agencyUnitPopup")[0]);
+        if($("#agencyUnitPopup #defaultFlag").is(":checked")){
+            jsonParam.defaultFlag = "Y";
+        }else{
+            jsonParam.defaultFlag = "N";
+        }
+        jsonParam.sid = document.body.jsLee.sid;
+        document.body.jsLee.firstCreateperson3[0].cacheJson = jsonParam;
+        getAjaxResult(document.body.jsLee.requestUrl.path20,"POST",jsonParam,"updateSubmitCallBack(data)");
     }
 }
 
@@ -1047,9 +1098,13 @@ function updateSubmitCallBack(data){
         if(document.body.jsLee.operateType == 0 || document.body.jsLee.operateType == 1) {//订货单位
             document.body.jsLee.firstCreateperson[0].cacheJson.customerId = data.rspBody.customerId;
             setValue4Desc(document.body.jsLee.firstCreateperson[0].cacheJson,$("#dinghuoCreate").next()[0])//赋值
-        }else{
+        }else if(document.body.jsLee.operateType == 2 || document.body.jsLee.operateType == 3){
             document.body.jsLee.firstCreateperson2[0].cacheJson.lastUserId = data.rspBody.lastUserId;
             setValue4Desc(document.body.jsLee.firstCreateperson2[0].cacheJson,$("#shiyongCreate").next()[0])//赋值
+        }else if(document.body.jsLee.operateType == 4 || document.body.jsLee.operateType == 5){
+            document.body.jsLee.firstCreateperson3[0].cacheJson.customerId = data.rspBody.customerId;
+            setValue4Desc(document.body.jsLee.firstCreateperson3[0].cacheJson,$("#dailiCreate").next()[0])//赋值
+
         }
     }
 }

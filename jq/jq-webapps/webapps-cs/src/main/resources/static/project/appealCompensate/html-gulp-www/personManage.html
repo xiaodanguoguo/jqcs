@@ -278,6 +278,7 @@
         <ul class="tabMenu-four" comtype="tabCtrl" contentcls="tabCon" id="tabSelect">
             <li class="tabTitLi" nidx="0" limitCode="M30101"><span>订货单位</span></li>
             <li nidx="1" limitCode="M30102"><span>使用单位</span></li>
+            <li nidx="2" ><span>代理公司</span></li>
         </ul>
         <div class="tabCon manageNews-main" id="orderUnit">
             <div class="manageNews-main-title">新增质量异议提报人员信息</div>
@@ -448,6 +449,93 @@
             </div>
             <div class="tcdPageCode tcdPageCodeSec"></div>
         </div>
+        <div class="tabCon manageNews-main" style="display: none;" id="agencyUnit">
+            <div class="manageNews-main-title">新增代理公司信息</div>
+            <ul class="manageNews-main-search clearfix" id="searchBox3">
+                <li class="manageNews-main-search-list" style="display: none;">
+                    <span class="manageNews-mainSearch-list-name">代理公司编号:</span>
+                    <input id="condagentId" type="text" class="inputBase manageNews-mainSearch-list-input" disabled="disabled">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">代理公司名称:</span>
+                    <input id="condagentName" type="text" class="inputBase manageNews-mainSearch-list-input" disabled="disabled">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">单位地址:</span>
+                    <input id="condagentAddr" type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">联系人:</span>
+                    <input id="condagentEmpNo" type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">手机号码:</span>
+                    <input id="condagentTel" type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list"></li>
+                <li class="manageNews-main-search-list">
+                    <!-- <input class="manageNews-mainSearch-list-check" type="checkbox" name="" id="">
+                     <span>设为默认联系人</span>-->
+                    <div class="btnLowNew manageNews-mainSearch-list-searchBtn" comType="searchBtnCtrl" cond="condagentId,condagentName,condagentAddr,condagentEmpNo,condagentTel" rule="cond" unionTableId="tableList3" parentId="searchBox3">搜索</div>
+                    <div class="btnBaseCommon" id="createList">新增</div>
+                </li>
+            </ul>
+            <table class="table-list" id="tableList3" comType="" templateId="templateRow" page="tcdPageCodeSec" reqPath="" reqParam="{}" method="POST" noData="nonData3">
+                <tr class="table-list-currentrow">
+                    <th class="table-list-currentrow-theader" style="width: 13%">
+                        代理公司编号
+                    </th>
+                    <th class="table-list-currentrow-theader"  style="width: 18%">
+                        代理公司名称
+                    </th>
+                    <th class="table-list-currentrow-theader"  style="width: 24%">
+                        单位地址
+                    </th>
+                    <th class="table-list-currentrow-theader" style="width: 13%">
+                        联系人
+                    </th>
+                    <th class="table-list-currentrow-theader" style="width: 13%">
+                        手机号码
+                    </th>
+                    <th class="table-list-currentrow-theader" style="width: 8%">
+                        默认联系人
+                    </th>
+                    <th class="table-list-currentrow-theader" style="width: 11%">
+                        操作
+                    </th>
+                </tr>
+                <tr class="table-list-currentrow" id="templateRow" style="display: none">
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td" id="agentId"></span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td" id="agentName"></span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td" id="agentAddr"></span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td" id="agentEmpNo"></span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td" id="agentTel"></span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="manageNews-main-table-td" id="isDefault"></span>
+                    </td>
+                    <td class="table-list-currentrow-tdetail">
+                        <span class="btnLowImgCom fl manageNews-main-tableTd-edit" id="editOpe">修改</span>
+                        <span class="btnLowImgDel fl manageNews-main-tableTd-del" id="deleteOpe">删除</span>
+                        <!--<span class="btnLowImgCom fr manageNews-main-tableTd-ope">设为默认联系</span>-->
+                    </td>
+                </tr>
+            </table>
+            <div id="nonData3" class="noDataCon" style="display: none">
+                <i></i>
+                <p>暂无数据......</p>
+            </div>
+            <div class="tcdPageCode tcdPageCodeSec"></div>
+        </div>
     </div>
     <div id="textChangeBox" class="popup gc_box" style="display:none">
         <div class="title" style="">
@@ -503,6 +591,32 @@
                     <li class="manageNews-main-search-list">
                         <span class="manageNews-mainSearch-list-name">手机号码:</span>
                         <input id="lastUserTel" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                    </li>
+                    <li class="manageNews-main-search-list">
+                        <input class="manageNews-mainSearch-list-check" type="checkbox" name="" id="defaultFlag">
+                        <span>设为默认联系人</span>
+                    </li>
+                </ul>
+                <ul class="manageNews-main-search clearfix" id="agencyUnitPopup" style="display: none">
+                    <li class="manageNews-main-search-list" style="display: none;">
+                        <span class="manageNews-mainSearch-list-name">代理公司编号:</span>
+                        <input id="agentId" type="text" class="inputBase manageNews-mainSearch-list-input">
+                    </li>
+                    <li class="manageNews-main-search-list">
+                        <span class="manageNews-mainSearch-list-name">代理公司名称:</span>
+                        <input id="agentName" type="text" class="inputBase manageNews-mainSearch-list-input required" disabled="disabled">
+                    </li>
+                    <li class="manageNews-main-search-list">
+                        <span class="manageNews-mainSearch-list-name">单位地址:</span>
+                        <input id="agentAddr" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                    </li>
+                    <li class="manageNews-main-search-list">
+                        <span class="manageNews-mainSearch-list-name">联系人:</span>
+                        <input id="agentEmpNo" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                    </li>
+                    <li class="manageNews-main-search-list">
+                        <span class="manageNews-mainSearch-list-name">手机号码:</span>
+                        <input id="agentTel" type="text" class="inputBase manageNews-mainSearch-list-input required">
                     </li>
                     <li class="manageNews-main-search-list">
                         <input class="manageNews-mainSearch-list-check" type="checkbox" name="" id="defaultFlag">

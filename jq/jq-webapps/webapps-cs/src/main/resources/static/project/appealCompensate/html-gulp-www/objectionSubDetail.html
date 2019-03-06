@@ -366,6 +366,36 @@
                     </li>
                 </ul>
             </div>
+            <div class="newsList-title clearfix">
+                <div class="newsList-title__border fl"></div>
+                <span class="newsList-title__name fl">代理公司信息</span>
+                <button class="btnLowNew fl box01" id="firstCreateperson3" style="margin-left: 50px;margin-top: -5px;">新增代理公司</button>
+            </div>
+            <div class="newsList-content" id="thirdDetail">
+                <div class="newsList-content-create box01" id="dailiCreate"></div>
+                <ul class="newsList-content-main clearfix">
+                    <li class="newsList-content-main-list">
+                        <span class="newsList-content-mainList-title fl">代理公司编号:</span>
+                        <input id="agentId" class="inputBase newsList-content-mainList-text fl required" type="text" disabled="true">
+                    </li>
+                    <li class="newsList-content-main-list">
+                        <span class="newsList-content-mainList-title fl">代理公司名称:</span>
+                        <input id="agentName" class="inputBase newsList-content-mainList-text fl required" type="text" disabled="true">
+                    </li>
+                    <li class="newsList-content-main-list">
+                        <span class="newsList-content-mainList-title fl">联系地址:</span>
+                        <input id="agentAddr" class="inputBase newsList-content-mainList-text fl required" type="text" disabled="true">
+                    </li>
+                    <li class="newsList-content-main-list">
+                        <span class="newsList-content-mainList-title fl">联 系 人:</span>
+                        <input id="agentEmpNo" class="inputBase newsList-content-mainList-text fl required" type="text" disabled="true">
+                    </li>
+                    <li class="newsList-content-main-list">
+                        <span class="newsList-content-mainList-title fl">手机号码:</span>
+                        <input id="agentTel" class="inputBase newsList-content-mainList-text fl required" type="text" disabled="true">
+                    </li>
+                </ul>
+            </div>
             <div class="box3">
                 <div class="newsList-title clearfix">
                     <div class="newsList-title__border fl"></div>
@@ -871,7 +901,7 @@
                 <div class="tcdPageCode"></div>
             </div>
             <div style="padding: 10px;" id="shiyongListPopup" style="display: none">
-                <table id="shiyongListPopupBox" class="table-list" comType="" templateId="templateRow" page="tcdPageCode" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData">
+                <table id="shiyongListPopupBox" class="table-list" comType="" templateId="templateRow" page="tcdPageCode1" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData1">
                     <tr class="table-list-currentrow">
                         <th class="table-list-currentrow-theader" width="4%">序号</th>
                         <th class="table-list-currentrow-theader" width="12%">使用单位编号</th>
@@ -893,11 +923,40 @@
                         </td>
                     </tr>
                 </table>
-                <div id="nonData" class="noDataCon" style="display: none">
+                <div id="nonData1" class="noDataCon" style="display: none">
                     <i></i>
                     <p>暂无数据......</p>
                 </div>
-                <div class="tcdPageCode"></div>
+                <div class="tcdPageCode tcdPageCode1"></div>
+            </div>
+            <div style="padding: 10px;" id="dailiListPopup">
+                <table id="dailiListPopupBox" class="table-list" comType="" templateId="templateRow" page="tcdPageCode2" idx="indexNum" reqPath="" reqParam="{}" method="POST" noData="nonData2">
+                    <tr class="table-list-currentrow">
+                        <th class="table-list-currentrow-theader" width="4%">序号</th>
+                        <th class="table-list-currentrow-theader" width="12%">代理公司编号</th>
+                        <th class="table-list-currentrow-theader" width="12%">代理公司名称</th>
+                        <th class="table-list-currentrow-theader" width="10%">单位地址</th>
+                        <th class="table-list-currentrow-theader" width="5%">联系人</th>
+                        <th class="table-list-currentrow-theader" width="7%">联系电话</th>
+                        <th class="table-list-currentrow-theader" width="7%">操作</th>
+                    </tr>
+                    <tr class="table-list-currentrow" id="templateRow" style="display:none">
+                        <td class="table-list-currentrow-tdetail" id="indexNum"></td>
+                        <td class="table-list-currentrow-tdetail" id="agentId"></td>
+                        <td class="table-list-currentrow-tdetail" id="agentName"></td>
+                        <td class="table-list-currentrow-tdetail" id="agentAddr"></td>
+                        <td class="table-list-currentrow-tdetail" id="agentEmpNo"></td>
+                        <td class="table-list-currentrow-tdetail" id="agentTel"></td>
+                        <td class="table-list-currentrow-tdetail">
+                            <span class="btnLowImgCom" id="createWay">添加</span>
+                        </td>
+                    </tr>
+                </table>
+                <div id="nonData2" class="noDataCon" style="display: none">
+                    <i></i>
+                    <p>暂无数据......</p>
+                </div>
+                <div class="tcdPageCode tcdPageCode2"></div>
             </div>
         </div>
     </div>
@@ -969,6 +1028,32 @@
                 <li class="manageNews-main-search-list">
                     <span class="manageNews-mainSearch-list-name">手机号码:</span>
                     <input id="lastUserTel" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <input class="manageNews-mainSearch-list-check" type="checkbox" name="" id="defaultFlag">
+                    <span>设为默认联系人</span>
+                </li>
+            </ul>
+            <ul class="manageNews-main-search clearfix" id="agencyUnitPopup" style="display: none">
+                <li class="manageNews-main-search-list" style="display: none;">
+                    <span class="manageNews-mainSearch-list-name">代理公司编号:</span>
+                    <input id="agentId" type="text" class="inputBase manageNews-mainSearch-list-input">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">代理公司名称:</span>
+                    <input id="agentName" type="text" class="inputBase manageNews-mainSearch-list-input required" disabled="disabled">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">单位地址:</span>
+                    <input id="agentAddr" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">联系人:</span>
+                    <input id="agentEmpNo" type="text" class="inputBase manageNews-mainSearch-list-input required">
+                </li>
+                <li class="manageNews-main-search-list">
+                    <span class="manageNews-mainSearch-list-name">手机号码:</span>
+                    <input id="agentTel" type="text" class="inputBase manageNews-mainSearch-list-input required">
                 </li>
                 <li class="manageNews-main-search-list">
                     <input class="manageNews-mainSearch-list-check" type="checkbox" name="" id="defaultFlag">
