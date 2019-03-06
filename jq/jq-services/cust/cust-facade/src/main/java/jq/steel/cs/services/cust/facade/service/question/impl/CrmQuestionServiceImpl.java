@@ -64,6 +64,9 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
     @Autowired
     private OrgInfoMapper orgInfoMapper;
 
+    @Autowired
+    private CrmClaimApplyMapper crmClaimApplyMapper;
+
     @Override
     public PageDTO<CrmQuestionVO> getPage(CrmQuestionVO crmQuestionVO) {
         CrmQuestion crmQuestion = new CrmQuestion();
@@ -423,8 +426,36 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
         * 3、生产厂的人员回复了客户抱怨，客户登录系统时要有提醒：“你的抱怨，酒钢已回复，请注意查看。”
         * 4、客户注册账号后，对应的销售公司人员登录时要有提醒：“有新用户注册，请及时审核。”
         * */
+
         //质量异议count
-        vo.setObjectionCount(1);
+        if(crmQuestionVO.getOrgType().equals("1")){
+            CrmClaimApply crmClaimApply  = new CrmClaimApply();
+            crmClaimApply.setDeptCodes(vo.getDeptCodes());
+            CrmClaimApply h = new CrmClaimApply();
+            h.setCustomerName(crmClaimApply.getOrgName());
+            List<CrmClaimApply> alist =crmClaimApplyMapper.findMillSheetByCus(h);
+            if(alist.size()>0){
+                List<String> idall = new ArrayList<>();
+                for (int i = 0; i < alist.size(); i++){
+                    idall.add(alist.get(i).getMillSheetNo());
+                }
+                crmClaimApply.setMillSheetNos(idall);
+            }else {
+                crmClaimApply.setCustomerId(vo.getOrgName());
+            }
+            List<CrmClaimApply> crmClaimApplies = crmClaimApplyMapper.findByPage(crmClaimApply);
+            if (crmClaimApplies.size()>0){
+                vo.setObjectionCount(crmClaimApplies.size());
+            }else {
+                vo.setObjectionCount(0);
+            }
+        }else{
+            vo.setObjectionCount(0);
+        }
+
+
+
+
         //客户抱怨count
         if (crmQuestionVO.getOrgType().equals("5")){
             //jggly和cjgly除外
@@ -466,7 +497,7 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
 
 
         //客户注册count
-        if(!crmQuestionVO.getOrgType().equals("5")){
+        if(crmQuestionVO.getOrgType().equals("1")){
             OrgInfo orgInfo = new OrgInfo();
             orgInfo.setStatus("2");
             orgInfo.setOrgName(crmQuestionVO.getOrgName());
