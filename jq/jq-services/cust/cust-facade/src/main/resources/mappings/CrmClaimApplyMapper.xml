@@ -620,7 +620,9 @@
       CLAIM_STATE, FILE_PATH, REJECT_REASON,
       CREATED_BY, CREATED_DT, UPDATED_BY,
       UPDATED_DT, VERSION,DISSENTING_UNIT,ADMISSIBILITY_TIME,
-      PRESENTATION_DATE,ADMISSIBILITY_USER,PRESENTATION_USER,REASONS_FOR_COMPULSORY_CLOSURE,REPORT_PICTURE,OBJECTION_CONFIRMATION)
+      PRESENTATION_DATE,ADMISSIBILITY_USER,PRESENTATION_USER,
+      REASONS_FOR_COMPULSORY_CLOSURE,REPORT_PICTURE,
+      OBJECTION_CONFIRMATION,AGENT_ID,AGENT_NAME,AGENT_ADDR,AGENT_EMP_NO,AGENT_TEL)
     values (#{sid,jdbcType=NUMERIC}, #{claimNo,jdbcType=VARCHAR}, #{productId,jdbcType=NUMERIC},
       #{productName,jdbcType=VARCHAR}, #{millSheetNo,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR},
       #{customerName,jdbcType=VARCHAR}, #{custAddr,jdbcType=VARCHAR}, #{custEmpNo,jdbcType=VARCHAR},
@@ -628,7 +630,6 @@
       #{lastUserAddr,jdbcType=VARCHAR}, #{createEmpNo,jdbcType=VARCHAR}, #{lastUserTel,jdbcType=VARCHAR},
       #{lastUserEmail,jdbcType=VARCHAR}, #{battenPlateNo,jdbcType=VARCHAR}, #{designation,jdbcType=VARCHAR},
       #{used,jdbcType=VARCHAR}, #{contractNo,jdbcType=VARCHAR}, #{contractVolume,jdbcType=NUMERIC},
-
       #{specs,jdbcType=VARCHAR}, #{originalWeight,jdbcType=NUMERIC}, #{orderNo,jdbcType=VARCHAR},
       #{originalCarNo,jdbcType=VARCHAR}, #{contractUnitPrice,jdbcType=NUMERIC}, #{objectionNum,jdbcType=NUMERIC},
       #{endProcessingTech,jdbcType=VARCHAR}, #{claimDesc,jdbcType=VARCHAR}, #{claimReason,jdbcType=VARCHAR},
@@ -638,7 +639,9 @@
       #{updatedDt,jdbcType=TIMESTAMP}, #{version,jdbcType=NUMERIC},#{dissentingUnit,jdbcType=NUMERIC},
       #{admissibilityTime,jdbcType=TIMESTAMP},#{presentationDate,jdbcType=TIMESTAMP},
       #{admissibilityUser,jdbcType=VARCHAR},#{presentationUser,jdbcType=VARCHAR},
-      #{reasonsForCompulsoryClosure,jdbcType=VARCHAR},#{reportPictures,jdbcType=VARCHAR},#{objectionConfirmation ,jdbcType=NUMERIC})
+      #{reasonsForCompulsoryClosure,jdbcType=VARCHAR},#{reportPictures,jdbcType=VARCHAR},
+    #{objectionConfirmation ,jdbcType=NUMERIC},#{agentId,jdbcType=VARCHAR},#{agentName,jdbcType=VARCHAR},
+    #{agentAddr,jdbcType=VARCHAR},#{agentEmpNo,jdbcType=VARCHAR},#{agentTel,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
     <selectKey resultType="java.lang.Long" keyProperty="sid" order="BEFORE" >
@@ -1097,6 +1100,21 @@
       </if>
       <if test="auditor != null" >
         AUDITOR = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null" >
+        AGENT_ID = #{agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="agentName != null" >
+        AGENT_NAME = #{agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentAddr != null" >
+        AGENT_ADDR = #{agentAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="agentEmpNo != null" >
+        AGENT_EMP_NO = #{agentEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="agentTel != null" >
+        AGENT_TEL = #{agentTel,jdbcType=VARCHAR},
       </if>
     </trim>
     where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}

@@ -324,6 +324,21 @@
       <if test="objectionConfirmation != null" >
         OBJECTION_CONFIRMATION,
       </if>
+      <if test="agentId != null" >
+        AGENT_ID,
+      </if>
+      <if test="agentName != null" >
+        AGENT_NAME,
+      </if>
+      <if test="agentAddr != null" >
+        AGENT_ADDR,
+      </if>
+      <if test="agentEmpNo != null" >
+        AGENT_EMP_NO,
+      </if>
+      <if test="agentTel != null" >
+        AGENT_TEL,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="sid != null" >
@@ -459,7 +474,22 @@
         #{reportPictures,jdbcType=VARCHAR},
       </if>
       <if test="objectionConfirmation != null" >
-        #{objectionConfirmation ,jdbcType=NUMERIC}
+        #{objectionConfirmation ,jdbcType=NUMERIC},
+      </if>
+      <if test="agentId != null" >
+        #{agentId ,jdbcType=VARCHAR},
+      </if>
+      <if test="agentName != null" >
+        #{agentName ,jdbcType=VARCHAR},
+      </if>
+      <if test="agentAddr != null" >
+        #{agentAddr ,jdbcType=VARCHAR},
+      </if>
+      <if test="agentEmpNo != null" >
+        #{agentEmpNo ,jdbcType=VARCHAR},
+      </if>
+      <if test="agentTel != null" >
+        #{agentTel ,jdbcType=VARCHAR}
       </if>
     </trim>
   </insert>
@@ -616,6 +646,21 @@
       </if>
       <if test="expiredSign != null" >
         EXPIRED_SIGN = #{expiredSign ,jdbcType=VARCHAR},
+      </if>
+      <if test="agentId != null" >
+        AGENT_ID = #{agentId,jdbcType=VARCHAR},
+      </if>
+      <if test="agentName != null" >
+        AGENT_NAME = #{agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="agentAddr != null" >
+        AGENT_ADDR = #{agentAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="agentEmpNo != null" >
+        AGENT_EMP_NO = #{agentEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="agentTel != null" >
+        AGENT_TEL = #{agentTel,jdbcType=VARCHAR},
       </if>
     </trim>
     where CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
