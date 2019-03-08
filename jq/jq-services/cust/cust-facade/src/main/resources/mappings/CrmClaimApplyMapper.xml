@@ -360,49 +360,107 @@
 
 
 
-  <!--app异议跟踪审核查询         by wushibin -->
+  <!--app异议审核销售审核查询         by wushibin -->
   <select id="findShenHeByPageForApp" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimApply" >
-    SELECT h.* from(SELECT
-    A.SID,
-    A.CLAIM_NO,
-    A.CLAIM_STATE,
-    A.MILL_SHEET_NO,
-    A.PRODUCT_ID,
-    A.CUSTOMER_ID,
-    A.CUSTOMER_NAME,
-    A.BATTEN_PLATE_NO,
-    A.PRODUCT_NAME,
-    A.DESIGNATION,
-    A.SIZE_MARK,
-    C.CLAIM_TYPE,
-    A.OBJECTION_NUM,
-    C.INQUIRE_STATE,
-    A.LAST_USER,
-    A.PRESENTATION_DATE,
-    A.REJECT_REASON,
-    A.REASONS_FOR_COMPULSORY_CLOSURE,
-    A.ADMISSIBILITY_TIME,
-
-    A.ORDER_NO,
-    A.LAST_USER_ID,
-    A.FILE_PATH, A.REPORT_PICTURE,
-    D.SPILT_CUSTOMER,
-
-    (select name from ACCT_INFO where ACCT_ID = A.ADMISSIBILITY_USER) AS ADMISSIBILITY_USER,
-    (select MOBILE_PHONE from ACCT_INFO where ACCT_ID = A.ADMISSIBILITY_USER) AS PHONE,
+    SELECT
+    H .*
+    FROM
+    (
+    SELECT
+    A . SID,
+    A .CLAIM_NO,
+    A .PRODUCT_ID,
+    A .PRODUCT_NAME,
+    A .MILL_SHEET_NO,
+    A .CUSTOMER_ID,
+    A .CUSTOMER_NAME,
+    A .CUST_ADDR,
+    A .CUST_EMP_NO,
+    A .CUST_TEL,
+    A .LAST_USER_ID,
+    A .LAST_USER,
+    A .LAST_USER_ADDR,
+    A .CREATE_EMP_NO,
+    A .LAST_USER_TEL,
+    A .LAST_USER_EMAIL,
+    A .BATTEN_PLATE_NO,
+    A .DESIGNATION,
+    A .USED,
+    A .CONTRACT_NO,
+    A .CONTRACT_VOLUME,
+    A .SIZE_MARK,
+    A .ORIGINAL_WEIGHT,
+    A .ORDER_NO,
+    A .CONTRACT_UNIT_PRICE,
+    A .OBJECTION_NUM,
+    A .END_PROCESSING_TECH,
+    A .CLAIM_DESC,
+    A .CLAIM_REASON,
+    A .PRO_PROBLEM,
+    A .FILE_PATH,
+    A .PRESENTATION_DATE,
+    A .REJECT_REASON,
+    A .REASONS_FOR_COMPULSORY_CLOSURE,
+    A .ADMISSIBILITY_TIME,
+    A .REPORT_PICTURE,
+    A .CLAIM_STATE,
     B.DEPT_CODE,
-    (select T.TYPE_NAME from sgai_md_common_type t
-    WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
-    WHERE T.TYPE_NAME=D.ZCPMC)) AS ZCPMC,
-    (select T.SID from sgai_md_common_type t
-    WHERE T.SID=(select T.PARENT_SID from sgai_md_common_type t
-    WHERE T.TYPE_NAME=D.ZCPMC)) AS PARENT_SID,
-    D.ZPH
+    C.CLAIM_TYPE,
+    C.INQUIRE_STATE,
+    D .SPILT_CUSTOMER,
+    (
+    SELECT
+    NAME
+    FROM
+    ACCT_INFO
+    WHERE
+    ACCT_ID = A .ADMISSIBILITY_USER
+    ) AS ADMISSIBILITY_USER,
+    (
+    SELECT
+    MOBILE_PHONE
+    FROM
+    ACCT_INFO
+    WHERE
+    ACCT_ID = A .ADMISSIBILITY_USER
+    ) AS PHONE,
+    (
+    SELECT
+    T .TYPE_NAME
+    FROM
+    sgai_md_common_type T
+    WHERE
+    T . SID = (
+    SELECT
+    T .PARENT_SID
+    FROM
+    sgai_md_common_type T
+    WHERE
+    T .TYPE_NAME = D .ZCPMC
+    )
+    ) AS ZCPMC,
+    (
+    SELECT
+    T . SID
+    FROM
+    sgai_md_common_type T
+    WHERE
+    T . SID = (
+    SELECT
+    T .PARENT_SID
+    FROM
+    sgai_md_common_type T
+    WHERE
+    T .TYPE_NAME = D .ZCPMC
+    )
+    ) AS PARENT_SID,
+    D .ZPH
     FROM
     WARRANTY.CRM_CLAIM_APPLY A
-    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
-    LEFT JOIN WARRANTY.CRM_CLAIM_INFO C ON A.CLAIM_NO = C.CLAIM_NO
-    LEFT JOIN WARRANTY.MILL_SHEET_HEAD D ON A.MILL_SHEET_NO = D.MILL_SHEET_NO) H
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A .MILL_SHEET_NO = B.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_INFO C ON A .CLAIM_NO = C.CLAIM_NO
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD D ON A .MILL_SHEET_NO = D .MILL_SHEET_NO
+    ) H
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null" >
         AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
