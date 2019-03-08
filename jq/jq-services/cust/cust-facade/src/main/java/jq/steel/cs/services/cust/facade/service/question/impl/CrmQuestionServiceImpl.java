@@ -384,40 +384,41 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
         List<CrmQuestion> crmQuestions = crmQuestionMapper.getQuestionList(crmQuestion);
 
         // 如果集合为空直接返回
-        if (CollectionUtils.isEmpty(crmQuestions)) {
-            vo.setCount(0);
-            return vo;
-        }
+        if (crmQuestions.size()<=0) {
+                vo.setCount(0);
+        }else {
 
-        List<Long> qids = new ArrayList<>();
+            List<Long> qids = new ArrayList<>();
 
-        for (CrmQuestion crmQuestion1 : crmQuestions) {
-            qids.add(crmQuestion1.getQid());
-        }
-
-        // 查看记录
-        CrmQuestionRecord crmQuestionRecord = new CrmQuestionRecord();
-        crmQuestionRecord.setRecordBy(crmQuestionVO.getAcctId());
-        crmQuestionRecord.setQuestionIds(qids);
-        List<CrmQuestionRecord> list = crmQuestionRecordMapper.getList(crmQuestionRecord);
-
-        if (CollectionUtils.isEmpty(list)) {
-            vo.setQid(crmQuestions.get(0).getQid());
-            vo.setCount(crmQuestions.size());
-        } else {
-            Map<Long, CrmQuestionRecord> map = new HashMap<>();
-            for (CrmQuestionRecord record : list) {
-                map.put(record.getQid(), record);
+            for (CrmQuestion crmQuestion1 : crmQuestions) {
+                qids.add(crmQuestion1.getQid());
             }
 
-            for (CrmQuestion q : crmQuestions) {
-                if (null ==map.get(q.getQid())) {
-                    vo.setQid(q.getQid());
-                    vo.setCount(crmQuestions.size() - list.size());
+            // 查看记录
+            CrmQuestionRecord crmQuestionRecord = new CrmQuestionRecord();
+            crmQuestionRecord.setRecordBy(crmQuestionVO.getAcctId());
+            crmQuestionRecord.setQuestionIds(qids);
+            List<CrmQuestionRecord> list = crmQuestionRecordMapper.getList(crmQuestionRecord);
+
+            if (CollectionUtils.isEmpty(list)) {
+                vo.setQid(crmQuestions.get(0).getQid());
+                vo.setCount(crmQuestions.size());
+            } else {
+                Map<Long, CrmQuestionRecord> map = new HashMap<>();
+                for (CrmQuestionRecord record : list) {
+                    map.put(record.getQid(), record);
                 }
 
+                for (CrmQuestion q : crmQuestions) {
+                    if (null ==map.get(q.getQid())) {
+                        vo.setQid(q.getQid());
+                        vo.setCount(crmQuestions.size() - list.size());
+                    }
+
+                }
             }
         }
+
 
 
         /*
