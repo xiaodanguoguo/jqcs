@@ -433,7 +433,7 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
             CrmClaimApply crmClaimApply  = new CrmClaimApply();
             crmClaimApply.setDeptCodes(vo.getDeptCodes());
             CrmClaimApply h = new CrmClaimApply();
-            h.setCustomerName(vo.getOrgName());
+            h.setCustomerName(crmClaimApply.getOrgName());
             List<CrmClaimApply> alist =crmClaimApplyMapper.findMillSheetByCus(h);
             if(alist.size()>0){
                 List<String> idall = new ArrayList<>();
@@ -489,6 +489,7 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
                     crmCustGrumble1.setState("1");
                     crmCustGrumbleMapper.updateState(crmCustGrumble1);
                 }
+                vo.setReplyCount(crmCustGrumbles.size());
             }else {
                 vo.setReplyCount(0);
             }
