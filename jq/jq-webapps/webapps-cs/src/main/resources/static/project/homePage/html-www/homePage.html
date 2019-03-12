@@ -177,13 +177,13 @@
                         jumpUrl("../../appealCompensate/html-gulp-www/customFeedback.html","0000000",0);
                     });
                 }
-                if(data.rspBody.registerCount > 0){//酒钢回复抱怨
+                if(data.rspBody.replyCount > 0){//酒钢回复抱怨
                     $("#replyBox").show();
                     $("#replyBox").on("click",function(){
                         jumpUrl("../../appealCompensate/html-gulp-www/customFeedback.html","0000000",0);
                     });
                 }
-                if(data.rspBody.replyCount > 0){//注册用户
+                if(data.rspBody.registerCount > 0){//注册用户
                     $("#registerBox").show();
                     $("#registerCount").html(data.rspBody.registerCount);
                     $("#registerBox").on("click",function(){
