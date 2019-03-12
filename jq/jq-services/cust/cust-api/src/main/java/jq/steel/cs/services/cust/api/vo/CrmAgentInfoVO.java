@@ -4,6 +4,10 @@ import java.util.Date;
 
 public class CrmAgentInfoVO {
 
+    private String customerId;
+
+    private String customerName;
+
     private  String orgCode;
 
     private  String orgName;
@@ -35,6 +39,22 @@ public class CrmAgentInfoVO {
     private String agentTel;
 
     private String defaultFlag;
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
 
     public String getOrgCode() {
         return orgCode;
