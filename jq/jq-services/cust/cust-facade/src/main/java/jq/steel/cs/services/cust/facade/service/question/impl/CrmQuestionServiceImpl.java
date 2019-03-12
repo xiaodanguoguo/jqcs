@@ -432,7 +432,7 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
         if(crmQuestionVO.getOrgType().equals("1")){
             CrmClaimApply crmClaimApply  = new CrmClaimApply();
             crmClaimApply.setDeptCodes(crmQuestionVO.getDeptCodes());
-            crmClaimApply.setClaimState("NEW");
+            crmClaimApply.setClaimState("PRESENT");
             CrmClaimApply h = new CrmClaimApply();
             h.setCustomerName(crmQuestionVO.getOrgName());
             List<CrmClaimApply> alist =crmClaimApplyMapper.findMillSheetByCus(h);
