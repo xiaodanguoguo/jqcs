@@ -217,6 +217,12 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		OrgInfo orgInfo = new OrgInfo();
 		BeanCopyUtil.copy(reqBody, orgInfo);
 		try {
+			//by wushibin  如果orgType为1为销售公司设置salesCompany 查询
+			if(orgInfo.getOrgType().equals("1")){
+
+			}else {
+				orgInfo.setSalesCompany(null);
+			}
 
 			//可能还有更多参数
 			PageDTOUtil.startPage(reqBody);
