@@ -511,7 +511,7 @@
 			</otherwise>
 		</choose>
 		<if test="orgName != null" >
-			and a.SALES_COMPANY LIKE '%' || #{orgName} ||'%'
+			and a.ORG_NAME LIKE '%' || #{orgName} ||'%'
 		</if>
 		order by a.CREATED_TIME desc
 	</select>
