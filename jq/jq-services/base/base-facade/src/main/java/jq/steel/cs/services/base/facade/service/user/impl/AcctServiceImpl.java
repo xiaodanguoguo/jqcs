@@ -174,7 +174,9 @@ public class AcctServiceImpl implements AcctService {
         orgInfo.setBukrs(acctInfoVO.getBukrs());
         orgInfo.setCreatedTime(new Date());
         orgInfo.setRegType(acctInfoVO.getRegType());
-
+        orgInfo.setProductClassification(acctInfoVO.getProductClassification());
+        orgInfo.setArea(acctInfoVO.getArea());
+        orgInfo.setSalesCompany(acctInfoVO.getSalesCompany());
         //2019/3/5  增加
 
         Long i = orgInfoMapper.insertOrgInfo(orgInfo);
