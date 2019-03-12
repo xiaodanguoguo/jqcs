@@ -220,7 +220,7 @@ function submitCallBack(data){//注册返回函数
     if(data.retCode == "0000000"){
         //注册成功跳转登陆页面;
         var alertBox=new clsAlertBoxCtrl();
-        alertBox.Alert(data.retDesc,"成功提示",1,"","registerTip");
+        alertBox.Alert("感谢，您已经成功注册为酒钢意向客户，登录账号为"+ $("#acctTitle").val() +"，请耐心等待酒钢进行身份核实，核实完毕后可正式使用！在此期间，您可以登录系统浏览我公司产品，也可以为我公司的产品和服务提出建议，我们会根据您提出的这些宝贵意见不断提高产品质量和服务水平。谢谢！","成功提示",1,"","registerTip");
 
     }/*else{
         var alertBox=new clsAlertBoxCtrl();
