@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +51,9 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 
 	@Autowired
 	private FunctionManageMapper functionManageMapper;
+
+	@Autowired
+	private AcctRoleRealMapper acctRoleRealMapper;
 
 	@Autowired
 	private MessageService messageService;
@@ -174,8 +178,36 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	 * 组织机构信息修改
 	 */
 	@Override
-	public Integer saveOrgInfo(OrgInfo OrgInfo) {
-		int i = orgInfoMapper.updateOrgInfo(OrgInfo);
+	public Integer saveOrgInfo(OrgInfo orgInfo) {
+        OrgInfo record = orgInfoMapper.selectByPrimaryKey(orgInfo.getId());
+        // 判断客户类型是否有变更
+		int i = orgInfoMapper.updateOrgInfo(orgInfo);
+		if (i > 0) {
+            if (!orgInfo.getOrgType().equals(record.getOrgType())) {
+                // 删除该组织下面所有角色组
+                roleGroupMapper.deleteByOrgId(orgInfo.getId());
+                // 删除该组织下面所有角色
+                roleInfoMapper.deleteByOrgId(orgInfo.getId());
+                // 预制
+                List<Long> roleIds = this.addDefaultRole(orgInfo.getId());
+                // 给管理员赋权
+				AcctInfo acctInfo = new AcctInfo();
+				acctInfo.setoInfoId(orgInfo.getId());
+				acctInfo.setAcctType(1L);
+				List<AcctInfo> acctInfos = acctInfoMapper.selectByOrgIdAndAcctType(acctInfo);
+
+				acctInfos.forEach(info -> {
+					roleIds.forEach(roleId -> {
+						AcctRoleReal acctRoleReal = new AcctRoleReal();
+						acctRoleReal.setRoleId(roleId);
+						acctRoleReal.setAcctId(info.getAcctId());
+						acctRoleRealMapper.insertSelective(acctRoleReal);
+					});
+				});
+
+            }
+        }
+
 		return i;
 	}
 
@@ -390,7 +422,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		return BeanCopyUtil.copyList(list, OrgInfoVO.class);
 	}
 
-	private void addDefaultRole(String orgInfoId) {
+	private List<Long> addDefaultRole(String orgInfoId) {
 		// 添加默认组织角色
 		RoleGroup roleGroup = new RoleGroup();
 		roleGroup.setRoleGroupTitle("数据权限");
@@ -459,31 +491,34 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 			if(orgInfo.getOrgType()=="1" || orgInfo.getOrgType().equals("1")){
 				roleInfo.setRoleType(Byte.valueOf("1"));
 				List<RoleInfo> listone=roleInfoMapper.selectRoleType(roleInfo);
-				addOrgInfoRole(listone,orgInfoId);
+				return addOrgInfoRole(listone,orgInfoId);
 			}
 
 			if(orgInfo.getOrgType()=="2" || orgInfo.getOrgType().equals("2")){
 				roleInfo.setRoleType(Byte.valueOf("2"));
 				List<RoleInfo> listtwo=roleInfoMapper.selectRoleType(roleInfo);
-				addOrgInfoRole(listtwo,orgInfoId);
+				return addOrgInfoRole(listtwo,orgInfoId);
 			}
 
 			if(orgInfo.getOrgType()=="3" || orgInfo.getOrgType().equals("3")){
 				roleInfo.setRoleType(Byte.valueOf("3"));
 				List<RoleInfo> listthree=roleInfoMapper.selectRoleType(roleInfo);
-				addOrgInfoRole(listthree,orgInfoId);
+				return addOrgInfoRole(listthree,orgInfoId);
 			}
 
 			if(orgInfo.getOrgType()=="4" || orgInfo.getOrgType().equals("4")){
 				roleInfo.setRoleType(Byte.valueOf("4"));
 				List<RoleInfo> listfour=roleInfoMapper.selectRoleType(roleInfo);
-				addOrgInfoRole(listfour,orgInfoId);
+				return addOrgInfoRole(listfour,orgInfoId);
 			}
 		}
 
+		return null;
 	}
 
-	private void addOrgInfoRole(List<RoleInfo> listone,String orgInfoId) {
+	private List<Long> addOrgInfoRole(List<RoleInfo> listone,String orgInfoId) {
+		List<Long> roleIds = new ArrayList<>(listone.size());
+
 		for(int one=0;one<listone.size();one++){
 			FunctionManage functionManage=new FunctionManage();
 			RoleInfo roleInfo5 = new RoleInfo();
@@ -493,6 +528,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 			roleInfo5.setStatus("1");
 			roleInfo5.setOrgId(orgInfoId);
 			roleInfoMapper.insertSelective(roleInfo5);
+			roleIds.add(roleInfo5.getRoleId());
 			functionManage.setRoleId(listone.get(one).getRoleId());
 			List<FunctionManage> list = functionManageMapper.findRoleId(functionManage);
 			for(int i=0;i<list.size();i++){
@@ -503,6 +539,8 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 				acctOperPrivRelaMapper.insertSelective(acctOperPrivRela);
 			}
 		}
+
+		return roleIds;
 	}
 }
 

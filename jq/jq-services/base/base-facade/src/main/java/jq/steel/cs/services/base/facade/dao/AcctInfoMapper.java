@@ -65,4 +65,6 @@ public interface AcctInfoMapper {
     AcctInfo customerType(AcctInfo acctInfo);
 
     List<AcctInfo> selectAll(AcctInfo acctInfo);
+
+    List<AcctInfo> selectByOrgIdAndAcctType(AcctInfo acctInfo);
 }
