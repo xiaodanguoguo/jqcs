@@ -174,8 +174,21 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	 * 组织机构信息修改
 	 */
 	@Override
-	public Integer saveOrgInfo(OrgInfo OrgInfo) {
-		int i = orgInfoMapper.updateOrgInfo(OrgInfo);
+	public Integer saveOrgInfo(OrgInfo orgInfo) {
+        OrgInfo record = orgInfoMapper.selectByPrimaryKey(orgInfo.getId());
+        // 判断客户类型是否有变更
+		int i = orgInfoMapper.updateOrgInfo(orgInfo);
+		if (i > 0) {
+            if (!orgInfo.getOrgType().equals(record.getOrgType())) {
+                // 删除该组织下面所有角色组
+                roleGroupMapper.deleteByOrgId(orgInfo.getId());
+                // 删除该组织下面所有角色
+                roleInfoMapper.deleteByOrgId(orgInfo.getId());
+                // 预制
+                this.addDefaultRole(orgInfo.getId());
+            }
+        }
+
 		return i;
 	}
 
