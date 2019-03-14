@@ -357,7 +357,7 @@
             <div style="padding: 10px;font-size: 14px;line-height: 24px;text-indent: 40px;">
                 <div>您好，<span id="userName"></span>！目前您有</div>
                 <div class="undelineClick" id="questionBox"><span id="count"></span>份问卷调查需要填写</div>
-                <div class="undelineClick" id="objectionBox"><span id="objectionCount"></span>条质量异议需要处理</div>
+                <div class="undelineClick" id="objectionBox"><span id="objectionCount"></span>条质量异议需要审核</div>
                 <div class="undelineClick" id="complainBox"><span id="complainCount"></span>条客户抱怨需要处理</div>
                 <div class="undelineClick" id="replyBox">您的抱怨，酒钢已回复，请注意查看</div>
                 <div class="undelineClick" id="registerBox"><span id="registerCount"></span>条新用户注册需要审核</div>
@@ -446,7 +446,7 @@
                     $("#objectionBox").show();
                     $("#objectionCount").html(data.rspBody.objectionCount);
                     $("#objectionBox").on("click",function(){
-                        jumpUrl("../../appealCompensate/html-gulp-www/objectionDeal.html","0000000",0);
+                        jumpUrl("../../appealCompensate/html-gulp-www/objectionSubmit.html","0000000",0);
                     });
                 }
                 if(data.rspBody.complainCount > 0){//抱怨
