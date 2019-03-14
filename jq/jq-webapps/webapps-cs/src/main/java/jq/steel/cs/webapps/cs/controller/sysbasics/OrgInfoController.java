@@ -256,6 +256,11 @@ public class OrgInfoController {
 	public JsonResponse<PageDTO<OrgInfoVO>> getAuditOrgList(@RequestBody JsonRequest<OrgInfoVO> jsonRequest) {
 		logger.info(" www 系统编码list 参数 = {}", JsonUtil.toJson(jsonRequest));
 		JsonResponse<PageDTO<OrgInfoVO>> jsonResponse = new JsonResponse<PageDTO<OrgInfoVO>>();
+		//by wushibin 区别开销售公司数据权限
+		String salesCompany = AssertContext.getOrgName();
+		String orgType = AssertContext.getOrgType();
+		jsonRequest.getReqBody().setOrgType(orgType);
+		jsonRequest.getReqBody().setSalesCompany(salesCompany);
 		try {
 			jsonResponse = orgInfoServiceAPI.getAuditOrgList(jsonRequest);
 		} catch (BusinessException e) {

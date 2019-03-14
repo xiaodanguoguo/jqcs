@@ -61,7 +61,7 @@
       #{createdBy}, #{createdTime}, #{updatedBy},
       #{updatedTime})
   </insert>
-  <insert id="insertSelective"  parameterType="jq.steel.cs.services.base.facade.model.RoleInfo" >
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="roleId" keyColumn="ROLE_ID" parameterType="jq.steel.cs.services.base.facade.model.RoleInfo" >
     <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="roleId">
       SELECT SEQ_ROLE_INFO.nextval AS roleId FROM dual
     </selectKey>

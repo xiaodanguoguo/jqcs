@@ -431,9 +431,10 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
         //质量异议count
         if(crmQuestionVO.getOrgType().equals("1")){
             CrmClaimApply crmClaimApply  = new CrmClaimApply();
-            crmClaimApply.setDeptCodes(vo.getDeptCodes());
+            crmClaimApply.setDeptCodes(crmQuestionVO.getDeptCodes());
+            crmClaimApply.setClaimState("PRESENT");
             CrmClaimApply h = new CrmClaimApply();
-            h.setCustomerName(vo.getOrgName());
+            h.setCustomerName(crmQuestionVO.getOrgName());
             List<CrmClaimApply> alist =crmClaimApplyMapper.findMillSheetByCus(h);
             if(alist.size()>0){
                 List<String> idall = new ArrayList<>();
@@ -442,7 +443,7 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
                 }
                 crmClaimApply.setMillSheetNos(idall);
             }else {
-                crmClaimApply.setCustomerId(vo.getOrgName());
+                crmClaimApply.setCustomerId(crmQuestionVO.getOrgName());
             }
             List<CrmClaimApply> crmClaimApplies = crmClaimApplyMapper.findByPage(crmClaimApply);
             if (crmClaimApplies.size()>0){
@@ -464,7 +465,7 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
                 vo.setComplainCount(0);
             }else {
                 CrmCustGrumble crmCustGrumble = new CrmCustGrumble();
-                crmCustGrumble.setFactorys(vo.getDeptCodes());
+                crmCustGrumble.setFactorys(crmQuestionVO.getDeptCodes());
                 crmCustGrumble.setcType("抱怨");
                 List<CrmCustGrumble> crmCustGrumbles =crmCustGrumbleMapper.findCount(crmCustGrumble);
                 if (crmCustGrumbles.size()>0){
@@ -480,7 +481,7 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
         //回复抱怨count
         if(!crmQuestionVO.getOrgType().equals("5")){
             CrmCustGrumble crmCustGrumble = new CrmCustGrumble();
-            crmCustGrumble.setCustomer(vo.getOrgName());
+            crmCustGrumble.setCustomer(crmQuestionVO.getOrgName());
             crmCustGrumble.setcType("抱怨");
             List<CrmCustGrumble> crmCustGrumbles =crmCustGrumbleMapper.findCount1(crmCustGrumble);
             //update state 为 1 防止下次再查计数
@@ -489,6 +490,7 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
                     crmCustGrumble1.setState("1");
                     crmCustGrumbleMapper.updateState(crmCustGrumble1);
                 }
+                vo.setReplyCount(crmCustGrumbles.size());
             }else {
                 vo.setReplyCount(0);
             }

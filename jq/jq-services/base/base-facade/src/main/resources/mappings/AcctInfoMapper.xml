@@ -841,6 +841,13 @@ and arp.role_id is not null )
     where O_INFO_ID = #{orgId}
   </select>
 
+  <select id="selectByOrgIdAndAcctType" parameterType="jq.steel.cs.services.base.facade.model.AcctInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from acct_info
+    where O_INFO_ID = #{oInfoId} and ACCT_TYPE = #{acctType}
+  </select>
+
   <select id="selectAll" parameterType="jq.steel.cs.services.base.facade.model.AcctInfo" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

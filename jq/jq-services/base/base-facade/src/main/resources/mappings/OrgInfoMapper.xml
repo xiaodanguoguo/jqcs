@@ -513,6 +513,9 @@
 		<if test="orgName != null" >
 			and a.ORG_NAME LIKE '%' || #{orgName} ||'%'
 		</if>
+		<if test="salesCompany != null" >
+			and a.SALES_COMPANY LIKE '%' || #{salesCompany} ||'%'
+		</if>
 		order by a.CREATED_TIME desc
 	</select>
 
