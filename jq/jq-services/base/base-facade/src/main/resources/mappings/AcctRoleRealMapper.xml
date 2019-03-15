@@ -24,6 +24,13 @@
     delete from acct_role_real
     where ACCT_ID = #{acctId}
   </delete>
+  <delete id="deleteByRoleIds" >
+    delete from acct_role_real
+    where ROLE_ID in
+    <foreach collection="roleInfoIds" item="item" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </delete>
   <insert id="insert" parameterType="jq.steel.cs.services.base.facade.model.AcctRoleReal" >
     <selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="relaId">
       SELECT SEQ_ACCT_ROLE_REAL.nextval AS relaId FROM dual
