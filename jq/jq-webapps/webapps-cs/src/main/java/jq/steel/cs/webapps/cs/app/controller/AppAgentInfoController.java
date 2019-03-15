@@ -28,7 +28,7 @@ public class AppAgentInfoController {
 
 
     /**
-     * 修改/增加
+     * app修改/增加
      * @param  jsonRequest
      * @return
      *
