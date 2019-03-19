@@ -196,7 +196,7 @@ function openWinShow(type,sidStr){//type操作类型 0-订货单位新增 1-订�
         $("#orderUnitPopup").hide();
         $("#userUnitPopup").hide();
         $("#agencyUnitPopup").show();
-        $("#agencyUnitPopup #agentName").val(document.body.jsLee.loginerNews.customerName);
+        //$("#agencyUnitPopup #agentName").val(document.body.jsLee.loginerNews.customerName);
 
     };
     //修改title信息

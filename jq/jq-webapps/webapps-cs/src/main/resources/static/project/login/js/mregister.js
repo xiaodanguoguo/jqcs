@@ -200,8 +200,8 @@ function passwordDiffer(a,b){//校验两次密码是否一致   a——首次输
 function jsonJoin(){//拼接注册入参
     var jsonParam = {"acctTitle":"","acctPassword":"","mobilePhone":"","companyName":"","address":"","email":"","bukrs":"","salesCompany":""}
     var str = "";
-    for(var nI = 0 ; nI < $("#productClassification").val().length ; nI++){
-        str += str == "" ? $("#productClassification").val()[nI] : ","+$("#productClassification").val()[nI];
+    for(var nI = 0 ; nI < $("#productClassification").next().find(".search-choice").length ; nI++){
+        str += str == "" ? $("#productClassification").next().find(".search-choice span").eq(nI).html() : ","+$("#productClassification").next().find(".search-choice span").eq(nI).html();
     }
     jsonParam.productClassification = str;
     jsonParam.area = $(".shortP #provinceName option:selected").html()+ "," +$(".shortP #cityName option:selected").html()+ "," +$(".shortP #areaName option:selected").html();

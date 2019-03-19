@@ -1046,7 +1046,7 @@ function openWinShow(type){//type操作类型 0-订货单位新增 1-订货单�
         $("#orderUnitPopup").hide();
         $("#userUnitPopup").hide();
         $("#agencyUnitPopup").show();
-        $("#agencyUnitPopup #agentName").val(document.body.jsLee.loginerNews.customerName);
+        //$("#agencyUnitPopup #agentName").val(document.body.jsLee.loginerNews.customerName);
     }
     openWin(950,350,'textChangeBox',true);
     document.body.jsLee.operateType = type;
