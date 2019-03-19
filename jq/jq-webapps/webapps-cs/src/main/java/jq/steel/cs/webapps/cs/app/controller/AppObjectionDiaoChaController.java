@@ -78,12 +78,12 @@ public class AppObjectionDiaoChaController {
      *
      * */
     @RequestMapping(value = "/update",method = RequestMethod.POST)
-    public JsonResponse<Integer> update(@RequestBody JsonRequest<ObjectionDiaoChaVO> jsonRequest){
-        JsonResponse<Integer> jsonResponse = new JsonResponse<>();
+    public JsonResponse<ObjectionDiaoChaVO> update(@RequestBody JsonRequest<ObjectionDiaoChaVO> jsonRequest){
+        JsonResponse<ObjectionDiaoChaVO> jsonResponse = new JsonResponse<>();
         logger.info("内外部调查报告（保存，跟踪，提交）异议处理确认书（通过 ，驳回）", JsonUtil.toJson(jsonRequest));
         try {
-            ServiceResponse<Integer> byPage = objectionDiaoChaAPI.update(jsonRequest);
-            Integer retContent = byPage.getRetContent();
+            ServiceResponse<ObjectionDiaoChaVO> byPage = objectionDiaoChaAPI.update(jsonRequest);
+            ObjectionDiaoChaVO retContent = byPage.getRetContent();
             jsonResponse.setRspBody(retContent);
         } catch (BusinessException e) {
             logger.error("内外部调查报告（保存，跟踪，提交）异议处理确认书（通过 ，驳回）", e);

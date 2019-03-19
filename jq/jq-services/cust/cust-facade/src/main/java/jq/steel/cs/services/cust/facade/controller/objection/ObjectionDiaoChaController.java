@@ -83,13 +83,13 @@ public class ObjectionDiaoChaController {
      *
      * */
     @RequestMapping(value = "/update",method = RequestMethod.POST)
-    public ServiceResponse<Integer> update(@RequestBody JsonRequest<ObjectionDiaoChaVO> jsonRequest){
+    public ServiceResponse<ObjectionDiaoChaVO> update(@RequestBody JsonRequest<ObjectionDiaoChaVO> jsonRequest){
         logger.info("参数", JsonUtil.toJson(jsonRequest));
-        ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<ObjectionDiaoChaVO> serviceResponse = new ServiceResponse<>();
         try {
             ObjectionDiaoChaVO objectionDiaoChaVO = jsonRequest.getReqBody();
-            Integer integer= objectionDiaoChaService.update(objectionDiaoChaVO);
-            serviceResponse.setRetContent(integer);
+            ObjectionDiaoChaVO objectionDiaoChaVO1= objectionDiaoChaService.update(objectionDiaoChaVO);
+            serviceResponse.setRetContent(objectionDiaoChaVO1);
         }catch (BusinessException e){
             logger.error("获取分页出错",e);
             serviceResponse.setException(new BusinessException("500"));
@@ -105,13 +105,13 @@ public class ObjectionDiaoChaController {
      *
      * */
     @RequestMapping(value = "/updateInside",method = RequestMethod.POST)
-    public ServiceResponse<Integer> updateInside(@RequestBody JsonRequest<ObjectionDiaoChaVO> jsonRequest){
+    public ServiceResponse<ObjectionDiaoChaVO> updateInside(@RequestBody JsonRequest<ObjectionDiaoChaVO> jsonRequest){
         logger.info("分页", JsonUtil.toJson(jsonRequest));
-        ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<ObjectionDiaoChaVO> serviceResponse = new ServiceResponse<>();
         try {
             ObjectionDiaoChaVO objectionDiaoChaVO = jsonRequest.getReqBody();
-            Integer integer = objectionDiaoChaService.updateInside(objectionDiaoChaVO);
-            serviceResponse.setRetContent(integer);
+            ObjectionDiaoChaVO objectionDiaoChaVO1 = objectionDiaoChaService.updateInside(objectionDiaoChaVO);
+            serviceResponse.setRetContent(objectionDiaoChaVO1);
         }catch (BusinessException e){
             logger.error("获取分页出错",e);
             serviceResponse.setException(new BusinessException("500"));
