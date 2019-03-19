@@ -107,8 +107,8 @@ function clsMethodLee$operate(){
     $(".shortP #areaName").on("change",function(){
         if($(".shortP #areaName").val() && $("#productClassification").val()){
             var str = "";
-            for(var nI = 0 ; nI < $("#productClassification").val().length ; nI++){
-                str += str == "" ? $("#productClassification").val()[nI] : ","+$("#productClassification").val()[nI];
+            for(var nI = 0 ; nI < $("#productClassification").next().find(".search-choice").length ; nI++){
+                str += str == "" ? $("#productClassification").next().find(".search-choice span").eq(nI).html() : ","+$("#productClassification").next().find(".search-choice span").eq(nI).html();
             }
             var reqParam = {"productClassification":str,"area":$(".shortP #provinceName option:selected").html()+ "," +$(".shortP #cityName option:selected").html()+ "," +$(".shortP #areaName option:selected").html()};
             getAjaxResult(document.body.jsLee.requestUrl.path2,"POST",reqParam,"showCompany(data)");
@@ -117,8 +117,8 @@ function clsMethodLee$operate(){
     $(".longP #productClassification").on("change",function(){
         if($(".shortP #areaName").val() && $("#productClassification").val()){
             var str = "";
-            for(var nI = 0 ; nI < $("#productClassification").val().length ; nI++){
-                str += str == "" ? $("#productClassification").val()[nI] : ","+$("#productClassification").val()[nI];
+            for(var nI = 0 ; nI < $("#productClassification").next().find(".search-choice").length ; nI++){
+                str += str == "" ? $("#productClassification").next().find(".search-choice span").eq(nI).html() : ","+$("#productClassification").next().find(".search-choice span").eq(nI).html();
             }
             var reqParam = {"productClassification":str,"area":$(".shortP #provinceName option:selected").html()+ "," +$(".shortP #cityName option:selected").html()+ "," +$(".shortP #areaName option:selected").html()};
             //var reqParam = {"productClassification":str,"area":$(".shortP #provinceName").val()+ "," +$(".shortP #cityName").val()+ "," +$(".shortP #areaName").val()};
