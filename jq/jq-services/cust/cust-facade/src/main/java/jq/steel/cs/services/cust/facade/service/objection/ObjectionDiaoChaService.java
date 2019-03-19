@@ -15,10 +15,10 @@ public interface ObjectionDiaoChaService {
     ObjectionDiaoChaVO findDetails(ObjectionDiaoChaVO objectionTiBaoVO);
 
     //内外部调查报告（保存，跟踪，提交）异议处理确认书（通过 ，驳回）
-    Integer update(ObjectionDiaoChaVO record);
+    ObjectionDiaoChaVO update(ObjectionDiaoChaVO record);
 
     //内部调查报告（保存，提交）
-    Integer updateInside(ObjectionDiaoChaVO record);
+    ObjectionDiaoChaVO updateInside(ObjectionDiaoChaVO record);
 
     //导出
     List<ObjectionDiaoChaVO> export (List<String> record);

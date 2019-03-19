@@ -131,14 +131,14 @@ public class ObjectionDiaoChaController {
      *
      * */
     @RequestMapping(value = "/update",method = RequestMethod.POST)
-    public JsonResponse<Integer> update(@RequestBody JsonRequest<ObjectionDiaoChaVO> jsonRequest) {
-        JsonResponse<Integer> jsonResponse = new JsonResponse<>();
+    public JsonResponse<ObjectionDiaoChaVO> update(@RequestBody JsonRequest<ObjectionDiaoChaVO> jsonRequest) {
+        JsonResponse<ObjectionDiaoChaVO> jsonResponse = new JsonResponse<>();
         try {
             // 根据service层返回的编码做不同的操作
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
             jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
-            ServiceResponse<Integer> response = objectionDiaoChaAPI.update(jsonRequest);
+            ServiceResponse<ObjectionDiaoChaVO> response = objectionDiaoChaAPI.update(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
                 // 如果需要异常信息
@@ -169,14 +169,14 @@ public class ObjectionDiaoChaController {
      *
      * */
     @RequestMapping(value = "/updateInside",method = RequestMethod.POST)
-    public JsonResponse<Integer> updateInside(@RequestBody JsonRequest<ObjectionDiaoChaVO> jsonRequest) {
-        JsonResponse<Integer> jsonResponse = new JsonResponse<>();
+    public JsonResponse<ObjectionDiaoChaVO> updateInside(@RequestBody JsonRequest<ObjectionDiaoChaVO> jsonRequest) {
+        JsonResponse<ObjectionDiaoChaVO> jsonResponse = new JsonResponse<>();
         try {
             // 根据service层返回的编码做不同的操作
             jsonRequest.getReqBody().setOrgCode(AssertContext.getOrgCode());
             jsonRequest.getReqBody().setOrgName(AssertContext.getOrgName());
             jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
-            ServiceResponse<Integer> response = objectionDiaoChaAPI.updateInside(jsonRequest);
+            ServiceResponse<ObjectionDiaoChaVO> response = objectionDiaoChaAPI.updateInside(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(response.getRetCode()))
                 jsonResponse.setRspBody(response.getRetContent());
                 // 如果需要异常信息

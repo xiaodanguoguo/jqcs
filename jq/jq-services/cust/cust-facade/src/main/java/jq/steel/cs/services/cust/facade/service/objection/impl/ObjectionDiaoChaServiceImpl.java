@@ -101,7 +101,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
      * 外部调查开始OUTSTART   已跟踪TRACK  外部调查结束OUTEND  内部调查开始INSTART   调查结束INEND   已确认CONFIRM
      * */
     @Override
-    public Integer update(ObjectionDiaoChaVO record) {
+    public ObjectionDiaoChaVO update(ObjectionDiaoChaVO record) {
         String orgCode = record.getOrgCode();
         String acctName = record.getAcctName();
         CrmClaimOutInquire crmClaimOutInquire  = new CrmClaimOutInquire();
@@ -143,7 +143,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimInfo1.setProProblem(record.getProProblem());
             crmClaimInfo1.setObjectionConfirmation(record.getObjectionConfirmation());
             crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo1);
-            return integer;
+            return record;
 
         }else if(crmClaimOutInquire.getOptionType()==2){
             //修改外部数据 + 修改外部调查状态
@@ -183,7 +183,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimInfo1.setProProblem(record.getProProblem());
             crmClaimInfo1.setObjectionConfirmation(record.getObjectionConfirmation());
             crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo1);
-            return  i;
+            return  record;
         }else if (crmClaimOutInquire.getOptionType()==3){
             //外部调查报告状态变为“外部调查结束”；异议状态变为或者保持“调查中”，记录外部调查报告提交时间和提交人。
             //判断是否有数据 有修改，没有删除
@@ -230,7 +230,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimInfo1.setProProblem(record.getProProblem());
             crmClaimInfo1.setObjectionConfirmation(record.getObjectionConfirmation());
             crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo1);
-            return i;
+            return record;
         }else if(crmClaimOutInquire.getOptionType()==4){
             //确认书（外部调查报告）状态变由“待确认”变为为“已确认” ,记录审核通过时间和审核人员信息。
             // 修改异议状态数据  异议状态变为处理中
@@ -293,16 +293,16 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimLog.setOpMemo("确认书审核驳回");
             crmClaimLogMapper.insert(crmClaimLog);
             int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
-            return i;
+            return record;
 
         }
         crmClaimOutInquireMapper.update(crmClaimOutInquire);
-        return null;
+        return record;
     }
 
     //内部调查报告（保存，提交）//1内部保存 2内部提交
     @Override
-    public Integer updateInside(ObjectionDiaoChaVO record) {
+    public ObjectionDiaoChaVO updateInside(ObjectionDiaoChaVO record) {
         String orgCode = record.getOrgCode();
         String acctName = record.getAcctName();
         CrmClaimInnerInquire crmClaimInnerInquire = new CrmClaimInnerInquire();
@@ -340,7 +340,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimOutInquire.setShift(record.getShift());
             crmClaimOutInquire.setProductDt(record.getProductDt());
             crmClaimOutInquireMapper.update(crmClaimOutInquire);
-            return integer;
+            return  record;
         }else {
             //修改外部表
             CrmClaimOutInquire crmClaimOutInquire = new CrmClaimOutInquire();
@@ -378,7 +378,7 @@ public class ObjectionDiaoChaServiceImpl implements ObjectionDiaoChaService{
             crmClaimInfo1.setUpdatedBy(acctName);
             crmClaimInfo.setClaimState("INVESTIGATION");
             crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
-            return i;
+            return  record;
         }
     }
 

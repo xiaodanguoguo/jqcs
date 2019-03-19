@@ -251,7 +251,6 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                         objectionTiBaoVO.setAgentAddr(crmAgentInfoVOList.get(0).getAgentAddr());
                         objectionTiBaoVO.setAgentEmpNo(crmAgentInfoVOList.get(0).getAgentEmpNo());
                         objectionTiBaoVO.setAgentTel(crmAgentInfoVOList.get(0).getAgentTel());
-
                         return objectionTiBaoVO;
                     }else {
                         objectionTiBaoVO.setAgentId(orgCode);

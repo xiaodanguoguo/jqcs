@@ -40,7 +40,7 @@ public interface ObjectionDiaoChaAPI {
      *
      * */
     @RequestMapping(value = "/objectionDiaoCha/update",method = RequestMethod.POST)
-    ServiceResponse<Integer> update(@RequestBody JsonRequest<ObjectionDiaoChaVO> jsonRequest);
+    ServiceResponse<ObjectionDiaoChaVO> update(@RequestBody JsonRequest<ObjectionDiaoChaVO> jsonRequest);
 
 
     /**
@@ -50,7 +50,7 @@ public interface ObjectionDiaoChaAPI {
      *
      * */
     @RequestMapping(value = "/objectionDiaoCha/updateInside",method = RequestMethod.POST)
-    ServiceResponse<Integer> updateInside(@RequestBody JsonRequest<ObjectionDiaoChaVO> jsonRequest);
+    ServiceResponse<ObjectionDiaoChaVO> updateInside(@RequestBody JsonRequest<ObjectionDiaoChaVO> jsonRequest);
 
 
     /**
