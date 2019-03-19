@@ -51,8 +51,15 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 				userRegistration.setCity("其他");
 			}
 		}
-		UserRegistration userRegistration1 = userRegistrationMapper.getSale(userRegistration);
-		return userRegistration1;
+		List<UserRegistration> userRegistration1 = userRegistrationMapper.getSale(userRegistration);
+		if(userRegistration1.size()>0){
+			return userRegistration1.get(0);
+		}else{
+			UserRegistration userRegistration2 = new UserRegistration();
+			userRegistration2.setSalesCompany("111");
+			return userRegistration2;
+		}
+
 	}
 }
 
