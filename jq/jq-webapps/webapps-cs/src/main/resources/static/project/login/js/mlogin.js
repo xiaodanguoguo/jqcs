@@ -218,6 +218,7 @@ function submitCallBack(data){
             setCookie("limitCode",escape(JSON.stringify(data.rspBody.acct.limitCode)));
         }
         setCookie("acctType",escape(data.rspBody.acct.acctType));
+        setCookie("orgType",escape(data.rspBody.acct.orgType));
         //存cookie，已经登陆状态
         setCookie("isLogin","1");
         /* setCookie("orgId",data.rspBody.acct.orgId);*/

@@ -167,7 +167,11 @@
                     $("#objectionBox").show();
                     $("#objectionCount").html(data.rspBody.objectionCount);
                     $("#objectionBox").on("click",function(){
-                        jumpUrl("../../appealCompensate/html-gulp-www/objectionSubmit.html","0000000",0);
+                        if(unescape(getCookie("orgType")) == 5){
+                            jumpUrl("../../appealCompensate/html-gulp-www/objectionReasearch.html","0000000",0);
+                        }else{
+                            jumpUrl("../../appealCompensate/html-gulp-www/objectionSubmit.html","0000000",0);
+                        }
                     });
                 }
                 if(data.rspBody.complainCount > 0){//抱怨
