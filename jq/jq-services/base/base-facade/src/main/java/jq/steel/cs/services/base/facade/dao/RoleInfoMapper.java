@@ -53,4 +53,6 @@ public interface RoleInfoMapper {
     int deleteByOrgId(String id);
 
     List<RoleInfo> findRoleByActtId(@Param("acctId") Long acctId);
+
+    List<RoleInfo> findByOrgId(RoleInfo roleInfo);
 }

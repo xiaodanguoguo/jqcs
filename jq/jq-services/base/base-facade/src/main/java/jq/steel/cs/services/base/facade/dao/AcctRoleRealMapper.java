@@ -40,4 +40,6 @@ public interface AcctRoleRealMapper {
     void deleteByPrimaryKey2(Long acctId);
 
     List<Long> getRoleIdsByAcctId(@Param("acctId") String acctId);
+
+    int deleteByRoleIds(@Param("roleInfoIds") List<Long> roleInfoIds);
 }

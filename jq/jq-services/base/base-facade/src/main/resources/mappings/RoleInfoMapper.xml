@@ -556,4 +556,12 @@
       LEFT JOIN WARRANTY.ROLE_INFO C ON B.ROLE_ID = C.ROLE_ID
       WHERE  A.ACCT_ID = #{acctId}
   </select>
+
+  <select id="findByOrgId" resultMap="BaseResultMap" parameterType="java.lang.String">
+      SELECT
+      ROLE_ID
+      FROM
+      ROLE_INFO
+      WHERE ORG_ID = #{orgId}
+  </select>
 </mapper>

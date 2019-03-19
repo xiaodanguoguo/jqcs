@@ -259,8 +259,13 @@ LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
   ZCHARG
   FROM
   MILL_COIL_INFO
-  WHERE ZCHARG =  #{zcharg,jdbcType=VARCHAR}
+  WHERE ZCHARG like '%' || #{zcharg,jdbcType=VARCHAR} || '%'
   </select>
+<!--  WHERE ZCHARG =  #{zcharg,jdbcType=VARCHAR}-->
+  <!--like '%' || #{zchehao,jdbcType=VARCHAR} || '%'-->
+
+
+
   <sql id="Base_Column_List" >
     SID, ZCHEHAO, ZLPH, ZCHARG, SPECS, ZDIAMETER, ZTHICK, ZWIDTH, ZLENGTH, ZJISHU, ZLOSMENGE,
     ZJISHU_UNIT, ZMEINS, ZDCZT, ZJHZT, MILL_SHEET_NO, ZBMJD, ZBZFS, ZTSBZ, ZHDPC, CREATED_BY, 

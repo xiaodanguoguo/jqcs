@@ -707,7 +707,7 @@ public class SysBasicsAcctServiceImpl implements SysBasicsAcctService {
 
                 List<RoleInfo> roleInfos = roleInfoMapper.findRoleByActtId(acctInfo.getAcctId());
                 StringBuffer roles = new StringBuffer();
-                if (CollectionUtils.isNotEmpty(roleInfos)) {
+                if ((CollectionUtils.isNotEmpty(roleInfos)) && (roleInfos.get(0) != null)) {
                     for (int i = 0; i < roleInfos.size(); i++) {
                         if (i == (roleInfos.size() - 1)) {
                             roles.append(roleInfos.get(i).getRoleTitle());

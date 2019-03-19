@@ -18,6 +18,7 @@ import jq.steel.cs.services.base.facade.service.sysbasics.OrgInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -186,8 +187,24 @@ public class OrgInfoServiceImpl implements OrgInfoService {
             if (!orgInfo.getOrgType().equals(record.getOrgType())) {
                 // 删除该组织下面所有角色组
                 roleGroupMapper.deleteByOrgId(orgInfo.getId());
+                // 查询该组织所有的角色
+				RoleInfo roleInfo = new RoleInfo();
+				roleInfo.setOrgId(orgInfo.getId());
+				List<RoleInfo> roleInfos = roleInfoMapper.findByOrgId(roleInfo);
+				List<Long> roleInfoIds = new ArrayList<>(roleInfos.size());
+
+				roleInfos.forEach(info -> {
+					roleInfoIds.add(info.getRoleId());
+				});
+
                 // 删除该组织下面所有角色
                 roleInfoMapper.deleteByOrgId(orgInfo.getId());
+
+                // 删除角色账号关联
+				if (!CollectionUtils.isEmpty(roleInfoIds)) {
+					acctRoleRealMapper.deleteByRoleIds(roleInfoIds);
+				}
+
                 // 预制
                 List<Long> roleIds = this.addDefaultRole(orgInfo.getId());
                 // 给管理员赋权
