@@ -9,7 +9,7 @@ public interface UserRegistrationMapper {
 
     int insertSelective(UserRegistration record);
 
-    UserRegistration getSale(UserRegistration record);
+    List<UserRegistration> getSale(UserRegistration record);
 
     List<UserRegistration> getList(UserRegistration record);
 

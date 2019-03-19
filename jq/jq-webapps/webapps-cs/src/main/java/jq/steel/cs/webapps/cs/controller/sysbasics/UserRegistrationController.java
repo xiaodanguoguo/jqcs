@@ -43,8 +43,15 @@ public class UserRegistrationController {
 		 JsonResponse<UserRegistrationVO> jsonResponse = new JsonResponse<UserRegistrationVO>();
 		 try {
 			ServiceResponse<UserRegistrationVO> apiList = userRegistrationAPI.getSale(jsonRequest);
-			UserRegistrationVO retContent = apiList.getRetContent();
-			jsonResponse.setRspBody(retContent);
+			if(!apiList.getRetContent().getSalesCompany().equals("111")){
+				UserRegistrationVO retContent = apiList.getRetContent();
+				jsonResponse.setRspBody(retContent);
+			}else {
+				//查询无数据
+				jsonResponse.setRetCode("0000007");
+				jsonResponse.setRetDesc("客户注册过程中所选择的产品类别和公司所在区域，如果没有匹配出对应销售公司的，系统给予提示：“该类产品在该区域没有销售网点，详情请咨询0937-6713969”");
+			}
+
 		} catch (BusinessException e) {
 			jsonResponse.setRetCode(e.getErrorCode());
 			jsonResponse.setRetDesc(e.getMessage());
