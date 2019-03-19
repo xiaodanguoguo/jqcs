@@ -7,6 +7,10 @@ import java.util.List;
 
 public class CrmQuestionVO {
 
+
+    //润乾地址
+    private  String report;
+
     private  String orgName;
 
     //厂家code
@@ -62,6 +66,14 @@ public class CrmQuestionVO {
     private Integer replyCount;
     //客户注册count
     private Integer registerCount;
+
+    public String getReport() {
+        return report;
+    }
+
+    public void setReport(String report) {
+        this.report = report;
+    }
 
     public String getOrgName() {
         return orgName;

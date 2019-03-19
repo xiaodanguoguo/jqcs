@@ -16,6 +16,7 @@ import jq.steel.cs.services.cust.api.vo.CrmQuestionRecordVO;
 import jq.steel.cs.services.cust.api.vo.CrmQuestionVO;
 import jq.steel.cs.services.cust.api.vo.CrmStatisticsTitle;
 import jq.steel.cs.services.cust.api.vo.CrmStatisticsValue;
+import jq.steel.cs.webapps.cs.controller.file.UploadConfig;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +46,9 @@ public class CrmQuestionController {
 
     @Autowired
     private RoleInfoAPI roleInfoAPI;
+
+    @Autowired
+    UploadConfig uploadConfig;
 
     /**
      * @param: jsonRequest
@@ -433,6 +437,36 @@ public class CrmQuestionController {
             jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
         }
 
+        return jsonResponse;
+    }
+
+
+
+
+    /**
+     * 打印/预览 实时生成pdf并且返回url地址
+     * */
+    @RequestMapping(value = "/print", method = RequestMethod.POST)
+    public JsonResponse<CrmQuestionVO> print(@RequestBody JsonRequest<CrmQuestionVO> jsonRequest) {
+        logger.info("参数", JsonUtil.toJson(jsonRequest));
+        CreatePdf createPdf = new CreatePdf();
+        JsonResponse<CrmQuestionVO> jsonResponse = new JsonResponse<>();
+        String createPdfPath = uploadConfig.getModelUrl();
+        jsonRequest.getReqBody().setReport(createPdfPath);
+        try {
+            ServiceResponse<CrmQuestionVO> serviceResponse = new ServiceResponse<>();
+            String report = "";
+            String pdfName = jsonRequest.getReqBody().getQid() + ".pdf";
+            String report1 = createPdf.createPdf(jsonRequest.getReqBody().getQid(), createPdfPath, pdfName, "tongji");
+            String hh1 = report1.replace("/data/kf_web", "/res");
+            report = uploadConfig.getDomain() + hh1;
+            serviceResponse.getRetContent().setReport(report);
+            jsonResponse.setRspBody(serviceResponse.getRetContent());
+        } catch (BusinessException e) {
+            logger.error("打印报错", e);
+            e.printStackTrace();
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
         return jsonResponse;
     }
 }
