@@ -39,6 +39,7 @@ public class AppCrmCustGrumbleServiceImpl implements AppCrmCustGrumbleService {
         }else if(crmCustGrumble.getCategoryName().equals("碳钢钢带")){
             crmCustGrumble.setFactory("2200");
         }
+        crmCustGrumble.setState("待反馈");
         return crmCustGrumbleMapper.insertSelective(crmCustGrumble);
     }
 
@@ -53,7 +54,33 @@ public class AppCrmCustGrumbleServiceImpl implements AppCrmCustGrumbleService {
     public Integer update(CrmCustGrumbleVO crmCustGrumbleVO) {
         CrmCustGrumble crmCustGrumble = new CrmCustGrumble();
         BeanCopyUtil.copy(crmCustGrumbleVO, crmCustGrumble);
+        crmCustGrumble.setState("已反馈");
         return crmCustGrumbleMapper.updateByPrimaryKeySelective(crmCustGrumble);
+    }
+
+
+    //查看过后就是已反馈
+    @Override
+    public Integer updateState(CrmCustGrumbleVO crmCustGrumbleVO) {
+        CrmCustGrumble crmCustGrumble = new CrmCustGrumble();
+        BeanCopyUtil.copy(crmCustGrumbleVO, crmCustGrumble);
+        if (crmCustGrumble.getFactory() != null && crmCustGrumble.getFactory() != "") {
+            crmCustGrumble.setFactorys(null);
+        }
+        crmCustGrumble.setCustomer(crmCustGrumbleVO.getOrgName());
+        //如果orgType为5为厂级领导 设置customer为null
+        if (crmCustGrumble.getOrgType().equals("5")) {
+            crmCustGrumble.setCustomer(null);
+        }
+        List<CrmCustGrumble> crmCustGrumbles = crmCustGrumbleMapper.findByPage(crmCustGrumble);
+        for(CrmCustGrumble crmCustGrumble1:crmCustGrumbles){
+            CrmCustGrumble crmCustGrumble2 = new CrmCustGrumble();
+            crmCustGrumble2.setCid(crmCustGrumble1.getCid());
+            crmCustGrumble2.setIsLook("1");
+            crmCustGrumbleMapper.updateState(crmCustGrumble2);
+        }
+
+        return 1;
     }
 
     @Override

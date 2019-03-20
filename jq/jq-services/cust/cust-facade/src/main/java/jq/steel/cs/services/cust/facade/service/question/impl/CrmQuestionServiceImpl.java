@@ -467,6 +467,7 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
                 CrmCustGrumble crmCustGrumble = new CrmCustGrumble();
                 crmCustGrumble.setFactorys(crmQuestionVO.getDeptCodes());
                 crmCustGrumble.setcType("抱怨");
+                crmCustGrumble.setState("待反馈");
                 List<CrmCustGrumble> crmCustGrumbles =crmCustGrumbleMapper.findCount(crmCustGrumble);
                 if (crmCustGrumbles.size()>0){
                     vo.setComplainCount(crmCustGrumbles.size());
@@ -483,13 +484,9 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
             CrmCustGrumble crmCustGrumble = new CrmCustGrumble();
             crmCustGrumble.setCustomer(crmQuestionVO.getOrgName());
             crmCustGrumble.setcType("抱怨");
+            crmCustGrumble.setState("已反馈");
             List<CrmCustGrumble> crmCustGrumbles =crmCustGrumbleMapper.findCount1(crmCustGrumble);
-            //update state 为 1 防止下次再查计数
             if (crmCustGrumbles.size()>0){
-                for (CrmCustGrumble crmCustGrumble1:crmCustGrumbles){
-                    crmCustGrumble1.setState("1");
-                    crmCustGrumbleMapper.updateState(crmCustGrumble1);
-                }
                 vo.setReplyCount(crmCustGrumbles.size());
             }else {
                 vo.setReplyCount(0);

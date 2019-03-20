@@ -51,6 +51,17 @@ public interface AppCrmCustGrumbleApi {
     ServiceResponse<Integer> update(@RequestBody JsonRequest<CrmCustGrumbleVO> jsonRequest);
 
 
+    /**
+     * @param:
+     * @return:
+     * @description: 修改----->反馈
+     * @author: wushibin
+     * @Date: 2019/2/19
+     */
+    @RequestMapping("/app/grumble/updateState")
+    ServiceResponse<Integer> updateState(@RequestBody JsonRequest<CrmCustGrumbleVO> jsonRequest);
+
+
 
     /**
      * @param:

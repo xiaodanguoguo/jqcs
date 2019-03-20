@@ -107,6 +107,31 @@ public class AppCrmCustGrumbleController {
 
 
 
+    /**
+     * @param:
+     * @return:
+     * @description:  修改----->反馈
+     * @author: wushibin
+     * @Date: 2019/2/19
+     */
+    @RequestMapping("/updateState")
+    ServiceResponse<Integer> updateState(@RequestBody JsonRequest<CrmCustGrumbleVO> jsonRequest) {
+        logger.info("修改客户抱怨 = {}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<Integer> serviceResponse = new ServiceResponse<>();
+        try {
+            CrmCustGrumbleVO crmCustGrumbleVO = jsonRequest.getReqBody();
+            Integer i = appCrmCustGrumbleService.updateState(crmCustGrumbleVO);
+            serviceResponse.setRetContent(i);
+        } catch (Exception e) {
+            logger.error("修改客户抱怨错误 = {}", e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+
+        return serviceResponse;
+    }
+
+
+
 
     /**
      * @param:

@@ -29,6 +29,10 @@ public interface AppCrmCustGrumbleService {
     //修改
     Integer update(CrmCustGrumbleVO crmCustGrumbleVO);
 
+    //修改
+    Integer updateState(CrmCustGrumbleVO crmCustGrumbleVO);
+
+
     //查询
     PageDTO<CrmCustGrumbleVO> findByPage(CrmCustGrumbleVO crmCustGrumbleVO );
 }

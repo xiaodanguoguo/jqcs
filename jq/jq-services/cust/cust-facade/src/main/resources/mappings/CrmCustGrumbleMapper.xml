@@ -114,6 +114,9 @@
       <if test="cType != null and cType != ''" >
         AND A.C_TYPE = #{cType,jdbcType=VARCHAR}
       </if>
+      <if test="state != null" >
+        AND A.STATE = #{state,jdbcType=VARCHAR}
+      </if>
       <if test="factory != null and factory != ''" >
         AND A.FACTORY = #{factory,jdbcType=VARCHAR}
       </if>
@@ -124,7 +127,6 @@
         </foreach>
       </if>
     </trim>
-    AND  A.FEEDBACK_CONTENT is NULL
   </select>
 
   <select id="findCount1" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustGrumble" >
@@ -152,11 +154,14 @@
       <if test="cType != null and cType != ''" >
         AND A.C_TYPE = #{cType,jdbcType=VARCHAR}
       </if>
+      <if test="state != null" >
+        AND A.STATE = #{state,jdbcType=VARCHAR}
+      </if>
       <if test="customer != null and customer != ''" >
         AND A.CUSTOMER = #{customer,jdbcType=VARCHAR}
       </if>
     </trim>
-    AND  A.STATE is NULL
+    AND  A.IS_LOOK is NULL
   </select>
 
 
@@ -320,6 +325,9 @@
       <if test="feedbackContent != null" >
         FEEDBACK_CONTENT = #{feedbackContent,jdbcType=VARCHAR},
       </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
     </set>
     where CID = #{cid,jdbcType=NUMERIC}
   </update>
@@ -327,8 +335,8 @@
   <update id="updateState" parameterType="jq.steel.cs.services.cust.facade.model.CrmCustGrumble" >
     update CRM_CUST_GRUMBLE
     <set >
-      <if test="state != null" >
-        STATE = #{state,jdbcType=VARCHAR},
+      <if test="isLook != null" >
+        IS_LOOK = #{isLook,jdbcType=VARCHAR},
       </if>
     </set>
     where CID = #{cid,jdbcType=NUMERIC}

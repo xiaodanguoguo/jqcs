@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.List;
 
 public class CrmCustGrumble {
+
+    private String isLook;
+
     private String factory;
 
     //厂家code
@@ -68,6 +71,15 @@ public class CrmCustGrumble {
     private  String orgName;
 
     private  String state;
+
+
+    public String getIsLook() {
+        return isLook;
+    }
+
+    public void setIsLook(String isLook) {
+        this.isLook = isLook;
+    }
 
     public String getState() {
         return state;

@@ -22,6 +22,6 @@ public interface CrmCustGrumbleMapper {
 
     List<CrmCustGrumble> findCount1(CrmCustGrumble record);
 
-    void updateState(CrmCustGrumble record);
+    int updateState(CrmCustGrumble record);
 
 }
