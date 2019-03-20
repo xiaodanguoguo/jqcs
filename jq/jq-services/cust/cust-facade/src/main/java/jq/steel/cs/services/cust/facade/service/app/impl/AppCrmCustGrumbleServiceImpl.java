@@ -93,9 +93,12 @@ public class AppCrmCustGrumbleServiceImpl implements AppCrmCustGrumbleService {
             }
             crmCustGrumble.setCustomer(crmCustGrumbleVO.getOrgName());
             //如果orgType为5为厂级领导 设置customer为null
-            if (crmCustGrumble.getOrgType().equals("5")) {
-                crmCustGrumble.setCustomer(null);
+            if (crmCustGrumble.getOrgType()!=null){
+                if (crmCustGrumble.getOrgType().equals("5")) {
+                    crmCustGrumble.setCustomer(null);
+                }
             }
+
             PageDTOUtil.startPage(crmCustGrumbleVO);
             String startDtStr = DateFormatUtil.getStartDateStr(crmCustGrumble.getStartDt());
             crmCustGrumble.setStartDtStr(startDtStr);

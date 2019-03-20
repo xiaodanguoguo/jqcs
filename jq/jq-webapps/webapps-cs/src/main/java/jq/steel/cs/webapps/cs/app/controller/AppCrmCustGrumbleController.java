@@ -246,8 +246,12 @@ public class AppCrmCustGrumbleController {
         jsonRequest.getReqBody().setOrgType(orgType);
         jsonRequest.getReqBody().setOrgName(orgName);
         //1销售公司 》》》酒钢管理员权限 不使用customer查询
-        if(orgType.equals("2")||orgType.equals("3")||orgType.equals("4")){
-            jsonRequest.getReqBody().setCustomer(AssertContext.getOrgName());
+        if(orgType!=null){
+            if(orgType.equals("2")||orgType.equals("3")||orgType.equals("4")){
+                jsonRequest.getReqBody().setCustomer(AssertContext.getOrgName());
+            }
+        }else {
+            jsonRequest.getReqBody().setCustomer(AssertContext.getAcctName());
         }
 
         try {

@@ -159,7 +159,61 @@ public class CrmCustGrumbleController {
         return jsonResponse;
     }
 
+    /**
+     * @param:
+     * @return:
+     * @description:  修改----->反馈
+     * @author: wushibin
+     * @Date: 2019/2/19
+     */
+    @RequestMapping("/updateState")
+    public JsonResponse<Integer> updateState(@RequestBody JsonRequest<CrmCustGrumbleVO> jsonRequest) {
+        logger.info("修改客户抱怨 = {}", JsonUtil.toJson(jsonRequest));
+        JsonResponse<Integer> jsonResponse = new JsonResponse<>();
+        String orgType = AssertContext.getOrgType();
+        String orgName = AssertContext.getOrgName();
+        String acctId = AssertContext.getAcctId();
+        ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+        List<String> list = new ArrayList<>();
+        for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+            list.add(roleInfoVO.getRoleCode());
+        }
+        if (list.size()>0){
+            jsonRequest.getReqBody().setFactorys(list);
+        }else {
+            jsonRequest.getReqBody().setFactorys(null);
+        }
+        jsonRequest.getReqBody().setOrgType(orgType);
+        jsonRequest.getReqBody().setOrgName(orgName);
+        //1销售公司 》》》酒钢管理员权限 不使用customer查询
+        if(orgType.equals("2")||orgType.equals("3")||orgType.equals("4")){
+            jsonRequest.getReqBody().setCustomer(AssertContext.getOrgName());
+        }
+        try {
+            CrmCustGrumbleVO grumbleVO = jsonRequest.getReqBody();
+            grumbleVO.setUpdateByid(Long.parseLong(AssertContext.getAcctId()));
+            grumbleVO.setUpdateDt(new Date());
+            ServiceResponse<Integer> serviceResponse = crmCustGrumbleApi.updateState(jsonRequest);
+            if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
+                jsonResponse.setRspBody(serviceResponse.getRetContent());
+            } else {
+                if (serviceResponse.isHasError()) {
+                    jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+                } else {
+                    jsonResponse.setRetCode(serviceResponse.getRetCode());
+                    jsonResponse.setRetDesc(serviceResponse.getRetMessage());
+                }
+            }
+        } catch (BusinessException e) {
+            logger.error("修改客户抱怨错误 = {}", e);
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        } catch (Exception e) {
+            logger.error("修改客户抱怨错误 = {}", e);
+            jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+        }
 
+        return jsonResponse;
+    }
 
 
     /**
@@ -189,9 +243,14 @@ public class CrmCustGrumbleController {
         jsonRequest.getReqBody().setOrgType(orgType);
         jsonRequest.getReqBody().setOrgName(orgName);
         //1销售公司 》》》酒钢管理员权限 不使用customer查询
-        if(orgType.equals("2")||orgType.equals("3")||orgType.equals("4")){
-            jsonRequest.getReqBody().setCustomer(AssertContext.getOrgName());
+        if(orgType!=null){
+            if(orgType.equals("2")||orgType.equals("3")||orgType.equals("4")){
+                jsonRequest.getReqBody().setCustomer(AssertContext.getOrgName());
+            }
+        }else {
+            jsonRequest.getReqBody().setCustomer(AssertContext.getAcctName());
         }
+
 
         try {
             CrmCustGrumbleVO grumbleVO = jsonRequest.getReqBody();

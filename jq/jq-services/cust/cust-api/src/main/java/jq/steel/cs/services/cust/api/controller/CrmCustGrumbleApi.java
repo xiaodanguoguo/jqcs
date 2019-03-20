@@ -53,6 +53,17 @@ public interface CrmCustGrumbleApi {
     /**
      * @param:
      * @return:
+     * @description: 修改----->反馈
+     * @author: wushibin
+     * @Date: 2019/2/19
+     */
+    @RequestMapping("/grumble/updateState")
+    ServiceResponse<Integer> updateState(@RequestBody JsonRequest<CrmCustGrumbleVO> jsonRequest);
+
+
+    /**
+     * @param:
+     * @return:
      * @description:  查询客户抱怨/表扬
      * @author: wushibin
      * @Date: 2019/2/19
