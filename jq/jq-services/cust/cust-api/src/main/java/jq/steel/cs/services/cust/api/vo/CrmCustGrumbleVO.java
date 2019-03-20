@@ -7,6 +7,16 @@ import java.util.List;
 
 public class CrmCustGrumbleVO {
 
+    private  String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     private int pageNum = 1;
 
     private int pageSize = 10;

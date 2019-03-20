@@ -20,6 +20,7 @@
     <result column="CREATE_BY_NAME" property="createByName" jdbcType="VARCHAR" />
     <result column="PHONE" property="phone" jdbcType="VARCHAR" />
     <result column="FACTORY" property="factory" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     CID, CATEGORY_ID, PRODUCT_ID, SUBMIT_BY, GRUMBLE_CONTENT, CREATE_BYID, CREATE_DT,
@@ -53,7 +54,8 @@
     A.T_TYPE,
     A.FEEDBACK_CONTENT,
     A.CATEGORY_NAME,
-    A.FACTORY
+    A.FACTORY,
+    A.STATE
     FROM
     WARRANTY.CRM_CUST_GRUMBLE A
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
@@ -104,7 +106,8 @@
     A.T_TYPE,
     A.FEEDBACK_CONTENT,
     A.CATEGORY_NAME,
-    A.FACTORY
+    A.FACTORY,
+    A.STATE
     FROM
     WARRANTY.CRM_CUST_GRUMBLE A
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
@@ -141,7 +144,8 @@
     A.FEEDBACK_CONTENT,
     A.CATEGORY_NAME,
     A.STATE,
-    A.FACTORY
+    A.FACTORY,
+    A.STATE
     FROM
     WARRANTY.CRM_CUST_GRUMBLE A
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
@@ -231,6 +235,9 @@
       <if test="factory != null" >
         FACTORY,
       </if>
+      <if test="state != null" >
+        STATE,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="cid != null" >
@@ -280,6 +287,9 @@
       </if>
       <if test="factory != null" >
         #{factory,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
