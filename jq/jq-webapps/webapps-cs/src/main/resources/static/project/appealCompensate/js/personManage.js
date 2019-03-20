@@ -292,6 +292,8 @@ function updateSubmitCallBack(data){
             initplugPath($("#tableList3")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path8,null,"POST");
             document.body.jsLee.sid = "";
         }
+        var alertBox=new clsAlertBoxCtrl();
+        alertBox.Alert("操作成功！","成功提示");
     }
 }
 

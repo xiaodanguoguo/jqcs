@@ -142,7 +142,11 @@ function clsMethodLee$operate(){
                     break;
             }
         });
-        getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",jsonParam,"starSureCallBack(data)");
+        if(jsonParam.handlerUser == 0 || jsonParam.handlerUser == 0 || jsonParam.handlerUser == 0){
+            alert("请针对对异议处理完成所有问题的打分！");
+        }else{
+            getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",jsonParam,"starSureCallBack(data)");
+        }
     });
 
     //预览弹框点击上一页下一页
