@@ -39,7 +39,7 @@ public class AppObjectionChuLiController {
     UploadConfig uploadConfig;
 
 
-    @RequestMapping(value = "/findByPage",method = RequestMethod.POST)
+    @RequestMapping(value = "/findByPageForApp",method = RequestMethod.POST)
     public JsonResponse<PageDTO<ObjectionChuLiVO>> findByPage(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
         JsonResponse<PageDTO<ObjectionChuLiVO>> jsonResponse = new JsonResponse<>();
         logger.info("异议处理列表", JsonUtil.toJson(jsonRequest));
@@ -77,7 +77,7 @@ public class AppObjectionChuLiController {
              */
             jsonRequest.getReqBody().setAgreementState("COMPLETE");
 
-            ServiceResponse<PageDTO<ObjectionChuLiVO>> byPage = objectionChuLiAPI.findByPage(jsonRequest);
+            ServiceResponse<PageDTO<ObjectionChuLiVO>> byPage = objectionChuLiAPI.findByPageForApp(jsonRequest);
             PageDTO<ObjectionChuLiVO> retContent = byPage.getRetContent();
             jsonResponse.setRspBody(retContent);
 

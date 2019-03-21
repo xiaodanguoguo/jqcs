@@ -202,4 +202,27 @@ public class ObjectionChuLiController {
         }
         return  serviceResponse;
     }
+
+
+
+    /**
+     *  条件分页查询
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/findByPageForApp",method = RequestMethod.POST)
+    public ServiceResponse<PageDTO<ObjectionChuLiVO>> findByPageForApp(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
+        logger.info("分页", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<PageDTO<ObjectionChuLiVO>> serviceResponse = new ServiceResponse<>();
+        try {
+            ObjectionChuLiVO objectionChuLiVO = jsonRequest.getReqBody();
+            PageDTO<ObjectionChuLiVO> pageDTO = objectionChuLiService.findByPageForApp(objectionChuLiVO);
+            serviceResponse.setRetContent(pageDTO);
+        }catch (BusinessException e){
+            logger.error("获取分页出错",e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+        return  serviceResponse;
+    }
 }

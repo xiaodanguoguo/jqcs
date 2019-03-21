@@ -384,4 +384,53 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
         int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
         return i;
     }
+
+
+
+
+
+    //app协议书审核页面查询
+    @Override
+    public PageDTO<ObjectionChuLiVO> findByPageForApp(ObjectionChuLiVO record) {
+        try {
+            //转换mdel
+            CrmClaimInfo crmClaimInfo  = new CrmClaimInfo();
+            BeanCopyUtil.copy(record,crmClaimInfo);
+            if(crmClaimInfo.getDeptCode()!=null&& crmClaimInfo.getDeptCode()!=""){
+                crmClaimInfo.setDeptCodes(null);
+            }
+            PageDTOUtil.startPage(record);
+            String startDtStr = DateFormatUtil.getStartDateStr(crmClaimInfo.getStartDt());
+            crmClaimInfo.setStartDtStr(startDtStr);
+            String endDtStr = DateFormatUtil.getEndDateStr(crmClaimInfo.getEndDt());
+            crmClaimInfo.setEndDtStr(endDtStr);
+            List<CrmClaimInfo> list = crmClaimInfoMapper.findByPageChuLiForApp(crmClaimInfo);
+            List<ObjectionChuLiVO> objectionDiaoChaVOS = BeanCopyUtil.copyList(list, ObjectionChuLiVO.class);
+            // 分页对象
+            PageDTO<ObjectionChuLiVO> transform = PageDTOUtil.transform(objectionDiaoChaVOS);
+            //判断过期原因是否为空然后设置是否可以上传协议书
+            for (ObjectionChuLiVO objectionChuLiVO:transform.getResultData()){
+                crmClaimInfo = new CrmClaimInfo();
+                BeanCopyUtil.copy(objectionChuLiVO, crmClaimInfo);
+                if (crmClaimInfo.getExpiredSign()!=null&&crmClaimInfo.getExpiredSign()!=""){
+                    objectionChuLiVO.setIsUpload("Y");
+                }else {
+                    objectionChuLiVO.setIsUpload("N");
+                }
+                if(crmClaimInfo.getDeptCode().equals("1000")){
+                    objectionChuLiVO.setDeptCode("不锈");
+                }else if(crmClaimInfo.getDeptCode().equals("2000")){
+                    objectionChuLiVO.setDeptCode("炼轧");
+                }else if(crmClaimInfo.getDeptCode().equals("2200")){
+                    objectionChuLiVO.setDeptCode("碳钢");
+                }else if(crmClaimInfo.getDeptCode().equals("3000")){
+                    objectionChuLiVO.setDeptCode("榆钢");
+                }
+            }
+            return transform;
+
+        }finally {
+            PageDTOUtil.endPage();
+        }
+    }
 }

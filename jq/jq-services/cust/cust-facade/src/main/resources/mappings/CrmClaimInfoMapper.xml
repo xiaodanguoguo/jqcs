@@ -1062,4 +1062,158 @@
     </trim>
     order by H.SID desc
   </select>
+
+
+
+
+<!--app协议书审核页面查询-->
+  <select id="findByPageChuLiForApp" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmClaimInfo" >
+    SELECT DISTINCT
+    H .*
+    FROM
+    (
+    SELECT
+    A .BATTEN_PLATE_NO,
+    A . SID,
+    A .IS_TRACK,
+    A .EXPIRED_REASON,
+    A .CLAIM_NO,
+    A .CLAIM_STATE,
+    A .MILL_SHEET_NO,
+    A .PRODUCT_ID,
+    A .PRODUCT_NAME,
+    A .DESIGNATION,
+    A .SIZE_MARK,
+    A .CLAIM_TYPE,
+    A .OBJECTION_NUM,
+    A .INQUIRE_STATE,
+    A .LAST_USER,
+    A .EXPIRED_SIGN,
+    A .AGENT_NAME,
+    B.DEPT_CODE,
+    (
+    SELECT
+    T .TYPE_NAME
+    FROM
+    sgai_md_common_type T
+    WHERE
+    T . SID = (
+    SELECT
+    T .PARENT_SID
+    FROM
+    sgai_md_common_type T
+    WHERE
+    T .TYPE_NAME = F.ZCPMC
+    )
+    ) AS ZCPMC,
+    (
+    SELECT
+    T . SID
+    FROM
+    sgai_md_common_type T
+    WHERE
+    T . SID = (
+    SELECT
+    T .PARENT_SID
+    FROM
+    sgai_md_common_type T
+    WHERE
+    T .TYPE_NAME = F.ZCPMC
+    )
+    ) AS PARENT_SID,
+    F.ZPH,
+    D .PRESENTATION_DATE,
+    D .PRESENTATION_USER,
+    D .REASONS_FOR_COMPULSORY_CLOSURE,
+    D .ADMISSIBILITY_TIME,
+    D .CLOSING_TIME,
+    E .AGREEMENT_URL,
+    E .AGREEMENT_NAME,
+    E .REJECT_REASON,
+    E .AGREEMENT_STATE,
+    G .MEMO AS MEMO,
+    D .CLAIM_DESC,
+    G .LOGISTICS_PROCESS,
+    G .CLAIM_VERDICT,
+    F.ZCHEHAO,
+    F.ZHTH,
+    D .END_PROCESSING_TECH,
+    I.INQUIRE_INFO,
+    E .AGREEMENT_CONTENT,
+    E .AGREEMENT_AMOUNT,
+    E .AGREEMENT_AMOUNT_UPPER,
+    D .OBJECTION_CONFIRMATION,
+    D .CONTRACT_NO,
+    I.FIELD_CONCLUSION_TEXT,
+    cu2.name1 AS CUSTOMER_NAME
+    FROM
+    WARRANTY.CRM_CLAIM_INFO A
+    LEFT JOIN WARRANTY.MILL_SHEET_HOSTS B ON A .MILL_SHEET_NO = B.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_APPLY D ON A .CLAIM_NO = D .CLAIM_NO
+    LEFT JOIN WARRANTY.CRM_AGREEMENT_INFO E ON A .CLAIM_NO = E .CASE_CODE
+    LEFT JOIN WARRANTY.MILL_SHEET_HEAD F ON A .MILL_SHEET_NO = F.MILL_SHEET_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_INNER_INQUIRE G ON A .CLAIM_NO = G .CLAIM_NO
+    LEFT JOIN WARRANTY.CRM_CLAIM_OUT_INQUIRE I ON A .CLAIM_NO = I.CLAIM_NO
+    LEFT JOIN MILL_CUSTOMER cu2 ON B.ZKUNNR = cu2.KUNNR
+    ) H
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="endDtStr != null" >
+        AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        <!--AND  #{} &gt;= A.PRESENTATION_DATE-->
+      </if>
+      <if test="startDtStr != null" >
+        AND TO_CHAR (H.PRESENTATION_DATE, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+        <!--AND A.PRESENTATION_DATE  &gt;= #{startDt}-->
+      </if>
+      <if test="customerId != null and customerId != ''" >
+        AND H.CUSTOMER_NAME = #{customerId,jdbcType=VARCHAR}
+      </if>
+      <if test="claimType != null and claimType != ''" >
+        AND H.CLAIM_TYPE = #{claimType,jdbcType=VARCHAR}
+      </if>
+      <if test="productName != null and productName != ''" >
+        AND H.PRODUCT_NAME = #{productName,jdbcType=VARCHAR}
+      </if>
+      <if test="productId != null and productId != ''" >
+        AND H.PRODUCT_ID = #{productId,jdbcType=VARCHAR}
+      </if>
+      <if test="claimNo != null and claimNo != ''" >
+        AND H.CLAIM_NO = #{claimNo,jdbcType=VARCHAR}
+      </if>
+      <if test="battenPlateNo != null and battenPlateNo != ''" >
+        AND H.BATTEN_PLATE_NO = #{battenPlateNo,jdbcType=VARCHAR}
+      </if>
+      <if test="deptCode != null and deptCode != ''" >
+        AND H.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+      </if>
+      <if test="deptCodes != null" >
+        AND H.DEPT_CODE  in
+        <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
+          #{deptCodes[${index}]}
+        </foreach>
+      </if>
+      <if test="designation != null and designation != ''" >
+        AND H.DESIGNATION = #{designation,jdbcType=VARCHAR}
+      </if>
+      <choose>
+        <when test="claimState1 !=null and claimState1 != ''">
+          and H.CLAIM_STATE  = #{claimState1,jdbcType=VARCHAR}
+        </when>
+        <otherwise>
+          AND H.CLAIM_STATE IN ('INVESTIGATION', 'HANDLE', 'END', 'EVALUATE','ADOPT')
+        </otherwise>
+      </choose>
+      <if test="inquireState != null and inquireState != ''" >
+        AND H.INQUIRE_STATE = #{inquireState}
+      </if>
+      <if test="sid != null and sid != ''" >
+        AND H.PARENT_SID = #{sid,jdbcType=VARCHAR}
+      </if>
+      <if test="agreementState != null and agreementState != ''" >
+        AND H.AGREEMENT_STATE = #{agreementState}
+      </if>
+    </trim>
+    order by H.SID desc
+  </select>
+
 </mapper>

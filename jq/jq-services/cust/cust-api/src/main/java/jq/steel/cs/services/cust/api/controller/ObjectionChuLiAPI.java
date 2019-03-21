@@ -94,4 +94,14 @@ public interface ObjectionChuLiAPI {
     ServiceResponse<Integer> compulsorySettlement(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest);
 
 
+
+    /**
+     *  条件分页查询findByPage
+     * @param  jsonRequest
+     * @return
+     *
+     * */
+    @RequestMapping(value = "/objectionChuLi/findByPageForApp",method = RequestMethod.POST)
+    ServiceResponse<PageDTO<ObjectionChuLiVO>> findByPageForApp(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest);
+
 }
