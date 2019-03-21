@@ -110,6 +110,8 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
      * 管理单位代码（1000：不锈钢厂 2000：炼轧厂 2200：碳钢薄板厂 3000：榆钢工厂
      ）
      * */
+
+    //2019-03-21 跟业务沟通把乙方单位改为  售达方  customerName  改为zkunnr
     @Override
     public ObjectionChuLiVO findAll(ObjectionChuLiVO reqbody) {
         CrmAgreementInfo  crmAgreementInfo  = new CrmAgreementInfo();
