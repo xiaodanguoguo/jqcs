@@ -142,7 +142,7 @@ function clsMethodLee$operate(){
                     break;
             }
         });
-        if(jsonParam.handlerUser == 0 || jsonParam.handlerUser == 0 || jsonParam.handlerUser == 0){
+        if(jsonParam.handlerUser == 0 || jsonParam.handlerTime == 0 || jsonParam.handlerResults == 0){
             alert("请针对对异议处理完成所有问题的打分！");
         }else{
             getAjaxResult(document.body.jsLee.requestUrl.path4,"POST",jsonParam,"starSureCallBack(data)");
