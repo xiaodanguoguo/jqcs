@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class CrmAgreementInfo {
 
+    private String agentName;
+
     //下载人
     private String downloader;
 
@@ -108,6 +110,15 @@ public class CrmAgreementInfo {
 
     //协议书图片地址
     private  String  claimNoUrl;
+
+
+    public String getAgentName() {
+        return agentName;
+    }
+
+    public void setAgentName(String agentName) {
+        this.agentName = agentName;
+    }
 
     public String getDownloader() {
         return downloader;

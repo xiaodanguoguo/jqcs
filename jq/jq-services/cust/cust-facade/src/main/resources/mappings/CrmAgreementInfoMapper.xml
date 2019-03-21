@@ -33,6 +33,8 @@
     <result column="FIELD_CONCLUSION" property="fieldConclusion" jdbcType="VARCHAR" />
     <!--异议确认量-->
     <result column="OBJECTION_CONFIRMATION" property="objectionConfirmation" jdbcType="VARCHAR" />
+
+    <result column="AGENT_NAME" property="agentName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     SID, CASE_CODE, AGREEMENT_URL, AGREEMENT_NAME, AGREEMENT_STATE, DOWNLOADABLE_NUM,
@@ -91,6 +93,7 @@ A.MILL_SHEET_NO,
 A.ORIGINAL_CAR_NO,
 A.CLAIM_DESC,
 A.MILL_SHEET_NO,
+A.AGENT_NAME,
 A.OBJECTION_CONFIRMATION,
 C.*,
 B.AGREEMENT_CONTENT,

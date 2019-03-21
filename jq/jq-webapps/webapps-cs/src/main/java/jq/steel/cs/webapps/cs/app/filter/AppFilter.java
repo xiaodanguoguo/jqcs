@@ -55,7 +55,7 @@ public class AppFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         logger.info("--------------------------参数初始化" + filterConfig);
-        String[] str = new String[]{"/app/file/uploads","/app/address/getList","/app/login","/app/logout","/app/register","/app/version/getNewVersion","/millSheetDetail/qrCode"};
+        String[] str = new String[]{"/app/file/uploads","/app/address/getList","/app/userRegistration/getSale","/app/login","/app/logout","/app/register","/app/version/getNewVersion","/millSheetDetail/qrCode"};
         EXCLUDE_URL = str;
     }
 
