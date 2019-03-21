@@ -100,4 +100,18 @@ public interface CrmQuestionApi {
      */
     @RequestMapping(value = {"/question/have/question"}, method = RequestMethod.POST)
     ServiceResponse<CrmQuestionVO>  haveQuestion(@RequestBody JsonRequest<CrmQuestionVO> jsonRequest);
+
+
+
+
+
+    /**
+     * @param: jsonRequest
+     * @return: ServiceResponse<PageDTO<CrmQuestionVO>>
+     * @description:  统计查询返回qid
+     * @author: lirunze
+     * @Date: 2018/8/21
+     */
+    @RequestMapping("/question/findList")
+    ServiceResponse<List<CrmQuestionVO>> findList(@RequestBody JsonRequest<CrmQuestionVO> jsonRequest);
 }
