@@ -8,6 +8,8 @@ import java.util.List;
 
 public class ObjectionChuLiVO {
 
+    private String agentName;
+
     private  BigDecimal objectionConfirmation;
 
     //厂家code
@@ -44,6 +46,14 @@ public class ObjectionChuLiVO {
 
     //过期标识
     private String expiredSign;
+
+    public String getAgentName() {
+        return agentName;
+    }
+
+    public void setAgentName(String agentName) {
+        this.agentName = agentName;
+    }
 
     public BigDecimal getObjectionConfirmation() {
         return objectionConfirmation;
