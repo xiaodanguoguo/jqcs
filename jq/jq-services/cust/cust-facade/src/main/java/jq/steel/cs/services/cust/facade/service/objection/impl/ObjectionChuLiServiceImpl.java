@@ -389,7 +389,7 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
 
 
 
-    //app协议书审核页面查询
+    //app协议书审核页面回显数据
     @Override
     public PageDTO<ObjectionChuLiVO> findByPageForApp(ObjectionChuLiVO record) {
         try {
