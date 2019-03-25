@@ -191,10 +191,38 @@ public class AcctServiceImpl implements AcctService {
         //添加角色关系
         AcctRoleReal acctRoleReal = new AcctRoleReal();
         acctRoleReal.setAcctId(acctInfo.getAcctId());
+        acctRoleReal.setRoleId(68L);
+        acctRoleReal.setStatus(Byte.valueOf("1"));
+        acctRoleReal.setCreatedTime(new Date());
+        acctRoleRealMapper.insertSelective(acctRoleReal);
+
+        acctRoleReal = new AcctRoleReal();
+        acctRoleReal.setAcctId(acctInfo.getAcctId());
+        acctRoleReal.setRoleId(69L);
+        acctRoleReal.setStatus(Byte.valueOf("1"));
+        acctRoleReal.setCreatedTime(new Date());
+        acctRoleRealMapper.insertSelective(acctRoleReal);
+
+        acctRoleReal = new AcctRoleReal();
+        acctRoleReal.setAcctId(acctInfo.getAcctId());
+        acctRoleReal.setRoleId(70L);
+        acctRoleReal.setStatus(Byte.valueOf("1"));
+        acctRoleReal.setCreatedTime(new Date());
+        acctRoleRealMapper.insertSelective(acctRoleReal);
+
+        acctRoleReal = new AcctRoleReal();
+        acctRoleReal.setAcctId(acctInfo.getAcctId());
+        acctRoleReal.setRoleId(71L);
+        acctRoleReal.setStatus(Byte.valueOf("1"));
+        acctRoleReal.setCreatedTime(new Date());
+        acctRoleRealMapper.insertSelective(acctRoleReal);
+
+        acctRoleReal = new AcctRoleReal();
+        acctRoleReal.setAcctId(acctInfo.getAcctId());
         acctRoleReal.setRoleId(72L);
         acctRoleReal.setStatus(Byte.valueOf("1"));
         acctRoleReal.setCreatedTime(new Date());
-        int I = acctRoleRealMapper.insertSelective(acctRoleReal);
+        acctRoleRealMapper.insertSelective(acctRoleReal);
 
         // 发邮件
         MessageVO messageVO = new MessageVO();
