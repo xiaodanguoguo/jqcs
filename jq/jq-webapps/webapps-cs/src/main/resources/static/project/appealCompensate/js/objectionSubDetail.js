@@ -1102,7 +1102,7 @@ function updateSubmitCallBack(data){
             document.body.jsLee.firstCreateperson2[0].cacheJson.lastUserId = data.rspBody.lastUserId;
             setValue4Desc(document.body.jsLee.firstCreateperson2[0].cacheJson,$("#shiyongCreate").next()[0])//赋值
         }else if(document.body.jsLee.operateType == 4 || document.body.jsLee.operateType == 5){
-            document.body.jsLee.firstCreateperson3[0].cacheJson.customerId = data.rspBody.customerId;
+            document.body.jsLee.firstCreateperson3[0].cacheJson.agentId = data.rspBody.agentId;
             setValue4Desc(document.body.jsLee.firstCreateperson3[0].cacheJson,$("#dailiCreate").next()[0])//赋值
 
         }
