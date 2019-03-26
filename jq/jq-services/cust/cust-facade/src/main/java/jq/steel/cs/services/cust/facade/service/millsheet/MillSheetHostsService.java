@@ -37,7 +37,7 @@ public interface MillSheetHostsService {
     MillSheetHostsVO checkCoil(MillSheetHostsVO millSheetHostsVO);
 
     //返回app端质证书下载路径
-    MillSheetHostsVO getUrlForApp(JsonRequest<MillSheetHostsVO> jsonRequest);
+    MillSheetHostsVO getUrlForApp(JsonRequest<MillSheetHostsVO> jsonRequest,HttpServletRequest request);
 
     //修改打印次数下载次数
     Integer updateNumber(List<MillSheetHostsVO> millSheetHostsVO,HttpServletRequest request);

@@ -193,8 +193,8 @@ public class MillSheetHostsController {
 
     //返回app端质证书下载路径
     @RequestMapping(value = "/downloadForApp" , method = RequestMethod.POST)
-    public ServiceResponse<MillSheetHostsVO> downloadForApp(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest){
-        MillSheetHostsVO vo = millSheetHostsService.getUrlForApp(jsonRequest);
+    public ServiceResponse<MillSheetHostsVO> downloadForApp(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest,HttpServletRequest request){
+        MillSheetHostsVO vo = millSheetHostsService.getUrlForApp(jsonRequest,request);
         ServiceResponse<MillSheetHostsVO> srp = new ServiceResponse<>();
         srp.setRetContent(vo);
         return srp;

@@ -650,11 +650,25 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
 
 
     //返回app端质证书下载路径
-    public MillSheetHostsVO getUrlForApp(JsonRequest<MillSheetHostsVO> jsonRequest) {
+    public MillSheetHostsVO getUrlForApp(JsonRequest<MillSheetHostsVO> jsonRequest,HttpServletRequest request) {
+        String ip = request.getRemoteAddr();
+        String acctName = jsonRequest.getReqBody().getAcctName();
+        String millSheetNo =  jsonRequest.getReqBody().getMillSheetNo();
         MillSheetHostsVO vo = jsonRequest.getReqBody();
         MillSheetHosts millSheetHosts = millSheetHostsMapper.getUrlForApp(BeanCopyUtil.copy(vo, MillSheetHosts.class));
         MillSheetHostsVO vo2 = new MillSheetHostsVO();
         BeanCopyUtil.copy(millSheetHosts, vo2);
+
+
+        //2019-03-26 app下载记录历史
+        MillOperationHis millOperationHis = new MillOperationHis();
+        millOperationHis.setMillSheetNo(millSheetNo);
+        millOperationHis.setOperator(acctName);
+        millOperationHis.setOperationType("DOWNLOADED");
+        millOperationHis.setOperationIp(ip);
+        millOperationHis.setOperationTime(new Date());
+        millOperationHisMapper.insertSelective(millOperationHis);
+
         return vo2;
     }
 

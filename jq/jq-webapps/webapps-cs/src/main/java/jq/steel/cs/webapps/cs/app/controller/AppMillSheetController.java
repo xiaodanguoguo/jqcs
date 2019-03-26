@@ -1,5 +1,6 @@
 package jq.steel.cs.webapps.cs.app.controller;
 
+import com.ebase.core.AssertContext;
 import com.ebase.core.exception.BusinessException;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
@@ -36,6 +37,7 @@ public class AppMillSheetController {
     @RequestMapping(value = "/downFile", method = RequestMethod.POST)
     public JsonResponse<MillSheetDownloadVO> downFile(@RequestBody JsonRequest<MillSheetHostsVO> jsonRequest) {
 
+
         JsonResponse<MillSheetDownloadVO> jsrp = new JsonResponse<>();
         if(jsonRequest == null
                 || jsonRequest.getReqBody().getMillSheetNo() == null
@@ -44,6 +46,8 @@ public class AppMillSheetController {
             return jsrp;
         }
         try {
+            //2019-03-26 下载记录日志
+            jsonRequest.getReqBody().setAcctName(AssertContext.getAcctName());
             //修改质证书状态为已下载,同时减少可打印的次数
             appMillSheetHostsDetailAPI.updateMillSheetHostsState(jsonRequest);
 
