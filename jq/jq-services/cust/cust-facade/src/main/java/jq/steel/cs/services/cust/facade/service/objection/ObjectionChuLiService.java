@@ -11,6 +11,10 @@ public interface ObjectionChuLiService {
     //分页条件查询
     PageDTO<ObjectionChuLiVO> findByPage(ObjectionChuLiVO objectionTiBaoVO);
 
+
+    //分页条件查询app
+    PageDTO<ObjectionChuLiVO> findByPageForApp(ObjectionChuLiVO objectionTiBaoVO);
+
     //公共信息查询
     ObjectionChuLiVO findAll(ObjectionChuLiVO objectionTiBaoVO);
 

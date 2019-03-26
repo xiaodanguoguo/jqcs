@@ -41,4 +41,9 @@ public interface CrmClaimInfoMapper {
 
     //判断此条异议是否为已评价状态
     CrmClaimInfo getByCaimNo(CrmClaimCommentsVO vo);
+
+
+
+    //分页查询app 协议书审核页面查询
+    List<CrmClaimInfo> findByPageChuLiForApp (CrmClaimInfo record);
 }

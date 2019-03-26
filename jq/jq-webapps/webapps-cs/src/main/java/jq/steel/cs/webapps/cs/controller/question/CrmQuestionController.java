@@ -454,14 +454,21 @@ public class CrmQuestionController {
         String createPdfPath = uploadConfig.getModelUrl();
         jsonRequest.getReqBody().setReport(createPdfPath);
         try {
-            ServiceResponse<CrmQuestionVO> serviceResponse = new ServiceResponse<>();
-            String report = "";
-            String pdfName = jsonRequest.getReqBody().getQid() + ".pdf";
-            String report1 = createPdf.createPdf(jsonRequest.getReqBody().getQid(), createPdfPath, pdfName, "tongji");
-            String hh1 = report1.replace("/data/kf_web", "/res");
-            report = uploadConfig.getDomain() + hh1;
-            serviceResponse.getRetContent().setReport(report);
-            jsonResponse.setRspBody(serviceResponse.getRetContent());
+            ServiceResponse<List<CrmQuestionVO>> serviceResponse = crmQuestionApi.findList(jsonRequest);
+            if(serviceResponse.getRetContent().size()>0){
+                String report = "";
+                String pdfName = serviceResponse.getRetContent().get(0).getQid() + ".pdf";
+                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getQid(), createPdfPath, pdfName, "tongji");
+                String hh1 = report1.replace("/data/kf_web", "/res");
+                report = uploadConfig.getDomain() + hh1;
+                ServiceResponse<CrmQuestionVO> serviceResponse1 = new ServiceResponse<>();
+                serviceResponse1.getRetContent().setReport(report);
+                jsonResponse.setRspBody(serviceResponse1.getRetContent());
+            }else {
+                jsonResponse.setRetCode("0000007");
+                jsonResponse.setRetDesc("信息标题不存在，请审核输入的内容");
+            }
+
         } catch (BusinessException e) {
             logger.error("打印报错", e);
             e.printStackTrace();

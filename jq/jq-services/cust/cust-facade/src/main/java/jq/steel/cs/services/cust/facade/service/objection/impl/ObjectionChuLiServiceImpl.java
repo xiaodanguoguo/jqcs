@@ -110,6 +110,8 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
      * 管理单位代码（1000：不锈钢厂 2000：炼轧厂 2200：碳钢薄板厂 3000：榆钢工厂
      ）
      * */
+
+    //2019-03-21 跟业务沟通把乙方单位改为  售达方  customerName  改为zkunnr
     @Override
     public ObjectionChuLiVO findAll(ObjectionChuLiVO reqbody) {
         CrmAgreementInfo  crmAgreementInfo  = new CrmAgreementInfo();
@@ -381,5 +383,54 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
         crmClaimInfo.setClaimState("END");
         int i =  crmClaimInfoMapper.updateByPrimaryKeySelective(crmClaimInfo);
         return i;
+    }
+
+
+
+
+
+    //app协议书审核页面回显数据
+    @Override
+    public PageDTO<ObjectionChuLiVO> findByPageForApp(ObjectionChuLiVO record) {
+        try {
+            //转换mdel
+            CrmClaimInfo crmClaimInfo  = new CrmClaimInfo();
+            BeanCopyUtil.copy(record,crmClaimInfo);
+            if(crmClaimInfo.getDeptCode()!=null&& crmClaimInfo.getDeptCode()!=""){
+                crmClaimInfo.setDeptCodes(null);
+            }
+            PageDTOUtil.startPage(record);
+            String startDtStr = DateFormatUtil.getStartDateStr(crmClaimInfo.getStartDt());
+            crmClaimInfo.setStartDtStr(startDtStr);
+            String endDtStr = DateFormatUtil.getEndDateStr(crmClaimInfo.getEndDt());
+            crmClaimInfo.setEndDtStr(endDtStr);
+            List<CrmClaimInfo> list = crmClaimInfoMapper.findByPageChuLiForApp(crmClaimInfo);
+            List<ObjectionChuLiVO> objectionDiaoChaVOS = BeanCopyUtil.copyList(list, ObjectionChuLiVO.class);
+            // 分页对象
+            PageDTO<ObjectionChuLiVO> transform = PageDTOUtil.transform(objectionDiaoChaVOS);
+            //判断过期原因是否为空然后设置是否可以上传协议书
+            for (ObjectionChuLiVO objectionChuLiVO:transform.getResultData()){
+                crmClaimInfo = new CrmClaimInfo();
+                BeanCopyUtil.copy(objectionChuLiVO, crmClaimInfo);
+                if (crmClaimInfo.getExpiredSign()!=null&&crmClaimInfo.getExpiredSign()!=""){
+                    objectionChuLiVO.setIsUpload("Y");
+                }else {
+                    objectionChuLiVO.setIsUpload("N");
+                }
+                if(crmClaimInfo.getDeptCode().equals("1000")){
+                    objectionChuLiVO.setDeptCode("不锈");
+                }else if(crmClaimInfo.getDeptCode().equals("2000")){
+                    objectionChuLiVO.setDeptCode("炼轧");
+                }else if(crmClaimInfo.getDeptCode().equals("2200")){
+                    objectionChuLiVO.setDeptCode("碳钢");
+                }else if(crmClaimInfo.getDeptCode().equals("3000")){
+                    objectionChuLiVO.setDeptCode("榆钢");
+                }
+            }
+            return transform;
+
+        }finally {
+            PageDTOUtil.endPage();
+        }
     }
 }

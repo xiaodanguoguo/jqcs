@@ -154,7 +154,7 @@ public class CrmProductCategoryController {
     public JsonResponse<Boolean> submitCrmProductCategory(@RequestBody JsonRequest<List<CrmProductCategoryVO>> jsonRequest) {
         logger.info("保存产品分类 = {}", JsonUtil.toJson(jsonRequest));
         JsonResponse<Boolean> jsonResponse = new JsonResponse<>();
-
+        String orgId = AssertContext.getOrgId();
         try {
             String code = "";
             List<String> codes = this.getRoleCode();
@@ -172,7 +172,13 @@ public class CrmProductCategoryController {
                     crmProductCategoryVO.setCreateBy(AssertContext.getAcctName());
                     crmProductCategoryVO.setUpdateByid(Long.valueOf(AssertContext.getAcctId()));
                     crmProductCategoryVO.setUpdateBy(AssertContext.getAcctName());
-                    crmProductCategoryVO.setFactory(code);
+
+                    //2019-03-22  管理员不修改厂别
+                    if(orgId.equals("1001")||orgId.equals("1")){
+                    }else {
+                        crmProductCategoryVO.setFactory(code);
+                    }
+
                 }
             }
             ServiceResponse<Boolean> serviceResponse = crmProductCategoryApi

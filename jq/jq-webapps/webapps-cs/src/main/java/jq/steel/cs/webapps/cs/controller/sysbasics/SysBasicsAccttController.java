@@ -481,7 +481,12 @@ public class SysBasicsAccttController {
         JsonResponse<AcctInfoVO>  jsonResponse = new JsonResponse();
         try{
             AcctInfoVO acctInfoVO = new AcctInfoVO();
-            acctInfoVO.setAcctType(Long.valueOf(AssertContext.getOrgType()));
+            //2019-03-22 新注册的用户 orgtype类型为 null的话赋值为 终端客户类型 4
+           String type =  AssertContext.getOrgType();
+           if (type==null){
+               type = "4";
+           }
+            acctInfoVO.setAcctType(Long.valueOf(type));
             acctInfoVO.setOrgName(AssertContext.getOrgName());
             acctInfoVO.setOrgCode(AssertContext.getOrgCode());
             jsonResponse.setRspBody(acctInfoVO);

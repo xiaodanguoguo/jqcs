@@ -26,4 +26,7 @@ public interface CrmQuestionMapper {
     int getCount(CrmQuestion crmQuestion);
 
     int updateStatusBySchedu(CrmQuestion crmQuestion);
+
+
+    List<CrmQuestion> findList(CrmQuestion record);
 }

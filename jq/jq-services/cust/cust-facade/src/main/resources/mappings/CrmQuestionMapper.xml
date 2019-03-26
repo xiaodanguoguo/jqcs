@@ -243,4 +243,21 @@
       QUESTION_STATUS = '3'
     where TO_CHAR (END_DT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
   </update>
+
+
+
+
+  <select id="findList"  resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.CrmQuestion" >
+    select
+    <include refid="Base_Column_List" />
+    from CRM_QUESTION
+    <trim prefix="WHERE" prefixOverrides="AND |OR">
+      <if test="questionTitle != null and questionTitle != '' " >
+        AND QUESTION_TITLE  = #{questionTitle}
+      </if>
+      <!--<if test="questionTitle != null and questionTitle != '' " >
+        AND QUESTION_TITLE  LIKE '%' || #{questionTitle} ||'%'
+      </if>-->
+    </trim>
+  </select>
 </mapper>

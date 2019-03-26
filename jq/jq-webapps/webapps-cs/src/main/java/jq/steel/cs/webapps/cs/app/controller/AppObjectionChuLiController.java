@@ -9,6 +9,8 @@ import com.ebase.core.web.json.JsonRequest;
 import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.JsonUtil;
 import com.ebase.utils.file.ZipUtils;
+import jq.steel.cs.services.base.api.controller.RoleInfoAPI;
+import jq.steel.cs.services.base.api.vo.RoleInfoVO;
 import jq.steel.cs.services.cust.api.controller.ObjectionChuLiAPI;
 import jq.steel.cs.services.cust.api.vo.ObjectionChuLiVO;
 import jq.steel.cs.webapps.cs.controller.file.UploadConfig;
@@ -38,8 +40,11 @@ public class AppObjectionChuLiController {
     @Autowired
     UploadConfig uploadConfig;
 
+    @Autowired
+    private RoleInfoAPI roleInfoAPI;
 
-    @RequestMapping(value = "/findByPage",method = RequestMethod.POST)
+
+    @RequestMapping(value = "/findByPageForApp",method = RequestMethod.POST)
     public JsonResponse<PageDTO<ObjectionChuLiVO>> findByPage(@RequestBody JsonRequest<ObjectionChuLiVO> jsonRequest){
         JsonResponse<PageDTO<ObjectionChuLiVO>> jsonResponse = new JsonResponse<>();
         logger.info("异议处理列表", JsonUtil.toJson(jsonRequest));
@@ -77,7 +82,22 @@ public class AppObjectionChuLiController {
              */
             jsonRequest.getReqBody().setAgreementState("COMPLETE");
 
-            ServiceResponse<PageDTO<ObjectionChuLiVO>> byPage = objectionChuLiAPI.findByPage(jsonRequest);
+
+
+            //2019-03-21 wushibin 增加厂权限
+            String acctId = AssertContext.getAcctId();
+            ServiceResponse<List<RoleInfoVO>>  listServiceResponse = roleInfoAPI.getRoleCodeByAcctId(acctId);
+            List<String> list = new ArrayList<>();
+            for (RoleInfoVO roleInfoVO:listServiceResponse.getRetContent()){
+                list.add(roleInfoVO.getRoleCode());
+            }
+            if (list.size()>0){
+                jsonRequest.getReqBody().setDeptCodes(list);
+            }else {
+                jsonRequest.getReqBody().setDeptCodes(null);
+            }
+
+            ServiceResponse<PageDTO<ObjectionChuLiVO>> byPage = objectionChuLiAPI.findByPageForApp(jsonRequest);
             PageDTO<ObjectionChuLiVO> retContent = byPage.getRetContent();
             jsonResponse.setRspBody(retContent);
 
