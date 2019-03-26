@@ -166,7 +166,7 @@ function loginerNewsCallBack(data){//获取登陆人信息回调
         document.body.jsLee.loginerNews.customerId = data.rspBody.customerId;
         document.body.jsLee.loginerNews.customerName = data.rspBody.customerName;
         $("#orderUnit #condcustomerName").val(document.body.jsLee.loginerNews.customerName);
-        $("#agencyUnit #condagentName").val(document.body.jsLee.loginerNews.customerName);
+        //$("#agencyUnit #condagentName").val(document.body.jsLee.loginerNews.customerName);
         initplugPath($("#tableList1")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,document.body.jsLee.loginerNews,"POST");
         initplugPath($("#tableList3")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path8,document.body.jsLee.loginerNews,"POST");
         if($("#tabSelect li").eq(0).attr("limitCode") == "M30102"){//说明是订货单位

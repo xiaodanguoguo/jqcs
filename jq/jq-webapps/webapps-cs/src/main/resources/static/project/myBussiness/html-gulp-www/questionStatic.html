@@ -282,15 +282,15 @@
 <div style="width: 100%;text-align: center;line-height: 50px;height: 50px;font-size: 20px;">满意度调查统计分析</div>
 <div id="searchBox" style="height: 50px;">
     <span style="margin: 0 10px;">信息标题：</span>
-    <input type="text" class="inputBase" id="nnTitle">
+    <input type="text" class="inputBase" id="questionTitle">
     <div class="btnLowNew" id="establish-Home-page" limitCode="M10301">查询</div>
 </div>
-<div>
+<!--<div>
     <div id="container" style="min-width:400px;height:400px"></div>
-</div>
+</div>-->
 <script>
     limitCodeDeal($("*[limitCode]"),"limitCode");
-    var jsonA = {
+    /*var jsonA = {
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
@@ -336,7 +336,18 @@
     jsonA.series[0].data[0].y = 10;
     jsonA.series[0].data[1].y = 80;
     jsonA.series[0].data[2].y = 10;
-    Highcharts.chart('container', jsonA);
+    Highcharts.chart('container', jsonA);*/
+    $(function(){
+        $("#establish-Home-page").on("click",function(){
+            getAjaxResult("/question/print","POST",{"questionTitle":$("#questionTitle").val()},"callBack(data)");
+        });
+    });
+    function callBack(data){
+        data = JSON.parse(data);
+        if(data.retCode == "0000000"){
+            jumpUrl(data.rspBody.report,"0000000",1);
+        }
+    }
 </script>
 
 </div>
