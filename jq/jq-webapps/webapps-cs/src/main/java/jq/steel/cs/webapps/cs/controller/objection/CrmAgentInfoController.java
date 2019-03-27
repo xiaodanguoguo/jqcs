@@ -85,6 +85,9 @@ public class CrmAgentInfoController {
             if(jsonRequest.getReqBody().getCustomerName()!=null ){
                 jsonRequest.getReqBody().setAgentName(jsonRequest.getReqBody().getCustomerName());
             }
+            if(jsonRequest.getReqBody().getAgentId().equals("") ){
+                jsonRequest.getReqBody().setAgentId(AssertContext.getOrgCode());
+            }
             ServiceResponse<PageDTO<CrmAgentInfoVO>> serviceResponse = crmAgentInfoAPI.findByPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());

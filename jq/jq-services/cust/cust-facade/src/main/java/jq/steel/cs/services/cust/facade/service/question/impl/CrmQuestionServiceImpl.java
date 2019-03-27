@@ -524,4 +524,16 @@ public class CrmQuestionServiceImpl implements CrmQuestionService {
         List<CrmQuestionVO> list = BeanCopyUtil.copyList(crmQuestions, CrmQuestionVO.class);
         return list;
     }
+
+
+    //统计查询返回qid
+    @Override
+    public CrmQuestionVO findList1(CrmQuestionVO crmQuestionVO) {
+        CrmQuestion crmQuestion = new CrmQuestion();
+        crmQuestion.setQuestionTitle(crmQuestionVO.getQuestionTitle());
+        CrmQuestion crmQuestions = crmQuestionMapper.findList1(crmQuestion);
+        CrmQuestionVO crmQuestionVO1 = new CrmQuestionVO();
+        BeanCopyUtil.copy(crmQuestions, crmQuestionVO1);
+        return crmQuestionVO1;
+    }
 }

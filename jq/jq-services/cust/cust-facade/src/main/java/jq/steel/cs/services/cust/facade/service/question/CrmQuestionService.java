@@ -99,4 +99,14 @@ public interface CrmQuestionService {
      * @Date: 2019/3/21
      */
     List<CrmQuestionVO> findList(CrmQuestionVO crmQuestionVO);
+
+
+    /**
+     * @param: crmQuestionVO
+     * @return: ServiceResponse<PageDTO<CrmQuestionVO>>
+     * @description:  调查问卷统计
+     * @author: wushibin
+     * @Date: 2019/3/21
+     */
+    CrmQuestionVO findList1(CrmQuestionVO crmQuestionVO);
 }

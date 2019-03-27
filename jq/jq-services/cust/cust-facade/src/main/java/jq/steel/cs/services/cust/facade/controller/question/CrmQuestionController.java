@@ -251,4 +251,30 @@ public class CrmQuestionController {
 
         return serviceResponse;
     }
+
+
+
+    /**
+     * @param: jsonRequest
+     * @return: ServiceResponse<PageDTO<CrmQuestionVO>>
+     * @description:  调查问卷统计
+     * @author: wushibin
+     * @Date: 2019/3/21
+     */
+    @RequestMapping("/findList1")
+    ServiceResponse<CrmQuestionVO> findList1(@RequestBody JsonRequest<CrmQuestionVO> jsonRequest) {
+        logger.info("调查问卷列表 = {}", JsonUtil.toJson(jsonRequest));
+        ServiceResponse<CrmQuestionVO> serviceResponse = new ServiceResponse<>();
+
+        try {
+            CrmQuestionVO crmQuestionVO = jsonRequest.getReqBody();
+            CrmQuestionVO page = crmQuestionService.findList1(crmQuestionVO);
+            serviceResponse.setRetContent(page);
+        } catch (Exception e) {
+            logger.error("调查问卷列表错误 = {}", e);
+            serviceResponse.setException(new BusinessException("500"));
+        }
+
+        return serviceResponse;
+    }
 }

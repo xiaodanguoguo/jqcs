@@ -29,4 +29,6 @@ public interface CrmQuestionMapper {
 
 
     List<CrmQuestion> findList(CrmQuestion record);
+
+    CrmQuestion findList1(CrmQuestion record);
 }
