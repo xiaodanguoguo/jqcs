@@ -662,22 +662,24 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
        System.out.println("deptcodes"+crmClaimApply.getDeptCodes());
         System.out.println("deptcode"+crmClaimApply.getDeptCode());
        //1銷售公司 2一級代理 3供应商 4终端客户 5酒钢管理
-        if(crmClaimApply.getOrgType().equals("1")){
-            CrmClaimApply h = new CrmClaimApply();
-            h.setCustomerName(crmClaimApply.getOrgName());
-            List<CrmClaimApply> list =crmClaimApplyMapper.findMillSheetByCus(h);
-            if(list.size()>0){
-                List<String> idall = new ArrayList<>();
-                for (int i = 0; i < list.size(); i++){
-                    idall.add(list.get(i).getMillSheetNo());
+        if(crmClaimApply.getOrgType()!=null) {
+            if (crmClaimApply.getOrgType().equals("1")) {
+                CrmClaimApply h = new CrmClaimApply();
+                h.setCustomerName(crmClaimApply.getOrgName());
+                List<CrmClaimApply> list = crmClaimApplyMapper.findMillSheetByCus(h);
+                if (list.size() > 0) {
+                    List<String> idall = new ArrayList<>();
+                    for (int i = 0; i < list.size(); i++) {
+                        idall.add(list.get(i).getMillSheetNo());
+                    }
+                    crmClaimApply.setMillSheetNos(idall);
+                } else {
+                    crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
                 }
-                crmClaimApply.setMillSheetNos(idall);
-            }else {
+            }
+            if(crmClaimApply.getOrgType().equals("2")||crmClaimApply.getOrgType().equals("3")||crmClaimApply.getOrgType().equals("4")){
                 crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
             }
-        }
-        if(crmClaimApply.getOrgType().equals("2")||crmClaimApply.getOrgType().equals("3")||crmClaimApply.getOrgType().equals("4")){
-            crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
         }
         ObjectionTiBaoCountVO vo = new ObjectionTiBaoCountVO();
         List<ObjectionTiBaoCountVO> objectionTiBaoCountVOS = crmClaimApplyMapper.getCount(crmClaimApply);
@@ -780,18 +782,20 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
             }*/
             // 如果orgType为1为销售公司设置customerid 为质证书的zkunner
-            if(crmClaimApply.getOrgType().equals("1")){
-                CrmClaimApply h = new CrmClaimApply();
-                h.setCustomerName(crmClaimApply.getOrgName());
-                List<CrmClaimApply> list =crmClaimApplyMapper.findMillSheetByCusForApp(h);
-                if(list.size()>0){
-                    List<String> idall = new ArrayList<>();
-                    for (int i = 0; i < list.size(); i++){
-                        idall.add(list.get(i).getMillSheetNo());
+            if(crmClaimApply.getOrgType()!=null) {
+                if (crmClaimApply.getOrgType().equals("1")) {
+                    CrmClaimApply h = new CrmClaimApply();
+                    h.setCustomerName(crmClaimApply.getOrgName());
+                    List<CrmClaimApply> list = crmClaimApplyMapper.findMillSheetByCusForApp(h);
+                    if (list.size() > 0) {
+                        List<String> idall = new ArrayList<>();
+                        for (int i = 0; i < list.size(); i++) {
+                            idall.add(list.get(i).getMillSheetNo());
+                        }
+                        crmClaimApply.setMillSheetNos(idall);
+                    } else {
+                        crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
                     }
-                    crmClaimApply.setMillSheetNos(idall);
-                }else {
-                    crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
                 }
             }
             PageDTOUtil.startPage(objectionTiBaoVO);
@@ -838,18 +842,20 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
                 crmClaimApply.setDeptCodes(null);
             }
             // 如果orgType为1为销售公司设置customerid 为质证书的zkunner
-            if (crmClaimApply.getOrgType().equals("1")) {
-                CrmClaimApply h = new CrmClaimApply();
-                h.setCustomerName(crmClaimApply.getOrgName());
-                List<CrmClaimApply> list = crmClaimApplyMapper.findMillSheetByCusForApp(h);
-                if (list.size() > 0) {
-                    List<String> idall = new ArrayList<>();
-                    for (int i = 0; i < list.size(); i++) {
-                        idall.add(list.get(i).getMillSheetNo());
+            if(crmClaimApply.getOrgType()!=null) {
+                if (crmClaimApply.getOrgType().equals("1")) {
+                    CrmClaimApply h = new CrmClaimApply();
+                    h.setCustomerName(crmClaimApply.getOrgName());
+                    List<CrmClaimApply> list = crmClaimApplyMapper.findMillSheetByCusForApp(h);
+                    if (list.size() > 0) {
+                        List<String> idall = new ArrayList<>();
+                        for (int i = 0; i < list.size(); i++) {
+                            idall.add(list.get(i).getMillSheetNo());
+                        }
+                        crmClaimApply.setMillSheetNos(idall);
+                    } else {
+                        crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
                     }
-                    crmClaimApply.setMillSheetNos(idall);
-                } else {
-                    crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
                 }
             }
             PageDTOUtil.startPage(objectionTiBaoVO);
@@ -891,23 +897,26 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             if(crmClaimApply.getDeptCode()!=null&& crmClaimApply.getDeptCode()!=""){
                 crmClaimApply.setDeptCodes(null);
             }
-            if(crmClaimApply.getOrgType().equals("1")){
-                CrmClaimApply h = new CrmClaimApply();
-                h.setCustomerName(crmClaimApply.getOrgName());
-                List<CrmClaimApply> list =crmClaimApplyMapper.findMillSheetByCusForApp(h);
-                if(list.size()>0){
-                    List<String> idall = new ArrayList<>();
-                    for (int i = 0; i < list.size(); i++){
-                        idall.add(list.get(i).getMillSheetNo());
+            if(crmClaimApply.getOrgType()!=null) {
+                if (crmClaimApply.getOrgType().equals("1")) {
+                    CrmClaimApply h = new CrmClaimApply();
+                    h.setCustomerName(crmClaimApply.getOrgName());
+                    List<CrmClaimApply> list = crmClaimApplyMapper.findMillSheetByCusForApp(h);
+                    if (list.size() > 0) {
+                        List<String> idall = new ArrayList<>();
+                        for (int i = 0; i < list.size(); i++) {
+                            idall.add(list.get(i).getMillSheetNo());
+                        }
+                        crmClaimApply.setMillSheetNos(idall);
+                    } else {
+                        crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
                     }
-                    crmClaimApply.setMillSheetNos(idall);
-                }else {
+                }
+                if(crmClaimApply.getOrgType().equals("2")||crmClaimApply.getOrgType().equals("3")||crmClaimApply.getOrgType().equals("4")){
                     crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
                 }
             }
-            if(crmClaimApply.getOrgType().equals("2")||crmClaimApply.getOrgType().equals("3")||crmClaimApply.getOrgType().equals("4")){
-                crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
-            }
+
             PageDTOUtil.startPage(objectionTiBaoVO);
             String startDtStr = DateFormatUtil.getStartDateStr(crmClaimApply.getStartDt());
             crmClaimApply.setStartDtStr(startDtStr);
