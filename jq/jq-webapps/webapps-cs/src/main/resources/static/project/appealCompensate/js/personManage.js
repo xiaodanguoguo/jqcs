@@ -168,7 +168,7 @@ function loginerNewsCallBack(data){//获取登陆人信息回调
         $("#orderUnit #condcustomerName").val(document.body.jsLee.loginerNews.customerName);
         //$("#agencyUnit #condagentName").val(document.body.jsLee.loginerNews.customerName);
         initplugPath($("#tableList1")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path1,document.body.jsLee.loginerNews,"POST");
-        initplugPath($("#tableList3")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path8,document.body.jsLee.loginerNews,"POST");
+        initplugPath($("#tableList3")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path8,null,"POST");
         if($("#tabSelect li").eq(0).attr("limitCode") == "M30102"){//说明是订货单位
             initplugPath($("#tableList2")[0],"standardTableCtrl",document.body.jsLee.requestUrl.path2,document.body.jsLee.loginerNews,"POST");
             $("#orderUnit").remove();
