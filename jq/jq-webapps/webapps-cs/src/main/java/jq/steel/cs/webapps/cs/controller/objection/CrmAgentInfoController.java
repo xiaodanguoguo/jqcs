@@ -78,23 +78,14 @@ public class CrmAgentInfoController {
         logger.info("分页", JsonUtil.toJson(jsonRequest));
         JsonResponse<PageDTO<CrmAgentInfoVO>> jsonResponse = new JsonResponse<>();
         try {
-            //点击页面进来前台字段给得是customerId  customerName
-            if(jsonRequest.getReqBody().getCustomerId()!=null ){
-                jsonRequest.getReqBody().setAgentId(jsonRequest.getReqBody().getCustomerId());
-            }
-            if(jsonRequest.getReqBody().getCustomerName()!=null ){
-                jsonRequest.getReqBody().setAgentName(jsonRequest.getReqBody().getCustomerName());
-            }
-            if(jsonRequest.getReqBody().getAgentId().equals("") ){
-                jsonRequest.getReqBody().setAgentId(AssertContext.getOrgCode());
-            }
+            jsonRequest.getReqBody().setAgentId(AssertContext.getOrgCode());
             ServiceResponse<PageDTO<CrmAgentInfoVO>> serviceResponse = crmAgentInfoAPI.findByPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
             } else {
                 if (serviceResponse.isHasError()) {
                     jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
-                }else {
+                } else {
                     jsonResponse.setRetCode(serviceResponse.getRetCode());
                     jsonResponse.setRetDesc(serviceResponse.getRetMessage());
                     return jsonResponse;
