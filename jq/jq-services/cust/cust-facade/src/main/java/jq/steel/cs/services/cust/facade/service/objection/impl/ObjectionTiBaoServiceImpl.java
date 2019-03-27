@@ -74,24 +74,22 @@ public class ObjectionTiBaoServiceImpl implements ObjectionTiBaoService{
             if(crmClaimApply.getDeptCode()!=null&& crmClaimApply.getDeptCode()!=""){
                 crmClaimApply.setDeptCodes(null);
             }
-          /*  if(crmClaimApply.getCustomerId()!=null && !crmClaimApply.getCustomerId().equals("")){
-
-            }else {
-                crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
-            }*/
+            //2019-03-27 加一层判断 因为新注册的用户所属组织类型为null导致查询出错
             // 如果orgType为1为销售公司设置customerid 为质证书的zkunner
-            if(crmClaimApply.getOrgType().equals("1")){
-                CrmClaimApply h = new CrmClaimApply();
-                h.setCustomerName(crmClaimApply.getOrgName());
-                List<CrmClaimApply> list =crmClaimApplyMapper.findMillSheetByCus(h);
-                if(list.size()>0){
-                    List<String> idall = new ArrayList<>();
-                    for (int i = 0; i < list.size(); i++){
-                        idall.add(list.get(i).getMillSheetNo());
+            if(crmClaimApply.getOrgType()!=null){
+                if(crmClaimApply.getOrgType().equals("1")){
+                    CrmClaimApply h = new CrmClaimApply();
+                    h.setCustomerName(crmClaimApply.getOrgName());
+                    List<CrmClaimApply> list =crmClaimApplyMapper.findMillSheetByCus(h);
+                    if(list.size()>0){
+                        List<String> idall = new ArrayList<>();
+                        for (int i = 0; i < list.size(); i++){
+                            idall.add(list.get(i).getMillSheetNo());
+                        }
+                        crmClaimApply.setMillSheetNos(idall);
+                    }else {
+                        crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
                     }
-                    crmClaimApply.setMillSheetNos(idall);
-                }else {
-                    crmClaimApply.setCustomerId(crmClaimApply.getOrgName());
                 }
             }
             PageDTOUtil.startPage(objectionTiBaoVO);

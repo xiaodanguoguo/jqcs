@@ -74,19 +74,6 @@ public class ObjectionTiBaoController {
         }else {
             jsonRequest.getReqBody().setDeptCodes(null);
         }
-        //销售公司下的客户名称集合
-        List<String> customers = new ArrayList<>();
-        if(orgType.equals("1")){
-           /* ServiceResponse<List<OrgInfoVO>>  hh = orgInfoServiceAPI.findOrgNameByOrgId(orgId);
-            for (OrgInfoVO orgInfoVO:hh.getRetContent()){
-                customers.add(orgInfoVO.getOrgName());
-            }*/
-           //设置customerid 为质证书的zkunner
-
-        }
-        if(customers.size()>0){
-            jsonRequest.getReqBody().setCustomerIds(customers);
-        }
         try {
             ServiceResponse<PageDTO<ObjectionTiBaoVO>> serviceResponse = objectionTiBaoAPI.findByPage(jsonRequest);
             if (ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode())) {
