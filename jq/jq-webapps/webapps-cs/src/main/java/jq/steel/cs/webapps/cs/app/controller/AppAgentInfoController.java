@@ -76,7 +76,6 @@ public class AppAgentInfoController {
         logger.info("分页", JsonUtil.toJson(jsonRequest));
         JsonResponse<PageDTO<CrmAgentInfoVO>> jsonResponse = new JsonResponse<>();
         try {
-            //点击页面进来前台字段给得是customerId  customerName
             if(jsonRequest.getReqBody().getCustomerId()!=null ){
                 jsonRequest.getReqBody().setAgentId(jsonRequest.getReqBody().getCustomerId());
             }
