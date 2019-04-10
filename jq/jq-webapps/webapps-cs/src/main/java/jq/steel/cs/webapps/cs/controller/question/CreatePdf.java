@@ -18,19 +18,22 @@ public class CreatePdf {
         try {
             File file;
             String dirName = createDir(reporturl);
-            String fileName = createDir(reporturl)+"/" + pdfName;
+            String fileName = createDir(reporturl) + "/" + pdfName;
             file = new File(fileName);
             if (file.isFile() && file.exists()) {// 路径为文件且不为空则进行删除
                 file.delete();// 文件删除
             }
-                ReportDefine report;
-                Context cxt = new Context();
-                cxt.setParamValue("qid",qid);
-                report = (ReportDefine) ReportUtils.read(reporturl + model + ".rpx");
-                FileOutputStream fos = new FileOutputStream(fileName);
-                Engine engine = new Engine(report, cxt);
-                IReport iReport = engine.calc();
-                ReportUtils.exportToPDF(fos, iReport);
+            ReportDefine report;
+            Context cxt = new Context();
+            System.out.println("qid"+qid);
+            String s2 = String.valueOf(qid);
+            System.out.println("s2"+s2);
+            cxt.setParamValue("qid", s2);
+            report = (ReportDefine) ReportUtils.read(reporturl + model + ".rpx");
+            FileOutputStream fos = new FileOutputStream(fileName);
+            Engine engine = new Engine(report, cxt);
+            IReport iReport = engine.calc();
+            ReportUtils.exportToPDF(fos, iReport);
             fos.flush();
             fos.close();
             file.setWritable(true, false);    //设置写权限，windows下不用此语句

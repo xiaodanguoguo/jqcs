@@ -458,7 +458,7 @@ public class CrmQuestionController {
             if(serviceResponse.getRetContent().size()>0){
                 String report = "";
                 String pdfName = serviceResponse.getRetContent().get(0).getQid() + ".pdf";
-                String report1 = createPdf.createPdf(jsonRequest.getReqBody().getQid(), createPdfPath, pdfName, "tongji");
+                String report1 = createPdf.createPdf(serviceResponse.getRetContent().get(0).getQid(), createPdfPath, pdfName, "tongji");
                 String hh1 = report1.replace("/data/kf_web", "/res");
                 report = uploadConfig.getDomain() + hh1;
                 ServiceResponse<CrmQuestionVO> serviceResponse1 = crmQuestionApi.findList1(jsonRequest);
