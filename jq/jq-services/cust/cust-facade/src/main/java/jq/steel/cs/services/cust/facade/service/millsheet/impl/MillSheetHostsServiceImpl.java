@@ -401,6 +401,11 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
                     }
                 }
 
+
+                //2019-04-10 应app要求已拆分状态的不让下载("state":"SPLITED")  pc不用修改（pc前端已经做限制了）
+                if(millSheetHosts2.getState().equals("SPLITED")){
+                    millSheetHosts2.setIsAllowDown("N");
+                }
                 millSheetHosts2.setIsAllowRevoke("Y");
                 //是否允许撤销（子类质证书组织类型为234的不能撤销，提示无权撤销质证书，有问题请回退）
                 if (millSheetHosts2.getMillSheetType().equals("Z")) {

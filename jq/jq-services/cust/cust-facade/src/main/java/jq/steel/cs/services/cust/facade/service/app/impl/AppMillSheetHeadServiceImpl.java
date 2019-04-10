@@ -122,6 +122,10 @@ public class AppMillSheetHeadServiceImpl implements AppMillSheetHeadService {
 
                     }
                 }
+                //2019-04-10 应app要求已拆分状态的不让下载("state":"SPLITED")  pc不用修改（pc前端已经做限制了）
+                if(millSheetHosts2.getState().equals("SPLITED")){
+                    millSheetHosts2.setIsAllowDown("N");
+                }
             }
             return transform;
         } finally {
