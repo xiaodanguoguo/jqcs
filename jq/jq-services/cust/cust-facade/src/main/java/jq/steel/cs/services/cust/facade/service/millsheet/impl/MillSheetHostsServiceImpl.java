@@ -224,11 +224,12 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
                     }
                 }
 
+                //2019-04-17 经与业务沟通  产线G开头的质证书允许拆分和撤销
                 //产线为“G”开头的不给其拆分和撤销
-                if(millSheetHosts2.getMillLine().startsWith("G")){
+                /*if(millSheetHosts2.getMillLine().startsWith("G")){
                     millSheetHosts2.setIsAllowRevoke("N");
                     millSheetHosts2.setIsAllowSplit("N");
-                }
+                }*/
 
                 //规格拼接
                 MillCoilInfo coilInfo = new MillCoilInfo();
@@ -421,11 +422,12 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
                     }
                 }
 
+                //2019-04-17 经与业务沟通  产线G开头的质证书允许拆分和撤销
                 //产线为“G”开头的不给其拆分和撤销
-                if(millSheetHosts2.getMillLine().startsWith("G")){
+                /*if(millSheetHosts2.getMillLine().startsWith("G")){
                     millSheetHosts2.setIsAllowRevoke("N");
                     millSheetHosts2.setIsAllowSplit("N");
-                }
+                }*/
 
                 //规格拼接
                 MillCoilInfo coilInfo = new MillCoilInfo();
