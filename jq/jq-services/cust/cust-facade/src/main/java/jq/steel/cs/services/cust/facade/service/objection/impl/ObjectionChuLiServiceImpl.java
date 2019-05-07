@@ -118,11 +118,11 @@ public class ObjectionChuLiServiceImpl implements ObjectionChuLiService{
         BeanCopyUtil.copy(reqbody,crmAgreementInfo);
         crmAgreementInfo.setClaimNo(reqbody.getClaimNo());
         CrmAgreementInfo crmAgreementInfo1  = crmAgreementInfoMapper.findAll(crmAgreementInfo);
-        if (crmAgreementInfo1.getDeptCode().equals(1000)){
+        if (crmAgreementInfo1.getDeptCode().equals("1000")){
             crmAgreementInfo1.setDeptName("甘肃酒钢集团宏兴钢铁股份有限公司不锈钢分公司");
-        }else if(crmAgreementInfo1.getDeptCode().equals(2000)){
+        }else if(crmAgreementInfo1.getDeptCode().equals("2000")){
             crmAgreementInfo1.setDeptName("甘肃酒钢集团宏兴钢铁股份有限公司炼轧厂");
-        }else if(crmAgreementInfo1.getDeptCode().equals(2200)){
+        }else if(crmAgreementInfo1.getDeptCode().equals("2200")){
             crmAgreementInfo1.setDeptName("甘肃酒钢集团宏兴钢铁股份有限公司碳钢薄板厂");
         }else {
             crmAgreementInfo1.setDeptName("酒钢集团榆中钢铁有限责任公司");
