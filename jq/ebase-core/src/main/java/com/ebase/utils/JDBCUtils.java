@@ -11,7 +11,7 @@ public class JDBCUtils {
     //生产
     private static String url="jdbc:oracle:thin:@10.1.213.125:1521:jgcrmdbp";
     //测试
-    // private static String url="jdbc:oracle:thin:@10.1.213.127:1521:jgcrmdbt";
+    //private static String url="jdbc:oracle:thin:@10.1.213.127:1521:jgcrmdbt";
     private static String user="WARRANTY";
     private static String password="WARRANTY";
 
