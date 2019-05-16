@@ -250,7 +250,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
 
   <!--分页查询-->
   <select id="findMillSheetByPage" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
-    SELECT DISTINCT
+    SELECT A .* FROM (SELECT DISTINCT
     MFI.FALLBACK_REASON,
     CASE
     WHEN MFS.STEP_RESULT = 'Y' THEN
@@ -326,75 +326,76 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.MILL_FALLBACK_STEPS MFS ON MSO.MILL_SHEET_NO = MFS.MILL_SHEET_NO
     LEFT JOIN MILL_CUSTOMER cu1 ON MSO.ZKUNWE = cu1.KUNNR
     LEFT JOIN MILL_CUSTOMER cu2 ON MSO.ZKUNNR = cu2.KUNNR
+    ) A
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null and endDtStr != ''" >
-        AND TO_CHAR (MSH.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        AND TO_CHAR (A.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
       </if>
       <if test="startDtStr != null and startDtStr != ''" >
-        AND TO_CHAR (MSh.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+        AND TO_CHAR (A.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
       </if>
       <if test="millSheetNo != null  and millSheetNo != ''" >
-        AND MSO.MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
+        AND A.MILL_SHEET_NO = #{millSheetNo,jdbcType=VARCHAR}
       </if>
       <if test="millSheetNos != null">
-        AND MSO.MILL_SHEET_NO  in
+        AND A.MILL_SHEET_NO  in
         <foreach collection="millSheetNos"  index="index" close=")" open="(" item="item" separator=",">
           #{millSheetNos[${index}]}
         </foreach>
       </if>
       <if test="noMillSheetNos != null">
-        AND MSO.MILL_SHEET_NO NOT in
+        AND A.MILL_SHEET_NO NOT in
         <foreach collection="noMillSheetNos"  index="index" close=")" open="(" item="item" separator=",">
           #{noMillSheetNos[${index}]}
         </foreach>
       </if>
       <if test="zchehao != null and zchehao != ''" >
-        AND MSH.ZCHEHAO like '%' || #{zchehao,jdbcType=VARCHAR} || '%'
+        AND A.ZCHEHAO like '%' || #{zchehao,jdbcType=VARCHAR} || '%'
       </if>
       <if test="zhth != null  and zhth != ''" >
-        AND MSH.ZHTH = #{zhth,jdbcType=VARCHAR}
+        AND A.ZHTH = #{zhth,jdbcType=VARCHAR}
       </if>
       <if test="zkunnr != null  and zkunnr != ''" >
-        AND MSH.SPILT_CUSTOMER = #{zkunnr,jdbcType=VARCHAR}
+        AND A.SPILT_CUSTOMER = #{zkunnr,jdbcType=VARCHAR}
       </if>
       <if test="zph != null  and zph != ''" >
-        AND MSH.ZPH = #{zph,jdbcType=VARCHAR}
+        AND A.ZPH = #{zph,jdbcType=VARCHAR}
       </if>
       <if test="spiltCustomer != null  and spiltCustomer != ''" >
-        AND MSH.SPILT_CUSTOMER = #{spiltCustomer,jdbcType=VARCHAR}
+        AND A.SPILT_CUSTOMER = #{spiltCustomer,jdbcType=VARCHAR}
       </if>
       <if test="zkunnrs != null  and zkunnrs != ''" >
-        AND MSH.SPILT_CUSTOMER = #{zkunnrs,jdbcType=VARCHAR}
+        AND A.SPILT_CUSTOMER = #{zkunnrs,jdbcType=VARCHAR}
       </if>
       <if test="deptCode != null and deptCode != ''" >
-        AND MSO.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+        AND A.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
       </if>
       <if test="deptCodes != null" >
-        AND MSO.DEPT_CODE  in
+        AND A.DEPT_CODE  in
         <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
           #{deptCodes[${index}]}
         </foreach>
       </if>
       <if test="millLine != null and millLine != ''" >
-        AND MSH.MILL_LINE = #{millLine,jdbcType=VARCHAR}
+        AND A.MILL_LINE = #{millLine,jdbcType=VARCHAR}
       </if>
       <choose>
         <when test="states !=null and states != ''">
-          and MSO.STATE  = #{states,jdbcType=VARCHAR}
+          and A.STATE  = #{states,jdbcType=VARCHAR}
         </when>
         <otherwise>
-          AND MSO.STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED','SPLITED')
+          AND A.STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED','SPLITED')
         </otherwise>
       </choose>
       <if test="orgName != null  and orgName != ''" >
-        AND MSH.SPILT_CUSTOMER = #{orgName}
+        AND A.SPILT_CUSTOMER = #{orgName}
       </if>
       <if test="millSheetType != null  and millSheetType != ''" >
-        AND MSO.MILL_SHEET_TYPE = #{millSheetType}
+        AND A.MILL_SHEET_TYPE = #{millSheetType}
       </if>
-      AND MSH.ZCHEHAO NOT LIKE '-%'
+      AND A.ZCHEHAO NOT LIKE '-%'
     </trim>
-    order by MSO.SID desc
+    order by A.SID desc
   </select>
 
   <select id="findUrl" resultMap="BaseResultMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
@@ -771,7 +772,7 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
 
   <!--分页查询（酒钢）-->
   <select id="findMillSheetByPage1" resultMap="FullMap" parameterType="jq.steel.cs.services.cust.facade.model.MillSheetHosts">
-    SELECT DISTINCT
+    SELECT A.* FROM  (SELECT DISTINCT
     H .*
     FROM
     (
@@ -851,73 +852,73 @@ LEFT JOIN WARRANTY.MILL_SHEET_HEAD B ON A.MILL_SHEET_NO = B.MILL_SHEET_NO
     LEFT JOIN WARRANTY.MILL_FALLBACK_STEPS MFS ON MSO.MILL_SHEET_NO = MFS.MILL_SHEET_NO
     LEFT JOIN MILL_CUSTOMER cu1 ON MSO.ZKUNWE = cu1.KUNNR
     LEFT JOIN MILL_CUSTOMER cu2 ON MSO.ZKUNNR = cu2.KUNNR
-    ) H
+    ) H ) A
     <trim prefix="WHERE" prefixOverrides="AND |OR ">
       <if test="endDtStr != null and endDtStr != ''" >
-        AND TO_CHAR (H.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
+        AND TO_CHAR (A.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &lt;= #{endDtStr}
       </if>
       <if test="startDtStr != null and startDtStr != ''" >
-        AND TO_CHAR (H.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
+        AND TO_CHAR (A.LFDAT, 'yyyy-MM-dd hh24:mi:ss') &gt;= #{startDtStr}
       </if>
       <if test="millSheetNo != null  and millSheetNo != ''" >
-        AND H.MILL_SHEET_NO like  '%' || #{millSheetNo} ||'%'
+        AND A.MILL_SHEET_NO like  '%' || #{millSheetNo} ||'%'
       </if>
       <if test="millSheetNos != null">
-        AND H.MILL_SHEET_NO  in
+        AND A.MILL_SHEET_NO  in
         <foreach collection="millSheetNos"  index="index" close=")" open="(" item="item" separator=",">
           #{millSheetNos[${index}]}
         </foreach>
       </if>
       <if test="noMillSheetNos != null">
-        AND H.MILL_SHEET_NO NOT in
+        AND A.MILL_SHEET_NO NOT in
         <foreach collection="noMillSheetNos"  index="index" close=")" open="(" item="item" separator=",">
           #{noMillSheetNos[${index}]}
         </foreach>
       </if>
       <if test="zchehao != null and zchehao != ''" >
-        AND H.ZCHEHAO like '%' || #{zchehao,jdbcType=VARCHAR} || '%'
+        AND A.ZCHEHAO like '%' || #{zchehao,jdbcType=VARCHAR} || '%'
       </if>
       <if test="zhth != null  and zhth != ''" >
-        AND H.ZHTH = #{zhth,jdbcType=VARCHAR}
+        AND A.ZHTH = #{zhth,jdbcType=VARCHAR}
       </if>
       <if test="zkunnr != null  and zkunnr != ''" >
-        AND H.ZKUNNR = #{zkunnr,jdbcType=VARCHAR}
+        AND A.ZKUNNR = #{zkunnr,jdbcType=VARCHAR}
       </if>
       <if test="zph != null  and zph != ''" >
-        AND H.ZPH = #{zph,jdbcType=VARCHAR}
+        AND A.ZPH = #{zph,jdbcType=VARCHAR}
       </if>
       <if test="zkunnrs != null  and zkunnrs != ''" >
-        AND H.SPILT_CUSTOMER like  '%' || #{zkunnrs} ||'%'
+        AND A.SPILT_CUSTOMER like  '%' || #{zkunnrs} ||'%'
       </if>
       <if test="deptCode != null and deptCode != ''" >
-        AND H.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
+        AND A.DEPT_CODE = #{deptCode,jdbcType=VARCHAR}
       </if>
       <if test="millSheetType != null  and millSheetType != ''" >
-        AND H.MILL_SHEET_TYPE = #{millSheetType}
+        AND A.MILL_SHEET_TYPE = #{millSheetType}
       </if>
       <if test="zdaozhan != null  and zdaozhan != ''" >
-        AND H.ZDAOZHAN = #{zdaozhan}
+        AND A.ZDAOZHAN = #{zdaozhan}
       </if>
       <if test="deptCodes != null" >
-        AND H.DEPT_CODE  in
+        AND A.DEPT_CODE  in
         <foreach collection="deptCodes"  index="index" close=")" open="(" item="item" separator=",">
           #{deptCodes[${index}]}
         </foreach>
       </if>
       <if test="millLine != null and millLine != ''" >
-        AND H.MILL_LINE like  '%' || #{millLine} ||'%'
+        AND A.MILL_LINE like  '%' || #{millLine} ||'%'
       </if>
       <choose>
         <when test="states !=null and states != ''">
-          and H.STATE  = #{states,jdbcType=VARCHAR}
+          and A.STATE  = #{states,jdbcType=VARCHAR}
         </when>
         <otherwise>
-          AND H.STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED','SPLITED')
+          AND A.STATE  IN ('EXAMINED', 'DOWNLOADED', 'PRIVIEWED', 'PRINTED','SPLITED')
         </otherwise>
       </choose>
-      AND H.ZCHEHAO NOT LIKE '-%'
+      AND A.ZCHEHAO NOT LIKE '-%'
     </trim>
-    order by H.SID desc
+    order by A.SID desc
   </select>
 
 
