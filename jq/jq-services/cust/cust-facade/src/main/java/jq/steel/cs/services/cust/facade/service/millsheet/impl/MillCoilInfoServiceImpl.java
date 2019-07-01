@@ -5,11 +5,9 @@ import com.ebase.core.page.PageDTOUtil;
 import com.ebase.utils.BeanCopyUtil;
 import jq.steel.cs.services.cust.api.vo.CrmMillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
-import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.services.cust.facade.dao.MillCoilInfoMapper;
 import jq.steel.cs.services.cust.facade.model.CrmMillCoilInfo;
 import jq.steel.cs.services.cust.facade.model.MillCoilInfo;
-import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
 import jq.steel.cs.services.cust.facade.service.millsheet.MillCoilInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -104,11 +102,23 @@ public class MillCoilInfoServiceImpl implements MillCoilInfoService{
         Map<String, CrmMillCoilInfo> coilInfoMap = new HashMap<String, CrmMillCoilInfo>();
         for (CrmMillCoilInfo coilInfo : coilAndPhysicsInfo) {
             coilInfoMap.put(coilInfo.getZcharg(), coilInfo);
+            coilInfo.getListForMillPhysicsData().forEach(crmMillPhysicsData -> {
+                crmMillPhysicsData.setKurztext(crmMillPhysicsData.getKurztext()
+                        .replaceAll("(\\\r\\\n|\\\r|\\\n|\\\n\\\r)", ""));
+                crmMillPhysicsData.setOriginalInput(crmMillPhysicsData.getOriginalInput()
+                        .replaceAll("(\\\r\\\n|\\\r|\\\n|\\\n\\\r)", ""));
+            });
         }
 
         for (CrmMillCoilInfo coilInfo : coilAndChemistryInfo) {
             CrmMillCoilInfo crmMillCoilInfo = coilInfoMap.get(coilInfo.getZcharg());
             coilInfo.setListForMillPhysicsData(crmMillCoilInfo.getListForMillPhysicsData());
+            coilInfo.getListForMillChemistryData().forEach(crmMillChemistryData -> {
+                crmMillChemistryData.setKurztext(crmMillChemistryData.getKurztext()
+                        .replaceAll("(\\\r\\\n|\\\r|\\\n|\\\n\\\r)", ""));
+                crmMillChemistryData.setOriginal_input(crmMillChemistryData.getOriginal_input()
+                        .replaceAll("(\\\r\\\n|\\\r|\\\n|\\\n\\\r)", ""));
+            });
         }
 
         List<CrmMillCoilInfoVO> listVO = BeanCopyUtil.copyList(coilAndChemistryInfo, CrmMillCoilInfoVO.class);
