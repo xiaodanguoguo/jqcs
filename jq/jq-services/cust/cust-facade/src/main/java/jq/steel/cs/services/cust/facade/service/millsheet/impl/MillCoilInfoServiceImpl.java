@@ -3,6 +3,7 @@ package jq.steel.cs.services.cust.facade.service.millsheet.impl;
 import com.ebase.core.page.PageDTO;
 import com.ebase.core.page.PageDTOUtil;
 import com.ebase.utils.BeanCopyUtil;
+import com.ebase.utils.StringUtil;
 import jq.steel.cs.services.cust.api.vo.CrmMillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
 import jq.steel.cs.services.cust.facade.dao.MillCoilInfoMapper;
@@ -103,10 +104,15 @@ public class MillCoilInfoServiceImpl implements MillCoilInfoService{
         for (CrmMillCoilInfo coilInfo : coilAndPhysicsInfo) {
             coilInfoMap.put(coilInfo.getZcharg(), coilInfo);
             coilInfo.getListForMillPhysicsData().forEach(crmMillPhysicsData -> {
-                crmMillPhysicsData.setKurztext(crmMillPhysicsData.getKurztext()
+                if (StringUtil.isNotEmpty(crmMillPhysicsData.getKurztext())) {
+                    crmMillPhysicsData.setKurztext(crmMillPhysicsData.getKurztext()
                         .replaceAll("(\\\r\\\n|\\\r|\\\n|\\\n\\\r)", ""));
-                crmMillPhysicsData.setOriginalInput(crmMillPhysicsData.getOriginalInput()
-                        .replaceAll("(\\\r\\\n|\\\r|\\\n|\\\n\\\r)", ""));
+                }
+                if (StringUtil.isNotEmpty(crmMillPhysicsData.getOriginalInput())) {
+                    crmMillPhysicsData.setOriginalInput(crmMillPhysicsData.getOriginalInput()
+                            .replaceAll("(\\\r\\\n|\\\r|\\\n|\\\n\\\r)", ""));
+                }
+
             });
         }
 
@@ -114,10 +120,16 @@ public class MillCoilInfoServiceImpl implements MillCoilInfoService{
             CrmMillCoilInfo crmMillCoilInfo = coilInfoMap.get(coilInfo.getZcharg());
             coilInfo.setListForMillPhysicsData(crmMillCoilInfo.getListForMillPhysicsData());
             coilInfo.getListForMillChemistryData().forEach(crmMillChemistryData -> {
-                crmMillChemistryData.setKurztext(crmMillChemistryData.getKurztext()
-                        .replaceAll("(\\\r\\\n|\\\r|\\\n|\\\n\\\r)", ""));
-                crmMillChemistryData.setOriginal_input(crmMillChemistryData.getOriginal_input()
-                        .replaceAll("(\\\r\\\n|\\\r|\\\n|\\\n\\\r)", ""));
+                if (StringUtil.isNotEmpty(crmMillChemistryData.getKurztext())) {
+                    crmMillChemistryData.setKurztext(crmMillChemistryData.getKurztext()
+                            .replaceAll("(\\\r\\\n|\\\r|\\\n|\\\n\\\r)", ""));
+                }
+
+                if (StringUtil.isNotEmpty(crmMillChemistryData.getOriginal_input())) {
+                    crmMillChemistryData.setOriginal_input(crmMillChemistryData.getOriginal_input()
+                            .replaceAll("(\\\r\\\n|\\\r|\\\n|\\\n\\\r)", ""));
+                }
+
             });
         }
 
