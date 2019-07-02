@@ -1,31 +1,20 @@
 package jq.steel.cs.services.cust.facade.service.app.impl;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.ebase.core.exception.BusinessException;
 import com.ebase.core.web.json.JsonRequest;
-import com.ebase.core.web.json.JsonResponse;
 import com.ebase.utils.BeanCopyUtil;
-import com.ebase.utils.DateFormatUtil;
-import com.ebase.utils.JsonUtil;
 import jq.steel.cs.services.cust.api.vo.CrmMillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillLabelVO;
-import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
-import jq.steel.cs.services.cust.facade.dao.MillCoilInfoMapper;
 import jq.steel.cs.services.cust.facade.dao.MillLabelMapper;
-import jq.steel.cs.services.cust.facade.dao.MillSheetHostsMapper;
-import jq.steel.cs.services.cust.facade.model.CrmMillCoilInfo;
 import jq.steel.cs.services.cust.facade.model.MillLabel;
-import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
 import jq.steel.cs.services.cust.facade.service.app.AppMillLabelService;
 import jq.steel.cs.services.cust.facade.service.millsheet.MillCoilInfoService;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -148,21 +137,21 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
         MillLabelVO vo = new MillLabelVO();
         for (int i = 0; i < l; i++) {
             //操作员id
-            if(i == 0){
-                //通过判断数字型字符串的长度获取到某一字符串中的数字
-                String operatorId = strs[i];
-                operatorId = operatorId.trim();
-                String str2 = "";
-                if(str != null && !"".equals(str)){
-                    String[] split = operatorId.split(" ");
-                    for(int j=0;j<split.length;j++){
-                        System.out.println("split:"+split[j]);
-                    }
-                    str2=split[split.length-1];
-                }
-                vo.setOperatorId(str2);
-                System.out.println("作业员ID:"+str2);
-            }
+//            if(i == 0){
+//                //通过判断数字型字符串的长度获取到某一字符串中的数字
+//                String operatorId = strs[i];
+//                operatorId = operatorId.trim();
+//                String str2 = "";
+//                if(str != null && !"".equals(str)){
+//                    String[] split = operatorId.split(" ");
+//                    for(int j=0;j<split.length;j++){
+//                        System.out.println("split:"+split[j]);
+//                    }
+//                    str2=split[split.length-1];
+//                }
+//                vo.setOperatorId(str2);
+//                System.out.println("作业员ID:"+str2);
+//            }
             //生产时间
             if (i == 1) {
                 String strDate = strs[i];
@@ -197,8 +186,8 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
             }
         }
 
-        if(vo.getOperatorId() == null
-                || vo.getProductionTimeStr() == null
+        if(/*vo.getOperatorId() == null
+                || */vo.getProductionTimeStr() == null
                 || vo.getZph() == null
                 || vo.getSpecs() == null
                 || vo.getZcharg() == null
@@ -224,6 +213,9 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
             list = millCoilInfoService.getCoilDetail(crmMillCoilInfoVO);
             for (CrmMillCoilInfoVO voForList : list) {
                 voForList.setState("1");
+            }
+            if (CollectionUtils.isNotEmpty(list)) {
+                break;
             }
         }
         return list;
