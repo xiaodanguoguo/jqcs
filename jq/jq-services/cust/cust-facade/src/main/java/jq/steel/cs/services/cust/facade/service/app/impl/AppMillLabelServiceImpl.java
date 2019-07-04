@@ -181,8 +181,8 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
                 vo.setZcharg(strs2[0]);
                 System.out.println("批/板/卷号"+strs2[0]);
                 //卷号
-                vo.setCoilId(strs2[1]);
-                System.out.println("卷号coilId"+strs2[1]);
+//                vo.setCoilId(strs2[1]);
+//                System.out.println("卷号coilId"+strs2[1]);
             }
         }
 
@@ -191,13 +191,13 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
                 || vo.getZph() == null
                 || vo.getSpecs() == null
                 || vo.getZcharg() == null
-                || vo.getCoilId() == null
+//                || vo.getCoilId() == null
         ){
             throw new BusinessException("此二维码信息有误");
         }
         List<MillLabel> millLabels = millLabelMapper.queryByQrcode(vo);
         //假信息,如果没有对应数据返回一个状态
-        if (millLabels == null) {
+        if (CollectionUtils.isEmpty(millLabels)) {
             CrmMillCoilInfoVO crmMillCoilInfoVO = new CrmMillCoilInfoVO();
             crmMillCoilInfoVO.setState("0");
             List<CrmMillCoilInfoVO> list = new ArrayList<>();
