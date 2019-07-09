@@ -160,19 +160,19 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
                 System.out.println("生产时间"+vo.getProductionTimeStr());
             }
             //牌号
-            if (i == l-3) {
+            if (i == 2) {
                 String strZph = strs[i];
                 vo.setZph(strZph);
                 System.out.println("牌号"+strZph);
             }
             //规格
-            if (i == l-2) {
+            if (i == 3) {
                 String strSpecs = strs[i];
                 vo.setSpecs(strSpecs);
                 System.out.println("规格"+strSpecs);
             }
             //批次
-            if (i == l-1) {
+            if (i == 4) {
                 String strZcharg1 = strs[i];
                 String[] strs2 = strZcharg1.split("  ");
                 for(int j=0;j<strs2.length;j++){
