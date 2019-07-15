@@ -41,8 +41,14 @@ public class AppMillLabelController {
         try {
 
             ServiceResponse<List<CrmMillCoilInfoVO>> listServiceResponse = appMillLabelAPI.queryByQrCode(jsonRequest);
-            List<CrmMillCoilInfoVO> retContent = listServiceResponse.getRetContent();
-            jsonResponse.setRspBody(retContent);
+            if (ServiceResponse.SUCCESS_CODE.equals(listServiceResponse.getRetCode()))
+                jsonResponse.setRspBody(listServiceResponse.getRetContent());
+            else if (listServiceResponse.isHasError())
+                jsonResponse.setRetCode(JsonResponse.SYS_EXCEPTION);
+            else {
+                jsonResponse.setRetCode(listServiceResponse.getRetCode());
+                jsonResponse.setRetDesc(listServiceResponse.getRetMessage());
+            }
 
         } catch (BusinessException e) {
 

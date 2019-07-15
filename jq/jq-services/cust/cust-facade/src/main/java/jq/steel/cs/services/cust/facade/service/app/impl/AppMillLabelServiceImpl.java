@@ -130,6 +130,11 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
     public List<CrmMillCoilInfoVO> queryByQrCode(JsonRequest<String> jsonRequest) {
         String str = jsonRequest.getReqBody();
         String[] strs = str.split("\n");
+
+        if (strs.length > 6) {
+            throw new BusinessException("1001001");
+        }
+
         for(int i=0;i<strs.length;i++){
             System.out.println("数组:strs:"+strs[i]);
         }
@@ -193,7 +198,7 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
                 || vo.getZcharg() == null
 //                || vo.getCoilId() == null
         ){
-            throw new BusinessException("此二维码信息有误");
+            throw new BusinessException("1001001");
         }
         List<MillLabel> millLabels = millLabelMapper.queryByQrcode(vo);
         //假信息,如果没有对应数据返回一个状态

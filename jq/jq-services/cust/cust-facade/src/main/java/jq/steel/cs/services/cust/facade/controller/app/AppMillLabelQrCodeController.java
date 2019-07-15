@@ -4,8 +4,6 @@ import com.ebase.core.exception.BusinessException;
 import com.ebase.core.service.ServiceResponse;
 import com.ebase.core.web.json.JsonRequest;
 import jq.steel.cs.services.cust.api.vo.CrmMillCoilInfoVO;
-import jq.steel.cs.services.cust.api.vo.MillLabelVO;
-import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.services.cust.facade.service.app.AppMillLabelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,6 +50,10 @@ public class AppMillLabelQrCodeController {
         try {
             List<CrmMillCoilInfoVO> list = appMillLabelService.queryByQrCode(jsonRequest);
             serviceResponse.setRetContent(list);
+        } catch (BusinessException e) {
+            serviceResponse.setRetCode(e.getErrorCode());
+            serviceResponse.setRetMessage(e.getMessage());
+            logger.error("错误 = {}", e);
         } catch (Exception e) {
             serviceResponse.setException(new BusinessException("500"));
             logger.error("错误 = {}", e);
