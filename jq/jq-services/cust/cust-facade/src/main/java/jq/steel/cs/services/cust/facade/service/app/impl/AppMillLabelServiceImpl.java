@@ -203,11 +203,12 @@ public class AppMillLabelServiceImpl implements AppMillLabelService {
         List<MillLabel> millLabels = millLabelMapper.queryByQrcode(vo);
         //假信息,如果没有对应数据返回一个状态
         if (CollectionUtils.isEmpty(millLabels)) {
-            CrmMillCoilInfoVO crmMillCoilInfoVO = new CrmMillCoilInfoVO();
-            crmMillCoilInfoVO.setState("0");
-            List<CrmMillCoilInfoVO> list = new ArrayList<>();
-            list.add(crmMillCoilInfoVO);
-            return list;
+//            CrmMillCoilInfoVO crmMillCoilInfoVO = new CrmMillCoilInfoVO();
+//            crmMillCoilInfoVO.setState("0");
+//            List<CrmMillCoilInfoVO> list = new ArrayList<>();
+//            list.add(crmMillCoilInfoVO);
+//            return list;
+            throw new BusinessException("1001001");
         }
         //真信息,如果有数据执行另外一条sql,用于返回质证书结构化数据
         List<CrmMillCoilInfoVO> list = new ArrayList<>();
