@@ -118,18 +118,18 @@ function clsMethodLee$operate(){
                     var milName = "",nomalMilName = "";
                     for(var lmI = 0; lmI < $("#tableList")[0].cacheArr.length; lmI++){
                         if($("#tableList")[0].cacheArr[lmI].isAllowDown == "N" && $("#tableList")[0].cacheArr[lmI].jcFlag == 0){//isAllowDown（number类型）是否是N提示‘建材类不让下载’
-                            milName += milName ? $("#tableList")[0].cacheArr[lmI].millSheetNo : "," + $("#tableList")[0].cacheArr[lmI].millSheetNo;
+                            milName += !milName ? $("#tableList")[0].cacheArr[lmI].millSheetNo : "," + $("#tableList")[0].cacheArr[lmI].millSheetNo;
                         }
                         if($("#tableList")[0].cacheArr[lmI].isAllowDown == "N"){
-                            nomalMilName += nomalMilName ? $("#tableList")[0].cacheArr[lmI].millSheetNo : "," + $("#tableList")[0].cacheArr[lmI].millSheetNo;
+                            nomalMilName += !nomalMilName ? $("#tableList")[0].cacheArr[lmI].millSheetNo : "," + $("#tableList")[0].cacheArr[lmI].millSheetNo;
                         }
                     }
                     if(milName){//说明质证书不能下载
                         var alertBox = new clsAlertBoxCtrl();
-                        alertBox.Alert("质证书编号为：" + milName + "。建材类不让下载","错误提示");
+                        alertBox.Alert("质证书编号为：" + milName + "。建材类不可以下载","错误提示");
                     } else if (nomalMilName) {//说明质证书不能下载
                         var alertBox = new clsAlertBoxCtrl();
-                        alertBox.Alert("质证书编号为：" + milName + "。不让下载","错误提示");
+                        alertBox.Alert("质证书编号为：" + nomalMilName + "。不可以下载","错误提示");
                     }else{
                         var millSheetNoArr = [];
                         for(var nI = 0 ; nI < $("#tableList")[0].cacheArr.length; nI++ ){

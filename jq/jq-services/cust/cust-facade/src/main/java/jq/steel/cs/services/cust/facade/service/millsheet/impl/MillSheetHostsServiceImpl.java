@@ -10,10 +10,37 @@ import com.ebase.utils.DateUtil;
 import com.ebase.utils.math.MathHelper;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHostsVO1;
-import jq.steel.cs.services.cust.api.vo.ObjectionLedgerVO;
-import jq.steel.cs.services.cust.api.vo.ObjectionTiBaoVO;
-import jq.steel.cs.services.cust.facade.dao.*;
-import jq.steel.cs.services.cust.facade.model.*;
+import jq.steel.cs.services.cust.facade.dao.AcctInfoMapper;
+import jq.steel.cs.services.cust.facade.dao.CrmMillSheetRebackApplyMapper;
+import jq.steel.cs.services.cust.facade.dao.CrmMillSheetSplitApplyMapper;
+import jq.steel.cs.services.cust.facade.dao.CrmMillSheetSplitInfoMapper;
+import jq.steel.cs.services.cust.facade.dao.MillChemistryDataMapper;
+import jq.steel.cs.services.cust.facade.dao.MillCoilInfoMapper;
+import jq.steel.cs.services.cust.facade.dao.MillFallbackInfoMapper;
+import jq.steel.cs.services.cust.facade.dao.MillFallbackStepsMapper;
+import jq.steel.cs.services.cust.facade.dao.MillModelMatchingMapper;
+import jq.steel.cs.services.cust.facade.dao.MillOperationHisMapper;
+import jq.steel.cs.services.cust.facade.dao.MillPhysicsDataMapper;
+import jq.steel.cs.services.cust.facade.dao.MillSheetExpandMapper;
+import jq.steel.cs.services.cust.facade.dao.MillSheetHeadMapper;
+import jq.steel.cs.services.cust.facade.dao.MillSheetHostsMapper;
+import jq.steel.cs.services.cust.facade.dao.MillSheetNeedsMapper;
+import jq.steel.cs.services.cust.facade.dao.OrgInfoMapper;
+import jq.steel.cs.services.cust.facade.model.CrmMillSheetRebackApply;
+import jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitApply;
+import jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitInfo;
+import jq.steel.cs.services.cust.facade.model.MillChemistryData;
+import jq.steel.cs.services.cust.facade.model.MillCoilInfo;
+import jq.steel.cs.services.cust.facade.model.MillFallbackInfo;
+import jq.steel.cs.services.cust.facade.model.MillFallbackSteps;
+import jq.steel.cs.services.cust.facade.model.MillModelMatching;
+import jq.steel.cs.services.cust.facade.model.MillOperationHis;
+import jq.steel.cs.services.cust.facade.model.MillPhysicsData;
+import jq.steel.cs.services.cust.facade.model.MillSheetExpand;
+import jq.steel.cs.services.cust.facade.model.MillSheetHead;
+import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
+import jq.steel.cs.services.cust.facade.model.MillSheetNeeds;
+import jq.steel.cs.services.cust.facade.model.OrgInfo;
 import jq.steel.cs.services.cust.facade.service.millsheet.MillSheetHostsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -119,6 +146,7 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
                 crmMillSheetSplitApply.setMillsheetNo(millSheetHosts2.getMillSheetNo());
                 crmMillSheetSplitApply.setStatus("1");
                 List<CrmMillSheetSplitApply> crmMillSheetSplitApplies = crmMillSheetSplitApplyMapper.findFmillSheet(crmMillSheetSplitApply);
+                // 拆分申请
                 if (crmMillSheetSplitApplies.size() > 0) {
                     millSheetHosts2.setIsSplit(1);
                     String lowerMillSheetNos = "";
@@ -230,6 +258,14 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
                     millSheetHosts2.setIsAllowRevoke("N");
                     millSheetHosts2.setIsAllowSplit("N");
                 }*/
+
+                // 2019-08-12 添加线材不让下载
+                boolean flag = this.checkXC(millSheetHosts2.getMillSheetNo());
+                if(flag){
+                    millSheetHosts2.setIsAllowRevoke("N");
+                    millSheetHosts2.setIsAllowSplit("N");
+
+                }
 
                 //规格拼接
                 MillCoilInfo coilInfo = new MillCoilInfo();
@@ -428,6 +464,13 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
                     millSheetHosts2.setIsAllowRevoke("N");
                     millSheetHosts2.setIsAllowSplit("N");
                 }*/
+
+                // 2019-08-12 添加线材不让下载
+                boolean flag = this.checkXC(millSheetHosts2.getMillSheetNo());
+                if(flag){
+                    millSheetHosts2.setIsAllowDown("N");
+                    millSheetHosts2.setIsAllowPrint("N");
+                }
 
                 //规格拼接
                 MillCoilInfo coilInfo = new MillCoilInfo();
@@ -1008,5 +1051,43 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
         millSheetHosts1.setErrType("0");
         MillSheetHostsVO1.add(millSheetHosts1);
         return MillSheetHostsVO1;
+    }
+
+    private Boolean checkXC(String millSheetNum) {
+        boolean flag = false;
+
+        if (millSheetNum.startsWith("A")) {
+            flag = true;
+            return flag;
+        } else if (millSheetNum.startsWith("B")) {
+            flag = true;
+            return flag;
+        } else if (millSheetNum.startsWith("U")) {
+            flag = true;
+            return flag;
+        } else if (millSheetNum.startsWith("GA")) {
+            flag = true;
+            return flag;
+        } else if (millSheetNum.startsWith("GB")) {
+            flag = true;
+            return flag;
+        } else if (millSheetNum.startsWith("GU")) {
+            flag = true;
+            return flag;
+        } else if (millSheetNum.startsWith("W")) {
+            flag = true;
+            return flag;
+        } else if (millSheetNum.startsWith("X")) {
+            flag = true;
+            return flag;
+        } else if (millSheetNum.startsWith("Y")) {
+            flag = true;
+            return flag;
+        } else if (millSheetNum.startsWith("Z")) {
+            flag = true;
+            return flag;
+        }
+
+        return flag;
     }
 }
