@@ -260,12 +260,12 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
                 }*/
 
                 // 2019-08-12 添加线材不让下载
-                boolean flag = this.checkXC(millSheetHosts2.getMillSheetNo());
-                if(flag){
-                    millSheetHosts2.setIsAllowRevoke("N");
-                    millSheetHosts2.setIsAllowSplit("N");
-
-                }
+//                boolean flag = this.checkXC(millSheetHosts2.getMillSheetNo());
+//                if(flag){
+//                    millSheetHosts2.setIsAllowRevoke("N");
+//                    millSheetHosts2.setIsAllowSplit("N");
+//
+//                }
 
                 //规格拼接
                 MillCoilInfo coilInfo = new MillCoilInfo();
@@ -399,6 +399,9 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
                                     millSheetHosts2.setIsAllowDown("N");
                                     millSheetHosts2.setIsAllowPrint("Y");
                                 }
+                            } else {
+                                millSheetHosts2.setIsAllowDown("N");
+                                millSheetHosts2.setIsAllowPrint("Y");
                             }
                         }
 
@@ -466,11 +469,11 @@ public class MillSheetHostsServiceImpl implements MillSheetHostsService {
                 }*/
 
                 // 2019-08-12 添加线材不让下载
-                boolean flag = this.checkXC(millSheetHosts2.getMillSheetNo());
-                if(flag){
-                    millSheetHosts2.setIsAllowDown("N");
-                    millSheetHosts2.setIsAllowPrint("N");
-                }
+//                boolean flag = this.checkXC(millSheetHosts2.getMillSheetNo());
+//                if(flag){
+//                    millSheetHosts2.setIsAllowDown("N");
+//                    millSheetHosts2.setIsAllowPrint("N");
+//                }
 
                 //规格拼接
                 MillCoilInfo coilInfo = new MillCoilInfo();
