@@ -106,10 +106,6 @@
       <if test="updatedTime != null and updatedTime != '' " >
         UPDATED_TIME,
       </if>
-
-      <if test="roleType != null and roleType != '' " >
-        ROLE_TYPE,
-      </if>
       <if test="startTime != null and startTime != '' " >
         START_TIME,
       </if>
@@ -165,10 +161,6 @@
       <if test="updatedTime != null  " >
         #{updatedTime},
       </if>
-
-      <if test="roleType != null and roleType != '' " >
-        #{roleType},
-      </if>
       <if test="startTime != null and startTime !='' " >
         #{startTime},
       </if>
@@ -223,10 +215,6 @@
       </if>
       <if test="updatedTime != null " >
         UPDATED_TIME = #{updatedTime},
-      </if>
-
-      <if test="roleType != null and roleType!='' " >
-        ROLE_TYPE = #{roleType},
       </if>
       <if test="startTime != null and startTime!='' " >
         START_TIME = #{startTime},
