@@ -90,6 +90,9 @@ public class MillCoilInfo {
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date createdDt;
 
+    // 当前时间的年份
+    private String createdYear;
+
     private String updatedBy;
 
     private Date updatedDt;
@@ -352,6 +355,14 @@ public class MillCoilInfo {
 
     public void setCreatedDt(Date createdDt) {
         this.createdDt = createdDt;
+    }
+
+    public String getCreatedYear() {
+        return createdYear;
+    }
+
+    public void setCreatedYear(String createdYear) {
+        this.createdYear = createdYear;
     }
 
     public String getUpdatedBy() {

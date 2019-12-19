@@ -1,14 +1,24 @@
 package jq.steel.cs.services.cust.facade.service.millsheet.impl;
 
-import com.ebase.core.AssertContext;
 import com.ebase.utils.BeanCopyUtil;
+import com.ebase.utils.DateUtil;
 import com.ebase.utils.JDBCUtils;
 import jq.steel.cs.services.cust.api.vo.CrmMillSheetSplitApplyVO;
 import jq.steel.cs.services.cust.api.vo.CrmMillSheetSplitDetailVO;
 import jq.steel.cs.services.cust.api.vo.CrmMillSheetSplitInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
-import jq.steel.cs.services.cust.facade.dao.*;
-import jq.steel.cs.services.cust.facade.model.*;
+import jq.steel.cs.services.cust.facade.dao.CrmBatchSplitMapper;
+import jq.steel.cs.services.cust.facade.dao.CrmMillSheetSplitApplyMapper;
+import jq.steel.cs.services.cust.facade.dao.CrmMillSheetSplitInfoMapper;
+import jq.steel.cs.services.cust.facade.dao.MillCoilInfoMapper;
+import jq.steel.cs.services.cust.facade.dao.MillSheetHeadMapper;
+import jq.steel.cs.services.cust.facade.dao.MillSheetHostsMapper;
+import jq.steel.cs.services.cust.facade.model.CrmBatchSplit;
+import jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitApply;
+import jq.steel.cs.services.cust.facade.model.CrmMillSheetSplitInfo;
+import jq.steel.cs.services.cust.facade.model.MillCoilInfo;
+import jq.steel.cs.services.cust.facade.model.MillSheetHead;
+import jq.steel.cs.services.cust.facade.model.MillSheetHosts;
 import jq.steel.cs.services.cust.facade.service.millsheet.CrmMillSheetSplitApplyService;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -19,11 +29,17 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.math.BigInteger;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -901,6 +917,7 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             //判断是否存在此板卷号
             MillCoilInfo gg = new MillCoilInfo();
             gg.setZcharg(cmssi.getZcharg());
+            gg.setCreatedYear(DateUtil.formatDate(new Date(), "yyyy"));
             List<MillCoilInfo> zchrags = coilInfoMapper.findVolumeNeed(gg);
             if (zchrags.size() > 0) {
                 if (zchrags.size() > 1) {
