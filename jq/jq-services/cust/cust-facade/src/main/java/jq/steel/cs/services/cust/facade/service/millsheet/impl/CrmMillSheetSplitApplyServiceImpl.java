@@ -1,7 +1,6 @@
 package jq.steel.cs.services.cust.facade.service.millsheet.impl;
 
 import com.ebase.utils.BeanCopyUtil;
-import com.ebase.utils.DateUtil;
 import com.ebase.utils.JDBCUtils;
 import jq.steel.cs.services.cust.api.vo.CrmMillSheetSplitApplyVO;
 import jq.steel.cs.services.cust.api.vo.CrmMillSheetSplitDetailVO;
@@ -917,16 +916,25 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
             //判断是否存在此板卷号
             MillCoilInfo gg = new MillCoilInfo();
             gg.setZcharg(cmssi.getZcharg());
-            gg.setCreatedYear(DateUtil.formatDate(new Date(), "yyyy"));
+//            gg.setCreatedYear(DateUtil.formatDate(new Date(), "yyyy"));
             List<MillCoilInfo> zchrags = coilInfoMapper.findVolumeNeed(gg);
+            boolean flag = true;
             if (zchrags.size() > 0) {
-                if (zchrags.size() > 1) {
-                    //数据唯一
-                    //findZcharg += "," + zchrags.get(0).getZcharg() + "卷已经拆分，请勿重复拆分！";
-                    findZcharg1 += "," + zchrags.get(0).getZcharg();
-                } else {
+                // 倒序排列，第一个为最新的质证书
+                String millsheetNo = zchrags.get(0).getMillsheetNo();
+                for (MillCoilInfo zchrag : zchrags) {
+                    // 存在质证书号包含millsheetNo并且长度大于millsheetNo，说明已经拆分了
+                    if ((zchrag.getMillsheetNo().contains(millsheetNo)) && (zchrag.getMillsheetNo().length() > millsheetNo.length())) {
+                        //数据唯一
+                        //findZcharg += "," + zchrags.get(0).getZcharg() + "卷已经拆分，请勿重复拆分！";
+                        findZcharg1 += "," + zchrags.get(0).getZcharg();
+                        flag = false;
+                    }
+                }
+
+                if (flag) {
                     //赋值
-                    cmssi.setMillsheetNo(zchrags.get(0).getMillsheetNo());
+                    cmssi.setMillsheetNo(millsheetNo);
                     cmssi.setZjishu((long) 1);
                     cmssi.setSpecs(zchrags.get(0).getSpecs());
                     //开始校验
@@ -976,6 +984,62 @@ public class CrmMillSheetSplitApplyServiceImpl implements CrmMillSheetSplitApply
                         findNum += "," + zchrags.get(0).getZcharg();
                     }
                 }
+//                if (zchrags.size() > 1) {
+//                    //数据唯一
+//                    //findZcharg += "," + zchrags.get(0).getZcharg() + "卷已经拆分，请勿重复拆分！";
+//                    findZcharg1 += "," + zchrags.get(0).getZcharg();
+//                } else {
+//                    //赋值
+//                    cmssi.setMillsheetNo(millsheetNo);
+//                    cmssi.setZjishu((long) 1);
+//                    cmssi.setSpecs(zchrags.get(0).getSpecs());
+//                    //开始校验
+//                    MillSheetHosts millSheetHosts = new MillSheetHosts();
+//                    millSheetHosts.setMillSheetNo(cmssi.getMillsheetNo());
+//                    //质证书编号是否允许拆分
+//                    List<MillSheetHosts> alist = millSheetHostsMapper.findAllow(millSheetHosts);
+//                    if (alist.size() >0) {
+//                    } else {
+//                        //findAllow += ",'" +cmssi.getZcharg()+"'卷的'"+ millSheetHosts.getMillSheetNo() + "'质证书状态不允许拆分";
+//                        findAllow += ",'" +cmssi.getZcharg()+"'卷的'"+ millSheetHosts.getMillSheetNo()+"'";
+//                    }
+//                    //是否是孙质证书
+//                    List<MillSheetHosts> blist = millSheetHostsMapper.findType(millSheetHosts);
+//                    if (blist.size() > 0) {
+//                    } else {
+//                        //findType += "," + millSheetHosts.getMillSheetNo() + "为孙质证书，不可拆分";
+//                        findType += "," + millSheetHosts.getMillSheetNo();
+//                    }
+//                    //判断售达方是否正确
+//                    List<MillSheetHosts> clist = millSheetHostsMapper.findMillSheetZkunner(millSheetHosts);
+//                    if (clist.size() > 0) {
+//                        if (!orgName.equals(clist.get(0).getZkunnr())){
+//                           // findZkunnr += "," + millSheetHosts.getMillSheetNo() + "质证书您无权拆分";
+//                            findZkunnr += "," + millSheetHosts.getMillSheetNo();
+//                        }
+//                    } else {
+//                    }
+//
+//                    /*
+//                        如果指定的数与参数相等返回0。如果指定的数小于参数返回 -1。如果指定的数大于参数返回 1  compareTo 大于的意思
+//                        Integer x = 5;
+//                        System.out.println(x.compareTo(3));  1
+//                        System.out.println(x.compareTo(5));  0
+//                        System.out.println(x.compareTo(8));  -1
+//                    */
+//                    //该卷是否有量可拆
+//                    int i = zchrags.get(0).getSurplusZjishu().compareTo(BigDecimal.ZERO);
+//                    if (i == 1) {
+//                    } else if (i == -1) {
+//                        //小于0
+//                        //findNum += "," + zchrags.get(0).getZcharg() + "'卷可拆数量为0";
+//                        findNum += "," + zchrags.get(0).getZcharg();
+//                    } else if (i == 0) {
+//                        //等于0
+//                       //findNum += "," + zchrags.get(0).getZcharg() + "'卷可拆数量为0";
+//                        findNum += "," + zchrags.get(0).getZcharg();
+//                    }
+//                }
             } else {
                 //findZcharg += "," + cmssi.getZcharg() + "卷不存在";
                 findZcharg += "," + cmssi.getZcharg();
