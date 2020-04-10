@@ -112,7 +112,9 @@ public class LoginStatusFilter implements Filter {
 
         //验证用户是否登录..
         String sessionId = CookieUtil.getSessionId(servletRequest);
-
+        LOG.info("sessionId = {}", sessionId);
+        String acctId = CookieUtil.getAcctId(servletRequest);
+        LOG.info("acctId = {}", acctId);
         ServiceResponse<AcctSession> serviceResponse =  acctAPI.getUser(sessionId);
 
         if (!ServiceResponse.SUCCESS_CODE.equals(serviceResponse.getRetCode()) || serviceResponse.getRetContent() == null) {
@@ -148,7 +150,7 @@ public class LoginStatusFilter implements Filter {
         AssertContext.init(userSession);
 
 
-        CookieUtil.setCookie(servletResponse,"sessionId",sessionId);
+        CookieUtil.setCookie(servletResponse,"jq_sessionId",sessionId);
 
         chain.doFilter(request, response);
     }

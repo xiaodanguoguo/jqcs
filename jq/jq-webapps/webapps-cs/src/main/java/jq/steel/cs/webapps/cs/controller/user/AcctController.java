@@ -88,7 +88,11 @@ public class AcctController {
         JsonResponse<AcctSession> jsonResponse = new JsonResponse<>();
         try{
             AcctLogin acctLogin = jsonRequest.getReqBody();
-            acctLogin.setSessionId(request.getSession().getId());
+            String acctId = acctLogin.getAcctId();
+            LOG.info("acctId = {}", acctId);
+            String id = request.getSession().getId();
+            LOG.info("sessionId = {}", id);
+            acctLogin.setSessionId(id);
             acctLogin.setClientType(WebUtil.getClientType(request));
 
             ServiceResponse<AcctSession> serviceResponse = backMemberAPI.userLogin(acctLogin);
@@ -98,7 +102,8 @@ public class AcctController {
                 jsonResponse.setRspBody(serviceResponse.getRetContent());
 
                 String sessionId = serviceResponse.getRetContent().getSessionId();
-                CookieUtil.setCookie(response,"sessionId",sessionId);
+                CookieUtil.setCookie(response,"jq_sessionId",sessionId);
+                LOG.info("cookieSessionId = {}", sessionId);
                 CookieUtil.setCookie(response,"userName", escapeCookie(serviceResponse.getRetContent().getAcct().getName()));
                 CookieUtil.setCookie(response,"orgId", escapeCookie(serviceResponse.getRetContent().getAcct().getOrgId()));
                 CookieUtil.setCookie(response,"acctId", escapeCookie(serviceResponse.getRetContent().getAcct().getAcctId().toString()));
@@ -193,7 +198,7 @@ public class AcctController {
             }else {
 
             }
-            CookieUtil.removeCookie(response,"sessionId");
+            CookieUtil.removeCookie(response,"jq_sessionId");
             CookieUtil.removeCookie(response,"userName");
             CookieUtil.removeCookie(response,"orgId");
             CookieUtil.removeCookie(response,"acctId");

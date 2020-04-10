@@ -1,11 +1,10 @@
 package com.ebase.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
@@ -137,7 +136,25 @@ public class CookieUtil {
 		Cookie[] cookies = request.getCookies();
 		if (null != cookies) {
 			for (Cookie cookie : cookies) {
-				if("sessionId".equals(cookie.getName())){
+				if("jq_sessionId".equals(cookie.getName())){
+					return cookie.getValue();
+
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 拿到sessionid
+	 * @param request
+	 * @return
+	 */
+	public static String getAcctId(HttpServletRequest request){
+		Cookie[] cookies = request.getCookies();
+		if (null != cookies) {
+			for (Cookie cookie : cookies) {
+				if("acctTitle".equals(cookie.getName())){
 					return cookie.getValue();
 
 				}
