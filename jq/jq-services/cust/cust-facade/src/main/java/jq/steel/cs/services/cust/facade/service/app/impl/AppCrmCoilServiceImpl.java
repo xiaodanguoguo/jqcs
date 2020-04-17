@@ -1,11 +1,8 @@
 package jq.steel.cs.services.cust.facade.service.app.impl;
 
-import com.ebase.core.page.PageDTO;
-import com.ebase.core.page.PageDTOUtil;
 import com.ebase.utils.BeanCopyUtil;
 import jq.steel.cs.services.cust.api.vo.CrmMillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.CrmMillSheetDetailVO;
-import jq.steel.cs.services.cust.api.vo.MillCoilInfoVO;
 import jq.steel.cs.services.cust.api.vo.MillSheetHeadVO;
 import jq.steel.cs.services.cust.facade.dao.MillCoilInfoMapper;
 import jq.steel.cs.services.cust.facade.model.CrmMillCoilInfo;
@@ -66,26 +63,26 @@ public class AppCrmCoilServiceImpl implements AppCrmCoilService {
 
         for (int i = 0; i < coilAndChemistryInfo.size(); i++) {
             CrmMillCoilInfo coilInfo = coilAndChemistryInfo.get(i);
+            CrmMillCoilInfo crmMillCoilInfo = coilInfoMap.get(coilInfo.getZcharg());
             if (coilInfoMap.get(coilInfo.getZcharg()) != null) {
-                CrmMillCoilInfo crmMillCoilInfo = coilInfoMap.get(coilInfo.getZcharg());
                 coilInfo.setListForMillPhysicsData(crmMillCoilInfo.getListForMillPhysicsData());
-
-                CrmMillCoilInfoVO vo = BeanCopyUtil.copy(coilInfo, CrmMillCoilInfoVO.class);
-                MillSheetHead msh1 = coilInfo.getMillSheetHead();
-                MillSheetHeadVO msh2 = new MillSheetHeadVO();
-
-                msh2.setMillSheetNo(msh1.getMillSheetNo());
-                msh2.setName(msh1.getName());
-                msh2.setZkunwe(msh1.getZkunwe());
-                msh2.setZcpmc(msh1.getZcpmc());
-                msh2.setZph(msh1.getZph());
-                msh2.setZzxbz(msh1.getZzxbz());
-                msh2.setZchehao(msh1.getZchehao());
-                msh2.setZdaozhan(msh1.getZdaozhan());
-                msh2.setZjhzt(msh1.getZjhzt());
-                vo.setMillSheetHead(msh2);
-                listVO.add(vo);
             }
+
+            CrmMillCoilInfoVO vo = BeanCopyUtil.copy(coilInfo, CrmMillCoilInfoVO.class);
+            MillSheetHead msh1 = coilInfo.getMillSheetHead();
+            MillSheetHeadVO msh2 = new MillSheetHeadVO();
+
+            msh2.setMillSheetNo(msh1.getMillSheetNo());
+            msh2.setName(msh1.getName());
+            msh2.setZkunwe(msh1.getZkunwe());
+            msh2.setZcpmc(msh1.getZcpmc());
+            msh2.setZph(msh1.getZph());
+            msh2.setZzxbz(msh1.getZzxbz());
+            msh2.setZchehao(msh1.getZchehao());
+            msh2.setZdaozhan(msh1.getZdaozhan());
+            msh2.setZjhzt(msh1.getZjhzt());
+            vo.setMillSheetHead(msh2);
+            listVO.add(vo);
         }
         return listVO;
     }
